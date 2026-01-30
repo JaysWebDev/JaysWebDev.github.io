@@ -1,0 +1,819 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>V3 Range Compression Scanner - 2026-01-29</title>
+    <style>
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #000 0%, #111 100%);
+            color: #00ff00;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { color: #00ff00; text-align: center; border-bottom: 3px solid #00ff00; padding-bottom: 10px; }
+        h2 { color: #ffff00; }
+        .stats {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .stat { text-align: center; }
+        .stat-value { font-size: 24px; font-weight: bold; color: #00ff00; }
+        .stat-label { color: #999; font-size: 12px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
+        }
+        th {
+            background: linear-gradient(135deg, #006600 0%, #004400 100%);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+            font-size: 13px;
+        }
+        tr:hover { background: #222; }
+        .symbol { font-weight: bold; color: #00ffff; }
+        .score-90 { background: linear-gradient(90deg, #ff6b00, #ff8500); color: white; font-weight: bold; }
+        .score-80 { background: linear-gradient(90deg, #00ff00, #44ff44); color: black; font-weight: bold; }
+        .score-70 { background: linear-gradient(90deg, #ffff00, #ffff44); color: black; font-weight: bold; }
+        .score-60 { background: linear-gradient(90deg, #ff9900, #ffaa33); color: white; font-weight: bold; }
+        .signals { max-width: 200px; font-size: 11px; }
+        .gap-positive { color: #00ff00; }
+        .gap-negative { color: #ff6666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 V3 Range Compression Scanner</h1>
+        <h2>Database-Driven Market Analysis • 2026-01-29 • 50 SYMBOLS SCANNED</h2>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">50</div>
+                <div class="stat-label">Total Signals</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">50</div>
+                <div class="stat-label">Premium Grade (60+)</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">50</div>
+                <div class="stat-label">Strong Signals (40+)</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Strong R:R (2:1+)</div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Score</th>
+                    <th>Price</th>
+                    <th>Entry</th>
+                    <th>Stop</th>
+                    <th>Target</th>
+                    <th>R:R</th>
+                    <th>Vol</th>
+                    <th>52W%</th>
+                    <th>Gap%</th>
+                    <th>Signals</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                <tr>
+                    <td class="symbol">ASR</td>
+                    <td class="score-90">105</td>
+                    <td>$341.98</td>
+                    <td>$341.98</td>
+                    <td>$324.21</td>
+                    <td>$368.63</td>
+                    <td>1.5</td>
+                    <td>2.4</td>
+                    <td>98.8%</td>
+                    <td class="gap-positive">+4.2%</td>
+                    <td class="signals">NR7 TIGHT • VOLUME SPIKE • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ALLE</td>
+                    <td class="score-90">100</td>
+                    <td>$166.94</td>
+                    <td>$166.94</td>
+                    <td>$159.58</td>
+                    <td>$177.98</td>
+                    <td>1.5</td>
+                    <td>0.6</td>
+                    <td>99.5%</td>
+                    <td class="gap-positive">+1.4%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AMT</td>
+                    <td class="score-90">100</td>
+                    <td>$179.46</td>
+                    <td>$179.46</td>
+                    <td>$170.81</td>
+                    <td>$192.44</td>
+                    <td>1.5</td>
+                    <td>1.6</td>
+                    <td>97.4%</td>
+                    <td class="gap-negative">-0.2%</td>
+                    <td class="signals">NR7 TIGHT • VOLUME SPIKE • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">DD</td>
+                    <td class="score-90">100</td>
+                    <td>$44.2</td>
+                    <td>$44.2</td>
+                    <td>$42.02</td>
+                    <td>$47.47</td>
+                    <td>1.5</td>
+                    <td>0.5</td>
+                    <td>99.1%</td>
+                    <td class="gap-positive">+4.9%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">XP</td>
+                    <td class="score-90">100</td>
+                    <td>$20.31</td>
+                    <td>$20.31</td>
+                    <td>$18.88</td>
+                    <td>$22.44</td>
+                    <td>1.5</td>
+                    <td>0.7</td>
+                    <td>97.5%</td>
+                    <td class="gap-positive">+1.1%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ADI</td>
+                    <td class="score-90">95</td>
+                    <td>$304.01</td>
+                    <td>$304.01</td>
+                    <td>$288.35</td>
+                    <td>$327.5</td>
+                    <td>1.5</td>
+                    <td>0.9</td>
+                    <td>98.3%</td>
+                    <td class="gap-positive">+1.0%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ADM</td>
+                    <td class="score-90">95</td>
+                    <td>$67.37</td>
+                    <td>$67.37</td>
+                    <td>$63.46</td>
+                    <td>$73.24</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>99.2%</td>
+                    <td class="gap-positive">+4.1%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AES</td>
+                    <td class="score-90">95</td>
+                    <td>$14.72</td>
+                    <td>$14.72</td>
+                    <td>$13.75</td>
+                    <td>$16.17</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>98.0%</td>
+                    <td class="gap-negative">-2.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AG</td>
+                    <td class="score-90">95</td>
+                    <td>$25.89</td>
+                    <td>$25.89</td>
+                    <td>$22.5</td>
+                    <td>$30.98</td>
+                    <td>1.5</td>
+                    <td>0.1</td>
+                    <td>92.8%</td>
+                    <td class="gap-positive">+5.7%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">APH</td>
+                    <td class="score-90">95</td>
+                    <td>$157.6</td>
+                    <td>$157.6</td>
+                    <td>$146.76</td>
+                    <td>$173.86</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>100.0%</td>
+                    <td class="gap-negative">-3.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">APLD</td>
+                    <td class="score-90">95</td>
+                    <td>$36.83</td>
+                    <td>$36.83</td>
+                    <td>$30.74</td>
+                    <td>$45.96</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>88.5%</td>
+                    <td class="gap-positive">+1.6%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ARE</td>
+                    <td class="score-90">95</td>
+                    <td>$57.51</td>
+                    <td>$57.51</td>
+                    <td>$54.12</td>
+                    <td>$62.6</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>96.3%</td>
+                    <td class="gap-positive">+4.1%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ARKX</td>
+                    <td class="score-90">95</td>
+                    <td>$33.51</td>
+                    <td>$33.51</td>
+                    <td>$31.55</td>
+                    <td>$36.44</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>95.4%</td>
+                    <td class="gap-positive">+1.8%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ASM</td>
+                    <td class="score-90">95</td>
+                    <td>$9.33</td>
+                    <td>$9.33</td>
+                    <td>$8.05</td>
+                    <td>$11.25</td>
+                    <td>1.5</td>
+                    <td>0.1</td>
+                    <td>91.5%</td>
+                    <td class="gap-positive">+9.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AZO</td>
+                    <td class="score-90">95</td>
+                    <td>$3774.08</td>
+                    <td>$3774.08</td>
+                    <td>$3570.17</td>
+                    <td>$4079.94</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>97.6%</td>
+                    <td class="gap-negative">-1.6%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BA</td>
+                    <td class="score-90">95</td>
+                    <td>$242.35</td>
+                    <td>$242.35</td>
+                    <td>$230.64</td>
+                    <td>$259.92</td>
+                    <td>1.5</td>
+                    <td>0.2</td>
+                    <td>96.3%</td>
+                    <td class="gap-positive">+1.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BIDU</td>
+                    <td class="score-90">95</td>
+                    <td>$159.6</td>
+                    <td>$159.6</td>
+                    <td>$146.97</td>
+                    <td>$178.55</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>99.9%</td>
+                    <td class="gap-positive">+2.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BJ</td>
+                    <td class="score-90">95</td>
+                    <td>$97.62</td>
+                    <td>$97.62</td>
+                    <td>$91.82</td>
+                    <td>$106.32</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>99.1%</td>
+                    <td class="gap-positive">+6.5%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CARR</td>
+                    <td class="score-90">95</td>
+                    <td>$57.37</td>
+                    <td>$57.37</td>
+                    <td>$54.41</td>
+                    <td>$61.81</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>100.0%</td>
+                    <td class="gap-positive">+3.6%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CAT</td>
+                    <td class="score-90">95</td>
+                    <td>$638.67</td>
+                    <td>$638.67</td>
+                    <td>$604.45</td>
+                    <td>$690.0</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>97.4%</td>
+                    <td class="gap-negative">-1.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CCJ</td>
+                    <td class="score-90">95</td>
+                    <td>$121.94</td>
+                    <td>$121.94</td>
+                    <td>$113.29</td>
+                    <td>$134.92</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>95.0%</td>
+                    <td class="gap-positive">+4.6%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CL</td>
+                    <td class="score-90">95</td>
+                    <td>$85.04</td>
+                    <td>$85.04</td>
+                    <td>$82.03</td>
+                    <td>$89.54</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>97.9%</td>
+                    <td class="gap-positive">+1.7%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CMA</td>
+                    <td class="score-90">95</td>
+                    <td>$94.21</td>
+                    <td>$94.21</td>
+                    <td>$90.48</td>
+                    <td>$99.81</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>99.7%</td>
+                    <td class="gap-positive">+2.4%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CNP</td>
+                    <td class="score-90">95</td>
+                    <td>$39.34</td>
+                    <td>$39.34</td>
+                    <td>$38.18</td>
+                    <td>$41.08</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>98.4%</td>
+                    <td class="gap-negative">-1.1%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CRWV</td>
+                    <td class="score-90">95</td>
+                    <td>$103.7</td>
+                    <td>$103.7</td>
+                    <td>$90.32</td>
+                    <td>$123.77</td>
+                    <td>1.5</td>
+                    <td>0.1</td>
+                    <td>95.4%</td>
+                    <td class="gap-positive">+5.5%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CTRA</td>
+                    <td class="score-90">95</td>
+                    <td>$27.38</td>
+                    <td>$27.38</td>
+                    <td>$25.48</td>
+                    <td>$30.22</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>96.1%</td>
+                    <td class="gap-positive">+1.9%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CVNA</td>
+                    <td class="score-90">95</td>
+                    <td>$473.71</td>
+                    <td>$473.71</td>
+                    <td>$435.42</td>
+                    <td>$531.15</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>97.6%</td>
+                    <td class="gap-positive">+7.1%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">DG</td>
+                    <td class="score-90">95</td>
+                    <td>$150.95</td>
+                    <td>$150.95</td>
+                    <td>$142.36</td>
+                    <td>$163.83</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>97.5%</td>
+                    <td class="gap-negative">-1.1%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">DVN</td>
+                    <td class="score-90">95</td>
+                    <td>$38.96</td>
+                    <td>$38.96</td>
+                    <td>$35.89</td>
+                    <td>$43.55</td>
+                    <td>1.5</td>
+                    <td>0.2</td>
+                    <td>98.4%</td>
+                    <td class="gap-positive">+1.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">EEM</td>
+                    <td class="score-90">95</td>
+                    <td>$60.08</td>
+                    <td>$60.08</td>
+                    <td>$58.58</td>
+                    <td>$62.32</td>
+                    <td>1.5</td>
+                    <td>0.5</td>
+                    <td>99.9%</td>
+                    <td class="gap-positive">+1.4%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">FXI</td>
+                    <td class="score-90">95</td>
+                    <td>$39.92</td>
+                    <td>$39.92</td>
+                    <td>$38.56</td>
+                    <td>$41.96</td>
+                    <td>1.5</td>
+                    <td>0.2</td>
+                    <td>98.2%</td>
+                    <td class="gap-positive">+1.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">IEMG</td>
+                    <td class="score-90">95</td>
+                    <td>$73.67</td>
+                    <td>$73.67</td>
+                    <td>$72.2</td>
+                    <td>$75.86</td>
+                    <td>1.5</td>
+                    <td>0.3</td>
+                    <td>100.0%</td>
+                    <td class="gap-positive">+1.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">INTC</td>
+                    <td class="score-90">95</td>
+                    <td>$44.15</td>
+                    <td>$44.15</td>
+                    <td>$37.91</td>
+                    <td>$53.51</td>
+                    <td>1.5</td>
+                    <td>0.5</td>
+                    <td>87.6%</td>
+                    <td class="gap-positive">+3.5%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • MID-HIGH • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">IREN</td>
+                    <td class="score-90">95</td>
+                    <td>$55.85</td>
+                    <td>$55.85</td>
+                    <td>$47.1</td>
+                    <td>$68.98</td>
+                    <td>1.5</td>
+                    <td>0.5</td>
+                    <td>96.9%</td>
+                    <td class="gap-positive">+2.0%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">JEPQ</td>
+                    <td class="score-90">95</td>
+                    <td>$59.84</td>
+                    <td>$59.84</td>
+                    <td>$58.68</td>
+                    <td>$61.58</td>
+                    <td>1.5</td>
+                    <td>0.5</td>
+                    <td>99.9%</td>
+                    <td class="gap-positive">+0.5%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">LNG</td>
+                    <td class="score-90">95</td>
+                    <td>$205.73</td>
+                    <td>$205.73</td>
+                    <td>$194.86</td>
+                    <td>$222.04</td>
+                    <td>1.5</td>
+                    <td>0.9</td>
+                    <td>97.8%</td>
+                    <td class="gap-positive">+0.1%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">LRCX</td>
+                    <td class="score-90">95</td>
+                    <td>$241.27</td>
+                    <td>$241.27</td>
+                    <td>$221.33</td>
+                    <td>$271.18</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>100.0%</td>
+                    <td class="gap-positive">+1.2%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">MCHI</td>
+                    <td class="score-90">95</td>
+                    <td>$63.29</td>
+                    <td>$63.29</td>
+                    <td>$61.26</td>
+                    <td>$66.34</td>
+                    <td>1.5</td>
+                    <td>0.9</td>
+                    <td>98.4%</td>
+                    <td class="gap-positive">+1.0%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">MPWR</td>
+                    <td class="score-90">95</td>
+                    <td>$1095.49</td>
+                    <td>$1095.49</td>
+                    <td>$1013.52</td>
+                    <td>$1218.44</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>98.7%</td>
+                    <td class="gap-positive">+2.4%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">MU</td>
+                    <td class="score-90">95</td>
+                    <td>$422.25</td>
+                    <td>$422.25</td>
+                    <td>$382.04</td>
+                    <td>$482.56</td>
+                    <td>1.5</td>
+                    <td>0.1</td>
+                    <td>100.0%</td>
+                    <td class="gap-positive">+3.0%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">NEE</td>
+                    <td class="score-90">95</td>
+                    <td>$87.64</td>
+                    <td>$87.64</td>
+                    <td>$83.95</td>
+                    <td>$93.17</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>98.5%</td>
+                    <td class="gap-negative">-3.0%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">NEM</td>
+                    <td class="score-90">95</td>
+                    <td>$129.29</td>
+                    <td>$129.29</td>
+                    <td>$120.39</td>
+                    <td>$142.64</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>100.0%</td>
+                    <td class="gap-negative">-2.1%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">NNE</td>
+                    <td class="score-90">95</td>
+                    <td>$35.25</td>
+                    <td>$35.25</td>
+                    <td>$28.98</td>
+                    <td>$44.66</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>88.4%</td>
+                    <td class="gap-negative">-7.0%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">NU</td>
+                    <td class="score-90">95</td>
+                    <td>$18.63</td>
+                    <td>$18.63</td>
+                    <td>$17.52</td>
+                    <td>$20.3</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>99.8%</td>
+                    <td class="gap-negative">-1.0%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">NVDA</td>
+                    <td class="score-90">95</td>
+                    <td>$191.27</td>
+                    <td>$191.27</td>
+                    <td>$180.98</td>
+                    <td>$206.71</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>98.8%</td>
+                    <td class="gap-positive">+1.5%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">NWS</td>
+                    <td class="score-90">95</td>
+                    <td>$30.84</td>
+                    <td>$30.84</td>
+                    <td>$29.83</td>
+                    <td>$32.36</td>
+                    <td>1.5</td>
+                    <td>1.2</td>
+                    <td>98.8%</td>
+                    <td class="gap-negative">-0.1%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">NXT</td>
+                    <td class="score-90">95</td>
+                    <td>$122.97</td>
+                    <td>$122.97</td>
+                    <td>$110.47</td>
+                    <td>$141.72</td>
+                    <td>1.5</td>
+                    <td>0.1</td>
+                    <td>100.0%</td>
+                    <td class="gap-positive">+1.6%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ON</td>
+                    <td class="score-90">95</td>
+                    <td>$64.82</td>
+                    <td>$64.82</td>
+                    <td>$59.28</td>
+                    <td>$73.14</td>
+                    <td>1.5</td>
+                    <td>0.0</td>
+                    <td>98.6%</td>
+                    <td class="gap-positive">+3.4%</td>
+                    <td class="signals">NR7 TIGHT • QUIET • BULL TREND • UPPER RANGE • NEAR HIGHS • GAP • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ORLY</td>
+                    <td class="score-90">95</td>
+                    <td>$100.62</td>
+                    <td>$100.62</td>
+                    <td>$96.52</td>
+                    <td>$106.77</td>
+                    <td>1.5</td>
+                    <td>0.9</td>
+                    <td>98.5%</td>
+                    <td class="gap-negative">-0.2%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">OTIS</td>
+                    <td class="score-90">95</td>
+                    <td>$90.55</td>
+                    <td>$90.55</td>
+                    <td>$87.36</td>
+                    <td>$95.33</td>
+                    <td>1.5</td>
+                    <td>1.4</td>
+                    <td>98.8%</td>
+                    <td class="gap-positive">+0.2%</td>
+                    <td class="signals">NR7 TIGHT • NORMAL VOL • BULL TREND • UPPER RANGE • NEAR HIGHS • LIQUID</td>
+                </tr>
+            
+            </tbody>
+        </table>
+
+        <div style="margin-top: 30px; padding: 20px; background: #111; border-radius: 8px; border: 1px solid #333;">
+            <h2>📈 V3 Scanner Notes</h2>
+            <p><strong>Focus:</strong> Range compression patterns with institutional-grade analysis</p>
+            <p><strong>Entry Logic:</strong> Tight ranges + EMA alignment + defined risk/reward ratios</p>
+            <p><strong>Risk Management:</strong> 2x ATR stops, 3x ATR targets minimum</p>
+            <p><strong>Generated:</strong> 2026-01-29 at 16:00:18 by Enhanced V3 Database Scanner</p>
+        </div>
+    </div>
+</body>
+</html>
+        
