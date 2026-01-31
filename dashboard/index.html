@@ -253,6 +253,23 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Report iframe styling */
+        .report-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .tab-panel.hidden {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
         /* Login Overlay Styles */
         .login-overlay {
             position: fixed;
@@ -426,53 +443,40 @@
                 </div>
             </div>
 
-            <!-- Main Display -->
+            <!-- Trading Reports -->
             <div class="card">
                 <div class="tabs">
-                    <button class="tab-button active" onclick="showTab('dashboard')">📊 Dashboard</button>
-                    <button class="tab-button" onclick="showTab('reports')">📄 Reports</button>
-                    <button class="tab-button" onclick="showTab('logs')">📋 Logs</button>
-                    <button class="tab-button" onclick="showTab('settings')">⚙️ Settings</button>
+                    <button class="tab-button active" onclick="showReport(event, 'enhanced')">⚡ Enhanced Breakout</button>
+                    <button class="tab-button" onclick="showReport(event, 'institutional')">🏢 Institutional</button>
+                    <button class="tab-button" onclick="showReport(event, 'v3_compression')">📊 V3 Compression</button>
+                    <button class="tab-button" onclick="showReport(event, 'etf')">📈 ETF Scanner</button>
+                    <button class="tab-button" onclick="showReport(event, 'under50')">💰 Under $50</button>
                 </div>
 
                 <div class="tab-content">
-                    <div id="dashboard-content" class="tab-panel">
-                        <h3>Real-Time Trading Dashboard</h3>
-                        <iframe id="dashboard-frame" class="report-frame" src="/static/dashboard.html"></iframe>
+                    <div id="enhanced-content" class="tab-panel active">
+                        <iframe class="report-frame" src="/dashboard/reports/enhanced_latest.html"></iframe>
                     </div>
 
-                    <div id="reports-content" class="tab-panel hidden">
-                        <h3>Latest Scanner Reports</h3>
-                        <div id="reports-list">
-                            <div class="loading">
-                                <div class="spinner"></div>
-                                Loading reports...
-                            </div>
-                        </div>
+                    <div id="institutional-content" class="tab-panel hidden">
+                        <iframe class="report-frame" src="/dashboard/reports/institutional_latest.html"></iframe>
                     </div>
 
-                    <div id="logs-content" class="tab-panel hidden">
-                        <h3>System Logs</h3>
-                        <div id="logs-display">
-                            <div class="loading">
-                                <div class="spinner"></div>
-                                Loading logs...
-                            </div>
-                        </div>
+                    <div id="v3_compression-content" class="tab-panel hidden">
+                        <iframe class="report-frame" src="/dashboard/reports/v3_compression_latest.html"></iframe>
                     </div>
 
-                    <div id="settings-content" class="tab-panel hidden">
-                        <h3>System Settings</h3>
-                        <div id="settings-panel">
-                            <div class="loading">
-                                <div class="spinner"></div>
-                                Loading settings...
-                            </div>
-                        </div>
+                    <div id="etf-content" class="tab-panel hidden">
+                        <iframe class="report-frame" src="/dashboard/reports/etf_latest.html"></iframe>
+                    </div>
+
+                    <div id="under50-content" class="tab-panel hidden">
+                        <iframe class="report-frame" src="/dashboard/reports/under50_latest.html"></iframe>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <div class="footer">
@@ -495,9 +499,10 @@
             startAutoRefresh();
         });
 
-        function showTab(tabName) {
+        function showReport(event, reportName) {
             // Hide all tab panels
             document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
                 panel.classList.add('hidden');
             });
 
@@ -507,21 +512,14 @@
             });
 
             // Show selected tab
-            document.getElementById(tabName + '-content').classList.remove('hidden');
-            event.target.classList.add('active');
-
-            // Load content based on tab
-            switch(tabName) {
-                case 'reports':
-                    loadReports();
-                    break;
-                case 'logs':
-                    loadLogs();
-                    break;
-                case 'settings':
-                    loadSettings();
-                    break;
+            const targetPanel = document.getElementById(reportName + '-content');
+            if (targetPanel) {
+                targetPanel.classList.remove('hidden');
+                targetPanel.classList.add('active');
             }
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
         }
 
         async function loadScannerOverview() {
