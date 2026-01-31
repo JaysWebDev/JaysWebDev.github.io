@@ -252,12 +252,136 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Login Overlay Styles */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .login-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-form h2 {
+            color: #00ff00;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: black;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .dashboard-content {
+            display: none;
+        }
+
+        .authenticated .dashboard-content {
+            display: block;
+        }
+
+        .authenticated .login-overlay {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-form">
+            <h2>🔐 Trading Dashboard Access</h2>
+            <form onsubmit="authenticateUser(event)">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">🚀 Access Dashboard</button>
+                <div class="error-message" id="errorMessage">
+                    ❌ Invalid credentials. Please try again.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
     <div class="header">
-        <h1>🚀 Jay's Trading Intelligence Hub</h1>
-        <p>USB-Hosted Real-Time Trading Analysis Dashboard</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>🚀 Jay's Trading Intelligence Hub</h1>
+                <p>USB-Hosted Real-Time Trading Analysis Dashboard</p>
+            </div>
+            <button onclick="logout()" style="background: rgba(255,69,58,0.8); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;">
+                🚪 Logout
+            </button>
+        </div>
 
         <div class="status-bar">
             <div class="status-item">
@@ -588,6 +712,73 @@ ${data.logs}
             document.getElementById('last-update').textContent =
                 'Last Update: ' + new Date().toLocaleTimeString();
         }, 60000);
+
+        // Authentication function
+        function authenticateUser(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Check credentials
+            if (username === 'trader' && password === 'temp1') {
+                // Store authentication in session
+                sessionStorage.setItem('trading_authenticated', 'true');
+                sessionStorage.setItem('auth_time', Date.now());
+
+                // Hide login overlay and show dashboard
+                document.body.classList.add('authenticated');
+
+                // Initialize dashboard
+                loadDashboardData();
+
+                errorMessage.style.display = 'none';
+            } else {
+                // Show error message
+                errorMessage.style.display = 'block';
+
+                // Clear password field
+                document.getElementById('password').value = '';
+            }
+        }
+
+        // Check authentication status on page load
+        function checkAuthentication() {
+            const isAuthenticated = sessionStorage.getItem('trading_authenticated');
+            const authTime = sessionStorage.getItem('auth_time');
+
+            // Check if authentication is valid (within 8 hours)
+            if (isAuthenticated === 'true' && authTime) {
+                const eightHours = 8 * 60 * 60 * 1000; // 8 hours in milliseconds
+                const now = Date.now();
+
+                if (now - parseInt(authTime) < eightHours) {
+                    // Still authenticated
+                    document.body.classList.add('authenticated');
+                    loadDashboardData();
+                    return;
+                }
+            }
+
+            // Clear expired authentication
+            sessionStorage.removeItem('trading_authenticated');
+            sessionStorage.removeItem('auth_time');
+        }
+
+        // Logout function
+        function logout() {
+            sessionStorage.removeItem('trading_authenticated');
+            sessionStorage.removeItem('auth_time');
+            document.body.classList.remove('authenticated');
+            window.location.reload();
+        }
+
+        // Check authentication when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthentication();
+        });
     </script>
+    </div> <!-- Close dashboard-content div -->
 </body>
 </html>
