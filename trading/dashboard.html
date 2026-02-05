@@ -435,31 +435,36 @@
                         name: "🏢 Institutional",
                         candidates: 12,
                         lastRun: "16:00",
-                        status: "active"
+                        status: "active",
+                        reportFile: "institutional_latest.html"
                     },
                     {
                         name: "⚡ Enhanced Breakout",
                         candidates: 8,
                         lastRun: "16:00",
-                        status: "active"
+                        status: "active",
+                        reportFile: "enhanced_latest.html"
                     },
                     {
                         name: "📊 V3 Compression",
                         candidates: 15,
                         lastRun: "16:00",
-                        status: "active"
+                        status: "active",
+                        reportFile: "v3_compression_latest.html"
                     },
                     {
                         name: "📈 ETF Scanner",
                         candidates: 6,
                         lastRun: "16:00",
-                        status: "active"
+                        status: "active",
+                        reportFile: "etf_latest.html"
                     },
                     {
                         name: "💰 Mega Under-$50",
                         candidates: 25,
                         lastRun: "16:00",
-                        status: "active"
+                        status: "active",
+                        reportFile: "under50_latest.html"
                     }
                 ];
 
@@ -497,7 +502,7 @@
                         </div>
                     </div>
                     <div class="report-links">
-                        <a href="/trading/reports/${scanner.name.toLowerCase().replace(/[^a-z0-9]/g, '')}_latest.html" class="report-link">Latest Report</a>
+                        <a href="/trading/reports/${scanner.reportFile}" class="report-link">Latest Report</a>
                     </div>
                 `;
                 container.appendChild(card);
