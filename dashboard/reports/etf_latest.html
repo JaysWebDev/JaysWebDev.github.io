@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ETF Scanner Results</title>
+    <style>
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #000 0%, #111 100%);
+            color: #00ff00;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { color: #00ff00; text-align: center; border-bottom: 3px solid #00ff00; padding-bottom: 10px; }
+        h2 { color: #ffff00; }
+        .stats {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .stat { text-align: center; }
+        .stat-value { font-size: 24px; font-weight: bold; color: #00ff00; }
+        .stat-label { color: #999; font-size: 12px; }
+        .summary {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: #222;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #ff6600;
+        }
+        .candidate {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .symbol {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff00;
+        }
+        .score {
+            background-color: #006600;
+            color: #00ff00;
+            padding: 4px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-left: 10px;
+            border: 1px solid #00ff00;
+        }
+        .price {
+            font-size: 16px;
+            color: #ffff00;
+            font-weight: bold;
+        }
+        .volume {
+            color: #999;
+            font-size: 14px;
+        }
+        .details {
+            margin-top: 10px;
+            color: #ccc;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
+            margin: 20px 0;
+        }
+        th {
+            background: linear-gradient(135deg, #006600 0%, #004400 100%);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+            font-size: 13px;
+        }
+        .symbol {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .score-90 { background: #004d00; color: #00ff00; font-weight: bold; }
+        .score-80 { background: #003d00; color: #00dd00; font-weight: bold; }
+        .score-70 { background: #002d00; color: #00bb00; font-weight: bold; }
+        .score-60 { background: #001d00; color: #009900; font-weight: bold; }
+        .signals {
+            color: #ccc;
+            text-align: left;
+            font-size: 12px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ETF Scanner Results</h1>
+        <p style="text-align: center; color: #999;">Generated: 2026-02-04 16:00:56</p>
+
+        
+    <div class="warning">
+        <strong>NOTE:</strong> ETF analysis focuses on momentum, volume, and technical breakouts.
+        Consider sector exposure and expense ratios in your investment decisions.
+    </div>
+
+        <div class="summary">
+            <h2>Scan Summary</h2>
+            
+        <p><strong>ETFs Scanned:</strong> 100</p>
+        <p><strong>Candidates Found:</strong> 9</p>
+        <p><strong>Minimum Score:</strong> 40</p>
+        <p><strong>Focus:</strong> ETF momentum and trend analysis</p>
+        
+        </div>
+
+        <div class="stats">
+        <div class="stat">
+            <div class="stat-value">100</div>
+            <div class="stat-label">ETFs Scanned</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">9</div>
+            <div class="stat-label">Candidates Found</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">40</div>
+            <div class="stat-label">Minimum Score</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">Breakout Focus</div>
+            <div class="stat-label">Strategy Type</div>
+        </div></div>
+
+        
+    <table>
+        <thead>
+            <tr><th>Rank</th><th>Symbol</th><th>Price</th><th>Score</th><th>Volume</th><th>Dollar Vol</th><th>RelVol</th><th>Key Signals</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td class="symbol">IEFA</td>
+            <td>$94.27</td>
+            <td class="score-80">80</td>
+            <td>3,922,362</td>
+            <td>$369,751,267</td>
+            <td>0.3x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="symbol">IVV</td>
+            <td>$697.76</td>
+            <td class="score-80">80</td>
+            <td>1,673,092</td>
+            <td>$1,167,416,690</td>
+            <td>0.3x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="symbol">IWM</td>
+            <td>$262.55</td>
+            <td class="score-80">80</td>
+            <td>15,299,604</td>
+            <td>$4,016,910,843</td>
+            <td>0.4x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="symbol">ARKK</td>
+            <td>$74.17</td>
+            <td class="score-60">55</td>
+            <td>98,520</td>
+            <td>$7,307,228</td>
+            <td>0.0x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td class="symbol">EEM</td>
+            <td>$58.94</td>
+            <td class="score-60">55</td>
+            <td>12,803,490</td>
+            <td>$754,637,683</td>
+            <td>0.3x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td class="symbol">FXI</td>
+            <td>$39.20</td>
+            <td class="score-60">55</td>
+            <td>11,256,354</td>
+            <td>$441,249,085</td>
+            <td>0.4x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td class="symbol">IEF</td>
+            <td>$95.49</td>
+            <td class="score-60">55</td>
+            <td>2,855,941</td>
+            <td>$272,713,800</td>
+            <td>0.5x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td class="symbol">IEMG</td>
+            <td>$72.35</td>
+            <td class="score-60">55</td>
+            <td>5,870,911</td>
+            <td>$424,731,063</td>
+            <td>0.4x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td class="symbol">GLD</td>
+            <td>$424.63</td>
+            <td class="score-60">45</td>
+            <td>18,734,268</td>
+            <td>$7,955,132,312</td>
+            <td>0.4x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
