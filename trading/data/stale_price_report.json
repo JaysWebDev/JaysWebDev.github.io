@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-02-05 22:58:46",
+  "summary": {
+    "total_stale": 1,
+    "high_risk": 1,
+    "medium_risk": 0,
+    "low_risk": 0
+  },
+  "securities": [
+    {
+      "symbol": "CRCW",
+      "price": 0.0020000000949949026,
+      "consecutive_days": 7,
+      "avg_volume": 11200314.285714285,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "last_date": "2026-01-23 05:00:00",
+      "analysis_date": "2026-02-05 22:58"
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "IMMEDIATE_REVIEW",
+      "description": "Review 1 high-risk securities with zero/minimal volume",
+      "symbols": [
+        "CRCW"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "action": "PENNY_STOCK_REVIEW",
+      "description": "Review 1 securities under $0.01",
+      "symbols": [
+        "CRCW"
+      ],
+      "priority": "MEDIUM"
+    }
+  ]
+}
