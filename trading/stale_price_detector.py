@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import json
+import os
 
 def detect_stale_prices():
     """Main stale price detection function"""
@@ -147,7 +148,10 @@ if __name__ == "__main__":
     report_data = generate_stale_price_report()
 
     # Save to JSON for dashboard consumption
-    with open('/tmp/jays_website_deploy/trading/data/stale_price_report.json', 'w') as f:
+    # Save to github_deploy for website deployment
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(script_dir, 'data', 'stale_price_report.json')
+    with open(output_path, 'w') as f:
         json.dump(report_data, f, indent=2)
 
     # Print summary

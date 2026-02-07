@@ -56,7 +56,7 @@ def heuristic_validation(symbol):
 
     # Load our stale price data for context
     try:
-        with open('/tmp/jays_website_deploy/trading/data/stale_price_report.json', 'r') as f:
+        with open('data/stale_price_report.json', 'r') as f:
             stale_data = json.load(f)
 
         # Find this symbol in stale data
@@ -141,7 +141,7 @@ def batch_validate_securities():
 
     # Load stale price report
     try:
-        with open('/tmp/jays_website_deploy/trading/data/stale_price_report.json', 'r') as f:
+        with open('data/stale_price_report.json', 'r') as f:
             stale_data = json.load(f)
     except FileNotFoundError:
         print("❌ No stale price report found. Run stale_price_detector.py first.")
@@ -191,7 +191,7 @@ def batch_validate_securities():
         'results': validation_results
     }
 
-    with open('/tmp/jays_website_deploy/trading/data/security_validation.json', 'w') as f:
+    with open('data/security_validation.json', 'w') as f:
         json.dump(validation_report, f, indent=2)
 
     print(f"\n📊 VALIDATION SUMMARY")
