@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutional Scanner - 2026-02-06</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0; padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff; min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header {
+            text-align: center; margin-bottom: 30px; padding: 30px;
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid #4fc3f7;
+        }
+        .diversity-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px; margin: 20px 0;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .scan-table {
+            width: 100%; border-collapse: collapse; margin-top: 20px;
+            background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;
+        }
+        .scan-table th, .scan-table td {
+            padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .scan-table th {
+            background: rgba(79,195,247,0.3); font-weight: 600; color: #4fc3f7;
+        }
+        .scan-table tr:hover { background: rgba(255,255,255,0.1); }
+        .symbol { font-weight: bold; color: #4fc3f7; font-size: 1.1em; }
+        .score {
+            font-weight: bold; padding: 5px 10px; border-radius: 5px; color: white;
+        }
+        .score.high { background: #4caf50; }
+        .score.medium { background: #ff9800; }
+        .score.low { background: #2196f3; }
+        .signals { font-size: 0.85em; color: #b39ddb; max-width: 300px; }
+        .price { color: #81c784; font-weight: bold; }
+        .percentage { color: #ffb74d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Diverse Institutional Scanner</h1>
+            <p>Full 800 Symbol Universe • Flexible Accumulation Detection • 2026-02-06</p>
+
+            <div class="diversity-stats">
+                <div class="stat-card">
+                    <h4>Price Diversity</h4>
+                    $5-$20: 4<br>$20-$50: 5<br>$50+: 31
+                </div>
+                <div class="stat-card">
+                    <h4>Volume Diversity</h4>
+                    Under $1M: 2<br>$1M-$50M: 13<br>Over $50M: 25
+                </div>
+                <div class="stat-card">
+                    <h4>Total Patterns</h4>
+                    <h2>40</h2>
+                    <p>Diverse accumulation signals</p>
+                </div>
+            </div>
+        </div>
+
+        <table class="scan-table">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Score</th>
+                    <th>Price</th>
+                    <th>20D %</th>
+                    <th>Accum %</th>
+                    <th>Momentum</th>
+                    <th>Volume</th>
+                    <th>Range</th>
+                    <th>Signals</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                <tr>
+                    <td class="symbol">ACMR</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$56.51</td>
+                    <td class="percentage">87.2%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">10.1%</td>
+                    <td>1.3x</td>
+                    <td>68.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AFL</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$117.47</td>
+                    <td class="percentage">98.4%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">7.2%</td>
+                    <td>1.5x</td>
+                    <td>85.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AMP</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$545.5</td>
+                    <td class="percentage">99.2%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">10.1%</td>
+                    <td>1.7x</td>
+                    <td>93.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">APD</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$286.59</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">7.7%</td>
+                    <td>1.2x</td>
+                    <td>100.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ASR</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$357.5</td>
+                    <td class="percentage">97.2%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">12.3%</td>
+                    <td>1.3x</td>
+                    <td>80.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AVY</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$192.88</td>
+                    <td class="percentage">98.4%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">2.0%</td>
+                    <td>1.6x</td>
+                    <td>82.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AXGN</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$34.22</td>
+                    <td class="percentage">95.1%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">10.6%</td>
+                    <td>1.2x</td>
+                    <td>71.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CHTR</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$223.53</td>
+                    <td class="percentage">98.3%</td>
+                    <td class="percentage">90.0%</td>
+                    <td class="percentage">10.5%</td>
+                    <td>1.2x</td>
+                    <td>91.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">COST</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$989.29</td>
+                    <td class="percentage">98.8%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">4.0%</td>
+                    <td>1.4x</td>
+                    <td>92.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">LEG</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$12.87</td>
+                    <td class="percentage">99.0%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">4.5%</td>
+                    <td>2.0x</td>
+                    <td>94.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">MCD</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$323.69</td>
+                    <td class="percentage">99.0%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">5.3%</td>
+                    <td>1.3x</td>
+                    <td>89.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">MRK</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$118.33</td>
+                    <td class="percentage">98.3%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">8.4%</td>
+                    <td>1.4x</td>
+                    <td>87.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">TXN</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$222.92</td>
+                    <td class="percentage">97.4%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">16.4%</td>
+                    <td>1.9x</td>
+                    <td>89.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">VZ</td>
+                    <td><span class="score high">120</span></td>
+                    <td class="price">$47.1</td>
+                    <td class="percentage">99.0%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">20.5%</td>
+                    <td>1.6x</td>
+                    <td>95.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CTVA</td>
+                    <td><span class="score high">118</span></td>
+                    <td class="price">$72.47</td>
+                    <td class="percentage">94.6%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">2.8%</td>
+                    <td>1.7x</td>
+                    <td>60.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • MID RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AIZ</td>
+                    <td><span class="score high">115</span></td>
+                    <td class="price">$242.46</td>
+                    <td class="percentage">99.0%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">1.9%</td>
+                    <td>1.5x</td>
+                    <td>81.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • POSITIVE</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AME</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$227.83</td>
+                    <td class="percentage">97.2%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">7.6%</td>
+                    <td>2.2x</td>
+                    <td>77.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AMGN</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$366.2</td>
+                    <td class="percentage">99.3%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">12.9%</td>
+                    <td>2.7x</td>
+                    <td>95.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AOS</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$78.37</td>
+                    <td class="percentage">99.3%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">10.1%</td>
+                    <td>2.7x</td>
+                    <td>96.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CARR</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$63.55</td>
+                    <td class="percentage">99.1%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">15.1%</td>
+                    <td>2.4x</td>
+                    <td>96.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CE</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$52.81</td>
+                    <td class="percentage">98.6%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">15.1%</td>
+                    <td>2.6x</td>
+                    <td>94.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CLX</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$117.77</td>
+                    <td class="percentage">98.0%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">5.7%</td>
+                    <td>2.4x</td>
+                    <td>89.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">WULF</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$13.88</td>
+                    <td class="percentage">89.0%</td>
+                    <td class="percentage">90.0%</td>
+                    <td class="percentage">7.7%</td>
+                    <td>2.1x</td>
+                    <td>62.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">XPO</td>
+                    <td><span class="score high">112</span></td>
+                    <td class="price">$186.96</td>
+                    <td class="percentage">93.4%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">25.0%</td>
+                    <td>2.2x</td>
+                    <td>80.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">EXC</td>
+                    <td><span class="score high">111</span></td>
+                    <td class="price">$44.06</td>
+                    <td class="percentage">97.4%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">-0.6%</td>
+                    <td>1.5x</td>
+                    <td>53.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • ACTIVE • FULL SUPPORT • NEAR 20D HIGH • MID RANGE • STABLE</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AAP</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$52.93</td>
+                    <td class="percentage">96.4%</td>
+                    <td class="percentage">80.0%</td>
+                    <td class="percentage">23.4%</td>
+                    <td>0.9x</td>
+                    <td>89.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">ADI</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$320.44</td>
+                    <td class="percentage">99.2%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">8.2%</td>
+                    <td>0.0x</td>
+                    <td>95.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AEE</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$104.81</td>
+                    <td class="percentage">99.2%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">2.2%</td>
+                    <td>0.9x</td>
+                    <td>89.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AESI</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$11.19</td>
+                    <td class="percentage">92.1%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">4.8%</td>
+                    <td>1.0x</td>
+                    <td>68.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AMCR</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$48.56</td>
+                    <td class="percentage">99.5%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">10.1%</td>
+                    <td>0.9x</td>
+                    <td>99.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">AZO</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$3605.03</td>
+                    <td class="percentage">94.7%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">4.0%</td>
+                    <td>0.0x</td>
+                    <td>66.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BALL</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$66.15</td>
+                    <td class="percentage">98.8%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">18.0%</td>
+                    <td>0.0x</td>
+                    <td>94.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BCE</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$25.49</td>
+                    <td class="percentage">96.2%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">5.2%</td>
+                    <td>0.0x</td>
+                    <td>70.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BG</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$113.94</td>
+                    <td class="percentage">93.7%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">8.0%</td>
+                    <td>0.0x</td>
+                    <td>77.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BKR</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$57.36</td>
+                    <td class="percentage">96.3%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">14.8%</td>
+                    <td>0.0x</td>
+                    <td>85.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BMY</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$59.52</td>
+                    <td class="percentage">98.3%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">4.4%</td>
+                    <td>0.0x</td>
+                    <td>88.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">BWA</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$50.49</td>
+                    <td class="percentage">99.5%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">4.9%</td>
+                    <td>0.0x</td>
+                    <td>95.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CAG</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$19.55</td>
+                    <td class="percentage">97.6%</td>
+                    <td class="percentage">95.0%</td>
+                    <td class="percentage">12.6%</td>
+                    <td>0.0x</td>
+                    <td>88.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CB</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$331.28</td>
+                    <td class="percentage">99.1%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">10.0%</td>
+                    <td>0.0x</td>
+                    <td>91.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+                <tr>
+                    <td class="symbol">CCEP</td>
+                    <td><span class="score high">110</span></td>
+                    <td class="price">$94.85</td>
+                    <td class="percentage">98.7%</td>
+                    <td class="percentage">100.0%</td>
+                    <td class="percentage">6.0%</td>
+                    <td>0.0x</td>
+                    <td>89.0%</td>
+                    <td class="signals">OBV RISING • EMA BULLISH • STRONG ACCUM • STEADY VOL • FULL SUPPORT • NEAR 20D HIGH • UPPER RANGE • MOMENTUM</td>
+                </tr>
+            
+            </tbody>
+        </table>
+
+        <div style="margin-top: 30px; padding: 20px; background: #111; border-radius: 8px;">
+            <h2>💼 Diverse Institutional Methodology</h2>
+            <p><strong>Objective:</strong> Find accumulation patterns across ALL market segments</p>
+            <p><strong>Approach:</strong> Flexible criteria adapted to symbol characteristics</p>
+            <p><strong>Focus:</strong> Price-agnostic institutional activity detection</p>
+            <p><strong>Selection:</strong> Top 40 scored patterns from 800 symbol universe</p>
+            <p><strong>Generated:</strong> 2026-02-06 at 16:00:31 by Diverse Institutional Scanner</p>
+        </div>
+    </div>
+</body>
+</html>
+        
