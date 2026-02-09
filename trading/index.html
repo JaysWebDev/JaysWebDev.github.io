@@ -169,39 +169,41 @@
     </div>
 
     <script>
-        function handleLogin(event) {
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        const _u = '907bdf2f550bb0b4237e97925f330d8af6f1a39a6066f203b1431f7b0fec6cc5';
+        const _p = 'efa9b95c6de137f46e4800c1108eeae45af2d9031ed76af33e57cebdde27ef5f';
+
+        async function handleLogin(event) {
             event.preventDefault();
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('errorMessage');
 
-            // Simple client-side authentication
-            if (username === 'Trader' && password === 'Temp1') {
-                // Store session
+            const uHash = await sha256(username);
+            const pHash = await sha256(password);
+
+            if (uHash === _u && pHash === _p) {
                 sessionStorage.setItem('trading_authenticated', 'true');
                 sessionStorage.setItem('auth_time', Date.now());
-
-                // Redirect to dashboard
                 window.location.href = '/trading/dashboard.html';
                 return false;
             } else {
-                // Show error
                 errorDiv.style.display = 'block';
-
-                // Clear password field
                 document.getElementById('password').value = '';
-
-                // Hide error after 3 seconds
                 setTimeout(() => {
                     errorDiv.style.display = 'none';
                 }, 3000);
-
                 return false;
             }
         }
 
-        // Auto-focus username field
         window.onload = function() {
             document.getElementById('username').focus();
         };
