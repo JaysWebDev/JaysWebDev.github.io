@@ -1,151 +1,17 @@
 {
-  "timestamp": "2026-02-09 19:22:56",
+  "timestamp": "2026-02-09 23:33:02",
   "summary": {
-    "total_flagged": 7,
-    "high_risk": 1,
-    "medium_risk": 4,
-    "low_risk": 2,
-    "penny_stocks": 5,
-    "stale_prices": 3,
-    "penny_stock_threshold": 1.0
+    "total_flagged": 0,
+    "high_risk": 0,
+    "medium_risk": 0,
+    "low_risk": 0,
+    "penny_stocks": 0,
+    "stale_prices": 0,
+    "no_data": 0,
+    "tracking_pending": 10,
+    "penny_stock_threshold": 1.0,
+    "failures_required": 5
   },
-  "securities": [
-    {
-      "symbol": "CRCW",
-      "price": 0.0015999999595806003,
-      "consecutive_days": 8,
-      "avg_volume": 8747597.7,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "Extreme penny stock ($0.0016)",
-        "8 consecutive days same price"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": true,
-      "last_date": "2026-02-06",
-      "analysis_date": "2026-02-09 19:22"
-    },
-    {
-      "symbol": "COOK",
-      "price": 0.9832000136375427,
-      "consecutive_days": 0,
-      "avg_volume": 213253.1,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.98 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "last_date": "2026-02-06",
-      "analysis_date": "2026-02-09 19:22"
-    },
-    {
-      "symbol": "LAZR",
-      "price": 0.05999999865889549,
-      "consecutive_days": 0,
-      "avg_volume": 833141.0,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.06 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "last_date": "2026-02-05",
-      "analysis_date": "2026-02-09 19:22"
-    },
-    {
-      "symbol": "GNS",
-      "price": 0.475600004196167,
-      "consecutive_days": 0,
-      "avg_volume": 964563.4,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.48 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "last_date": "2026-02-06",
-      "analysis_date": "2026-02-09 19:22"
-    },
-    {
-      "symbol": "GAME",
-      "price": 0.30720001459121704,
-      "consecutive_days": 0,
-      "avg_volume": 1309686.0,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.31 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "last_date": "2026-02-06",
-      "analysis_date": "2026-02-09 19:22"
-    },
-    {
-      "symbol": "BRO",
-      "price": 73.44499969482422,
-      "consecutive_days": 3,
-      "avg_volume": 3443454.2,
-      "zero_volume_days": 0,
-      "risk_level": "LOW",
-      "reasons": [
-        "3 consecutive days same price"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": true,
-      "last_date": "2026-02-06",
-      "analysis_date": "2026-02-09 19:22"
-    },
-    {
-      "symbol": "M",
-      "price": 22.479999542236328,
-      "consecutive_days": 3,
-      "avg_volume": 6082279.9,
-      "zero_volume_days": 0,
-      "risk_level": "LOW",
-      "reasons": [
-        "3 consecutive days same price"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": true,
-      "last_date": "2026-02-06",
-      "analysis_date": "2026-02-09 19:22"
-    }
-  ],
-  "recommendations": [
-    {
-      "action": "IMMEDIATE_REVIEW",
-      "description": "Review 1 high-risk securities (likely delisted or worthless)",
-      "symbols": [
-        "CRCW"
-      ],
-      "priority": "HIGH"
-    },
-    {
-      "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 5 securities under $1.00",
-      "symbols": [
-        "CRCW",
-        "COOK",
-        "LAZR",
-        "GNS",
-        "GAME"
-      ],
-      "priority": "MEDIUM"
-    },
-    {
-      "action": "STALE_PRICE_MONITOR",
-      "description": "Monitor 2 securities with unchanged prices",
-      "symbols": [
-        "BRO",
-        "M"
-      ],
-      "priority": "LOW"
-    }
-  ]
+  "securities": [],
+  "recommendations": []
 }

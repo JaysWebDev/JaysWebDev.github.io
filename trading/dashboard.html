@@ -847,6 +847,17 @@
                                 </div>
                             </div>
 
+                            <!-- Removed Securities Log -->
+                            <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-top: 20px;">
+                                <h4 style="margin: 0 0 15px 0; color: #e91e63;">📜 Removed Securities History</h4>
+                                <div id="removal-log-container">
+                                    <div class="loading">
+                                        <div class="spinner"></div>
+                                        Loading removal history...
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Data Quality Insights -->
                             <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-top: 20px;">
                                 <h4 style="margin: 0 0 15px 0; color: #607d8b;">📈 Data Quality Insights</h4>
@@ -1199,15 +1210,14 @@
         }
 
         function removeSecurity(symbol) {
-            if (confirm(`Remove ${symbol} from the watchlist?\n\nThis will stop tracking this security in all scanners.`)) {
+            if (confirm(`Remove ${symbol} from the dashboard view?\n\nNote: To permanently remove from scanners, edit the watchlist file:\n/home/j/trading-pipeline/watchlists/my_main_512.txt`)) {
                 const index = securitiesData.findIndex(s => s.symbol === symbol);
                 if (index > -1) {
                     securitiesData.splice(index, 1);
                     allSecurities = allSecurities.filter(s => s.symbol !== symbol);
                     loadSecurities();
 
-                    // Show confirmation
-                    alert(`✅ ${symbol} removed from watchlist\n\n🔄 Database will be updated on next sync`);
+                    alert(`✅ ${symbol} removed from dashboard view\n\n📝 To persist: edit watchlist file on PC\n🔄 Automated cleanup runs Mon-Fri at 7 AM`);
                 }
             }
         }
@@ -1240,7 +1250,7 @@
                 allSecurities = [...securitiesData];
                 loadSecurities();
 
-                alert(`✅ ${symbol} added to watchlist\n\n📊 Initial data populated\n🔄 Real data will sync on next update`);
+                alert(`✅ ${symbol} added to dashboard view\n\n📝 To persist: add to watchlist file on PC\n(/home/j/trading-pipeline/watchlists/my_main_512.txt)`);
             }
         }
 
@@ -1276,6 +1286,16 @@
                         updateCleanupRecommendations(cleanupData);
                         updateDataQualityScore(cleanupData);
                     }
+
+                    // Load removal log
+                    const removalResponse = await fetch('/trading/data/removal_log.json');
+                    if (removalResponse.ok) {
+                        const removalData = await removalResponse.json();
+                        updateRemovalLog(removalData);
+                    } else {
+                        document.getElementById('removal-log-container').innerHTML =
+                            '<div style="text-align: center; color: #4CAF50; padding: 15px;">No removals recorded yet</div>';
+                    }
                 }
             } catch (error) {
                 console.error('Error loading stale data:', error);
@@ -1283,12 +1303,52 @@
             }
         }
 
+        function updateRemovalLog(removalData) {
+            const removals = removalData.removals || [];
+
+            if (removals.length === 0) {
+                document.getElementById('removal-log-container').innerHTML =
+                    '<div style="text-align: center; color: #4CAF50; padding: 15px;">No removals recorded yet</div>';
+                return;
+            }
+
+            const html = `
+                <div style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 10px;">Last updated: ${removalData.last_updated || 'N/A'}</div>
+                <div style="max-height: 200px; overflow-y: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.1);">
+                                <th style="padding: 8px; text-align: left; font-size: 0.8rem;">Symbol</th>
+                                <th style="padding: 8px; text-align: left; font-size: 0.8rem;">Date</th>
+                                <th style="padding: 8px; text-align: left; font-size: 0.8rem;">Reason</th>
+                                <th style="padding: 8px; text-align: right; font-size: 0.8rem;">Last Price</th>
+                                <th style="padding: 8px; text-align: center; font-size: 0.8rem;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${removals.map(r => `
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <td style="padding: 8px; font-weight: bold;">${r.symbol}</td>
+                                    <td style="padding: 8px; font-size: 0.85rem;">${r.date}</td>
+                                    <td style="padding: 8px; font-size: 0.85rem;">${r.reason}</td>
+                                    <td style="padding: 8px; text-align: right;">$${(r.last_price || 0).toFixed(4)}</td>
+                                    <td style="padding: 8px; text-align: center; color: #ff5722;">${r.status}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            document.getElementById('removal-log-container').innerHTML = html;
+        }
+
         function updateStaleSummary(staleData) {
             const summary = staleData.summary;
             const html = `
                 <div style="margin: 10px 0;">
-                    <div style="font-size: 1.5rem; color: #ff9800; font-weight: bold;">${summary.total_stale}</div>
-                    <div style="font-size: 0.8rem;">Securities with stale prices</div>
+                    <div style="font-size: 1.5rem; color: #ff9800; font-weight: bold;">${summary.total_flagged}</div>
+                    <div style="font-size: 0.8rem;">Securities flagged (${summary.failures_required || 5}+ days)</div>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.7rem;">
                     <span>High Risk: ${summary.high_risk}</span>

@@ -5,26 +5,77 @@ Provides actionable recommendations for database maintenance based on stale pric
 """
 
 import json
-import pandas as pd
+import os
 from datetime import datetime
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REMOVAL_LOG_PATH = os.path.join(SCRIPT_DIR, 'data', 'removal_log.json')
+
+
+def load_removal_log():
+    """Load existing removal log or create empty one"""
+    if os.path.exists(REMOVAL_LOG_PATH):
+        with open(REMOVAL_LOG_PATH) as f:
+            return json.load(f)
+    return {"last_updated": None, "removals": []}
+
+
+def log_removal(symbol, reason, status, last_price=0.0, watchlist="my_main_512.txt"):
+    """Append a removal entry to the persistent removal log"""
+    log = load_removal_log()
+
+    # Don't duplicate if already logged
+    existing_symbols = {r['symbol'] for r in log['removals']}
+    if symbol in existing_symbols:
+        return
+
+    log['removals'].append({
+        'symbol': symbol,
+        'date': datetime.now().strftime('%Y-%m-%d'),
+        'reason': reason,
+        'status': status,
+        'last_price': last_price,
+        'watchlist': watchlist
+    })
+    log['last_updated'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    os.makedirs(os.path.dirname(REMOVAL_LOG_PATH), exist_ok=True)
+    with open(REMOVAL_LOG_PATH, 'w') as f:
+        json.dump(log, f, indent=2)
+
+
+def log_removals_from_validation(validation_data):
+    """Auto-log confirmed DELISTED securities from validation results"""
+    delisted = [r for r in validation_data.get('results', []) if r['status'] == 'DELISTED']
+    for sec in delisted:
+        log_removal(
+            symbol=sec['symbol'],
+            reason=sec.get('reason', 'Confirmed delisted'),
+            status='DELISTED',
+            last_price=sec.get('last_price', 0.0)
+        )
 
 def generate_cleanup_recommendations():
     """Generate comprehensive database cleanup recommendations"""
 
     # Load analysis data
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     try:
-        with open('data/stale_price_report.json', 'r') as f:
+        with open(os.path.join(script_dir, 'data/stale_price_report.json'), 'r') as f:
             stale_data = json.load(f)
     except FileNotFoundError:
-        print("❌ Run stale_price_detector.py first")
+        print("Run stale_price_detector.py first")
         return
 
     try:
-        with open('data/security_validation.json', 'r') as f:
+        with open(os.path.join(script_dir, 'data/security_validation.json'), 'r') as f:
             validation_data = json.load(f)
     except FileNotFoundError:
-        print("❌ Run security_validator.py first")
+        print("Run security_validator.py first")
         return
+
+    # Auto-log confirmed delisted securities
+    log_removals_from_validation(validation_data)
 
     print("🔧 DATABASE CLEANUP RECOMMENDATIONS")
     print("=" * 60)
@@ -33,7 +84,7 @@ def generate_cleanup_recommendations():
         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'analysis_summary': {
             'total_securities': 847,  # From database
-            'stale_securities': stale_data['summary']['total_stale'],
+            'stale_securities': stale_data['summary']['total_flagged'],
             'validated_securities': validation_data['total_validated']
         },
         'cleanup_actions': [],
@@ -68,16 +119,16 @@ def generate_cleanup_recommendations():
             'recommendation': 'Monitor for 30 days, then remove if still suspended'
         })
 
-    # 3. Penny stock cleanup
-    penny_stocks = [r for r in validation_data['results'] if r['status'] == 'AT_RISK']
+    # 3. Penny stock cleanup (under $1.00)
+    penny_stocks = [r for r in validation_data['results'] if r['status'] in ('AT_RISK', 'PENNY_STOCK')]
     if penny_stocks:
         cleanup_actions.append({
-            'priority': 'LOW',
+            'priority': 'MEDIUM',
             'action': 'PENNY_STOCK_REVIEW',
-            'description': f'Review {len(penny_stocks)} penny stocks under $0.05',
+            'description': f'Review {len(penny_stocks)} securities under $1.00',
             'affected_symbols': [s['symbol'] for s in penny_stocks],
             'estimated_cleanup_time': '45 minutes',
-            'recommendation': 'Consider removing if volume < 10,000/day consistently'
+            'recommendation': 'Consider removing from watchlist if consistently under $1.00'
         })
 
     # 4. Data quality improvements
@@ -131,7 +182,7 @@ def generate_cleanup_recommendations():
     recommendations['maintenance_schedule'] = maintenance_schedule
 
     # Risk assessment
-    total_stale = stale_data['summary']['total_stale']
+    total_stale = stale_data['summary']['total_flagged']
     total_securities = 847
 
     risk_level = "LOW"
@@ -150,7 +201,7 @@ def generate_cleanup_recommendations():
     recommendations['risk_assessment'] = risk_assessment
 
     # Save recommendations
-    with open('data/cleanup_recommendations.json', 'w') as f:
+    with open(os.path.join(script_dir, 'data/cleanup_recommendations.json'), 'w') as f:
         json.dump(recommendations, f, indent=2)
 
     # Display summary
@@ -214,8 +265,9 @@ def display_recommendations_summary(recommendations):
 def create_cleanup_sql_script():
     """Generate SQL cleanup script based on recommendations"""
 
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     try:
-        with open('data/security_validation.json', 'r') as f:
+        with open(os.path.join(script_dir, 'data/security_validation.json'), 'r') as f:
             validation_data = json.load(f)
     except FileNotFoundError:
         print("❌ No validation data found")
@@ -243,7 +295,7 @@ SELECT * FROM daily_prices WHERE symbol IN ({', '.join([f"'{s}'" for s in delist
 -- SELECT COUNT(DISTINCT symbol) as remaining_securities FROM daily_prices;
 """
 
-        with open('data/cleanup_script.sql', 'w') as f:
+        with open(os.path.join(script_dir, 'data/cleanup_script.sql'), 'w') as f:
             f.write(sql_script)
 
         print(f"📄 SQL cleanup script saved to: cleanup_script.sql")
