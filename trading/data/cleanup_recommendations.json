@@ -1,11 +1,34 @@
 {
-  "timestamp": "2026-02-05 22:59:59",
+  "timestamp": "2026-02-09 19:26:35",
   "analysis_summary": {
     "total_securities": 847,
-    "stale_securities": 1,
-    "validated_securities": 1
+    "stale_securities": 7,
+    "validated_securities": 7
   },
   "cleanup_actions": [
+    {
+      "priority": "HIGH",
+      "action": "REMOVE_DELISTED",
+      "description": "Remove 1 confirmed delisted securities",
+      "affected_symbols": [
+        "CRCW"
+      ],
+      "estimated_cleanup_time": "15 minutes",
+      "data_savings": "~200 records"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "PENNY_STOCK_REVIEW",
+      "description": "Review 4 securities under $1.00",
+      "affected_symbols": [
+        "COOK",
+        "LAZR",
+        "GNS",
+        "GAME"
+      ],
+      "estimated_cleanup_time": "45 minutes",
+      "recommendation": "Consider removing from watchlist if consistently under $1.00"
+    },
     {
       "priority": "MEDIUM",
       "action": "DATA_QUALITY_CHECK",
@@ -49,8 +72,8 @@
   ],
   "risk_assessment": {
     "overall_risk": "LOW",
-    "stale_percentage": 0.12,
-    "data_quality_score": 98,
-    "recommendations_urgency": "LOW"
+    "stale_percentage": 0.83,
+    "data_quality_score": 86,
+    "recommendations_urgency": "IMMEDIATE"
   }
 }
