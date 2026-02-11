@@ -398,13 +398,39 @@
                                                 <span style="color: #94A3B8;">Trailing Stop</span><span>Breakeven +2%, Trail 50% +4%</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(148,163,184,0.1); padding: 4px 0;">
-                                                <span style="color: #94A3B8;">Win Rate</span><span style="color: #3B82F6;">66.7%</span>
+                                                <span style="color: #94A3B8;">Win Rate</span><span style="color: #F59E0B;">51.9%</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; padding: 4px 0;">
-                                                <span style="color: #94A3B8;">Avg Return/Signal</span><span style="color: #3B82F6;">+3.38%</span>
+                                                <span style="color: #94A3B8;">Avg Return/Signal</span><span style="color: #F59E0B;">+0.05%</span>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- Top 25 Picks Today -->
+                            <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; margin-top: 15px; border: 1px solid rgba(59,130,246,0.2);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                    <h4 style="color: #CBD5E1; margin: 0;">Top 25 Picks Today</h4>
+                                    <span id="top-picks-date" style="color: #64748b; font-size: 0.75rem;"></span>
+                                </div>
+                                <div style="overflow-x: auto;">
+                                    <table id="top-picks-table" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                                        <thead>
+                                            <tr style="border-bottom: 2px solid rgba(59,130,246,0.3);">
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">#</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Score</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Price</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Stop</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Target</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Key Signals</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="top-picks-body">
+                                            <tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">Loading top picks...</td></tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -446,11 +472,11 @@
                             <div id="analytics-content">
                                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px;">
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                        <div style="font-size: 1.8rem; font-weight: bold; color: #3B82F6;">66.7%</div>
-                                        <div style="font-size: 0.8rem; color: #94A3B8;">Win Rate</div>
+                                        <div style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">51.9%</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8;">Win Rate (1,931 signals)</div>
                                     </div>
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                        <div style="font-size: 1.8rem; font-weight: bold; color: #22C55E;">+3.38%</div>
+                                        <div style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">+0.05%</div>
                                         <div style="font-size: 0.8rem; color: #94A3B8;">Avg Return/Signal</div>
                                     </div>
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
@@ -468,36 +494,41 @@
                                         <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                                             <thead>
                                                 <tr style="border-bottom: 2px solid rgba(59,130,246,0.3);">
-                                                    <th style="padding: 10px; text-align: left; color: #94A3B8;">Setup Type</th>
+                                                    <th style="padding: 10px; text-align: left; color: #94A3B8;">Scanner</th>
                                                     <th style="padding: 10px; text-align: right; color: #94A3B8;">Avg EV</th>
                                                     <th style="padding: 10px; text-align: right; color: #94A3B8;">Win Rate</th>
+                                                    <th style="padding: 10px; text-align: right; color: #94A3B8;">Signals</th>
                                                     <th style="padding: 10px; text-align: left; color: #94A3B8;">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
-                                                    <td style="padding: 10px; font-weight: bold;">VCB (Volatility Contraction)</td>
-                                                    <td style="padding: 10px; text-align: right; color: #22C55E;">+0.33%</td>
-                                                    <td style="padding: 10px; text-align: right;">33.5%</td>
-                                                    <td style="padding: 10px; color: #3B82F6;">Best Performer</td>
-                                                </tr>
-                                                <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
-                                                    <td style="padding: 10px; font-weight: bold;">ACCUM (Accumulation Breakout)</td>
-                                                    <td style="padding: 10px; text-align: right; color: #22C55E;">+0.27%</td>
-                                                    <td style="padding: 10px; text-align: right;">32.8%</td>
-                                                    <td style="padding: 10px; color: #3B82F6;">Positive EV</td>
-                                                </tr>
-                                                <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
-                                                    <td style="padding: 10px; font-weight: bold;">PULLBACK (Pullback in Trend)</td>
+                                                    <td style="padding: 10px; font-weight: bold;">Enhanced Breakout</td>
                                                     <td style="padding: 10px; text-align: right; color: #22C55E;">+0.10%</td>
-                                                    <td style="padding: 10px; text-align: right;">31.2%</td>
-                                                    <td style="padding: 10px; color: #94A3B8;">Marginal</td>
+                                                    <td style="padding: 10px; text-align: right;">52.0%</td>
+                                                    <td style="padding: 10px; text-align: right;">1,399</td>
+                                                    <td style="padding: 10px; color: #3B82F6;">Best Volume</td>
+                                                </tr>
+                                                <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
+                                                    <td style="padding: 10px; font-weight: bold;">VCB (Volatility Contraction)</td>
+                                                    <td style="padding: 10px; text-align: right; color: #94A3B8;">-0.01%</td>
+                                                    <td style="padding: 10px; text-align: right;">54.3%</td>
+                                                    <td style="padding: 10px; text-align: right;">265</td>
+                                                    <td style="padding: 10px; color: #F59E0B;">Best Win Rate</td>
+                                                </tr>
+                                                <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
+                                                    <td style="padding: 10px; font-weight: bold;">ACCUM (Accumulation)</td>
+                                                    <td style="padding: 10px; text-align: right; color: #EF4444;">-0.16%</td>
+                                                    <td style="padding: 10px; text-align: right;">50.0%</td>
+                                                    <td style="padding: 10px; text-align: right;">250</td>
+                                                    <td style="padding: 10px; color: #94A3B8;">Needs Tuning</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 10px; font-weight: bold;">Enhanced Breakout (Old 5%/10%)</td>
-                                                    <td style="padding: 10px; text-align: right; color: #EF4444;">-0.43%</td>
-                                                    <td style="padding: 10px; text-align: right;">30.4%</td>
-                                                    <td style="padding: 10px; color: #94A3B8;">Replaced by 3%/5%</td>
+                                                    <td style="padding: 10px; font-weight: bold;">PULLBACK (Pullback in Trend)</td>
+                                                    <td style="padding: 10px; text-align: right; color: #EF4444;">-0.64%</td>
+                                                    <td style="padding: 10px; text-align: right;">35.3%</td>
+                                                    <td style="padding: 10px; text-align: right;">17</td>
+                                                    <td style="padding: 10px; color: #EF4444;">Underperforming</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1109,12 +1140,14 @@
             checkAuth();
             updateTime();
             loadDashboardData();
+            loadTopPicks();
 
             // Update time every second
             setInterval(updateTime, 1000);
 
             // Refresh data every 5 minutes
             setInterval(loadDashboardData, 300000);
+            setInterval(loadTopPicks, 300000);
         };
 
         function checkAuth() {
@@ -1250,6 +1283,35 @@
                 `;
                 container.appendChild(card);
             });
+        }
+
+        function loadTopPicks() {
+            fetch('/trading/data/top_picks.json')
+                .then(r => r.json())
+                .then(picks => {
+                    const tbody = document.getElementById('top-picks-body');
+                    if (!picks || picks.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">No picks available</td></tr>';
+                        return;
+                    }
+                    tbody.innerHTML = picks.map((p, i) => {
+                        const scoreColor = p.score >= 130 ? '#22C55E' : p.score >= 120 ? '#3B82F6' : '#F59E0B';
+                        const signals = (p.signals || '').split(' • ').slice(0, 3).join(' · ');
+                        return `<tr style="border-bottom: 1px solid rgba(148,163,184,0.06);">
+                            <td style="padding: 6px; color: #64748b;">${i + 1}</td>
+                            <td style="padding: 6px; font-weight: 600; color: #e2e8f0;">${p.symbol}</td>
+                            <td style="padding: 6px; text-align: right; color: ${scoreColor}; font-weight: bold;">${p.score}</td>
+                            <td style="padding: 6px; text-align: right;">$${p.price}</td>
+                            <td style="padding: 6px; text-align: right; color: #EF4444;">$${p.stop}</td>
+                            <td style="padding: 6px; text-align: right; color: #22C55E;">$${p.target}</td>
+                            <td style="padding: 6px; color: #94A3B8; font-size: 0.75rem;">${signals}</td>
+                        </tr>`;
+                    }).join('');
+                })
+                .catch(() => {
+                    document.getElementById('top-picks-body').innerHTML =
+                        '<tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">Could not load picks</td></tr>';
+                });
         }
 
         function refreshData() {
