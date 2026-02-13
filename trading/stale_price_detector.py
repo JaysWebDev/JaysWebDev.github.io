@@ -39,7 +39,7 @@ def get_db_connection():
     """Connect to SQLite database"""
     if not os.path.exists(DB_PATH):
         raise FileNotFoundError(f"Database not found: {DB_PATH}")
-    return sqlite3.connect(DB_PATH)
+    return sqlite3.connect(DB_PATH, timeout=30)
 
 
 def load_watchlist():

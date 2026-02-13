@@ -1,13 +1,13 @@
 -- Database Cleanup Script
--- Generated: 2026-02-11 07:00:03
+-- Generated: 2026-02-12 21:24:54
 -- CAUTION: Review before executing
 
 -- Backup delisted securities data before removal
 CREATE TABLE IF NOT EXISTS deleted_securities_backup AS
-SELECT * FROM daily_prices WHERE symbol IN ('CRCW');
+SELECT * FROM daily_prices WHERE symbol IN ('IPG', 'CRCW');
 
 -- Remove delisted securities from main table
--- DELETE FROM daily_prices WHERE symbol IN ('CRCW');
+-- DELETE FROM daily_prices WHERE symbol IN ('IPG', 'CRCW');
 
 -- Note: Uncomment the DELETE statement above after reviewing the backup
 

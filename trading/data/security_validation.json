@@ -1,74 +1,101 @@
 {
-  "timestamp": "2026-02-09 19:23:00",
-  "total_validated": 7,
+  "timestamp": "2026-02-12 21:24:54",
+  "total_validated": 10,
   "summary": {
-    "DELISTED": 1,
-    "PENNY_STOCK": 4,
-    "ACTIVE": 2
+    "DELISTED": 2,
+    "ACTIVE": 3,
+    "PENNY_STOCK": 5
   },
   "results": [
     {
+      "symbol": "IPG",
+      "status": "DELISTED",
+      "reason": "No price data in database (Yahoo Finance returns no data)",
+      "last_price": null,
+      "volume": 0,
+      "validation_date": "2026-02-12 21:24",
+      "data_source": "Data Absence"
+    },
+    {
+      "symbol": "K",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 83.44000244140625,
+      "volume": 6628325.2,
+      "validation_date": "2026-02-12 21:24",
+      "data_source": "Database"
+    },
+    {
+      "symbol": "FI",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 69.5,
+      "volume": 11364613.8,
+      "validation_date": "2026-02-12 21:24",
+      "data_source": "Database"
+    },
+    {
       "symbol": "CRCW",
       "status": "DELISTED",
-      "reason": "Price below $0.01 ($0.0016)",
-      "last_price": 0.0015999999595806003,
-      "volume": 8747597.7,
-      "validation_date": "2026-02-09 19:23",
+      "reason": "Price below $0.01 ($0.0014)",
+      "last_price": 0.00139999995008111,
+      "volume": 11347530.0,
+      "validation_date": "2026-02-12 21:24",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "CMA",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 88.66999816894531,
+      "volume": 6854426.9,
+      "validation_date": "2026-02-12 21:24",
+      "data_source": "Database"
+    },
+    {
+      "symbol": "SURG",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.96 below $1.00 threshold",
+      "last_price": 0.9643999934196472,
+      "volume": 263738.6,
+      "validation_date": "2026-02-12 21:24",
       "data_source": "Price Analysis"
     },
     {
       "symbol": "COOK",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.98 below $1.00 threshold",
-      "last_price": 0.9832000136375427,
-      "volume": 213253.1,
-      "validation_date": "2026-02-09 19:23",
+      "reason": "Price $0.85 below $1.00 threshold",
+      "last_price": 0.854200005531311,
+      "volume": 365921.8,
+      "validation_date": "2026-02-12 21:24",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "GNS",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.40 below $1.00 threshold",
+      "last_price": 0.40059998631477356,
+      "volume": 976088.4,
+      "validation_date": "2026-02-12 21:24",
       "data_source": "Price Analysis"
     },
     {
       "symbol": "LAZR",
       "status": "PENNY_STOCK",
       "reason": "Price $0.06 below $1.00 threshold",
-      "last_price": 0.05999999865889549,
-      "volume": 900233.0,
-      "validation_date": "2026-02-09 19:23",
-      "data_source": "Price Analysis"
-    },
-    {
-      "symbol": "GNS",
-      "status": "PENNY_STOCK",
-      "reason": "Price $0.48 below $1.00 threshold",
-      "last_price": 0.475600004196167,
-      "volume": 964563.4,
-      "validation_date": "2026-02-09 19:23",
+      "last_price": 0.05795000120997429,
+      "volume": 987942.6,
+      "validation_date": "2026-02-12 21:24",
       "data_source": "Price Analysis"
     },
     {
       "symbol": "GAME",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.31 below $1.00 threshold",
-      "last_price": 0.30720001459121704,
-      "volume": 1309686.0,
-      "validation_date": "2026-02-09 19:23",
+      "reason": "Price $0.28 below $1.00 threshold",
+      "last_price": 0.2849999964237213,
+      "volume": 1277308.8,
+      "validation_date": "2026-02-12 21:24",
       "data_source": "Price Analysis"
-    },
-    {
-      "symbol": "BRO",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 73.44499969482422,
-      "volume": 3443454.2,
-      "validation_date": "2026-02-09 19:23",
-      "data_source": "Database"
-    },
-    {
-      "symbol": "M",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 22.479999542236328,
-      "volume": 6082279.9,
-      "validation_date": "2026-02-09 19:23",
-      "data_source": "Database"
     }
   ]
 }

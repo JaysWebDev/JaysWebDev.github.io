@@ -1,29 +1,31 @@
 {
-  "timestamp": "2026-02-11 07:00:03",
+  "timestamp": "2026-02-12 21:24:54",
   "analysis_summary": {
     "total_securities": 847,
-    "stale_securities": 0,
-    "validated_securities": 7
+    "stale_securities": 10,
+    "validated_securities": 10
   },
   "cleanup_actions": [
     {
       "priority": "HIGH",
       "action": "REMOVE_DELISTED",
-      "description": "Remove 1 confirmed delisted securities",
+      "description": "Remove 2 confirmed delisted securities",
       "affected_symbols": [
+        "IPG",
         "CRCW"
       ],
       "estimated_cleanup_time": "15 minutes",
-      "data_savings": "~200 records"
+      "data_savings": "~400 records"
     },
     {
       "priority": "MEDIUM",
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 4 securities under $1.00",
+      "description": "Review 5 securities under $1.00",
       "affected_symbols": [
+        "SURG",
         "COOK",
-        "LAZR",
         "GNS",
+        "LAZR",
         "GAME"
       ],
       "estimated_cleanup_time": "45 minutes",
@@ -72,8 +74,8 @@
   ],
   "risk_assessment": {
     "overall_risk": "LOW",
-    "stale_percentage": 0.0,
-    "data_quality_score": 100,
+    "stale_percentage": 1.18,
+    "data_quality_score": 80,
     "recommendations_urgency": "IMMEDIATE"
   }
 }

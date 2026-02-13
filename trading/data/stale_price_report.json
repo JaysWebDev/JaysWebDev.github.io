@@ -1,17 +1,235 @@
 {
-  "timestamp": "2026-02-11 07:00:03",
+  "timestamp": "2026-02-12 21:24:54",
   "summary": {
-    "total_flagged": 0,
-    "high_risk": 0,
-    "medium_risk": 0,
+    "total_flagged": 10,
+    "high_risk": 5,
+    "medium_risk": 5,
     "low_risk": 0,
-    "penny_stocks": 0,
+    "penny_stocks": 6,
     "stale_prices": 0,
-    "no_data": 0,
-    "tracking_pending": 10,
+    "no_data": 4,
+    "tracking_pending": 2,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
-  "securities": [],
-  "recommendations": []
+  "securities": [
+    {
+      "symbol": "IPG",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "K",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "FI",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "CRCW",
+      "price": 0.00139999995008111,
+      "consecutive_days": 0,
+      "avg_volume": 11347530.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Extreme penny stock ($0.0014)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-02-12",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "CMA",
+      "price": 88.66999816894531,
+      "consecutive_days": 0,
+      "avg_volume": 49187391.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-01-30, expected: 2026-02-12)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-01-30",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "SURG",
+      "price": 0.9643999934196472,
+      "consecutive_days": 0,
+      "avg_volume": 267765.1111111111,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.96 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-02-11",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "COOK",
+      "price": 0.854200005531311,
+      "consecutive_days": 0,
+      "avg_volume": 365921.8,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.85 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-02-12",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "GNS",
+      "price": 0.40059998631477356,
+      "consecutive_days": 0,
+      "avg_volume": 978020.4444444445,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.40 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-02-11",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "LAZR",
+      "price": 0.05795000120997429,
+      "consecutive_days": 0,
+      "avg_volume": 1059509.6666666667,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.06 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-02-11",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "GAME",
+      "price": 0.2849999964237213,
+      "consecutive_days": 0,
+      "avg_volume": 1277454.2222222222,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.28 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-02-11",
+      "analysis_date": "2026-02-12 21:24",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-02-09"
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "REMOVE_NO_DATA",
+      "description": "Remove 4 securities with no Yahoo Finance data (likely delisted)",
+      "symbols": [
+        "IPG",
+        "K",
+        "FI",
+        "CMA"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "action": "IMMEDIATE_REVIEW",
+      "description": "Review 5 high-risk securities (likely delisted or worthless)",
+      "symbols": [
+        "IPG",
+        "K",
+        "FI",
+        "CRCW",
+        "CMA"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "action": "PENNY_STOCK_REVIEW",
+      "description": "Review 6 securities under $1.00",
+      "symbols": [
+        "CRCW",
+        "SURG",
+        "COOK",
+        "GNS",
+        "LAZR",
+        "GAME"
+      ],
+      "priority": "MEDIUM"
+    }
+  ]
 }

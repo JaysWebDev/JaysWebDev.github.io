@@ -37,7 +37,7 @@ def validate_security_status(symbol, stale_data_entry=None):
     try:
         # Get latest data from SQLite
         if os.path.exists(DB_PATH):
-            conn = sqlite3.connect(DB_PATH)
+            conn = sqlite3.connect(DB_PATH, timeout=30)
             cursor = conn.cursor()
             cursor.execute("""
                 SELECT close, volume, date
