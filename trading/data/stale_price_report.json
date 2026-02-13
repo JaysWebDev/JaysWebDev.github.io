@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-12 21:24:54",
+  "timestamp": "2026-02-13 07:00:03",
   "summary": {
     "total_flagged": 10,
     "high_risk": 5,
@@ -14,24 +14,6 @@
   },
   "securities": [
     {
-      "symbol": "IPG",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-09"
-    },
-    {
       "symbol": "K",
       "price": 0.0,
       "consecutive_days": 0,
@@ -45,8 +27,8 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -63,8 +45,26 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "IPG",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -81,8 +81,8 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-12",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -99,8 +99,8 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "2026-01-30",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -117,8 +117,8 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-11",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -135,8 +135,8 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-12",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -153,8 +153,8 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-11",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -171,8 +171,8 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-11",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     },
     {
@@ -189,8 +189,8 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-11",
-      "analysis_date": "2026-02-12 21:24",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-02-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-09"
     }
   ],
@@ -199,9 +199,9 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 4 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "IPG",
         "K",
         "FI",
+        "IPG",
         "CMA"
       ],
       "priority": "HIGH"
@@ -210,9 +210,9 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 5 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "IPG",
         "K",
         "FI",
+        "IPG",
         "CRCW",
         "CMA"
       ],
