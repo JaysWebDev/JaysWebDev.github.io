@@ -439,6 +439,10 @@
                             <h3>Latest Scanner Reports</h3>
                             <div id="reports-content">
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                                    <a href="/trading/reports/unified_latest.html" style="display: block; background: rgba(30,41,59,0.8); border-radius: 10px; padding: 20px; text-decoration: none; color: #e2e8f0; border: 1px solid rgba(251,191,36,0.3); border-left: 4px solid #FBBF24; grid-column: 1 / -1; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#FBBF24'" onmouseout="this.style.borderColor='rgba(251,191,36,0.3)'; this.style.borderLeftColor='#FBBF24'">
+                                        <div style="font-weight: bold; font-size: 1.1rem;">Unified Scanner — Top 50</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 5px;">Multi-dimensional ranking: Technical + Relative Strength + Risk + Fundamentals — 5-day rolling persistence</div>
+                                    </a>
                                     <a href="/trading/reports/institutional_latest.html" style="display: block; background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-decoration: none; color: #e2e8f0; border: 1px solid rgba(148,163,184,0.1); border-left: 4px solid #ff9800; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#ff9800'" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)'; this.style.borderLeftColor='#ff9800'">
                                         <div style="font-weight: bold; font-size: 1.05rem;">Institutional Scanner</div>
                                         <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 5px;">Accumulation detection across 774 symbols</div>
@@ -474,6 +478,11 @@
                         <div id="analytics" class="tab-panel">
                             <h3>Performance Analytics</h3>
                             <div id="analytics-content">
+                                <!-- Unified Performance Tracker (live from JSON) -->
+                                <div id="unified-perf" style="background: rgba(30,41,59,0.8); border-radius: 10px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(251,191,36,0.3); border-left: 4px solid #FBBF24;">
+                                    <h4 style="color: #FBBF24; margin-bottom: 15px;">Unified Scanner — Live Track Record</h4>
+                                    <div id="unified-perf-content" style="color: #94A3B8; font-size: 0.85rem;">Loading performance data...</div>
+                                </div>
                                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px;">
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
                                         <div style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">51.9%</div>
@@ -1145,6 +1154,7 @@
             updateTime();
             loadDashboardData();
             loadTopPicks();
+            loadUnifiedPerformance();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -1197,6 +1207,57 @@
                 setTimeout(() => loadSecurities(), 100);
             } else if (tabName === 'stale-prices') {
                 setTimeout(() => loadStaleData(), 100);
+            }
+        }
+
+        async function loadUnifiedPerformance() {
+            try {
+                const resp = await fetch('/trading/data/unified_performance.json');
+                if (!resp.ok) throw new Error('Not found');
+                const data = await resp.json();
+                const s = data.summary;
+                const el = document.getElementById('unified-perf-content');
+                if (!el) return;
+
+                let html = '<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 15px;">';
+
+                const cards = [
+                    { val: s.total_picks, label: 'Picks Tracked', color: '#3B82F6' },
+                    { val: s.resolved > 0 ? s.win_rate + '%' : '--', label: 'Win Rate', color: '#22C55E' },
+                    { val: s.resolved > 0 ? (s.avg_pnl >= 0 ? '+' : '') + s.avg_pnl + '%' : '--', label: 'Avg P&L', color: s.avg_pnl >= 0 ? '#22C55E' : '#EF4444' },
+                    { val: s.pending, label: 'Open Positions', color: '#F59E0B' }
+                ];
+                cards.forEach(c => {
+                    html += `<div style="text-align: center;"><div style="font-size: 1.5rem; font-weight: bold; color: ${c.color};">${c.val}</div><div style="font-size: 0.75rem; color: #94A3B8;">${c.label}</div></div>`;
+                });
+                html += '</div>';
+
+                if (s.resolved > 0) {
+                    html += `<div style="font-size: 0.85rem; line-height: 1.8;">`;
+                    html += `<span>Wins: ${s.wins}</span> &nbsp; <span>Losses: ${s.losses}</span> &nbsp; <span>Expired: ${s.expired}</span>`;
+                    if (s.expectancy) html += ` &nbsp; <span style="color: ${s.expectancy >= 0 ? '#22C55E' : '#EF4444'};">Expectancy: ${s.expectancy >= 0 ? '+' : ''}${s.expectancy}%/trade</span>`;
+                    html += `</div>`;
+                }
+
+                // Score breakdown
+                if (data.score_breakdown && data.score_breakdown.length > 0) {
+                    html += '<div style="margin-top: 10px; font-size: 0.8rem;">';
+                    data.score_breakdown.forEach(b => {
+                        if (b.count === 0) return;
+                        let detail = '';
+                        if (b.win_rate !== undefined) detail = `WR: ${b.win_rate}% | Avg: ${b.avg_pnl >= 0 ? '+' : ''}${b.avg_pnl}%`;
+                        else if (b.avg_unrealized !== undefined) detail = `Unrealized: ${b.avg_unrealized >= 0 ? '+' : ''}${b.avg_unrealized}%`;
+                        else detail = 'Awaiting data';
+                        html += `<div style="display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid rgba(148,163,184,0.05);"><span>${b.label} (${b.count})</span><span style="color: #CBD5E1;">${detail}</span></div>`;
+                    });
+                    html += '</div>';
+                }
+
+                html += `<div style="font-size: 0.7rem; color: #64748B; margin-top: 10px;">Updated: ${new Date(data.generated).toLocaleString()} | ${s.date_range}</div>`;
+                el.innerHTML = html;
+            } catch (e) {
+                const el = document.getElementById('unified-perf-content');
+                if (el) el.innerHTML = '<span style="color: #64748B;">Performance data not yet available — tracker runs nightly at 8 PM.</span>';
             }
         }
 
