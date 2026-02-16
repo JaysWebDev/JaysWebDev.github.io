@@ -512,11 +512,22 @@
                                 </div>
 
                                 <!-- Portfolio Allocator -->
-                                <div style="background: rgba(30,41,59,0.8); border-radius: 10px; padding: 15px; margin-top: 15px; border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                                    <label style="color: #CBD5E1; font-size: 0.85rem; font-weight: bold; white-space: nowrap;">Portfolio Size: $</label>
-                                    <input id="portfolio-size" type="number" min="100" step="100" placeholder="5000" style="background: rgba(15,23,42,0.8); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; padding: 8px 12px; color: #e2e8f0; font-size: 0.9rem; width: 120px; outline: none;" oninput="recalcAllocations()">
-                                    <span style="color: #64748b; font-size: 0.8rem;">Equal-weight across <span id="alloc-count">30</span> positions</span>
-                                    <span id="alloc-per-pos" style="color: #3B82F6; font-size: 0.85rem; font-weight: bold; margin-left: auto;"></span>
+                                <div style="background: rgba(30,41,59,0.8); border-radius: 10px; padding: 15px; margin-top: 15px; border: 1px solid rgba(59,130,246,0.3);">
+                                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                                        <label style="color: #CBD5E1; font-size: 0.85rem; font-weight: bold; white-space: nowrap;">Portfolio Size: $</label>
+                                        <input id="portfolio-size" type="number" min="100" step="100" placeholder="5000" style="background: rgba(15,23,42,0.8); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; padding: 8px 12px; color: #e2e8f0; font-size: 0.9rem; width: 120px; outline: none;" oninput="recalcAllocations()">
+                                        <select id="alloc-mode" onchange="recalcAllocations()" style="background: rgba(15,23,42,0.8); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; padding: 8px 12px; color: #e2e8f0; font-size: 0.8rem; outline: none;">
+                                            <option value="score">Score-Weighted</option>
+                                            <option value="equal">Equal-Weight</option>
+                                        </select>
+                                        <span style="color: #64748b; font-size: 0.8rem;"><span id="alloc-count">30</span> positions</span>
+                                        <span id="alloc-per-pos" style="color: #3B82F6; font-size: 0.85rem; font-weight: bold; margin-left: auto;"></span>
+                                    </div>
+                                    <div id="alloc-summary" style="display:none; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(148,163,184,0.1); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.8rem;">
+                                        <div><span style="color: #94A3B8;">Allocated:</span> <span id="alloc-invested" style="color: #10B981; font-weight: bold;">-</span></div>
+                                        <div><span style="color: #94A3B8;">Remaining:</span> <span id="alloc-remaining" style="color: #FBBF24; font-weight: bold;">-</span></div>
+                                        <div><span style="color: #94A3B8;">Skipped:</span> <span id="alloc-skipped" style="color: #EF4444; font-weight: bold;">0</span></div>
+                                    </div>
                                 </div>
 
                                 <!-- Today's Alerts -->
@@ -1461,6 +1472,15 @@
 
         let _posData = null; // stored for reallocation calcs
 
+        // Compute score-based weight for each holding (higher score = bigger allocation)
+        function computeWeights(holdings) {
+            const totalScore = holdings.reduce((sum, h) => sum + (h.score || 100), 0);
+            return holdings.map(h => ({
+                symbol: h.symbol,
+                weight: ((h.score || 100) / totalScore) * 100
+            }));
+        }
+
         function loadPositions() {
             fetch('/trading/data/position_alerts.json')
                 .then(r => r.json())
@@ -1477,7 +1497,7 @@
                     avgEl.style.color = avgPnl >= 0 ? '#10B981' : '#EF4444';
                     document.getElementById('pos-slots').textContent = data.open_slots;
                     document.getElementById('pos-date').textContent = 'Data: ' + data.date + ' | Generated: ' + data.generated;
-                    document.getElementById('alloc-count').textContent = data.max_positions;
+                    document.getElementById('alloc-count').textContent = data.stats.total_active;
 
                     // Today's Alerts
                     renderAlerts(data);
@@ -1501,10 +1521,21 @@
                 });
         }
 
+        function getAllocBudget(holding, portfolioSize, holdings, mode) {
+            if (mode === 'equal') {
+                return portfolioSize / (holdings.length || 1);
+            }
+            // Score-weighted: higher score gets proportionally more capital
+            const weights = computeWeights(holdings);
+            const w = weights.find(w => w.symbol === holding.symbol);
+            return w ? (w.weight / 100) * portfolioSize : 0;
+        }
+
         function renderAlerts(data) {
             const alertsDiv = document.getElementById('pos-alerts');
-            const portfolio = parseFloat(document.getElementById('portfolio-size').value) || 0;
-            const perPos = portfolio > 0 ? portfolio / data.max_positions : 0;
+            const portfolioSize = parseFloat(document.getElementById('portfolio-size').value) || 0;
+            const mode = document.getElementById('alloc-mode').value;
+            const allItems = [...(data.holdings || []), ...(data.alerts || []).filter(a => a.action === 'BUY')];
 
             if (!data.alerts || data.alerts.length === 0) {
                 alertsDiv.innerHTML = '<div style="color: #64748b; text-align: center; padding: 15px;">No alerts today — all positions holding steady.</div>';
@@ -1514,15 +1545,27 @@
                     if (a.action === 'BUY') {
                         bg = 'rgba(16,185,129,0.1)'; border = 'rgba(16,185,129,0.4)'; icon = '🟢';
                         let allocStr = '';
-                        if (perPos > 0) {
-                            const shares = Math.floor(perPos / a.price);
-                            const cost = (shares * a.price).toFixed(2);
-                            allocStr = `<br><span style="font-size:0.85rem;color:#10B981;font-weight:bold;">Buy ${shares} share${shares !== 1 ? 's' : ''} @ $${a.price} = $${cost}</span>`;
+                        if (portfolioSize > 0) {
+                            const budget = getAllocBudget({symbol: a.symbol, score: a.score}, portfolioSize, allItems, mode);
+                            const shares = Math.floor(budget / a.price);
+                            if (shares > 0) {
+                                const cost = (shares * a.price).toFixed(2);
+                                const weightPct = (shares * a.price / portfolioSize * 100).toFixed(1);
+                                allocStr = `<br><span style="font-size:0.85rem;color:#10B981;font-weight:bold;">Buy ${shares} share${shares !== 1 ? 's' : ''} @ $${a.price} = $${cost} (${weightPct}%)</span>`;
+                            } else {
+                                allocStr = `<br><span style="font-size:0.85rem;color:#EF4444;font-weight:bold;">Skip — price $${a.price} exceeds budget $${budget.toFixed(0)}</span>`;
+                            }
                         }
                         detail = `Score: ${a.score} | Trim 1: $${a.trim1_target} | Trim 2: $${a.trim2_target}${allocStr}<br><span style="font-size:0.75rem;color:#94A3B8;">${a.signals || ''}</span>`;
                     } else if (a.action === 'EXIT') {
                         bg = 'rgba(239,68,68,0.1)'; border = 'rgba(239,68,68,0.4)'; icon = '🔴';
-                        detail = `Entry: $${a.entry_price} | P&L: ${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#F87171;">${a.reason}</span>`;
+                        let freedStr = '';
+                        if (portfolioSize > 0) {
+                            const budget = getAllocBudget({symbol: a.symbol, score: 100}, portfolioSize, data.holdings || [], mode);
+                            const shares = Math.floor(budget / a.entry_price);
+                            if (shares > 0) freedStr = `<br><span style="font-size:0.75rem;color:#94A3B8;">Frees ~$${(shares * a.price).toFixed(0)} for reallocation</span>`;
+                        }
+                        detail = `Entry: $${a.entry_price} | P&L: ${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#F87171;">${a.reason}</span>${freedStr}`;
                     } else if (a.action === 'TRIM1' || a.action === 'TRIM2') {
                         bg = 'rgba(251,191,36,0.1)'; border = 'rgba(251,191,36,0.4)'; icon = '🟡';
                         detail = `Entry: $${a.entry_price} | P&L: +${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#FBBF24;">${a.reason || a.action}</span>`;
@@ -1546,56 +1589,91 @@
 
         function renderHoldings(data) {
             const tbody = document.getElementById('pos-holdings-body');
-            const portfolio = parseFloat(document.getElementById('portfolio-size').value) || 0;
-            const perPos = portfolio > 0 ? portfolio / data.max_positions : 0;
-            const showAlloc = perPos > 0;
+            const portfolioSize = parseFloat(document.getElementById('portfolio-size').value) || 0;
+            const mode = document.getElementById('alloc-mode').value;
+            const showAlloc = portfolioSize > 0;
+            const weights = data.holdings ? computeWeights(data.holdings) : [];
 
             // Show/hide allocation columns
             document.querySelectorAll('.alloc-col').forEach(el => el.hidden = !showAlloc);
 
             if (!data.holdings || data.holdings.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="' + (showAlloc ? 11 : 9) + '" style="padding:20px;text-align:center;color:#64748b;">No active holdings.</td></tr>';
-            } else {
-                let totalAllocated = 0;
-                tbody.innerHTML = data.holdings.map(h => {
-                    const pnlColor = h.pnl_pct >= 0 ? '#10B981' : '#EF4444';
-                    const pnlSign = h.pnl_pct >= 0 ? '+' : '';
-                    const posLabel = h.trim2_hit ? '25%' : h.trim1_hit ? '50%' : '100%';
-                    const statusColor = h.status.includes('Below') ? '#F59E0B' : h.status.includes('trend') ? '#10B981' : '#94A3B8';
-                    let allocCells = '';
-                    if (showAlloc) {
-                        const posFrac = h.trim2_hit ? 0.25 : h.trim1_hit ? 0.50 : 1.0;
-                        const allocBudget = perPos * posFrac;
-                        const shares = Math.floor(allocBudget / h.entry_price);
-                        const cost = (shares * h.entry_price).toFixed(0);
-                        totalAllocated += shares * h.entry_price;
+                return;
+            }
+
+            let totalAllocated = 0;
+            let remainingCapital = portfolioSize;
+            let skippedCount = 0;
+
+            // Sort holdings by score descending for allocation priority (highest conviction first)
+            const sorted = [...data.holdings].sort((a, b) => (b.score || 100) - (a.score || 100));
+
+            tbody.innerHTML = sorted.map(h => {
+                const pnlColor = h.pnl_pct >= 0 ? '#10B981' : '#EF4444';
+                const pnlSign = h.pnl_pct >= 0 ? '+' : '';
+                const posLabel = h.trim2_hit ? '25%' : h.trim1_hit ? '50%' : '100%';
+                const statusColor = h.status.includes('Below') ? '#F59E0B' : h.status.includes('trend') ? '#10B981' : '#94A3B8';
+                let allocCells = '';
+
+                if (showAlloc) {
+                    const posFrac = h.trim2_hit ? 0.25 : h.trim1_hit ? 0.50 : 1.0;
+                    let budget = getAllocBudget(h, portfolioSize, data.holdings, mode) * posFrac;
+                    // Cap budget to remaining capital
+                    budget = Math.min(budget, remainingCapital);
+                    const shares = Math.floor(budget / h.entry_price);
+                    const cost = shares * h.entry_price;
+
+                    if (shares > 0) {
+                        remainingCapital -= cost;
+                        totalAllocated += cost;
+                        const weightPct = (cost / portfolioSize * 100).toFixed(1);
                         allocCells = `<td style="padding:7px 6px;text-align:right;color:#3B82F6;font-weight:bold;">${shares}</td>
-                            <td style="padding:7px 6px;text-align:right;color:#64748b;">$${cost}</td>`;
+                            <td style="padding:7px 6px;text-align:right;color:#64748b;">$${cost.toFixed(0)} <span style="color:#475569;font-size:0.7rem;">(${weightPct}%)</span></td>`;
+                    } else {
+                        skippedCount++;
+                        allocCells = `<td style="padding:7px 6px;text-align:right;color:#EF4444;font-size:0.75rem;">skip</td>
+                            <td style="padding:7px 6px;text-align:right;color:#EF4444;font-size:0.75rem;">$0</td>`;
                     }
-                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
-                        <td style="padding:7px 6px;font-weight:bold;">${h.symbol}</td>
-                        <td style="padding:7px 6px;text-align:right;">$${h.entry_price}</td>
-                        <td style="padding:7px 6px;text-align:right;">$${h.current_price}</td>
-                        <td style="padding:7px 6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${h.pnl_pct.toFixed(2)}%</td>
-                        <td style="padding:7px 6px;text-align:center;">${posLabel}</td>
-                        <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim1_target}</td>
-                        <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim2_target}</td>
-                        <td style="padding:7px 6px;text-align:center;">${h.days_held}</td>
-                        ${allocCells}
-                        <td style="padding:7px 6px;color:${statusColor};font-size:0.75rem;">${h.status}</td>
-                    </tr>`;
-                }).join('');
+                }
+
+                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
+                    <td style="padding:7px 6px;font-weight:bold;">${h.symbol}</td>
+                    <td style="padding:7px 6px;text-align:right;">$${h.entry_price}</td>
+                    <td style="padding:7px 6px;text-align:right;">$${h.current_price}</td>
+                    <td style="padding:7px 6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${h.pnl_pct.toFixed(2)}%</td>
+                    <td style="padding:7px 6px;text-align:center;">${posLabel}</td>
+                    <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim1_target}</td>
+                    <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim2_target}</td>
+                    <td style="padding:7px 6px;text-align:center;">${h.days_held}</td>
+                    ${allocCells}
+                    <td style="padding:7px 6px;color:${statusColor};font-size:0.75rem;">${h.status}</td>
+                </tr>`;
+            }).join('');
+
+            // Update summary bar
+            if (showAlloc) {
+                document.getElementById('alloc-summary').style.display = 'flex';
+                document.getElementById('alloc-invested').textContent = '$' + totalAllocated.toFixed(0);
+                document.getElementById('alloc-remaining').textContent = '$' + remainingCapital.toFixed(0);
+                document.getElementById('alloc-skipped').textContent = skippedCount;
+                document.getElementById('alloc-skipped').style.color = skippedCount > 0 ? '#EF4444' : '#10B981';
+            } else {
+                document.getElementById('alloc-summary').style.display = 'none';
             }
         }
 
         function recalcAllocations() {
             if (!_posData) return;
-            const portfolio = parseFloat(document.getElementById('portfolio-size').value) || 0;
-            const perPos = portfolio > 0 ? portfolio / _posData.max_positions : 0;
+            const portfolioSize = parseFloat(document.getElementById('portfolio-size').value) || 0;
+            const mode = document.getElementById('alloc-mode').value;
             const perPosEl = document.getElementById('alloc-per-pos');
 
-            if (perPos > 0) {
-                perPosEl.textContent = '$' + perPos.toFixed(0) + ' per position';
+            if (portfolioSize > 0 && mode === 'equal') {
+                const count = _posData.stats.total_active || 1;
+                perPosEl.textContent = '$' + (portfolioSize / count).toFixed(0) + ' per position';
+            } else if (portfolioSize > 0 && mode === 'score') {
+                perPosEl.textContent = 'Weighted by conviction score';
             } else {
                 perPosEl.textContent = '';
             }
