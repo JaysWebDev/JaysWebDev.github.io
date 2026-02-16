@@ -303,7 +303,7 @@
             </div>
             <div class="status-item">
                 <span class="status-dot"></span>
-                <span id="scanner-status">6 Scanners Online</span>
+                <span id="scanner-status">7 Scanners Online</span>
             </div>
             <div class="status-item">
                 <span class="status-dot"></span>
@@ -340,6 +340,7 @@
                     <div class="tabs">
                         <button class="tab-button active" onclick="showTab(event, 'overview')">📈 Overview</button>
                         <button class="tab-button" onclick="showTab(event, 'reports')">📄 Reports</button>
+                        <button class="tab-button" onclick="showTab(event, 'positions')">💼 Positions</button>
                         <button class="tab-button" onclick="showTab(event, 'analytics')">📊 Analytics</button>
                         <button class="tab-button" onclick="showTab(event, 'database')">🗄️ Database</button>
                         <button class="tab-button" onclick="showTab(event, 'strategies')">🧠 Strategies</button>
@@ -352,7 +353,7 @@
                             <div id="overview-content">
                                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 15px;">
                                     <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
-                                        <div style="font-size: 2rem; font-weight: bold; color: #3B82F6;">6</div>
+                                        <div style="font-size: 2rem; font-weight: bold; color: #3B82F6;">7</div>
                                         <div style="font-size: 0.85rem; color: #94A3B8;">Active Scanners</div>
                                     </div>
                                     <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
@@ -378,7 +379,7 @@
                                                 <span style="color: #94A3B8;">1:30 PM</span><span>Enhanced + V3 + Setups</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(148,163,184,0.1); padding: 4px 0;">
-                                                <span style="color: #94A3B8;">4:00 PM</span><span>All 6 Scanners + Telegram</span>
+                                                <span style="color: #94A3B8;">4:00 PM</span><span>All 7 Scanners + Telegram</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; padding: 4px 0;">
                                                 <span style="color: #94A3B8;">8:00 PM</span><span>Analysis + Performance</span>
@@ -389,19 +390,19 @@
                                         <h4 style="color: #CBD5E1; margin-bottom: 12px;">Strategy Parameters</h4>
                                         <div style="font-size: 0.85rem; line-height: 2;">
                                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(148,163,184,0.1); padding: 4px 0;">
-                                                <span style="color: #94A3B8;">Stop Loss</span><span>3%</span>
+                                                <span style="color: #94A3B8;">Trim 1</span><span style="color: #10B981;">50% at +10%</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(148,163,184,0.1); padding: 4px 0;">
-                                                <span style="color: #94A3B8;">Take Profit</span><span>5%</span>
+                                                <span style="color: #94A3B8;">Trim 2</span><span style="color: #FBBF24;">25% at +20%</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(148,163,184,0.1); padding: 4px 0;">
-                                                <span style="color: #94A3B8;">Trailing Stop</span><span>Breakeven +2%, Trail 50% +4%</span>
+                                                <span style="color: #94A3B8;">Stop</span><span>SMA50 trend break</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(148,163,184,0.1); padding: 4px 0;">
-                                                <span style="color: #94A3B8;">Win Rate</span><span style="color: #F59E0B;">51.9%</span>
+                                                <span style="color: #94A3B8;">Emergency</span><span style="color: #EF4444;">&gt;1 ATR below SMA50</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; padding: 4px 0;">
-                                                <span style="color: #94A3B8;">Avg Return/Signal</span><span style="color: #F59E0B;">+0.05%</span>
+                                                <span style="color: #94A3B8;">Max Positions</span><span>30</span>
                                             </div>
                                         </div>
                                     </div>
@@ -471,6 +472,95 @@
                                         <div style="font-weight: bold; font-size: 1.05rem;">Cross-Scanner Intelligence</div>
                                         <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 5px;">Multi-scanner overlap + multi-day persistence — highest conviction picks</div>
                                     </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="positions" class="tab-panel">
+                            <h3>Position Manager</h3>
+                            <div id="positions-content">
+                                <!-- Portfolio Summary Cards -->
+                                <div id="pos-summary" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px;">
+                                    <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
+                                        <div id="pos-total" style="font-size: 1.8rem; font-weight: bold; color: #3B82F6;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Active Positions</div>
+                                    </div>
+                                    <div style="background: rgba(16,185,129,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(16,185,129,0.2);">
+                                        <div id="pos-winners" style="font-size: 1.8rem; font-weight: bold; color: #10B981;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Winners</div>
+                                    </div>
+                                    <div style="background: rgba(239,68,68,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(239,68,68,0.2);">
+                                        <div id="pos-losers" style="font-size: 1.8rem; font-weight: bold; color: #EF4444;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Losers</div>
+                                    </div>
+                                    <div style="background: rgba(251,191,36,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(251,191,36,0.2);">
+                                        <div id="pos-avg-pnl" style="font-size: 1.8rem; font-weight: bold; color: #FBBF24;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Avg P&L</div>
+                                    </div>
+                                    <div style="background: rgba(148,163,184,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.2);">
+                                        <div id="pos-slots" style="font-size: 1.8rem; font-weight: bold; color: #94A3B8;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Open Slots</div>
+                                    </div>
+                                </div>
+
+                                <!-- Trade Rules -->
+                                <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 15px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.8rem;">
+                                    <div><span style="color: #10B981; font-weight: bold;">TRIM 1:</span> <span style="color: #CBD5E1;">Sell 50% at +10%</span></div>
+                                    <div><span style="color: #FBBF24; font-weight: bold;">TRIM 2:</span> <span style="color: #CBD5E1;">Sell 50% of remaining at +20%</span></div>
+                                    <div><span style="color: #EF4444; font-weight: bold;">STOP:</span> <span style="color: #CBD5E1;">Close &lt; SMA50 &amp; SMA50 declining</span></div>
+                                    <div><span style="color: #DC2626; font-weight: bold;">EMERGENCY:</span> <span style="color: #CBD5E1;">Close &lt; SMA50 by &gt;1 ATR</span></div>
+                                </div>
+
+                                <!-- Today's Alerts -->
+                                <div id="pos-alerts-section" style="margin-top: 15px;">
+                                    <h4 style="color: #CBD5E1; margin-bottom: 10px;">Today's Alerts</h4>
+                                    <div id="pos-alerts" style="display: grid; gap: 10px;">
+                                        <div style="color: #64748b; text-align: center; padding: 20px;">Loading position alerts...</div>
+                                    </div>
+                                </div>
+
+                                <!-- Holdings Table -->
+                                <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                        <h4 style="color: #CBD5E1; margin: 0;">Current Holdings</h4>
+                                        <span id="pos-date" style="color: #64748b; font-size: 0.75rem;"></span>
+                                    </div>
+                                    <div style="overflow-x: auto;">
+                                        <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                                            <thead>
+                                                <tr style="border-bottom: 2px solid rgba(59,130,246,0.3);">
+                                                    <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
+                                                    <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Entry</th>
+                                                    <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Current</th>
+                                                    <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">P&L %</th>
+                                                    <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Position</th>
+                                                    <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 1</th>
+                                                    <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 2</th>
+                                                    <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Days</th>
+                                                    <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="pos-holdings-body">
+                                                <tr><td colspan="9" style="padding: 20px; text-align: center; color: #64748b;">Loading holdings...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Track Record -->
+                                <div id="pos-track-record" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 15px;">
+                                    <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
+                                        <div id="pos-closed" style="font-size: 1.5rem; font-weight: bold; color: #CBD5E1;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Total Closed</div>
+                                    </div>
+                                    <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
+                                        <div id="pos-win-rate" style="font-size: 1.5rem; font-weight: bold; color: #CBD5E1;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Win Rate</div>
+                                    </div>
+                                    <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
+                                        <div id="pos-avg-hold" style="font-size: 1.5rem; font-weight: bold; color: #CBD5E1;">-</div>
+                                        <div style="font-size: 0.75rem; color: #94A3B8;">Avg Days Held</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1155,6 +1245,7 @@
             loadDashboardData();
             loadTopPicks();
             loadUnifiedPerformance();
+            loadPositions();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -1162,6 +1253,7 @@
             // Refresh data every 5 minutes
             setInterval(loadDashboardData, 300000);
             setInterval(loadTopPicks, 300000);
+            setInterval(loadPositions, 300000);
         };
 
         function checkAuth() {
@@ -1306,6 +1398,13 @@
                         lastRun: "16:00",
                         status: "active",
                         reportFile: "setups_latest.html"
+                    },
+                    {
+                        name: "🏆 Unified Scanner",
+                        candidates: 50,
+                        lastRun: "16:00",
+                        status: "active",
+                        reportFile: "unified_latest.html"
                     }
                 ];
 
@@ -1350,6 +1449,91 @@
             });
         }
 
+        function loadPositions() {
+            fetch('/trading/data/position_alerts.json')
+                .then(r => r.json())
+                .then(data => {
+                    // Summary cards
+                    document.getElementById('pos-total').textContent = data.stats.total_active;
+                    document.getElementById('pos-winners').textContent = data.stats.winners;
+                    document.getElementById('pos-losers').textContent = data.stats.losers;
+                    const avgPnl = data.stats.total_pnl_avg;
+                    const avgEl = document.getElementById('pos-avg-pnl');
+                    avgEl.textContent = (avgPnl >= 0 ? '+' : '') + avgPnl.toFixed(2) + '%';
+                    avgEl.style.color = avgPnl >= 0 ? '#10B981' : '#EF4444';
+                    document.getElementById('pos-slots').textContent = data.open_slots;
+                    document.getElementById('pos-date').textContent = 'Data: ' + data.date + ' | Generated: ' + data.generated;
+
+                    // Today's Alerts
+                    const alertsDiv = document.getElementById('pos-alerts');
+                    if (!data.alerts || data.alerts.length === 0) {
+                        alertsDiv.innerHTML = '<div style="color: #64748b; text-align: center; padding: 15px;">No alerts today — all positions holding steady.</div>';
+                    } else {
+                        alertsDiv.innerHTML = data.alerts.map(a => {
+                            let bg, border, icon, detail;
+                            if (a.action === 'BUY') {
+                                bg = 'rgba(16,185,129,0.1)'; border = 'rgba(16,185,129,0.4)'; icon = '🟢';
+                                detail = `Score: ${a.score} | Trim 1: $${a.trim1_target} | Trim 2: $${a.trim2_target}<br><span style="font-size:0.75rem;color:#94A3B8;">${a.signals || ''}</span>`;
+                            } else if (a.action === 'EXIT') {
+                                bg = 'rgba(239,68,68,0.1)'; border = 'rgba(239,68,68,0.4)'; icon = '🔴';
+                                detail = `Entry: $${a.entry_price} | P&L: ${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#F87171;">${a.reason}</span>`;
+                            } else if (a.action === 'TRIM1' || a.action === 'TRIM2') {
+                                bg = 'rgba(251,191,36,0.1)'; border = 'rgba(251,191,36,0.4)'; icon = '🟡';
+                                detail = `Entry: $${a.entry_price} | P&L: +${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#FBBF24;">${a.reason || a.action}</span>`;
+                            } else {
+                                bg = 'rgba(148,163,184,0.1)'; border = 'rgba(148,163,184,0.3)'; icon = '⚪';
+                                detail = a.reason || '';
+                            }
+                            return `<div style="background:${bg}; border:1px solid ${border}; border-radius:8px; padding:12px 15px; display:flex; align-items:center; gap:12px;">
+                                <span style="font-size:1.3rem;">${icon}</span>
+                                <div style="flex:1;">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                                        <span style="font-weight:bold;font-size:0.95rem;">${a.action} ${a.symbol}</span>
+                                        <span style="font-size:0.9rem;font-weight:bold;">$${a.price}</span>
+                                    </div>
+                                    <div style="font-size:0.8rem;color:#CBD5E1;margin-top:4px;">${detail}</div>
+                                </div>
+                            </div>`;
+                        }).join('');
+                    }
+
+                    // Holdings table
+                    const tbody = document.getElementById('pos-holdings-body');
+                    if (!data.holdings || data.holdings.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No active holdings.</td></tr>';
+                    } else {
+                        tbody.innerHTML = data.holdings.map(h => {
+                            const pnlColor = h.pnl_pct >= 0 ? '#10B981' : '#EF4444';
+                            const pnlSign = h.pnl_pct >= 0 ? '+' : '';
+                            const posLabel = h.trim2_hit ? '25%' : h.trim1_hit ? '50%' : '100%';
+                            const statusColor = h.status.includes('Below') ? '#F59E0B' : h.status.includes('trend') ? '#10B981' : '#94A3B8';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
+                                <td style="padding:7px 6px;font-weight:bold;">${h.symbol}</td>
+                                <td style="padding:7px 6px;text-align:right;">$${h.entry_price}</td>
+                                <td style="padding:7px 6px;text-align:right;">$${h.current_price}</td>
+                                <td style="padding:7px 6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${h.pnl_pct.toFixed(2)}%</td>
+                                <td style="padding:7px 6px;text-align:center;">${posLabel}</td>
+                                <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim1_target}</td>
+                                <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim2_target}</td>
+                                <td style="padding:7px 6px;text-align:center;">${h.days_held}</td>
+                                <td style="padding:7px 6px;color:${statusColor};font-size:0.75rem;">${h.status}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    // Track record
+                    const tr = data.track_record;
+                    document.getElementById('pos-closed').textContent = tr.total_closed;
+                    document.getElementById('pos-win-rate').textContent = tr.win_rate.toFixed(1) + '%';
+                    document.getElementById('pos-win-rate').style.color = tr.win_rate >= 50 ? '#10B981' : '#F59E0B';
+                    document.getElementById('pos-avg-hold').textContent = tr.avg_days_held + 'd';
+                })
+                .catch(err => {
+                    console.error('Error loading positions:', err);
+                    document.getElementById('pos-alerts').innerHTML = '<div style="color:#64748b;text-align:center;padding:20px;">Position data not yet available — manager runs with unified scanner.</div>';
+                });
+        }
+
         function loadTopPicks() {
             fetch('/trading/data/top_picks.json')
                 .then(r => r.json())
@@ -1381,6 +1565,7 @@
 
         function refreshData() {
             loadDashboardData();
+            loadPositions();
 
             // Show feedback
             const btn = event.target;
