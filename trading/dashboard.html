@@ -583,6 +583,100 @@
                                         <div style="font-size: 0.75rem; color: #94A3B8;">Avg Days Held</div>
                                     </div>
                                 </div>
+
+                                <!-- ═══ PAPER PORTFOLIO SIMULATION ═══ -->
+                                <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid rgba(251,191,36,0.3);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                        <h3 style="color: #FBBF24; margin: 0;">Paper Portfolio — $5,000 Simulation</h3>
+                                        <span id="pp-dates" style="color: #64748b; font-size: 0.75rem;"></span>
+                                    </div>
+
+                                    <!-- Equity Summary -->
+                                    <div id="pp-summary" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+                                        <div style="background: rgba(251,191,36,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(251,191,36,0.3);">
+                                            <div id="pp-value" style="font-size: 1.6rem; font-weight: bold; color: #FBBF24;">-</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Portfolio Value</div>
+                                        </div>
+                                        <div style="background: rgba(16,185,129,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(16,185,129,0.2);">
+                                            <div id="pp-return" style="font-size: 1.6rem; font-weight: bold; color: #10B981;">-</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Total Return</div>
+                                        </div>
+                                        <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
+                                            <div id="pp-return-dollar" style="font-size: 1.6rem; font-weight: bold; color: #3B82F6;">-</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">P&L ($)</div>
+                                        </div>
+                                        <div style="background: rgba(148,163,184,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.2);">
+                                            <div id="pp-cash" style="font-size: 1.6rem; font-weight: bold; color: #94A3B8;">-</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Cash</div>
+                                        </div>
+                                        <div style="background: rgba(148,163,184,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.2);">
+                                            <div id="pp-positions" style="font-size: 1.6rem; font-weight: bold; color: #CBD5E1;">-</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Positions</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Equity Curve -->
+                                    <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 15px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1);">
+                                        <h4 style="color: #CBD5E1; margin-bottom: 10px; font-size: 0.85rem;">Equity Curve</h4>
+                                        <div id="pp-equity-chart" style="height: 120px; display: flex; align-items: flex-end; gap: 2px;"></div>
+                                    </div>
+
+                                    <!-- Today's Actions -->
+                                    <div id="pp-actions-section" style="margin-top: 15px;">
+                                        <h4 style="color: #CBD5E1; margin-bottom: 10px; font-size: 0.85rem;">Today's Actions</h4>
+                                        <div id="pp-actions" style="display: grid; gap: 8px;">
+                                            <div style="color: #64748b; text-align: center; padding: 15px; font-size: 0.85rem;">Loading paper portfolio...</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Paper Holdings Table -->
+                                    <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1);">
+                                        <h4 style="color: #CBD5E1; margin-bottom: 15px; font-size: 0.85rem;">Paper Holdings</h4>
+                                        <div style="overflow-x: auto;">
+                                            <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                                                <thead>
+                                                    <tr style="border-bottom: 2px solid rgba(251,191,36,0.3);">
+                                                        <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Shares</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Entry</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Current</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">P&L %</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">P&L $</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Mkt Value</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Weight</th>
+                                                        <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Days</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 1</th>
+                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 2</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="pp-holdings-body">
+                                                    <tr><td colspan="11" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Closed Trades Summary -->
+                                    <div id="pp-closed-section" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 15px;">
+                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
+                                            <div id="pp-closed-total" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">0</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Closed Trades</div>
+                                        </div>
+                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
+                                            <div id="pp-win-rate" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">-</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Win Rate</div>
+                                        </div>
+                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
+                                            <div id="pp-realized" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">$0</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Total Realized P&L</div>
+                                        </div>
+                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
+                                            <div id="pp-days-running" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">0</div>
+                                            <div style="font-size: 0.7rem; color: #94A3B8;">Days Running</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -1267,6 +1361,7 @@
             loadTopPicks();
             loadUnifiedPerformance();
             loadPositions();
+            loadPaperPortfolio();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -1275,6 +1370,7 @@
             setInterval(loadDashboardData, 300000);
             setInterval(loadTopPicks, 300000);
             setInterval(loadPositions, 300000);
+            setInterval(loadPaperPortfolio, 300000);
         };
 
         function checkAuth() {
@@ -1682,6 +1778,112 @@
             renderHoldings(_posData);
         }
 
+        function loadPaperPortfolio() {
+            fetch('/trading/data/paper_portfolio.json')
+                .then(r => r.json())
+                .then(pp => {
+                    // Dates
+                    document.getElementById('pp-dates').textContent =
+                        `Started: ${pp.start_date} | Updated: ${pp.generated}`;
+
+                    // Summary cards
+                    document.getElementById('pp-value').textContent = '$' + pp.total_value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    const retEl = document.getElementById('pp-return');
+                    retEl.textContent = (pp.total_return_pct >= 0 ? '+' : '') + pp.total_return_pct.toFixed(2) + '%';
+                    retEl.style.color = pp.total_return_pct >= 0 ? '#10B981' : '#EF4444';
+                    const retDolEl = document.getElementById('pp-return-dollar');
+                    retDolEl.textContent = (pp.total_return_dollar >= 0 ? '+$' : '-$') + Math.abs(pp.total_return_dollar).toFixed(2);
+                    retDolEl.style.color = pp.total_return_dollar >= 0 ? '#10B981' : '#EF4444';
+                    document.getElementById('pp-cash').textContent = '$' + pp.cash.toFixed(0);
+                    document.getElementById('pp-positions').textContent = pp.num_positions;
+
+                    // Equity curve (simple bar chart)
+                    const chartDiv = document.getElementById('pp-equity-chart');
+                    const curve = pp.equity_curve || [];
+                    if (curve.length > 0) {
+                        const values = curve.map(d => d.total_value);
+                        const minVal = Math.min(...values) * 0.995;
+                        const maxVal = Math.max(...values) * 1.005;
+                        const range = maxVal - minVal || 1;
+                        chartDiv.innerHTML = curve.map((d, i) => {
+                            const height = Math.max(5, ((d.total_value - minVal) / range) * 100);
+                            const color = d.total_return_pct >= 0 ? '#10B981' : '#EF4444';
+                            const width = Math.max(4, Math.min(20, Math.floor(chartDiv.offsetWidth / curve.length) - 2));
+                            return `<div title="${d.date}: $${d.total_value.toFixed(2)} (${d.total_return_pct >= 0 ? '+' : ''}${d.total_return_pct.toFixed(2)}%)"
+                                style="width:${width}px; height:${height}%; background:${color}; border-radius:2px 2px 0 0; opacity:${i === curve.length-1 ? 1 : 0.7}; cursor:pointer;"></div>`;
+                        }).join('');
+                    } else {
+                        chartDiv.innerHTML = '<div style="color:#64748b;text-align:center;width:100%;padding:20px;font-size:0.8rem;">Equity curve builds over time...</div>';
+                    }
+
+                    // Today's actions
+                    const actionsDiv = document.getElementById('pp-actions');
+                    const actions = pp.today_actions || [];
+                    if (actions.length === 0) {
+                        actionsDiv.innerHTML = '<div style="color:#64748b;text-align:center;padding:10px;font-size:0.85rem;">No actions today — portfolio holding steady.</div>';
+                    } else {
+                        actionsDiv.innerHTML = actions.map(a => {
+                            let bg, border, icon, text;
+                            if (a.action === 'BUY') {
+                                bg = 'rgba(16,185,129,0.08)'; border = 'rgba(16,185,129,0.3)'; icon = '🟢';
+                                text = `<b>BUY ${a.symbol}</b>: ${a.shares} shares @ $${a.price} = $${a.cost.toFixed(2)} <span style="color:#64748b;">(${a.weight_pct}%)</span>`;
+                            } else if (a.action === 'EXIT') {
+                                bg = 'rgba(239,68,68,0.08)'; border = 'rgba(239,68,68,0.3)'; icon = '🔴';
+                                text = `<b>EXIT ${a.symbol}</b>: ${a.shares} shares @ $${a.price} | P&L: <span style="color:${a.pnl_dollar >= 0 ? '#10B981' : '#EF4444'};">${a.pnl_dollar >= 0 ? '+' : ''}$${a.pnl_dollar.toFixed(2)} (${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(1)}%)</span>`;
+                            } else {
+                                bg = 'rgba(251,191,36,0.08)'; border = 'rgba(251,191,36,0.3)'; icon = '🟡';
+                                text = `<b>${a.action} ${a.symbol}</b>: Sold ${a.shares_sold} shares @ $${a.price} = $${a.proceeds.toFixed(2)} | ${a.shares_remaining} remaining`;
+                            }
+                            return `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:8px 12px;font-size:0.8rem;">
+                                ${icon} ${text}</div>`;
+                        }).join('');
+                    }
+
+                    // Holdings table
+                    const tbody = document.getElementById('pp-holdings-body');
+                    if (!pp.positions || pp.positions.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="11" style="padding:15px;text-align:center;color:#64748b;">No positions yet.</td></tr>';
+                    } else {
+                        tbody.innerHTML = pp.positions.map(p => {
+                            const pnlColor = p.pnl_pct >= 0 ? '#10B981' : '#EF4444';
+                            const pnlSign = p.pnl_pct >= 0 ? '+' : '';
+                            const dolSign = p.pnl_dollar >= 0 ? '+$' : '-$';
+                            const trimBadge = p.trim2_hit ? '<span style="color:#FBBF24;font-size:0.65rem;">T1+T2</span>' :
+                                              p.trim1_hit ? '<span style="color:#FBBF24;font-size:0.65rem;">T1</span>' : '';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
+                                <td style="padding:6px;font-weight:bold;">${p.symbol} ${trimBadge}</td>
+                                <td style="padding:6px;text-align:right;">${p.shares}${p.shares !== p.original_shares ? '<span style="color:#64748b;font-size:0.7rem;">/' + p.original_shares + '</span>' : ''}</td>
+                                <td style="padding:6px;text-align:right;">$${p.entry_price}</td>
+                                <td style="padding:6px;text-align:right;">$${p.current_price}</td>
+                                <td style="padding:6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${p.pnl_pct.toFixed(2)}%</td>
+                                <td style="padding:6px;text-align:right;color:${pnlColor};">${dolSign}${Math.abs(p.pnl_dollar).toFixed(2)}</td>
+                                <td style="padding:6px;text-align:right;">$${p.market_value.toFixed(0)}</td>
+                                <td style="padding:6px;text-align:right;color:#64748b;">${p.weight_pct}%</td>
+                                <td style="padding:6px;text-align:center;">${p.days_held}</td>
+                                <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim1_target}</td>
+                                <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim2_target}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    // Closed trades
+                    const ct = pp.closed_trades;
+                    document.getElementById('pp-closed-total').textContent = ct.total;
+                    const wrEl = document.getElementById('pp-win-rate');
+                    wrEl.textContent = ct.total > 0 ? ct.win_rate.toFixed(1) + '%' : '-';
+                    wrEl.style.color = ct.win_rate >= 50 ? '#10B981' : ct.total > 0 ? '#F59E0B' : '#CBD5E1';
+                    const realEl = document.getElementById('pp-realized');
+                    realEl.textContent = (ct.total_realized >= 0 ? '+$' : '-$') + Math.abs(ct.total_realized).toFixed(2);
+                    realEl.style.color = ct.total_realized >= 0 ? '#10B981' : '#EF4444';
+                    document.getElementById('pp-days-running').textContent = pp.stats.days_running;
+                })
+                .catch(err => {
+                    console.error('Paper portfolio load error:', err);
+                    document.getElementById('pp-actions').innerHTML =
+                        '<div style="color:#64748b;text-align:center;padding:15px;font-size:0.85rem;">Paper portfolio not yet initialized — starts Monday.</div>';
+                });
+        }
+
         function loadTopPicks() {
             fetch('/trading/data/top_picks.json')
                 .then(r => r.json())
@@ -1714,6 +1916,7 @@
         function refreshData() {
             loadDashboardData();
             loadPositions();
+            loadPaperPortfolio();
 
             // Show feedback
             const btn = event.target;
