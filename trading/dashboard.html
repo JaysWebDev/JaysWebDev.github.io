@@ -511,6 +511,14 @@
                                     <div><span style="color: #DC2626; font-weight: bold;">EMERGENCY:</span> <span style="color: #CBD5E1;">Close &lt; SMA50 by &gt;1 ATR</span></div>
                                 </div>
 
+                                <!-- Portfolio Allocator -->
+                                <div style="background: rgba(30,41,59,0.8); border-radius: 10px; padding: 15px; margin-top: 15px; border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                                    <label style="color: #CBD5E1; font-size: 0.85rem; font-weight: bold; white-space: nowrap;">Portfolio Size: $</label>
+                                    <input id="portfolio-size" type="number" min="100" step="100" placeholder="5000" style="background: rgba(15,23,42,0.8); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; padding: 8px 12px; color: #e2e8f0; font-size: 0.9rem; width: 120px; outline: none;" oninput="recalcAllocations()">
+                                    <span style="color: #64748b; font-size: 0.8rem;">Equal-weight across <span id="alloc-count">30</span> positions</span>
+                                    <span id="alloc-per-pos" style="color: #3B82F6; font-size: 0.85rem; font-weight: bold; margin-left: auto;"></span>
+                                </div>
+
                                 <!-- Today's Alerts -->
                                 <div id="pos-alerts-section" style="margin-top: 15px;">
                                     <h4 style="color: #CBD5E1; margin-bottom: 10px;">Today's Alerts</h4>
@@ -537,11 +545,13 @@
                                                     <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 1</th>
                                                     <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 2</th>
                                                     <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Days</th>
+                                                    <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;" class="alloc-col" hidden>Shares</th>
+                                                    <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;" class="alloc-col" hidden>Alloc $</th>
                                                     <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="pos-holdings-body">
-                                                <tr><td colspan="9" style="padding: 20px; text-align: center; color: #64748b;">Loading holdings...</td></tr>
+                                                <tr><td colspan="11" style="padding: 20px; text-align: center; color: #64748b;">Loading holdings...</td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -1449,10 +1459,14 @@
             });
         }
 
+        let _posData = null; // stored for reallocation calcs
+
         function loadPositions() {
             fetch('/trading/data/position_alerts.json')
                 .then(r => r.json())
                 .then(data => {
+                    _posData = data;
+
                     // Summary cards
                     document.getElementById('pos-total').textContent = data.stats.total_active;
                     document.getElementById('pos-winners').textContent = data.stats.winners;
@@ -1463,63 +1477,13 @@
                     avgEl.style.color = avgPnl >= 0 ? '#10B981' : '#EF4444';
                     document.getElementById('pos-slots').textContent = data.open_slots;
                     document.getElementById('pos-date').textContent = 'Data: ' + data.date + ' | Generated: ' + data.generated;
+                    document.getElementById('alloc-count').textContent = data.max_positions;
 
                     // Today's Alerts
-                    const alertsDiv = document.getElementById('pos-alerts');
-                    if (!data.alerts || data.alerts.length === 0) {
-                        alertsDiv.innerHTML = '<div style="color: #64748b; text-align: center; padding: 15px;">No alerts today — all positions holding steady.</div>';
-                    } else {
-                        alertsDiv.innerHTML = data.alerts.map(a => {
-                            let bg, border, icon, detail;
-                            if (a.action === 'BUY') {
-                                bg = 'rgba(16,185,129,0.1)'; border = 'rgba(16,185,129,0.4)'; icon = '🟢';
-                                detail = `Score: ${a.score} | Trim 1: $${a.trim1_target} | Trim 2: $${a.trim2_target}<br><span style="font-size:0.75rem;color:#94A3B8;">${a.signals || ''}</span>`;
-                            } else if (a.action === 'EXIT') {
-                                bg = 'rgba(239,68,68,0.1)'; border = 'rgba(239,68,68,0.4)'; icon = '🔴';
-                                detail = `Entry: $${a.entry_price} | P&L: ${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#F87171;">${a.reason}</span>`;
-                            } else if (a.action === 'TRIM1' || a.action === 'TRIM2') {
-                                bg = 'rgba(251,191,36,0.1)'; border = 'rgba(251,191,36,0.4)'; icon = '🟡';
-                                detail = `Entry: $${a.entry_price} | P&L: +${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#FBBF24;">${a.reason || a.action}</span>`;
-                            } else {
-                                bg = 'rgba(148,163,184,0.1)'; border = 'rgba(148,163,184,0.3)'; icon = '⚪';
-                                detail = a.reason || '';
-                            }
-                            return `<div style="background:${bg}; border:1px solid ${border}; border-radius:8px; padding:12px 15px; display:flex; align-items:center; gap:12px;">
-                                <span style="font-size:1.3rem;">${icon}</span>
-                                <div style="flex:1;">
-                                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                                        <span style="font-weight:bold;font-size:0.95rem;">${a.action} ${a.symbol}</span>
-                                        <span style="font-size:0.9rem;font-weight:bold;">$${a.price}</span>
-                                    </div>
-                                    <div style="font-size:0.8rem;color:#CBD5E1;margin-top:4px;">${detail}</div>
-                                </div>
-                            </div>`;
-                        }).join('');
-                    }
+                    renderAlerts(data);
 
                     // Holdings table
-                    const tbody = document.getElementById('pos-holdings-body');
-                    if (!data.holdings || data.holdings.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No active holdings.</td></tr>';
-                    } else {
-                        tbody.innerHTML = data.holdings.map(h => {
-                            const pnlColor = h.pnl_pct >= 0 ? '#10B981' : '#EF4444';
-                            const pnlSign = h.pnl_pct >= 0 ? '+' : '';
-                            const posLabel = h.trim2_hit ? '25%' : h.trim1_hit ? '50%' : '100%';
-                            const statusColor = h.status.includes('Below') ? '#F59E0B' : h.status.includes('trend') ? '#10B981' : '#94A3B8';
-                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
-                                <td style="padding:7px 6px;font-weight:bold;">${h.symbol}</td>
-                                <td style="padding:7px 6px;text-align:right;">$${h.entry_price}</td>
-                                <td style="padding:7px 6px;text-align:right;">$${h.current_price}</td>
-                                <td style="padding:7px 6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${h.pnl_pct.toFixed(2)}%</td>
-                                <td style="padding:7px 6px;text-align:center;">${posLabel}</td>
-                                <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim1_target}</td>
-                                <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim2_target}</td>
-                                <td style="padding:7px 6px;text-align:center;">${h.days_held}</td>
-                                <td style="padding:7px 6px;color:${statusColor};font-size:0.75rem;">${h.status}</td>
-                            </tr>`;
-                        }).join('');
-                    }
+                    renderHoldings(data);
 
                     // Track record
                     const tr = data.track_record;
@@ -1527,11 +1491,117 @@
                     document.getElementById('pos-win-rate').textContent = tr.win_rate.toFixed(1) + '%';
                     document.getElementById('pos-win-rate').style.color = tr.win_rate >= 50 ? '#10B981' : '#F59E0B';
                     document.getElementById('pos-avg-hold').textContent = tr.avg_days_held + 'd';
+
+                    // Re-apply allocation if user already entered a value
+                    recalcAllocations();
                 })
                 .catch(err => {
                     console.error('Error loading positions:', err);
                     document.getElementById('pos-alerts').innerHTML = '<div style="color:#64748b;text-align:center;padding:20px;">Position data not yet available — manager runs with unified scanner.</div>';
                 });
+        }
+
+        function renderAlerts(data) {
+            const alertsDiv = document.getElementById('pos-alerts');
+            const portfolio = parseFloat(document.getElementById('portfolio-size').value) || 0;
+            const perPos = portfolio > 0 ? portfolio / data.max_positions : 0;
+
+            if (!data.alerts || data.alerts.length === 0) {
+                alertsDiv.innerHTML = '<div style="color: #64748b; text-align: center; padding: 15px;">No alerts today — all positions holding steady.</div>';
+            } else {
+                alertsDiv.innerHTML = data.alerts.map(a => {
+                    let bg, border, icon, detail;
+                    if (a.action === 'BUY') {
+                        bg = 'rgba(16,185,129,0.1)'; border = 'rgba(16,185,129,0.4)'; icon = '🟢';
+                        let allocStr = '';
+                        if (perPos > 0) {
+                            const shares = Math.floor(perPos / a.price);
+                            const cost = (shares * a.price).toFixed(2);
+                            allocStr = `<br><span style="font-size:0.85rem;color:#10B981;font-weight:bold;">Buy ${shares} share${shares !== 1 ? 's' : ''} @ $${a.price} = $${cost}</span>`;
+                        }
+                        detail = `Score: ${a.score} | Trim 1: $${a.trim1_target} | Trim 2: $${a.trim2_target}${allocStr}<br><span style="font-size:0.75rem;color:#94A3B8;">${a.signals || ''}</span>`;
+                    } else if (a.action === 'EXIT') {
+                        bg = 'rgba(239,68,68,0.1)'; border = 'rgba(239,68,68,0.4)'; icon = '🔴';
+                        detail = `Entry: $${a.entry_price} | P&L: ${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#F87171;">${a.reason}</span>`;
+                    } else if (a.action === 'TRIM1' || a.action === 'TRIM2') {
+                        bg = 'rgba(251,191,36,0.1)'; border = 'rgba(251,191,36,0.4)'; icon = '🟡';
+                        detail = `Entry: $${a.entry_price} | P&L: +${a.pnl_pct.toFixed(2)}% | ${a.days_held}d held<br><span style="font-size:0.75rem;color:#FBBF24;">${a.reason || a.action}</span>`;
+                    } else {
+                        bg = 'rgba(148,163,184,0.1)'; border = 'rgba(148,163,184,0.3)'; icon = '⚪';
+                        detail = a.reason || '';
+                    }
+                    return `<div style="background:${bg}; border:1px solid ${border}; border-radius:8px; padding:12px 15px; display:flex; align-items:center; gap:12px;">
+                        <span style="font-size:1.3rem;">${icon}</span>
+                        <div style="flex:1;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <span style="font-weight:bold;font-size:0.95rem;">${a.action} ${a.symbol}</span>
+                                <span style="font-size:0.9rem;font-weight:bold;">$${a.price}</span>
+                            </div>
+                            <div style="font-size:0.8rem;color:#CBD5E1;margin-top:4px;">${detail}</div>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+        }
+
+        function renderHoldings(data) {
+            const tbody = document.getElementById('pos-holdings-body');
+            const portfolio = parseFloat(document.getElementById('portfolio-size').value) || 0;
+            const perPos = portfolio > 0 ? portfolio / data.max_positions : 0;
+            const showAlloc = perPos > 0;
+
+            // Show/hide allocation columns
+            document.querySelectorAll('.alloc-col').forEach(el => el.hidden = !showAlloc);
+
+            if (!data.holdings || data.holdings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="' + (showAlloc ? 11 : 9) + '" style="padding:20px;text-align:center;color:#64748b;">No active holdings.</td></tr>';
+            } else {
+                let totalAllocated = 0;
+                tbody.innerHTML = data.holdings.map(h => {
+                    const pnlColor = h.pnl_pct >= 0 ? '#10B981' : '#EF4444';
+                    const pnlSign = h.pnl_pct >= 0 ? '+' : '';
+                    const posLabel = h.trim2_hit ? '25%' : h.trim1_hit ? '50%' : '100%';
+                    const statusColor = h.status.includes('Below') ? '#F59E0B' : h.status.includes('trend') ? '#10B981' : '#94A3B8';
+                    let allocCells = '';
+                    if (showAlloc) {
+                        const posFrac = h.trim2_hit ? 0.25 : h.trim1_hit ? 0.50 : 1.0;
+                        const allocBudget = perPos * posFrac;
+                        const shares = Math.floor(allocBudget / h.entry_price);
+                        const cost = (shares * h.entry_price).toFixed(0);
+                        totalAllocated += shares * h.entry_price;
+                        allocCells = `<td style="padding:7px 6px;text-align:right;color:#3B82F6;font-weight:bold;">${shares}</td>
+                            <td style="padding:7px 6px;text-align:right;color:#64748b;">$${cost}</td>`;
+                    }
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
+                        <td style="padding:7px 6px;font-weight:bold;">${h.symbol}</td>
+                        <td style="padding:7px 6px;text-align:right;">$${h.entry_price}</td>
+                        <td style="padding:7px 6px;text-align:right;">$${h.current_price}</td>
+                        <td style="padding:7px 6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${h.pnl_pct.toFixed(2)}%</td>
+                        <td style="padding:7px 6px;text-align:center;">${posLabel}</td>
+                        <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim1_target}</td>
+                        <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim2_target}</td>
+                        <td style="padding:7px 6px;text-align:center;">${h.days_held}</td>
+                        ${allocCells}
+                        <td style="padding:7px 6px;color:${statusColor};font-size:0.75rem;">${h.status}</td>
+                    </tr>`;
+                }).join('');
+            }
+        }
+
+        function recalcAllocations() {
+            if (!_posData) return;
+            const portfolio = parseFloat(document.getElementById('portfolio-size').value) || 0;
+            const perPos = portfolio > 0 ? portfolio / _posData.max_positions : 0;
+            const perPosEl = document.getElementById('alloc-per-pos');
+
+            if (perPos > 0) {
+                perPosEl.textContent = '$' + perPos.toFixed(0) + ' per position';
+            } else {
+                perPosEl.textContent = '';
+            }
+
+            renderAlerts(_posData);
+            renderHoldings(_posData);
         }
 
         function loadTopPicks() {
