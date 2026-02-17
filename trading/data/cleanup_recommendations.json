@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-02-16 07:00:03",
+  "timestamp": "2026-02-17 07:00:02",
   "analysis_summary": {
     "total_securities": 847,
-    "stale_securities": 10,
-    "validated_securities": 10
+    "stale_securities": 12,
+    "validated_securities": 12
   },
   "cleanup_actions": [
     {
@@ -20,13 +20,15 @@
     {
       "priority": "MEDIUM",
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 5 securities under $1.00",
+      "description": "Review 7 securities under $1.00",
       "affected_symbols": [
         "SURG",
         "COOK",
         "LAZR",
         "GNS",
-        "GAME"
+        "GAME",
+        "INVZ",
+        "AREB"
       ],
       "estimated_cleanup_time": "45 minutes",
       "recommendation": "Consider removing from watchlist if consistently under $1.00"
@@ -73,9 +75,9 @@
     }
   ],
   "risk_assessment": {
-    "overall_risk": "LOW",
-    "stale_percentage": 1.18,
-    "data_quality_score": 80,
+    "overall_risk": "MEDIUM",
+    "stale_percentage": 1.42,
+    "data_quality_score": 76,
     "recommendations_urgency": "IMMEDIATE"
   }
 }
