@@ -1,62 +1,19 @@
 {
   "date": "2026-02-13",
-  "generated": "2026-02-16 13:31:23",
+  "generated": "2026-02-16 16:12:13",
   "portfolio_size": 30,
   "max_positions": 30,
   "open_slots": 0,
-  "exits_today": 2,
+  "exits_today": 0,
   "trims_today": 0,
-  "new_buys_today": 2,
+  "new_buys_today": 0,
   "rules": {
     "trim1": "Sell 50% at +10%",
     "trim2": "Sell 50% of remaining at +20%",
     "stop": "Close < SMA50 AND SMA50 declining (5-day slope)",
     "emergency": "Close < SMA50 by > 1 ATR"
   },
-  "alerts": [
-    {
-      "action": "EXIT",
-      "symbol": "KNX",
-      "price": 59.55,
-      "entry_price": 60.21,
-      "pnl_pct": -1.09,
-      "blended_pnl": -1.09,
-      "days_held": 0,
-      "reason": "TREND BREAK: Close $59.55 < SMA50 $59.80 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "BLDR",
-      "price": 114.73,
-      "entry_price": 117.71,
-      "pnl_pct": -2.54,
-      "blended_pnl": -2.54,
-      "days_held": 0,
-      "reason": "EMERGENCY: Close $114.73 below SMA50 $122.99 by >7.18 ATR",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "BUY",
-      "symbol": "MOAT",
-      "price": 105.57,
-      "score": 150.0,
-      "signals": "ABOVE SMA50 \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 VOL ACCUM \u00b7 VOL 4D UP \u00b7 VOL SURGE \u00b7 OBV ACCUM \u00b7 RVOL 1.6x ",
-      "trim1_target": 116.13,
-      "trim2_target": 126.68
-    },
-    {
-      "action": "BUY",
-      "symbol": "COUR",
-      "price": 5.92,
-      "score": 146.0,
-      "signals": "ABOVE SMA50 \u00b7 NEAR HIGH \u00b7 VOL ACCUM \u00b7 VOL 3D UP \u00b7 OBV ACCUM \u00b7 RVOL 1.3x \u00b7 BB SQUEEZE \u00b7 RSI RISING 46",
-      "trim1_target": 6.51,
-      "trim2_target": 7.1
-    }
-  ],
+  "alerts": [],
   "holdings": [
     {
       "action": "HOLD",
