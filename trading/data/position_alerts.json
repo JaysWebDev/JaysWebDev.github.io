@@ -1,167 +1,19 @@
 {
   "date": "2026-02-17",
-  "generated": "2026-02-17 13:31:23",
+  "generated": "2026-02-17 16:11:24",
   "portfolio_size": 30,
   "max_positions": 30,
   "open_slots": 0,
-  "exits_today": 7,
+  "exits_today": 0,
   "trims_today": 0,
-  "new_buys_today": 7,
+  "new_buys_today": 0,
   "rules": {
     "trim1": "Sell 50% at +10%",
     "trim2": "Sell 50% of remaining at +20%",
     "stop": "Close < SMA50 AND SMA50 declining (5-day slope)",
     "emergency": "Close < SMA50 by > 1 ATR"
   },
-  "alerts": [
-    {
-      "action": "EXIT",
-      "symbol": "IBKR",
-      "price": 73.11,
-      "entry_price": 74.81,
-      "pnl_pct": -2.27,
-      "blended_pnl": -2.27,
-      "days_held": 4,
-      "reason": "TREND BREAK: Close $73.11 < SMA50 $74.89 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "STLD",
-      "price": 191.11,
-      "entry_price": 191.67,
-      "pnl_pct": -0.29,
-      "blended_pnl": -0.29,
-      "days_held": 4,
-      "reason": "TREND BREAK: Close $191.11 < SMA50 $197.84 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "FER",
-      "price": 72.95,
-      "entry_price": 73.06,
-      "pnl_pct": -0.15,
-      "blended_pnl": -0.15,
-      "days_held": 4,
-      "reason": "TREND BREAK: Close $72.95 < SMA50 $73.16 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "GME",
-      "price": 23.52,
-      "entry_price": 23.72,
-      "pnl_pct": -0.84,
-      "blended_pnl": -0.84,
-      "days_held": 4,
-      "reason": "TREND BREAK: Close $23.52 < SMA50 $23.93 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "KEY",
-      "price": 21.72,
-      "entry_price": 21.69,
-      "pnl_pct": 0.09,
-      "blended_pnl": 0.09,
-      "days_held": 4,
-      "reason": "TREND BREAK: Close $21.72 < SMA50 $22.13 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "LW",
-      "price": 46.81,
-      "entry_price": 50.67,
-      "pnl_pct": -7.62,
-      "blended_pnl": -7.62,
-      "days_held": 4,
-      "reason": "EMERGENCY: Close $46.81 below SMA50 $49.55 by >1.79 ATR",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "MOAT",
-      "price": 105.23,
-      "entry_price": 105.57,
-      "pnl_pct": -0.32,
-      "blended_pnl": -0.32,
-      "days_held": 4,
-      "reason": "TREND BREAK: Close $105.23 < SMA50 $105.41 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "BUY",
-      "symbol": "NKE",
-      "price": 64.07,
-      "score": 135.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 NEAR HIGH \u00b7 OBV ACCUM \u00b7 BB SQUEEZE \u00b7 RSI RISING 60 \u00b7 3 SCANNERS \u00b7 VCB ",
-      "trim1_target": 70.47,
-      "trim2_target": 76.88
-    },
-    {
-      "action": "BUY",
-      "symbol": "NEM",
-      "price": 122.77,
-      "score": 133.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 53 ",
-      "trim1_target": 135.05,
-      "trim2_target": 147.33
-    },
-    {
-      "action": "BUY",
-      "symbol": "GM",
-      "price": 80.6,
-      "score": 130.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 57 ",
-      "trim1_target": 88.65,
-      "trim2_target": 96.71
-    },
-    {
-      "action": "BUY",
-      "symbol": "HOLX",
-      "price": 75.19,
-      "score": 130.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 54 ",
-      "trim1_target": 82.71,
-      "trim2_target": 90.23
-    },
-    {
-      "action": "BUY",
-      "symbol": "KNX",
-      "price": 60.1,
-      "score": 130.0,
-      "signals": "ABOVE SMA50 \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 OBV ACCUM \u00b7 BB SQUEEZE \u00b7 RSI RISING 52 \u00b7 2 ",
-      "trim1_target": 66.11,
-      "trim2_target": 72.12
-    },
-    {
-      "action": "BUY",
-      "symbol": "LHX",
-      "price": 347.25,
-      "score": 130.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 59 ",
-      "trim1_target": 381.98,
-      "trim2_target": 416.7
-    },
-    {
-      "action": "BUY",
-      "symbol": "NDSN",
-      "price": 296.57,
-      "score": 130.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 56 ",
-      "trim1_target": 326.23,
-      "trim2_target": 355.88
-    }
-  ],
+  "alerts": [],
   "holdings": [
     {
       "action": "HOLD",
