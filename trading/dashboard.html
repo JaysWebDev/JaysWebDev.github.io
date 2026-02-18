@@ -590,7 +590,7 @@
                                 <!-- ═══ PAPER PORTFOLIO SIMULATION ═══ -->
                                 <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid rgba(251,191,36,0.3);">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                                        <h3 style="color: #FBBF24; margin: 0;">Paper Portfolio — $5,000 Simulation</h3>
+                                        <h3 style="color: #FBBF24; margin: 0;">Paper Portfolio — $5,000 · 10-Slot Rotation</h3>
                                         <span id="pp-dates" style="color: #64748b; font-size: 0.75rem;"></span>
                                     </div>
 
@@ -648,12 +648,13 @@
                                                         <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Mkt Value</th>
                                                         <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Weight</th>
                                                         <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Days</th>
+                                                        <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Stage</th>
                                                         <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 1</th>
                                                         <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 2</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="pp-holdings-body">
-                                                    <tr><td colspan="11" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
+                                                    <tr><td colspan="12" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1827,12 +1828,14 @@
                     } else {
                         actionsDiv.innerHTML = actions.map(a => {
                             let bg, border, icon, text;
-                            if (a.action === 'BUY') {
-                                bg = 'rgba(16,185,129,0.08)'; border = 'rgba(16,185,129,0.3)'; icon = '🟢';
-                                text = `<b>BUY ${a.symbol}</b>: ${a.shares} shares @ $${a.price} = $${a.cost.toFixed(2)} <span style="color:#64748b;">(${a.weight_pct}%)</span>`;
-                            } else if (a.action === 'EXIT') {
-                                bg = 'rgba(239,68,68,0.08)'; border = 'rgba(239,68,68,0.3)'; icon = '🔴';
-                                text = `<b>EXIT ${a.symbol}</b>: ${a.shares} shares @ $${a.price} | P&L: <span style="color:${a.pnl_dollar >= 0 ? '#10B981' : '#EF4444'};">${a.pnl_dollar >= 0 ? '+' : ''}$${a.pnl_dollar.toFixed(2)} (${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(1)}%)</span>`;
+                            if (a.action === 'BUY' || a.action === 'ROTATE_IN') {
+                                bg = 'rgba(16,185,129,0.08)'; border = 'rgba(16,185,129,0.3)'; icon = a.action === 'ROTATE_IN' ? '🔄' : '🟢';
+                                const stageStr = a.cycle_stage !== undefined ? ` · Stage:${a.cycle_stage}` : '';
+                                text = `<b>${a.action === 'ROTATE_IN' ? 'ROTATE IN' : 'BUY'} ${a.symbol}</b>: ${a.shares} shares @ $${a.price} = $${a.cost.toFixed(2)}${stageStr}`;
+                            } else if (a.action === 'EXIT' || a.action === 'ROTATE_OUT') {
+                                bg = 'rgba(239,68,68,0.08)'; border = 'rgba(239,68,68,0.3)'; icon = a.action === 'ROTATE_OUT' ? '🔄' : '🔴';
+                                const pnl = a.pnl_pct !== undefined ? ` | P&L: <span style="color:${a.pnl_pct >= 0 ? '#10B981' : '#EF4444'};">${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(1)}%</span>` : '';
+                                text = `<b>${a.action === 'ROTATE_OUT' ? 'ROTATE OUT' : 'EXIT'} ${a.symbol}</b>${pnl} <span style="color:#64748b;font-size:0.75rem;">${a.reason || ''}</span>`;
                             } else {
                                 bg = 'rgba(251,191,36,0.08)'; border = 'rgba(251,191,36,0.3)'; icon = '🟡';
                                 text = `<b>${a.action} ${a.symbol}</b>: Sold ${a.shares_sold} shares @ $${a.price} = $${a.proceeds.toFixed(2)} | ${a.shares_remaining} remaining`;
@@ -1845,7 +1848,7 @@
                     // Holdings table
                     const tbody = document.getElementById('pp-holdings-body');
                     if (!pp.positions || pp.positions.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="11" style="padding:15px;text-align:center;color:#64748b;">No positions yet.</td></tr>';
+                        tbody.innerHTML = '<tr><td colspan="12" style="padding:15px;text-align:center;color:#64748b;">No positions yet.</td></tr>';
                     } else {
                         tbody.innerHTML = pp.positions.map(p => {
                             const pnlColor = p.pnl_pct >= 0 ? '#10B981' : '#EF4444';
@@ -1853,6 +1856,8 @@
                             const dolSign = p.pnl_dollar >= 0 ? '+$' : '-$';
                             const trimBadge = p.trim2_hit ? '<span style="color:#FBBF24;font-size:0.65rem;">T1+T2</span>' :
                                               p.trim1_hit ? '<span style="color:#FBBF24;font-size:0.65rem;">T1</span>' : '';
+                            const stage = p.cycle_stage !== undefined ? p.cycle_stage : 0;
+                            const stageColor = stage >= 70 ? '#10B981' : stage >= 40 ? '#F59E0B' : '#EF4444';
                             return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
                                 <td style="padding:6px;font-weight:bold;">${p.symbol} ${trimBadge}</td>
                                 <td style="padding:6px;text-align:right;">${p.shares}${p.shares !== p.original_shares ? '<span style="color:#64748b;font-size:0.7rem;">/' + p.original_shares + '</span>' : ''}</td>
@@ -1863,6 +1868,7 @@
                                 <td style="padding:6px;text-align:right;">$${p.market_value.toFixed(0)}</td>
                                 <td style="padding:6px;text-align:right;color:#64748b;">${p.weight_pct}%</td>
                                 <td style="padding:6px;text-align:center;">${p.days_held}</td>
+                                <td style="padding:6px;text-align:center;font-weight:bold;color:${stageColor};">${stage}</td>
                                 <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim1_target}</td>
                                 <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim2_target}</td>
                             </tr>`;
