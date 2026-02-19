@@ -342,6 +342,7 @@
                 <div class="main-display">
                     <div class="tabs">
                         <button class="tab-button active" onclick="showTab(event, 'overview')">📈 Overview</button>
+                        <button class="tab-button" onclick="showTab(event, 'trends')">🔥 Trends</button>
                         <button class="tab-button" onclick="showTab(event, 'reports')">📄 Reports</button>
                         <button class="tab-button" onclick="showTab(event, 'positions')">💼 Positions</button>
                         <button class="tab-button" onclick="showTab(event, 'analytics')">📊 Analytics</button>
@@ -649,6 +650,7 @@
                                                         <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Weight</th>
                                                         <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Days</th>
                                                         <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Stage</th>
+                                                        <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trend</th>
                                                         <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 1</th>
                                                         <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 2</th>
                                                     </tr>
@@ -1350,6 +1352,109 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <!-- TRENDS TAB                                         -->
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <div id="trends" class="tab-panel">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h3 style="color: #FBBF24; margin: 0;">🔥 Trend Rankings — All 900+ Symbols</h3>
+                                <span id="trend-generated" style="color: #64748b; font-size: 0.75rem;">Loading...</span>
+                            </div>
+
+                            <!-- Summary Cards -->
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px;">
+                                <div style="background: rgba(16,185,129,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(16,185,129,0.2);">
+                                    <div id="tr-buy-count" style="font-size: 2rem; font-weight: bold; color: #10B981;">-</div>
+                                    <div style="font-size: 0.7rem; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">BUY NOW</div>
+                                    <div style="font-size: 0.65rem; color: #64748b; margin-top: 2px;">Trending + Setup</div>
+                                </div>
+                                <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
+                                    <div id="tr-watch-count" style="font-size: 2rem; font-weight: bold; color: #3B82F6;">-</div>
+                                    <div style="font-size: 0.7rem; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">WATCH</div>
+                                    <div style="font-size: 0.65rem; color: #64748b; margin-top: 2px;">Trending, no setup yet</div>
+                                </div>
+                                <div style="background: rgba(245,158,11,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(245,158,11,0.2);">
+                                    <div id="tr-extended-count" style="font-size: 2rem; font-weight: bold; color: #F59E0B;">-</div>
+                                    <div style="font-size: 0.7rem; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">EXTENDED</div>
+                                    <div style="font-size: 0.65rem; color: #64748b; margin-top: 2px;">Trending but overbought</div>
+                                </div>
+                                <div style="background: rgba(148,163,184,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.2);">
+                                    <div id="tr-pullback-count" style="font-size: 2rem; font-weight: bold; color: #94A3B8;">-</div>
+                                    <div style="font-size: 0.7rem; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">PULLBACK</div>
+                                    <div style="font-size: 0.65rem; color: #64748b; margin-top: 2px;">Partial setup, watch</div>
+                                </div>
+                            </div>
+
+                            <!-- BUY NOW Table -->
+                            <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; border: 1px solid rgba(16,185,129,0.2); margin-bottom: 20px;">
+                                <h4 style="color: #10B981; margin: 0 0 15px 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">🟢 BUY NOW — Confirmed Uptrend + Active Setup</h4>
+                                <div style="overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                                        <thead>
+                                            <tr style="border-bottom: 2px solid rgba(16,185,129,0.3);">
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">#</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trend</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Price</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Off High</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Scanner</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Signals</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tr-buy-body">
+                                            <tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- WATCH Table -->
+                            <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; border: 1px solid rgba(59,130,246,0.2); margin-bottom: 20px;">
+                                <h4 style="color: #3B82F6; margin: 0 0 15px 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">👁 WATCH — Strong Trend, Waiting for Entry Setup</h4>
+                                <div style="overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                                        <thead>
+                                            <tr style="border-bottom: 2px solid rgba(59,130,246,0.3);">
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">#</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trend</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Price</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Off High</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Signals</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tr-watch-body">
+                                            <tr><td colspan="6" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- EXTENDED Table -->
+                            <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; border: 1px solid rgba(245,158,11,0.2);">
+                                <h4 style="color: #F59E0B; margin: 0 0 15px 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">⚠ EXTENDED — Trending but Overbought (RSI &gt; 70)</h4>
+                                <div style="overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                                        <thead>
+                                            <tr style="border-bottom: 2px solid rgba(245,158,11,0.3);">
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">#</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trend</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Price</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Off High</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Scanner</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Signals</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tr-extended-body">
+                                            <tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1366,6 +1471,7 @@
             loadUnifiedPerformance();
             loadPositions();
             loadPaperPortfolio();
+            loadTrendRank();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -1375,6 +1481,7 @@
             setInterval(loadTopPicks, 300000);
             setInterval(loadPositions, 300000);
             setInterval(loadPaperPortfolio, 300000);
+            setInterval(loadTrendRank, 300000);
         };
 
         function checkAuth() {
@@ -1858,6 +1965,8 @@
                                               p.trim1_hit ? '<span style="color:#FBBF24;font-size:0.65rem;">T1</span>' : '';
                             const stage = p.cycle_stage !== undefined ? p.cycle_stage : 0;
                             const stageColor = stage >= 70 ? '#10B981' : stage >= 40 ? '#F59E0B' : '#EF4444';
+                            const trend = p.trend_score !== undefined ? p.trend_score : 0;
+                            const trendColor = trend >= 80 ? '#10B981' : trend >= 60 ? '#FBBF24' : '#EF4444';
                             return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
                                 <td style="padding:6px;font-weight:bold;">${p.symbol} ${trimBadge}</td>
                                 <td style="padding:6px;text-align:right;">${p.shares}${p.shares !== p.original_shares ? '<span style="color:#64748b;font-size:0.7rem;">/' + p.original_shares + '</span>' : ''}</td>
@@ -1869,6 +1978,7 @@
                                 <td style="padding:6px;text-align:right;color:#64748b;">${p.weight_pct}%</td>
                                 <td style="padding:6px;text-align:center;">${p.days_held}</td>
                                 <td style="padding:6px;text-align:center;font-weight:bold;color:${stageColor};">${stage}</td>
+                                <td style="padding:6px;text-align:center;font-weight:bold;color:${trendColor};">${trend}</td>
                                 <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim1_target}</td>
                                 <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim2_target}</td>
                             </tr>`;
@@ -1890,6 +2000,95 @@
                     console.error('Paper portfolio load error:', err);
                     document.getElementById('pp-actions').innerHTML =
                         '<div style="color:#64748b;text-align:center;padding:15px;font-size:0.85rem;">Paper portfolio not yet initialized — starts Monday.</div>';
+                });
+        }
+
+        function loadTrendRank() {
+            fetch('/trading/data/trend_rank.json')
+                .then(r => r.json())
+                .then(tr => {
+                    const el = document.getElementById('trend-generated');
+                    if (el) el.textContent = `Updated: ${tr.generated} · ${tr.total_ranked} symbols`;
+
+                    document.getElementById('tr-buy-count').textContent = tr.buy_count || 0;
+                    document.getElementById('tr-watch-count').textContent = tr.watch_count || 0;
+                    document.getElementById('tr-extended-count').textContent = tr.extended_count || 0;
+                    document.getElementById('tr-pullback-count').textContent = tr.pullback_count || 0;
+
+                    const classColor = {BUY: '#10B981', WATCH: '#3B82F6', EXTENDED: '#F59E0B', PULLBACK: '#94A3B8'};
+                    const trendColor = s => s >= 90 ? '#10B981' : s >= 70 ? '#FBBF24' : s >= 50 ? '#F59E0B' : '#94A3B8';
+
+                    const buy = tr.top_trends.filter(t => t.classification === 'BUY');
+                    const watch = tr.top_trends.filter(t => t.classification === 'WATCH');
+                    const extended = tr.top_trends.filter(t => t.classification === 'EXTENDED');
+
+                    // BUY table
+                    const buyBody = document.getElementById('tr-buy-body');
+                    if (buyBody) {
+                        if (buy.length === 0) {
+                            buyBody.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b;">No BUY signals today</td></tr>';
+                        } else {
+                            buyBody.innerHTML = buy.map((t, i) => `
+                                <tr style="border-bottom:1px solid rgba(148,163,184,0.06);${i % 2 === 0 ? '' : 'background:rgba(255,255,255,0.02);'}">
+                                    <td style="padding:6px;color:#64748b;font-size:0.75rem;">${i+1}</td>
+                                    <td style="padding:6px;font-weight:bold;color:#CBD5E1;">${t.symbol}</td>
+                                    <td style="padding:6px;text-align:center;">
+                                        <span style="background:rgba(16,185,129,0.15);color:${trendColor(t.trend_score)};padding:2px 7px;border-radius:4px;font-size:0.75rem;font-weight:bold;">${t.trend_score}</span>
+                                    </td>
+                                    <td style="padding:6px;text-align:right;color:#CBD5E1;">$${t.price.toFixed(2)}</td>
+                                    <td style="padding:6px;text-align:right;color:${(t.dist_52wh||0) <= 5 ? '#10B981' : '#F59E0B'};">${t.dist_52wh !== null ? t.dist_52wh.toFixed(1)+'%' : 'N/A'}</td>
+                                    <td style="padding:6px;text-align:center;color:#FBBF24;font-size:0.75rem;">${t.scanner_score ? t.scanner_score.toFixed(0) : '-'}</td>
+                                    <td style="padding:6px;color:#94A3B8;font-size:0.72rem;">${t.signals}</td>
+                                </tr>`).join('');
+                        }
+                    }
+
+                    // WATCH table
+                    const watchBody = document.getElementById('tr-watch-body');
+                    if (watchBody) {
+                        if (watch.length === 0) {
+                            watchBody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#64748b;">No WATCH signals</td></tr>';
+                        } else {
+                            watchBody.innerHTML = watch.slice(0, 40).map((t, i) => `
+                                <tr style="border-bottom:1px solid rgba(148,163,184,0.06);${i % 2 === 0 ? '' : 'background:rgba(255,255,255,0.02);'}">
+                                    <td style="padding:6px;color:#64748b;font-size:0.75rem;">${i+1}</td>
+                                    <td style="padding:6px;font-weight:bold;color:#CBD5E1;">${t.symbol}</td>
+                                    <td style="padding:6px;text-align:center;">
+                                        <span style="background:rgba(59,130,246,0.15);color:${trendColor(t.trend_score)};padding:2px 7px;border-radius:4px;font-size:0.75rem;font-weight:bold;">${t.trend_score}</span>
+                                    </td>
+                                    <td style="padding:6px;text-align:right;color:#CBD5E1;">$${t.price.toFixed(2)}</td>
+                                    <td style="padding:6px;text-align:right;color:${(t.dist_52wh||0) <= 5 ? '#10B981' : '#F59E0B'};">${t.dist_52wh !== null ? t.dist_52wh.toFixed(1)+'%' : 'N/A'}</td>
+                                    <td style="padding:6px;color:#94A3B8;font-size:0.72rem;">${t.signals}</td>
+                                </tr>`).join('');
+                        }
+                    }
+
+                    // EXTENDED table
+                    const extBody = document.getElementById('tr-extended-body');
+                    if (extBody) {
+                        if (extended.length === 0) {
+                            extBody.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b;">No extended signals</td></tr>';
+                        } else {
+                            extBody.innerHTML = extended.slice(0, 30).map((t, i) => `
+                                <tr style="border-bottom:1px solid rgba(148,163,184,0.06);${i % 2 === 0 ? '' : 'background:rgba(255,255,255,0.02);'}">
+                                    <td style="padding:6px;color:#64748b;font-size:0.75rem;">${i+1}</td>
+                                    <td style="padding:6px;font-weight:bold;color:#CBD5E1;">${t.symbol}</td>
+                                    <td style="padding:6px;text-align:center;">
+                                        <span style="background:rgba(245,158,11,0.15);color:${trendColor(t.trend_score)};padding:2px 7px;border-radius:4px;font-size:0.75rem;font-weight:bold;">${t.trend_score}</span>
+                                    </td>
+                                    <td style="padding:6px;text-align:right;color:#CBD5E1;">$${t.price.toFixed(2)}</td>
+                                    <td style="padding:6px;text-align:right;color:${(t.dist_52wh||0) <= 5 ? '#10B981' : '#F59E0B'};">${t.dist_52wh !== null ? t.dist_52wh.toFixed(1)+'%' : 'N/A'}</td>
+                                    <td style="padding:6px;text-align:center;color:#FBBF24;font-size:0.75rem;">${t.scanner_score ? t.scanner_score.toFixed(0) : '-'}</td>
+                                    <td style="padding:6px;color:#94A3B8;font-size:0.72rem;">${t.signals}</td>
+                                </tr>`).join('');
+                        }
+                    }
+                })
+                .catch(() => {
+                    ['tr-buy-body','tr-watch-body','tr-extended-body'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b;">Trend data unavailable</td></tr>';
+                    });
                 });
         }
 
