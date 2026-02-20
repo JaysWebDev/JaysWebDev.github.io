@@ -1453,6 +1453,59 @@
                                     </table>
                                 </div>
                             </div>
+
+                            <!-- TEST UNIFIED — 7-Scanner Comparison -->
+                            <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; border: 1px solid rgba(139,92,246,0.3); margin-top: 25px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                    <h4 style="color: #A78BFA; margin: 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">🧪 Test Unified — 7-Scanner Conviction (parallel test)</h4>
+                                    <span id="ut-generated" style="color: #64748b; font-size: 0.7rem;">Loading...</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 15px;">
+                                    <div style="background: rgba(15,23,42,0.6); border-radius: 6px; padding: 8px; text-align: center;">
+                                        <div id="ut-cnt-enhanced" style="font-size: 1.2rem; font-weight: bold; color: #60A5FA;">-</div>
+                                        <div style="font-size: 0.6rem; color: #64748b;">Enhanced</div>
+                                    </div>
+                                    <div style="background: rgba(15,23,42,0.6); border-radius: 6px; padding: 8px; text-align: center;">
+                                        <div id="ut-cnt-v3" style="font-size: 1.2rem; font-weight: bold; color: #60A5FA;">-</div>
+                                        <div style="font-size: 0.6rem; color: #64748b;">V3</div>
+                                    </div>
+                                    <div style="background: rgba(15,23,42,0.6); border-radius: 6px; padding: 8px; text-align: center;">
+                                        <div id="ut-cnt-inst" style="font-size: 1.2rem; font-weight: bold; color: #60A5FA;">-</div>
+                                        <div style="font-size: 0.6rem; color: #64748b;">Institutional</div>
+                                    </div>
+                                    <div style="background: rgba(15,23,42,0.6); border-radius: 6px; padding: 8px; text-align: center;">
+                                        <div id="ut-cnt-setup" style="font-size: 1.2rem; font-weight: bold; color: #60A5FA;">-</div>
+                                        <div style="font-size: 0.6rem; color: #64748b;">Setup</div>
+                                    </div>
+                                    <div style="background: rgba(15,23,42,0.6); border-radius: 6px; padding: 8px; text-align: center;">
+                                        <div id="ut-cnt-etf" style="font-size: 1.2rem; font-weight: bold; color: #60A5FA;">-</div>
+                                        <div style="font-size: 0.6rem; color: #64748b;">ETF</div>
+                                    </div>
+                                    <div style="background: rgba(15,23,42,0.6); border-radius: 6px; padding: 8px; text-align: center;">
+                                        <div id="ut-cnt-u50" style="font-size: 1.2rem; font-weight: bold; color: #60A5FA;">-</div>
+                                        <div style="font-size: 0.6rem; color: #64748b;">Under50</div>
+                                    </div>
+                                </div>
+                                <div style="overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                                        <thead>
+                                            <tr style="border-bottom: 2px solid rgba(139,92,246,0.3);">
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">#</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Test Score</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Sources</th>
+                                                <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">From</th>
+                                                <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ut-body">
+                                            <tr><td colspan="6" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p style="color: #475569; font-size: 0.65rem; margin: 10px 0 0 0;">Parallel test — production pipeline unaffected. Confirm 2+ weeks before promoting.</p>
+                            </div>
+
                         </div>
 
                     </div>
@@ -1472,6 +1525,7 @@
             loadPositions();
             loadPaperPortfolio();
             loadTrendRank();
+            loadUnifiedTest();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -1482,6 +1536,7 @@
             setInterval(loadPositions, 300000);
             setInterval(loadPaperPortfolio, 300000);
             setInterval(loadTrendRank, 300000);
+            setInterval(loadUnifiedTest, 300000);
         };
 
         function checkAuth() {
@@ -2089,6 +2144,54 @@
                         const el = document.getElementById(id);
                         if (el) el.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b;">Trend data unavailable</td></tr>';
                     });
+                });
+        }
+
+        function loadUnifiedTest() {
+            fetch('/trading/data/unified_test_top50.json')
+                .then(r => r.json())
+                .then(ut => {
+                    const el = document.getElementById('ut-generated');
+                    if (el) el.textContent = `Updated: ${ut.generated} · date: ${ut.score_date}`;
+
+                    const c = ut.scanner_counts || {};
+                    document.getElementById('ut-cnt-enhanced').textContent = c.database_enhanced || 0;
+                    document.getElementById('ut-cnt-v3').textContent = c.v3_compression || 0;
+                    document.getElementById('ut-cnt-inst').textContent = c.institutional || 0;
+                    const setupCnt = (c.setup_vcb || 0) + (c.setup_accum || 0) + (c.setup_pullback || 0);
+                    document.getElementById('ut-cnt-setup').textContent = setupCnt;
+                    document.getElementById('ut-cnt-etf').textContent = c.etf || 0;
+                    document.getElementById('ut-cnt-u50').textContent = c.under50 || 0;
+
+                    const srcColor = n => n >= 3 ? '#22C55E' : n >= 2 ? '#F59E0B' : '#94A3B8';
+                    const scoreColor = s => s >= 120 ? '#22C55E' : s >= 90 ? '#F59E0B' : '#94A3B8';
+
+                    const body = document.getElementById('ut-body');
+                    if (!body) return;
+                    const picks = (ut.picks || []).slice(0, 20);
+                    if (picks.length === 0) {
+                        body.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#64748b;">No test unified data yet</td></tr>';
+                        return;
+                    }
+                    body.innerHTML = picks.map((p, i) => `
+                        <tr style="border-bottom:1px solid rgba(148,163,184,0.06);${i%2===0?'':'background:rgba(255,255,255,0.02);'}">
+                            <td style="padding:6px;color:#64748b;font-size:0.75rem;">${p.rank}</td>
+                            <td style="padding:6px;font-weight:bold;color:#CBD5E1;">${p.symbol}</td>
+                            <td style="padding:6px;text-align:center;">
+                                <span style="background:rgba(167,139,250,0.15);color:${scoreColor(p.test_score)};padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:bold;">${p.test_score.toFixed(0)}</span>
+                            </td>
+                            <td style="padding:6px;text-align:center;">
+                                <span style="color:${srcColor(p.source_count)};font-weight:bold;">${p.source_count}</span>
+                            </td>
+                            <td style="padding:6px;color:#94A3B8;font-size:0.7rem;">${p.sources}</td>
+                            <td style="padding:6px;text-align:right;color:#CBD5E1;">$${p.close ? p.close.toFixed(2) : '-'}</td>
+                        </tr>`).join('');
+                })
+                .catch(() => {
+                    const body = document.getElementById('ut-body');
+                    if (body) body.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#64748b;">Test unified data unavailable</td></tr>';
+                    const el = document.getElementById('ut-generated');
+                    if (el) el.textContent = 'Runs at 4:15 PM after market close';
                 });
         }
 
