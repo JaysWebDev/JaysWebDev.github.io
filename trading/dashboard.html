@@ -349,6 +349,7 @@
                         <button class="tab-button" onclick="showTab(event, 'database')">🗄️ Database</button>
                         <button class="tab-button" onclick="showTab(event, 'strategies')">🧠 Strategies</button>
                         <button class="tab-button" onclick="showTab(event, 'stale-prices')">🔍 Stale Prices</button>
+                        <button class="tab-button" onclick="showTab(event, 'portfolio')">📦 Portfolio</button>
                         <button class="tab-button" onclick="showTab(event, 'admin')">⚙️ Admin</button>
                     </div>
 
@@ -1355,6 +1356,99 @@
                         </div>
 
                         <!-- ═══════════════════════════════════════════════════ -->
+                        <!-- PORTFOLIO TAB                                      -->
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <div id="portfolio" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <h3 style="color:#10B981;margin:0;">📦 Portfolio Dashboard</h3>
+                                <span id="port-generated" style="color:#64748b;font-size:0.75rem;">Loading...</span>
+                            </div>
+
+                            <!-- Summary Cards -->
+                            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;">
+                                <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:14px;text-align:center;">
+                                    <div id="port-stocks" style="font-size:1.8rem;font-weight:bold;color:#10B981;">-</div>
+                                    <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">LT Stocks</div>
+                                </div>
+                                <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:14px;text-align:center;">
+                                    <div id="port-etfs" style="font-size:1.8rem;font-weight:bold;color:#60A5FA;">-</div>
+                                    <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">LT ETFs</div>
+                                </div>
+                                <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:14px;text-align:center;">
+                                    <div id="port-pnl" style="font-size:1.8rem;font-weight:bold;color:#FBBF24;">-</div>
+                                    <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Avg PnL</div>
+                                </div>
+                                <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:14px;text-align:center;">
+                                    <div id="port-remove" style="font-size:1.8rem;font-weight:bold;color:#EF4444;">-</div>
+                                    <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Remove Flags</div>
+                                </div>
+                                <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:14px;text-align:center;">
+                                    <div id="port-trim" style="font-size:1.8rem;font-weight:bold;color:#A78BFA;">-</div>
+                                    <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Trim Flags</div>
+                                </div>
+                            </div>
+
+                            <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px;">
+                                <!-- Stocks table -->
+                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:18px;border:1px solid rgba(16,185,129,0.2);">
+                                    <h4 style="color:#10B981;margin:0 0 12px 0;font-size:0.85rem;text-transform:uppercase;">📈 Long-Term Stocks (30)</h4>
+                                    <div style="overflow-x:auto;max-height:420px;overflow-y:auto;">
+                                        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                            <thead style="position:sticky;top:0;background:#1e293b;">
+                                                <tr style="border-bottom:2px solid rgba(16,185,129,0.3);">
+                                                    <th style="padding:6px 5px;text-align:left;color:#64748b;">#</th>
+                                                    <th style="padding:6px 5px;text-align:left;color:#64748b;">Symbol</th>
+                                                    <th style="padding:6px 5px;text-align:left;color:#64748b;">Sector</th>
+                                                    <th style="padding:6px 5px;text-align:right;color:#64748b;">Price</th>
+                                                    <th style="padding:6px 5px;text-align:right;color:#64748b;">PnL%</th>
+                                                    <th style="padding:6px 5px;text-align:center;color:#64748b;">Days</th>
+                                                    <th style="padding:6px 5px;text-align:center;color:#64748b;">Act</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="port-stocks-body">
+                                                <tr><td colspan="7" style="padding:15px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Right column: ETFs + Sector + Candidates -->
+                                <div style="display:flex;flex-direction:column;gap:16px;">
+                                    <!-- ETFs -->
+                                    <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:18px;border:1px solid rgba(59,130,246,0.2);">
+                                        <h4 style="color:#60A5FA;margin:0 0 12px 0;font-size:0.85rem;text-transform:uppercase;">🌐 ETFs (10)</h4>
+                                        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                            <thead>
+                                                <tr style="border-bottom:1px solid rgba(59,130,246,0.2);">
+                                                    <th style="padding:5px;text-align:left;color:#64748b;">#</th>
+                                                    <th style="padding:5px;text-align:left;color:#64748b;">Symbol</th>
+                                                    <th style="padding:5px;text-align:right;color:#64748b;">Price</th>
+                                                    <th style="padding:5px;text-align:right;color:#64748b;">PnL%</th>
+                                                    <th style="padding:5px;text-align:center;color:#64748b;">Act</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="port-etfs-body">
+                                                <tr><td colspan="5" style="padding:10px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Sector Allocation -->
+                                    <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:18px;border:1px solid rgba(100,116,139,0.2);">
+                                        <h4 style="color:#94A3B8;margin:0 0 12px 0;font-size:0.85rem;text-transform:uppercase;">🗂 Sector Allocation</h4>
+                                        <div id="port-sectors" style="font-size:0.78rem;">Loading...</div>
+                                    </div>
+
+                                    <!-- Top Candidates -->
+                                    <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:18px;border:1px solid rgba(167,139,250,0.2);">
+                                        <h4 style="color:#A78BFA;margin:0 0 12px 0;font-size:0.85rem;text-transform:uppercase;">🎯 Next Candidates</h4>
+                                        <div id="port-candidates" style="font-size:0.78rem;color:#94A3B8;">Loading...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ═══════════════════════════════════════════════════ -->
                         <!-- ADMIN TAB                                          -->
                         <!-- ═══════════════════════════════════════════════════ -->
                         <div id="admin" class="tab-panel">
@@ -1654,6 +1748,7 @@
             loadTrendRank();
             loadUnifiedTest();
             loadAdminData();
+            loadLTPortfolio();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -1666,6 +1761,7 @@
             setInterval(loadTrendRank, 300000);
             setInterval(loadUnifiedTest, 300000);
             setInterval(loadAdminData, 300000);
+            setInterval(loadLTPortfolio, 300000);
         };
 
         function checkAuth() {
@@ -2273,6 +2369,91 @@
                         const el = document.getElementById(id);
                         if (el) el.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b;">Trend data unavailable</td></tr>';
                     });
+                });
+        }
+
+        // ── Long-Term Portfolio ────────────────────────────────────────────────
+        function loadLTPortfolio() {
+            fetch('/trading/data/lt_portfolio.json')
+                .then(r => r.json())
+                .then(p => {
+                    const el = document.getElementById('port-generated');
+                    if (el) el.textContent = `Updated: ${p.generated} · ${p.score_date}`;
+
+                    const s = p.stats || {};
+                    const setT = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+                    setT('port-stocks', s.stocks || 0);
+                    setT('port-etfs', s.etfs || 0);
+                    const pnl = s.avg_pnl_pct || 0;
+                    const pnlEl = document.getElementById('port-pnl');
+                    if (pnlEl) { pnlEl.textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%'; pnlEl.style.color = pnl >= 0 ? '#10B981' : '#EF4444'; }
+                    setT('port-remove', s.remove_count || 0);
+                    setT('port-trim', s.trim_count || 0);
+
+                    const actionDot = a => a === 'REMOVE' ? '🔴' : a === 'TRIM' ? '🟡' : '🟢';
+                    const pnlColor = v => v >= 5 ? '#10B981' : v >= 0 ? '#FBBF24' : '#EF4444';
+
+                    // Stocks table
+                    const sBody = document.getElementById('port-stocks-body');
+                    if (sBody) {
+                        sBody.innerHTML = (p.stocks || []).map((h, i) => `
+                            <tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:5px;color:#64748b;">${i+1}</td>
+                                <td style="padding:5px;font-weight:bold;color:#CBD5E1;">${h.symbol}</td>
+                                <td style="padding:5px;color:#94A3B8;font-size:0.7rem;">${(h.sector||'').replace(' Services','').replace(' Cyclical',' Cyc')}</td>
+                                <td style="padding:5px;text-align:right;color:#CBD5E1;">$${h.current_price ? h.current_price.toFixed(2) : '-'}</td>
+                                <td style="padding:5px;text-align:right;color:${pnlColor(h.pnl_pct||0)};">${h.pnl_pct !== null ? (h.pnl_pct >= 0 ? '+' : '') + h.pnl_pct.toFixed(2) + '%' : '-'}</td>
+                                <td style="padding:5px;text-align:center;color:#64748b;">${h.days_held}d</td>
+                                <td style="padding:5px;text-align:center;">${actionDot(h.action)}</td>
+                            </tr>`).join('');
+                    }
+
+                    // ETFs table
+                    const eBody = document.getElementById('port-etfs-body');
+                    if (eBody) {
+                        eBody.innerHTML = (p.etfs || []).map((h, i) => `
+                            <tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:5px;color:#64748b;">${i+1}</td>
+                                <td style="padding:5px;font-weight:bold;color:#CBD5E1;">${h.symbol}</td>
+                                <td style="padding:5px;text-align:right;color:#CBD5E1;">$${h.current_price ? h.current_price.toFixed(2) : '-'}</td>
+                                <td style="padding:5px;text-align:right;color:${pnlColor(h.pnl_pct||0)};">${h.pnl_pct !== null ? (h.pnl_pct >= 0 ? '+' : '') + h.pnl_pct.toFixed(2) + '%' : '-'}</td>
+                                <td style="padding:5px;text-align:center;">${actionDot(h.action)}</td>
+                            </tr>`).join('');
+                    }
+
+                    // Sector allocation
+                    const secEl = document.getElementById('port-sectors');
+                    if (secEl) {
+                        const alloc = p.sector_allocation || {};
+                        const total = Object.values(alloc).reduce((a, b) => a + b, 0);
+                        secEl.innerHTML = Object.entries(alloc)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([sec, cnt]) => {
+                                const pct = total > 0 ? (cnt / total * 100).toFixed(0) : 0;
+                                return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                                    <span style="color:#94A3B8;font-size:0.72rem;">${sec.replace(' Services','').replace(' Cyclical',' Cyc')}</span>
+                                    <div style="display:flex;align-items:center;gap:6px;">
+                                        <div style="background:rgba(59,130,246,0.2);border-radius:3px;height:6px;width:${pct*1.5}px;"></div>
+                                        <span style="color:#60A5FA;font-size:0.72rem;">${cnt}</span>
+                                    </div>
+                                </div>`;
+                            }).join('');
+                    }
+
+                    // Next candidates
+                    const candEl = document.getElementById('port-candidates');
+                    if (candEl) {
+                        candEl.innerHTML = (p.candidates || []).map((c, i) => `
+                            <div style="display:flex;justify-content:space-between;margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <span style="font-weight:bold;color:#CBD5E1;">${c.symbol}</span>
+                                <span style="color:#64748b;font-size:0.7rem;">${(c.sector||'').replace(' Services','')}</span>
+                                <span style="color:#A78BFA;font-size:0.75rem;">${c.score ? c.score.toFixed(0) : '-'}</span>
+                            </div>`).join('');
+                    }
+                })
+                .catch(() => {
+                    const el = document.getElementById('port-generated');
+                    if (el) el.textContent = 'Portfolio data unavailable';
                 });
         }
 
