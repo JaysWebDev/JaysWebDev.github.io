@@ -349,6 +349,7 @@
                         <button class="tab-button" onclick="showTab(event, 'database')">🗄️ Database</button>
                         <button class="tab-button" onclick="showTab(event, 'strategies')">🧠 Strategies</button>
                         <button class="tab-button" onclick="showTab(event, 'stale-prices')">🔍 Stale Prices</button>
+                        <button class="tab-button" onclick="showTab(event, 'admin')">⚙️ Admin</button>
                     </div>
 
                     <div class="tab-content">
@@ -1354,6 +1355,132 @@
                         </div>
 
                         <!-- ═══════════════════════════════════════════════════ -->
+                        <!-- ADMIN TAB                                          -->
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <div id="admin" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <h3 style="color:#60A5FA;margin:0;">⚙️ System Administration</h3>
+                                <span id="admin-generated" style="color:#64748b;font-size:0.75rem;">Loading...</span>
+                            </div>
+
+                            <!-- ── INTERNAL ADMIN ─────────────────────────── -->
+                            <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:16px 20px;margin-bottom:8px;">
+                                <h4 style="color:#60A5FA;margin:0 0 16px 0;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">Internal Admin</h4>
+
+                                <!-- 1. DB Health -->
+                                <div style="margin-bottom:24px;">
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Database Health</h5>
+                                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;">
+                                        <div style="background:rgba(15,23,42,0.7);border-radius:8px;padding:12px;text-align:center;">
+                                            <div id="adm-db-size" style="font-size:1.4rem;font-weight:bold;color:#10B981;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">DB Size</div>
+                                        </div>
+                                        <div style="background:rgba(15,23,42,0.7);border-radius:8px;padding:12px;text-align:center;">
+                                            <div id="adm-symbols" style="font-size:1.4rem;font-weight:bold;color:#60A5FA;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Symbols</div>
+                                        </div>
+                                        <div style="background:rgba(15,23,42,0.7);border-radius:8px;padding:12px;text-align:center;">
+                                            <div id="adm-last-price" style="font-size:1rem;font-weight:bold;color:#FBBF24;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Last Price Date</div>
+                                        </div>
+                                        <div style="background:rgba(15,23,42,0.7);border-radius:8px;padding:12px;text-align:center;">
+                                            <div id="adm-stale" style="font-size:1.4rem;font-weight:bold;color:#10B981;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Stale Symbols</div>
+                                        </div>
+                                    </div>
+                                    <div style="background:rgba(15,23,42,0.5);border-radius:8px;padding:12px;overflow-x:auto;">
+                                        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                            <thead>
+                                                <tr style="border-bottom:1px solid rgba(59,130,246,0.2);">
+                                                    <th style="padding:5px 8px;text-align:left;color:#64748b;">Table</th>
+                                                    <th style="padding:5px 8px;text-align:right;color:#64748b;">Records</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="adm-tables-body">
+                                                <tr><td colspan="2" style="padding:10px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="adm-scanners-today" style="margin-top:8px;font-size:0.75rem;color:#64748b;"></div>
+                                </div>
+
+                                <!-- 2. Cron Job Status -->
+                                <div style="margin-bottom:24px;">
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Cron Job Status <span id="adm-cron-count" style="color:#64748b;font-weight:normal;"></span></h5>
+                                    <div style="overflow-x:auto;">
+                                        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                            <thead>
+                                                <tr style="border-bottom:1px solid rgba(59,130,246,0.2);">
+                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">Job</th>
+                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">Schedule</th>
+                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">Last Run</th>
+                                                    <th style="padding:6px 8px;text-align:center;color:#64748b;">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="adm-cron-body">
+                                                <tr><td colspan="4" style="padding:10px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Log Viewer -->
+                                <div style="margin-bottom:24px;">
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Log Viewer</h5>
+                                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;" id="adm-log-tabs"></div>
+                                    <div id="adm-log-content" style="background:rgba(15,23,42,0.8);border-radius:8px;padding:14px;font-family:monospace;font-size:0.72rem;color:#94A3B8;max-height:300px;overflow-y:auto;white-space:pre-wrap;border:1px solid rgba(59,130,246,0.15);">Select a log above</div>
+                                    <div id="adm-log-meta" style="font-size:0.65rem;color:#475569;margin-top:4px;"></div>
+                                </div>
+
+                                <!-- 4. Project EPIC Tracker -->
+                                <div>
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Project EPIC Tracker</h5>
+                                    <div style="overflow-x:auto;">
+                                        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                            <thead>
+                                                <tr style="border-bottom:1px solid rgba(59,130,246,0.2);">
+                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">EPIC</th>
+                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">Name</th>
+                                                    <th style="padding:6px 8px;text-align:center;color:#64748b;">Phase</th>
+                                                    <th style="padding:6px 8px;text-align:center;color:#64748b;">Status</th>
+                                                    <th style="padding:6px 8px;text-align:center;color:#64748b;">Progress</th>
+                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">Notes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="adm-epics-body">
+                                                <tr><td colspan="6" style="padding:10px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ── EXTERNAL ADMIN ──────────────────────────── -->
+                            <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:16px 20px;margin-top:16px;">
+                                <h4 style="color:#10B981;margin:0 0 16px 0;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">External Admin</h4>
+
+                                <!-- 5. Watchlist Viewer -->
+                                <div style="margin-bottom:24px;">
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Watchlist Viewer</h5>
+                                    <div id="adm-watchlists" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;">
+                                        <div style="color:#64748b;font-size:0.8rem;">Loading...</div>
+                                    </div>
+                                </div>
+
+                                <!-- 6. Auth / Login -->
+                                <div>
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Authentication</h5>
+                                    <div style="background:rgba(15,23,42,0.6);border-radius:8px;padding:14px;font-size:0.8rem;color:#94A3B8;">
+                                        <p style="margin:0 0 8px 0;">Current auth: <strong style="color:#FBBF24;">Client-side only</strong> — credentials checked in browser JavaScript.</p>
+                                        <p style="margin:0 0 8px 0;">Session expires after <strong>1 hour</strong>. Credentials: stored in browser sessionStorage.</p>
+                                        <p style="margin:0;color:#475569;">Server-side auth (proper security) requires <code style="color:#A78BFA;">EPIC-INFRA-001</code> VPS migration.
+                                        Flask app ready at <code>/media/j/Server/dashboard_server.py</code>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ═══════════════════════════════════════════════════ -->
                         <!-- TRENDS TAB                                         -->
                         <!-- ═══════════════════════════════════════════════════ -->
                         <div id="trends" class="tab-panel">
@@ -1526,6 +1653,7 @@
             loadPaperPortfolio();
             loadTrendRank();
             loadUnifiedTest();
+            loadAdminData();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -1537,6 +1665,7 @@
             setInterval(loadPaperPortfolio, 300000);
             setInterval(loadTrendRank, 300000);
             setInterval(loadUnifiedTest, 300000);
+            setInterval(loadAdminData, 300000);
         };
 
         function checkAuth() {
@@ -2145,6 +2274,153 @@
                         if (el) el.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b;">Trend data unavailable</td></tr>';
                     });
                 });
+        }
+
+        // ── Admin Data ─────────────────────────────────────────────────────────
+        let _adminLogData = {};
+        let _adminActiveLog = null;
+
+        function loadAdminData() {
+            fetch('/trading/data/admin_data.json')
+                .then(r => r.json())
+                .then(ad => {
+                    const el = document.getElementById('admin-generated');
+                    if (el) el.textContent = `Updated: ${ad.generated}`;
+
+                    // ── DB Health ──
+                    const db = ad.db || {};
+                    const setTxt = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+                    setTxt('adm-db-size', db.size_mb ? db.size_mb + ' MB' : '?');
+                    setTxt('adm-symbols', db.symbols || '?');
+                    setTxt('adm-last-price', db.last_price_date || '?');
+                    const staleEl = document.getElementById('adm-stale');
+                    const staleCount = (ad.stale || {}).stale_count || 0;
+                    if (staleEl) { staleEl.textContent = staleCount; staleEl.style.color = staleCount > 0 ? '#EF4444' : '#10B981'; }
+
+                    const tablesBody = document.getElementById('adm-tables-body');
+                    if (tablesBody && db.table_counts) {
+                        tablesBody.innerHTML = Object.entries(db.table_counts).map(([t, c]) =>
+                            `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:4px 8px;color:#CBD5E1;">${t}</td>
+                                <td style="padding:4px 8px;text-align:right;color:#94A3B8;">${c !== null ? c.toLocaleString() : 'N/A'}</td>
+                            </tr>`).join('');
+                    }
+
+                    const scanToday = db.scanner_types_today || {};
+                    const scanEl = document.getElementById('adm-scanners-today');
+                    if (scanEl) {
+                        const parts = Object.entries(scanToday).map(([k, v]) => `${k}: ${v}`).join(' · ');
+                        scanEl.textContent = parts ? `Today's scanner_results: ${parts}` : '';
+                    }
+
+                    // ── Cron Jobs ──
+                    const today = new Date().toISOString().slice(0, 10);
+                    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+                    const cronCount = document.getElementById('adm-cron-count');
+                    if (cronCount) cronCount.textContent = `(${(ad.cron_jobs||[]).length} jobs)`;
+                    const cronBody = document.getElementById('adm-cron-body');
+                    if (cronBody && ad.cron_jobs) {
+                        const seen = new Set();
+                        cronBody.innerHTML = ad.cron_jobs.map(j => {
+                            const lr = j.last_run || '—';
+                            const isToday = lr.startsWith(today);
+                            const isYest = lr.startsWith(yesterday);
+                            const dot = !j.last_run ? '⬛' : isToday ? '🟢' : isYest ? '🟡' : '🔴';
+                            const lrColor = !j.last_run ? '#64748b' : isToday ? '#10B981' : isYest ? '#FBBF24' : '#EF4444';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:5px 8px;color:#CBD5E1;">${j.name}</td>
+                                <td style="padding:5px 8px;color:#64748b;font-size:0.72rem;">${j.schedule}</td>
+                                <td style="padding:5px 8px;color:${lrColor};font-size:0.72rem;">${lr}</td>
+                                <td style="padding:5px 8px;text-align:center;">${dot}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    // ── Log Viewer ──
+                    _adminLogData = ad.logs || {};
+                    const logTabs = document.getElementById('adm-log-tabs');
+                    if (logTabs && Object.keys(_adminLogData).length) {
+                        logTabs.innerHTML = Object.entries(_adminLogData).map(([key, ldata]) =>
+                            `<button onclick="showAdminLog('${key}')"
+                                style="background:rgba(30,41,59,0.8);border:1px solid rgba(59,130,246,0.3);color:#94A3B8;
+                                       padding:4px 10px;border-radius:5px;font-size:0.72rem;cursor:pointer;"
+                                id="adm-log-btn-${key}">${key.replace(/_/g,' ')}</button>`
+                        ).join('');
+                        // Auto-show first log
+                        const firstKey = Object.keys(_adminLogData)[0];
+                        if (!_adminActiveLog) showAdminLog(firstKey);
+                    }
+
+                    // ── EPIC Tracker ──
+                    const epicsBody = document.getElementById('adm-epics-body');
+                    if (epicsBody && ad.epics) {
+                        const statusColors = {complete:'#10B981', active:'#60A5FA', in_progress:'#FBBF24', partial:'#F59E0B', not_started:'#64748b', deferred:'#475569'};
+                        const statusLabels = {complete:'✅ Complete', active:'🔵 Active', in_progress:'🟡 In Progress', partial:'🟠 Partial', not_started:'⬜ Not Started', deferred:'⏸ Deferred'};
+                        epicsBody.innerHTML = ad.epics.map(e => {
+                            const pct = e.tasks_total > 0 ? Math.round(e.tasks_done / e.tasks_total * 100) : 0;
+                            const col = statusColors[e.status] || '#94A3B8';
+                            const label = statusLabels[e.status] || e.status;
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:5px 8px;color:#A78BFA;font-size:0.72rem;white-space:nowrap;">${e.id}</td>
+                                <td style="padding:5px 8px;color:#CBD5E1;">${e.name}</td>
+                                <td style="padding:5px 8px;text-align:center;color:#64748b;">${e.phase}</td>
+                                <td style="padding:5px 8px;text-align:center;"><span style="color:${col};font-size:0.72rem;">${label}</span></td>
+                                <td style="padding:5px 8px;text-align:center;">
+                                    <div style="background:rgba(15,23,42,0.8);border-radius:4px;height:6px;width:80px;display:inline-block;vertical-align:middle;">
+                                        <div style="background:${col};height:6px;border-radius:4px;width:${pct}%;"></div>
+                                    </div>
+                                    <span style="color:#64748b;font-size:0.68rem;margin-left:5px;">${e.tasks_done}/${e.tasks_total}</span>
+                                </td>
+                                <td style="padding:5px 8px;color:#64748b;font-size:0.72rem;">${e.notes}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    // ── Watchlists ──
+                    const wlDiv = document.getElementById('adm-watchlists');
+                    if (wlDiv && ad.watchlists) {
+                        wlDiv.innerHTML = ad.watchlists.map(w =>
+                            `<div style="background:rgba(15,23,42,0.7);border-radius:8px;padding:12px;border:1px solid rgba(16,185,129,0.15);">
+                                <div style="font-weight:bold;color:#CBD5E1;font-size:0.82rem;margin-bottom:4px;">${w.name}</div>
+                                <div style="font-size:1.4rem;font-weight:bold;color:#10B981;">${w.count}</div>
+                                <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">symbols · updated ${w.modified}</div>
+                                <div style="font-size:0.65rem;color:#475569;margin-top:4px;">${(w.preview||[]).slice(0,5).join(', ')}${w.count > 5 ? '…' : ''}</div>
+                            </div>`
+                        ).join('');
+                    }
+                })
+                .catch(() => {
+                    const el = document.getElementById('admin-generated');
+                    if (el) el.textContent = 'Admin data unavailable (runs 4:25 PM)';
+                });
+        }
+
+        function showAdminLog(key) {
+            _adminActiveLog = key;
+            const ldata = _adminLogData[key] || {};
+            const content = document.getElementById('adm-log-content');
+            const meta = document.getElementById('adm-log-meta');
+            if (content) {
+                content.textContent = ldata.exists === false
+                    ? `Log file not found yet (${key})`
+                    : (ldata.lines || []).join('\n') || '(empty)';
+                content.scrollTop = content.scrollHeight;
+            }
+            if (meta) {
+                meta.textContent = ldata.exists
+                    ? `${ldata.description} · last modified: ${ldata.last_modified || '?'}`
+                    : ldata.description || '';
+            }
+            // Highlight active tab button
+            document.querySelectorAll('[id^="adm-log-btn-"]').forEach(b => {
+                b.style.borderColor = 'rgba(59,130,246,0.3)';
+                b.style.color = '#94A3B8';
+            });
+            const activeBtn = document.getElementById(`adm-log-btn-${key}`);
+            if (activeBtn) {
+                activeBtn.style.borderColor = '#60A5FA';
+                activeBtn.style.color = '#60A5FA';
+            }
         }
 
         function loadUnifiedTest() {

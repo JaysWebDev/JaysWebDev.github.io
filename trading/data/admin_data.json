@@ -1,0 +1,521 @@
+{
+  "generated": "2026-02-20 14:19:34",
+  "db": {
+    "size_mb": 93.9,
+    "path": "/media/j/Extreme SSD/Trading_Plans/Database/trading_central.db",
+    "symbols": 913,
+    "last_price_date": "2026-02-20",
+    "last_scan_date": "2026-02-20",
+    "scanner_types_today": {
+      "database_enhanced": 301,
+      "institutional": 40,
+      "setup_vcb": 3,
+      "unified": 5,
+      "v3_compression": 50
+    },
+    "table_counts": {
+      "daily_prices": 236639,
+      "scanner_results": 5724,
+      "multi_day_scores": 687,
+      "multi_day_test_scores": 40,
+      "relative_strength": 2730,
+      "risk_profiles": 3644,
+      "fundamentals": 4540
+    }
+  },
+  "cron_jobs": [
+    {
+      "name": "Stale Price Check",
+      "schedule": "7:00 AM Mon-Fri",
+      "log_file": "stale_price_check.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 07:00",
+      "last_run_ts": 1771588803.2176218
+    },
+    {
+      "name": "Market Open Scan",
+      "schedule": "9:30 AM Mon-Fri",
+      "log_file": "intraday_automation.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 13:30",
+      "last_run_ts": 1771612244.4397802
+    },
+    {
+      "name": "Report Sync (AM)",
+      "schedule": "9:35 AM Mon-Fri",
+      "log_file": "report_sync.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 13:35",
+      "last_run_ts": 1771612503.3092568
+    },
+    {
+      "name": "Mid-Morning Scan",
+      "schedule": "11:00 AM Mon-Fri",
+      "log_file": "intraday_automation.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 13:30",
+      "last_run_ts": 1771612244.4397802
+    },
+    {
+      "name": "Lunch Scan",
+      "schedule": "1:30 PM Mon-Fri",
+      "log_file": "intraday_automation.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 13:30",
+      "last_run_ts": 1771612244.4397802
+    },
+    {
+      "name": "Market Close Scan",
+      "schedule": "4:00 PM Mon-Fri",
+      "log_file": "intraday_automation.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 13:30",
+      "last_run_ts": 1771612244.4397802
+    },
+    {
+      "name": "Report Sync (PM)",
+      "schedule": "4:05 PM Mon-Fri",
+      "log_file": "report_sync.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 13:35",
+      "last_run_ts": 1771612503.3092568
+    },
+    {
+      "name": "Trend Ranker",
+      "schedule": "4:10 PM Mon-Fri",
+      "log_file": "trend_ranker.log",
+      "days": "weekday",
+      "last_run": "2026-02-19 16:10",
+      "last_run_ts": 1771535401.449407
+    },
+    {
+      "name": "Test Unified Scorer",
+      "schedule": "4:15 PM Mon-Fri",
+      "log_file": "unified_test.log",
+      "days": "weekday",
+      "last_run": null,
+      "last_run_ts": null
+    },
+    {
+      "name": "Cross-Scanner Report",
+      "schedule": "4:20 PM Mon-Fri",
+      "log_file": "cross_scanner.log",
+      "days": "weekday",
+      "last_run": null,
+      "last_run_ts": null
+    },
+    {
+      "name": "Admin Data Generator",
+      "schedule": "4:25 PM Mon-Fri",
+      "log_file": "admin_data.log",
+      "days": "weekday",
+      "last_run": null,
+      "last_run_ts": null
+    },
+    {
+      "name": "Performance Tracker",
+      "schedule": "7:00 PM Mon-Fri",
+      "log_file": "performance_tracking.log",
+      "days": "weekday",
+      "last_run": "2026-02-19 19:05",
+      "last_run_ts": 1771545940.391955
+    },
+    {
+      "name": "Evening Analysis",
+      "schedule": "8:00 PM Mon-Fri",
+      "log_file": "intraday_automation.log",
+      "days": "weekday",
+      "last_run": "2026-02-20 13:30",
+      "last_run_ts": 1771612244.4397802
+    },
+    {
+      "name": "DB Backup",
+      "schedule": "10:00 PM Mon-Fri",
+      "log_file": "db_backup.log",
+      "days": "weekday",
+      "last_run": "2026-02-16 22:00",
+      "last_run_ts": 1771297201.9163752
+    },
+    {
+      "name": "DB Optimization",
+      "schedule": "6:00 AM Sunday",
+      "log_file": "database_optimization.log",
+      "days": "sunday",
+      "last_run": "2026-02-15 06:00",
+      "last_run_ts": 1771153208.7933369
+    },
+    {
+      "name": "PC \u2192 USB Sync",
+      "schedule": "1:00 AM Sunday",
+      "log_file": null,
+      "days": "sunday",
+      "last_run": null,
+      "last_run_ts": null
+    }
+  ],
+  "logs": {
+    "intraday_automation": {
+      "description": "Market scans & orchestrator",
+      "lines": [
+        "2026-02-20 13:30:40,574 - INFO - Paper portfolio completed successfully",
+        "2026-02-20 13:30:40,575 - INFO -   PP: NEM    $ 122.77\u2192$ 124.28 P&L: +1.2% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: NEM    $ 122.77\u2192$ 124.28 P&L: +1.2% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: SNA    $ 381.07\u2192$ 381.36 P&L: +0.1% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: SNA    $ 381.07\u2192$ 381.36 P&L: +0.1% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: GM     $  80.60\u2192$  81.32 P&L: +0.9% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: GM     $  80.60\u2192$  81.32 P&L: +0.9% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: KNX    $  60.10\u2192$  59.24 P&L: -1.4% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: KNX    $  60.10\u2192$  59.24 P&L: -1.4% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: LHX    $ 347.25\u2192$ 354.10 P&L: +2.0% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: LHX    $ 347.25\u2192$ 354.10 P&L: +2.0% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: NDSN   $ 296.57\u2192$ 298.13 P&L: +0.5% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: NDSN   $ 296.57\u2192$ 298.13 P&L: +0.5% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: Q      $ 112.07\u2192$ 111.22 P&L: -0.8% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: Q      $ 112.07\u2192$ 111.22 P&L: -0.8% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: LVS    $  57.45\u2192$  57.72 P&L: +0.5% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO -   PP: LVS    $  57.45\u2192$  57.72 P&L: +0.5% Stage: 28",
+        "2026-02-20 13:30:40,575 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
+        "2026-02-20 13:30:40,575 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
+        "2026-02-20 13:30:44,440 - INFO - \u2705 Telegram reports sent successfully",
+        "2026-02-20 13:30:44,440 - INFO - \u2705 Telegram reports sent successfully",
+        "2026-02-20 13:30:44,440 - INFO - \u2705 Lunch scan completed",
+        "2026-02-20 13:30:44,440 - INFO - \u2705 Lunch scan completed",
+        "2026-02-20 13:30:44,440 - INFO - \u2705 Lunch automation completed successfully",
+        "2026-02-20 13:30:44,440 - INFO - \u2705 Lunch automation completed successfully"
+      ],
+      "last_modified": "2026-02-20 13:30",
+      "exists": true
+    },
+    "trend_ranker": {
+      "description": "Trend ranking (4:10 PM)",
+      "lines": [
+        "TREND RANK \u2014 2026-02-19  (789 symbols scored)",
+        "========================================================================",
+        "  BUY: 73   WATCH: 206   EXTENDED: 124   PULLBACK: 65",
+        "  TOP 20:",
+        "    # Sym    Score Class       Price   Dist52wh  Signals",
+        "    1 IUSG     100 BUY      $ 163.88       2.1%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:135]",
+        "    2 UNP      100 BUY      $ 264.01       0.6%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:125]",
+        "    3 TER       88 BUY      $ 313.39       4.4%  4.4% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:124]",
+        "    4 XOM      100 BUY      $ 151.13       2.7%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:123]",
+        "    5 NU       100 BUY      $  17.21       1.9%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:121]",
+        "    6 EME      100 BUY      $ 796.84       1.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:120]",
+        "    7 MLM       90 BUY      $ 670.18       2.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD+ [scanner:120]",
+        "    8 TRV      100 BUY      $ 298.42       1.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:119]",
+        "    9 EXEL     100 BUY      $  44.28       0.9%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:118]",
+        "   10 MELI      88 BUY      $1997.43       5.5%  5.5% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:118]",
+        "   11 SNOW      78 BUY      $ 177.60       4.3%  4.3% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD+ [scanner:118]",
+        "   12 TSN      100 BUY      $  63.94       1.0%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:117]",
+        "   13 TMO       88 BUY      $ 508.35       3.5%  3.5% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:117]",
+        "   14 ES       100 BUY      $  73.28       2.3%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:115]",
+        "   15 FE       100 BUY      $  49.41       2.0%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:115]",
+        "   16 YUM      100 BUY      $ 163.21       1.3%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:115]",
+        "   17 LH        88 BUY      $ 280.06       4.1%  4.1% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:115]",
+        "   18 FIX      100 BUY      $1348.56       1.7%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:113]",
+        "   19 JCI      100 BUY      $ 141.04       1.5%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:113]",
+        "   20 SLB      100 BUY      $  51.41       1.9%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:112]"
+      ],
+      "last_modified": "2026-02-19 16:10",
+      "exists": true
+    },
+    "unified_test": {
+      "description": "7-scanner test scorer (4:15 PM)",
+      "lines": [],
+      "exists": false
+    },
+    "cross_scanner": {
+      "description": "Cross-scanner conviction (4:20 PM)",
+      "lines": [],
+      "exists": false
+    },
+    "report_sync": {
+      "description": "Report sync \u2192 GitHub Pages",
+      "lines": [
+        "Deploying to GitHub Pages...",
+        "Deployed to jays.website/trading/ at 2026-02-20 11:05",
+        "==================================================",
+        "PIPELINE COMPLETE",
+        "==================================================",
+        "==================================================",
+        "REPORT SYNC & DEPLOY PIPELINE",
+        "==================================================",
+        "Syncing live reports to github_deploy...",
+        "  Institutional Scanner: INST_SCAN_2026-02-20.html -> institutional_latest.html (29.1KB)",
+        "  Enhanced Breakout: BREAKOUT_SCAN_2026-02-20.html -> enhanced_latest.html (202.9KB)",
+        "  V3 Compression: RANGE_COMPRESSION_V3_2026-02-20.html -> v3_compression_latest.html (33.4KB)",
+        "  ETF Scanner: etf_scan_20260219_1601.html -> etf_latest.html (18.4KB)",
+        "  Mega Under-$50: mega_under50_scan_20260219_1601.html -> under50_latest.html (22.8KB)",
+        "  Cross-Scanner Intelligence: cross_scanner_latest.html -> cross_scanner_latest.html (161.7KB)",
+        "  Setup Scanner: SETUP_SCAN_2026-02-20.html -> setups_latest.html (5.5KB)",
+        "  Unified Multi-Day: UNIFIED_SCAN_2026-02-20.html -> unified_latest.html (12.3KB)",
+        "Synced 8 reports to github_deploy",
+        "API data files updated",
+        "Top picks updated (17 picks \u2014 database_enhanced: 5, institutional: 5, setup_vcb: 1, unified: 3, v3_compression: 3)",
+        "Deploying to GitHub Pages...",
+        "Deployed to jays.website/trading/ at 2026-02-20 13:35",
+        "==================================================",
+        "PIPELINE COMPLETE",
+        "=================================================="
+      ],
+      "last_modified": "2026-02-20 13:35",
+      "exists": true
+    },
+    "performance_tracking": {
+      "description": "Signal performance tracker",
+      "lines": [
+        "  \ud83c\udfaf Best performing score range: 50-59 (41.2% win rate)",
+        "  \ud83d\udcc5 Best day for signals: Monday (41.3% win rate)",
+        "  \ud83d\udcca Overall performance: 39.4% win rate, -0.5% avg return",
+        "2026-02-19 19:00:03,618 - INFO - Updating performance for 2927 signals...",
+        "2026-02-19 19:00:36,026 - ERROR - $MMC: possibly delisted; no price data found  (1d 2026-02-19 00:00:00 -> 2026-02-19 19:00:35.896779)",
+        "2026-02-19 19:05:10,031 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: FI\"}}}",
+        "2026-02-19 19:05:10,175 - ERROR - $FI: possibly delisted; no timezone found",
+        "2026-02-19 19:05:17,233 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: FI\"}}}",
+        "2026-02-19 19:05:17,303 - ERROR - $FI: possibly delisted; no timezone found",
+        "2026-02-19 19:05:40,174 - INFO - Performance update completed",
+        "2026-02-19 19:05:40,247 - INFO - Signal timing analysis completed",
+        "2026-02-19 19:05:40,293 - INFO - Signal timing analysis completed",
+        "2026-02-19 19:05:40,346 - INFO - Signal timing analysis completed",
+        "2026-02-19 19:05:40,391 - INFO - Signal timing analysis completed",
+        "2026-02-19 19:05:40,392 - INFO - Analysis report saved: /media/j/Extreme SSD/Trading_Plans/Reports/signal_analysis_20260219.json",
+        "\ud83d\udcca Signal Performance Analysis",
+        "==================================================",
+        "\ud83d\udcc8 Total Signals Tracked: 5325",
+        "\ud83c\udfaf Overall Win Rate: 40.1%",
+        "\ud83d\udcb0 Average Return: -0.5%",
+        "\u23f3 Signals Still Open: 2588",
+        "\ud83d\udd0d Recommendations:",
+        "  \ud83c\udfaf Best performing score range: 90-100 (43.4% win rate)",
+        "  \ud83d\udcc5 Best day for signals: Thursday (53.0% win rate)",
+        "  \ud83d\udcca Overall performance: 40.1% win rate, -0.5% avg return"
+      ],
+      "last_modified": "2026-02-19 19:05",
+      "exists": true
+    },
+    "stale_price_check": {
+      "description": "Stale price & security validation",
+      "lines": [
+        "\ud83d\udcc8 DATA QUALITY ASSESSMENT",
+        "----------------------------------------",
+        "Overall Risk Level: MEDIUM",
+        "Stale Price Percentage: 1.42%",
+        "Data Quality Score: 76/100",
+        "\ud83c\udfaf PRIORITY ACTIONS",
+        "----------------------------------------",
+        "\ud83d\udd34 HIGH PRIORITY:",
+        "   \u2022 Remove 2 confirmed delisted securities",
+        "     Symbols: IPG, CRCW",
+        "\ud83d\udfe1 MEDIUM PRIORITY:",
+        "   \u2022 Review 7 securities under $1.00",
+        "   \u2022 Implement automated stale price monitoring",
+        "\u23f0 RECOMMENDED MAINTENANCE SCHEDULE",
+        "----------------------------------------",
+        "DAILY       : Run stale price detection (5 minutes)",
+        "WEEKLY      : Review flagged securities (30 minutes)",
+        "MONTHLY     : Database optimization and cleanup (2 hours)",
+        "QUARTERLY   : Comprehensive data quality audit (4 hours)",
+        "\ud83d\udcbe CLEANUP SCRIPT GENERATION",
+        "----------------------------------------",
+        "Run the following to generate cleanup scripts:",
+        "   python3 generate_cleanup_scripts.py",
+        "\ud83d\udcc4 SQL cleanup script saved to: cleanup_script.sql",
+        "\u2705 Cleanup recommendations saved to: cleanup_recommendations.json"
+      ],
+      "last_modified": "2026-02-20 07:00",
+      "exists": true
+    },
+    "db_backup": {
+      "description": "Daily DB backup (10 PM)",
+      "lines": [],
+      "last_modified": "2026-02-16 22:00",
+      "exists": true
+    }
+  },
+  "watchlists": [
+    {
+      "name": "all",
+      "file": "all.txt",
+      "count": 412,
+      "modified": "2025-12-02",
+      "preview": [
+        "AAPL",
+        "MSFT",
+        "NVDA",
+        "GOOGL",
+        "AMZN"
+      ]
+    },
+    {
+      "name": "crypto_related",
+      "file": "crypto_related.txt",
+      "count": 52,
+      "modified": "2025-12-02",
+      "preview": [
+        "COIN",
+        "HOOD",
+        "MSTR",
+        "RIOT",
+        "MARA"
+      ]
+    },
+    {
+      "name": "etfs_only",
+      "file": "etfs_only.txt",
+      "count": 100,
+      "modified": "2026-01-20",
+      "preview": [
+        "ACWI",
+        "AGG",
+        "ARKK",
+        "ARKQ",
+        "BND"
+      ]
+    },
+    {
+      "name": "mega_under50_curated",
+      "file": "mega_under50_curated.txt",
+      "count": 206,
+      "modified": "2026-01-20",
+      "preview": [
+        "SLB",
+        "HAL",
+        "OXY",
+        "APA",
+        "DVN"
+      ]
+    },
+    {
+      "name": "momentum_150",
+      "file": "momentum_150.txt",
+      "count": 172,
+      "modified": "2025-12-02",
+      "preview": [
+        "AAPL",
+        "MSFT",
+        "NVDA",
+        "GOOGL",
+        "AMZN"
+      ]
+    },
+    {
+      "name": "my_main_512",
+      "file": "my_main_512.txt",
+      "count": 849,
+      "modified": "2026-02-13",
+      "preview": [
+        "A",
+        "AAL",
+        "AAP",
+        "AAPL",
+        "ABAT"
+      ]
+    }
+  ],
+  "stale": {
+    "available": true,
+    "stale_count": 0,
+    "stale_symbols": [],
+    "total_tracked": 2
+  },
+  "epics": [
+    {
+      "id": "EPIC-MON-001",
+      "name": "Monitoring & Data Quality",
+      "phase": 1,
+      "status": "active",
+      "tasks_total": 6,
+      "tasks_done": 5,
+      "notes": "Stale price detection, security validation, DB backup all running"
+    },
+    {
+      "id": "EPIC-UX-001",
+      "name": "Dashboard UX Overhaul",
+      "phase": 2,
+      "status": "active",
+      "tasks_total": 6,
+      "tasks_done": 4,
+      "notes": "Mobile-responsive + sparklines still open"
+    },
+    {
+      "id": "EPIC-UX-002",
+      "name": "Scanner Report Styling",
+      "phase": 2,
+      "status": "not_started",
+      "tasks_total": 2,
+      "tasks_done": 0,
+      "notes": "Consistent HTML styling across all 7 scanner reports"
+    },
+    {
+      "id": "EPIC-UX-003",
+      "name": "New Dashboard Tabs",
+      "phase": 2,
+      "status": "active",
+      "tasks_total": 4,
+      "tasks_done": 0,
+      "notes": "Admin tab in progress"
+    },
+    {
+      "id": "EPIC-DATA-001",
+      "name": "Symbol Universe Expansion",
+      "phase": 3,
+      "status": "partial",
+      "tasks_total": 4,
+      "tasks_done": 2,
+      "notes": "913 symbols tracked \u2014 expansion to 2000+ pending"
+    },
+    {
+      "id": "EPIC-SCAN-001",
+      "name": "Unified Multi-Day Scorer",
+      "phase": 3,
+      "status": "complete",
+      "tasks_total": 12,
+      "tasks_done": 11,
+      "notes": "7-scanner test pipeline active \u2014 monitor 2+ weeks"
+    },
+    {
+      "id": "TREND-001",
+      "name": "Trend Ranking + 7-Scanner Test Pipeline",
+      "phase": 3,
+      "status": "active",
+      "tasks_total": 4,
+      "tasks_done": 4,
+      "notes": "Trend ranker + test unified running. Monitor results."
+    },
+    {
+      "id": "EPIC-PORT-001",
+      "name": "Portfolio Construction Engine",
+      "phase": 3,
+      "status": "in_progress",
+      "tasks_total": 5,
+      "tasks_done": 1,
+      "notes": "Paper portfolio (10-slot rotation) live. Long-term quarterly system in progress."
+    },
+    {
+      "id": "EPIC-PUB-001",
+      "name": "Publication-Grade Alerts",
+      "phase": 3,
+      "status": "not_started",
+      "tasks_total": 6,
+      "tasks_done": 0,
+      "notes": "Weekly/quarterly reports, enhanced Telegram delivery"
+    },
+    {
+      "id": "EPIC-INFRA-001",
+      "name": "Self-Hosted Infrastructure",
+      "phase": 4,
+      "status": "deferred",
+      "tasks_total": 9,
+      "tasks_done": 1,
+      "notes": "VPS migration deferred \u2014 CSP headers done as interim measure"
+    }
+  ],
+  "system": {
+    "pipeline_path": "/home/j/trading-pipeline/",
+    "db_path": "/media/j/Extreme SSD/Trading_Plans/Database/trading_central.db",
+    "deploy_path": "/media/j/Server/github_deploy/",
+    "live_site": "https://jays.website/trading/",
+    "cron_jobs_total": 22,
+    "active_scanners": 7,
+    "active_python_files": 16
+  }
+}
