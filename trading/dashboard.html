@@ -1561,15 +1561,82 @@
                                     </div>
                                 </div>
 
-                                <!-- 6. Auth / Login -->
+                                <!-- 6. User Management -->
                                 <div>
-                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Authentication</h5>
-                                    <div style="background:rgba(15,23,42,0.6);border-radius:8px;padding:14px;font-size:0.8rem;color:#94A3B8;">
-                                        <p style="margin:0 0 8px 0;">Current auth: <strong style="color:#FBBF24;">Client-side only</strong> — credentials checked in browser JavaScript.</p>
-                                        <p style="margin:0 0 8px 0;">Session expires after <strong>1 hour</strong>. Credentials: stored in browser sessionStorage.</p>
-                                        <p style="margin:0;color:#475569;">Server-side auth (proper security) requires <code style="color:#A78BFA;">EPIC-INFRA-001</code> VPS migration.
-                                        Flask app ready at <code>/media/j/Server/dashboard_server.py</code>.</p>
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">User Management</h5>
+                                    <div style="background:rgba(15,23,42,0.6);border-radius:8px;padding:14px;font-size:0.8rem;">
+                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                                            <span style="color:#94A3B8;">Current users — SHA-256 hashed in <code style="color:#FBBF24;">dashboard_users.json</code></span>
+                                            <span style="color:#475569;font-size:0.68rem;">session: 1hr</span>
+                                        </div>
+                                        <div id="adm-users-list" style="margin-bottom:14px;font-size:0.78rem;">Loading...</div>
+                                        <div style="border-top:1px solid rgba(59,130,246,0.2);padding-top:12px;">
+                                            <div style="color:#64748b;margin-bottom:8px;font-size:0.75rem;">Generate CLI command to add/remove (run on PC, then <code>python manage_users.py deploy</code>):</div>
+                                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+                                                <input id="adm-new-user" type="text" placeholder="Username" style="background:rgba(30,41,59,0.8);border:1px solid rgba(59,130,246,0.3);color:#CBD5E1;padding:5px 10px;border-radius:5px;font-size:0.78rem;width:130px;">
+                                                <input id="adm-new-pass" type="password" placeholder="Password" style="background:rgba(30,41,59,0.8);border:1px solid rgba(59,130,246,0.3);color:#CBD5E1;padding:5px 10px;border-radius:5px;font-size:0.78rem;width:130px;">
+                                                <select id="adm-new-role" style="background:rgba(30,41,59,0.8);border:1px solid rgba(59,130,246,0.3);color:#CBD5E1;padding:5px 8px;border-radius:5px;font-size:0.78rem;">
+                                                    <option value="viewer">viewer</option>
+                                                    <option value="admin">admin</option>
+                                                </select>
+                                                <button onclick="adminGenAddCmd()" style="background:rgba(16,185,129,0.2);border:1px solid rgba(16,185,129,0.4);color:#10B981;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;">Add Cmd</button>
+                                            </div>
+                                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+                                                <input id="adm-rm-user" type="text" placeholder="Username to remove" style="background:rgba(30,41,59,0.8);border:1px solid rgba(239,68,68,0.3);color:#CBD5E1;padding:5px 10px;border-radius:5px;font-size:0.78rem;width:200px;">
+                                                <button onclick="adminGenRemoveCmd()" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#EF4444;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;">Remove Cmd</button>
+                                            </div>
+                                            <div id="adm-user-cmd" style="display:none;background:rgba(15,23,42,0.9);border-radius:6px;padding:10px 12px;font-family:monospace;font-size:0.75rem;color:#10B981;position:relative;border:1px solid rgba(16,185,129,0.3);">
+                                                <button onclick="adminCopyCmd()" style="position:absolute;right:8px;top:8px;background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:2px 8px;border-radius:4px;font-size:0.68rem;cursor:pointer;">Copy</button>
+                                                <span id="adm-user-cmd-text"></span>
+                                            </div>
+                                        </div>
+                                        <p style="margin:8px 0 0;color:#475569;font-size:0.68rem;">Server-side auth requires EPIC-INFRA-001 VPS migration.</p>
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- ── PROJECT BOARD ──────────────────────────── -->
+                            <div style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.25);border-radius:10px;padding:16px 20px;margin-top:16px;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                                    <h4 style="color:#A78BFA;margin:0;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">📋 Project Board — Jay → Claude</h4>
+                                    <span id="board-generated" style="color:#64748b;font-size:0.7rem;">Loading...</span>
+                                </div>
+
+                                <!-- Add issue form -->
+                                <div style="background:rgba(15,23,42,0.5);border-radius:8px;padding:12px;margin-bottom:16px;border:1px solid rgba(167,139,250,0.15);">
+                                    <div style="color:#64748b;font-size:0.75rem;margin-bottom:8px;">Add issue / request — generates a CLI command to run on PC:</div>
+                                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+                                        <input id="board-new-title" type="text" placeholder="Issue title..." style="background:rgba(30,41,59,0.8);border:1px solid rgba(167,139,250,0.3);color:#CBD5E1;padding:5px 10px;border-radius:5px;font-size:0.78rem;flex:1;min-width:180px;">
+                                        <select id="board-new-status" style="background:rgba(30,41,59,0.8);border:1px solid rgba(167,139,250,0.3);color:#CBD5E1;padding:5px 8px;border-radius:5px;font-size:0.78rem;">
+                                            <option value="open">🔴 Open</option>
+                                            <option value="planning">📋 Planning</option>
+                                            <option value="in_progress">🟡 In Progress</option>
+                                        </select>
+                                        <select id="board-new-priority" style="background:rgba(30,41,59,0.8);border:1px solid rgba(167,139,250,0.3);color:#CBD5E1;padding:5px 8px;border-radius:5px;font-size:0.78rem;">
+                                            <option value="medium">Medium</option>
+                                            <option value="high">High</option>
+                                            <option value="low">Low</option>
+                                        </select>
+                                    </div>
+                                    <div style="display:flex;gap:8px;">
+                                        <input id="board-new-notes" type="text" placeholder="Notes (optional)..." style="background:rgba(30,41,59,0.8);border:1px solid rgba(167,139,250,0.3);color:#CBD5E1;padding:5px 10px;border-radius:5px;font-size:0.78rem;flex:1;">
+                                        <button onclick="boardGenAddCmd()" style="background:rgba(167,139,250,0.2);border:1px solid rgba(167,139,250,0.4);color:#A78BFA;padding:5px 14px;border-radius:5px;font-size:0.78rem;cursor:pointer;white-space:nowrap;">Generate Cmd</button>
+                                    </div>
+                                    <div id="board-add-cmd" style="display:none;background:rgba(15,23,42,0.9);border-radius:6px;padding:10px 12px;font-family:monospace;font-size:0.72rem;color:#A78BFA;margin-top:8px;position:relative;border:1px solid rgba(167,139,250,0.3);">
+                                        <button onclick="boardCopyCmd()" style="position:absolute;right:8px;top:8px;background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:2px 8px;border-radius:4px;font-size:0.68rem;cursor:pointer;">Copy</button>
+                                        <span id="board-add-cmd-text"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Kanban columns -->
+                                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" id="board-kanban">
+                                    <div style="color:#64748b;text-align:center;padding:20px;grid-column:1/-1;">Loading...</div>
+                                </div>
+
+                                <!-- Next session goals -->
+                                <div style="margin-top:16px;background:rgba(15,23,42,0.5);border-radius:8px;padding:12px;border:1px solid rgba(251,191,36,0.2);">
+                                    <div style="color:#FBBF24;font-size:0.78rem;font-weight:bold;margin-bottom:6px;">📌 Next Session Goals</div>
+                                    <div id="board-next-goals" style="font-size:0.78rem;color:#94A3B8;">Loading...</div>
                                 </div>
                             </div>
                         </div>
@@ -2574,6 +2641,132 @@
                     const el = document.getElementById('admin-generated');
                     if (el) el.textContent = 'Admin data unavailable (runs 4:25 PM)';
                 });
+
+            // Load users separately from dashboard_users.json
+            fetch('/trading/data/dashboard_users.json')
+                .then(r => r.json())
+                .then(d => {
+                    const el = document.getElementById('adm-users-list');
+                    if (!el) return;
+                    const users = d.users || [];
+                    el.innerHTML = `<table style="width:100%;border-collapse:collapse;">
+                        <tr style="border-bottom:1px solid rgba(59,130,246,0.2);">
+                            <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Username</th>
+                            <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Role</th>
+                            <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Added</th>
+                        </tr>
+                        ${users.map(u => `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                            <td style="padding:4px 8px;color:#CBD5E1;font-weight:bold;">${u.username}</td>
+                            <td style="padding:4px 8px;color:${u.role==='admin'?'#FBBF24':'#94A3B8'};">${u.role}</td>
+                            <td style="padding:4px 8px;color:#64748b;font-size:0.72rem;">${u.added||'?'}</td>
+                        </tr>`).join('')}
+                    </table>`;
+                })
+                .catch(() => {
+                    const el = document.getElementById('adm-users-list');
+                    if (el) el.textContent = 'Could not load users';
+                });
+
+            // Load project board
+            loadProjectBoard();
+        }
+
+        function adminGenAddCmd() {
+            const u = document.getElementById('adm-new-user').value.trim();
+            const p = document.getElementById('adm-new-pass').value;
+            const r = document.getElementById('adm-new-role').value;
+            if (!u || !p) { alert('Enter username and password'); return; }
+            const cmd = `cd /home/j/trading-pipeline && trading_env/bin/python3 manage_users.py add "${u}" "${p}" --role ${r} && python3 manage_users.py deploy`;
+            document.getElementById('adm-user-cmd-text').textContent = cmd;
+            document.getElementById('adm-user-cmd').style.display = 'block';
+            document.getElementById('adm-new-pass').value = '';
+        }
+
+        function adminGenRemoveCmd() {
+            const u = document.getElementById('adm-rm-user').value.trim();
+            if (!u) { alert('Enter username to remove'); return; }
+            const cmd = `cd /home/j/trading-pipeline && trading_env/bin/python3 manage_users.py remove "${u}" && python3 manage_users.py deploy`;
+            document.getElementById('adm-user-cmd-text').textContent = cmd;
+            document.getElementById('adm-user-cmd').style.display = 'block';
+        }
+
+        function adminCopyCmd() {
+            const txt = document.getElementById('adm-user-cmd-text').textContent;
+            navigator.clipboard.writeText(txt).then(() => {
+                const btn = event.target; btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        // ── Project Board ──────────────────────────────────────────────────────
+        function loadProjectBoard() {
+            fetch('/trading/data/project_board.json')
+                .then(r => r.json())
+                .then(pb => {
+                    const el = document.getElementById('board-generated');
+                    if (el) el.textContent = `Updated: ${pb.generated}`;
+
+                    const statusConfig = {
+                        open:        { label: '🔴 Open',        color: '#EF4444', bg: 'rgba(239,68,68,0.08)',    border: 'rgba(239,68,68,0.25)' },
+                        in_progress: { label: '🟡 In Progress', color: '#FBBF24', bg: 'rgba(251,191,36,0.08)',   border: 'rgba(251,191,36,0.25)' },
+                        planning:    { label: '📋 Planning',    color: '#60A5FA', bg: 'rgba(96,165,250,0.08)',   border: 'rgba(96,165,250,0.25)' },
+                        completed:   { label: '✅ Completed',   color: '#10B981', bg: 'rgba(16,185,129,0.08)',   border: 'rgba(16,185,129,0.25)' },
+                    };
+                    const priColors = { high: '#EF4444', medium: '#FBBF24', low: '#64748b' };
+
+                    const issues = pb.issues || [];
+                    const kanban = document.getElementById('board-kanban');
+                    if (kanban) {
+                        kanban.innerHTML = Object.entries(statusConfig).map(([status, cfg]) => {
+                            const group = issues.filter(i => i.status === status);
+                            return `<div style="background:${cfg.bg};border:1px solid ${cfg.border};border-radius:8px;padding:12px;">
+                                <div style="color:${cfg.color};font-size:0.78rem;font-weight:bold;margin-bottom:10px;">${cfg.label} (${group.length})</div>
+                                ${group.length === 0
+                                    ? `<div style="color:#475569;font-size:0.72rem;text-align:center;padding:10px;">—</div>`
+                                    : group.map(issue => `
+                                        <div style="background:rgba(15,23,42,0.6);border-radius:6px;padding:8px 10px;margin-bottom:8px;border-left:3px solid ${priColors[issue.priority]||'#64748b'};">
+                                            <div style="color:#CBD5E1;font-size:0.75rem;font-weight:600;margin-bottom:4px;">#${issue.id} ${issue.title}</div>
+                                            ${issue.notes ? `<div style="color:#64748b;font-size:0.68rem;line-height:1.4;">${issue.notes}</div>` : ''}
+                                            <div style="color:#475569;font-size:0.65rem;margin-top:4px;">${issue.category} · ${issue.created}</div>
+                                        </div>`
+                                    ).join('')}
+                            </div>`;
+                        }).join('');
+                    }
+
+                    const goalsEl = document.getElementById('board-next-goals');
+                    if (goalsEl) {
+                        const goals = pb.next_session_goals || [];
+                        goalsEl.innerHTML = goals.length
+                            ? goals.map(g => `<div style="margin-bottom:5px;">• ${g}</div>`).join('')
+                            : '<span style="color:#475569;">No goals set</span>';
+                    }
+                })
+                .catch(() => {
+                    const el = document.getElementById('board-kanban');
+                    if (el) el.innerHTML = '<div style="color:#64748b;text-align:center;padding:20px;grid-column:1/-1;">Project board unavailable</div>';
+                });
+        }
+
+        function boardGenAddCmd() {
+            const title = document.getElementById('board-new-title').value.trim();
+            const status = document.getElementById('board-new-status').value;
+            const priority = document.getElementById('board-new-priority').value;
+            const notes = document.getElementById('board-new-notes').value.trim();
+            if (!title) { alert('Enter a title'); return; }
+            let cmd = `cd /home/j/trading-pipeline && trading_env/bin/python3 manage_board.py add --title "${title}" --status ${status} --priority ${priority}`;
+            if (notes) cmd += ` --notes "${notes}"`;
+            cmd += ` && python3 manage_board.py deploy`;
+            document.getElementById('board-add-cmd-text').textContent = cmd;
+            document.getElementById('board-add-cmd').style.display = 'block';
+        }
+
+        function boardCopyCmd() {
+            const txt = document.getElementById('board-add-cmd-text').textContent;
+            navigator.clipboard.writeText(txt).then(() => {
+                const btn = event.target; btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
         }
 
         function showAdminLog(key) {

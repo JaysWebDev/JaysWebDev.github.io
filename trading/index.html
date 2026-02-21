@@ -179,8 +179,18 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        const _u = '907bdf2f550bb0b4237e97925f330d8af6f1a39a6066f203b1431f7b0fec6cc5';
-        const _p = 'efa9b95c6de137f46e4800c1108eeae45af2d9031ed76af33e57cebdde27ef5f';
+        // Fallback hashes (used if dashboard_users.json fails to load)
+        const _fallback = [
+            {u:'907bdf2f550bb0b4237e97925f330d8af6f1a39a6066f203b1431f7b0fec6cc5',
+             p:'efa9b95c6de137f46e4800c1108eeae45af2d9031ed76af33e57cebdde27ef5f'}
+        ];
+        let _users = null;
+
+        // Pre-fetch user list on page load
+        fetch('/trading/data/dashboard_users.json')
+            .then(r => r.json())
+            .then(d => { _users = d.users || []; })
+            .catch(() => { _users = null; });
 
         async function handleLogin(event) {
             event.preventDefault();
@@ -192,17 +202,20 @@
             const uHash = await sha256(username);
             const pHash = await sha256(password);
 
-            if (uHash === _u && pHash === _p) {
+            // Check against loaded user list, fall back to hardcoded if unavailable
+            const userList = _users || _fallback;
+            const match = userList.some(u => u.u_hash === uHash && u.p_hash === pHash);
+
+            if (match) {
                 sessionStorage.setItem('trading_authenticated', 'true');
+                sessionStorage.setItem('trading_user', username);
                 sessionStorage.setItem('auth_time', Date.now());
                 window.location.href = '/trading/dashboard.html';
                 return false;
             } else {
                 errorDiv.style.display = 'block';
                 document.getElementById('password').value = '';
-                setTimeout(() => {
-                    errorDiv.style.display = 'none';
-                }, 3000);
+                setTimeout(() => { errorDiv.style.display = 'none'; }, 3000);
                 return false;
             }
         }

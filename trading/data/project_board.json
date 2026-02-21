@@ -1,0 +1,100 @@
+{
+  "generated": "2026-02-20",
+  "issues": [
+    {
+      "id": 1,
+      "title": "Monitor 7-scanner test unified results for 2+ weeks",
+      "status": "open",
+      "priority": "medium",
+      "category": "monitoring",
+      "created": "2026-02-20",
+      "notes": "Compare multi-source picks vs production unified. Promote when consistently better."
+    },
+    {
+      "id": 2,
+      "title": "Monitor long-term portfolio PnL vs SPY benchmark",
+      "status": "open",
+      "priority": "medium",
+      "category": "portfolio",
+      "created": "2026-02-20",
+      "notes": "30 stocks + 10 ETFs initialized Feb 20. Track 1-2 months before first rebalance."
+    },
+    {
+      "id": 3,
+      "title": "Symbol universe expansion: 913 → 2000+ symbols",
+      "status": "planning",
+      "priority": "high",
+      "category": "data",
+      "created": "2026-02-20",
+      "notes": "Download Nasdaq 100, S&P 500, Russell 2000 lists. Merge + deduplicate. Backfill 2yr history (~3hr run)."
+    },
+    {
+      "id": 4,
+      "title": "Scanner report styling (EPIC-UX-002)",
+      "status": "planning",
+      "priority": "low",
+      "category": "ux",
+      "created": "2026-02-20",
+      "notes": "Consistent dark theme across all 7 HTML scanner reports. Currently bright green on black."
+    },
+    {
+      "id": 5,
+      "title": "SQQQ / inverse ETF filtering in scanners",
+      "status": "open",
+      "priority": "low",
+      "category": "quality",
+      "created": "2026-02-20",
+      "notes": "Inverse ETFs (SQQQ, SPXS) scoring high as buy setups. Add instrument type filter."
+    },
+    {
+      "id": 6,
+      "title": "Portfolio tab: add paper portfolio alongside LT holdings",
+      "status": "planning",
+      "priority": "medium",
+      "category": "portfolio",
+      "created": "2026-02-20",
+      "notes": "Show 10-slot paper portfolio and 30-stock LT portfolio side-by-side (TASK-PORT-06)."
+    },
+    {
+      "id": 7,
+      "title": "Weekly monitoring cron for LT portfolio (Monday 7 AM)",
+      "status": "planning",
+      "priority": "medium",
+      "category": "portfolio",
+      "created": "2026-02-20",
+      "notes": "Check for pullback entries + exit signals (TASK-PORT-03). Run --rebalance check."
+    },
+    {
+      "id": 8,
+      "title": "Publication-grade alerts: weekly + quarterly reports (EPIC-PUB-001)",
+      "status": "planning",
+      "priority": "medium",
+      "category": "publishing",
+      "created": "2026-02-20",
+      "notes": "Weekly top 20 trade ideas + quarterly conviction holds. HTML + Telegram delivery."
+    },
+    {
+      "id": 9,
+      "title": "Admin tab: log viewer showing incomplete log files",
+      "status": "open",
+      "priority": "low",
+      "category": "admin",
+      "created": "2026-02-20",
+      "notes": "unified_test.log and cross_scanner.log not yet populated (new cron jobs, first run at 4:15/4:20 PM today)."
+    },
+    {
+      "id": 10,
+      "title": "Admin tab: cron count in PROJECT_REQUIREMENTS.md says 19 (now 24)",
+      "status": "completed",
+      "priority": "low",
+      "category": "docs",
+      "created": "2026-02-20",
+      "notes": "Fixed — PROJECT_REQUIREMENTS.md updated with full post-market schedule."
+    }
+  ],
+  "next_session_goals": [
+    "Review portfolio performance after first few days of tracking",
+    "Consider EPIC-PUB-001 weekly report if LT portfolio showing good signal quality",
+    "Symbol universe expansion when ready to invest time in 3hr backfill"
+  ]
+}
