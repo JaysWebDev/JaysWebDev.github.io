@@ -1446,6 +1446,59 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Paper Portfolio compact view -->
+                            <div style="margin-top:16px;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                                    <h4 style="color:#FBBF24;margin:0;font-size:0.85rem;text-transform:uppercase;">💼 Paper Portfolio — 10-Slot Rotation</h4>
+                                    <span id="portpp-dates" style="color:#64748b;font-size:0.72rem;"></span>
+                                </div>
+                                <!-- Stat cards -->
+                                <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:12px;">
+                                    <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:12px;text-align:center;">
+                                        <div id="portpp-value" style="font-size:1.3rem;font-weight:bold;color:#FBBF24;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Total Value</div>
+                                    </div>
+                                    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;text-align:center;">
+                                        <div id="portpp-return" style="font-size:1.3rem;font-weight:bold;color:#10B981;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Return</div>
+                                    </div>
+                                    <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:12px;text-align:center;">
+                                        <div id="portpp-positions" style="font-size:1.3rem;font-weight:bold;color:#60A5FA;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Positions</div>
+                                    </div>
+                                    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;text-align:center;">
+                                        <div id="portpp-winners" style="font-size:1.3rem;font-weight:bold;color:#10B981;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Winners</div>
+                                    </div>
+                                    <div style="background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:8px;padding:12px;text-align:center;">
+                                        <div id="portpp-cash" style="font-size:1.3rem;font-weight:bold;color:#94A3B8;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Cash</div>
+                                    </div>
+                                </div>
+                                <!-- Compact holdings table -->
+                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:16px;border:1px solid rgba(251,191,36,0.15);">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                        <thead>
+                                            <tr style="border-bottom:1px solid rgba(251,191,36,0.2);">
+                                                <th style="padding:5px 6px;text-align:left;color:#64748b;">Symbol</th>
+                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">Entry</th>
+                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">Current</th>
+                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">PnL%</th>
+                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">PnL$</th>
+                                                <th style="padding:5px 6px;text-align:center;color:#64748b;">Days</th>
+                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="portpp-body">
+                                            <tr><td colspan="7" style="padding:12px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <div style="margin-top:8px;text-align:right;">
+                                        <a href="#" onclick="showTab(event,'positions');return false;" style="color:#FBBF24;font-size:0.72rem;text-decoration:none;">Full view → Positions tab ↗</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- ═══════════════════════════════════════════════════ -->
@@ -2342,6 +2395,44 @@
                     realEl.textContent = (ct.total_realized >= 0 ? '+$' : '-$') + Math.abs(ct.total_realized).toFixed(2);
                     realEl.style.color = ct.total_realized >= 0 ? '#10B981' : '#EF4444';
                     document.getElementById('pp-days-running').textContent = pp.stats.days_running;
+
+                    // ── Portfolio tab compact view ──
+                    const ppDates = document.getElementById('portpp-dates');
+                    if (ppDates) ppDates.textContent = `Started: ${pp.start_date} · Updated: ${pp.current_date}`;
+                    const ppVal = document.getElementById('portpp-value');
+                    if (ppVal) ppVal.textContent = '$' + pp.total_value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    const ppRet = document.getElementById('portpp-return');
+                    if (ppRet) {
+                        ppRet.textContent = (pp.total_return_pct >= 0 ? '+' : '') + pp.total_return_pct.toFixed(2) + '%';
+                        ppRet.style.color = pp.total_return_pct >= 0 ? '#10B981' : '#EF4444';
+                    }
+                    const ppPos = document.getElementById('portpp-positions');
+                    if (ppPos) ppPos.textContent = pp.num_positions + ' / ' + pp.max_positions;
+                    const ppWin = document.getElementById('portpp-winners');
+                    if (ppWin) ppWin.textContent = (pp.stats.active_winners || 0) + 'W / ' + (pp.stats.active_losers || 0) + 'L';
+                    const ppCash = document.getElementById('portpp-cash');
+                    if (ppCash) ppCash.textContent = '$' + pp.cash.toFixed(0);
+                    const ppBody = document.getElementById('portpp-body');
+                    if (ppBody) {
+                        if (!pp.positions || pp.positions.length === 0) {
+                            ppBody.innerHTML = '<tr><td colspan="7" style="padding:12px;text-align:center;color:#64748b;">No positions yet.</td></tr>';
+                        } else {
+                            ppBody.innerHTML = pp.positions.map(p => {
+                                const c = p.pnl_pct >= 0 ? '#10B981' : '#EF4444';
+                                const s = p.pnl_pct >= 0 ? '+' : '';
+                                const d = p.pnl_dollar >= 0 ? '+$' : '-$';
+                                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                    <td style="padding:5px 6px;font-weight:bold;">${p.symbol}</td>
+                                    <td style="padding:5px 6px;text-align:right;color:#94A3B8;">$${p.entry_price}</td>
+                                    <td style="padding:5px 6px;text-align:right;">$${p.current_price}</td>
+                                    <td style="padding:5px 6px;text-align:right;color:${c};font-weight:bold;">${s}${p.pnl_pct.toFixed(2)}%</td>
+                                    <td style="padding:5px 6px;text-align:right;color:${c};">${d}${Math.abs(p.pnl_dollar).toFixed(2)}</td>
+                                    <td style="padding:5px 6px;text-align:center;color:#94A3B8;">${p.days_held}d</td>
+                                    <td style="padding:5px 6px;text-align:right;color:#64748b;">${p.score || '-'}</td>
+                                </tr>`;
+                            }).join('');
+                        }
+                    }
                 })
                 .catch(err => {
                     console.error('Paper portfolio load error:', err);
@@ -2775,9 +2866,10 @@
             const content = document.getElementById('adm-log-content');
             const meta = document.getElementById('adm-log-meta');
             if (content) {
+                const logText = (ldata.lines || []).join('\n').trim();
                 content.textContent = ldata.exists === false
                     ? `Log file not found yet (${key})`
-                    : (ldata.lines || []).join('\n') || '(empty)';
+                    : logText || `No log output yet — this job runs weekdays after market close (4:00–4:30 PM).\nCheck back after the next trading day.`;
                 content.scrollTop = content.scrollHeight;
             }
             if (meta) {
