@@ -2056,16 +2056,17 @@
                         rs = ad.report_stats || {};
                         // Also update strategy candidate counts
                         const sc = {
-                            'strat-inst-count':    rs.institutional,
+                            'strat-inst-count':     rs.institutional,
                             'strat-enhanced-count': rs.enhanced,
-                            'strat-v3-count':      rs.v3,
-                            'strat-etf-count':     rs.etf,
-                            'strat-under50-count': rs.under50,
-                            'strat-setups-count':  rs.setups,
+                            'strat-v3-count':       rs.v3,
+                            'strat-etf-count':      rs.etf,
+                            'strat-under50-count':  rs.under50,
+                            'strat-setups-count':   rs.setups,
                         };
-                        for (const [id, val] of Object.entries(sc)) {
+                        for (const [id, entry] of Object.entries(sc)) {
                             const el = document.getElementById(id);
-                            if (el && val != null) el.textContent = val;
+                            const cnt = entry && entry.candidates != null ? entry.candidates : null;
+                            if (el && cnt != null) el.textContent = cnt;
                         }
                     }
                 } catch (_) {}
