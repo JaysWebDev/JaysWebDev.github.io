@@ -363,11 +363,11 @@
                                         <div style="font-size: 0.85rem; color: #94A3B8;">Active Scanners</div>
                                     </div>
                                     <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
-                                        <div style="font-size: 2rem; font-weight: bold; color: #3B82F6;">18</div>
+                                        <div id="stat-cron-jobs" style="font-size: 2rem; font-weight: bold; color: #3B82F6;">26</div>
                                         <div style="font-size: 0.85rem; color: #94A3B8;">Cron Jobs</div>
                                     </div>
                                     <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
-                                        <div style="font-size: 2rem; font-weight: bold; color: #3B82F6;">848</div>
+                                        <div id="stat-securities" style="font-size: 2rem; font-weight: bold; color: #3B82F6;">2,760</div>
                                         <div style="font-size: 0.85rem; color: #94A3B8;">Securities Tracked</div>
                                     </div>
                                 </div>
@@ -452,7 +452,7 @@
                                     </a>
                                     <a href="/trading/reports/institutional_latest.html" style="display: block; background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-decoration: none; color: #e2e8f0; border: 1px solid rgba(148,163,184,0.1); border-left: 4px solid #ff9800; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#ff9800'" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)'; this.style.borderLeftColor='#ff9800'">
                                         <div style="font-weight: bold; font-size: 1.05rem;">Institutional Scanner</div>
-                                        <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 5px;">Accumulation detection across 774 symbols</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 5px;">Accumulation detection across 2,760+ symbols</div>
                                     </a>
                                     <a href="/trading/reports/enhanced_latest.html" style="display: block; background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-decoration: none; color: #e2e8f0; border: 1px solid rgba(148,163,184,0.1); border-left: 4px solid #2196F3; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#2196F3'" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)'; this.style.borderLeftColor='#2196F3'">
                                         <div style="font-weight: bold; font-size: 1.05rem;">Enhanced Breakout</div>
@@ -798,11 +798,11 @@
                                         <div style="margin: 15px 0;">
                                             <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
                                                 <span>Total Price Records:</span>
-                                                <span style="color: #3B82F6; font-weight: bold;">197,000+</span>
+                                                <span id="adm-stat-records" style="color: #3B82F6; font-weight: bold;">236,000+</span>
                                             </div>
                                             <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
                                                 <span>Securities Tracked:</span>
-                                                <span style="color: #3B82F6; font-weight: bold;">848</span>
+                                                <span id="adm-stat-securities" style="color: #3B82F6; font-weight: bold;">2,760</span>
                                             </div>
                                             <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
                                                 <span>Data Range:</span>
@@ -1699,7 +1699,7 @@
                         <!-- ═══════════════════════════════════════════════════ -->
                         <div id="trends" class="tab-panel">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                                <h3 style="color: #FBBF24; margin: 0;">🔥 Trend Rankings — All 900+ Symbols</h3>
+                                <h3 style="color: #FBBF24; margin: 0;">🔥 Trend Rankings — All 2,700+ Symbols</h3>
                                 <span id="trend-generated" style="color: #64748b; font-size: 0.75rem;">Loading...</span>
                             </div>
 
@@ -2632,6 +2632,19 @@
                     setTxt('adm-db-size', db.size_mb ? db.size_mb + ' MB' : '?');
                     setTxt('adm-symbols', db.symbols || '?');
                     setTxt('adm-last-price', db.last_price_date || '?');
+
+                    // ── Overview stat cards (auto-sync from admin_data) ──
+                    if (db.symbols) {
+                        const fmt = db.symbols.toLocaleString();
+                        setTxt('stat-securities', fmt);
+                        setTxt('adm-stat-securities', fmt);
+                    }
+                    if (db.table_counts && db.table_counts.daily_prices) {
+                        setTxt('adm-stat-records', Math.floor(db.table_counts.daily_prices / 1000) + ',000+');
+                    }
+                    if (ad.system && ad.system.cron_jobs_total) {
+                        setTxt('stat-cron-jobs', ad.system.cron_jobs_total);
+                    }
                     const staleEl = document.getElementById('adm-stale');
                     const staleCount = (ad.stale || {}).stale_count || 0;
                     if (staleEl) { staleEl.textContent = staleCount; staleEl.style.color = staleCount > 0 ? '#EF4444' : '#10B981'; }
@@ -2937,10 +2950,18 @@
                 });
         }
 
+        const INVERSE_ETF_BLOCKLIST = new Set([
+            'SQQQ','SPXS','SDOW','SRTY','SOXS','TZA','FAZ','SKF','SDS','SH','PSQ','MYY','DOG','RWM',
+            'SARK','BITI','TECS','LABD','DUST','JDST','ERY','SCO','DRV','BNKD','UVXY','SVXY','VXX','VIXY',
+            'TQQQ','UPRO','SPXL','UDOW','LABU','NUGT','JNUG','TECL','FAS','NAIL','CURE','DRN','DPST','BNKU',
+            'ERX','QLD','SSO','MVV','ROM','UXI','DIG','UCO','USD'
+        ]);
+
         function loadTopPicks() {
             fetch('/trading/data/top_picks.json')
                 .then(r => r.json())
-                .then(picks => {
+                .then(allPicks => {
+                    const picks = (allPicks || []).filter(p => !INVERSE_ETF_BLOCKLIST.has(p.symbol));
                     const tbody = document.getElementById('top-picks-body');
                     if (!picks || picks.length === 0) {
                         tbody.innerHTML = '<tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">No picks available</td></tr>';
@@ -3140,7 +3161,7 @@
         }
 
         function removeSecurity(symbol) {
-            if (confirm(`Remove ${symbol} from the dashboard view?\n\nNote: To permanently remove from scanners, edit the watchlist file:\n/home/j/trading-pipeline/watchlists/my_main_512.txt`)) {
+            if (confirm(`Remove ${symbol} from the dashboard view?\n\nNote: To permanently remove from scanners, edit the watchlist file:\n/home/j/trading-pipeline/watchlists/my_main_expanded.txt`)) {
                 const index = securitiesData.findIndex(s => s.symbol === symbol);
                 if (index > -1) {
                     securitiesData.splice(index, 1);
@@ -3180,7 +3201,7 @@
                 allSecurities = [...securitiesData];
                 loadSecurities();
 
-                alert(`✅ ${symbol} added to dashboard view\n\n📝 To persist: add to watchlist file on PC\n(/home/j/trading-pipeline/watchlists/my_main_512.txt)`);
+                alert(`✅ ${symbol} added to dashboard view\n\n📝 To persist: add to watchlist file on PC\n(/home/j/trading-pipeline/watchlists/my_main_expanded.txt)`);
             }
         }
 
