@@ -40,11 +40,11 @@
     {
       "id": 5,
       "title": "SQQQ / inverse ETF filtering in scanners",
-      "status": "open",
+      "status": "completed",
       "priority": "low",
       "category": "quality",
       "created": "2026-02-20",
-      "notes": "Inverse ETFs (SQQQ, SPXS) scoring high as buy setups. Add instrument type filter."
+      "notes": "Added INVERSE_ETF_BLOCKLIST (51 symbols) to config.py. Filtered in cross_scanner_report.py and db_scanner_unified_test.py at output time \u2014 scanner DB rows preserved."
     },
     {
       "id": 6,
