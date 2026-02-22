@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>🚀 Trading Intelligence Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,7 +18,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'DM Sans', 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
             color: #e2e8f0;
@@ -111,7 +114,7 @@
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
         .scanner-grid {
@@ -150,13 +153,30 @@
 
         .stat-value {
             font-size: 1.4rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #3B82F6;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .stat-label {
             font-size: 0.8rem;
             opacity: 0.8;
+        }
+
+        /* Monospace for all numeric data in tables and stat displays */
+        td, th,
+        .stat-value,
+        #top-picks-body td,
+        #pos-holdings-body td {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        /* Keep UI text (labels, headings, buttons) in DM Sans */
+        th, .tab-button, .btn, h1, h2, h3, h4,
+        .scanner-title, .stat-label, .report-link,
+        .logout-btn, label, .status-item {
+            font-family: 'DM Sans', 'Segoe UI', sans-serif;
         }
 
         .report-links {
