@@ -284,6 +284,66 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* ── Mobile Responsiveness ─────────────────────────────────────── */
+        @media (max-width: 900px) {
+            /* Main 2-col grid → single column */
+            .dashboard-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Tab bar: horizontal scroll instead of flex overflow */
+            .tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+                border-radius: 8px;
+                scrollbar-width: none;
+                flex-wrap: nowrap;
+            }
+            .tabs::-webkit-scrollbar { display: none; }
+            .tab-button {
+                flex: 0 0 auto;
+                padding: 10px 12px !important;
+                font-size: 0.75rem !important;
+                min-width: max-content;
+            }
+
+            /* Header compact */
+            .header { padding: 10px 15px !important; flex-wrap: wrap; gap: 8px; }
+            .header h1 { font-size: 1.1rem !important; }
+
+            /* Status bar: show only first 2 items */
+            .status-bar { gap: 10px; flex-wrap: wrap; }
+            .status-item:nth-child(n+3) { display: none; }
+
+            /* Control panel: full width buttons */
+            .control-panel { display: flex; flex-direction: column; gap: 8px; }
+            .control-panel .btn { width: 100%; }
+
+            /* Tables scroll horizontally */
+            .tab-panel { padding: 12px !important; overflow-x: auto; }
+
+            /* Inline grids → single column */
+            [style*="grid-template-columns: 1fr 1fr"],
+            [style*="grid-template-columns: 2fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+            [style*="grid-template-columns: repeat(4, 1fr)"] {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            [style*="grid-template-columns: repeat(4, minmax"] {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button { padding: 8px !important; font-size: 0.65rem !important; }
+            [style*="grid-template-columns: repeat(4, 1fr)"],
+            [style*="grid-template-columns: repeat(4, minmax"] {
+                grid-template-columns: 1fr 1fr !important;
+            }
+            .header h1 { font-size: 0.9rem !important; }
+        }
     </style>
 </head>
 <body>
@@ -699,19 +759,23 @@
                                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px;">
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
                                         <div style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">51.9%</div>
-                                        <div style="font-size: 0.8rem; color: #94A3B8;">Win Rate (1,931 signals)</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8;">Backtest Win Rate</div>
+                                        <div style="font-size: 0.7rem; color: #475569; margin-top: 3px;">1,931 signals (historical)</div>
                                     </div>
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
                                         <div style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">+0.05%</div>
-                                        <div style="font-size: 0.8rem; color: #94A3B8;">Avg Return/Signal</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8;">Backtest Avg Return</div>
+                                        <div style="font-size: 0.7rem; color: #475569; margin-top: 3px;">3% stop / 5% target</div>
                                     </div>
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                        <div style="font-size: 1.8rem; font-weight: bold; color: #3B82F6;">4.6s</div>
+                                        <div style="font-size: 1.8rem; font-weight: bold; color: #3B82F6;">~5s</div>
                                         <div style="font-size: 0.8rem; color: #94A3B8;">Scan Execution</div>
+                                        <div style="font-size: 0.7rem; color: #475569; margin-top: 3px;">per scanner pass</div>
                                     </div>
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                        <div style="font-size: 1.8rem; font-weight: bold; color: #3B82F6;">99.1%</div>
-                                        <div style="font-size: 0.8rem; color: #94A3B8;">Data Collection</div>
+                                        <div style="font-size: 1.8rem; font-weight: bold; color: #3B82F6;">2yr</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8;">Price History</div>
+                                        <div style="font-size: 0.7rem; color: #475569; margin-top: 3px;">2,760+ symbols</div>
                                     </div>
                                 </div>
                                 <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1);">
@@ -952,13 +1016,13 @@
                                                     <ul style="margin: 5px 0 5px 15px;">
                                                         <li>Min Price: $0.50 (includes penny stocks)</li>
                                                         <li>Min Dollar Volume: $100K (very low for diversity)</li>
-                                                        <li>Target: 40 diverse signals across 800 symbols</li>
+                                                        <li>Target: 40 diverse signals across 2,760+ symbols</li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div style="text-align: center;">
                                                 <div style="background: rgba(255,152,0,0.2); border-radius: 8px; padding: 15px;">
-                                                    <div style="font-size: 1.2rem; color: #ff9800; font-weight: bold;">28</div>
+                                                    <div id="strat-inst-count" style="font-size: 1.2rem; color: #ff9800; font-weight: bold;">--</div>
                                                     <div style="font-size: 0.8rem;">Current Candidates</div>
                                                 </div>
                                                 <div style="margin: 10px 0; font-size: 0.7rem; opacity: 0.8;">
@@ -1009,7 +1073,7 @@
                                             </div>
                                             <div style="text-align: center;">
                                                 <div style="background: rgba(33,150,243,0.2); border-radius: 8px; padding: 15px;">
-                                                    <div style="font-size: 1.2rem; color: #2196F3; font-weight: bold;">8</div>
+                                                    <div id="strat-enhanced-count" style="font-size: 1.2rem; color: #2196F3; font-weight: bold;">--</div>
                                                     <div style="font-size: 0.8rem;">Current Candidates</div>
                                                 </div>
                                                 <div style="margin: 10px 0; font-size: 0.7rem; opacity: 0.8;">
@@ -1060,7 +1124,7 @@
                                             </div>
                                             <div style="text-align: center;">
                                                 <div style="background: rgba(156,39,176,0.2); border-radius: 8px; padding: 15px;">
-                                                    <div style="font-size: 1.2rem; color: #9C27B0; font-weight: bold;">15</div>
+                                                    <div id="strat-v3-count" style="font-size: 1.2rem; color: #9C27B0; font-weight: bold;">--</div>
                                                     <div style="font-size: 0.8rem;">Current Candidates</div>
                                                 </div>
                                                 <div style="margin: 10px 0; font-size: 0.7rem; opacity: 0.8;">
@@ -1111,7 +1175,7 @@
                                             </div>
                                             <div style="text-align: center;">
                                                 <div style="background: rgba(16,185,129,0.2); border-radius: 8px; padding: 15px;">
-                                                    <div style="font-size: 1.2rem; color: #10B981; font-weight: bold;">6</div>
+                                                    <div id="strat-etf-count" style="font-size: 1.2rem; color: #10B981; font-weight: bold;">--</div>
                                                     <div style="font-size: 0.8rem;">Current Candidates</div>
                                                 </div>
                                                 <div style="margin: 10px 0; font-size: 0.7rem; opacity: 0.8;">
@@ -1143,7 +1207,7 @@
                                             </div>
                                             <div style="text-align: center;">
                                                 <div style="background: rgba(255,87,34,0.2); border-radius: 8px; padding: 15px;">
-                                                    <div style="font-size: 1.2rem; color: #FF5722; font-weight: bold;">25</div>
+                                                    <div id="strat-under50-count" style="font-size: 1.2rem; color: #FF5722; font-weight: bold;">--</div>
                                                     <div style="font-size: 0.8rem;">Current Candidates</div>
                                                 </div>
                                                 <a href="/trading/reports/under50_latest.html" class="btn" style="margin-top: 15px; font-size: 0.8rem;">View Report</a>
@@ -1186,7 +1250,7 @@
                                             </div>
                                             <div style="text-align: center;">
                                                 <div style="background: rgba(0,188,212,0.2); border-radius: 8px; padding: 15px;">
-                                                    <div style="font-size: 1.2rem; color: #00BCD4; font-weight: bold;">167</div>
+                                                    <div id="strat-setups-count" style="font-size: 1.2rem; color: #00BCD4; font-weight: bold;">--</div>
                                                     <div style="font-size: 0.8rem;">Current Candidates</div>
                                                 </div>
                                                 <div style="margin: 10px 0; font-size: 0.7rem; opacity: 0.8;">
@@ -1983,62 +2047,48 @@
 
         async function loadDashboardData() {
             try {
-                // Load scanner overview
-                const scannerData = [
-                    {
-                        name: "🏢 Institutional",
-                        candidates: 12,
-                        lastRun: "16:00",
-                        status: "active",
-                        reportFile: "institutional_latest.html"
-                    },
-                    {
-                        name: "⚡ Enhanced Breakout",
-                        candidates: 8,
-                        lastRun: "16:00",
-                        status: "active",
-                        reportFile: "enhanced_latest.html"
-                    },
-                    {
-                        name: "📊 V3 Compression",
-                        candidates: 15,
-                        lastRun: "16:00",
-                        status: "active",
-                        reportFile: "v3_compression_latest.html"
-                    },
-                    {
-                        name: "📈 ETF Scanner",
-                        candidates: 6,
-                        lastRun: "16:00",
-                        status: "active",
-                        reportFile: "etf_latest.html"
-                    },
-                    {
-                        name: "💰 Mega Under-$50",
-                        candidates: 25,
-                        lastRun: "16:00",
-                        status: "active",
-                        reportFile: "under50_latest.html"
-                    },
-                    {
-                        name: "🎯 Setup Scanner",
-                        candidates: 167,
-                        lastRun: "16:00",
-                        status: "active",
-                        reportFile: "setups_latest.html"
-                    },
-                    {
-                        name: "🏆 Unified Scanner",
-                        candidates: 50,
-                        lastRun: "16:00",
-                        status: "active",
-                        reportFile: "unified_latest.html"
+                // Load live scanner stats from admin_data.json
+                let rs = {};
+                try {
+                    const adResp = await fetch('/trading/data/admin_data.json');
+                    if (adResp.ok) {
+                        const ad = await adResp.json();
+                        rs = ad.report_stats || {};
+                        // Also update strategy candidate counts
+                        const sc = {
+                            'strat-inst-count':    rs.institutional,
+                            'strat-enhanced-count': rs.enhanced,
+                            'strat-v3-count':      rs.v3,
+                            'strat-etf-count':     rs.etf,
+                            'strat-under50-count': rs.under50,
+                            'strat-setups-count':  rs.setups,
+                        };
+                        for (const [id, val] of Object.entries(sc)) {
+                            const el = document.getElementById(id);
+                            if (el && val != null) el.textContent = val;
+                        }
                     }
+                } catch (_) {}
+
+                function getCandidates(key, fallback) {
+                    return (rs[key] && rs[key].candidates != null) ? rs[key].candidates : fallback;
+                }
+                function getLastRun(key, fallback) {
+                    if (!rs[key] || !rs[key].last_run) return fallback;
+                    return rs[key].last_run.split(' ')[1] || fallback;
+                }
+
+                const scannerData = [
+                    { name: "🏢 Institutional",    candidates: getCandidates('institutional', '--'), lastRun: getLastRun('institutional', '--'), reportFile: "institutional_latest.html" },
+                    { name: "⚡ Enhanced Breakout", candidates: getCandidates('enhanced',      '--'), lastRun: getLastRun('enhanced',      '--'), reportFile: "enhanced_latest.html" },
+                    { name: "📊 V3 Compression",    candidates: getCandidates('v3',            '--'), lastRun: getLastRun('v3',            '--'), reportFile: "v3_compression_latest.html" },
+                    { name: "📈 ETF Scanner",       candidates: getCandidates('etf',           '--'), lastRun: getLastRun('etf',           '--'), reportFile: "etf_latest.html" },
+                    { name: "💰 Mega Under-$50",    candidates: getCandidates('under50',       '--'), lastRun: getLastRun('under50',       '--'), reportFile: "under50_latest.html" },
+                    { name: "🎯 Setup Scanner",     candidates: getCandidates('setups',        '--'), lastRun: getLastRun('setups',        '--'), reportFile: "setups_latest.html" },
+                    { name: "🏆 Unified Scanner",   candidates: getCandidates('unified',       '--'), lastRun: getLastRun('unified',       '--'), reportFile: "unified_latest.html" },
                 ];
 
                 renderScannerOverview(scannerData);
-
-                // Update last update time
                 document.getElementById('last-update').textContent =
                     'Last Update: ' + new Date().toLocaleTimeString();
 
