@@ -22,11 +22,11 @@
     {
       "id": 3,
       "title": "Symbol universe expansion: 913 \u2192 2000+ symbols",
-      "status": "planning",
+      "status": "completed",
       "priority": "high",
       "category": "data",
       "created": "2026-02-20",
-      "notes": "Download Nasdaq 100, S&P 500, Russell 2000 lists. Merge + deduplicate. Backfill 2yr history (~3hr run)."
+      "notes": "2767 symbols: SP500 (498) + Russell 2000 (1944) + Nasdaq 100 (101, 4 unique) + existing 847. Backfill ran in 4.3min. Sector data populating. portfolio_constructor.py updated to my_main_expanded.txt. Sunday 3 AM cron for sector refresh."
     },
     {
       "id": 4,
