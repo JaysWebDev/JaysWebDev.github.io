@@ -4,123 +4,113 @@
     <title>ETF Scanner Results</title>
     <style>
         body {
-            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #000 0%, #111 100%);
-            color: #00ff00;
+            font-family: 'Segoe UI', -apple-system, system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
             margin: 0;
             padding: 20px;
             line-height: 1.4;
+            min-height: 100vh;
         }
         .container { max-width: 1400px; margin: 0 auto; }
-        h1 { color: #00ff00; text-align: center; border-bottom: 3px solid #00ff00; padding-bottom: 10px; }
-        h2 { color: #ffff00; }
+        h1 { color: #3B82F6; text-align: center; border-bottom: 2px solid rgba(59,130,246,0.3); padding-bottom: 10px; font-size: 1.5rem; }
+        h2 { color: #e2e8f0; font-size: 1.1rem; }
         .stats {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 8px;
+            background: rgba(30,41,59,0.8);
+            border: 1px solid rgba(59,130,246,0.2);
+            border-radius: 10px;
             padding: 15px;
             margin: 20px 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
         }
         .stat { text-align: center; }
-        .stat-value { font-size: 24px; font-weight: bold; color: #00ff00; }
-        .stat-label { color: #999; font-size: 12px; }
+        .stat-value { font-size: 1.6rem; font-weight: bold; color: #3B82F6; }
+        .stat-label { color: #94A3B8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
         .summary {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 8px;
+            background: rgba(30,41,59,0.6);
+            border: 1px solid rgba(148,163,184,0.1);
+            border-radius: 10px;
             padding: 15px;
             margin: 20px 0;
+            color: #94A3B8;
         }
+        .summary strong { color: #CBD5E1; }
         .warning {
-            background: #222;
-            border: 1px solid #ff6600;
+            background: rgba(245,158,11,0.08);
+            border: 1px solid rgba(245,158,11,0.3);
             border-radius: 8px;
-            padding: 15px;
+            padding: 12px 15px;
             margin: 20px 0;
-            color: #ff6600;
+            color: #F59E0B;
+            font-size: 0.85rem;
         }
         .candidate {
-            background: #111;
-            border: 1px solid #333;
+            background: rgba(30,41,59,0.6);
+            border: 1px solid rgba(59,130,246,0.15);
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 12px 0;
             padding: 15px;
         }
         .symbol {
-            font-size: 20px;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: #00ff00;
+            color: #3B82F6;
         }
         .score {
-            background-color: #006600;
-            color: #00ff00;
-            padding: 4px 8px;
-            border-radius: 3px;
+            background: rgba(59,130,246,0.2);
+            color: #3B82F6;
+            padding: 3px 8px;
+            border-radius: 4px;
             display: inline-block;
             margin-left: 10px;
-            border: 1px solid #00ff00;
-        }
-        .price {
-            font-size: 16px;
-            color: #ffff00;
             font-weight: bold;
         }
-        .volume {
-            color: #999;
-            font-size: 14px;
+        .price {
+            font-size: 1rem;
+            color: #FBBF24;
+            font-weight: bold;
         }
-        .details {
-            margin-top: 10px;
-            color: #ccc;
-            font-size: 14px;
-        }
+        .volume { color: #94A3B8; font-size: 0.85rem; }
+        .details { margin-top: 8px; color: #94A3B8; font-size: 0.85rem; }
         table {
             width: 100%;
             border-collapse: collapse;
-            background: #111;
+            background: rgba(15,23,42,0.6);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
             margin: 20px 0;
         }
         th {
-            background: linear-gradient(135deg, #006600 0%, #004400 100%);
-            color: white;
-            padding: 12px 8px;
+            background: rgba(59,130,246,0.15);
+            color: #3B82F6;
+            padding: 10px 8px;
             text-align: center;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #333;
+            padding: 9px 8px;
+            border-bottom: 1px solid rgba(30,41,59,0.8);
             text-align: center;
             font-size: 13px;
         }
-        .symbol {
-            color: #00ff00;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .score-90 { background: #004d00; color: #00ff00; font-weight: bold; }
-        .score-80 { background: #003d00; color: #00dd00; font-weight: bold; }
-        .score-70 { background: #002d00; color: #00bb00; font-weight: bold; }
-        .score-60 { background: #001d00; color: #009900; font-weight: bold; }
-        .signals {
-            color: #ccc;
-            text-align: left;
-            font-size: 12px;
-            max-width: 300px;
-        }
+        tr:hover td { background: rgba(59,130,246,0.05); }
+        .symbol { color: #3B82F6; font-weight: bold; font-size: 14px; }
+        .score-90 { background: rgba(239,68,68,0.2);   color: #EF4444; font-weight: bold; border-radius: 4px; padding: 2px 6px; }
+        .score-80 { background: rgba(34,197,94,0.2);   color: #22C55E; font-weight: bold; border-radius: 4px; padding: 2px 6px; }
+        .score-70 { background: rgba(59,130,246,0.2);  color: #3B82F6; font-weight: bold; border-radius: 4px; padding: 2px 6px; }
+        .score-60 { background: rgba(245,158,11,0.2);  color: #F59E0B; font-weight: bold; border-radius: 4px; padding: 2px 6px; }
+        .signals { color: #94A3B8; text-align: left; font-size: 12px; max-width: 300px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>ETF Scanner Results</h1>
-        <p style="text-align: center; color: #999;">Generated: 2026-02-20 16:00:59</p>
+        <p style="text-align: center; color: #64748b; font-size: 0.85rem;">Generated: 2026-02-23 16:03:57</p>
 
         
     <div class="warning">
@@ -132,7 +122,7 @@
             <h2>Scan Summary</h2>
             
         <p><strong>ETFs Scanned:</strong> 100</p>
-        <p><strong>Candidates Found:</strong> 1</p>
+        <p><strong>Candidates Found:</strong> 12</p>
         <p><strong>Minimum Score:</strong> 40</p>
         <p><strong>Focus:</strong> ETF momentum and trend analysis</p>
         
@@ -144,7 +134,7 @@
             <div class="stat-label">ETFs Scanned</div>
         </div>
         <div class="stat">
-            <div class="stat-value">1</div>
+            <div class="stat-value">12</div>
             <div class="stat-label">Candidates Found</div>
         </div>
         <div class="stat">
@@ -165,13 +155,123 @@
         <tbody>
         <tr>
             <td>1</td>
-            <td class="symbol">VB</td>
-            <td>$277.09</td>
+            <td class="symbol">EEM</td>
+            <td>$61.79</td>
+            <td class="score-90">100</td>
+            <td>24,193,458</td>
+            <td>$1,495,034,693</td>
+            <td>0.6x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | RSI:70.0 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="symbol">FXI</td>
+            <td>$38.74</td>
+            <td class="score-90">100</td>
+            <td>16,160,178</td>
+            <td>$626,126,079</td>
+            <td>0.6x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | RSI:69.6 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="symbol">IEFA</td>
+            <td>$97.46</td>
+            <td class="score-90">100</td>
+            <td>15,831,631</td>
+            <td>$1,542,871,628</td>
+            <td>1.0x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | RSI:55.1 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="symbol">IEF</td>
+            <td>$97.44</td>
+            <td class="score-90">100</td>
+            <td>9,765,491</td>
+            <td>$951,549,467</td>
+            <td>1.2x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | RSI:68.8 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td class="symbol">IEMG</td>
+            <td>$75.64</td>
+            <td class="score-90">100</td>
+            <td>15,792,925</td>
+            <td>$1,194,655,759</td>
+            <td>1.0x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | RSI:66.7 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td class="symbol">LQD</td>
+            <td>$111.71</td>
+            <td class="score-90">90</td>
+            <td>32,070,757</td>
+            <td>$3,582,624,235</td>
+            <td>0.9x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td class="symbol">IYR</td>
+            <td>$100.48</td>
+            <td class="score-80">80</td>
+            <td>6,601,290</td>
+            <td>$663,297,641</td>
+            <td>0.9x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td class="symbol">GLD</td>
+            <td>$481.33</td>
+            <td class="score-80">80</td>
+            <td>16,654,807</td>
+            <td>$8,016,375,183</td>
+            <td>1.4x</td>
+            <td class="signals">Above SMA20 | Above EMA20 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td class="symbol">HYG</td>
+            <td>$80.89</td>
             <td class="score-70">75</td>
-            <td>23,096</td>
-            <td>$6,399,613</td>
-            <td>0.0x</td>
-            <td class="signals">RSI:66.1 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+            <td>32,024,217</td>
+            <td>$2,590,438,894</td>
+            <td>0.9x</td>
+            <td class="signals">RSI:63.3 | Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td class="symbol">IVV</td>
+            <td>$685.15</td>
+            <td class="score-60">65</td>
+            <td>3,688,026</td>
+            <td>$2,526,851,104</td>
+            <td>0.6x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High | BB Breakout</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td class="symbol">ARKK</td>
+            <td>$69.53</td>
+            <td class="score-60">45</td>
+            <td>3,690,425</td>
+            <td>$256,595,246</td>
+            <td>0.6x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td class="symbol">IWM</td>
+            <td>$260.37</td>
+            <td class="score-60">45</td>
+            <td>42,359,388</td>
+            <td>$11,029,113,647</td>
+            <td>1.1x</td>
+            <td class="signals">Strong Volume | Price OK | Near 52W High</td>
         </tr>
         </tbody>
     </table>
