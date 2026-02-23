@@ -465,7 +465,7 @@
                                                 <span style="color: #94A3B8;">1:30 PM</span><span>Enhanced + V3 + Setups</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(148,163,184,0.1); padding: 4px 0;">
-                                                <span style="color: #94A3B8;">4:00 PM</span><span>All 7 Scanners + Telegram</span>
+                                                <span style="color: #94A3B8;">4:00 PM</span><span>All 7 Scanners + Unified</span>
                                             </div>
                                             <div style="display: flex; justify-content: space-between; padding: 4px 0;">
                                                 <span style="color: #94A3B8;">8:00 PM</span><span>Analysis + Performance</span>
@@ -1716,6 +1716,44 @@
                                         <p style="margin:8px 0 0;color:#475569;font-size:0.68rem;">Server-side auth requires EPIC-INFRA-001 VPS migration.</p>
                                     </div>
                                 </div>
+
+                                <!-- 7. Telegram Alerts -->
+                                <div style="margin-top:24px;">
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Telegram — High-Conviction Alerts</h5>
+                                    <div style="background:rgba(15,23,42,0.6);border-radius:8px;padding:14px;font-size:0.8rem;">
+                                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                                            <span id="adm-tg-dot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#64748b;flex-shrink:0;"></span>
+                                            <span id="adm-tg-status" style="color:#94A3B8;font-weight:600;">Loading...</span>
+                                            <span id="adm-tg-modified" style="color:#475569;font-size:0.7rem;margin-left:auto;"></span>
+                                        </div>
+                                        <div id="adm-tg-thresholds" style="display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap;">
+                                            <span style="color:#64748b;font-size:0.75rem;">Score: <span id="adm-tg-score" style="color:#CBD5E1;">—</span></span>
+                                            <span style="color:#64748b;font-size:0.75rem;">Scanners: <span id="adm-tg-scanners" style="color:#CBD5E1;">—</span></span>
+                                            <span style="color:#64748b;font-size:0.75rem;">Days: <span id="adm-tg-days" style="color:#CBD5E1;">—</span></span>
+                                            <span style="color:#64748b;font-size:0.75rem;">Schedule: <span style="color:#94A3B8;">4:35 PM Mon-Fri</span></span>
+                                        </div>
+                                        <div style="border-top:1px solid rgba(59,130,246,0.2);padding-top:12px;">
+                                            <div style="color:#64748b;margin-bottom:8px;font-size:0.75rem;">Generate CLI command (run on PC):</div>
+                                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+                                                <button onclick="telegramGenCmd('enable')" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.35);color:#10B981;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;">Enable</button>
+                                                <button onclick="telegramGenCmd('disable')" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#EF4444;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;">Disable</button>
+                                                <button onclick="telegramGenCmd('status')" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:5px 12px;border-radius:5px;font-size:0.78rem;cursor:pointer;">Status</button>
+                                            </div>
+                                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center;">
+                                                <span style="color:#64748b;font-size:0.75rem;">Adjust:</span>
+                                                <input id="adm-tg-score-in" type="number" placeholder="Score" min="50" max="200" style="background:rgba(30,41,59,0.8);border:1px solid rgba(59,130,246,0.3);color:#CBD5E1;padding:4px 8px;border-radius:5px;font-size:0.75rem;width:70px;">
+                                                <button onclick="telegramGenCmd('set-score')" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:4px 10px;border-radius:5px;font-size:0.75rem;cursor:pointer;">Set Score</button>
+                                                <input id="adm-tg-scan-in" type="number" placeholder="Scanners" min="1" max="7" style="background:rgba(30,41,59,0.8);border:1px solid rgba(59,130,246,0.3);color:#CBD5E1;padding:4px 8px;border-radius:5px;font-size:0.75rem;width:80px;">
+                                                <button onclick="telegramGenCmd('set-scanners')" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:4px 10px;border-radius:5px;font-size:0.75rem;cursor:pointer;">Set Scanners</button>
+                                            </div>
+                                            <div id="adm-tg-cmd" style="display:none;background:rgba(15,23,42,0.9);border-radius:6px;padding:10px 12px;font-family:monospace;font-size:0.75rem;color:#10B981;position:relative;border:1px solid rgba(16,185,129,0.3);">
+                                                <button onclick="telegramCopyCmd()" style="position:absolute;right:8px;top:8px;background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:2px 8px;border-radius:4px;font-size:0.68rem;cursor:pointer;">Copy</button>
+                                                <span id="adm-tg-cmd-text"></span>
+                                            </div>
+                                        </div>
+                                        <p style="margin:8px 0 0;color:#475569;font-size:0.68rem;">Fires only when picks meet all 3 thresholds. No alert sent if nothing qualifies.</p>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- ── PROJECT BOARD ──────────────────────────── -->
@@ -2760,6 +2798,25 @@
                         if (!_adminActiveLog) showAdminLog(firstKey);
                     }
 
+                    // ── Telegram Status ──
+                    const tg = ad.telegram || {};
+                    if (tg.available) {
+                        const dot = document.getElementById('adm-tg-dot');
+                        const statusEl = document.getElementById('adm-tg-status');
+                        const modEl = document.getElementById('adm-tg-modified');
+                        if (tg.enabled) {
+                            if (dot) dot.style.background = '#10B981';
+                            if (statusEl) { statusEl.textContent = 'ENABLED'; statusEl.style.color = '#10B981'; }
+                        } else {
+                            if (dot) dot.style.background = '#EF4444';
+                            if (statusEl) { statusEl.textContent = 'DISABLED'; statusEl.style.color = '#EF4444'; }
+                        }
+                        if (modEl) modEl.textContent = `config: ${tg.last_modified || '?'}`;
+                        setTxt('adm-tg-score', `≥${tg.min_score}`);
+                        setTxt('adm-tg-scanners', `≥${tg.min_scanner_count}`);
+                        setTxt('adm-tg-days', `≥${tg.min_days_on_list}`);
+                    }
+
                     // ── EPIC Tracker ──
                     const epicsBody = document.getElementById('adm-epics-body');
                     if (epicsBody && ad.epics) {
@@ -2853,6 +2910,30 @@
 
         function adminCopyCmd() {
             const txt = document.getElementById('adm-user-cmd-text').textContent;
+            navigator.clipboard.writeText(txt).then(() => {
+                const btn = event.target; btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        // ── Telegram Alerts ────────────────────────────────────────────────────
+        function telegramGenCmd(action) {
+            let cmd = `cd /home/j/trading-pipeline && trading_env/bin/python3 manage_telegram.py ${action}`;
+            if (action === 'set-score') {
+                const val = document.getElementById('adm-tg-score-in').value;
+                if (!val) { alert('Enter a score value'); return; }
+                cmd = `cd /home/j/trading-pipeline && trading_env/bin/python3 manage_telegram.py set-score ${val}`;
+            } else if (action === 'set-scanners') {
+                const val = document.getElementById('adm-tg-scan-in').value;
+                if (!val) { alert('Enter a scanner count'); return; }
+                cmd = `cd /home/j/trading-pipeline && trading_env/bin/python3 manage_telegram.py set-scanners ${val}`;
+            }
+            document.getElementById('adm-tg-cmd-text').textContent = cmd;
+            document.getElementById('adm-tg-cmd').style.display = 'block';
+        }
+
+        function telegramCopyCmd() {
+            const txt = document.getElementById('adm-tg-cmd-text').textContent;
             navigator.clipboard.writeText(txt).then(() => {
                 const btn = event.target; btn.textContent = 'Copied!';
                 setTimeout(() => btn.textContent = 'Copy', 2000);
