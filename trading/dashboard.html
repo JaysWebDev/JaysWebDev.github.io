@@ -902,25 +902,16 @@
 
                                     <!-- Process Status -->
                                     <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
-                                        <h4>⚙️ Backend Processes</h4>
-                                        <div style="margin: 15px 0;">
-                                            <div style="margin: 10px 0; padding: 10px; background: rgba(59,130,246,0.2); border-radius: 5px;">
-                                                <span style="color: #3B82F6;">●</span> Data Collection Pipeline
-                                                <div style="font-size: 0.8rem; margin-left: 15px; opacity: 0.8;">Active - Last run: 16:00</div>
-                                            </div>
-                                            <div style="margin: 10px 0; padding: 10px; background: rgba(59,130,246,0.2); border-radius: 5px;">
-                                                <span style="color: #3B82F6;">●</span> Scanner Automation
-                                                <div style="font-size: 0.8rem; margin-left: 15px; opacity: 0.8;">Running - 6 scanners active</div>
-                                            </div>
-                                            <div style="margin: 10px 0; padding: 10px; background: rgba(59,130,246,0.2); border-radius: 5px;">
-                                                <span style="color: #3B82F6;">●</span> Report Generation
-                                                <div style="font-size: 0.8rem; margin-left: 15px; opacity: 0.8;">Scheduled - Next: Tomorrow 9:30 AM</div>
-                                            </div>
-                                            <div style="margin: 10px 0; padding: 10px; background: rgba(59,130,246,0.2); border-radius: 5px;">
-                                                <span style="color: #3B82F6;">●</span> Security Backup
-                                                <div style="font-size: 0.8rem; margin-left: 15px; opacity: 0.8;">Daily backups enabled</div>
-                                            </div>
+                                        <h4>⚙️ Automation Schedule</h4>
+                                        <div style="margin: 15px 0; font-size: 0.82rem; line-height: 1.9;">
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">9:30 AM</span><span>V3 + Data Update</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">11:00 AM</span><span>Institutional</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">1:30 PM</span><span>Enhanced + V3 + Setups</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">4:00 PM</span><span>All 7 Scanners + Unified</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">4:25 PM</span><span>Admin data + Report sync</span></div>
+                                            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#94A3B8;">10:00 PM</span><span>DB Backup</span></div>
                                         </div>
+                                        <div style="font-size:0.75rem;color:#64748b;margin-top:8px;">26 cron jobs — Mon–Fri market schedule. Check Admin tab for live status.</div>
                                     </div>
                                 </div>
 
@@ -963,13 +954,8 @@
                                         </table>
                                     </div>
 
-                                    <div style="margin-top: 15px; font-size: 0.8rem; opacity: 0.8; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                                        <div>
-                                            💡 <strong>Trend:</strong> 🟢 Bullish | 🔴 Bearish | ⚪ Neutral
-                                        </div>
-                                        <div>
-                                            📊 <strong>Data as of:</strong> January 23, 2026
-                                        </div>
+                                    <div style="margin-top: 15px; font-size: 0.8rem; opacity: 0.8;">
+                                        💡 <strong>Trend:</strong> 🟢 Bullish | 🔴 Bearish | ⚪ Neutral — data updated daily at 4 PM via pipeline
                                     </div>
                                 </div>
 
@@ -980,22 +966,22 @@
                                         <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
                                             <div style="font-size: 1.5rem;">📊</div>
                                             <div style="font-weight: bold; margin: 5px 0;">SQLite Database</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">Price data, 197K+ records</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">236K+ price records</div>
                                         </div>
                                         <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
                                             <div style="font-size: 1.5rem;">🐍</div>
                                             <div style="font-weight: bold; margin: 5px 0;">Python Backend</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">Data processing, scanners</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">7 scanners, 26 cron jobs</div>
                                         </div>
                                         <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
-                                            <div style="font-size: 1.5rem;">📱</div>
-                                            <div style="font-weight: bold; margin: 5px 0;">USB Server</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">Localhost hosting</div>
+                                            <div style="font-size: 1.5rem;">💾</div>
+                                            <div style="font-weight: bold; margin: 5px 0;">USB + SSD Storage</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">Deploy bridge + data layer</div>
                                         </div>
                                         <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
                                             <div style="font-size: 1.5rem;">🌐</div>
                                             <div style="font-weight: bold; margin: 5px 0;">GitHub Pages</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">Public dashboard</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">jays.website/trading</div>
                                         </div>
                                     </div>
                                 </div>
@@ -1218,11 +1204,11 @@
 
                                                 <h5>🔍 Key Indicators:</h5>
                                                 <ul style="margin: 10px 0 10px 20px; font-size: 0.9rem;">
-                                                    <li>Price < $50</li>
-                                                    <li>Market cap > $100M</li>
-                                                    <li>Revenue growth > 15%</li>
-                                                    <li>Technical momentum signals</li>
-                                                    <li>Institutional ownership trends</li>
+                                                    <li>Price < $50 (core filter)</li>
+                                                    <li>Close > SMA20 > SMA50 uptrend</li>
+                                                    <li>RSI 40–70 momentum zone</li>
+                                                    <li>Volume > 20-day average</li>
+                                                    <li>Near 52-week high (within 20%)</li>
                                                 </ul>
                                             </div>
                                             <div style="text-align: center;">
@@ -1275,8 +1261,8 @@
                                                 </div>
                                                 <div style="margin: 10px 0; font-size: 0.7rem; opacity: 0.8;">
                                                     3% Stop / 5% Target<br>
-                                                    Trailing Stop Enabled<br>
-                                                    Backtested: +0.33% EV
+                                                    3 setup types (VCB/ACCUM/PULLBACK)<br>
+                                                    See Analytics for EV by type
                                                 </div>
                                                 <a href="/trading/reports/setups_latest.html" class="btn" style="margin-top: 15px; font-size: 0.8rem;">View Report</a>
                                             </div>
