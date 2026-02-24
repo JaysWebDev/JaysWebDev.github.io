@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-23 07:00:03",
+  "timestamp": "2026-02-24 07:00:02",
   "summary": {
     "total_flagged": 12,
     "high_risk": 5,
@@ -8,29 +8,11 @@
     "penny_stocks": 8,
     "stale_prices": 1,
     "no_data": 4,
-    "tracking_pending": 32,
+    "tracking_pending": 33,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
-    {
-      "symbol": "CMA",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
-      "first_flagged": "2026-02-09"
-    },
     {
       "symbol": "FI",
       "price": 0.0,
@@ -45,8 +27,26 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
+      "first_flagged": "2026-02-09"
+    },
+    {
+      "symbol": "CMA",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
@@ -63,8 +63,8 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
@@ -81,34 +81,34 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
       "symbol": "CRCW",
-      "price": 0.0010000000474974513,
+      "price": 0.0012000000569969416,
       "consecutive_days": 6,
-      "avg_volume": 9479940.0,
+      "avg_volume": 6732826.9,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Extreme penny stock ($0.0010)",
+        "Extreme penny stock ($0.0012)",
         "6 consecutive days same price"
       ],
       "is_penny_stock": true,
       "is_stale_price": true,
       "is_no_data": false,
-      "last_date": "2026-02-20",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "last_date": "2026-02-23",
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
       "symbol": "SURG",
       "price": 0.8199999928474426,
       "consecutive_days": 0,
-      "avg_volume": 216501.88888888888,
+      "avg_volume": 205052.125,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -118,33 +118,33 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-19",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
       "symbol": "COOK",
-      "price": 0.8999999761581421,
+      "price": 0.8411999940872192,
       "consecutive_days": 0,
-      "avg_volume": 324490.0,
+      "avg_volume": 311306.6,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.90 < $1.00)"
+        "Penny stock ($0.84 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-02-20",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "last_date": "2026-02-23",
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
       "symbol": "LAZR",
       "price": 0.05660000070929527,
       "consecutive_days": 0,
-      "avg_volume": 661873.0,
+      "avg_volume": 357220.22222222225,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -154,80 +154,80 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-02-20",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
       "symbol": "GAME",
-      "price": 0.2840000092983246,
+      "price": 0.29750001430511475,
       "consecutive_days": 0,
-      "avg_volume": 679040.0,
+      "avg_volume": 687935.8,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.28 < $1.00)"
+        "Penny stock ($0.30 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-02-20",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "last_date": "2026-02-23",
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
       "symbol": "GNS",
-      "price": 0.4000000059604645,
+      "price": 0.3853999972343445,
       "consecutive_days": 0,
-      "avg_volume": 1070650.0,
+      "avg_volume": 948730.4,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.40 < $1.00)"
+        "Penny stock ($0.39 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-02-20",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 12,
+      "last_date": "2026-02-23",
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-02-09"
     },
     {
       "symbol": "INVZ",
-      "price": 0.9409999847412109,
+      "price": 0.917900025844574,
       "consecutive_days": 0,
-      "avg_volume": 1599800.0,
+      "avg_volume": 1443517.9,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.94 < $1.00)"
+        "Penny stock ($0.92 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-02-20",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 9,
+      "last_date": "2026-02-23",
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 10,
       "first_flagged": "2026-02-12"
     },
     {
       "symbol": "AREB",
-      "price": 0.17000000178813934,
+      "price": 0.16220000386238098,
       "consecutive_days": 0,
-      "avg_volume": 7318990.0,
+      "avg_volume": 7204989.3,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.17 < $1.00)"
+        "Penny stock ($0.16 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-02-20",
-      "analysis_date": "2026-02-23 07:00",
-      "consecutive_failures": 9,
+      "last_date": "2026-02-23",
+      "analysis_date": "2026-02-24 07:00",
+      "consecutive_failures": 10,
       "first_flagged": "2026-02-12"
     }
   ],
@@ -236,8 +236,8 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 4 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "CMA",
         "FI",
+        "CMA",
         "K",
         "IPG"
       ],
@@ -247,8 +247,8 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 5 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "CMA",
         "FI",
+        "CMA",
         "K",
         "IPG",
         "CRCW"
