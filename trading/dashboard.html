@@ -117,6 +117,17 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
 
+        .lk-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(148,163,184,0.06);
+            font-size: 0.78rem;
+        }
+        .lk-row span:first-child { color: #64748b; }
+        .lk-row span:last-child  { color: #CBD5E1; font-family: 'JetBrains Mono', monospace; }
+
         .scanner-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -430,6 +441,7 @@
                         <button class="tab-button" onclick="showTab(event, 'strategies')">🧠 Strategies</button>
                         <button class="tab-button" onclick="showTab(event, 'stale-prices')">🔍 Stale Prices</button>
                         <button class="tab-button" onclick="showTab(event, 'portfolio')">📦 Portfolio</button>
+                        <button class="tab-button" onclick="showTab(event, 'lookup')">🔎 Lookup</button>
                         <button class="tab-button" onclick="showTab(event, 'admin')">⚙️ Admin</button>
                     </div>
 
@@ -1572,6 +1584,166 @@
                         </div>
 
                         <!-- ═══════════════════════════════════════════════════ -->
+                        <!-- LOOKUP TAB                                         -->
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <div id="lookup" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <h3 style="color:#60A5FA;margin:0;">🔎 Security Deep-Dive</h3>
+                                <span id="lookup-db-count" style="color:#64748b;font-size:0.75rem;">Loading index...</span>
+                            </div>
+
+                            <!-- Search bar -->
+                            <div style="position:relative;margin-bottom:20px;">
+                                <input id="lookup-input" type="text" placeholder="Enter ticker symbol (e.g. AAPL, MSFT, NVDA)..."
+                                    style="width:100%;box-sizing:border-box;background:rgba(30,41,59,0.8);border:1px solid rgba(59,130,246,0.4);
+                                           color:#CBD5E1;padding:12px 16px;border-radius:8px;font-size:1rem;
+                                           font-family:'DM Sans',sans-serif;outline:none;"
+                                    oninput="lookupAutoComplete(this.value)"
+                                    onkeydown="if(event.key==='Enter')lookupSearch()">
+                                <div id="lookup-autocomplete"
+                                    style="display:none;position:absolute;top:100%;left:0;right:0;z-index:100;
+                                           background:#1e293b;border:1px solid rgba(59,130,246,0.3);border-radius:0 0 8px 8px;
+                                           max-height:240px;overflow-y:auto;"></div>
+                                <button onclick="lookupSearch()"
+                                    style="position:absolute;right:10px;top:50%;transform:translateY(-50%);
+                                           background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.4);
+                                           color:#60A5FA;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:0.85rem;">
+                                    Search
+                                </button>
+                            </div>
+
+                            <!-- Result card -->
+                            <div id="lookup-result" style="display:none;">
+
+                                <!-- Header row -->
+                                <div style="background:rgba(30,41,59,0.6);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:18px 22px;margin-bottom:12px;">
+                                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
+                                        <div>
+                                            <div style="display:flex;align-items:baseline;gap:12px;">
+                                                <span id="lk-symbol" style="font-size:1.6rem;font-weight:700;color:#F1F5F9;font-family:'JetBrains Mono',monospace;"></span>
+                                                <span id="lk-price" style="font-size:1.4rem;color:#F1F5F9;font-family:'JetBrains Mono',monospace;"></span>
+                                                <span id="lk-change" style="font-size:1rem;font-family:'JetBrains Mono',monospace;font-weight:600;"></span>
+                                            </div>
+                                            <div style="margin-top:4px;">
+                                                <span id="lk-name" style="color:#94A3B8;font-size:0.9rem;"></span>
+                                                <span style="color:#475569;margin:0 6px;">·</span>
+                                                <span id="lk-sector" style="color:#64748b;font-size:0.82rem;"></span>
+                                                <span style="color:#475569;margin:0 6px;">·</span>
+                                                <span id="lk-exchange" style="color:#64748b;font-size:0.82rem;"></span>
+                                            </div>
+                                        </div>
+                                        <div style="text-align:right;">
+                                            <div id="lk-trend-badge" style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;margin-bottom:4px;"></div>
+                                            <div id="lk-score-badge" style="font-size:0.75rem;color:#64748b;"></div>
+                                            <div id="lk-updated" style="font-size:0.68rem;color:#475569;margin-top:2px;"></div>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex;gap:20px;margin-top:12px;flex-wrap:wrap;">
+                                        <span style="color:#64748b;font-size:0.78rem;">52W: <span id="lk-52w" style="color:#CBD5E1;font-family:'JetBrains Mono',monospace;"></span></span>
+                                        <span style="color:#64748b;font-size:0.78rem;">From High: <span id="lk-52w-high-pct" style="font-family:'JetBrains Mono',monospace;"></span></span>
+                                        <span style="color:#64748b;font-size:0.78rem;">Market Cap: <span id="lk-mcap" style="color:#CBD5E1;font-family:'JetBrains Mono',monospace;"></span></span>
+                                        <span style="color:#64748b;font-size:0.78rem;">Beta: <span id="lk-beta" style="color:#CBD5E1;font-family:'JetBrains Mono',monospace;"></span></span>
+                                        <span style="color:#64748b;font-size:0.78rem;">Avg Vol: <span id="lk-avgvol" style="color:#CBD5E1;font-family:'JetBrains Mono',monospace;"></span></span>
+                                        <span style="color:#64748b;font-size:0.78rem;">RS: <span id="lk-rs" style="color:#CBD5E1;font-family:'JetBrains Mono',monospace;"></span></span>
+                                    </div>
+                                </div>
+
+                                <!-- 4-column data grid -->
+                                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:12px;">
+
+                                    <!-- Valuation -->
+                                    <div style="background:rgba(30,41,59,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:8px;padding:14px;">
+                                        <div style="color:#60A5FA;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Valuation</div>
+                                        <div class="lk-row"><span>P/E (ttm)</span><span id="lk-pe"></span></div>
+                                        <div class="lk-row"><span>Fwd P/E</span><span id="lk-fpe"></span></div>
+                                        <div class="lk-row"><span>PEG</span><span id="lk-peg"></span></div>
+                                        <div class="lk-row"><span>EV/EBITDA</span><span id="lk-ev"></span></div>
+                                        <div class="lk-row"><span>P/S</span><span id="lk-ps"></span></div>
+                                        <div class="lk-row"><span>P/B</span><span id="lk-pb"></span></div>
+                                    </div>
+
+                                    <!-- Fundamentals -->
+                                    <div style="background:rgba(30,41,59,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:8px;padding:14px;">
+                                        <div style="color:#10B981;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Fundamentals</div>
+                                        <div class="lk-row"><span>Revenue Gr</span><span id="lk-revgr"></span></div>
+                                        <div class="lk-row"><span>Earnings Gr</span><span id="lk-epsgr"></span></div>
+                                        <div class="lk-row"><span>Profit Margin</span><span id="lk-margin"></span></div>
+                                        <div class="lk-row"><span>Op Margin</span><span id="lk-opmgn"></span></div>
+                                        <div class="lk-row"><span>ROE</span><span id="lk-roe"></span></div>
+                                        <div class="lk-row"><span>ROA</span><span id="lk-roa"></span></div>
+                                        <div class="lk-row"><span>Debt/Equity</span><span id="lk-de"></span></div>
+                                        <div class="lk-row"><span>Free CF</span><span id="lk-fcf"></span></div>
+                                    </div>
+
+                                    <!-- Ownership & Short -->
+                                    <div style="background:rgba(30,41,59,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:8px;padding:14px;">
+                                        <div style="color:#FBBF24;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Ownership</div>
+                                        <div class="lk-row"><span>Insider %</span><span id="lk-ins-own"></span></div>
+                                        <div class="lk-row"><span>Institution %</span><span id="lk-inst-own"></span></div>
+                                        <div class="lk-row"><span>Short Float</span><span id="lk-short-flt"></span></div>
+                                        <div class="lk-row"><span>Days to Cover</span><span id="lk-short-ratio"></span></div>
+                                        <div class="lk-row"><span>Dividend Yld</span><span id="lk-div"></span></div>
+                                        <div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(148,163,184,0.08);">
+                                            <div style="color:#FBBF24;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Next Earnings</div>
+                                            <div id="lk-earnings" style="color:#CBD5E1;font-size:0.85rem;font-family:'JetBrains Mono',monospace;"></div>
+                                            <div id="lk-eps-surprise" style="color:#64748b;font-size:0.75rem;margin-top:2px;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Analyst & Sentiment -->
+                                    <div style="background:rgba(30,41,59,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:8px;padding:14px;">
+                                        <div style="color:#A78BFA;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Analyst Consensus</div>
+                                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                                            <span id="lk-rating-badge" style="padding:3px 10px;border-radius:12px;font-size:0.78rem;font-weight:600;"></span>
+                                            <span id="lk-analyst-count" style="color:#64748b;font-size:0.72rem;"></span>
+                                        </div>
+                                        <div class="lk-row"><span>Target (mean)</span><span id="lk-tgt-mean"></span></div>
+                                        <div class="lk-row"><span>Target (high)</span><span id="lk-tgt-high"></span></div>
+                                        <div class="lk-row"><span>Target (low)</span><span id="lk-tgt-low"></span></div>
+                                        <div class="lk-row"><span>Upside</span><span id="lk-upside"></span></div>
+                                        <div class="lk-row"><span>Options PCR</span><span id="lk-pcr"></span></div>
+                                        <div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(148,163,184,0.08);">
+                                            <div style="color:#A78BFA;font-size:0.72rem;font-weight:600;text-transform:uppercase;margin-bottom:6px;">Social (30d)</div>
+                                            <div id="lk-sentiment" style="color:#64748b;font-size:0.78rem;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- News + Insider side by side -->
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+
+                                    <!-- News -->
+                                    <div style="background:rgba(30,41,59,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:8px;padding:14px;">
+                                        <div style="color:#60A5FA;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Recent News</div>
+                                        <div id="lk-news" style="display:flex;flex-direction:column;gap:8px;"></div>
+                                    </div>
+
+                                    <!-- Insider + Upgrades -->
+                                    <div style="background:rgba(30,41,59,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:8px;padding:14px;">
+                                        <div style="color:#FBBF24;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Insider Activity</div>
+                                        <div id="lk-insider" style="margin-bottom:14px;"></div>
+                                        <div style="color:#A78BFA;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Analyst Upgrades / Downgrades</div>
+                                        <div id="lk-upgrades"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div style="background:rgba(30,41,59,0.4);border:1px solid rgba(59,130,246,0.1);border-radius:8px;padding:14px;">
+                                    <div style="color:#64748b;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">About</div>
+                                    <p id="lk-description" style="color:#94A3B8;font-size:0.8rem;line-height:1.6;margin:0;"></p>
+                                </div>
+                            </div>
+
+                            <!-- Not found -->
+                            <div id="lookup-not-found" style="display:none;text-align:center;padding:40px;color:#64748b;">
+                                <div style="font-size:2rem;margin-bottom:10px;">🔍</div>
+                                <div id="lookup-not-found-msg"></div>
+                                <div style="margin-top:8px;font-size:0.75rem;color:#475569;">Security data updates daily at 5 PM. Run manually:<br>
+                                <code style="color:#60A5FA;">cd /home/j/trading-pipeline && trading_env/bin/python3 security_data_generator.py --mode=single --symbol=TICKER</code></div>
+                            </div>
+                        </div>
+
+                        <!-- ═══════════════════════════════════════════════════ -->
                         <!-- ADMIN TAB                                          -->
                         <!-- ═══════════════════════════════════════════════════ -->
                         <div id="admin" class="tab-panel">
@@ -1977,6 +2149,7 @@
             loadUnifiedTest();
             loadAdminData();
             loadLTPortfolio();
+            loadLookupIndex();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -3597,6 +3770,251 @@
                 alert('❌ Error generating cleanup report: ' + error.message);
             }
         }
+
+        // ── Security Lookup ────────────────────────────────────────────────────
+        let _lookupIndex = null;
+
+        function loadLookupIndex() {
+            fetch('/trading/data/security_lookup.json')
+                .then(r => r.json())
+                .then(d => {
+                    _lookupIndex = d;
+                    const el = document.getElementById('lookup-db-count');
+                    if (el) el.textContent = `${d.count.toLocaleString()} securities indexed · updated ${d.generated}`;
+                })
+                .catch(() => {
+                    const el = document.getElementById('lookup-db-count');
+                    if (el) el.textContent = 'Index unavailable — runs daily at 5 PM';
+                });
+        }
+
+        function lookupAutoComplete(val) {
+            const box = document.getElementById('lookup-autocomplete');
+            if (!_lookupIndex || val.length < 1) { box.style.display = 'none'; return; }
+            const q = val.toUpperCase();
+            const matches = _lookupIndex.securities.filter(s =>
+                s.sym.startsWith(q) || s.name.toUpperCase().includes(q)
+            ).slice(0, 8);
+            if (!matches.length) { box.style.display = 'none'; return; }
+            box.innerHTML = matches.map(s =>
+                `<div onclick="lookupSelect('${s.sym}')"
+                    style="padding:8px 14px;cursor:pointer;border-bottom:1px solid rgba(59,130,246,0.1);
+                           display:flex;justify-content:space-between;align-items:center;"
+                    onmouseover="this.style.background='rgba(59,130,246,0.1)'"
+                    onmouseout="this.style.background=''">
+                    <span style="color:#CBD5E1;font-family:'JetBrains Mono',monospace;font-weight:600;">${s.sym}</span>
+                    <span style="color:#64748b;font-size:0.78rem;margin-left:12px;flex:1;text-align:left;padding-left:8px;">${s.name}</span>
+                    <span style="color:#94A3B8;font-size:0.75rem;">${s.sec || ''}</span>
+                </div>`
+            ).join('');
+            box.style.display = 'block';
+        }
+
+        function lookupSelect(sym) {
+            document.getElementById('lookup-input').value = sym;
+            document.getElementById('lookup-autocomplete').style.display = 'none';
+            lookupSearch();
+        }
+
+        function lookupSearch() {
+            document.getElementById('lookup-autocomplete').style.display = 'none';
+            const sym = document.getElementById('lookup-input').value.trim().toUpperCase();
+            if (!sym) return;
+            if (!_lookupIndex) {
+                lookupShowNotFound(sym, 'Security index not yet loaded — try again in a moment.');
+                return;
+            }
+            const entry = _lookupIndex.securities.find(s => s.sym === sym);
+            if (!entry) {
+                lookupShowNotFound(sym, `"${sym}" not found in the security index.`);
+                return;
+            }
+            lookupRender(entry);
+        }
+
+        function lookupRender(s) {
+            document.getElementById('lookup-result').style.display = 'block';
+            document.getElementById('lookup-not-found').style.display = 'none';
+
+            const fmt = (v, decimals=2, suffix='') => v != null ? Number(v).toFixed(decimals) + suffix : '—';
+            const fmtPct = v => v != null ? (v > 0 ? '+' : '') + (v * 100).toFixed(1) + '%' : '—';
+            const fmtMC = v => {
+                if (!v) return '—';
+                if (v >= 1e12) return '$' + (v/1e12).toFixed(2) + 'T';
+                if (v >= 1e9)  return '$' + (v/1e9).toFixed(1) + 'B';
+                if (v >= 1e6)  return '$' + (v/1e6).toFixed(0) + 'M';
+                return '$' + v.toLocaleString();
+            };
+            const fmtVol = v => v ? (v >= 1e6 ? (v/1e6).toFixed(1)+'M' : (v/1e3).toFixed(0)+'K') : '—';
+            const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+            const setHTML = (id, v) => { const e = document.getElementById(id); if(e) e.innerHTML = v; };
+
+            // Header
+            set('lk-symbol', s.sym);
+            const priceEl = document.getElementById('lk-price');
+            if (priceEl) priceEl.textContent = s.px != null ? '$' + Number(s.px).toFixed(2) : '—';
+            const chgEl = document.getElementById('lk-change');
+            if (chgEl) {
+                chgEl.textContent = s.chg != null ? (s.chg >= 0 ? '+' : '') + s.chg.toFixed(2) + '%' : '';
+                chgEl.style.color = s.chg >= 0 ? '#10B981' : '#EF4444';
+            }
+            set('lk-name', s.name || '');
+            set('lk-sector', s.sec || '');
+            set('lk-exchange', s.exch || '');
+            set('lk-52w', s.w52h != null && s.w52l != null ? `$${Number(s.w52l).toFixed(0)} — $${Number(s.w52h).toFixed(0)}` : '—');
+            const highPctEl = document.getElementById('lk-52w-high-pct');
+            if (highPctEl) {
+                const v = s.w52hp;
+                highPctEl.textContent = v != null ? (v >= 0 ? '+' : '') + v.toFixed(1) + '%' : '—';
+                highPctEl.style.color = v != null && v >= -5 ? '#10B981' : v != null && v >= -15 ? '#FBBF24' : '#EF4444';
+            }
+            set('lk-mcap', fmtMC(s.mc));
+            set('lk-beta', s.beta != null ? Number(s.beta).toFixed(2) : '—');
+            set('lk-avgvol', fmtVol(s.avgvol));
+            set('lk-rs', s.rs != null ? Number(s.rs).toFixed(1) : '—');
+            set('lk-updated', s.updated ? 'data: ' + s.updated.slice(0,16) : '');
+
+            // Trend badge
+            const tb = document.getElementById('lk-trend-badge');
+            if (tb) {
+                const t = s.trend || '';
+                const isFullTrend = t === 'FULL';
+                tb.textContent = isFullTrend ? '✅ FULL TREND' : t.startsWith('PARTIAL') ? '⚡ ' + t : '⬇️ WEAK';
+                tb.style.background = isFullTrend ? 'rgba(16,185,129,0.15)' : t.startsWith('PARTIAL') ? 'rgba(251,191,36,0.12)' : 'rgba(239,68,68,0.1)';
+                tb.style.color = isFullTrend ? '#10B981' : t.startsWith('PARTIAL') ? '#FBBF24' : '#EF4444';
+                tb.style.border = `1px solid ${isFullTrend ? 'rgba(16,185,129,0.3)' : t.startsWith('PARTIAL') ? 'rgba(251,191,36,0.25)' : 'rgba(239,68,68,0.2)'}`;
+            }
+            const scoreEl = document.getElementById('lk-score-badge');
+            if (scoreEl) scoreEl.textContent = s.score ? `Score: ${s.score}${s.days ? ' · ' + s.days + 'd on list' : ''}` : '';
+
+            // Valuation
+            set('lk-pe',  s.pe   != null ? Number(s.pe).toFixed(1)  : '—');
+            set('lk-fpe', s.fpe  != null ? Number(s.fpe).toFixed(1) : '—');
+            set('lk-peg', s.peg  != null ? Number(s.peg).toFixed(2) : '—');
+            set('lk-ev',  s.ev   != null ? Number(s.ev).toFixed(1)  : '—');
+            set('lk-ps',  s.ps   != null ? Number(s.ps).toFixed(2)  : '—');
+            set('lk-pb',  s.pb   != null ? Number(s.pb).toFixed(2)  : '—');
+
+            // Fundamentals
+            set('lk-revgr',  s.revgr  != null ? fmtPct(s.revgr)  : '—');
+            set('lk-epsgr',  s.epsgr  != null ? fmtPct(s.epsgr)  : '—');
+            set('lk-margin', s.mg     != null ? (s.mg * 100).toFixed(1) + '%' : '—');
+            set('lk-opmgn',  s.opmgn  != null ? (s.opmgn * 100).toFixed(1) + '%' : '—');
+            set('lk-roe',    s.roe    != null ? (s.roe * 100).toFixed(1) + '%' : '—');
+            set('lk-roa',    s.roa    != null ? (s.roa * 100).toFixed(1) + '%' : '—');
+            set('lk-de',     s.de     != null ? Number(s.de).toFixed(2)  : '—');
+            set('lk-fcf',    s.fcf    != null ? fmtMC(s.fcf) : '—');
+
+            // Ownership
+            set('lk-ins-own',    s.inspct  != null ? (s.inspct * 100).toFixed(1) + '%' : '—');
+            set('lk-inst-own',   s.instpct != null ? (s.instpct * 100).toFixed(1) + '%' : '—');
+            const sfEl = document.getElementById('lk-short-flt');
+            if (sfEl) {
+                const v = s.sf;
+                sfEl.textContent = v != null ? (v * 100).toFixed(2) + '%' : '—';
+                sfEl.style.color = v != null && v > 0.1 ? '#EF4444' : v != null && v > 0.05 ? '#FBBF24' : '#CBD5E1';
+            }
+            set('lk-short-ratio', s.sr    != null ? Number(s.sr).toFixed(1) + 'd' : '—');
+            set('lk-div',         s.div   != null ? (s.div * 100).toFixed(2) + '%' : '—');
+            set('lk-earnings',    s.earn  || '—');
+            set('lk-eps-surprise', s.epssurp != null ? 'Last surprise: ' + (s.epssurp > 0 ? '+' : '') + (s.epssurp * 100).toFixed(1) + '%' : '');
+
+            // Analyst
+            const rb = document.getElementById('lk-rating-badge');
+            if (rb) {
+                const r = (s.rat || '').toLowerCase();
+                const rColors = { 'strong_buy': ['#10B981','rgba(16,185,129,0.15)'], 'buy': ['#60A5FA','rgba(59,130,246,0.12)'],
+                                   'hold': ['#FBBF24','rgba(251,191,36,0.1)'], 'sell': ['#EF4444','rgba(239,68,68,0.1)'], 'strong_sell': ['#EF4444','rgba(239,68,68,0.12)'] };
+                const [col, bg] = rColors[r] || ['#94A3B8','rgba(148,163,184,0.1)'];
+                rb.textContent = (s.rat || '—').replace(/_/g, ' ').toUpperCase();
+                rb.style.color = col; rb.style.background = bg;
+                rb.style.border = `1px solid ${col}44`;
+            }
+            set('lk-analyst-count', s.nanalysts != null ? `(${s.nanalysts} analysts)` : '');
+            const tgtEl = document.getElementById('lk-tgt-mean');
+            if (tgtEl) tgtEl.textContent = s.tgt != null ? '$' + Number(s.tgt).toFixed(2) : '—';
+            set('lk-tgt-high', s.tgth != null ? '$' + Number(s.tgth).toFixed(2) : '—');
+            set('lk-tgt-low',  s.tgtl != null ? '$' + Number(s.tgtl).toFixed(2) : '—');
+            const upsideEl = document.getElementById('lk-upside');
+            if (upsideEl && s.tgt && s.px) {
+                const up = (s.tgt - s.px) / s.px * 100;
+                upsideEl.textContent = (up >= 0 ? '+' : '') + up.toFixed(1) + '%';
+                upsideEl.style.color = up >= 0 ? '#10B981' : '#EF4444';
+            }
+            set('lk-pcr', s.pcr != null ? Number(s.pcr).toFixed(2) + (s.pcr > 1 ? ' ↑ bearish' : ' ↓ bullish') : '—');
+
+            // Sentiment
+            const sentEl = document.getElementById('lk-sentiment');
+            if (sentEl) {
+                if (s.bull != null) {
+                    sentEl.innerHTML = `<span style="color:#10B981;">▲ ${s.bull.toFixed(0)}% bullish</span>
+                        <span style="color:#64748b;margin:0 6px;">·</span>
+                        <span style="color:#EF4444;">▼ ${s.bear != null ? s.bear.toFixed(0) : (100-s.bull).toFixed(0)}% bearish</span>
+                        ${s.mentions ? `<div style="color:#475569;font-size:0.7rem;margin-top:2px;">${s.mentions.toLocaleString()} mentions</div>` : ''}`;
+                } else {
+                    sentEl.textContent = 'No sentiment data';
+                }
+            }
+
+            // News
+            const newsEl = document.getElementById('lk-news');
+            if (newsEl) {
+                const news = s.news || [];
+                newsEl.innerHTML = news.length ? news.map(n =>
+                    `<div style="padding-bottom:8px;border-bottom:1px solid rgba(148,163,184,0.07);">
+                        <a href="${n.link}" target="_blank" rel="noopener"
+                           style="color:#CBD5E1;font-size:0.8rem;text-decoration:none;line-height:1.4;display:block;"
+                           onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='#CBD5E1'">
+                            ${n.title}
+                        </a>
+                        <span style="color:#475569;font-size:0.7rem;">${n.publisher} · ${n.time}</span>
+                    </div>`
+                ).join('') : '<span style="color:#64748b;font-size:0.78rem;">No news available</span>';
+            }
+
+            // Insider
+            const insEl = document.getElementById('lk-insider');
+            if (insEl) {
+                const ins = s.insider || [];
+                insEl.innerHTML = ins.length ? ins.map(i =>
+                    `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(148,163,184,0.06);font-size:0.75rem;">
+                        <div>
+                            <span style="color:#CBD5E1;">${i.name}</span>
+                            <span style="color:#64748b;margin-left:6px;">${i.relation}</span>
+                        </div>
+                        <div style="text-align:right;">
+                            <span style="color:${i.txn==='S'?'#EF4444':'#10B981'};font-family:'JetBrains Mono',monospace;">${i.txn==='S'?'Sold':'Bought'} ${i.shares.toLocaleString()}</span>
+                            <span style="color:#64748b;margin-left:6px;">${i.date}</span>
+                        </div>
+                    </div>`
+                ).join('') : '<span style="color:#64748b;font-size:0.78rem;">No insider data</span>';
+            }
+
+            // Upgrades
+            const upEl = document.getElementById('lk-upgrades');
+            if (upEl) {
+                const ups = s.upgrades || [];
+                upEl.innerHTML = ups.length ? ups.map(u =>
+                    `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(148,163,184,0.06);font-size:0.75rem;">
+                        <span style="color:#94A3B8;">${u.firm}</span>
+                        <span style="color:${u.action==='up'?'#10B981':u.action==='down'?'#EF4444':'#64748b'};">
+                            ${u.from ? u.from + ' → ' : ''}${u.to}
+                        </span>
+                        <span style="color:#64748b;">${u.date}</span>
+                    </div>`
+                ).join('') : '<span style="color:#64748b;font-size:0.78rem;">No recent changes</span>';
+            }
+
+            // Description
+            set('lk-description', s.desc || '');
+        }
+
+        function lookupShowNotFound(sym, msg) {
+            document.getElementById('lookup-result').style.display = 'none';
+            document.getElementById('lookup-not-found').style.display = 'block';
+            document.getElementById('lookup-not-found-msg').textContent = msg;
+        }
+
     </script>
 </body>
 </html>
