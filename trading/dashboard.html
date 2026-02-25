@@ -323,13 +323,15 @@
                 grid-template-columns: 1fr !important;
             }
 
-            /* Tab bar: horizontal scroll instead of flex overflow */
+            /* Tab bar: horizontal scroll + right-edge fade to hint at more tabs */
             .tabs {
                 overflow-x: auto;
                 white-space: nowrap;
                 border-radius: 8px;
                 scrollbar-width: none;
                 flex-wrap: nowrap;
+                mask-image: linear-gradient(to right, black calc(100% - 48px), transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, black calc(100% - 48px), transparent 100%);
             }
             .tabs::-webkit-scrollbar { display: none; }
             .tab-button {
@@ -356,7 +358,9 @@
 
             /* Inline grids → single column */
             [style*="grid-template-columns: 1fr 1fr"],
-            [style*="grid-template-columns: 2fr 1fr"] {
+            [style*="grid-template-columns: 2fr 1fr"],
+            [style*="grid-template-columns: 1fr 1fr 1fr"],
+            [style*="grid-template-columns: repeat(3, 1fr)"] {
                 grid-template-columns: 1fr !important;
             }
             [style*="grid-template-columns: repeat(4, 1fr)"] {
