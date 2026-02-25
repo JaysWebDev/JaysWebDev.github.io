@@ -433,15 +433,14 @@
                 <div class="main-display">
                     <div class="tabs">
                         <button class="tab-button active" onclick="showTab(event, 'overview')">📈 Overview</button>
-                        <button class="tab-button" onclick="showTab(event, 'trends')">🔥 Trends</button>
-                        <button class="tab-button" onclick="showTab(event, 'reports')">📄 Reports</button>
+                        <button class="tab-button" onclick="showTab(event, 'research')">🔬 Research</button>
                         <button class="tab-button" onclick="showTab(event, 'positions')">💼 Positions</button>
-                        <button class="tab-button" onclick="showTab(event, 'analytics')">📊 Analytics</button>
-                        <button class="tab-button" onclick="showTab(event, 'database')">🗄️ Database</button>
-                        <button class="tab-button" onclick="showTab(event, 'strategies')">🧠 Strategies</button>
-                        <button class="tab-button" onclick="showTab(event, 'stale-prices')">🔍 Stale Prices</button>
                         <button class="tab-button" onclick="showTab(event, 'portfolio')">📦 Portfolio</button>
+                        <button class="tab-button" onclick="showTab(event, 'trends')">🔥 Trends</button>
                         <button class="tab-button" onclick="showTab(event, 'lookup')">🔎 Lookup</button>
+                        <button class="tab-button" onclick="showTab(event, 'reports')">📄 Reports</button>
+                        <button class="tab-button" onclick="showTab(event, 'database')">🗄️ Database</button>
+                        <button class="tab-button" onclick="showTab(event, 'stale-prices')">🔍 Stale Prices</button>
                         <button class="tab-button" onclick="showTab(event, 'admin')">⚙️ Admin</button>
                     </div>
 
@@ -780,8 +779,8 @@
                             </div>
                         </div>
 
-                        <div id="analytics" class="tab-panel">
-                            <h3>Performance Analytics</h3>
+                        <div id="research" class="tab-panel">
+                            <h3>🔬 Research</h3>
                             <div id="analytics-content">
                                 <!-- Unified Performance Tracker (live from JSON) -->
                                 <div id="unified-perf" style="background: rgba(30,41,59,0.8); border-radius: 10px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(251,191,36,0.3); border-left: 4px solid #FBBF24;">
@@ -881,128 +880,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div id="database" class="tab-panel">
-                            <h3>🗄️ Database & Backend Processes</h3>
-                            <div id="database-content">
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                                    <!-- Database Status -->
-                                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
-                                        <h4>📊 Live Database Overview</h4>
-                                        <div style="margin: 15px 0;">
-                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
-                                                <span>Total Price Records:</span>
-                                                <span id="adm-stat-records" style="color: #3B82F6; font-weight: bold;">236,000+</span>
-                                            </div>
-                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
-                                                <span>Securities Tracked:</span>
-                                                <span id="adm-stat-securities" style="color: #3B82F6; font-weight: bold;">2,760</span>
-                                            </div>
-                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
-                                                <span>Data Range:</span>
-                                                <span style="color: #3B82F6; font-weight: bold;">Dec 2023 - Feb 2026</span>
-                                            </div>
-                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
-                                                <span>Engine:</span>
-                                                <span style="color: #3B82F6; font-weight: bold;">SQLite (~60 MB)</span>
-                                            </div>
-                                        </div>
-                                        <button class="btn" style="margin-top: 15px;" onclick="showSecuritiesBrowser()">🔍 Browse Securities</button>
-                                    </div>
-
-                                    <!-- Process Status -->
-                                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
-                                        <h4>⚙️ Automation Schedule</h4>
-                                        <div style="margin: 15px 0; font-size: 0.82rem; line-height: 1.9;">
-                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">9:30 AM</span><span>V3 + Data Update</span></div>
-                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">11:00 AM</span><span>Institutional</span></div>
-                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">1:30 PM</span><span>Enhanced + V3 + Setups</span></div>
-                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">4:00 PM</span><span>All 7 Scanners + Unified</span></div>
-                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">4:25 PM</span><span>Admin data + Report sync</span></div>
-                                            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#94A3B8;">10:00 PM</span><span>DB Backup</span></div>
-                                        </div>
-                                        <div style="font-size:0.75rem;color:#64748b;margin-top:8px;">26 cron jobs — Mon–Fri market schedule. Check Admin tab for live status.</div>
-                                    </div>
+                                <!-- ────────────── Scanner Strategies ────────────── -->
+                                <div style="margin-top:35px;padding-top:25px;border-top:2px solid rgba(59,130,246,0.2);">
+                                    <h4 style="color:#93C5FD;font-size:1.05rem;margin-bottom:5px;">🧠 Scanner Strategies &amp; Components</h4>
+                                    <p style="font-size:0.8rem;color:#64748B;margin-bottom:20px;">Detailed breakdown of each scanner's algorithm, parameters, and signal logic.</p>
                                 </div>
 
-                                <!-- Securities Management -->
-                                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-top: 20px;">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                                        <h4>📈 Securities Management & Live Data</h4>
-                                        <div>
-                                            <button class="btn" onclick="refreshPriceData()" style="margin-right: 10px; font-size: 0.8rem;">🔄 Refresh</button>
-                                            <button class="btn" onclick="showWatchlistManager()" style="font-size: 0.8rem;">⚙️ Manage Watchlist</button>
-                                        </div>
-                                    </div>
-
-                                    <div style="margin: 15px 0;">
-                                        <input type="text" id="securitySearch" placeholder="Search securities (e.g., AAPL, MSFT)..."
-                                               style="width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.3);
-                                                      border-radius: 5px; background: rgba(255,255,255,0.1); color: white;
-                                                      margin-bottom: 15px;" onkeyup="filterSecurities()">
-                                    </div>
-
-                                    <!-- Securities Table -->
-                                    <div style="max-height: 400px; overflow-y: auto; border-radius: 8px; background: rgba(255,255,255,0.05);">
-                                        <table style="width: 100%; border-collapse: collapse; color: white; font-size: 0.85rem;">
-                                            <thead style="background: rgba(59,130,246,0.3); position: sticky; top: 0;">
-                                                <tr>
-                                                    <th style="padding: 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.2);">Symbol</th>
-                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">Price</th>
-                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">Change</th>
-                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">MA20</th>
-                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">MA50</th>
-                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">MA200</th>
-                                                    <th style="padding: 8px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2);">Trend</th>
-                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">Volume</th>
-                                                    <th style="padding: 8px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2);">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="securitiesTable">
-                                                <!-- Securities data will be populated here -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div style="margin-top: 15px; font-size: 0.8rem; opacity: 0.8;">
-                                        💡 <strong>Trend:</strong> 🟢 Bullish | 🔴 Bearish | ⚪ Neutral — data updated daily at 4 PM via pipeline
-                                    </div>
-                                </div>
-
-                                <!-- System Architecture -->
-                                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-top: 20px;">
-                                    <h4>🏗️ System Architecture</h4>
-                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
-                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
-                                            <div style="font-size: 1.5rem;">📊</div>
-                                            <div style="font-weight: bold; margin: 5px 0;">SQLite Database</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">236K+ price records</div>
-                                        </div>
-                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
-                                            <div style="font-size: 1.5rem;">🐍</div>
-                                            <div style="font-weight: bold; margin: 5px 0;">Python Backend</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">7 scanners, 26 cron jobs</div>
-                                        </div>
-                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
-                                            <div style="font-size: 1.5rem;">💾</div>
-                                            <div style="font-weight: bold; margin: 5px 0;">USB + SSD Storage</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">Deploy bridge + data layer</div>
-                                        </div>
-                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
-                                            <div style="font-size: 1.5rem;">🌐</div>
-                                            <div style="font-weight: bold; margin: 5px 0;">GitHub Pages</div>
-                                            <div style="font-size: 0.8rem; opacity: 0.8;">jays.website/trading</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="strategies" class="tab-panel">
-                            <h3>🧠 Scanner Strategies & Components</h3>
-                            <div id="strategies-content">
                                 <!-- Scanner Strategy Cards -->
                                 <div style="display: grid; gap: 20px; margin-top: 20px;">
 
@@ -1320,6 +1204,123 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div id="database" class="tab-panel">
+                            <h3>🗄️ Database & Backend Processes</h3>
+                            <div id="database-content">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                                    <!-- Database Status -->
+                                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
+                                        <h4>📊 Live Database Overview</h4>
+                                        <div style="margin: 15px 0;">
+                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
+                                                <span>Total Price Records:</span>
+                                                <span id="adm-stat-records" style="color: #3B82F6; font-weight: bold;">236,000+</span>
+                                            </div>
+                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
+                                                <span>Securities Tracked:</span>
+                                                <span id="adm-stat-securities" style="color: #3B82F6; font-weight: bold;">2,760</span>
+                                            </div>
+                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
+                                                <span>Data Range:</span>
+                                                <span style="color: #3B82F6; font-weight: bold;">Dec 2023 - Feb 2026</span>
+                                            </div>
+                                            <div class="stat-item" style="margin: 10px 0; display: flex; justify-content: space-between;">
+                                                <span>Engine:</span>
+                                                <span style="color: #3B82F6; font-weight: bold;">SQLite (~60 MB)</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn" style="margin-top: 15px;" onclick="showSecuritiesBrowser()">🔍 Browse Securities</button>
+                                    </div>
+
+                                    <!-- Process Status -->
+                                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
+                                        <h4>⚙️ Automation Schedule</h4>
+                                        <div style="margin: 15px 0; font-size: 0.82rem; line-height: 1.9;">
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">9:30 AM</span><span>V3 + Data Update</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">11:00 AM</span><span>Institutional</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">1:30 PM</span><span>Enhanced + V3 + Setups</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">4:00 PM</span><span>All 7 Scanners + Unified</span></div>
+                                            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,0.1);padding:4px 0;"><span style="color:#94A3B8;">4:25 PM</span><span>Admin data + Report sync</span></div>
+                                            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#94A3B8;">10:00 PM</span><span>DB Backup</span></div>
+                                        </div>
+                                        <div style="font-size:0.75rem;color:#64748b;margin-top:8px;">26 cron jobs — Mon–Fri market schedule. Check Admin tab for live status.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Securities Management -->
+                                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-top: 20px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                        <h4>📈 Securities Management & Live Data</h4>
+                                        <div>
+                                            <button class="btn" onclick="refreshPriceData()" style="margin-right: 10px; font-size: 0.8rem;">🔄 Refresh</button>
+                                            <button class="btn" onclick="showWatchlistManager()" style="font-size: 0.8rem;">⚙️ Manage Watchlist</button>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin: 15px 0;">
+                                        <input type="text" id="securitySearch" placeholder="Search securities (e.g., AAPL, MSFT)..."
+                                               style="width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.3);
+                                                      border-radius: 5px; background: rgba(255,255,255,0.1); color: white;
+                                                      margin-bottom: 15px;" onkeyup="filterSecurities()">
+                                    </div>
+
+                                    <!-- Securities Table -->
+                                    <div style="max-height: 400px; overflow-y: auto; border-radius: 8px; background: rgba(255,255,255,0.05);">
+                                        <table style="width: 100%; border-collapse: collapse; color: white; font-size: 0.85rem;">
+                                            <thead style="background: rgba(59,130,246,0.3); position: sticky; top: 0;">
+                                                <tr>
+                                                    <th style="padding: 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.2);">Symbol</th>
+                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">Price</th>
+                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">Change</th>
+                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">MA20</th>
+                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">MA50</th>
+                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">MA200</th>
+                                                    <th style="padding: 8px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2);">Trend</th>
+                                                    <th style="padding: 8px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.2);">Volume</th>
+                                                    <th style="padding: 8px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2);">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="securitiesTable">
+                                                <!-- Securities data will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div style="margin-top: 15px; font-size: 0.8rem; opacity: 0.8;">
+                                        💡 <strong>Trend:</strong> 🟢 Bullish | 🔴 Bearish | ⚪ Neutral — data updated daily at 4 PM via pipeline
+                                    </div>
+                                </div>
+
+                                <!-- System Architecture -->
+                                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-top: 20px;">
+                                    <h4>🏗️ System Architecture</h4>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
+                                            <div style="font-size: 1.5rem;">📊</div>
+                                            <div style="font-weight: bold; margin: 5px 0;">SQLite Database</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">236K+ price records</div>
+                                        </div>
+                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
+                                            <div style="font-size: 1.5rem;">🐍</div>
+                                            <div style="font-weight: bold; margin: 5px 0;">Python Backend</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">7 scanners, 26 cron jobs</div>
+                                        </div>
+                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
+                                            <div style="font-size: 1.5rem;">💾</div>
+                                            <div style="font-weight: bold; margin: 5px 0;">USB + SSD Storage</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">Deploy bridge + data layer</div>
+                                        </div>
+                                        <div style="text-align: center; padding: 15px; background: rgba(59,130,246,0.1); border-radius: 8px;">
+                                            <div style="font-size: 1.5rem;">🌐</div>
+                                            <div style="font-weight: bold; margin: 5px 0;">GitHub Pages</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">jays.website/trading</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div id="stale-prices" class="tab-panel">
                             <h3>🔍 Stale Price Analysis</h3>
