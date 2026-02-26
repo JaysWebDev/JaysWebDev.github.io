@@ -790,6 +790,78 @@
                         <div id="research" class="tab-panel">
                             <h3>🔬 Research</h3>
                             <div id="analytics-content">
+
+                                <!-- LIVE SCANNER ACCURACY (from scanner_accuracy.json) -->
+                                <div id="accuracy-card" style="background: rgba(30,41,59,0.8); border-radius: 10px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(59,130,246,0.3); border-left: 4px solid #3B82F6;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                        <h4 style="color:#60A5FA; margin:0; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.05em;">📊 Live Scanner Accuracy — Forward Returns</h4>
+                                        <span id="accuracy-meta" style="color:#475569; font-size:0.7rem;">Loading…</span>
+                                    </div>
+
+                                    <!-- Summary table: scanner vs 1d/5d/10d -->
+                                    <div style="overflow-x:auto; margin-bottom:16px;">
+                                        <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+                                            <thead>
+                                                <tr style="border-bottom:1px solid rgba(59,130,246,0.25);">
+                                                    <th style="padding:7px 10px; text-align:left; color:#64748B; font-weight:500;">Scanner</th>
+                                                    <th style="padding:7px 8px; text-align:right; color:#64748B; font-weight:500;">Signals</th>
+                                                    <th style="padding:7px 8px; text-align:center; color:#64748B; font-weight:500;" colspan="2">1-Day</th>
+                                                    <th style="padding:7px 8px; text-align:center; color:#60A5FA; font-weight:500;" colspan="2">5-Day ★</th>
+                                                    <th style="padding:7px 8px; text-align:center; color:#64748B; font-weight:500;" colspan="2">10-Day</th>
+                                                </tr>
+                                                <tr style="border-bottom:1px solid rgba(30,41,59,0.8);">
+                                                    <th></th><th></th>
+                                                    <th style="padding:3px 8px; text-align:right; color:#475569; font-size:0.75rem; font-weight:400;">Win%</th>
+                                                    <th style="padding:3px 8px; text-align:right; color:#475569; font-size:0.75rem; font-weight:400;">Avg</th>
+                                                    <th style="padding:3px 8px; text-align:right; color:#94A3B8; font-size:0.75rem; font-weight:400;">Win%</th>
+                                                    <th style="padding:3px 8px; text-align:right; color:#94A3B8; font-size:0.75rem; font-weight:400;">Avg</th>
+                                                    <th style="padding:3px 8px; text-align:right; color:#475569; font-size:0.75rem; font-weight:400;">Win%</th>
+                                                    <th style="padding:3px 8px; text-align:right; color:#475569; font-size:0.75rem; font-weight:400;">Avg</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="accuracy-summary-body">
+                                                <tr><td colspan="8" style="padding:16px; text-align:center; color:#475569;">Loading…</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Score correlation + Day of week side by side -->
+                                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                                        <div>
+                                            <div style="color:#94A3B8; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;">Score vs 5-Day Return</div>
+                                            <table style="width:100%; border-collapse:collapse; font-size:0.78rem;">
+                                                <thead>
+                                                    <tr style="border-bottom:1px solid rgba(148,163,184,0.1);">
+                                                        <th style="padding:4px 6px; text-align:left; color:#475569; font-weight:400;">Score</th>
+                                                        <th style="padding:4px 6px; text-align:right; color:#475569; font-weight:400;">n</th>
+                                                        <th style="padding:4px 6px; text-align:right; color:#475569; font-weight:400;">Win%</th>
+                                                        <th style="padding:4px 6px; text-align:right; color:#475569; font-weight:400;">Avg</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="accuracy-score-body"></tbody>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <div style="color:#94A3B8; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;">Day of Week — 5-Day Return</div>
+                                            <table style="width:100%; border-collapse:collapse; font-size:0.78rem;">
+                                                <thead>
+                                                    <tr style="border-bottom:1px solid rgba(148,163,184,0.1);">
+                                                        <th style="padding:4px 6px; text-align:left; color:#475569; font-weight:400;">Day</th>
+                                                        <th style="padding:4px 6px; text-align:right; color:#475569; font-weight:400;">n</th>
+                                                        <th style="padding:4px 6px; text-align:right; color:#475569; font-weight:400;">Win%</th>
+                                                        <th style="padding:4px 6px; text-align:right; color:#475569; font-weight:400;">Avg</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="accuracy-dow-body"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-top:10px; color:#334155; font-size:0.68rem;">
+                                        Returns measured close-to-close from signal day. Updated nightly 7 PM. Min 5 signals per row.
+                                    </div>
+                                </div>
+
                                 <!-- Unified Performance Tracker (live from JSON) -->
                                 <div id="unified-perf" style="background: rgba(30,41,59,0.8); border-radius: 10px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(251,191,36,0.3); border-left: 4px solid #FBBF24;">
                                     <h4 style="color: #FBBF24; margin-bottom: 15px;">Unified Scanner — Live Track Record</h4>
@@ -2159,6 +2231,7 @@
             loadAdminData();
             loadLTPortfolio();
             loadLookupIndex();
+            loadScannerAccuracy();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -2172,6 +2245,7 @@
             setInterval(loadUnifiedTest, 300000);
             setInterval(loadAdminData, 300000);
             setInterval(loadLTPortfolio, 300000);
+            setInterval(loadScannerAccuracy, 900000);  // refresh every 15 min
         };
 
         function checkAuth() {
@@ -3220,6 +3294,80 @@
                 activeBtn.style.borderColor = '#60A5FA';
                 activeBtn.style.color = '#60A5FA';
             }
+        }
+
+        function loadScannerAccuracy() {
+            fetch('/trading/data/scanner_accuracy.json')
+                .then(r => r.json())
+                .then(d => {
+                    // Meta line
+                    const meta = document.getElementById('accuracy-meta');
+                    if (meta) meta.textContent =
+                        `Updated: ${d.generated} · ${d.data_range.trading_days} trading days (${d.data_range.from} → ${d.data_range.to})`;
+
+                    const retColor = v => v == null ? '#475569' : v > 0.3 ? '#22C55E' : v > 0 ? '#86EFAC' : v > -0.5 ? '#F59E0B' : '#EF4444';
+                    const winColor = v => v == null ? '#475569' : v >= 55 ? '#22C55E' : v >= 50 ? '#86EFAC' : v >= 45 ? '#F59E0B' : '#EF4444';
+                    const fmt = (v, digits=1) => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(digits) + '%';
+
+                    // Summary table
+                    const sumBody = document.getElementById('accuracy-summary-body');
+                    if (sumBody && d.summary_table) {
+                        sumBody.innerHTML = d.summary_table.map(r => {
+                            const has5d = r['5d_n'] > 0;
+                            const has1d = r['1d_n'] > 0;
+                            const has10d = r['10d_n'] > 0;
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:6px 10px; color:#CBD5E1; font-weight:500;">${r.label}</td>
+                                <td style="padding:6px 8px; text-align:right; color:#475569;">${r.total_signals.toLocaleString()}</td>
+                                <td style="padding:6px 8px; text-align:right; color:${has1d ? winColor(r['1d_win_rate']) : '#334155'};">${has1d ? r['1d_win_rate'].toFixed(1)+'%' : '—'}</td>
+                                <td style="padding:6px 8px; text-align:right; color:${has1d ? retColor(r['1d_avg_return']) : '#334155'};">${has1d ? fmt(r['1d_avg_return'],2) : '—'}</td>
+                                <td style="padding:6px 8px; text-align:right; color:${has5d ? winColor(r['5d_win_rate']) : '#334155'}; font-weight:${has5d?'600':'400'};">${has5d ? r['5d_win_rate'].toFixed(1)+'%' : '—'}</td>
+                                <td style="padding:6px 8px; text-align:right; color:${has5d ? retColor(r['5d_avg_return']) : '#334155'}; font-weight:${has5d?'600':'400'};">${has5d ? fmt(r['5d_avg_return'],2) : '—'}</td>
+                                <td style="padding:6px 8px; text-align:right; color:${has10d ? winColor(r['10d_win_rate']) : '#334155'};">${has10d ? r['10d_win_rate'].toFixed(1)+'%' : '—'}</td>
+                                <td style="padding:6px 8px; text-align:right; color:${has10d ? retColor(r['10d_avg_return']) : '#334155'};">${has10d ? fmt(r['10d_avg_return'],2) : '—'}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    // Score correlation
+                    const scoreBody = document.getElementById('accuracy-score-body');
+                    if (scoreBody && d.score_correlation_5d) {
+                        const buckets = Object.keys(d.score_correlation_5d).sort((a,b) => {
+                            const aNum = parseInt(a.split('-')[0]);
+                            const bNum = parseInt(b.split('-')[0]);
+                            return aNum - bNum;
+                        });
+                        scoreBody.innerHTML = buckets.map(bk => {
+                            const s = d.score_correlation_5d[bk];
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:4px 6px; color:#94A3B8;">${bk}</td>
+                                <td style="padding:4px 6px; text-align:right; color:#475569;">${s.n}</td>
+                                <td style="padding:4px 6px; text-align:right; color:${winColor(s.win_rate)};">${s.win_rate.toFixed(1)}%</td>
+                                <td style="padding:4px 6px; text-align:right; color:${retColor(s.avg_return)};">${fmt(s.avg_return,2)}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    // Day of week
+                    const dowBody = document.getElementById('accuracy-dow-body');
+                    if (dowBody && d.day_of_week_5d) {
+                        const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+                        dowBody.innerHTML = days.map(day => {
+                            const s = d.day_of_week_5d[day];
+                            if (!s) return '';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:4px 6px; color:#94A3B8;">${day}</td>
+                                <td style="padding:4px 6px; text-align:right; color:#475569;">${s.n}</td>
+                                <td style="padding:4px 6px; text-align:right; color:${winColor(s.win_rate)};">${s.win_rate.toFixed(1)}%</td>
+                                <td style="padding:4px 6px; text-align:right; color:${retColor(s.avg_return)};">${fmt(s.avg_return,2)}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+                })
+                .catch(() => {
+                    const meta = document.getElementById('accuracy-meta');
+                    if (meta) meta.textContent = 'Updates nightly at 7:15 PM';
+                });
         }
 
         function loadUnifiedTest() {
