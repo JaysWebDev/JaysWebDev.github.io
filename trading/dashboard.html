@@ -449,6 +449,7 @@
                         <button class="tab-button" onclick="showTab(event, 'reports')">📄 Reports</button>
                         <button class="tab-button" onclick="showTab(event, 'database')">🗄️ Database</button>
                         <button class="tab-button" onclick="showTab(event, 'stale-prices')">🔍 Stale Prices</button>
+                        <button class="tab-button" onclick="showTab(event, 'backtest')">🧪 Backtest</button>
                         <button class="tab-button" onclick="showTab(event, 'admin')">⚙️ Admin</button>
                     </div>
 
@@ -867,16 +868,17 @@
                                     <h4 style="color: #FBBF24; margin-bottom: 15px;">Unified Scanner — Live Track Record</h4>
                                     <div id="unified-perf-content" style="color: #94A3B8; font-size: 0.85rem;">Loading performance data...</div>
                                 </div>
+                                <!-- Live stat cards — populated from scanner_accuracy.json -->
                                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px;">
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                        <div style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">51.9%</div>
-                                        <div style="font-size: 0.8rem; color: #94A3B8;">Backtest Win Rate</div>
-                                        <div style="font-size: 0.7rem; color: #475569; margin-top: 3px;">1,931 signals (historical)</div>
+                                        <div id="live-winrate" style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">—</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8;">Live 5-Day Win Rate</div>
+                                        <div id="live-winrate-sub" style="font-size: 0.7rem; color: #475569; margin-top: 3px;">loading…</div>
                                     </div>
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                        <div style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">+0.05%</div>
-                                        <div style="font-size: 0.8rem; color: #94A3B8;">Backtest Avg Return</div>
-                                        <div style="font-size: 0.7rem; color: #475569; margin-top: 3px;">3% stop / 5% target</div>
+                                        <div id="live-avgreturn" style="font-size: 1.8rem; font-weight: bold; color: #F59E0B;">—</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8;">Live 5-Day Avg Return</div>
+                                        <div id="live-avgreturn-sub" style="font-size: 0.7rem; color: #475569; margin-top: 3px;">close-to-close</div>
                                     </div>
                                     <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
                                         <div style="font-size: 1.8rem; font-weight: bold; color: #3B82F6;">~5s</div>
@@ -889,48 +891,26 @@
                                         <div style="font-size: 0.7rem; color: #475569; margin-top: 3px;">2,760+ symbols</div>
                                     </div>
                                 </div>
+                                <!-- Live scanner breakdown table — populated from scanner_accuracy.json -->
                                 <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1);">
-                                    <h4 style="color: #CBD5E1; margin-bottom: 15px;">Backtest Results (3% Stop / 5% Target)</h4>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                        <h4 style="color: #CBD5E1; margin: 0;">Live Scanner Results — 5-Day Forward Return</h4>
+                                        <span style="font-size:0.7rem;color:#475569;">Updated nightly · See Backtest tab for historical stop/target analysis</span>
+                                    </div>
                                     <div style="overflow-x: auto;">
                                         <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                                             <thead>
                                                 <tr style="border-bottom: 2px solid rgba(59,130,246,0.3);">
                                                     <th style="padding: 10px; text-align: left; color: #94A3B8;">Scanner</th>
-                                                    <th style="padding: 10px; text-align: right; color: #94A3B8;">Avg EV</th>
-                                                    <th style="padding: 10px; text-align: right; color: #94A3B8;">Win Rate</th>
                                                     <th style="padding: 10px; text-align: right; color: #94A3B8;">Signals</th>
-                                                    <th style="padding: 10px; text-align: left; color: #94A3B8;">Status</th>
+                                                    <th style="padding: 10px; text-align: right; color: #94A3B8;">5d Win%</th>
+                                                    <th style="padding: 10px; text-align: right; color: #94A3B8;">5d Avg Return</th>
+                                                    <th style="padding: 10px; text-align: right; color: #94A3B8;">10d Win%</th>
+                                                    <th style="padding: 10px; text-align: right; color: #94A3B8;">10d Avg Return</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
-                                                    <td style="padding: 10px; font-weight: bold;">Enhanced Breakout</td>
-                                                    <td style="padding: 10px; text-align: right; color: #22C55E;">+0.10%</td>
-                                                    <td style="padding: 10px; text-align: right;">52.0%</td>
-                                                    <td style="padding: 10px; text-align: right;">1,399</td>
-                                                    <td style="padding: 10px; color: #3B82F6;">Best Volume</td>
-                                                </tr>
-                                                <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
-                                                    <td style="padding: 10px; font-weight: bold;">VCB (Volatility Contraction)</td>
-                                                    <td style="padding: 10px; text-align: right; color: #94A3B8;">-0.01%</td>
-                                                    <td style="padding: 10px; text-align: right;">54.3%</td>
-                                                    <td style="padding: 10px; text-align: right;">265</td>
-                                                    <td style="padding: 10px; color: #F59E0B;">Best Win Rate</td>
-                                                </tr>
-                                                <tr style="border-bottom: 1px solid rgba(148,163,184,0.1);">
-                                                    <td style="padding: 10px; font-weight: bold;">ACCUM (Accumulation)</td>
-                                                    <td style="padding: 10px; text-align: right; color: #EF4444;">-0.16%</td>
-                                                    <td style="padding: 10px; text-align: right;">50.0%</td>
-                                                    <td style="padding: 10px; text-align: right;">250</td>
-                                                    <td style="padding: 10px; color: #94A3B8;">Needs Tuning</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding: 10px; font-weight: bold;">PULLBACK (Pullback in Trend)</td>
-                                                    <td style="padding: 10px; text-align: right; color: #EF4444;">-0.64%</td>
-                                                    <td style="padding: 10px; text-align: right;">35.3%</td>
-                                                    <td style="padding: 10px; text-align: right;">17</td>
-                                                    <td style="padding: 10px; color: #EF4444;">Underperforming</td>
-                                                </tr>
+                                            <tbody id="live-scanner-table-body">
+                                                <tr><td colspan="6" style="padding:16px; text-align:center; color:#475569;">Loading live data…</td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -1825,6 +1805,125 @@
                         </div>
 
                         <!-- ═══════════════════════════════════════════════════ -->
+                        <!-- BACKTEST TAB                                       -->
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <div id="backtest" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <h3 style="margin:0;">🧪 Historical Backtest — Enhanced Scanner</h3>
+                                <span id="bt-meta" style="color:#475569;font-size:0.75rem;">Loading…</span>
+                            </div>
+
+                            <!-- Config + Overall stats -->
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;">
+                                <!-- Config card -->
+                                <div style="background:rgba(30,41,59,0.8);border-radius:10px;padding:18px;border:1px solid rgba(148,163,184,0.1);">
+                                    <div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Test Parameters</div>
+                                    <div id="bt-config" style="font-size:0.85rem;color:#CBD5E1;line-height:1.9;">Loading…</div>
+                                </div>
+                                <!-- Key metrics card -->
+                                <div style="background:rgba(30,41,59,0.8);border-radius:10px;padding:18px;border:1px solid rgba(59,130,246,0.2);border-left:3px solid #3B82F6;">
+                                    <div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Overall Results</div>
+                                    <div id="bt-overall" style="font-size:0.85rem;color:#CBD5E1;line-height:1.9;">Loading…</div>
+                                </div>
+                            </div>
+
+                            <!-- Stat pills row -->
+                            <div id="bt-pills" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px;"></div>
+
+                            <!-- Score breakdown + Price range side by side -->
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;">
+                                <div style="background:rgba(30,41,59,0.7);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                    <div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Win Rate by Score Range</div>
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                                        <thead><tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                            <th style="padding:5px 8px;text-align:left;color:#475569;font-weight:400;">Score</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">n</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">Win%</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">EV/trade</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">Avg ROI</th>
+                                        </tr></thead>
+                                        <tbody id="bt-score-body"></tbody>
+                                    </table>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.7);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                    <div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Win Rate by Price Range</div>
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                                        <thead><tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                            <th style="padding:5px 8px;text-align:left;color:#475569;font-weight:400;">Price</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">n</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">Win%</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">EV/trade</th>
+                                            <th style="padding:5px 8px;text-align:right;color:#475569;font-weight:400;">Avg ROI</th>
+                                        </tr></thead>
+                                        <tbody id="bt-price-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Min score threshold sweep -->
+                            <div style="background:rgba(30,41,59,0.7);border-radius:10px;padding:16px;margin-bottom:15px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Optimal Min-Score Threshold — Where Does Quality Improve?</div>
+                                <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                                    <thead><tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                        <th style="padding:5px 10px;text-align:left;color:#475569;font-weight:400;">Min Score</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Signals</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Win%</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">EV/trade</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Profit Factor</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Avg Win</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Avg Loss</th>
+                                    </tr></thead>
+                                    <tbody id="bt-threshold-body"></tbody>
+                                </table>
+                            </div>
+
+                            <!-- Individual signals + Combos side by side -->
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;">
+                                <div style="background:rgba(30,41,59,0.7);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                    <div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Individual Signal Performance</div>
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.79rem;">
+                                        <thead><tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                            <th style="padding:4px 8px;text-align:left;color:#475569;font-weight:400;">Signal</th>
+                                            <th style="padding:4px 8px;text-align:right;color:#475569;font-weight:400;">n</th>
+                                            <th style="padding:4px 8px;text-align:right;color:#475569;font-weight:400;">Win%</th>
+                                            <th style="padding:4px 8px;text-align:right;color:#475569;font-weight:400;">EV</th>
+                                        </tr></thead>
+                                        <tbody id="bt-signal-body"></tbody>
+                                    </table>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.7);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                    <div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Best Signal Combinations (by EV)</div>
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.79rem;">
+                                        <thead><tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                            <th style="padding:4px 8px;text-align:left;color:#475569;font-weight:400;">Combination</th>
+                                            <th style="padding:4px 8px;text-align:right;color:#475569;font-weight:400;">n</th>
+                                            <th style="padding:4px 8px;text-align:right;color:#475569;font-weight:400;">Win%</th>
+                                            <th style="padding:4px 8px;text-align:right;color:#475569;font-weight:400;">EV</th>
+                                        </tr></thead>
+                                        <tbody id="bt-combo-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Top winning signals -->
+                            <div style="background:rgba(30,41,59,0.7);border-radius:10px;padding:16px;border:1px solid rgba(34,197,94,0.15);">
+                                <div style="color:#22C55E;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Top Historical Winners — Best Max Gain Achieved</div>
+                                <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                                    <thead><tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                        <th style="padding:5px 10px;text-align:left;color:#475569;font-weight:400;">Symbol</th>
+                                        <th style="padding:5px 10px;text-align:left;color:#475569;font-weight:400;">Date</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Score</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Entry</th>
+                                        <th style="padding:5px 10px;text-align:right;color:#475569;font-weight:400;">Max Gain</th>
+                                        <th style="padding:5px 10px;text-align:left;color:#475569;font-weight:400;">Signals</th>
+                                    </tr></thead>
+                                    <tbody id="bt-winners-body"></tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top:12px;color:#334155;font-size:0.7rem;" id="bt-note"></div>
+                        </div>
+
                         <!-- ADMIN TAB                                          -->
                         <!-- ═══════════════════════════════════════════════════ -->
                         <div id="admin" class="tab-panel">
@@ -2232,6 +2331,7 @@
             loadLTPortfolio();
             loadLookupIndex();
             loadScannerAccuracy();
+            loadBacktest();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -3296,6 +3396,142 @@
             }
         }
 
+        function loadBacktest() {
+            fetch('/trading/data/backtest_results.json')
+                .then(r => r.json())
+                .then(d => {
+                    const o = d.overall || {};
+                    const cfg = d.config || {};
+                    const fmtPct = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+                    const winC  = v => v >= 45 ? '#22C55E' : v >= 40 ? '#F59E0B' : '#EF4444';
+                    const evC   = v => v > 0.1 ? '#22C55E' : v >= 0 ? '#F59E0B' : '#EF4444';
+
+                    // Meta
+                    const meta = document.getElementById('bt-meta');
+                    if (meta) meta.textContent = `Run: ${d.generated} · ${d.data_range.dates_tested} test dates (${d.data_range.from} → ${d.data_range.to})`;
+
+                    // Config card
+                    const cfgEl = document.getElementById('bt-config');
+                    if (cfgEl) cfgEl.innerHTML = `
+                        Stop loss: <b style="color:#EF4444;">${(cfg.stop_pct*100).toFixed(0)}%</b> &nbsp;·&nbsp;
+                        Target: <b style="color:#22C55E;">${(cfg.target_pct*100).toFixed(0)}%</b><br>
+                        Min score: <b style="color:#60A5FA;">${cfg.min_score}</b> &nbsp;·&nbsp;
+                        Min price: <b>$${cfg.min_price}</b><br>
+                        Lookforward: <b>${cfg.lookforward_days} trading days</b><br>
+                        Sampled every: <b>${cfg.sample_every} trading days</b>`;
+
+                    // Overall card
+                    const ovEl = document.getElementById('bt-overall');
+                    if (ovEl) ovEl.innerHTML = `
+                        Signals: <b style="color:#CBD5E1;">${(o.n||0).toLocaleString()}</b> &nbsp;·&nbsp;
+                        Target hit: <b style="color:#22C55E;">${o.target_hit||0}</b> &nbsp;·&nbsp;
+                        Stop hit: <b style="color:#EF4444;">${o.stop_hit||0}</b><br>
+                        Win rate: <b style="color:${winC(o.win_rate||0)}">${o.win_rate||'—'}%</b> &nbsp;·&nbsp;
+                        EV/trade: <b style="color:${evC(o.ev_per_trade||0)}">${fmtPct(o.ev_per_trade)}</b><br>
+                        Avg win: <b style="color:#22C55E;">${fmtPct(o.avg_win)}</b> &nbsp;·&nbsp;
+                        Avg loss: <b style="color:#EF4444;">${fmtPct(o.avg_loss)}</b><br>
+                        Profit factor: <b>${o.profit_factor||'—'}</b> &nbsp;·&nbsp;
+                        Avg days→target: <b>${o.avg_days_to_target||'—'}</b>`;
+
+                    // Stat pills
+                    const pills = document.getElementById('bt-pills');
+                    if (pills) {
+                        const items = [
+                            ['Win Rate', (o.win_rate||0).toFixed(1)+'%', winC(o.win_rate||0)],
+                            ['EV / Trade', fmtPct(o.ev_per_trade), evC(o.ev_per_trade||0)],
+                            ['Profit Factor', o.profit_factor||'—', '#60A5FA'],
+                            ['Avg Max Gain', fmtPct(o.avg_mfe), '#22C55E'],
+                            ['Avg Max Loss', fmtPct(o.avg_mae), '#EF4444'],
+                        ];
+                        pills.innerHTML = items.map(([label, val, color]) => `
+                            <div style="background:rgba(30,41,59,0.6);border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:1.5rem;font-weight:bold;color:${color};">${val}</div>
+                                <div style="font-size:0.72rem;color:#64748B;margin-top:3px;">${label}</div>
+                            </div>`).join('');
+                    }
+
+                    // Score breakdown
+                    const scoreBody = document.getElementById('bt-score-body');
+                    if (scoreBody) scoreBody.innerHTML = Object.entries(d.by_score||{}).map(([k,s]) => `
+                        <tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                            <td style="padding:5px 8px;color:#94A3B8;">${k}</td>
+                            <td style="padding:5px 8px;text-align:right;color:#475569;">${s.n}</td>
+                            <td style="padding:5px 8px;text-align:right;color:${winC(s.win_rate)};">${s.win_rate.toFixed(1)}%</td>
+                            <td style="padding:5px 8px;text-align:right;color:${evC(s.ev_per_trade)};">${fmtPct(s.ev_per_trade)}</td>
+                            <td style="padding:5px 8px;text-align:right;color:#94A3B8;">${fmtPct(s.avg_roi)}</td>
+                        </tr>`).join('');
+
+                    // Price breakdown
+                    const priceBody = document.getElementById('bt-price-body');
+                    if (priceBody) priceBody.innerHTML = Object.entries(d.by_price||{}).map(([k,s]) => `
+                        <tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                            <td style="padding:5px 8px;color:#94A3B8;">${k}</td>
+                            <td style="padding:5px 8px;text-align:right;color:#475569;">${s.n}</td>
+                            <td style="padding:5px 8px;text-align:right;color:${winC(s.win_rate)};">${s.win_rate.toFixed(1)}%</td>
+                            <td style="padding:5px 8px;text-align:right;color:${evC(s.ev_per_trade)};">${fmtPct(s.ev_per_trade)}</td>
+                            <td style="padding:5px 8px;text-align:right;color:#94A3B8;">${fmtPct(s.avg_roi)}</td>
+                        </tr>`).join('');
+
+                    // Threshold sweep
+                    const threshBody = document.getElementById('bt-threshold-body');
+                    if (threshBody) threshBody.innerHTML = Object.entries(d.threshold_sweep||{}).map(([k,s]) => {
+                        const isCurrent = k === String(cfg.min_score);
+                        return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);${isCurrent?'background:rgba(59,130,246,0.07);':''}">
+                            <td style="padding:5px 10px;color:${isCurrent?'#60A5FA':'#94A3B8'};font-weight:${isCurrent?'600':'400'};">
+                                ${k}${isCurrent?' ← current':''}</td>
+                            <td style="padding:5px 10px;text-align:right;color:#475569;">${s.n.toLocaleString()}</td>
+                            <td style="padding:5px 10px;text-align:right;color:${winC(s.win_rate)};">${s.win_rate.toFixed(1)}%</td>
+                            <td style="padding:5px 10px;text-align:right;color:${evC(s.ev_per_trade)};font-weight:600;">${fmtPct(s.ev_per_trade)}</td>
+                            <td style="padding:5px 10px;text-align:right;color:#94A3B8;">${s.profit_factor||'—'}</td>
+                            <td style="padding:5px 10px;text-align:right;color:#22C55E;">${fmtPct(s.avg_win)}</td>
+                            <td style="padding:5px 10px;text-align:right;color:#EF4444;">${fmtPct(s.avg_loss)}</td>
+                        </tr>`;
+                    }).join('');
+
+                    // Individual signals
+                    const sigBody = document.getElementById('bt-signal-body');
+                    if (sigBody) {
+                        const sorted = Object.entries(d.by_signal||{}).sort((a,b) => b[1].ev_per_trade - a[1].ev_per_trade);
+                        sigBody.innerHTML = sorted.map(([k,s]) => `
+                            <tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                                <td style="padding:4px 8px;color:#CBD5E1;">${k}</td>
+                                <td style="padding:4px 8px;text-align:right;color:#475569;">${s.n}</td>
+                                <td style="padding:4px 8px;text-align:right;color:${winC(s.win_rate)};">${s.win_rate.toFixed(1)}%</td>
+                                <td style="padding:4px 8px;text-align:right;color:${evC(s.ev_per_trade)};">${fmtPct(s.ev_per_trade)}</td>
+                            </tr>`).join('');
+                    }
+
+                    // Combos
+                    const comboBody = document.getElementById('bt-combo-body');
+                    if (comboBody) comboBody.innerHTML = (d.signal_combinations||[]).map(s => `
+                        <tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                            <td style="padding:4px 8px;color:#CBD5E1;font-size:0.75rem;">${s.combo}</td>
+                            <td style="padding:4px 8px;text-align:right;color:#475569;">${s.n}</td>
+                            <td style="padding:4px 8px;text-align:right;color:${winC(s.win_rate)};">${s.win_rate.toFixed(1)}%</td>
+                            <td style="padding:4px 8px;text-align:right;color:${evC(s.ev_per_trade)};">${fmtPct(s.ev_per_trade)}</td>
+                        </tr>`).join('');
+
+                    // Top winners
+                    const winnersBody = document.getElementById('bt-winners-body');
+                    if (winnersBody) winnersBody.innerHTML = (d.top_winners||[]).map(w => `
+                        <tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                            <td style="padding:5px 10px;font-weight:bold;color:#CBD5E1;">${w.symbol}</td>
+                            <td style="padding:5px 10px;color:#64748B;">${w.date}</td>
+                            <td style="padding:5px 10px;text-align:right;color:#94A3B8;">${w.score}</td>
+                            <td style="padding:5px 10px;text-align:right;color:#94A3B8;">$${w.entry_price}</td>
+                            <td style="padding:5px 10px;text-align:right;color:#22C55E;font-weight:bold;">+${w.max_gain.toFixed(1)}%</td>
+                            <td style="padding:5px 10px;color:#475569;font-size:0.75rem;">${(w.signals||'').substring(0,60)}</td>
+                        </tr>`).join('');
+
+                    const noteEl = document.getElementById('bt-note');
+                    if (noteEl) noteEl.textContent = d.note || '';
+                })
+                .catch(() => {
+                    const meta = document.getElementById('bt-meta');
+                    if (meta) meta.textContent = 'Run: trading_env/bin/python3 run_backtest.py to generate';
+                });
+        }
+
         function loadScannerAccuracy() {
             fetch('/trading/data/scanner_accuracy.json')
                 .then(r => r.json())
@@ -3309,7 +3545,39 @@
                     const winColor = v => v == null ? '#475569' : v >= 55 ? '#22C55E' : v >= 50 ? '#86EFAC' : v >= 45 ? '#F59E0B' : '#EF4444';
                     const fmt = (v, digits=1) => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(digits) + '%';
 
-                    // Summary table
+                    // Stat cards — use best scanner with 5d data (sorted by avg return desc)
+                    const best = (d.summary_table || []).find(r => r['5d_n'] >= 5);
+                    const allWith5d = (d.summary_table || []).filter(r => r['5d_n'] >= 5);
+                    if (allWith5d.length > 0) {
+                        const totalSignals = allWith5d.reduce((a, r) => a + r['5d_n'], 0);
+                        const avgWr = allWith5d.reduce((a, r) => a + r['5d_win_rate'] * r['5d_n'], 0) / totalSignals;
+                        const avgRet = allWith5d.reduce((a, r) => a + r['5d_avg_return'] * r['5d_n'], 0) / totalSignals;
+                        const wrEl = document.getElementById('live-winrate');
+                        const wrSub = document.getElementById('live-winrate-sub');
+                        const retEl = document.getElementById('live-avgreturn');
+                        if (wrEl) { wrEl.textContent = avgWr.toFixed(1) + '%'; wrEl.style.color = winColor(avgWr); }
+                        if (wrSub) wrSub.textContent = `${totalSignals.toLocaleString()} signals · ${d.data_range.trading_days} trading days`;
+                        if (retEl) { retEl.textContent = fmt(avgRet, 2); retEl.style.color = retColor(avgRet); }
+                    }
+
+                    // Live scanner breakdown table (the simpler one below the stat cards)
+                    const liveBody = document.getElementById('live-scanner-table-body');
+                    if (liveBody && d.summary_table) {
+                        liveBody.innerHTML = d.summary_table.map((r, i) => {
+                            const has5d = r['5d_n'] > 0;
+                            const has10d = r['10d_n'] > 0;
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.07);">
+                                <td style="padding:9px 10px; font-weight:600; color:#CBD5E1;">${r.label}</td>
+                                <td style="padding:9px 10px; text-align:right; color:#64748B;">${r.total_signals.toLocaleString()}</td>
+                                <td style="padding:9px 10px; text-align:right; color:${has5d ? winColor(r['5d_win_rate']) : '#334155'};">${has5d ? r['5d_win_rate'].toFixed(1)+'%' : '—'}</td>
+                                <td style="padding:9px 10px; text-align:right; color:${has5d ? retColor(r['5d_avg_return']) : '#334155'}; font-weight:${has5d?'600':'400'};">${has5d ? fmt(r['5d_avg_return'],2) : '—'}</td>
+                                <td style="padding:9px 10px; text-align:right; color:${has10d ? winColor(r['10d_win_rate']) : '#334155'};">${has10d ? r['10d_win_rate'].toFixed(1)+'%' : '—'}</td>
+                                <td style="padding:9px 10px; text-align:right; color:${has10d ? retColor(r['10d_avg_return']) : '#334155'};">${has10d ? fmt(r['10d_avg_return'],2) : '—'}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    // Summary table (in the live accuracy card above)
                     const sumBody = document.getElementById('accuracy-summary-body');
                     if (sumBody && d.summary_table) {
                         sumBody.innerHTML = d.summary_table.map(r => {
