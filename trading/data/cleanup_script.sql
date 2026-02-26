@@ -1,5 +1,5 @@
 -- Database Cleanup Script
--- Generated: 2026-02-25 07:00:03
+-- Generated: 2026-02-26 07:00:03
 -- CAUTION: Review before executing
 
 -- Backup delisted securities data before removal
