@@ -2851,21 +2851,90 @@
                     document.getElementById('pp-cash').textContent = '$' + pp.cash.toFixed(0);
                     document.getElementById('pp-positions').textContent = pp.num_positions;
 
-                    // Equity curve (simple bar chart)
+                    // Equity curve — SVG line chart with SPY/QQQ benchmark
                     const chartDiv = document.getElementById('pp-equity-chart');
                     const curve = pp.equity_curve || [];
-                    if (curve.length > 0) {
-                        const values = curve.map(d => d.total_value);
-                        const minVal = Math.min(...values) * 0.995;
-                        const maxVal = Math.max(...values) * 1.005;
-                        const range = maxVal - minVal || 1;
-                        chartDiv.innerHTML = curve.map((d, i) => {
-                            const height = Math.max(5, ((d.total_value - minVal) / range) * 100);
-                            const color = d.total_return_pct >= 0 ? '#10B981' : '#EF4444';
-                            const width = Math.max(4, Math.min(20, Math.floor(chartDiv.offsetWidth / curve.length) - 2));
-                            return `<div title="${d.date}: $${d.total_value.toFixed(2)} (${d.total_return_pct >= 0 ? '+' : ''}${d.total_return_pct.toFixed(2)}%)"
-                                style="width:${width}px; height:${height}%; background:${color}; border-radius:2px 2px 0 0; opacity:${i === curve.length-1 ? 1 : 0.7}; cursor:pointer;"></div>`;
-                        }).join('');
+                    const bench = pp.benchmark || [];
+                    if (curve.length > 1) {
+                        // Build lookup maps (return_pct indexed from start)
+                        const portMap = {};
+                        curve.forEach(d => portMap[d.date] = d.total_return_pct);
+                        const spyMap = {}, qqqMap = {};
+                        bench.forEach(d => {
+                            if (d.spy_return_pct != null) spyMap[d.date] = d.spy_return_pct;
+                            if (d.qqq_return_pct != null) qqqMap[d.date] = d.qqq_return_pct;
+                        });
+
+                        const dates = curve.map(d => d.date);
+                        const portVals = dates.map(d => portMap[d] ?? 0);
+                        const spyVals  = dates.map(d => spyMap[d]  ?? null);
+                        const qqqVals  = dates.map(d => qqqMap[d]  ?? null);
+
+                        const allVals = [...portVals, ...spyVals.filter(v=>v!=null), ...qqqVals.filter(v=>v!=null)];
+                        const minV = Math.min(-0.5, ...allVals);
+                        const maxV = Math.max(0.5, ...allVals);
+                        const range = maxV - minV || 1;
+
+                        const W = 500, H = 120;
+                        const pad = { t: 16, b: 22, l: 36, r: 10 };
+                        const cW = W - pad.l - pad.r;
+                        const cH = H - pad.t - pad.b;
+                        const n = dates.length;
+                        const xP = i => pad.l + (n > 1 ? (i / (n - 1)) * cW : cW / 2);
+                        const yP = v => pad.t + (1 - (v - minV) / range) * cH;
+                        const zeroY = yP(0);
+
+                        const makeLine = (vals, color, sw=1.8) => {
+                            const pts = vals.map((v, i) => v != null ? `${xP(i).toFixed(1)},${yP(v).toFixed(1)}` : null);
+                            // split on nulls
+                            let paths = '', seg = [];
+                            pts.forEach(p => {
+                                if (p) { seg.push(p); }
+                                else if (seg.length > 1) { paths += `<polyline points="${seg.join(' ')}" stroke="${color}" stroke-width="${sw}" fill="none" stroke-linejoin="round"/>`; seg = []; }
+                                else { seg = []; }
+                            });
+                            if (seg.length > 1) paths += `<polyline points="${seg.join(' ')}" stroke="${color}" stroke-width="${sw}" fill="none" stroke-linejoin="round"/>`;
+                            return paths;
+                        };
+
+                        // Y-axis labels
+                        const yLabels = [minV, 0, maxV].map(v => `<text x="${pad.l-4}" y="${yP(v)+4}" text-anchor="end" fill="#475569" font-size="9">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</text>`).join('');
+
+                        // X-axis date labels (first and last)
+                        const xLabels = `
+                            <text x="${xP(0)}" y="${H-4}" text-anchor="start" fill="#475569" font-size="9">${dates[0].slice(5)}</text>
+                            <text x="${xP(n-1)}" y="${H-4}" text-anchor="end" fill="#475569" font-size="9">${dates[n-1].slice(5)}</text>`;
+
+                        // Final values for tooltip dots
+                        const lastPort = portVals[n-1];
+                        const lastSpy  = spyVals.filter(v=>v!=null).pop() ?? null;
+                        const lastQqq  = qqqVals.filter(v=>v!=null).pop() ?? null;
+                        const portColor = lastPort >= 0 ? '#10B981' : '#EF4444';
+
+                        chartDiv.style.height = 'auto';
+                        chartDiv.innerHTML = `
+                            <svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block;">
+                                <!-- Grid -->
+                                <line x1="${pad.l}" y1="${zeroY}" x2="${W-pad.r}" y2="${zeroY}" stroke="#334155" stroke-width="1" stroke-dasharray="4,3"/>
+                                <!-- Benchmark lines (behind portfolio) -->
+                                ${makeLine(spyVals, '#64748B', 1.5)}
+                                ${makeLine(qqqVals, '#3B82F6', 1.5)}
+                                <!-- Portfolio line (on top) -->
+                                ${makeLine(portVals, portColor, 2.2)}
+                                <!-- End dots -->
+                                ${lastSpy  != null ? `<circle cx="${xP(n-1)}" cy="${yP(lastSpy)}" r="3" fill="#64748B"/>` : ''}
+                                ${lastQqq  != null ? `<circle cx="${xP(n-1)}" cy="${yP(lastQqq)}" r="3" fill="#3B82F6"/>` : ''}
+                                <circle cx="${xP(n-1)}" cy="${yP(lastPort)}" r="3.5" fill="${portColor}"/>
+                                <!-- Axis labels -->
+                                ${yLabels}${xLabels}
+                                <!-- Legend -->
+                                <circle cx="${pad.l+2}" cy="9" r="3" fill="${portColor}"/>
+                                <text x="${pad.l+8}" y="13" fill="${portColor}" font-size="9" font-weight="600">Portfolio ${lastPort >= 0 ? '+' : ''}${lastPort.toFixed(2)}%</text>
+                                <circle cx="${pad.l+90}" cy="9" r="3" fill="#64748B"/>
+                                <text x="${pad.l+96}" y="13" fill="#64748B" font-size="9">SPY ${lastSpy != null ? (lastSpy >= 0 ? '+' : '') + lastSpy.toFixed(2) + '%' : 'N/A'}</text>
+                                <circle cx="${pad.l+148}" cy="9" r="3" fill="#3B82F6"/>
+                                <text x="${pad.l+154}" y="13" fill="#3B82F6" font-size="9">QQQ ${lastQqq != null ? (lastQqq >= 0 ? '+' : '') + lastQqq.toFixed(2) + '%' : 'N/A'}</text>
+                            </svg>`;
                     } else {
                         chartDiv.innerHTML = '<div style="color:#64748b;text-align:center;width:100%;padding:20px;font-size:0.8rem;">Equity curve builds over time...</div>';
                     }
