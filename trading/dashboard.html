@@ -727,6 +727,25 @@
                                     </div>
                                 </div>
 
+                                <!-- Benchmark Comparison — Position Manager -->
+                                <div style="margin-top:12px;padding:14px 16px;background:rgba(30,41,59,0.5);border-radius:10px;border:1px solid rgba(148,163,184,0.1);">
+                                    <div style="font-size:0.7rem;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">vs Benchmark <span id="pos-bm-since" style="font-style:italic;font-weight:normal;text-transform:none;letter-spacing:0;"></span></div>
+                                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+                                        <div style="text-align:center;">
+                                            <div id="pos-bm-pnl" style="font-size:1.3rem;font-weight:bold;color:#FBBF24;">-</div>
+                                            <div style="font-size:0.68rem;color:#64748b;">Portfolio Avg P&L</div>
+                                        </div>
+                                        <div style="text-align:center;">
+                                            <div id="pos-spy-ret" style="font-size:1.3rem;font-weight:bold;color:#94A3B8;">-</div>
+                                            <div style="font-size:0.68rem;color:#64748b;">SPY Return</div>
+                                        </div>
+                                        <div style="text-align:center;">
+                                            <div id="pos-qqq-ret" style="font-size:1.3rem;font-weight:bold;color:#60A5FA;">-</div>
+                                            <div style="font-size:0.68rem;color:#64748b;">QQQ Return</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- ═══ PAPER PORTFOLIO SIMULATION ═══ -->
                                 <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid rgba(251,191,36,0.3);">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -1565,6 +1584,25 @@
                                 <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:14px;text-align:center;">
                                     <div id="port-trim" style="font-size:1.8rem;font-weight:bold;color:#A78BFA;">-</div>
                                     <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Trim Flags</div>
+                                </div>
+                            </div>
+
+                            <!-- Benchmark Comparison — LT Portfolio -->
+                            <div style="margin-bottom:16px;padding:14px 16px;background:rgba(30,41,59,0.5);border-radius:10px;border:1px solid rgba(16,185,129,0.15);">
+                                <div style="font-size:0.7rem;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">vs Benchmark <span id="port-bm-since" style="font-style:italic;font-weight:normal;text-transform:none;letter-spacing:0;"></span></div>
+                                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+                                    <div style="text-align:center;">
+                                        <div id="port-bm-pnl" style="font-size:1.3rem;font-weight:bold;color:#FBBF24;">-</div>
+                                        <div style="font-size:0.68rem;color:#64748b;">Portfolio Avg P&L</div>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <div id="port-spy-ret" style="font-size:1.3rem;font-weight:bold;color:#94A3B8;">-</div>
+                                        <div style="font-size:0.68rem;color:#64748b;">SPY Return</div>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <div id="port-qqq-ret" style="font-size:1.3rem;font-weight:bold;color:#60A5FA;">-</div>
+                                        <div style="font-size:0.68rem;color:#64748b;">QQQ Return</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -2666,6 +2704,18 @@
                     document.getElementById('pos-win-rate').style.color = tr.win_rate >= 50 ? '#10B981' : '#F59E0B';
                     document.getElementById('pos-avg-hold').textContent = tr.avg_days_held + 'd';
 
+                    // Benchmark comparison
+                    const bm = data.benchmark || {};
+                    const fmtBm = v => (v !== null && v !== undefined) ? (v >= 0 ? '+' : '') + v.toFixed(2) + '%' : '-';
+                    const setColored = (id, v) => {
+                        const el = document.getElementById(id);
+                        if (el) { el.textContent = fmtBm(v); if (v !== null && v !== undefined) el.style.color = v >= 0 ? '#10B981' : '#EF4444'; }
+                    };
+                    setColored('pos-bm-pnl', data.stats.total_pnl_avg);
+                    setColored('pos-spy-ret', bm.spy_return_pct);
+                    setColored('pos-qqq-ret', bm.qqq_return_pct);
+                    if (bm.start_date) { const el = document.getElementById('pos-bm-since'); if (el) el.textContent = '(since ' + bm.start_date + ')'; }
+
                     // Re-apply allocation if user already entered a value
                     recalcAllocations();
                 })
@@ -3165,6 +3215,18 @@
                     if (pnlEl) { pnlEl.textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%'; pnlEl.style.color = pnl >= 0 ? '#10B981' : '#EF4444'; }
                     setT('port-remove', s.remove_count || 0);
                     setT('port-trim', s.trim_count || 0);
+
+                    // Benchmark comparison
+                    const ltBm = p.benchmark || {};
+                    const fmtLtBm = v => (v !== null && v !== undefined) ? (v >= 0 ? '+' : '') + v.toFixed(2) + '%' : '-';
+                    const setLtBmColor = (id, v) => {
+                        const el = document.getElementById(id);
+                        if (el) { el.textContent = fmtLtBm(v); if (v !== null && v !== undefined) el.style.color = v >= 0 ? '#10B981' : '#EF4444'; }
+                    };
+                    setLtBmColor('port-bm-pnl', s.avg_pnl_pct);
+                    setLtBmColor('port-spy-ret', ltBm.spy_return_pct);
+                    setLtBmColor('port-qqq-ret', ltBm.qqq_return_pct);
+                    if (ltBm.start_date) { const el = document.getElementById('port-bm-since'); if (el) el.textContent = '(since ' + ltBm.start_date + ')'; }
 
                     const actionDot = a => a === 'REMOVE' ? '🔴' : a === 'TRIM' ? '🟡' : '🟢';
                     const pnlColor = v => v >= 5 ? '#10B981' : v >= 0 ? '#FBBF24' : '#EF4444';
