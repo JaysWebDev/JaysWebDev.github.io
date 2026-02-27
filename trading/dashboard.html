@@ -531,6 +531,7 @@
                                                 <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Price</th>
                                                 <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Stop</th>
                                                 <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Target</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">10d</th>
                                                 <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Key Signals</th>
                                             </tr>
                                         </thead>
@@ -697,6 +698,7 @@
                                                     <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 1</th>
                                                     <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 2</th>
                                                     <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Days</th>
+                                                    <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">10d</th>
                                                     <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;" class="alloc-col" hidden>Shares</th>
                                                     <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;" class="alloc-col" hidden>Alloc $</th>
                                                     <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Status</th>
@@ -2277,11 +2279,12 @@
                                                 <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Price</th>
                                                 <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Off High</th>
                                                 <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Scanner</th>
+                                                <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">10d</th>
                                                 <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Signals</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tr-buy-body">
-                                            <tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
+                                            <tr><td colspan="8" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -2410,6 +2413,7 @@
             loadScannerAccuracy();
             loadBacktest();
             loadBacktestFiltered();
+            loadSparklines();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -2796,6 +2800,7 @@
                     <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim1_target}</td>
                     <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim2_target}</td>
                     <td style="padding:7px 6px;text-align:center;">${h.days_held}</td>
+                    <td style="padding:7px 6px;">${makeSparkline(h.symbol)}</td>
                     ${allocCells}
                     <td style="padding:7px 6px;color:${statusColor};font-size:0.75rem;">${h.status}</td>
                 </tr>`;
@@ -3088,6 +3093,7 @@
                                     <td style="padding:6px;text-align:right;color:#CBD5E1;">$${t.price.toFixed(2)}</td>
                                     <td style="padding:6px;text-align:right;color:${(t.dist_52wh||0) <= 5 ? '#10B981' : '#F59E0B'};">${t.dist_52wh !== null ? t.dist_52wh.toFixed(1)+'%' : 'N/A'}</td>
                                     <td style="padding:6px;text-align:center;color:#FBBF24;font-size:0.75rem;">${t.scanner_score ? t.scanner_score.toFixed(0) : '-'}</td>
+                                    <td style="padding:6px;">${makeSparkline(t.symbol)}</td>
                                     <td style="padding:6px;color:#94A3B8;font-size:0.72rem;">${t.signals}</td>
                                 </tr>`).join('');
                         }
@@ -3909,6 +3915,39 @@
             'ERX','QLD','SSO','MVV','ROM','UXI','DIG','UCO','USD'
         ]);
 
+        // ── Sparklines ─────────────────────────────────────────────────────────
+        let _sparklineData = {};
+
+        function makeSparkline(symbol) {
+            const closes = _sparklineData[symbol];
+            if (!closes || closes.length < 2) return '<span style="color:#334155;font-size:0.65rem;">-</span>';
+            const min = Math.min(...closes), max = Math.max(...closes);
+            const range = max - min || closes[closes.length-1] * 0.001 || 1;
+            const W = 56, H = 22, pad = 2;
+            const cW = W - 2*pad, cH = H - 2*pad, n = closes.length;
+            const xP = i => (pad + (n > 1 ? i/(n-1) : 0.5) * cW).toFixed(1);
+            const yP = v => (pad + (1 - (v - min)/range) * cH).toFixed(1);
+            const pts = closes.map((c, i) => `${xP(i)},${yP(c)}`).join(' ');
+            const up = closes[n-1] >= closes[0];
+            const col = up ? '#10B981' : '#EF4444';
+            const lx = xP(n-1), ly = yP(closes[n-1]);
+            return `<svg width="${W}" height="${H}" style="vertical-align:middle;display:inline-block;">
+                <polyline points="${pts}" stroke="${col}" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                <circle cx="${lx}" cy="${ly}" r="2" fill="${col}"/>
+            </svg>`;
+        }
+
+        function loadSparklines() {
+            fetch('/trading/data/sparklines.json')
+                .then(r => r.json())
+                .then(d => {
+                    _sparklineData = d.symbols || {};
+                    // Re-render any already-loaded tables that use sparklines
+                    if (document.getElementById('top-picks-body').children.length > 0) loadTopPicks();
+                })
+                .catch(() => {});  // Sparklines are optional — fail silently
+        }
+
         function loadTopPicks() {
             fetch('/trading/data/top_picks.json')
                 .then(r => r.json())
@@ -3929,13 +3968,14 @@
                             <td style="padding: 6px; text-align: right;">$${p.price}</td>
                             <td style="padding: 6px; text-align: right; color: #EF4444;">$${p.stop}</td>
                             <td style="padding: 6px; text-align: right; color: #22C55E;">$${p.target}</td>
+                            <td style="padding: 6px;">${makeSparkline(p.symbol)}</td>
                             <td style="padding: 6px; color: #94A3B8; font-size: 0.75rem;">${signals}</td>
                         </tr>`;
                     }).join('');
                 })
                 .catch(() => {
                     document.getElementById('top-picks-body').innerHTML =
-                        '<tr><td colspan="7" style="padding: 20px; text-align: center; color: #64748b;">Could not load picks</td></tr>';
+                        '<tr><td colspan="8" style="padding: 20px; text-align: center; color: #64748b;">Could not load picks</td></tr>';
                 });
         }
 
