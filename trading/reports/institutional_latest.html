@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Scanner - 2026-02-26</title>
+    <title>Institutional Scanner - 2026-02-27</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -52,13 +52,25 @@
         .signals { font-size: 0.85em; color: #94A3B8; max-width: 300px; }
         .price { color: #e2e8f0; font-weight: bold; }
         .percentage { color: #F59E0B; }
+        
+    .badge-s2  { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-s1  { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-b50 { display:inline-block; background:rgba(239,68,68,0.15);  color:#EF4444; border:1px solid rgba(239,68,68,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsh { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsm { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsl { display:inline-block; background:rgba(100,116,139,0.15);color:#94A3B8; border:1px solid rgba(100,116,139,0.3); padding:2px 5px; border-radius:3px; font-size:10px; margin:1px; }
+    .sig-gap   { color:#F59E0B; font-weight:bold; }
+    .sig-mom   { color:#F97316; font-weight:bold; }
+    .sig-kbo   { color:#38BDF8; font-weight:bold; }
+    .sig-hi    { color:#22C55E; }
+
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1 style="color: #3B82F6; font-size: 1.5rem; border: none; padding-bottom: 5px;">Institutional Scanner</h1>
-            <p style="color: #94A3B8; font-size: 0.9rem;">Full 800 Symbol Universe &bull; Flexible Accumulation Detection &bull; 2026-02-26</p>
+            <p style="color: #94A3B8; font-size: 0.9rem;">Full 800 Symbol Universe &bull; Flexible Accumulation Detection &bull; 2026-02-27</p>
 
             <div class="diversity-stats">
                 <div class="stat-card">
@@ -82,6 +94,8 @@
                 <tr>
                     <th>Symbol</th>
                     <th>Score</th>
+                    <th>Trend</th>
+                    <th>RS</th>
                     <th>Price</th>
                     <th>20D %</th>
                     <th>Accum %</th>
@@ -96,6 +110,8 @@
                 <tr>
                     <td class="symbol">CABA</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS95</span></td>
                     <td class="price">$3.72</td>
                     <td class="percentage">98.5%</td>
                     <td class="percentage">95.0%</td>
@@ -108,6 +124,8 @@
                 <tr>
                     <td class="symbol">CLYM</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS99</span></td>
                     <td class="price">$6.97</td>
                     <td class="percentage">99.5%</td>
                     <td class="percentage">100.0%</td>
@@ -120,6 +138,8 @@
                 <tr>
                     <td class="symbol">CRBU</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS75</span></td>
                     <td class="price">$2.01</td>
                     <td class="percentage">90.3%</td>
                     <td class="percentage">85.0%</td>
@@ -132,6 +152,8 @@
                 <tr>
                     <td class="symbol">HLX</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS89</span></td>
                     <td class="price">$9.62</td>
                     <td class="percentage">89.5%</td>
                     <td class="percentage">100.0%</td>
@@ -144,6 +166,8 @@
                 <tr>
                     <td class="symbol">HZO</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS74</span></td>
                     <td class="price">$30.93</td>
                     <td class="percentage">97.9%</td>
                     <td class="percentage">95.0%</td>
@@ -156,6 +180,8 @@
                 <tr>
                     <td class="symbol">IMVT</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS69</span></td>
                     <td class="price">$27.23</td>
                     <td class="percentage">93.1%</td>
                     <td class="percentage">95.0%</td>
@@ -168,6 +194,8 @@
                 <tr>
                     <td class="symbol">IVT</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS63</span></td>
                     <td class="price">$31.43</td>
                     <td class="percentage">99.8%</td>
                     <td class="percentage">100.0%</td>
@@ -180,6 +208,8 @@
                 <tr>
                     <td class="symbol">JAKK</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS81</span></td>
                     <td class="price">$22.38</td>
                     <td class="percentage">94.8%</td>
                     <td class="percentage">100.0%</td>
@@ -192,6 +222,8 @@
                 <tr>
                     <td class="symbol">KEYS</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS95</span></td>
                     <td class="price">$302.3</td>
                     <td class="percentage">97.8%</td>
                     <td class="percentage">100.0%</td>
@@ -204,6 +236,8 @@
                 <tr>
                     <td class="symbol">KRG</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS73</span></td>
                     <td class="price">$25.96</td>
                     <td class="percentage">98.7%</td>
                     <td class="percentage">100.0%</td>
@@ -216,6 +250,8 @@
                 <tr>
                     <td class="symbol">KYMR</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS93</span></td>
                     <td class="price">$90.68</td>
                     <td class="percentage">96.8%</td>
                     <td class="percentage">100.0%</td>
@@ -228,6 +264,8 @@
                 <tr>
                     <td class="symbol">LAND</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS87</span></td>
                     <td class="price">$12.5</td>
                     <td class="percentage">96.2%</td>
                     <td class="percentage">100.0%</td>
@@ -240,6 +278,8 @@
                 <tr>
                     <td class="symbol">LASR</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS97</span></td>
                     <td class="price">$60.6</td>
                     <td class="percentage">98.1%</td>
                     <td class="percentage">100.0%</td>
@@ -252,6 +292,8 @@
                 <tr>
                     <td class="symbol">LINC</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS94</span></td>
                     <td class="price">$34.67</td>
                     <td class="percentage">95.2%</td>
                     <td class="percentage">100.0%</td>
@@ -264,6 +306,8 @@
                 <tr>
                     <td class="symbol">LMAT</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-b50">↓50</span></td>
+                    <td><span class="badge-rsl">RS50</span></td>
                     <td class="price">$91.38</td>
                     <td class="percentage">98.2%</td>
                     <td class="percentage">100.0%</td>
@@ -276,6 +320,8 @@
                 <tr>
                     <td class="symbol">LNTH</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS78</span></td>
                     <td class="price">$75.72</td>
                     <td class="percentage">99.3%</td>
                     <td class="percentage">100.0%</td>
@@ -288,6 +334,8 @@
                 <tr>
                     <td class="symbol">MAMA</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS93</span></td>
                     <td class="price">$17.32</td>
                     <td class="percentage">98.2%</td>
                     <td class="percentage">100.0%</td>
@@ -300,6 +348,8 @@
                 <tr>
                     <td class="symbol">MATX</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS81</span></td>
                     <td class="price">$170.04</td>
                     <td class="percentage">96.2%</td>
                     <td class="percentage">100.0%</td>
@@ -312,6 +362,8 @@
                 <tr>
                     <td class="symbol">MTRN</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS88</span></td>
                     <td class="price">$161.7</td>
                     <td class="percentage">94.1%</td>
                     <td class="percentage">100.0%</td>
@@ -324,6 +376,8 @@
                 <tr>
                     <td class="symbol">NAT</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS90</span></td>
                     <td class="price">$5.03</td>
                     <td class="percentage">99.9%</td>
                     <td class="percentage">100.0%</td>
@@ -336,6 +390,8 @@
                 <tr>
                     <td class="symbol">NAUT</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS92</span></td>
                     <td class="price">$2.89</td>
                     <td class="percentage">93.8%</td>
                     <td class="percentage">100.0%</td>
@@ -348,6 +404,8 @@
                 <tr>
                     <td class="symbol">NVAX</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS66</span></td>
                     <td class="price">$11.88</td>
                     <td class="percentage">99.2%</td>
                     <td class="percentage">95.0%</td>
@@ -360,6 +418,8 @@
                 <tr>
                     <td class="symbol">PEB</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS55</span></td>
                     <td class="price">$13.09</td>
                     <td class="percentage">98.6%</td>
                     <td class="percentage">100.0%</td>
@@ -372,6 +432,8 @@
                 <tr>
                     <td class="symbol">Q</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS94</span></td>
                     <td class="price">$122.06</td>
                     <td class="percentage">87.1%</td>
                     <td class="percentage">100.0%</td>
@@ -384,6 +446,8 @@
                 <tr>
                     <td class="symbol">TKO</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS53</span></td>
                     <td class="price">$223.71</td>
                     <td class="percentage">100.0%</td>
                     <td class="percentage">100.0%</td>
@@ -396,6 +460,8 @@
                 <tr>
                     <td class="symbol">VICI</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-b50">↓50</span></td>
+                    <td><span class="badge-rsl">RS68</span></td>
                     <td class="price">$29.75</td>
                     <td class="percentage">97.7%</td>
                     <td class="percentage">100.0%</td>
@@ -408,6 +474,8 @@
                 <tr>
                     <td class="symbol">VST</td>
                     <td><span class="score high">120</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS80</span></td>
                     <td class="price">$176.79</td>
                     <td class="percentage">99.7%</td>
                     <td class="percentage">85.0%</td>
@@ -420,6 +488,8 @@
                 <tr>
                     <td class="symbol">IMXI</td>
                     <td><span class="score high">115</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS47</span></td>
                     <td class="price">$15.75</td>
                     <td class="percentage">99.6%</td>
                     <td class="percentage">100.0%</td>
@@ -432,6 +502,8 @@
                 <tr>
                     <td class="symbol">KDP</td>
                     <td><span class="score high">115</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS56</span></td>
                     <td class="price">$30.15</td>
                     <td class="percentage">95.7%</td>
                     <td class="percentage">100.0%</td>
@@ -444,6 +516,8 @@
                 <tr>
                     <td class="symbol">LEGH</td>
                     <td><span class="score high">115</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS45</span></td>
                     <td class="price">$21.92</td>
                     <td class="percentage">97.5%</td>
                     <td class="percentage">100.0%</td>
@@ -456,6 +530,8 @@
                 <tr>
                     <td class="symbol">SMH</td>
                     <td><span class="score high">115</span></td>
+                    <td><span class="badge-b50">↓50</span></td>
+                    <td><span class="badge-rsm">RS88</span></td>
                     <td class="price">$408.8</td>
                     <td class="percentage">95.5%</td>
                     <td class="percentage">100.0%</td>
@@ -468,6 +544,8 @@
                 <tr>
                     <td class="symbol">TXG</td>
                     <td><span class="score high">115</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS47</span></td>
                     <td class="price">$22.13</td>
                     <td class="percentage">99.8%</td>
                     <td class="percentage">65.0%</td>
@@ -480,6 +558,8 @@
                 <tr>
                     <td class="symbol">HSIC</td>
                     <td><span class="score high">113</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS61</span></td>
                     <td class="price">$81.93</td>
                     <td class="percentage">91.8%</td>
                     <td class="percentage">100.0%</td>
@@ -492,6 +572,8 @@
                 <tr>
                     <td class="symbol">MXL</td>
                     <td><span class="score high">113</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS64</span></td>
                     <td class="price">$18.64</td>
                     <td class="percentage">92.5%</td>
                     <td class="percentage">80.0%</td>
@@ -504,6 +586,8 @@
                 <tr>
                     <td class="symbol">NKSH</td>
                     <td><span class="score high">113</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS73</span></td>
                     <td class="price">$38.0</td>
                     <td class="percentage">95.0%</td>
                     <td class="percentage">100.0%</td>
@@ -516,6 +600,8 @@
                 <tr>
                     <td class="symbol">XRT</td>
                     <td><span class="score high">113</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS48</span></td>
                     <td class="price">$87.66</td>
                     <td class="percentage">97.3%</td>
                     <td class="percentage">100.0%</td>
@@ -528,6 +614,8 @@
                 <tr>
                     <td class="symbol">IBIO</td>
                     <td><span class="score high">112</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsh">RS91</span></td>
                     <td class="price">$2.87</td>
                     <td class="percentage">99.7%</td>
                     <td class="percentage">95.0%</td>
@@ -540,6 +628,8 @@
                 <tr>
                     <td class="symbol">LIVN</td>
                     <td><span class="score high">112</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsm">RS77</span></td>
                     <td class="price">$70.29</td>
                     <td class="percentage">99.3%</td>
                     <td class="percentage">100.0%</td>
@@ -552,6 +642,8 @@
                 <tr>
                     <td class="symbol">SJM</td>
                     <td><span class="score high">112</span></td>
+                    <td><span class="badge-s1">S1</span></td>
+                    <td><span class="badge-rsl">RS43</span></td>
                     <td class="price">$116.13</td>
                     <td class="percentage">97.6%</td>
                     <td class="percentage">100.0%</td>
@@ -564,6 +656,8 @@
                 <tr>
                     <td class="symbol">USO</td>
                     <td><span class="score high">112</span></td>
+                    <td><span class="badge-b50">↓50</span></td>
+                    <td><span class="badge-rsl">RS63</span></td>
                     <td class="price">$79.78</td>
                     <td class="percentage">97.4%</td>
                     <td class="percentage">100.0%</td>
@@ -582,7 +676,7 @@
             <p><strong style="color: #CBD5E1;">Approach:</strong> Flexible criteria adapted to symbol characteristics</p>
             <p><strong style="color: #CBD5E1;">Focus:</strong> Price-agnostic institutional activity detection</p>
             <p><strong style="color: #CBD5E1;">Selection:</strong> Top 40 scored patterns from 800 symbol universe</p>
-            <p><strong style="color: #CBD5E1;">Generated:</strong> 2026-02-26 at 16:03:49 by Diverse Institutional Scanner</p>
+            <p><strong style="color: #CBD5E1;">Generated:</strong> 2026-02-27 at 04:31:19 by Diverse Institutional Scanner</p>
         </div>
     </div>
 </body>
