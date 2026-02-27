@@ -585,6 +585,41 @@
                         <div id="positions" class="tab-panel">
                             <h3>Position Manager</h3>
                             <div id="positions-content">
+                                <!-- Live Signal P&L Tracker -->
+                                <div style="background:rgba(30,41,59,0.7);border:1px solid rgba(59,130,246,0.2);border-left:3px solid #3B82F6;border-radius:10px;padding:16px;margin-bottom:16px;">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                        <div style="color:#60A5FA;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:600;">📊 Live Signal P&L Tracker — Enhanced Scanner Signals</div>
+                                        <span id="pos-live-date" style="color:#64748b;font-size:0.7rem;"></span>
+                                    </div>
+                                    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:10px;">
+                                        <div style="text-align:center;">
+                                            <div id="pos-live-total" style="font-size:1.4rem;font-weight:bold;color:#CBD5E1;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;">Resolved Signals</div>
+                                        </div>
+                                        <div style="text-align:center;">
+                                            <div id="pos-live-wr" style="font-size:1.4rem;font-weight:bold;color:#EF4444;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;">Live Win Rate</div>
+                                        </div>
+                                        <div style="text-align:center;">
+                                            <div style="font-size:1.4rem;font-weight:bold;color:#22C55E;">39.2%</div>
+                                            <div style="font-size:0.65rem;color:#64748b;">Backtest Win Rate</div>
+                                        </div>
+                                        <div style="text-align:center;">
+                                            <div id="pos-live-expectancy" style="font-size:1.4rem;font-weight:bold;color:#EF4444;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;">Expectancy/Trade</div>
+                                        </div>
+                                        <div style="text-align:center;">
+                                            <div id="pos-live-pending" style="font-size:1.4rem;font-weight:bold;color:#F59E0B;">-</div>
+                                            <div style="font-size:0.65rem;color:#64748b;">Open Positions</div>
+                                        </div>
+                                    </div>
+                                    <div style="padding-top:8px;border-top:1px solid rgba(148,163,184,0.08);font-size:0.72rem;color:#64748b;">
+                                        W: <span id="pos-live-wins" style="color:#22C55E;">-</span> &nbsp; L: <span id="pos-live-losses" style="color:#EF4444;">-</span>
+                                        &nbsp;·&nbsp; <span id="pos-live-range" style="color:#475569;"></span>
+                                        &nbsp;·&nbsp; <span style="color:#334155;font-style:italic;">Tracking all enhanced scanner picks — not paper portfolio trades</span>
+                                    </div>
+                                </div>
+
                                 <!-- Portfolio Summary Cards -->
                                 <div id="pos-summary" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px;">
                                     <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
@@ -1922,6 +1957,48 @@
                             </div>
 
                             <div style="margin-top:12px;color:#334155;font-size:0.7rem;" id="bt-note"></div>
+
+                            <!-- Quality Filter Comparison -->
+                            <div style="margin-top:24px;padding-top:20px;border-top:2px solid rgba(167,139,250,0.2);">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                    <h4 style="color:#A78BFA;margin:0;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">🔬 Quality Filter Comparison — Stage 2 + RS≥70</h4>
+                                    <span id="btf-meta" style="color:#64748b;font-size:0.72rem;"></span>
+                                </div>
+                                <!-- Impact stat cards -->
+                                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">
+                                    <div style="background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.2);border-radius:8px;padding:14px;text-align:center;">
+                                        <div id="btf-signal-reduction" style="font-size:1.4rem;font-weight:bold;color:#A78BFA;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Signal Reduction (noise cut)</div>
+                                    </div>
+                                    <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:14px;text-align:center;">
+                                        <div id="btf-ev-improvement" style="font-size:1.4rem;font-weight:bold;color:#22C55E;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">EV Improvement (10% target)</div>
+                                    </div>
+                                    <div style="background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:14px;text-align:center;">
+                                        <div id="btf-pf-improvement" style="font-size:1.4rem;font-weight:bold;color:#60A5FA;">-</div>
+                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Profit Factor (10% target)</div>
+                                    </div>
+                                </div>
+                                <!-- Comparison table -->
+                                <div style="background:rgba(30,41,59,0.7);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                                        <thead><tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                            <th style="padding:6px 10px;text-align:left;color:#475569;font-weight:400;">Strategy</th>
+                                            <th style="padding:6px 10px;text-align:right;color:#475569;font-weight:400;">Signals</th>
+                                            <th style="padding:6px 10px;text-align:right;color:#475569;font-weight:400;">Win%</th>
+                                            <th style="padding:6px 10px;text-align:right;color:#475569;font-weight:400;">EV/trade</th>
+                                            <th style="padding:6px 10px;text-align:right;color:#475569;font-weight:400;">Profit Factor</th>
+                                            <th style="padding:6px 10px;text-align:right;color:#475569;font-weight:400;">Avg Win</th>
+                                            <th style="padding:6px 10px;text-align:right;color:#475569;font-weight:400;">EV Lift</th>
+                                        </tr></thead>
+                                        <tbody id="btf-body"><tr><td colspan="7" style="padding:15px;text-align:center;color:#64748b;">Loading…</td></tr></tbody>
+                                    </table>
+                                </div>
+                                <div style="margin-top:8px;font-size:0.7rem;color:#334155;">
+                                    Filter: Stage 2 full alignment (close &gt; SMA50 &gt; SMA150 &gt; SMA200) + RS rank ≥70 &nbsp;·&nbsp;
+                                    <span style="color:#A78BFA;">These are the quality gates applied to scanner badges in production reports.</span>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- ADMIN TAB                                          -->
@@ -2332,6 +2409,7 @@
             loadLookupIndex();
             loadScannerAccuracy();
             loadBacktest();
+            loadBacktestFiltered();
 
             // Update time every second
             setInterval(updateTime, 1000);
@@ -2439,6 +2517,20 @@
 
                 html += `<div style="font-size: 0.7rem; color: #64748B; margin-top: 10px;">Updated: ${new Date(data.generated).toLocaleString()} | ${s.date_range}</div>`;
                 el.innerHTML = html;
+
+                // Populate Positions tab live tracker
+                const setEl = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+                const setCol = (id, val, col) => { const e = document.getElementById(id); if (e) { e.textContent = val; e.style.color = col; } };
+                setEl('pos-live-total', s.resolved || 0);
+                setEl('pos-live-pending', s.pending || 0);
+                setEl('pos-live-wins', s.wins || 0);
+                setEl('pos-live-losses', s.losses || 0);
+                setEl('pos-live-range', s.date_range || '');
+                setEl('pos-live-date', `Updated: ${new Date(data.generated).toLocaleTimeString()}`);
+                const wr = s.win_rate || 0;
+                setCol('pos-live-wr', s.resolved > 0 ? wr.toFixed(1) + '%' : '-', wr >= 40 ? '#10B981' : wr >= 30 ? '#F59E0B' : '#EF4444');
+                const exp = s.expectancy || 0;
+                setCol('pos-live-expectancy', s.resolved > 0 ? (exp >= 0 ? '+' : '') + exp.toFixed(2) + '%' : '-', exp >= 0 ? '#10B981' : '#EF4444');
             } catch (e) {
                 const el = document.getElementById('unified-perf-content');
                 if (el) el.innerHTML = '<span style="color: #64748B;">Performance data not yet available — tracker runs nightly at 8 PM.</span>';
@@ -3529,6 +3621,61 @@
                 .catch(() => {
                     const meta = document.getElementById('bt-meta');
                     if (meta) meta.textContent = 'Run: trading_env/bin/python3 run_backtest.py to generate';
+                });
+        }
+
+        function loadBacktestFiltered() {
+            fetch('/trading/data/backtest_filtered.json')
+                .then(r => r.json())
+                .then(d => {
+                    const metaEl = document.getElementById('btf-meta');
+                    if (metaEl) metaEl.textContent = `Generated: ${(d.generated||'').substring(0,16)} · Stage2 + RS≥${(d.filter||{}).rs_min_rank||70}`;
+
+                    const base = d.baseline || {};
+                    const runs = d.filtered_runs || [];
+                    const rec = runs[1] || {};   // 10% target is recommended
+
+                    const fmtPct = v => (v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(3) + '%');
+                    const evC = v => v > 0.5 ? '#22C55E' : v > 0 ? '#F59E0B' : '#EF4444';
+                    const winC = v => v >= 40 ? '#22C55E' : v >= 35 ? '#F59E0B' : '#EF4444';
+
+                    // Impact cards
+                    if (base.total && rec.total) {
+                        const sigRed = ((base.total - rec.total) / base.total * 100).toFixed(0);
+                        const evLift = base.ev ? (rec.ev / base.ev).toFixed(1) : '—';
+                        const sigEl = document.getElementById('btf-signal-reduction');
+                        if (sigEl) sigEl.textContent = sigRed + '% fewer';
+                        const evEl = document.getElementById('btf-ev-improvement');
+                        if (evEl) evEl.textContent = evLift + '×';
+                        const pfEl = document.getElementById('btf-pf-improvement');
+                        if (pfEl) pfEl.textContent = (rec.profit_factor || 0).toFixed(2);
+                    }
+
+                    // Comparison table
+                    const body = document.getElementById('btf-body');
+                    if (!body) return;
+
+                    const labels = ['Baseline (all signals)', '5% target', '10% target ★', '15% target'];
+                    const allRows = [base, ...runs];
+                    body.innerHTML = allRows.map((r, i) => {
+                        const isBase = i === 0;
+                        const isRec = i === 2;
+                        const evLift = (!isBase && base.ev) ? (r.ev / base.ev).toFixed(1) + '×' : '—';
+                        return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);${isRec ? 'background:rgba(167,139,250,0.07);' : ''}${isBase ? 'opacity:0.75;' : ''}">
+                            <td style="padding:6px 10px;color:${isRec ? '#A78BFA' : isBase ? '#64748b' : '#CBD5E1'};font-weight:${isRec ? '600' : '400'};">
+                                ${isRec ? '★ ' : ''}${labels[i]}${isRec ? ' ← recommended' : ''}</td>
+                            <td style="padding:6px 10px;text-align:right;color:#64748b;">${(r.total||0).toLocaleString()}</td>
+                            <td style="padding:6px 10px;text-align:right;color:${winC(r.win_rate||0)};">${(r.win_rate||0).toFixed(1)}%</td>
+                            <td style="padding:6px 10px;text-align:right;color:${evC(r.ev||0)};font-weight:${isBase?'400':'600'};">${fmtPct(r.ev)}</td>
+                            <td style="padding:6px 10px;text-align:right;color:#94A3B8;">${(r.profit_factor||0).toFixed(2)}</td>
+                            <td style="padding:6px 10px;text-align:right;color:#22C55E;">+${(r.avg_gain||0).toFixed(1)}%</td>
+                            <td style="padding:6px 10px;text-align:right;color:${isBase ? '#475569' : '#22C55E'};font-weight:${isBase ? '400' : 'bold'};">${evLift}</td>
+                        </tr>`;
+                    }).join('');
+                })
+                .catch(() => {
+                    const body = document.getElementById('btf-body');
+                    if (body) body.innerHTML = '<tr><td colspan="7" style="padding:15px;text-align:center;color:#64748b;">Run: trading_env/bin/python3 run_filtered_backtest.py</td></tr>';
                 });
         }
 
