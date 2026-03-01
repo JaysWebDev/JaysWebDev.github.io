@@ -375,7 +375,7 @@
     <a href="index.html" class="header-back">&#8592; Overview</a>
     <div class="header-title-block">
         <div class="header-title">Owner Intelligence</div>
-        <div class="header-sub">Attleboro, MA &mdash; Portfolio Analysis</div>
+        <div class="header-sub">Bristol &amp; Norfolk County, MA &mdash; Portfolio Analysis</div>
     </div>
     <div class="header-kpis">
         <div class="kpi-chip">
@@ -401,6 +401,14 @@
 
     <!-- FILTERS -->
     <div class="filter-bar">
+        <div class="filter-field">
+            <label>County</label>
+            <select id="f-county">
+                <option value="">All Counties</option>
+                <option value="Bristol County">Bristol County</option>
+                <option value="Norfolk County">Norfolk County</option>
+            </select>
+        </div>
         <div class="filter-field">
             <label>Owner Name</label>
             <input type="text" id="f-owner" placeholder="Search owner…">
@@ -535,7 +543,7 @@ function toggleExpand(row, owner) {
                     <div class="bldg-card-addr">${b.address}</div>
                     <div class="bldg-card-meta">
                         ${b.building_type || '—'} &bull; ${b.inferred_units} units<br>
-                        Built: ${b.year_built || '—'}
+                        Built: ${b.year_built || '—'} &bull; ${b.town_name || '—'}
                     </div>
                     <div class="bldg-card-value">${fmt$(b.market_value)}</div>
                 </div>
@@ -605,11 +613,13 @@ function applyFilters() {
     const ownerQ   = document.getElementById('f-owner').value.trim().toUpperCase();
     const minBldgs = parseInt(document.getElementById('f-min-bldgs').value) || 1;
     const flagQ    = document.getElementById('f-flag').value;
+    const countyQ  = document.getElementById('f-county').value;
 
     filtered = allOwners.filter(o => {
         if (ownerQ && !o.owner_name.toUpperCase().includes(ownerQ)) return false;
         if (o.building_count < minBldgs) return false;
         if (flagQ && !(o.opportunity_flags || []).includes(flagQ)) return false;
+        if (countyQ && !(o.counties || []).includes(countyQ)) return false;
         return true;
     });
 
@@ -619,12 +629,13 @@ function applyFilters() {
     renderTable();
 }
 
-['f-owner', 'f-min-bldgs', 'f-flag'].forEach(id => {
+['f-county', 'f-owner', 'f-min-bldgs', 'f-flag'].forEach(id => {
     document.getElementById(id).addEventListener('input', applyFilters);
     document.getElementById(id).addEventListener('change', applyFilters);
 });
 
 document.getElementById('btn-reset').addEventListener('click', () => {
+    document.getElementById('f-county').value    = '';
     document.getElementById('f-owner').value     = '';
     document.getElementById('f-min-bldgs').value = '1';
     document.getElementById('f-flag').value       = '';
@@ -658,7 +669,7 @@ function exportCSV() {
     const url  = URL.createObjectURL(blob);
     const a    = document.createElement('a');
     a.href     = url;
-    a.download = `attleboro_owner_intelligence_${new Date().toISOString().slice(0,10)}.csv`;
+    a.download = `bristol_norfolk_owner_intelligence_${new Date().toISOString().slice(0,10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 }

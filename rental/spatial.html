@@ -6,6 +6,8 @@
     <title>Rental Intelligence — Spatial Map</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -449,6 +451,43 @@
         .c-none   { color: #4a5568 !important; }
 
         /* ============================================================
+           SELECT STYLING
+        ============================================================ */
+        select {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.45rem 0.65rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+        select:focus { border-color: var(--amber); }
+        select option { background: var(--surface); }
+
+        /* ============================================================
+           MARKER CLUSTER — dark amber theme
+        ============================================================ */
+        .marker-cluster-small,
+        .marker-cluster-medium,
+        .marker-cluster-large {
+            background-color: rgba(201, 148, 10, 0.2) !important;
+        }
+        .marker-cluster-small div,
+        .marker-cluster-medium div,
+        .marker-cluster-large div {
+            background-color: rgba(201, 148, 10, 0.55) !important;
+            color: #fff !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+        }
+
+        /* ============================================================
            LOAD OVERLAY
         ============================================================ */
         #load-overlay {
@@ -517,7 +556,7 @@
 
     <div class="header-title-block">
         <div class="header-title">Spatial Intelligence</div>
-        <div class="header-sub">Attleboro, MA &mdash; Building Portfolio</div>
+        <div class="header-sub">Bristol &amp; Norfolk County, MA</div>
     </div>
 
     <div class="header-stats">
@@ -547,6 +586,15 @@
         <!-- FILTERS -->
         <div class="panel-section">
             <div class="panel-section-title">Filters</div>
+
+            <div class="filter-group">
+                <div class="filter-label">County</div>
+                <select id="county-filter">
+                    <option value="">All Counties</option>
+                    <option value="Bristol County">Bristol County</option>
+                    <option value="Norfolk County">Norfolk County</option>
+                </select>
+            </div>
 
             <div class="filter-group">
                 <div class="filter-label">
@@ -599,8 +647,8 @@
                 &lt; 5% &mdash; Low
             </div>
             <div class="legend-row" style="margin-top:0.6rem; border-top:1px solid var(--border); padding-top:0.5rem; font-size:0.6rem; color:var(--muted); line-height:1.5">
-                All 1,407 buildings colored by HUD FMR estimated yield.<br>
-                Larger dots = actual rent data matched.
+                34,448 buildings colored by HUD FMR estimated yield.<br>
+                Clusters group markers at lower zoom levels.
             </div>
         </div>
 
@@ -629,6 +677,7 @@
 
 <!-- Leaflet JS -->
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
 <script>
 /* ================================================================
@@ -669,7 +718,7 @@ function fmtY(y) {
 /* ================================================================
    MAP INIT
 ================================================================ */
-const map = L.map('map', { zoomControl: false }).setView([41.94, -71.28], 13);
+const map = L.map('map', { zoomControl: false }).setView([41.9, -71.1], 10);
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
@@ -721,7 +770,7 @@ function buildPopup(b) {
 }
 
 /* ================================================================
-   RENDER MARKERS — all buildings colored by HUD yield
+   RENDER MARKERS — clustered, all buildings colored by HUD yield
 ================================================================ */
 function renderMarkers(data) {
     if (markerLayer) {
@@ -729,11 +778,17 @@ function renderMarkers(data) {
         markerLayer = null;
     }
 
-    markerLayer = L.layerGroup();
+    markerLayer = L.markerClusterGroup({
+        maxClusterRadius: 50,
+        disableClusteringAtZoom: 14,
+        spiderfyOnMaxZoom: false,
+        chunkedLoading: true,
+        chunkSize: 500,
+        chunkDelay: 10,
+    });
 
     const withReal = data.filter(b => b.gross_yield != null);
 
-    // All buildings: color by HUD yield estimate (or real yield if available)
     data.forEach(b => {
         if (b.lat == null || b.lng == null) return;
         const displayYield = b.gross_yield != null ? b.gross_yield : b.hud_gross_yield;
@@ -753,7 +808,6 @@ function renderMarkers(data) {
 
     markerLayer.addTo(map);
 
-    // Header stats
     document.getElementById('stat-shown').textContent = data.length.toLocaleString();
     document.getElementById('stat-yield').textContent = withReal.length.toLocaleString();
 }
@@ -793,8 +847,11 @@ function applyFilters() {
     const showAll  = document.getElementById('show-all').checked;
     const ownerQ   = document.getElementById('owner-search').value.trim().toUpperCase();
     const typeQ    = document.getElementById('type-search').value.trim().toUpperCase();
+    const countyQ  = document.getElementById('county-filter').value;
 
     const filtered = allBuildings.filter(b => {
+        // County filter
+        if (countyQ && b.county !== countyQ) return false;
         // Owner filter
         if (ownerQ && !(b.owner_name || '').toUpperCase().includes(ownerQ)) return false;
         // Building type filter
@@ -823,6 +880,7 @@ document.getElementById('yield-slider').addEventListener('input', function () {
 document.getElementById('show-all').addEventListener('change', applyFilters);
 document.getElementById('owner-search').addEventListener('input', applyFilters);
 document.getElementById('type-search').addEventListener('input', applyFilters);
+document.getElementById('county-filter').addEventListener('change', applyFilters);
 
 document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('yield-slider').value    = 0;
@@ -830,6 +888,7 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('show-all').checked       = true;
     document.getElementById('owner-search').value     = '';
     document.getElementById('type-search').value      = '';
+    document.getElementById('county-filter').value    = '';
     applyFilters();
 });
 

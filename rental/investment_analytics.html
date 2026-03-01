@@ -217,7 +217,7 @@ header {
   border-radius: var(--radius);
   padding: 14px 20px;
   display: grid;
-  grid-template-columns: 200px 1fr 1fr 120px 120px auto;
+  grid-template-columns: 150px 200px 1fr 1fr 120px 120px auto;
   gap: 16px;
   align-items: end;
 }
@@ -527,6 +527,34 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
   letter-spacing: .1em;
 }
 
+/* Pagination */
+.ia-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-bottom: 4px;
+}
+
+.ia-page-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.ia-page-btn:hover, .ia-page-btn.active {
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}
+.ia-page-btn:disabled { opacity: 0.3; cursor: default; }
+.ia-page-info { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); }
+
 /* Responsive */
 @media (max-width: 1100px) {
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
@@ -555,7 +583,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
       <a href="index.html" class="nav-back">Rental Intelligence</a>
       <div class="header-title">
         <h1>Investment Analytics</h1>
-        <span class="header-badge">ATTLEBORO · MA</span>
+        <span class="header-badge">BRISTOL + NORFOLK · MA</span>
       </div>
       <div class="header-meta">
         <span id="headerDate"></span>
@@ -584,7 +612,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
       <div class="kpi-card">
         <div class="kpi-label">Avg HUD Est. Yield</div>
         <div class="kpi-value" id="kpiAvgYield">—</div>
-        <div class="kpi-sub">All 1,407 buildings · FY2025 FMR</div>
+        <div class="kpi-sub">All buildings · FY2025 HUD FMR</div>
       </div>
       <div class="kpi-card highlight">
         <div class="kpi-label">Highest Actual Yield</div>
@@ -597,6 +625,14 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
   <!-- Filters -->
   <section class="filters-section">
     <div class="filters-bar">
+      <div class="filter-group">
+        <div class="filter-label">County</div>
+        <select id="filterCounty" style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-bright);font-family:var(--font-mono);font-size:12px;padding:6px 10px;width:100%;outline:none;cursor:pointer">
+          <option value="">All Counties</option>
+          <option value="Bristol County">Bristol</option>
+          <option value="Norfolk County">Norfolk</option>
+        </select>
+      </div>
       <div class="filter-group">
         <div class="filter-label">Min Gross Yield <span id="yieldLabel">0%</span></div>
         <input type="range" id="filterYield" min="0" max="25" step="0.5" value="0">
@@ -649,6 +685,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
           <tr>
             <th data-col="address">Address</th>
             <th data-col="owner_name">Owner</th>
+            <th data-col="town_name">Town</th>
             <th data-col="building_type">Type</th>
             <th data-col="market_value">Market Value</th>
             <th data-col="hud_monthly_rent">HUD Rent/mo</th>
@@ -660,6 +697,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
         <tbody id="tableBody"></tbody>
       </table>
     </div>
+    <div class="ia-pagination" id="iaPagination"></div>
   </section>
 
   <!-- Yield Chart -->
@@ -667,7 +705,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
     <div class="chart-card">
       <div class="section-head">
         <span class="section-title">Yield Distribution</span>
-        <span class="section-count">All 1,407 buildings · HUD FMR estimates</span>
+        <span class="section-count" id="chartCount">All buildings · HUD FMR estimates</span>
       </div>
       <div class="chart-wrap">
         <canvas id="yieldChart"></canvas>
@@ -685,6 +723,8 @@ let filteredData = [];
 let sortCol = 'hud_gross_yield';
 let sortDir = -1; // -1 = desc, 1 = asc
 let yieldChart = null;
+let iaPage = 1;
+const IA_PAGE_SIZE = 100;
 
 // ── Helpers ────────────────────────────────────────────
 const fmt$ = v => v != null ? '$' + Number(v).toLocaleString('en-US', {maximumFractionDigits: 0}) : '—';
@@ -799,16 +839,24 @@ function renderTable(data) {
 
   if (!sorted.length) {
     tbody.innerHTML = `<tr class="empty-row"><td colspan="8">NO BUILDINGS MATCH CURRENT FILTERS</td></tr>`;
+    renderIaPagination(0);
     return;
   }
 
-  tbody.innerHTML = sorted.map(r => {
+  // Paginate
+  const totalPages = Math.ceil(sorted.length / IA_PAGE_SIZE);
+  if (iaPage > totalPages) iaPage = 1;
+  const pageStart = (iaPage - 1) * IA_PAGE_SIZE;
+  const pageData  = sorted.slice(pageStart, pageStart + IA_PAGE_SIZE);
+
+  tbody.innerHTML = pageData.map(r => {
     const displayYield = r.gross_yield ?? r.hud_gross_yield;
     const isActual     = r.gross_yield != null;
     const yc           = yieldColor(displayYield);
     return `<tr>
       <td>${r.address || '—'}</td>
       <td>${r.owner_name || '—'}</td>
+      <td style="color:var(--text-dim);font-size:11px">${r.town_name || '—'}</td>
       <td>${r.building_type || '—'}</td>
       <td>${fmt$(r.market_value)}</td>
       <td>${fmtMo(r.hud_monthly_rent)}</td>
@@ -828,6 +876,21 @@ function renderTable(data) {
       th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
     }
   });
+
+  renderIaPagination(sorted.length);
+}
+
+function renderIaPagination(total) {
+  const el = document.getElementById('iaPagination');
+  const totalPages = Math.ceil(total / IA_PAGE_SIZE);
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <button class="ia-page-btn" id="ia-prev" ${iaPage === 1 ? 'disabled' : ''}>&#8592; Prev</button>
+    <span class="ia-page-info">Page ${iaPage} / ${totalPages} &nbsp;(${total.toLocaleString()} buildings)</span>
+    <button class="ia-page-btn" id="ia-next" ${iaPage === totalPages ? 'disabled' : ''}>Next &#8594;</button>
+  `;
+  document.getElementById('ia-prev')?.addEventListener('click', () => { iaPage--; renderTable(filteredData); window.scrollTo(0,0); });
+  document.getElementById('ia-next')?.addEventListener('click', () => { iaPage++; renderTable(filteredData); window.scrollTo(0,0); });
 }
 
 // ── Chart ──────────────────────────────────────────────
@@ -920,9 +983,11 @@ function applyFilters() {
   const yearMin   = parseInt(document.getElementById('filterYearMin').value)  || 0;
   const yearMax   = parseInt(document.getElementById('filterYearMax').value)  || 9999;
   const showAll   = document.getElementById('showAll').checked;
+  const county    = document.getElementById('filterCounty').value;
 
   filteredData = allData.filter(r => {
     const effectiveYield = r.gross_yield ?? r.hud_gross_yield;
+    if (county && r.county !== county) return false;
     if (!showAll && r.gross_yield == null) return false;
     if (minYield > 0 && (effectiveYield == null || effectiveYield < minYield)) return false;
     if ((r.market_value || 0) < minValue) return false;
@@ -931,10 +996,12 @@ function applyFilters() {
     if (r.year_built && r.year_built > yearMax) return false;
     return true;
   });
+  iaPage = 1;
 
   renderTable(filteredData);
   renderOpportunities(filteredData);
   renderChart(filteredData);
+  document.getElementById('chartCount').textContent = `${filteredData.length.toLocaleString()} buildings · HUD FMR estimates`;
 }
 
 // ── Event Listeners ────────────────────────────────────
@@ -956,8 +1023,12 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('filterYearMin').value = '';
   document.getElementById('filterYearMax').value = '';
   document.getElementById('showAll').checked = true;
+  document.getElementById('filterCounty').value = '';
+  iaPage = 1;
   applyFilters();
 });
+
+document.getElementById('filterCounty').addEventListener('change', applyFilters);
 
 document.querySelectorAll('thead th[data-col]').forEach(th => {
   th.addEventListener('click', () => {
