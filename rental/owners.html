@@ -445,7 +445,7 @@
                     <th data-col="owner_name">Owner</th>
                     <th data-col="building_count" class="num sort-desc">Buildings</th>
                     <th data-col="total_units" class="num">Total Units</th>
-                    <th data-col="total_market_value" class="num">Portfolio Value</th>
+                    <th data-col="total_adjusted_market_value" class="num">Est. Portfolio Value</th>
                     <th data-col="hud_est_portfolio_yield" class="num">HUD Est. Yield</th>
                     <th data-col="avg_year_built" class="num">Avg Year Built</th>
                     <th data-col="oldest_building" class="num">Oldest</th>
@@ -511,7 +511,7 @@ function renderTable() {
             <td class="owner-name-cell">${o.owner_name}</td>
             <td class="num">${o.building_count}</td>
             <td class="num">${o.total_units}</td>
-            <td class="num">${fmt$(o.total_market_value)}</td>
+            <td class="num" title="Assessed: ${fmt$(o.total_market_value)}">${fmt$(o.total_adjusted_market_value || o.total_market_value)}</td>
             <td class="num yield-val">${fmtY(o.hud_est_portfolio_yield)}</td>
             <td class="num">${o.avg_year_built || '—'}</td>
             <td class="num">${o.oldest_building || '—'}</td>
@@ -685,7 +685,7 @@ fetch('data/owner_portfolio.json')
         allOwners = data;
 
         // Header KPIs
-        const totalVal   = data.reduce((s, o) => s + (o.total_market_value || 0), 0);
+        const totalVal   = data.reduce((s, o) => s + (o.total_adjusted_market_value || o.total_market_value || 0), 0);
         const multiCount = data.filter(o => o.building_count >= 2).length;
         const largest    = data[0];
 

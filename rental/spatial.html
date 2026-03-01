@@ -759,11 +759,15 @@ function buildPopup(b) {
         </div>
         <div class="popup-row">
             <span class="popup-key">HUD Est. Rent/mo</span>
-            <span class="popup-val">${fmt$(b.hud_gross_yield != null && b.market_value ? Math.round(b.hud_gross_yield * b.market_value / 12) : null)}</span>
+            <span class="popup-val">${fmt$(b.adjusted_market_value && b.hud_gross_yield != null ? Math.round(b.hud_gross_yield * b.adjusted_market_value / 12) : null)}</span>
         </div>
         <div class="popup-row">
-            <span class="popup-key">Market Value</span>
-            <span class="popup-val">${fmt$(b.market_value)}</span>
+            <span class="popup-key">Est. Market Value</span>
+            <span class="popup-val">${fmt$(b.adjusted_market_value)}<span style="color:#4a5568;font-size:9px;margin-left:4px">${b.value_source === 'sale_adjusted' ? '(sale adj.)' : '(assessed)'}</span></span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Assessed Value</span>
+            <span class="popup-val" style="color:#4a5568">${fmt$(b.market_value)}</span>
         </div>
         <div class="popup-row">
             <span class="popup-key">Units</span>

@@ -687,7 +687,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
             <th data-col="owner_name">Owner</th>
             <th data-col="town_name">Town</th>
             <th data-col="building_type">Type</th>
-            <th data-col="market_value">Market Value</th>
+            <th data-col="adjusted_market_value">Est. Market Value</th>
             <th data-col="hud_monthly_rent">HUD Rent/mo</th>
             <th data-col="inferred_units">Units</th>
             <th data-col="hud_annual_rent">HUD Annual Rent</th>
@@ -815,7 +815,7 @@ function renderOpportunities(data) {
       <div class="opp-meta">
         <div style="color:${isActual ? 'var(--green)' : 'var(--text-dim)';font-size:0.7em}">${isActual ? '✓ actual data' : '~ HUD estimate'}</div>
         <div>${fmtMo(r.hud_monthly_rent)}/mo · ${r.inferred_units} units</div>
-        <div><strong>${fmt$(r.market_value)}</strong> market value</div>
+        <div><strong>${fmt$(r.adjusted_market_value || r.market_value)}</strong> est. value</div>
         <div>${r.building_type || '—'}</div>
       </div>
     </div>`;
@@ -858,7 +858,7 @@ function renderTable(data) {
       <td>${r.owner_name || '—'}</td>
       <td style="color:var(--text-dim);font-size:11px">${r.town_name || '—'}</td>
       <td>${r.building_type || '—'}</td>
-      <td>${fmt$(r.market_value)}</td>
+      <td title="${r.value_source === 'sale_adjusted' ? 'Sale price + appreciation adj.' : 'Assessed value'}">${fmt$(r.adjusted_market_value)}<span style="color:#4a5568;font-size:9px;margin-left:3px">${r.value_source === 'sale_adjusted' ? '↑' : 'A'}</span></td>
       <td>${fmtMo(r.hud_monthly_rent)}</td>
       <td>${r.inferred_units}</td>
       <td>${fmt$(r.hud_annual_rent)}</td>
@@ -990,7 +990,7 @@ function applyFilters() {
     if (county && r.county !== county) return false;
     if (!showAll && r.gross_yield == null) return false;
     if (minYield > 0 && (effectiveYield == null || effectiveYield < minYield)) return false;
-    if ((r.market_value || 0) < minValue) return false;
+    if (((r.adjusted_market_value || r.market_value) || 0) < minValue) return false;
     if (owner && !(r.owner_name || '').toLowerCase().includes(owner)) return false;
     if (r.year_built && r.year_built < yearMin) return false;
     if (r.year_built && r.year_built > yearMax) return false;
