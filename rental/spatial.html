@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Intelligence — Spatial Map</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -629,8 +628,7 @@
 </div>
 
 <!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN2GQFk=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 /* ================================================================
@@ -854,16 +852,19 @@ fetch('data/buildings_geo.json')
 
         applyFilters();
 
-        // Dismiss load overlay
+        // Dismiss load overlay, then recalculate map size
         const overlay = document.getElementById('load-overlay');
         overlay.classList.add('fade-out');
-        setTimeout(() => overlay.remove(), 550);
+        setTimeout(() => {
+            overlay.remove();
+            map.invalidateSize();
+        }, 550);
     })
     .catch(err => {
         console.error('Failed to load buildings_geo.json:', err);
         const overlay = document.getElementById('load-overlay');
         overlay.querySelector('.load-sub').textContent =
-            'Error loading data — serve via: python3 -m http.server 8000';
+            'Error loading data. Check console for details.';
     });
 </script>
 
