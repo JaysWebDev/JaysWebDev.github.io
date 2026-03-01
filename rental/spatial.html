@@ -597,6 +597,13 @@
             </div>
 
             <div class="filter-group">
+                <div class="filter-label">Town</div>
+                <select id="town-filter">
+                    <option value="">All Towns</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
                 <div class="filter-label">
                     <span>Min Gross Yield</span>
                     <span class="filter-label-val" id="yield-display">0.0%</span>
@@ -840,6 +847,43 @@ function updateOwnerTable(data) {
 }
 
 /* ================================================================
+   TOWN DROPDOWN HELPERS
+================================================================ */
+function populateTownDropdown(countyFilter) {
+    const sel = document.getElementById('town-filter');
+    const current = sel.value;
+
+    const towns = [...new Set(
+        allBuildings
+            .filter(b => !countyFilter || b.county === countyFilter)
+            .map(b => b.town_name)
+            .filter(Boolean)
+    )].sort();
+
+    sel.innerHTML = '<option value="">All Towns</option>';
+    towns.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        sel.appendChild(opt);
+    });
+
+    // Restore selection if still valid in this county
+    if (towns.includes(current)) sel.value = current;
+}
+
+function fitToFiltered(buildings) {
+    if (!buildings.length) return;
+    const lats = buildings.map(b => b.lat);
+    const lngs = buildings.map(b => b.lng);
+    const bounds = L.latLngBounds(
+        [Math.min(...lats), Math.min(...lngs)],
+        [Math.max(...lats), Math.max(...lngs)]
+    );
+    map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
+}
+
+/* ================================================================
    FILTER LOGIC
 ================================================================ */
 function applyFilters() {
@@ -848,10 +892,13 @@ function applyFilters() {
     const ownerQ   = document.getElementById('owner-search').value.trim().toUpperCase();
     const typeQ    = document.getElementById('type-search').value.trim().toUpperCase();
     const countyQ  = document.getElementById('county-filter').value;
+    const townQ    = document.getElementById('town-filter').value;
 
     const filtered = allBuildings.filter(b => {
         // County filter
         if (countyQ && b.county !== countyQ) return false;
+        // Town filter
+        if (townQ && b.town_name !== townQ) return false;
         // Owner filter
         if (ownerQ && !(b.owner_name || '').toUpperCase().includes(ownerQ)) return false;
         // Building type filter
@@ -867,6 +914,9 @@ function applyFilters() {
 
     renderMarkers(filtered);
     updateOwnerTable(filtered);
+
+    // Auto-zoom when a specific town is selected
+    if (townQ && filtered.length) fitToFiltered(filtered);
 }
 
 /* ================================================================
@@ -880,7 +930,12 @@ document.getElementById('yield-slider').addEventListener('input', function () {
 document.getElementById('show-all').addEventListener('change', applyFilters);
 document.getElementById('owner-search').addEventListener('input', applyFilters);
 document.getElementById('type-search').addEventListener('input', applyFilters);
-document.getElementById('county-filter').addEventListener('change', applyFilters);
+document.getElementById('county-filter').addEventListener('change', function () {
+    populateTownDropdown(this.value);
+    applyFilters();
+});
+
+document.getElementById('town-filter').addEventListener('change', applyFilters);
 
 document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('yield-slider').value    = 0;
@@ -889,6 +944,8 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('owner-search').value     = '';
     document.getElementById('type-search').value      = '';
     document.getElementById('county-filter').value    = '';
+    document.getElementById('town-filter').value      = '';
+    map.setView([41.9, -71.1], 10);
     applyFilters();
 });
 
@@ -904,6 +961,7 @@ fetch('data/buildings_geo.json')
         allBuildings = data;
         document.getElementById('stat-total').textContent = data.length.toLocaleString();
 
+        populateTownDropdown('');
         applyFilters();
 
         // Dismiss load overlay, then recalculate map size
