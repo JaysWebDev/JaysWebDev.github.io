@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Intelligence — Spatial Map</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           VARIABLES & RESET
+        ============================================================ */
+        :root {
+            --bg:       #060810;
+            --surface:  #0d1117;
+            --surface2: #111827;
+            --border:   #1e2530;
+            --border2:  #2a3550;
+            --amber:    #c9940a;
+            --amber-hi: #f5b400;
+            --text:     #c8cdd6;
+            --muted:    #4a5568;
+            --dim:      #2a3040;
+
+            --green:  #22c55e;
+            --lime:   #84cc16;
+            --yellow: #eab308;
+            --red:    #ef4444;
+
+            --header-h: 58px;
+            --panel-w:  280px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+        }
+
+        /* ============================================================
+           HEADER
+        ============================================================ */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--header-h);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .header-back {
+            display: flex;
+            align-items: center;
+            padding: 0 1.25rem;
+            height: 100%;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-right: 1px solid var(--border);
+            transition: color 0.15s;
+            white-space: nowrap;
+            gap: 0.4rem;
+        }
+        .header-back:hover { color: var(--amber-hi); }
+
+        .header-title-block {
+            padding: 0 1.5rem;
+            border-right: 1px solid var(--border);
+        }
+
+        .header-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 0.08em;
+            line-height: 1;
+            color: #fff;
+        }
+
+        .header-sub {
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .header-stats {
+            display: flex;
+            margin-left: auto;
+        }
+
+        .stat-chip {
+            padding: 0 1.25rem;
+            height: var(--header-h);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 1px solid var(--border);
+        }
+
+        .stat-chip-label {
+            font-size: 0.53rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .stat-chip-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--amber-hi);
+            letter-spacing: 0.04em;
+            margin-top: 1px;
+        }
+
+        /* ============================================================
+           LAYOUT
+        ============================================================ */
+        .layout {
+            display: flex;
+            height: 100vh;
+            padding-top: var(--header-h);
+        }
+
+        /* ============================================================
+           FILTER PANEL
+        ============================================================ */
+        .panel {
+            width: var(--panel-w);
+            min-width: var(--panel-w);
+            height: calc(100vh - var(--header-h));
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel::-webkit-scrollbar { width: 3px; }
+        .panel::-webkit-scrollbar-track { background: transparent; }
+        .panel::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+        .panel-section {
+            padding: 1.1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-section-title {
+            font-size: 0.58rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.9rem;
+        }
+
+        .filter-group { margin-bottom: 0.85rem; }
+        .filter-group:last-child { margin-bottom: 0; }
+
+        .filter-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.4rem;
+        }
+
+        .filter-label-val {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text);
+            font-size: 0.72rem;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 2px;
+            background: var(--border2);
+            border-radius: 1px;
+            outline: none;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--amber-hi);
+            cursor: pointer;
+            transition: transform 0.15s;
+            box-shadow: 0 0 6px rgba(245, 180, 0, 0.4);
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.45rem 0.65rem;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        input[type="text"]:focus { border-color: var(--amber); }
+        input[type="text"]::placeholder { color: var(--muted); opacity: 0.6; }
+
+        /* Toggle */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 34px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            background: var(--dim);
+            border-radius: 18px;
+            border: 1px solid var(--border2);
+            transition: background 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .toggle-track::after {
+            content: '';
+            position: absolute;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--muted);
+            top: 2px; left: 2px;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .toggle-switch input:checked + .toggle-track {
+            background: rgba(201, 148, 10, 0.2);
+            border-color: var(--amber);
+        }
+
+        .toggle-switch input:checked + .toggle-track::after {
+            transform: translateX(16px);
+            background: var(--amber-hi);
+        }
+
+        .toggle-text {
+            font-size: 0.72rem;
+            color: var(--text);
+        }
+
+        .btn-reset {
+            width: 100%;
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--border2);
+            border-radius: 3px;
+            color: var(--muted);
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+            margin-top: 0.6rem;
+        }
+        .btn-reset:hover { border-color: var(--amber); color: var(--amber-hi); }
+
+        /* ============================================================
+           LEGEND
+        ============================================================ */
+        .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-size: 0.67rem;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+            line-height: 1;
+        }
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* ============================================================
+           OWNER TABLE
+        ============================================================ */
+        .owner-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .owner-table thead tr {
+            border-bottom: 1px solid var(--amber);
+        }
+
+        .owner-table th {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            color: var(--amber);
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.3rem;
+            text-align: left;
+        }
+        .owner-table th:last-child { text-align: right; }
+
+        .owner-table td {
+            padding: 0.32rem 0.3rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            font-size: 0.63rem;
+            line-height: 1.3;
+        }
+        .owner-table td:last-child {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--amber-hi);
+            font-size: 0.7rem;
+        }
+        .owner-table tbody tr:hover td { background: var(--surface2); cursor: default; }
+
+        /* ============================================================
+           MAP
+        ============================================================ */
+        #map {
+            flex: 1;
+            height: calc(100vh - var(--header-h));
+        }
+
+        /* Leaflet popup — dark override */
+        .leaflet-popup-content-wrapper {
+            background: #0d1117 !important;
+            border: 1px solid #2a3550 !important;
+            border-radius: 4px !important;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.7) !important;
+            color: #c8cdd6 !important;
+        }
+
+        .leaflet-popup-tip-container { display: none; }
+
+        .leaflet-popup-content {
+            margin: 14px 16px !important;
+            font-family: 'Barlow', sans-serif !important;
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 1.5;
+            min-width: 195px;
+        }
+
+        .leaflet-popup-close-button {
+            color: #4a5568 !important;
+            top: 6px !important;
+            right: 8px !important;
+        }
+        .leaflet-popup-close-button:hover { color: #c9940a !important; }
+
+        .leaflet-control-zoom a {
+            background: #0d1117 !important;
+            color: #c8cdd6 !important;
+            border-color: #1e2530 !important;
+        }
+        .leaflet-control-zoom a:hover { background: #1e2530 !important; color: #f5b400 !important; }
+        .leaflet-bar { border: 1px solid #1e2530 !important; border-radius: 3px !important; }
+
+        .leaflet-control-attribution {
+            background: rgba(6,8,16,0.85) !important;
+            color: #4a5568 !important;
+            font-size: 9px !important;
+        }
+        .leaflet-control-attribution a { color: #4a5568 !important; }
+
+        /* ============================================================
+           POPUP CONTENT
+        ============================================================ */
+        .popup-address {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.05rem;
+            letter-spacing: 0.06em;
+            color: #fff;
+            margin-bottom: 9px;
+            line-height: 1.1;
+        }
+
+        .popup-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            padding: 3px 0;
+            border-bottom: 1px solid #1e2530;
+        }
+        .popup-row:last-child { border-bottom: none; }
+
+        .popup-key {
+            color: #4a5568;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .popup-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #c8cdd6;
+            text-align: right;
+        }
+
+        .c-green  { color: #22c55e !important; font-weight: 500; }
+        .c-lime   { color: #84cc16 !important; font-weight: 500; }
+        .c-yellow { color: #eab308 !important; font-weight: 500; }
+        .c-red    { color: #ef4444 !important; font-weight: 500; }
+        .c-none   { color: #4a5568 !important; }
+
+        /* ============================================================
+           LOAD OVERLAY
+        ============================================================ */
+        #load-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        #load-overlay.fade-out { opacity: 0; pointer-events: none; }
+
+        .load-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            letter-spacing: 0.12em;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+        .load-title span { color: var(--amber-hi); }
+
+        .load-sub {
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .load-bar {
+            width: 180px;
+            height: 1px;
+            background: var(--border);
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+        .load-bar-fill {
+            height: 100%;
+            background: var(--amber-hi);
+            width: 0%;
+            animation: loadAnim 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.1s;
+        }
+        @keyframes loadAnim { to { width: 100%; } }
+    </style>
+</head>
+<body>
+
+<!-- ================================================================
+     LOAD OVERLAY
+================================================================ -->
+<div id="load-overlay">
+    <div class="load-title">SPATIAL <span>INTELLIGENCE</span></div>
+    <div class="load-sub">Loading building portfolio&hellip;</div>
+    <div class="load-bar"><div class="load-bar-fill"></div></div>
+</div>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="header">
+    <a href="index.html" class="header-back">
+        <span>&#8592;</span> Overview
+    </a>
+
+    <div class="header-title-block">
+        <div class="header-title">Spatial Intelligence</div>
+        <div class="header-sub">Attleboro, MA &mdash; Building Portfolio</div>
+    </div>
+
+    <div class="header-stats">
+        <div class="stat-chip">
+            <div class="stat-chip-label">Markers Shown</div>
+            <div class="stat-chip-value" id="stat-shown">—</div>
+        </div>
+        <div class="stat-chip">
+            <div class="stat-chip-label">With Yield</div>
+            <div class="stat-chip-value" id="stat-yield">—</div>
+        </div>
+        <div class="stat-chip">
+            <div class="stat-chip-label">Total Portfolio</div>
+            <div class="stat-chip-value" id="stat-total">—</div>
+        </div>
+    </div>
+</header>
+
+<!-- ================================================================
+     LAYOUT
+================================================================ -->
+<div class="layout">
+
+    <!-- FILTER PANEL -->
+    <aside class="panel">
+
+        <!-- FILTERS -->
+        <div class="panel-section">
+            <div class="panel-section-title">Filters</div>
+
+            <div class="filter-group">
+                <div class="filter-label">
+                    <span>Min Gross Yield</span>
+                    <span class="filter-label-val" id="yield-display">0.0%</span>
+                </div>
+                <input type="range" id="yield-slider" min="0" max="25" step="1" value="0">
+            </div>
+
+            <div class="filter-group">
+                <label class="toggle-row">
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="show-all" checked>
+                        <span class="toggle-track"></span>
+                    </span>
+                    <span class="toggle-text">Show all buildings</span>
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-label">Owner Name</div>
+                <input type="text" id="owner-search" placeholder="Search owner…">
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-label">Building Type</div>
+                <input type="text" id="type-search" placeholder="e.g. Flat, Duplex…">
+            </div>
+
+            <button class="btn-reset" id="btn-reset">&#8635; Reset Filters</button>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="panel-section">
+            <div class="panel-section-title">Yield Legend</div>
+            <div class="legend-row">
+                <div class="legend-dot" style="background:#22c55e"></div>
+                ≥ 15% &mdash; High yield
+            </div>
+            <div class="legend-row">
+                <div class="legend-dot" style="background:#84cc16"></div>
+                10–15% &mdash; Strong
+            </div>
+            <div class="legend-row">
+                <div class="legend-dot" style="background:#eab308"></div>
+                5–10% &mdash; Moderate
+            </div>
+            <div class="legend-row">
+                <div class="legend-dot" style="background:#ef4444"></div>
+                &lt; 5% &mdash; Low
+            </div>
+            <div class="legend-row" style="margin-top:0.5rem; opacity:0.6">
+                <div class="legend-dot" style="background:#2a3040"></div>
+                No rental data
+            </div>
+        </div>
+
+        <!-- OWNER CONCENTRATION -->
+        <div class="panel-section" style="flex:1; min-height:0">
+            <div class="panel-section-title">Owner Concentration</div>
+            <table class="owner-table">
+                <thead>
+                    <tr>
+                        <th>Owner</th>
+                        <th>Bldgs</th>
+                    </tr>
+                </thead>
+                <tbody id="owner-tbody">
+                    <tr><td colspan="2" style="color:var(--muted);font-size:0.65rem;padding:0.5rem 0">Loading&hellip;</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </aside>
+
+    <!-- MAP -->
+    <div id="map"></div>
+
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN2GQFk=" crossorigin=""></script>
+
+<script>
+/* ================================================================
+   STATE
+================================================================ */
+let allBuildings = [];
+let markerLayer  = null;
+
+/* ================================================================
+   YIELD HELPERS
+================================================================ */
+function yieldColor(y) {
+    if (y == null) return '#2a3040';
+    if (y >= 0.15) return '#22c55e';
+    if (y >= 0.10) return '#84cc16';
+    if (y >= 0.05) return '#eab308';
+    return '#ef4444';
+}
+
+function yieldCls(y) {
+    if (y == null) return 'c-none';
+    if (y >= 0.15) return 'c-green';
+    if (y >= 0.10) return 'c-lime';
+    if (y >= 0.05) return 'c-yellow';
+    return 'c-red';
+}
+
+function fmt$(n) {
+    if (n == null) return '—';
+    return '$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+}
+
+function fmtY(y) {
+    if (y == null) return '—';
+    return (y * 100).toFixed(1) + '%';
+}
+
+/* ================================================================
+   MAP INIT
+================================================================ */
+const map = L.map('map', { zoomControl: false }).setView([41.94, -71.28], 13);
+
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+}).addTo(map);
+
+/* ================================================================
+   POPUP HTML
+================================================================ */
+function buildPopup(b) {
+    const yc = yieldCls(b.gross_yield);
+    return `
+        <div class="popup-address">${b.address || '—'}</div>
+        <div class="popup-row">
+            <span class="popup-key">Owner</span>
+            <span class="popup-val">${b.owner_name || '—'}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Type</span>
+            <span class="popup-val">${b.building_type || '—'}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Gross Yield</span>
+            <span class="popup-val ${yc}">${fmtY(b.gross_yield)}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Avg Rent / mo</span>
+            <span class="popup-val">${b.avg_rent != null ? fmt$(b.avg_rent) : '—'}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Market Value</span>
+            <span class="popup-val">${fmt$(b.market_value)}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Year Built</span>
+            <span class="popup-val">${b.year_built || '—'}</span>
+        </div>
+    `;
+}
+
+/* ================================================================
+   RENDER MARKERS
+================================================================ */
+function renderMarkers(data) {
+    if (markerLayer) {
+        map.removeLayer(markerLayer);
+        markerLayer = null;
+    }
+
+    markerLayer = L.layerGroup();
+
+    const withYield    = data.filter(b => b.gross_yield != null);
+    const withoutYield = data.filter(b => b.gross_yield == null);
+
+    // No-yield buildings first (renders behind)
+    withoutYield.forEach(b => {
+        if (b.lat == null || b.lng == null) return;
+        L.circleMarker([b.lat, b.lng], {
+            radius:      4,
+            color:       '#2a3040',
+            fillColor:   '#2a3040',
+            fillOpacity: 0.35,
+            weight:      0,
+        })
+        .bindPopup(buildPopup(b), { maxWidth: 270 })
+        .addTo(markerLayer);
+    });
+
+    // Yield buildings on top (larger, colored)
+    withYield.forEach(b => {
+        if (b.lat == null || b.lng == null) return;
+        const col = yieldColor(b.gross_yield);
+        L.circleMarker([b.lat, b.lng], {
+            radius:      9,
+            color:       col,
+            fillColor:   col,
+            fillOpacity: 0.85,
+            weight:      1.5,
+        })
+        .bindPopup(buildPopup(b), { maxWidth: 270 })
+        .addTo(markerLayer);
+    });
+
+    markerLayer.addTo(map);
+
+    // Header stats
+    document.getElementById('stat-shown').textContent = data.length.toLocaleString();
+    document.getElementById('stat-yield').textContent = withYield.length.toLocaleString();
+}
+
+/* ================================================================
+   OWNER CONCENTRATION TABLE
+================================================================ */
+function updateOwnerTable(data) {
+    const counts = {};
+    data.forEach(b => {
+        if (!b.owner_name) return;
+        counts[b.owner_name] = (counts[b.owner_name] || 0) + 1;
+    });
+
+    const top10 = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+
+    const tbody = document.getElementById('owner-tbody');
+
+    if (top10.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="2" style="color:var(--muted);font-size:0.65rem;padding:0.4rem 0">No data</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = top10.map(([name, count]) => {
+        const display = name.length > 23 ? name.slice(0, 23) + '…' : name;
+        return `<tr><td title="${name}">${display}</td><td>${count}</td></tr>`;
+    }).join('');
+}
+
+/* ================================================================
+   FILTER LOGIC
+================================================================ */
+function applyFilters() {
+    const minYield = parseFloat(document.getElementById('yield-slider').value) / 100;
+    const showAll  = document.getElementById('show-all').checked;
+    const ownerQ   = document.getElementById('owner-search').value.trim().toUpperCase();
+    const typeQ    = document.getElementById('type-search').value.trim().toUpperCase();
+
+    const filtered = allBuildings.filter(b => {
+        // Owner filter
+        if (ownerQ && !(b.owner_name || '').toUpperCase().includes(ownerQ)) return false;
+        // Building type filter
+        if (typeQ  && !(b.building_type || '').toUpperCase().includes(typeQ))  return false;
+
+        if (b.gross_yield != null) {
+            // Yield filter applies only to buildings that have data
+            return b.gross_yield >= minYield;
+        }
+        // No-yield buildings: follow toggle
+        return showAll;
+    });
+
+    renderMarkers(filtered);
+    updateOwnerTable(filtered);
+}
+
+/* ================================================================
+   EVENT LISTENERS
+================================================================ */
+document.getElementById('yield-slider').addEventListener('input', function () {
+    document.getElementById('yield-display').textContent = parseFloat(this.value).toFixed(1) + '%';
+    applyFilters();
+});
+
+document.getElementById('show-all').addEventListener('change', applyFilters);
+document.getElementById('owner-search').addEventListener('input', applyFilters);
+document.getElementById('type-search').addEventListener('input', applyFilters);
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+    document.getElementById('yield-slider').value    = 0;
+    document.getElementById('yield-display').textContent = '0.0%';
+    document.getElementById('show-all').checked       = true;
+    document.getElementById('owner-search').value     = '';
+    document.getElementById('type-search').value      = '';
+    applyFilters();
+});
+
+/* ================================================================
+   DATA LOAD
+================================================================ */
+fetch('data/buildings_geo.json')
+    .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+    })
+    .then(data => {
+        allBuildings = data;
+        document.getElementById('stat-total').textContent = data.length.toLocaleString();
+
+        applyFilters();
+
+        // Dismiss load overlay
+        const overlay = document.getElementById('load-overlay');
+        overlay.classList.add('fade-out');
+        setTimeout(() => overlay.remove(), 550);
+    })
+    .catch(err => {
+        console.error('Failed to load buildings_geo.json:', err);
+        const overlay = document.getElementById('load-overlay');
+        overlay.querySelector('.load-sub').textContent =
+            'Error loading data — serve via: python3 -m http.server 8000';
+    });
+</script>
+
+</body>
+</html>

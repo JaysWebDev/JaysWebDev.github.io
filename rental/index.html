@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Intelligence Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:      #060810;
+            --surface: #0d1117;
+            --border:  #1e2530;
+            --amber:   #c9940a;
+            --amber-hi:#f5b400;
+            --text:    #c8cdd6;
+            --muted:   #4a5568;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .wordmark {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: 0.12em;
+            color: #fff;
+            line-height: 1;
+        }
+        .wordmark span { color: var(--amber-hi); }
+
+        .subtitle {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--amber);
+            margin: 2.5rem auto;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            max-width: 860px;
+        }
+
+        .nav-card {
+            display: block;
+            text-decoration: none;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.75rem 2rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .nav-card:hover {
+            border-color: var(--amber);
+            transform: translateY(-2px);
+        }
+
+        .nav-card-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-card-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 0.06em;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-card-desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .nav-card .arrow {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--amber);
+        }
+
+        footer {
+            margin-top: 4rem;
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wordmark">Rental <span>Intelligence</span></div>
+    <div class="subtitle">Attleboro, MA &mdash; Research Platform</div>
+
+    <div class="divider"></div>
+
+    <nav class="nav-grid">
+        <a class="nav-card" href="investment_analytics.html">
+            <div class="nav-card-label">EPIC 4</div>
+            <div class="nav-card-title">Investment Analytics</div>
+            <div class="nav-card-desc">Gross yield, market value, rental matching, and top investment opportunities across 1,400+ parcels.</div>
+            <div class="arrow">VIEW REPORT &rarr;</div>
+        </a>
+
+        <a class="nav-card" href="spatial.html">
+            <div class="nav-card-label">EPIC 5</div>
+            <div class="nav-card-title">Spatial Intelligence</div>
+            <div class="nav-card-desc">Interactive map of the full building portfolio. Filter by yield, owner, and building type. See ownership concentration at a glance.</div>
+            <div class="arrow">OPEN MAP &rarr;</div>
+        </a>
+    </nav>
+
+    <footer>jays.website / rental-research</footer>
+
+</body>
+</html>
