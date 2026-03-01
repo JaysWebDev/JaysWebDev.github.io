@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Intelligence — Owner Intelligence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:       #060810;
+            --surface:  #0d1117;
+            --surface2: #111827;
+            --border:   #1e2530;
+            --border2:  #2a3550;
+            --amber:    #c9940a;
+            --amber-hi: #f5b400;
+            --text:     #c8cdd6;
+            --muted:    #4a5568;
+            --green:    #22c55e;
+            --lime:     #84cc16;
+            --yellow:   #eab308;
+            --red:      #ef4444;
+            --blue:     #3b82f6;
+            --header-h: 58px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+        }
+
+        /* ============================================================ HEADER */
+        .header {
+            position: sticky;
+            top: 0;
+            height: var(--header-h);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            z-index: 100;
+            padding: 0;
+        }
+
+        .header-back {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0 1.25rem;
+            height: 100%;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-right: 1px solid var(--border);
+            transition: color 0.15s;
+            white-space: nowrap;
+        }
+        .header-back:hover { color: var(--amber-hi); }
+
+        .header-title-block {
+            padding: 0 1.5rem;
+            border-right: 1px solid var(--border);
+        }
+
+        .header-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 0.08em;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .header-sub {
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .header-kpis {
+            display: flex;
+            margin-left: auto;
+        }
+
+        .kpi-chip {
+            padding: 0 1.25rem;
+            height: var(--header-h);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 1px solid var(--border);
+        }
+
+        .kpi-chip-label {
+            font-size: 0.53rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .kpi-chip-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--amber-hi);
+            margin-top: 1px;
+        }
+
+        /* ============================================================ LAYOUT */
+        .page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        /* ============================================================ FILTERS */
+        .filter-bar {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 1.75rem;
+            padding: 1.1rem 1.25rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .filter-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .filter-field label {
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--amber);
+        }
+
+        .filter-field input,
+        .filter-field select {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            padding: 0.4rem 0.65rem;
+            outline: none;
+            transition: border-color 0.15s;
+            height: 32px;
+        }
+
+        .filter-field input:focus,
+        .filter-field select:focus { border-color: var(--amber); }
+        .filter-field input::placeholder { color: var(--muted); opacity: 0.6; }
+        .filter-field select option { background: var(--surface); }
+
+        .filter-field input[type="number"] { width: 120px; }
+        .filter-field input[type="text"]   { width: 220px; }
+
+        .btn-reset {
+            padding: 0 1rem;
+            height: 32px;
+            background: transparent;
+            border: 1px solid var(--border2);
+            border-radius: 3px;
+            color: var(--muted);
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+            align-self: flex-end;
+        }
+        .btn-reset:hover { border-color: var(--amber); color: var(--amber-hi); }
+
+        .filter-result {
+            margin-left: auto;
+            align-self: flex-end;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+        .filter-result span { color: var(--amber-hi); }
+
+        /* ============================================================ FLAGS */
+        .flag {
+            display: inline-block;
+            font-size: 0.55rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 2px;
+            border: 1px solid;
+            white-space: nowrap;
+            margin: 1px 2px 1px 0;
+        }
+
+        .flag-multi_building     { color: var(--blue);     border-color: var(--blue);     background: rgba(59,130,246,0.08); }
+        .flag-large_portfolio    { color: var(--amber-hi); border-color: var(--amber);    background: rgba(201,148,10,0.08); }
+        .flag-aging_stock        { color: var(--yellow);   border-color: var(--yellow);   background: rgba(234,179,8,0.08);  }
+        .flag-pre_war_stock      { color: var(--red);      border-color: var(--red);      background: rgba(239,68,68,0.08);  }
+        .flag-high_value_portfolio   { color: var(--lime);    border-color: var(--lime);     background: rgba(132,204,22,0.08); }
+        .flag-institutional_scale    { color: var(--green);   border-color: var(--green);    background: rgba(34,197,94,0.08);  }
+
+        /* ============================================================ OWNER CARDS */
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .section-sub {
+            font-size: 0.7rem;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+            letter-spacing: 0.04em;
+        }
+
+        /* ============================================================ TABLE */
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+        }
+
+        .data-table thead tr {
+            background: var(--surface);
+            border-bottom: 1px solid var(--amber);
+        }
+
+        .data-table th {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            font-size: 0.6rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--amber);
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .data-table th:hover { color: var(--amber-hi); }
+        .data-table th.sort-asc::after  { content: ' ↑'; color: var(--amber-hi); }
+        .data-table th.sort-desc::after { content: ' ↓'; color: var(--amber-hi); }
+        .data-table th.num { text-align: right; }
+
+        .data-table td {
+            padding: 0.65rem 0.9rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.4;
+        }
+
+        .data-table td.num {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .data-table tbody tr:hover td { background: var(--surface2); }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+
+        .owner-name-cell {
+            font-weight: 400;
+            color: #fff;
+            font-size: 0.78rem;
+        }
+
+        .addresses-cell {
+            font-size: 0.65rem;
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 280px;
+        }
+
+        .yield-val { color: var(--amber-hi); }
+
+        /* Row expand */
+        .expand-row td {
+            padding: 0;
+            background: var(--surface);
+        }
+
+        .expand-inner {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .bldg-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0.7rem;
+        }
+
+        .bldg-card-addr {
+            font-size: 0.72rem;
+            color: #fff;
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+        }
+
+        .bldg-card-meta {
+            font-size: 0.62rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .bldg-card-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--amber-hi);
+            margin-top: 0.3rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .page-btn {
+            padding: 0.3rem 0.8rem;
+            background: transparent;
+            border: 1px solid var(--border2);
+            border-radius: 3px;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .page-btn:hover, .page-btn.active { border-color: var(--amber); color: var(--amber-hi); }
+        .page-btn:disabled { opacity: 0.3; cursor: default; }
+        .page-info { font-size: 0.65rem; color: var(--muted); }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="header-back">&#8592; Overview</a>
+    <div class="header-title-block">
+        <div class="header-title">Owner Intelligence</div>
+        <div class="header-sub">Attleboro, MA &mdash; Portfolio Analysis</div>
+    </div>
+    <div class="header-kpis">
+        <div class="kpi-chip">
+            <div class="kpi-chip-label">Unique Owners</div>
+            <div class="kpi-chip-value" id="kpi-owners">—</div>
+        </div>
+        <div class="kpi-chip">
+            <div class="kpi-chip-label">Multi-Building</div>
+            <div class="kpi-chip-value" id="kpi-multi">—</div>
+        </div>
+        <div class="kpi-chip">
+            <div class="kpi-chip-label">Largest Portfolio</div>
+            <div class="kpi-chip-value" id="kpi-largest">—</div>
+        </div>
+        <div class="kpi-chip">
+            <div class="kpi-chip-label">Total Portfolio Value</div>
+            <div class="kpi-chip-value" id="kpi-value">—</div>
+        </div>
+    </div>
+</header>
+
+<div class="page">
+
+    <!-- FILTERS -->
+    <div class="filter-bar">
+        <div class="filter-field">
+            <label>Owner Name</label>
+            <input type="text" id="f-owner" placeholder="Search owner…">
+        </div>
+        <div class="filter-field">
+            <label>Min Buildings</label>
+            <input type="number" id="f-min-bldgs" min="1" value="1" placeholder="1">
+        </div>
+        <div class="filter-field">
+            <label>Opportunity Flag</label>
+            <select id="f-flag">
+                <option value="">All owners</option>
+                <option value="multi_building">Multi-building (2+)</option>
+                <option value="large_portfolio">Large portfolio (4+)</option>
+                <option value="aging_stock">Aging stock (pre-1960)</option>
+                <option value="pre_war_stock">Pre-war stock (pre-1940)</option>
+                <option value="high_value_portfolio">High value ($1M+)</option>
+                <option value="institutional_scale">Institutional scale ($3M+)</option>
+            </select>
+        </div>
+        <button class="btn-reset" id="btn-reset">&#8635; Reset</button>
+        <div class="filter-result">Showing <span id="result-count">—</span> owners</div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="section-title">Owner Portfolio Registry</div>
+    <div class="section-sub">Click any row to expand building details. Click column headers to sort.</div>
+
+    <div class="table-wrap">
+        <table class="data-table" id="owner-table">
+            <thead>
+                <tr>
+                    <th data-col="owner_name">Owner</th>
+                    <th data-col="building_count" class="num sort-desc">Buildings</th>
+                    <th data-col="total_units" class="num">Total Units</th>
+                    <th data-col="total_market_value" class="num">Portfolio Value</th>
+                    <th data-col="hud_est_portfolio_yield" class="num">HUD Est. Yield</th>
+                    <th data-col="avg_year_built" class="num">Avg Year Built</th>
+                    <th data-col="oldest_building" class="num">Oldest</th>
+                    <th>Opportunity Flags</th>
+                </tr>
+            </thead>
+            <tbody id="owner-tbody">
+                <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:2rem">Loading…</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+
+</div>
+
+<script>
+/* ================================================================
+   STATE
+================================================================ */
+let allOwners    = [];
+let filtered     = [];
+let sortCol      = 'building_count';
+let sortDir      = -1; // -1 = desc
+let currentPage  = 1;
+const PAGE_SIZE  = 50;
+
+/* ================================================================
+   FORMAT HELPERS
+================================================================ */
+function fmt$(n) {
+    if (n == null || n === 0) return '—';
+    if (n >= 1_000_000) return '$' + (n / 1_000_000).toFixed(2) + 'M';
+    return '$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+}
+
+function fmtY(y) {
+    if (y == null) return '—';
+    return (y * 100).toFixed(1) + '%';
+}
+
+function flagHtml(flags) {
+    if (!flags || flags.length === 0) return '<span style="color:var(--muted);font-size:0.65rem">—</span>';
+    return flags.map(f => `<span class="flag flag-${f}">${f.replace(/_/g,' ')}</span>`).join('');
+}
+
+/* ================================================================
+   RENDER TABLE
+================================================================ */
+function renderTable() {
+    const start  = (currentPage - 1) * PAGE_SIZE;
+    const page   = filtered.slice(start, start + PAGE_SIZE);
+    const tbody  = document.getElementById('owner-tbody');
+
+    if (page.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:2rem">No owners match the current filters.</td></tr>';
+        renderPagination();
+        return;
+    }
+
+    tbody.innerHTML = page.map((o, i) => `
+        <tr class="owner-row" data-idx="${start + i}" style="cursor:pointer">
+            <td class="owner-name-cell">${o.owner_name}</td>
+            <td class="num">${o.building_count}</td>
+            <td class="num">${o.total_units}</td>
+            <td class="num">${fmt$(o.total_market_value)}</td>
+            <td class="num yield-val">${fmtY(o.hud_est_portfolio_yield)}</td>
+            <td class="num">${o.avg_year_built || '—'}</td>
+            <td class="num">${o.oldest_building || '—'}</td>
+            <td>${flagHtml(o.opportunity_flags)}</td>
+        </tr>
+    `).join('');
+
+    // Row expand on click
+    tbody.querySelectorAll('.owner-row').forEach(row => {
+        row.addEventListener('click', () => toggleExpand(row, filtered[parseInt(row.dataset.idx)]));
+    });
+
+    renderPagination();
+}
+
+function toggleExpand(row, owner) {
+    const existingExpand = row.nextElementSibling;
+    if (existingExpand && existingExpand.classList.contains('expand-row')) {
+        existingExpand.remove();
+        return;
+    }
+
+    const expandRow = document.createElement('tr');
+    expandRow.className = 'expand-row';
+    expandRow.innerHTML = `<td colspan="8">
+        <div class="expand-inner">
+            ${(owner.buildings || []).map(b => `
+                <div class="bldg-card">
+                    <div class="bldg-card-addr">${b.address}</div>
+                    <div class="bldg-card-meta">
+                        ${b.building_type || '—'} &bull; ${b.inferred_units} units<br>
+                        Built: ${b.year_built || '—'}
+                    </div>
+                    <div class="bldg-card-value">${fmt$(b.market_value)}</div>
+                </div>
+            `).join('')}
+        </div>
+    </td>`;
+    row.after(expandRow);
+}
+
+/* ================================================================
+   PAGINATION
+================================================================ */
+function renderPagination() {
+    const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+    const el = document.getElementById('pagination');
+
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+
+    el.innerHTML = `
+        <button class="page-btn" id="prev-btn" ${currentPage === 1 ? 'disabled' : ''}>&#8592; Prev</button>
+        <span class="page-info">Page ${currentPage} of ${totalPages} &nbsp;(${filtered.length} owners)</span>
+        <button class="page-btn" id="next-btn" ${currentPage === totalPages ? 'disabled' : ''}>Next &#8594;</button>
+    `;
+
+    document.getElementById('prev-btn')?.addEventListener('click', () => { currentPage--; renderTable(); window.scrollTo(0, 0); });
+    document.getElementById('next-btn')?.addEventListener('click', () => { currentPage++; renderTable(); window.scrollTo(0, 0); });
+}
+
+/* ================================================================
+   SORT
+================================================================ */
+function applySort() {
+    filtered.sort((a, b) => {
+        const va = a[sortCol];
+        const vb = b[sortCol];
+        if (va == null && vb == null) return 0;
+        if (va == null) return 1;
+        if (vb == null) return -1;
+        if (typeof va === 'string') return sortDir * va.localeCompare(vb);
+        return sortDir * (va - vb);
+    });
+}
+
+document.querySelectorAll('.data-table th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        if (sortCol === col) {
+            sortDir = -sortDir;
+        } else {
+            sortCol = col;
+            sortDir = -1;
+        }
+        document.querySelectorAll('.data-table th').forEach(t => {
+            t.classList.remove('sort-asc', 'sort-desc');
+        });
+        th.classList.add(sortDir === -1 ? 'sort-desc' : 'sort-asc');
+        applySort();
+        currentPage = 1;
+        renderTable();
+    });
+});
+
+/* ================================================================
+   FILTER
+================================================================ */
+function applyFilters() {
+    const ownerQ   = document.getElementById('f-owner').value.trim().toUpperCase();
+    const minBldgs = parseInt(document.getElementById('f-min-bldgs').value) || 1;
+    const flagQ    = document.getElementById('f-flag').value;
+
+    filtered = allOwners.filter(o => {
+        if (ownerQ && !o.owner_name.toUpperCase().includes(ownerQ)) return false;
+        if (o.building_count < minBldgs) return false;
+        if (flagQ && !(o.opportunity_flags || []).includes(flagQ)) return false;
+        return true;
+    });
+
+    applySort();
+    currentPage = 1;
+    document.getElementById('result-count').textContent = filtered.length.toLocaleString();
+    renderTable();
+}
+
+['f-owner', 'f-min-bldgs', 'f-flag'].forEach(id => {
+    document.getElementById(id).addEventListener('input', applyFilters);
+    document.getElementById(id).addEventListener('change', applyFilters);
+});
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+    document.getElementById('f-owner').value     = '';
+    document.getElementById('f-min-bldgs').value = '1';
+    document.getElementById('f-flag').value       = '';
+    applyFilters();
+});
+
+/* ================================================================
+   LOAD DATA
+================================================================ */
+fetch('data/owner_portfolio.json')
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(data => {
+        allOwners = data;
+
+        // Header KPIs
+        const totalVal   = data.reduce((s, o) => s + (o.total_market_value || 0), 0);
+        const multiCount = data.filter(o => o.building_count >= 2).length;
+        const largest    = data[0];
+
+        document.getElementById('kpi-owners').textContent  = data.length.toLocaleString();
+        document.getElementById('kpi-multi').textContent   = multiCount.toLocaleString();
+        document.getElementById('kpi-largest').textContent = largest ? `${largest.building_count} bldgs` : '—';
+        document.getElementById('kpi-value').textContent   = fmt$(totalVal);
+
+        applyFilters();
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById('owner-tbody').innerHTML =
+            '<tr><td colspan="8" style="text-align:center;color:var(--red);padding:2rem">Error loading data.</td></tr>';
+    });
+</script>
+</body>
+</html>

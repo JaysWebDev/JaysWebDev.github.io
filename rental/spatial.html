@@ -598,9 +598,9 @@
                 <div class="legend-dot" style="background:#ef4444"></div>
                 &lt; 5% &mdash; Low
             </div>
-            <div class="legend-row" style="margin-top:0.5rem; opacity:0.6">
-                <div class="legend-dot" style="background:#2a3040"></div>
-                No rental data
+            <div class="legend-row" style="margin-top:0.6rem; border-top:1px solid var(--border); padding-top:0.5rem; font-size:0.6rem; color:var(--muted); line-height:1.5">
+                All 1,407 buildings colored by HUD FMR estimated yield.<br>
+                Larger dots = actual rent data matched.
             </div>
         </div>
 
@@ -683,7 +683,10 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
    POPUP HTML
 ================================================================ */
 function buildPopup(b) {
-    const yc = yieldCls(b.gross_yield);
+    // Prefer real yield, fall back to HUD estimate
+    const displayYield = b.gross_yield != null ? b.gross_yield : b.hud_gross_yield;
+    const yieldLabel   = b.gross_yield != null ? 'Actual Yield' : 'Est. Yield (HUD)';
+    const yc = yieldCls(displayYield);
     return `
         <div class="popup-address">${b.address || '—'}</div>
         <div class="popup-row">
@@ -695,16 +698,20 @@ function buildPopup(b) {
             <span class="popup-val">${b.building_type || '—'}</span>
         </div>
         <div class="popup-row">
-            <span class="popup-key">Gross Yield</span>
-            <span class="popup-val ${yc}">${fmtY(b.gross_yield)}</span>
+            <span class="popup-key">${yieldLabel}</span>
+            <span class="popup-val ${yc}">${fmtY(displayYield)}</span>
         </div>
         <div class="popup-row">
-            <span class="popup-key">Avg Rent / mo</span>
-            <span class="popup-val">${b.avg_rent != null ? fmt$(b.avg_rent) : '—'}</span>
+            <span class="popup-key">HUD Est. Rent/mo</span>
+            <span class="popup-val">${fmt$(b.hud_gross_yield != null && b.market_value ? Math.round(b.hud_gross_yield * b.market_value / 12) : null)}</span>
         </div>
         <div class="popup-row">
             <span class="popup-key">Market Value</span>
             <span class="popup-val">${fmt$(b.market_value)}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Units</span>
+            <span class="popup-val">${b.inferred_units || '—'}</span>
         </div>
         <div class="popup-row">
             <span class="popup-key">Year Built</span>
@@ -714,7 +721,7 @@ function buildPopup(b) {
 }
 
 /* ================================================================
-   RENDER MARKERS
+   RENDER MARKERS — all buildings colored by HUD yield
 ================================================================ */
 function renderMarkers(data) {
     if (markerLayer) {
@@ -724,33 +731,21 @@ function renderMarkers(data) {
 
     markerLayer = L.layerGroup();
 
-    const withYield    = data.filter(b => b.gross_yield != null);
-    const withoutYield = data.filter(b => b.gross_yield == null);
+    const withReal = data.filter(b => b.gross_yield != null);
 
-    // No-yield buildings first (renders behind)
-    withoutYield.forEach(b => {
+    // All buildings: color by HUD yield estimate (or real yield if available)
+    data.forEach(b => {
         if (b.lat == null || b.lng == null) return;
-        L.circleMarker([b.lat, b.lng], {
-            radius:      4,
-            color:       '#2a3040',
-            fillColor:   '#2a3040',
-            fillOpacity: 0.35,
-            weight:      0,
-        })
-        .bindPopup(buildPopup(b), { maxWidth: 270 })
-        .addTo(markerLayer);
-    });
+        const displayYield = b.gross_yield != null ? b.gross_yield : b.hud_gross_yield;
+        const col          = yieldColor(displayYield);
+        const hasReal      = b.gross_yield != null;
 
-    // Yield buildings on top (larger, colored)
-    withYield.forEach(b => {
-        if (b.lat == null || b.lng == null) return;
-        const col = yieldColor(b.gross_yield);
         L.circleMarker([b.lat, b.lng], {
-            radius:      9,
+            radius:      hasReal ? 9 : 5,
             color:       col,
             fillColor:   col,
-            fillOpacity: 0.85,
-            weight:      1.5,
+            fillOpacity: hasReal ? 0.9 : 0.55,
+            weight:      hasReal ? 2 : 0.5,
         })
         .bindPopup(buildPopup(b), { maxWidth: 270 })
         .addTo(markerLayer);
@@ -760,7 +755,7 @@ function renderMarkers(data) {
 
     // Header stats
     document.getElementById('stat-shown').textContent = data.length.toLocaleString();
-    document.getElementById('stat-yield').textContent = withYield.length.toLocaleString();
+    document.getElementById('stat-yield').textContent = withReal.length.toLocaleString();
 }
 
 /* ================================================================
@@ -805,12 +800,12 @@ function applyFilters() {
         // Building type filter
         if (typeQ  && !(b.building_type || '').toUpperCase().includes(typeQ))  return false;
 
-        if (b.gross_yield != null) {
-            // Yield filter applies only to buildings that have data
-            return b.gross_yield >= minYield;
-        }
-        // No-yield buildings: follow toggle
-        return showAll;
+        // Use real yield if available, otherwise HUD estimate
+        const effectiveYield = b.gross_yield != null ? b.gross_yield : b.hud_gross_yield;
+
+        if (!showAll && b.gross_yield == null) return false;
+        if (minYield > 0 && (effectiveYield == null || effectiveYield < minYield)) return false;
+        return true;
     });
 
     renderMarkers(filtered);
