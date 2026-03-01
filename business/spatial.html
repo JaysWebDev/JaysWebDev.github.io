@@ -1,553 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spatial Coverage — Spatial Curiosity</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:           #060810;
-  --surface:      #0b0f1a;
-  --surface-2:    #101520;
-  --surface-3:    #161d2e;
-  --border:       #1c2640;
-  --border-hi:    #253050;
-  --text:         #9aa5be;
-  --text-dim:     #404c65;
-  --text-bright:  #d4dff5;
-  --amber:        #c9940a;
-  --amber-hi:     #f5b400;
-  --amber-dim:    #7a5a06;
-  --green:        #2dce7d;
-  --yellow:       #e8b321;
-  --red:          #f05252;
-  --font-display: 'Bebas Neue', cursive;
-  --font-mono:    'JetBrains Mono', monospace;
-  --font-ui:      'Barlow', sans-serif;
-  --radius:       4px;
-  --gutter:       24px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spatial Curiosity — Business Map</title>
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-ui);
-  font-size: 13.5px;
-  line-height: 1.6;
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(rgba(201,148,10,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,148,10,.035) 1px, transparent 1px);
-  background-size: 52px 52px;
-  pointer-events: none;
-  z-index: 0;
-}
+    <style>
+        :root {
+            --bg:         #060810;
+            --surface:    #0b0f1a;
+            --surface-2:  #101520;
+            --surface-3:  #161d2e;
+            --border:     #1c2640;
+            --border-hi:  #253050;
+            --text:       #9aa5be;
+            --text-dim:   #404c65;
+            --text-bright:#d4dff5;
+            --amber:      #c9940a;
+            --amber-hi:   #f5b400;
+            --amber-dim:  #7a5a06;
+            --green:      #2dce7d;
+            --yellow:     #e8b321;
+            --red:        #f05252;
+            --header-h:   58px;
+            --panel-w:    280px;
+        }
 
-body::after {
-  content: '';
-  position: fixed; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--amber-hi), transparent);
-  z-index: 100;
-}
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  position: relative;
-  z-index: 1;
-}
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+        }
 
-/* ── HEADER ─────────────────────────────────────────────── */
-header {
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(6,8,16,.98) 0%, rgba(11,15,26,.95) 100%);
-  position: sticky; top: 0; z-index: 50;
-  backdrop-filter: blur(12px);
-}
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--amber) 1px, transparent 1px),
+                linear-gradient(90deg, var(--amber) 1px, transparent 1px);
+            background-size: 52px 52px;
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-.nav-back {
-  display: flex; align-items: center; gap: 8px;
-  color: var(--amber);
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  transition: color .2s;
-}
-.nav-back:hover { color: var(--amber-hi); }
-.nav-back::before { content: '←'; font-size: 14px; }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--amber-hi) 20%, var(--amber) 80%, transparent);
+            z-index: 2000;
+            pointer-events: none;
+        }
 
-.header-title { display: flex; align-items: baseline; gap: 16px; }
-.header-title h1 {
-  font-family: var(--font-display);
-  font-size: 26px;
-  letter-spacing: .06em;
-  color: var(--text-bright);
-  line-height: 1;
-}
+        /* ============================================================
+           LOADING SCREEN
+        ============================================================ */
+        #load-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        #load-overlay.fade-out { opacity: 0; pointer-events: none; }
 
-.header-badge {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--amber);
-  background: rgba(201,148,10,.1);
-  border: 1px solid var(--amber-dim);
-  padding: 2px 8px;
-  border-radius: 2px;
-  letter-spacing: .1em;
-}
+        .load-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            letter-spacing: 0.14em;
+            color: var(--text-bright);
+            margin-bottom: 0.25rem;
+        }
+        .load-title span { color: var(--amber-hi); }
 
-.header-meta {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  color: var(--text-dim);
-  text-align: right;
-  letter-spacing: .04em;
-}
-.header-meta span { display: block; color: var(--text); }
+        .load-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
 
-/* ── ZONE LEVEL CARDS ───────────────────────────────────── */
-.levels-section { padding: 28px 0 28px; }
+        .load-track {
+            width: 200px;
+            height: 1px;
+            background: var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .load-scan {
+            position: absolute;
+            top: 0; left: -40%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--amber-hi), transparent);
+            animation: scan 1s ease-in-out infinite;
+        }
+        @keyframes scan { to { left: 140%; } }
 
-.levels-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
+        /* ============================================================
+           HEADER
+        ============================================================ */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--header-h);
+            background: rgba(11, 15, 26, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
 
-.level-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px 24px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color .2s, transform .2s;
-}
-.level-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+        .header-back {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0 1.25rem;
+            height: 100%;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-right: 1px solid var(--border);
+            transition: color 0.15s;
+            white-space: nowrap;
+        }
+        .header-back:hover { color: var(--amber-hi); }
 
-.level-card.zip    { border-top: 2px solid var(--amber); }
-.level-card.town   { border-top: 2px solid var(--green); }
-.level-card.county { border-top: 2px solid var(--yellow); }
+        .header-title-block {
+            padding: 0 1.5rem;
+            border-right: 1px solid var(--border);
+        }
+        .header-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 0.08em;
+            line-height: 1;
+            color: var(--text-bright);
+        }
+        .header-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.52rem;
+            letter-spacing: 0.18em;
+            color: var(--amber);
+            border: 1px solid var(--amber-dim);
+            border-radius: 2px;
+            padding: 1px 5px;
+            margin-top: 3px;
+        }
 
-.level-type {
-  font-family: var(--font-display);
-  font-size: 36px;
-  letter-spacing: .08em;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.level-card.zip    .level-type { color: var(--amber-hi); }
-.level-card.town   .level-type { color: var(--green); }
-.level-card.county .level-type { color: var(--yellow); }
+        .header-stats { display: flex; margin-left: auto; }
+        .stat-chip {
+            padding: 0 1.25rem;
+            height: var(--header-h);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 1px solid var(--border);
+        }
+        .stat-chip-label {
+            font-size: 0.5rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+        .stat-chip-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--amber-hi);
+            letter-spacing: 0.04em;
+            margin-top: 1px;
+        }
 
-.level-subtitle {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 24px;
-}
+        /* ============================================================
+           LAYOUT
+        ============================================================ */
+        .layout {
+            display: flex;
+            height: 100vh;
+            padding-top: var(--header-h);
+        }
 
-.level-stat { margin-bottom: 18px; }
+        /* ============================================================
+           FILTER PANEL
+        ============================================================ */
+        .panel {
+            width: var(--panel-w);
+            min-width: var(--panel-w);
+            height: calc(100vh - var(--header-h));
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+        }
+        .panel::-webkit-scrollbar { width: 3px; }
+        .panel::-webkit-scrollbar-track { background: transparent; }
+        .panel::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 2px; }
 
-.level-stat-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 4px;
-}
+        .panel-section {
+            padding: 1.1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .panel-section-title {
+            font-size: 0.56rem;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.9rem;
+        }
 
-.level-stat-value {
-  font-family: var(--font-display);
-  font-size: 32px;
-  line-height: 1;
-  color: var(--text-bright);
-  letter-spacing: .04em;
-}
+        .filter-group { margin-bottom: 0.85rem; }
+        .filter-group:last-child { margin-bottom: 0; }
+        .filter-label {
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
+        }
 
-.level-stat-value.large {
-  font-size: 48px;
-}
+        select, input[type="text"] {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            padding: 0.45rem 0.65rem;
+            outline: none;
+            transition: border-color 0.15s;
+            cursor: pointer;
+        }
+        select:focus, input[type="text"]:focus { border-color: var(--amber); }
+        select option { background: var(--surface-2); }
+        input[type="text"]::placeholder { color: var(--text-dim); opacity: 0.6; }
 
-.level-stat-sub {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-dim);
-  margin-top: 2px;
-}
+        .btn-reset {
+            width: 100%;
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--border-hi);
+            border-radius: 3px;
+            color: var(--text-dim);
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+            margin-top: 0.6rem;
+        }
+        .btn-reset:hover { border-color: var(--amber); color: var(--amber-hi); }
 
-/* Diversity bar */
-.div-bar-wrap {
-  margin-top: 18px;
-}
+        .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-size: 0.65rem;
+            color: var(--text);
+            margin-bottom: 0.45rem;
+            line-height: 1;
+        }
+        .legend-dot {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
 
-.div-bar-label {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 6px;
-}
+        .sector-table { width: 100%; border-collapse: collapse; }
+        .sector-table th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.54rem;
+            letter-spacing: 0.2em;
+            color: var(--amber);
+            text-transform: uppercase;
+            padding: 0.25rem 0.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--amber-dim);
+        }
+        .sector-table th:last-child { text-align: right; }
+        .sector-table td {
+            padding: 0.3rem 0.25rem;
+            font-size: 0.62rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            line-height: 1.3;
+        }
+        .sector-table td:last-child {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--amber-hi);
+        }
+        .sector-table tbody tr:hover td { background: var(--surface-2); }
 
-.div-bar-track {
-  width: 100%;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
+        /* ============================================================
+           MAP
+        ============================================================ */
+        #map {
+            flex: 1;
+            height: calc(100vh - var(--header-h));
+            position: relative;
+            z-index: 1;
+        }
 
-.div-bar-fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width .8s ease;
-}
+        .leaflet-popup-content-wrapper {
+            background: #0b0f1a !important;
+            border: 1px solid #253050 !important;
+            border-radius: 4px !important;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.8) !important;
+            color: #9aa5be !important;
+        }
+        .leaflet-popup-tip-container { display: none; }
+        .leaflet-popup-content {
+            margin: 13px 15px !important;
+            font-family: 'Barlow', sans-serif !important;
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 1.5;
+            min-width: 185px;
+        }
+        .leaflet-popup-close-button { color: #404c65 !important; top: 5px !important; right: 7px !important; }
+        .leaflet-popup-close-button:hover { color: #f5b400 !important; }
+        .leaflet-control-zoom a { background: #0b0f1a !important; color: #9aa5be !important; border-color: #1c2640 !important; }
+        .leaflet-control-zoom a:hover { background: #161d2e !important; color: #f5b400 !important; }
+        .leaflet-bar { border: 1px solid #1c2640 !important; border-radius: 3px !important; }
+        .leaflet-control-attribution { background: rgba(6,8,16,0.85) !important; color: #404c65 !important; font-size: 9px !important; }
+        .leaflet-control-attribution a { color: #404c65 !important; }
 
-.level-card.zip    .div-bar-fill { background: var(--amber); }
-.level-card.town   .div-bar-fill { background: var(--green); }
-.level-card.county .div-bar-fill { background: var(--yellow); }
+        .marker-cluster-small,
+        .marker-cluster-medium,
+        .marker-cluster-large { background-color: rgba(201,148,10,0.18) !important; }
+        .marker-cluster-small div,
+        .marker-cluster-medium div,
+        .marker-cluster-large div {
+            background-color: rgba(201,148,10,0.5) !important;
+            color: #fff !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+        }
 
-/* ── COMPARISON TABLE ───────────────────────────────────── */
-.table-section { padding: 0 0 40px; }
-
-.section-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 14px;
-}
-.section-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  letter-spacing: .08em;
-  color: var(--text-bright);
-}
-
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--font-mono);
-  font-size: 12px;
-}
-
-thead th {
-  background: var(--surface-2);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 16px;
-  text-align: left;
-  font-size: 9px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  white-space: nowrap;
-}
-
-tbody tr {
-  border-bottom: 1px solid rgba(28,38,64,.8);
-  transition: background .15s;
-}
-tbody tr:hover { background: rgba(201,148,10,.045); }
-tbody tr:last-child { border-bottom: none; }
-
-td {
-  padding: 12px 16px;
-  color: var(--text);
-  white-space: nowrap;
-}
-
-.zone-pill {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 2px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .1em;
-  font-weight: 700;
-}
-
-/* ── LOADING ────────────────────────────────────────────── */
-.loading-screen {
-  position: fixed; inset: 0;
-  background: var(--bg);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 16px;
-  z-index: 200; transition: opacity .4s;
-}
-.loading-screen.hidden { opacity: 0; pointer-events: none; }
-.loading-text {
-  font-family: var(--font-mono);
-  font-size: 11px; color: var(--text-dim);
-  letter-spacing: .14em; text-transform: uppercase;
-}
-.loading-bar {
-  width: 200px; height: 1px;
-  background: var(--border);
-  position: relative; overflow: hidden;
-}
-.loading-bar::after {
-  content: '';
-  position: absolute; height: 100%; width: 40%;
-  background: var(--amber-hi);
-  animation: scan 1s ease-in-out infinite;
-}
-@keyframes scan { 0% { left: -40%; } 100% { left: 140%; } }
-
-@media (max-width: 900px) { .levels-grid { grid-template-columns: 1fr; } }
-</style>
+        .popup-name {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1rem;
+            letter-spacing: 0.07em;
+            color: #d4dff5;
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+        .popup-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            padding: 2px 0;
+            border-bottom: 1px solid #1c2640;
+        }
+        .popup-row:last-child { border-bottom: none; }
+        .popup-key { color: #404c65; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+        .popup-val { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9aa5be; text-align: right; }
+    </style>
 </head>
 <body>
 
-<div class="loading-screen" id="loadScreen">
-  <div class="loading-text">Loading spatial data</div>
-  <div class="loading-bar"></div>
+<div id="load-overlay">
+    <div class="load-title">SPATIAL <span>MAP</span></div>
+    <div class="load-sub">Plotting business locations&hellip;</div>
+    <div class="load-track"><div class="load-scan"></div></div>
 </div>
 
-<header>
-  <div class="container">
-    <div class="header-inner">
-      <a href="index.html" class="nav-back">Spatial Curiosity</a>
-      <div class="header-title">
-        <h1>Spatial Coverage</h1>
-        <span class="header-badge">ZONE METRICS</span>
-      </div>
-      <div class="header-meta">
-        <span id="headerDate"></span>
-        Business Intelligence Engine
-      </div>
+<header class="header">
+    <a href="index.html" class="header-back">&#8592; Spatial Curiosity</a>
+    <div class="header-title-block">
+        <div class="header-title">Spatial Map</div>
+        <div class="header-badge">BUSINESSES · LIVE DATA</div>
     </div>
-  </div>
+    <div class="header-stats">
+        <div class="stat-chip">
+            <div class="stat-chip-label">Markers Shown</div>
+            <div class="stat-chip-value" id="stat-shown">—</div>
+        </div>
+        <div class="stat-chip">
+            <div class="stat-chip-label">Sectors</div>
+            <div class="stat-chip-value" id="stat-sectors">—</div>
+        </div>
+        <div class="stat-chip">
+            <div class="stat-chip-label">Total Businesses</div>
+            <div class="stat-chip-value" id="stat-total">—</div>
+        </div>
+    </div>
 </header>
 
-<main>
-<div class="container">
+<div class="layout">
 
-  <!-- Level Cards -->
-  <section class="levels-section">
-    <div class="levels-grid">
+    <aside class="panel">
+        <div class="panel-section">
+            <div class="panel-section-title">Filters</div>
 
-      <div class="level-card zip" id="zipCard">
-        <div class="level-type">ZIP</div>
-        <div class="level-subtitle">Postal Code Level</div>
-        <div class="level-stat">
-          <div class="level-stat-label">Zones Indexed</div>
-          <div class="level-stat-value large" id="zipCount">—</div>
-        </div>
-        <div class="level-stat">
-          <div class="level-stat-label">Avg Businesses / Zone</div>
-          <div class="level-stat-value" id="zipAvgBiz">—</div>
-        </div>
-        <div class="level-stat">
-          <div class="level-stat-label">Avg Density</div>
-          <div class="level-stat-value" id="zipAvgDensity">—</div>
-          <div class="level-stat-sub">businesses / sq mile</div>
-        </div>
-        <div class="div-bar-wrap">
-          <div class="div-bar-label">
-            <span>Avg Diversity Score</span>
-            <span id="zipDivScore">—</span>
-          </div>
-          <div class="div-bar-track">
-            <div class="div-bar-fill" id="zipDivBar" style="width:0%"></div>
-          </div>
-        </div>
-      </div>
+            <div class="filter-group">
+                <div class="filter-label">State</div>
+                <select id="filter-state"><option value="">All States</option></select>
+            </div>
 
-      <div class="level-card town" id="townCard">
-        <div class="level-type">TOWN</div>
-        <div class="level-subtitle">City / Municipality Level</div>
-        <div class="level-stat">
-          <div class="level-stat-label">Zones Indexed</div>
-          <div class="level-stat-value large" id="townCount">—</div>
-        </div>
-        <div class="level-stat">
-          <div class="level-stat-label">Avg Businesses / Zone</div>
-          <div class="level-stat-value" id="townAvgBiz">—</div>
-        </div>
-        <div class="level-stat">
-          <div class="level-stat-label">Avg Density</div>
-          <div class="level-stat-value" id="townAvgDensity">—</div>
-          <div class="level-stat-sub">businesses / sq mile</div>
-        </div>
-        <div class="div-bar-wrap">
-          <div class="div-bar-label">
-            <span>Avg Diversity Score</span>
-            <span id="townDivScore">—</span>
-          </div>
-          <div class="div-bar-track">
-            <div class="div-bar-fill" id="townDivBar" style="width:0%"></div>
-          </div>
-        </div>
-      </div>
+            <div class="filter-group">
+                <div class="filter-label">Sector</div>
+                <select id="filter-sector"><option value="">All Sectors</option></select>
+            </div>
 
-      <div class="level-card county" id="countyCard">
-        <div class="level-type">COUNTY</div>
-        <div class="level-subtitle">County Level</div>
-        <div class="level-stat">
-          <div class="level-stat-label">Zones Indexed</div>
-          <div class="level-stat-value large" id="countyCount">—</div>
-        </div>
-        <div class="level-stat">
-          <div class="level-stat-label">Avg Businesses / Zone</div>
-          <div class="level-stat-value" id="countyAvgBiz">—</div>
-        </div>
-        <div class="level-stat">
-          <div class="level-stat-label">Avg Density</div>
-          <div class="level-stat-value" id="countyAvgDensity">—</div>
-          <div class="level-stat-sub">businesses / sq mile</div>
-        </div>
-        <div class="div-bar-wrap">
-          <div class="div-bar-label">
-            <span>Avg Diversity Score</span>
-            <span id="countyDivScore">—</span>
-          </div>
-          <div class="div-bar-track">
-            <div class="div-bar-fill" id="countyDivBar" style="width:0%"></div>
-          </div>
-        </div>
-      </div>
+            <div class="filter-group">
+                <div class="filter-label">Search Business Name</div>
+                <input type="text" id="filter-name" placeholder="e.g. McDonald's, CVS…">
+            </div>
 
-    </div>
-  </section>
+            <button class="btn-reset" id="btn-reset">&#8635; Reset Filters</button>
+        </div>
 
-  <!-- Comparison Table -->
-  <section class="table-section">
-    <div class="section-head">
-      <span class="section-title">Level Comparison</span>
-      <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim)" id="genDate"></span>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Zone Level</th>
-            <th>Zones Indexed</th>
-            <th>Avg Businesses</th>
-            <th>Avg Density</th>
-            <th>Avg Diversity Score</th>
-            <th>Density Available</th>
-          </tr>
-        </thead>
-        <tbody id="compTable"></tbody>
-      </table>
-    </div>
-  </section>
+        <div class="panel-section">
+            <div class="panel-section-title">Sector Legend</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#f5b400"></div>Food &amp; Drink</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#2dce7d"></div>Retail</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#34d399"></div>Food Retail</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#e8b321"></div>Automotive</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#f05252"></div>Healthcare</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#8b9fc7"></div>Professional</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#a78bfa"></div>Services</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#fb923c"></div>Home &amp; Construction</div>
+            <div class="legend-row"><div class="legend-dot" style="background:#404c65"></div>Uncategorized</div>
+            <div style="margin-top:0.7rem;border-top:1px solid var(--border);padding-top:0.55rem;font-size:0.58rem;color:var(--text-dim);line-height:1.6">
+                Circle markers colored by sector.<br>Clusters group at lower zoom levels.
+            </div>
+        </div>
 
+        <div class="panel-section" style="flex:1;min-height:0">
+            <div class="panel-section-title">By Sector</div>
+            <table class="sector-table">
+                <thead><tr><th>Sector</th><th>Count</th></tr></thead>
+                <tbody id="sector-tbody">
+                    <tr><td colspan="2" style="color:var(--text-dim);padding:0.4rem 0">Loading&hellip;</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </aside>
+
+    <div id="map"></div>
 </div>
-</main>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
 <script>
-function countUp(el, target, duration, fmt) {
-  const start = performance.now();
-  const tick = now => {
-    const t = Math.min((now - start) / duration, 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    el.textContent = fmt(target * ease);
-    if (t < 1) requestAnimationFrame(tick);
-    else el.textContent = fmt(target);
-  };
-  requestAnimationFrame(tick);
+const SECTOR_COLORS = {
+    'Food & Drink':        '#f5b400',
+    'Retail':              '#2dce7d',
+    'Food Retail':         '#34d399',
+    'Automotive':          '#e8b321',
+    'Healthcare':          '#f05252',
+    'Professional':        '#8b9fc7',
+    'Services':            '#a78bfa',
+    'Home & Construction': '#fb923c',
+};
+
+function sectorColor(sector) {
+    return SECTOR_COLORS[sector] || '#404c65';
 }
 
-const fmtDensity = v => v != null ? parseFloat(v).toFixed(2) + '/mi²' : '—';
-const fmtDiv     = v => v != null ? parseFloat(v).toFixed(3) : '—';
-const fmtBiz     = v => v != null ? parseFloat(v).toFixed(1) : '—';
+let allBusinesses = [];
+let markerLayer   = null;
 
-async function loadData() {
-  try {
-    const data = await fetch('data/spatial_summary.json').then(r => { if (!r.ok) throw new Error(); return r.json(); });
+const map = L.map('map', { zoomControl: false }).setView([39.8, -89.6], 7);
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+}).addTo(map);
 
-    document.getElementById('headerDate').textContent =
-      new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
-    document.getElementById('genDate').textContent = 'Generated ' + (data.generated || '');
+function buildPopup(b) {
+    const sector = b.sector || 'Uncategorized';
+    const color  = sectorColor(sector);
+    const loc    = [b.city, b.state].filter(Boolean).join(', ') || '—';
+    return `
+        <div class="popup-name">${b.name || 'Unknown Business'}</div>
+        <div class="popup-row">
+            <span class="popup-key">Sector</span>
+            <span class="popup-val"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${color};margin-right:4px;vertical-align:middle"></span>${sector}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Type</span>
+            <span class="popup-val">${b.type || b.category || '—'}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Category</span>
+            <span class="popup-val">${b.category || '—'}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">Location</span>
+            <span class="popup-val">${loc}</span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-key">ZIP</span>
+            <span class="popup-val">${b.zip || '—'}</span>
+        </div>`;
+}
 
-    const levels = [
-      { key: 'zip',    label: 'ZIP Code',  color: 'var(--amber)' },
-      { key: 'town',   label: 'Town',      color: 'var(--green)' },
-      { key: 'county', label: 'County',    color: 'var(--yellow)' },
-    ];
+function renderMarkers(data) {
+    if (markerLayer) { map.removeLayer(markerLayer); markerLayer = null; }
 
-    levels.forEach(({ key, color }) => {
-      const d = data[key] || {};
-      const div = d.avg_diversity != null ? parseFloat(d.avg_diversity) : null;
-
-      countUp(document.getElementById(`${key}Count`),  d.zone_count    || 0, 800, v => Math.round(v).toLocaleString());
-
-      document.getElementById(`${key}AvgBiz`).textContent     = fmtBiz(d.avg_businesses);
-      document.getElementById(`${key}AvgDensity`).textContent = fmtDensity(d.avg_density);
-      document.getElementById(`${key}DivScore`).textContent   = fmtDiv(div);
-
-      const pct = div != null ? (div * 100).toFixed(1) : '0';
-      setTimeout(() => {
-        document.getElementById(`${key}DivBar`).style.width = pct + '%';
-      }, 300);
+    markerLayer = L.markerClusterGroup({
+        maxClusterRadius: 50,
+        disableClusteringAtZoom: 14,
+        spiderfyOnMaxZoom: false,
+        chunkedLoading: true,
+        chunkSize: 500,
+        chunkDelay: 10,
     });
 
-    // Comparison table
-    const tbody = document.getElementById('compTable');
-    tbody.innerHTML = levels.map(({ key, label, color }) => {
-      const d = data[key] || {};
-      const div = d.avg_diversity != null ? parseFloat(d.avg_diversity) : null;
-      const hasDensity = d.avg_density != null;
-      return `<tr>
-        <td><span class="zone-pill" style="color:${color};background:${color}22;border:1px solid ${color}44">${label.toUpperCase()}</span></td>
-        <td style="color:var(--text-bright);font-weight:500">${(d.zone_count || 0).toLocaleString()}</td>
-        <td>${fmtBiz(d.avg_businesses)}</td>
-        <td>${fmtDensity(d.avg_density)}</td>
-        <td>
-          ${div != null ? `
-          <div style="display:flex;align-items:center;gap:10px">
-            <span style="color:${color}">${fmtDiv(div)}</span>
-            <div style="width:80px;height:3px;background:var(--border);border-radius:1px;overflow:hidden">
-              <div style="width:${(div*100).toFixed(1)}%;height:100%;background:${color};border-radius:1px"></div>
-            </div>
-          </div>` : '<span style="color:var(--text-dim)">—</span>'}
-        </td>
-        <td>
-          <span style="font-family:var(--font-mono);font-size:10px;color:${hasDensity ? 'var(--green)' : 'var(--text-dim)'}">
-            ${hasDensity ? '✓ YES' : '— requires zone_areas'}
-          </span>
-        </td>
-      </tr>`;
-    }).join('');
+    data.forEach(b => {
+        if (b.lat == null || b.lng == null) return;
+        const col = sectorColor(b.sector);
+        L.circleMarker([b.lat, b.lng], {
+            radius: 5, color: col, fillColor: col, fillOpacity: 0.75, weight: 1
+        }).bindPopup(buildPopup(b), { maxWidth: 260 }).addTo(markerLayer);
+    });
 
-    const loader = document.getElementById('loadScreen');
-    loader.classList.add('hidden');
-    setTimeout(() => loader.remove(), 500);
-
-  } catch (err) {
-    document.getElementById('loadScreen').innerHTML =
-      `<div class="loading-text" style="color:var(--red)">Failed to load data — run generate_reports.py first</div>`;
-  }
+    markerLayer.addTo(map);
+    document.getElementById('stat-shown').textContent = data.length.toLocaleString();
 }
 
-loadData();
+function updateSectorTable(data) {
+    const counts = {};
+    data.forEach(b => { const s = b.sector || 'Uncategorized'; counts[s] = (counts[s] || 0) + 1; });
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const tbody  = document.getElementById('sector-tbody');
+    if (!sorted.length) {
+        tbody.innerHTML = '<tr><td colspan="2" style="color:var(--text-dim);padding:0.4rem 0">No data</td></tr>';
+        return;
+    }
+    tbody.innerHTML = sorted.map(([name, count]) => {
+        const col = sectorColor(name);
+        const disp = name.length > 20 ? name.slice(0, 20) + '…' : name;
+        return `<tr>
+            <td><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${col};margin-right:6px;vertical-align:middle"></span>${disp}</td>
+            <td>${count.toLocaleString()}</td></tr>`;
+    }).join('');
+}
+
+function fitAll() {
+    const lats = allBusinesses.map(b => b.lat).filter(v => v != null);
+    const lngs = allBusinesses.map(b => b.lng).filter(v => v != null);
+    if (lats.length) map.fitBounds(
+        [[Math.min(...lats), Math.min(...lngs)], [Math.max(...lats), Math.max(...lngs)]],
+        { padding: [40, 40], maxZoom: 12 }
+    );
+}
+
+function applyFilters() {
+    const stateQ  = document.getElementById('filter-state').value;
+    const sectorQ = document.getElementById('filter-sector').value;
+    const nameQ   = document.getElementById('filter-name').value.trim().toUpperCase();
+
+    const filtered = allBusinesses.filter(b => {
+        if (stateQ  && b.state !== stateQ) return false;
+        if (sectorQ && (b.sector || 'Uncategorized') !== sectorQ) return false;
+        if (nameQ   && !(b.name || '').toUpperCase().includes(nameQ)) return false;
+        return true;
+    });
+
+    renderMarkers(filtered);
+    updateSectorTable(filtered);
+}
+
+document.getElementById('filter-state').addEventListener('change', applyFilters);
+document.getElementById('filter-sector').addEventListener('change', applyFilters);
+document.getElementById('filter-name').addEventListener('input', applyFilters);
+document.getElementById('btn-reset').addEventListener('click', () => {
+    document.getElementById('filter-state').value  = '';
+    document.getElementById('filter-sector').value = '';
+    document.getElementById('filter-name').value   = '';
+    applyFilters();
+    fitAll();
+});
+
+fetch('data/businesses_geo.json')
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(data => {
+        allBusinesses = data;
+        document.getElementById('stat-total').textContent = data.length.toLocaleString();
+
+        const states  = [...new Set(data.map(b => b.state).filter(Boolean))].sort();
+        const sectors = [...new Set(data.map(b => b.sector).filter(Boolean))].sort();
+
+        const stateEl = document.getElementById('filter-state');
+        states.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; stateEl.appendChild(o); });
+
+        const sectorEl = document.getElementById('filter-sector');
+        sectors.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sectorEl.appendChild(o); });
+
+        document.getElementById('stat-sectors').textContent = sectors.length.toLocaleString();
+
+        applyFilters();
+        fitAll();
+
+        const overlay = document.getElementById('load-overlay');
+        overlay.classList.add('fade-out');
+        setTimeout(() => { overlay.remove(); map.invalidateSize(); }, 550);
+    })
+    .catch(err => {
+        console.error(err);
+        const overlay = document.getElementById('load-overlay');
+        overlay.innerHTML = `
+            <div class="load-title" style="color:var(--amber)">DATA ERROR</div>
+            <div class="load-sub">Run generate_reports.py to generate data</div>`;
+    });
 </script>
 </body>
 </html>
