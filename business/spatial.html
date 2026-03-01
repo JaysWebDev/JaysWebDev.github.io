@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spatial Coverage — Spatial Curiosity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #060810;
+  --surface:      #0b0f1a;
+  --surface-2:    #101520;
+  --surface-3:    #161d2e;
+  --border:       #1c2640;
+  --border-hi:    #253050;
+  --text:         #9aa5be;
+  --text-dim:     #404c65;
+  --text-bright:  #d4dff5;
+  --amber:        #c9940a;
+  --amber-hi:     #f5b400;
+  --amber-dim:    #7a5a06;
+  --green:        #2dce7d;
+  --yellow:       #e8b321;
+  --red:          #f05252;
+  --font-display: 'Bebas Neue', cursive;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-ui:      'Barlow', sans-serif;
+  --radius:       4px;
+  --gutter:       24px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,148,10,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,148,10,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber-hi), transparent);
+  z-index: 100;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+header {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(6,8,16,.98) 0%, rgba(11,15,26,.95) 100%);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+
+.nav-back {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--amber);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-back:hover { color: var(--amber-hi); }
+.nav-back::before { content: '←'; font-size: 14px; }
+
+.header-title { display: flex; align-items: baseline; gap: 16px; }
+.header-title h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: .06em;
+  color: var(--text-bright);
+  line-height: 1;
+}
+
+.header-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--amber);
+  background: rgba(201,148,10,.1);
+  border: 1px solid var(--amber-dim);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: .1em;
+}
+
+.header-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  text-align: right;
+  letter-spacing: .04em;
+}
+.header-meta span { display: block; color: var(--text); }
+
+/* ── ZONE LEVEL CARDS ───────────────────────────────────── */
+.levels-section { padding: 28px 0 28px; }
+
+.levels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.level-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+}
+.level-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+
+.level-card.zip    { border-top: 2px solid var(--amber); }
+.level-card.town   { border-top: 2px solid var(--green); }
+.level-card.county { border-top: 2px solid var(--yellow); }
+
+.level-type {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: .08em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.level-card.zip    .level-type { color: var(--amber-hi); }
+.level-card.town   .level-type { color: var(--green); }
+.level-card.county .level-type { color: var(--yellow); }
+
+.level-subtitle {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+}
+
+.level-stat { margin-bottom: 18px; }
+
+.level-stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.level-stat-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1;
+  color: var(--text-bright);
+  letter-spacing: .04em;
+}
+
+.level-stat-value.large {
+  font-size: 48px;
+}
+
+.level-stat-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* Diversity bar */
+.div-bar-wrap {
+  margin-top: 18px;
+}
+
+.div-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.div-bar-track {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.div-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width .8s ease;
+}
+
+.level-card.zip    .div-bar-fill { background: var(--amber); }
+.level-card.town   .div-bar-fill { background: var(--green); }
+.level-card.county .div-bar-fill { background: var(--yellow); }
+
+/* ── COMPARISON TABLE ───────────────────────────────────── */
+.table-section { padding: 0 0 40px; }
+
+.section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: .08em;
+  color: var(--text-bright);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+thead th {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(28,38,64,.8);
+  transition: background .15s;
+}
+tbody tr:hover { background: rgba(201,148,10,.045); }
+tbody tr:last-child { border-bottom: none; }
+
+td {
+  padding: 12px 16px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.zone-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  font-weight: 700;
+}
+
+/* ── LOADING ────────────────────────────────────────────── */
+.loading-screen {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 16px;
+  z-index: 200; transition: opacity .4s;
+}
+.loading-screen.hidden { opacity: 0; pointer-events: none; }
+.loading-text {
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text-dim);
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.loading-bar {
+  width: 200px; height: 1px;
+  background: var(--border);
+  position: relative; overflow: hidden;
+}
+.loading-bar::after {
+  content: '';
+  position: absolute; height: 100%; width: 40%;
+  background: var(--amber-hi);
+  animation: scan 1s ease-in-out infinite;
+}
+@keyframes scan { 0% { left: -40%; } 100% { left: 140%; } }
+
+@media (max-width: 900px) { .levels-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="loading-screen" id="loadScreen">
+  <div class="loading-text">Loading spatial data</div>
+  <div class="loading-bar"></div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="nav-back">Spatial Curiosity</a>
+      <div class="header-title">
+        <h1>Spatial Coverage</h1>
+        <span class="header-badge">ZONE METRICS</span>
+      </div>
+      <div class="header-meta">
+        <span id="headerDate"></span>
+        Business Intelligence Engine
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <!-- Level Cards -->
+  <section class="levels-section">
+    <div class="levels-grid">
+
+      <div class="level-card zip" id="zipCard">
+        <div class="level-type">ZIP</div>
+        <div class="level-subtitle">Postal Code Level</div>
+        <div class="level-stat">
+          <div class="level-stat-label">Zones Indexed</div>
+          <div class="level-stat-value large" id="zipCount">—</div>
+        </div>
+        <div class="level-stat">
+          <div class="level-stat-label">Avg Businesses / Zone</div>
+          <div class="level-stat-value" id="zipAvgBiz">—</div>
+        </div>
+        <div class="level-stat">
+          <div class="level-stat-label">Avg Density</div>
+          <div class="level-stat-value" id="zipAvgDensity">—</div>
+          <div class="level-stat-sub">businesses / sq mile</div>
+        </div>
+        <div class="div-bar-wrap">
+          <div class="div-bar-label">
+            <span>Avg Diversity Score</span>
+            <span id="zipDivScore">—</span>
+          </div>
+          <div class="div-bar-track">
+            <div class="div-bar-fill" id="zipDivBar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-card town" id="townCard">
+        <div class="level-type">TOWN</div>
+        <div class="level-subtitle">City / Municipality Level</div>
+        <div class="level-stat">
+          <div class="level-stat-label">Zones Indexed</div>
+          <div class="level-stat-value large" id="townCount">—</div>
+        </div>
+        <div class="level-stat">
+          <div class="level-stat-label">Avg Businesses / Zone</div>
+          <div class="level-stat-value" id="townAvgBiz">—</div>
+        </div>
+        <div class="level-stat">
+          <div class="level-stat-label">Avg Density</div>
+          <div class="level-stat-value" id="townAvgDensity">—</div>
+          <div class="level-stat-sub">businesses / sq mile</div>
+        </div>
+        <div class="div-bar-wrap">
+          <div class="div-bar-label">
+            <span>Avg Diversity Score</span>
+            <span id="townDivScore">—</span>
+          </div>
+          <div class="div-bar-track">
+            <div class="div-bar-fill" id="townDivBar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-card county" id="countyCard">
+        <div class="level-type">COUNTY</div>
+        <div class="level-subtitle">County Level</div>
+        <div class="level-stat">
+          <div class="level-stat-label">Zones Indexed</div>
+          <div class="level-stat-value large" id="countyCount">—</div>
+        </div>
+        <div class="level-stat">
+          <div class="level-stat-label">Avg Businesses / Zone</div>
+          <div class="level-stat-value" id="countyAvgBiz">—</div>
+        </div>
+        <div class="level-stat">
+          <div class="level-stat-label">Avg Density</div>
+          <div class="level-stat-value" id="countyAvgDensity">—</div>
+          <div class="level-stat-sub">businesses / sq mile</div>
+        </div>
+        <div class="div-bar-wrap">
+          <div class="div-bar-label">
+            <span>Avg Diversity Score</span>
+            <span id="countyDivScore">—</span>
+          </div>
+          <div class="div-bar-track">
+            <div class="div-bar-fill" id="countyDivBar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="table-section">
+    <div class="section-head">
+      <span class="section-title">Level Comparison</span>
+      <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim)" id="genDate"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Zone Level</th>
+            <th>Zones Indexed</th>
+            <th>Avg Businesses</th>
+            <th>Avg Density</th>
+            <th>Avg Diversity Score</th>
+            <th>Density Available</th>
+          </tr>
+        </thead>
+        <tbody id="compTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<script>
+function countUp(el, target, duration, fmt) {
+  const start = performance.now();
+  const tick = now => {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = fmt(target * ease);
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = fmt(target);
+  };
+  requestAnimationFrame(tick);
+}
+
+const fmtDensity = v => v != null ? parseFloat(v).toFixed(2) + '/mi²' : '—';
+const fmtDiv     = v => v != null ? parseFloat(v).toFixed(3) : '—';
+const fmtBiz     = v => v != null ? parseFloat(v).toFixed(1) : '—';
+
+async function loadData() {
+  try {
+    const data = await fetch('data/spatial_summary.json').then(r => { if (!r.ok) throw new Error(); return r.json(); });
+
+    document.getElementById('headerDate').textContent =
+      new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+    document.getElementById('genDate').textContent = 'Generated ' + (data.generated || '');
+
+    const levels = [
+      { key: 'zip',    label: 'ZIP Code',  color: 'var(--amber)' },
+      { key: 'town',   label: 'Town',      color: 'var(--green)' },
+      { key: 'county', label: 'County',    color: 'var(--yellow)' },
+    ];
+
+    levels.forEach(({ key, color }) => {
+      const d = data[key] || {};
+      const div = d.avg_diversity != null ? parseFloat(d.avg_diversity) : null;
+
+      countUp(document.getElementById(`${key}Count`),  d.zone_count    || 0, 800, v => Math.round(v).toLocaleString());
+
+      document.getElementById(`${key}AvgBiz`).textContent     = fmtBiz(d.avg_businesses);
+      document.getElementById(`${key}AvgDensity`).textContent = fmtDensity(d.avg_density);
+      document.getElementById(`${key}DivScore`).textContent   = fmtDiv(div);
+
+      const pct = div != null ? (div * 100).toFixed(1) : '0';
+      setTimeout(() => {
+        document.getElementById(`${key}DivBar`).style.width = pct + '%';
+      }, 300);
+    });
+
+    // Comparison table
+    const tbody = document.getElementById('compTable');
+    tbody.innerHTML = levels.map(({ key, label, color }) => {
+      const d = data[key] || {};
+      const div = d.avg_diversity != null ? parseFloat(d.avg_diversity) : null;
+      const hasDensity = d.avg_density != null;
+      return `<tr>
+        <td><span class="zone-pill" style="color:${color};background:${color}22;border:1px solid ${color}44">${label.toUpperCase()}</span></td>
+        <td style="color:var(--text-bright);font-weight:500">${(d.zone_count || 0).toLocaleString()}</td>
+        <td>${fmtBiz(d.avg_businesses)}</td>
+        <td>${fmtDensity(d.avg_density)}</td>
+        <td>
+          ${div != null ? `
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="color:${color}">${fmtDiv(div)}</span>
+            <div style="width:80px;height:3px;background:var(--border);border-radius:1px;overflow:hidden">
+              <div style="width:${(div*100).toFixed(1)}%;height:100%;background:${color};border-radius:1px"></div>
+            </div>
+          </div>` : '<span style="color:var(--text-dim)">—</span>'}
+        </td>
+        <td>
+          <span style="font-family:var(--font-mono);font-size:10px;color:${hasDensity ? 'var(--green)' : 'var(--text-dim)'}">
+            ${hasDensity ? '✓ YES' : '— requires zone_areas'}
+          </span>
+        </td>
+      </tr>`;
+    }).join('');
+
+    const loader = document.getElementById('loadScreen');
+    loader.classList.add('hidden');
+    setTimeout(() => loader.remove(), 500);
+
+  } catch (err) {
+    document.getElementById('loadScreen').innerHTML =
+      `<div class="loading-text" style="color:var(--red)">Failed to load data — run generate_reports.py first</div>`;
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

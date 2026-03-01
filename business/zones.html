@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curiosity Zones — Spatial Curiosity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg:           #060810;
+  --surface:      #0b0f1a;
+  --surface-2:    #101520;
+  --surface-3:    #161d2e;
+  --border:       #1c2640;
+  --border-hi:    #253050;
+  --text:         #9aa5be;
+  --text-dim:     #404c65;
+  --text-bright:  #d4dff5;
+  --amber:        #c9940a;
+  --amber-hi:     #f5b400;
+  --amber-dim:    #7a5a06;
+  --green:        #2dce7d;
+  --lime:         #8fd11e;
+  --yellow:       #e8b321;
+  --red:          #f05252;
+  --font-display: 'Bebas Neue', cursive;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-ui:      'Barlow', sans-serif;
+  --radius:       4px;
+  --gutter:       24px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,148,10,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,148,10,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber-hi), transparent);
+  z-index: 100;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+header {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(6,8,16,.98) 0%, rgba(11,15,26,.95) 100%);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--amber);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-back:hover { color: var(--amber-hi); }
+.nav-back::before { content: '←'; font-size: 14px; }
+
+.header-title {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.header-title h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: .06em;
+  color: var(--text-bright);
+  line-height: 1;
+}
+
+.header-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--amber);
+  background: rgba(201,148,10,.1);
+  border: 1px solid var(--amber-dim);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: .1em;
+}
+
+.header-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  text-align: right;
+  letter-spacing: .04em;
+}
+.header-meta span { display: block; color: var(--text); }
+
+/* ── KPI CARDS ──────────────────────────────────────────── */
+.kpi-section { padding: 28px 0 20px; }
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+}
+.kpi-card:hover { border-color: var(--border-hi); transform: translateY(-1px); }
+
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--amber);
+  opacity: .4;
+}
+.kpi-card.highlight::after { opacity: 1; background: var(--green); }
+
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1;
+  color: var(--amber-hi);
+  letter-spacing: .02em;
+}
+.kpi-card.highlight .kpi-value { color: var(--green); }
+
+.kpi-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+/* ── FILTERS ────────────────────────────────────────────── */
+.filters-section { padding: 0 0 20px; }
+
+.filters-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  display: grid;
+  grid-template-columns: 160px 120px 1fr 1fr auto;
+  gap: 16px;
+  align-items: end;
+}
+
+.filter-group { display: flex; flex-direction: column; gap: 6px; }
+
+.filter-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.filter-label span { color: var(--amber); font-weight: 700; margin-left: 4px; }
+
+select,
+input[type="text"],
+input[type="number"] {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 10px;
+  width: 100%;
+  transition: border-color .2s;
+  outline: none;
+}
+select:focus,
+input[type="text"]:focus,
+input[type="number"]:focus { border-color: var(--amber); }
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--amber-hi);
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+  align-self: end;
+}
+.reset-btn:hover { border-color: var(--amber-dim); color: var(--amber); }
+
+/* ── SECTION HEADERS ────────────────────────────────────── */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: .08em;
+  color: var(--text-bright);
+}
+
+.section-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: .08em;
+}
+
+/* ── ZONE TYPE CHIP ─────────────────────────────────────── */
+.type-chip {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.type-chip.zip    { color: var(--amber-hi); background: rgba(245,180,0,.08);   border: 1px solid var(--amber-dim); }
+.type-chip.town   { color: var(--green);    background: rgba(45,206,125,.08);  border: 1px solid rgba(45,206,125,.25); }
+.type-chip.county { color: var(--yellow);   background: rgba(232,179,33,.08);  border: 1px solid rgba(232,179,33,.25); }
+
+/* ── OPPORTUNITY CARDS ──────────────────────────────────── */
+.opp-section { padding: 0 0 24px; }
+
+.opp-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.opp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  transition: border-color .2s, transform .2s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.opp-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+
+.opp-rank {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: .12em;
+  margin-bottom: 6px;
+}
+
+.opp-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-bright);
+  font-weight: 500;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  min-height: 28px;
+}
+
+.opp-badges {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.state-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: .08em;
+}
+
+.opp-score {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+/* Signal bars */
+.signals { display: flex; flex-direction: column; gap: 5px; margin-bottom: 8px; }
+
+.signal { display: flex; align-items: center; gap: 6px; }
+
+.signal-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: .08em;
+  color: var(--text-dim);
+  width: 52px;
+  flex-shrink: 0;
+}
+
+.signal-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--border);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.signal-fill { height: 100%; border-radius: 1px; transition: width .4s; }
+
+.missing-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--red);
+  letter-spacing: .06em;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.opp-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* ── TABLE ──────────────────────────────────────────────── */
+.table-section { padding: 0 0 28px; }
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+thead th {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: color .2s;
+}
+thead th:hover { color: var(--amber); }
+thead th.sort-asc::after  { content: ' ▲'; color: var(--amber); }
+thead th.sort-desc::after { content: ' ▼'; color: var(--amber); }
+thead th.no-sort { cursor: default; }
+thead th.no-sort:hover { color: var(--text-dim); }
+
+tbody tr {
+  border-bottom: 1px solid rgba(28,38,64,.8);
+  transition: background .15s;
+}
+tbody tr:hover { background: rgba(201,148,10,.045); }
+tbody tr:last-child { border-bottom: none; }
+
+td {
+  padding: 9px 14px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.score-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.empty-row td {
+  text-align: center;
+  padding: 32px;
+  color: var(--text-dim);
+  font-size: 11px;
+  letter-spacing: .1em;
+}
+
+/* ── PAGINATION ─────────────────────────────────────────── */
+.ia-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-bottom: 4px;
+}
+
+.ia-page-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.ia-page-btn:hover, .ia-page-btn.active { border-color: var(--amber-dim); color: var(--amber); }
+.ia-page-btn:disabled { opacity: .3; cursor: default; }
+.ia-page-info { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); }
+
+/* ── CHART ──────────────────────────────────────────────── */
+.chart-section { padding: 0 0 40px; }
+
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.chart-wrap { position: relative; height: 200px; margin-top: 16px; }
+
+/* ── LOADING ────────────────────────────────────────────── */
+.loading-screen {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 200;
+  transition: opacity .4s;
+}
+.loading-screen.hidden { opacity: 0; pointer-events: none; }
+
+.loading-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 40%;
+  background: var(--amber-hi);
+  animation: scan 1s ease-in-out infinite;
+}
+@keyframes scan { 0% { left: -40%; } 100% { left: 140%; } }
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .kpi-grid     { grid-template-columns: repeat(2, 1fr); }
+  .opp-grid     { grid-template-columns: repeat(3, 1fr); }
+  .filters-bar  { grid-template-columns: 1fr 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .kpi-grid  { grid-template-columns: repeat(2, 1fr); }
+  .opp-grid  { grid-template-columns: repeat(2, 1fr); }
+  .filters-bar { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div class="loading-screen" id="loadScreen">
+  <div class="loading-text">Loading curiosity data</div>
+  <div class="loading-bar"></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="nav-back">Spatial Curiosity</a>
+      <div class="header-title">
+        <h1>Curiosity Zones</h1>
+        <span class="header-badge">ZIP · TOWN · COUNTY</span>
+      </div>
+      <div class="header-meta">
+        <span id="headerDate"></span>
+        Business Intelligence Engine
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <!-- KPI Cards -->
+  <section class="kpi-section">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Zones Indexed</div>
+        <div class="kpi-value" id="kpiZones">—</div>
+        <div class="kpi-sub">ZIP + town + county</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Businesses</div>
+        <div class="kpi-value" id="kpiBiz">—</div>
+        <div class="kpi-sub">Indexed records</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Sectors Covered</div>
+        <div class="kpi-value" id="kpiSectors">—</div>
+        <div class="kpi-sub">Industry sectors active</div>
+      </div>
+      <div class="kpi-card highlight">
+        <div class="kpi-label">Top Curiosity Score</div>
+        <div class="kpi-value" id="kpiTop">—</div>
+        <div class="kpi-sub">Highest scored zone</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters-section">
+    <div class="filters-bar">
+      <div class="filter-group">
+        <div class="filter-label">Zone Type</div>
+        <select id="filterType">
+          <option value="">All Types</option>
+          <option value="zip">ZIP Code</option>
+          <option value="town">Town / City</option>
+          <option value="county">County</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">State</div>
+        <input type="text" id="filterState" placeholder="e.g. IL" maxlength="2">
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Min Curiosity Score <span id="scoreLabel">0.00</span></div>
+        <input type="range" id="filterScore" min="0" max="1" step="0.01" value="0">
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Search Zone</div>
+        <input type="text" id="filterName" placeholder="Zone name…">
+      </div>
+      <button class="reset-btn" id="resetBtn">Reset</button>
+    </div>
+  </section>
+
+  <!-- Top Zones -->
+  <section class="opp-section">
+    <div class="section-head">
+      <span class="section-title">Top Curiosity Zones</span>
+      <span class="section-count" id="oppCount"></span>
+    </div>
+    <div class="opp-grid" id="oppCards"></div>
+  </section>
+
+  <!-- Zone Table -->
+  <section class="table-section">
+    <div class="section-head">
+      <span class="section-title">Zone Matrix</span>
+      <span class="section-count" id="tableCount"></span>
+    </div>
+    <div class="table-wrap">
+      <table id="zoneTable">
+        <thead>
+          <tr>
+            <th data-col="zone_name">Zone</th>
+            <th data-col="state">State</th>
+            <th class="no-sort">Type</th>
+            <th data-col="total_business_count">Businesses</th>
+            <th data-col="density_score">Density</th>
+            <th data-col="diversity_score">Diversity</th>
+            <th data-col="industry_gap_score">Gap</th>
+            <th data-col="diversity_mismatch_score">Mismatch</th>
+            <th data-col="curiosity_score">Curiosity Score</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="ia-pagination" id="pagination"></div>
+  </section>
+
+  <!-- Score Distribution Chart -->
+  <section class="chart-section">
+    <div class="chart-card">
+      <div class="section-head">
+        <span class="section-title">Score Distribution</span>
+        <span class="section-count" id="chartCount">All zones · curiosity score bands</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="distChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<script>
+// ── State ──────────────────────────────────────────────────
+let allZones     = [];
+let filteredZones = [];
+let sortCol = 'curiosity_score';
+let sortDir = -1;
+let page    = 1;
+const PAGE_SIZE = 50;
+let chart = null;
+
+// ── Helpers ────────────────────────────────────────────────
+const fmtDensity = v => {
+  if (v == null) return '—';
+  const n = parseFloat(v);
+  return isNaN(n) ? '—' : n.toFixed(2) + '/mi²';
+};
+const fmtScore = v => v != null ? parseFloat(v).toFixed(3) : '—';
+
+function scoreColor(s) {
+  const v = parseFloat(s || 0);
+  if (v >= 0.6) return 'var(--green)';
+  if (v >= 0.3) return 'var(--yellow)';
+  return 'var(--amber)';
+}
+function scoreBg(s) {
+  const v = parseFloat(s || 0);
+  if (v >= 0.6) return 'rgba(45,206,125,.15)';
+  if (v >= 0.3) return 'rgba(232,179,33,.15)';
+  return 'rgba(201,148,10,.15)';
+}
+
+function countUp(el, target, duration, fmt) {
+  const start = performance.now();
+  const tick = now => {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = fmt(target * ease);
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = fmt(target);
+  };
+  requestAnimationFrame(tick);
+}
+
+// ── Load ───────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const [cData, sData, spData] = await Promise.all([
+      fetch('data/curiosity_zones.json').then(r => { if (!r.ok) throw new Error(); return r.json(); }),
+      fetch('data/summary.json').then(r => { if (!r.ok) throw new Error(); return r.json(); }),
+      fetch('data/spatial_summary.json').then(r => { if (!r.ok) throw new Error(); return r.json(); }),
+    ]);
+
+    const bt = cData.by_type || {};
+    allZones = [
+      ...(bt.zip    || []),
+      ...(bt.town   || []),
+      ...(bt.county || []),
+    ];
+
+    // KPIs
+    const totalZones = (spData.zip?.zone_count || 0) + (spData.town?.zone_count || 0) + (spData.county?.zone_count || 0);
+    const topScore   = allZones.reduce((m, z) => Math.max(m, parseFloat(z.curiosity_score || 0)), 0);
+    const sectors    = (sData.by_sector || []).length;
+
+    countUp(document.getElementById('kpiZones'),   totalZones,              800, v => Math.round(v).toLocaleString());
+    countUp(document.getElementById('kpiBiz'),     sData.total_businesses,  800, v => Math.round(v).toLocaleString());
+    countUp(document.getElementById('kpiSectors'), sectors,                 600, v => Math.round(v));
+    countUp(document.getElementById('kpiTop'),     topScore,                900, v => v.toFixed(3));
+
+    document.getElementById('headerDate').textContent =
+      new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+
+    filteredZones = [...allZones];
+    renderTopCards(filteredZones);
+    renderTable(filteredZones);
+    renderChart(filteredZones);
+
+    const loader = document.getElementById('loadScreen');
+    loader.classList.add('hidden');
+    setTimeout(() => loader.remove(), 500);
+
+  } catch (err) {
+    document.getElementById('loadScreen').innerHTML =
+      `<div class="loading-text" style="color:var(--red)">Failed to load data — run generate_reports.py first</div>`;
+  }
+}
+
+// ── Top Cards ──────────────────────────────────────────────
+function renderTopCards(zones) {
+  const top = [...zones]
+    .sort((a, b) => parseFloat(b.curiosity_score || 0) - parseFloat(a.curiosity_score || 0))
+    .slice(0, 10);
+
+  document.getElementById('oppCount').textContent = `Top ${top.length} by curiosity score`;
+
+  document.getElementById('oppCards').innerHTML = top.map((z, i) => {
+    const score      = parseFloat(z.curiosity_score || 0);
+    const col        = scoreColor(z.curiosity_score);
+    const densityAbs = Math.abs(parseFloat(z.density_imbalance_score || 0));
+    const dPct       = (Math.min(densityAbs / 3, 1) * 100).toFixed(1);
+    const gPct       = (parseFloat(z.industry_gap_score || 0) * 100).toFixed(1);
+    const mPct       = (parseFloat(z.diversity_mismatch_score || 0) * 100).toFixed(1);
+    const topMissing = (z.top_missing_industries || [])[0];
+    const typeClass  = z.zone_type || 'zip';
+
+    return `
+    <div class="opp-card">
+      <div class="opp-rank">#${i + 1} ZONE</div>
+      <div class="opp-name">${z.zone_name || z.zone_id}</div>
+      <div class="opp-badges">
+        ${z.state ? `<span class="state-badge">${z.state}</span>` : ''}
+        <span class="type-chip ${typeClass}">${typeClass.toUpperCase()}</span>
+      </div>
+      <div class="opp-score" style="color:${col}">${score.toFixed(3)}</div>
+      <div class="signals">
+        <div class="signal">
+          <span class="signal-label">DENSITY</span>
+          <div class="signal-bar"><div class="signal-fill" style="width:${dPct}%;background:${col}"></div></div>
+        </div>
+        <div class="signal">
+          <span class="signal-label">GAP</span>
+          <div class="signal-bar"><div class="signal-fill" style="width:${gPct}%;background:${col}"></div></div>
+        </div>
+        <div class="signal">
+          <span class="signal-label">MISMATCH</span>
+          <div class="signal-bar"><div class="signal-fill" style="width:${mPct}%;background:${col}"></div></div>
+        </div>
+      </div>
+      ${topMissing ? `<div class="missing-tag">MISSING: ${topMissing.industry_group}</div>` : ''}
+      <div class="opp-meta">${(z.total_business_count || 0).toLocaleString()} businesses</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Table ──────────────────────────────────────────────────
+function renderTable(zones) {
+  const tbody = document.getElementById('tableBody');
+  document.getElementById('tableCount').textContent = `${zones.length.toLocaleString()} zones`;
+  document.getElementById('chartCount').textContent = `${zones.length.toLocaleString()} zones · curiosity score bands`;
+
+  const numCols = ['total_business_count','density_score','diversity_score',
+                   'density_imbalance_score','industry_gap_score','diversity_mismatch_score','curiosity_score'];
+
+  const sorted = [...zones].sort((a, b) => {
+    let av = a[sortCol], bv = b[sortCol];
+    if (numCols.includes(sortCol)) { av = parseFloat(av || 0); bv = parseFloat(bv || 0); }
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === 'string') return av.localeCompare(bv) * sortDir;
+    return (av - bv) * sortDir;
+  });
+
+  if (!sorted.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="9">NO ZONES MATCH CURRENT FILTERS</td></tr>`;
+    renderPagination(0);
+    return;
+  }
+
+  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
+  if (page > totalPages) page = 1;
+  const pageData = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  tbody.innerHTML = pageData.map(z => {
+    const col = scoreColor(z.curiosity_score);
+    const bg  = scoreBg(z.curiosity_score);
+    const score = parseFloat(z.curiosity_score || 0).toFixed(3);
+    const typeClass = z.zone_type || 'zip';
+    return `<tr>
+      <td style="color:var(--text-bright);font-weight:500">${z.zone_name || z.zone_id}</td>
+      <td style="color:var(--text-dim)">${z.state || '—'}</td>
+      <td><span class="type-chip ${typeClass}">${typeClass.toUpperCase()}</span></td>
+      <td>${(z.total_business_count || 0).toLocaleString()}</td>
+      <td style="color:var(--text-dim)">${fmtDensity(z.density_score)}</td>
+      <td>${fmtScore(z.diversity_score)}</td>
+      <td>${fmtScore(z.industry_gap_score)}</td>
+      <td>${fmtScore(z.diversity_mismatch_score)}</td>
+      <td><span class="score-badge" style="color:${col};background:${bg}">${score}</span></td>
+    </tr>`;
+  }).join('');
+
+  document.querySelectorAll('thead th[data-col]').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.col === sortCol) th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+  });
+
+  renderPagination(sorted.length);
+}
+
+function renderPagination(total) {
+  const el = document.getElementById('pagination');
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <button class="ia-page-btn" id="p-prev" ${page === 1 ? 'disabled' : ''}>← Prev</button>
+    <span class="ia-page-info">Page ${page} / ${totalPages} &nbsp;(${total.toLocaleString()} zones)</span>
+    <button class="ia-page-btn" id="p-next" ${page === totalPages ? 'disabled' : ''}>Next →</button>`;
+  document.getElementById('p-prev')?.addEventListener('click', () => { page--; renderTable(filteredZones); window.scrollTo(0, 0); });
+  document.getElementById('p-next')?.addEventListener('click', () => { page++; renderTable(filteredZones); window.scrollTo(0, 0); });
+}
+
+// ── Chart ──────────────────────────────────────────────────
+function renderChart(zones) {
+  const buckets = [0, 0, 0, 0, 0];
+  zones.forEach(z => {
+    const s = parseFloat(z.curiosity_score || 0);
+    if      (s < 0.2) buckets[0]++;
+    else if (s < 0.4) buckets[1]++;
+    else if (s < 0.6) buckets[2]++;
+    else if (s < 0.8) buckets[3]++;
+    else              buckets[4]++;
+  });
+
+  if (chart) chart.destroy();
+  const ctx = document.getElementById('distChart').getContext('2d');
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['0.0 – 0.2', '0.2 – 0.4', '0.4 – 0.6', '0.6 – 0.8', '0.8 – 1.0'],
+      datasets: [{
+        data: buckets,
+        backgroundColor: ['rgba(240,82,82,.7)','rgba(201,148,10,.7)','rgba(232,179,33,.7)','rgba(143,209,30,.7)','rgba(45,206,125,.7)'],
+        borderColor:      ['rgba(240,82,82,1)', 'rgba(201,148,10,1)', 'rgba(232,179,33,1)', 'rgba(143,209,30,1)', 'rgba(45,206,125,1)'],
+        borderWidth: 1, borderRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0b0f1a', borderColor: '#1c2640', borderWidth: 1,
+          titleColor: '#9aa5be', bodyColor: '#f5b400',
+          titleFont: { family: 'JetBrains Mono', size: 11 },
+          bodyFont:  { family: 'JetBrains Mono', size: 13 },
+          callbacks: {
+            title: ctx => 'CURIOSITY ' + ctx[0].label,
+            label: ctx => ctx.parsed.y + ' zone' + (ctx.parsed.y !== 1 ? 's' : ''),
+          }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(28,38,64,.6)' }, ticks: { color: '#4a5568', font: { family: 'JetBrains Mono', size: 10 } } },
+        y: { grid: { color: 'rgba(28,38,64,.6)' }, ticks: { color: '#4a5568', font: { family: 'JetBrains Mono', size: 10 }, stepSize: 1 }, beginAtZero: true }
+      }
+    }
+  });
+}
+
+// ── Filters ────────────────────────────────────────────────
+function applyFilters() {
+  const typeF  = document.getElementById('filterType').value;
+  const stateF = document.getElementById('filterState').value.trim().toUpperCase();
+  const minS   = parseFloat(document.getElementById('filterScore').value);
+  const nameF  = document.getElementById('filterName').value.trim().toLowerCase();
+
+  filteredZones = allZones.filter(z => {
+    if (typeF  && z.zone_type !== typeF) return false;
+    if (stateF && (z.state || '') !== stateF) return false;
+    if (parseFloat(z.curiosity_score || 0) < minS) return false;
+    if (nameF  && !(z.zone_name || '').toLowerCase().includes(nameF)) return false;
+    return true;
+  });
+  page = 1;
+  renderTopCards(filteredZones);
+  renderTable(filteredZones);
+  renderChart(filteredZones);
+}
+
+// ── Events ─────────────────────────────────────────────────
+document.getElementById('filterScore').addEventListener('input', function () {
+  document.getElementById('scoreLabel').textContent = parseFloat(this.value).toFixed(2);
+  applyFilters();
+});
+document.getElementById('filterType').addEventListener('change',  applyFilters);
+document.getElementById('filterState').addEventListener('input',  applyFilters);
+document.getElementById('filterName').addEventListener('input',   applyFilters);
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.getElementById('filterType').value  = '';
+  document.getElementById('filterState').value = '';
+  document.getElementById('filterScore').value = '0';
+  document.getElementById('scoreLabel').textContent = '0.00';
+  document.getElementById('filterName').value  = '';
+  page = 1;
+  filteredZones = [...allZones];
+  renderTopCards(filteredZones);
+  renderTable(filteredZones);
+  renderChart(filteredZones);
+});
+
+document.querySelectorAll('thead th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) sortDir *= -1;
+    else { sortCol = col; sortDir = -1; }
+    renderTable(filteredZones);
+  });
+});
+
+// ── Init ───────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>

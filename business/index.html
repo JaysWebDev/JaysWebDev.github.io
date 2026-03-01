@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spatial Curiosity — Business Intelligence Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #060810;
+  --surface:  #0d1117;
+  --border:   #1e2530;
+  --amber:    #c9940a;
+  --amber-hi: #f5b400;
+  --text:     #c8cdd6;
+  --muted:    #4a5568;
+  --font-display: 'Bebas Neue', cursive;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-ui:      'Barlow', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-weight: 300;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,148,10,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,148,10,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber-hi), transparent);
+  z-index: 100;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: 0.12em;
+  color: #fff;
+  line-height: 1;
+}
+.wordmark span { color: var(--amber-hi); }
+
+.subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--amber);
+  margin: 2.5rem auto;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.nav-card {
+  display: block;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.75rem 2rem;
+  transition: border-color 0.2s, transform 0.2s;
+  text-align: left;
+}
+.nav-card:hover {
+  border-color: var(--amber);
+  transform: translateY(-2px);
+}
+
+.nav-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.4rem;
+}
+
+.nav-card-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.nav-card-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.nav-card .arrow {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--amber);
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<div class="content">
+  <div class="wordmark">Spatial <span>Curiosity</span></div>
+  <div class="subtitle">Business Intelligence Engine</div>
+
+  <div class="divider"></div>
+
+  <nav class="nav-grid">
+    <a class="nav-card" href="zones.html">
+      <div class="nav-card-label">Analysis</div>
+      <div class="nav-card-title">Curiosity Zones</div>
+      <div class="nav-card-desc">Identify geographic areas with missing services, density imbalance, and unrealized potential. Filter by zone type, state, and curiosity score.</div>
+      <div class="arrow">EXPLORE ZONES →</div>
+    </a>
+
+    <a class="nav-card" href="sectors.html">
+      <div class="nav-card-label">Industry</div>
+      <div class="nav-card-title">Sector Breakdown</div>
+      <div class="nav-card-desc">Explore the industry distribution across all indexed zones. See which sectors dominate and which are systematically absent.</div>
+      <div class="arrow">VIEW SECTORS →</div>
+    </a>
+
+    <a class="nav-card" href="spatial.html">
+      <div class="nav-card-label">Coverage</div>
+      <div class="nav-card-title">Spatial Coverage</div>
+      <div class="nav-card-desc">Zone-level aggregate statistics for ZIP codes, towns, and counties. Diversity scores, business density, and coverage metrics.</div>
+      <div class="arrow">VIEW COVERAGE →</div>
+    </a>
+  </nav>
+</div>
+
+<footer>jays.website / business-analyzer</footer>
+
+</body>
+</html>
