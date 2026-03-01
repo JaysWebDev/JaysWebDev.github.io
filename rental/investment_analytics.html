@@ -582,12 +582,12 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
         <div class="kpi-sub">Active listings matched</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Avg Gross Yield</div>
+        <div class="kpi-label">Avg HUD Est. Yield</div>
         <div class="kpi-value" id="kpiAvgYield">—</div>
-        <div class="kpi-sub">Across matched buildings</div>
+        <div class="kpi-sub">All 1,407 buildings · FY2025 FMR</div>
       </div>
       <div class="kpi-card highlight">
-        <div class="kpi-label">Highest Yield</div>
+        <div class="kpi-label">Highest Actual Yield</div>
         <div class="kpi-value" id="kpiMaxYield">—</div>
         <div class="kpi-sub" id="kpiMaxAddr">—</div>
       </div>
@@ -638,7 +638,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
       <span class="section-title">Investment Matrix</span>
       <div style="display:flex;align-items:center;gap:20px;">
         <label class="toggle-wrap">
-          <input type="checkbox" id="showAll"> SHOW ALL BUILDINGS
+          <input type="checkbox" id="showAll" checked> SHOW ALL BUILDINGS
         </label>
         <span class="section-count" id="tableCount"></span>
       </div>
@@ -651,10 +651,10 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
             <th data-col="owner_name">Owner</th>
             <th data-col="building_type">Type</th>
             <th data-col="market_value">Market Value</th>
-            <th data-col="avg_rent">Avg Rent/mo</th>
+            <th data-col="hud_monthly_rent">HUD Rent/mo</th>
             <th data-col="inferred_units">Units</th>
-            <th data-col="estimated_annual_rent">Est. Annual Rent</th>
-            <th data-col="gross_yield">Gross Yield</th>
+            <th data-col="hud_annual_rent">HUD Annual Rent</th>
+            <th data-col="hud_gross_yield">Est. Yield (HUD)</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -667,7 +667,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
     <div class="chart-card">
       <div class="section-head">
         <span class="section-title">Yield Distribution</span>
-        <span class="section-count">Matched buildings only</span>
+        <span class="section-count">All 1,407 buildings · HUD FMR estimates</span>
       </div>
       <div class="chart-wrap">
         <canvas id="yieldChart"></canvas>
@@ -682,7 +682,7 @@ td:first-child { color: var(--text-bright); font-weight: 500; }
 // ── State ──────────────────────────────────────────────
 let allData = [];
 let filteredData = [];
-let sortCol = 'gross_yield';
+let sortCol = 'hud_gross_yield';
 let sortDir = -1; // -1 = desc, 1 = asc
 let yieldChart = null;
 
@@ -723,8 +723,8 @@ async function loadData() {
 
   renderKPIs(summary[0], metrics);
   allData = metrics;
-  filteredData = metrics.filter(r => r.gross_yield != null);
-  renderOpportunities(filteredData.slice(0, 10));
+  filteredData = metrics; // all buildings shown by default
+  renderOpportunities(filteredData);
   renderTable(filteredData);
   renderChart(filteredData);
 
@@ -736,12 +736,12 @@ async function loadData() {
 
 // ── KPIs ───────────────────────────────────────────────
 function renderKPIs(s, data) {
-  countUp(document.getElementById('kpiTotal'),   s.total_buildings,   700, v => Math.round(v).toLocaleString());
-  countUp(document.getElementById('kpiMatched'),  s.matched_buildings,  700, v => Math.round(v).toLocaleString());
-  countUp(document.getElementById('kpiAvgYield'), s.avg_gross_yield || 0, 900, v => (v * 100).toFixed(1) + '%');
+  countUp(document.getElementById('kpiTotal'),   s.total_buildings,  700, v => Math.round(v).toLocaleString());
+  countUp(document.getElementById('kpiMatched'), s.matched_buildings, 700, v => Math.round(v).toLocaleString());
+  countUp(document.getElementById('kpiAvgYield'), s.avg_hud_yield || 0, 900, v => (v * 100).toFixed(1) + '%');
   countUp(document.getElementById('kpiMaxYield'), s.max_gross_yield || 0, 900, v => (v * 100).toFixed(1) + '%');
 
-  // Max yield address
+  // Max actual yield address
   const top = data.filter(r => r.gross_yield != null).sort((a, b) => b.gross_yield - a.gross_yield)[0];
   if (top) document.getElementById('kpiMaxAddr').textContent = top.address;
 }
@@ -749,23 +749,32 @@ function renderKPIs(s, data) {
 // ── Opportunity Cards ──────────────────────────────────
 function renderOpportunities(data) {
   const container = document.getElementById('oppCards');
-  const top10 = [...data].filter(r => r.gross_yield != null)
-                          .sort((a, b) => b.gross_yield - a.gross_yield)
-                          .slice(0, 10);
+  // Prefer real yield; fall back to HUD estimate for ranking
+  const top10 = [...data]
+    .filter(r => r.hud_gross_yield != null || r.gross_yield != null)
+    .sort((a, b) => {
+      const ay = a.gross_yield ?? a.hud_gross_yield ?? 0;
+      const by = b.gross_yield ?? b.hud_gross_yield ?? 0;
+      return by - ay;
+    })
+    .slice(0, 10);
 
   document.getElementById('oppCount').textContent = `${top10.length} highest yield`;
 
   container.innerHTML = top10.map((r, i) => {
-    const yc = yieldColor(r.gross_yield);
+    const displayYield = r.gross_yield ?? r.hud_gross_yield;
+    const isActual     = r.gross_yield != null;
+    const yc           = yieldColor(displayYield);
     return `
     <div class="opp-card">
       <div class="opp-rank">#${i + 1} OPPORTUNITY</div>
       <div class="opp-address">${r.address || '—'}</div>
       <div class="opp-yield" style="color:${yc.color};text-shadow:0 0 20px ${yc.bg}">
-        ${fmtPct(r.gross_yield)}
+        ${fmtPct(displayYield)}
       </div>
       <div class="opp-meta">
-        <div>${fmtMo(r.avg_rent)}/mo · ${r.inferred_units} units</div>
+        <div style="color:${isActual ? 'var(--green)' : 'var(--text-dim)';font-size:0.7em}">${isActual ? '✓ actual data' : '~ HUD estimate'}</div>
+        <div>${fmtMo(r.hud_monthly_rent)}/mo · ${r.inferred_units} units</div>
         <div><strong>${fmt$(r.market_value)}</strong> market value</div>
         <div>${r.building_type || '—'}</div>
       </div>
@@ -794,18 +803,19 @@ function renderTable(data) {
   }
 
   tbody.innerHTML = sorted.map(r => {
-    const yc = yieldColor(r.gross_yield);
-    const isNull = r.gross_yield == null;
-    return `<tr class="${isNull ? 'null-row' : ''}">
+    const displayYield = r.gross_yield ?? r.hud_gross_yield;
+    const isActual     = r.gross_yield != null;
+    const yc           = yieldColor(displayYield);
+    return `<tr>
       <td>${r.address || '—'}</td>
       <td>${r.owner_name || '—'}</td>
       <td>${r.building_type || '—'}</td>
       <td>${fmt$(r.market_value)}</td>
-      <td>${fmtMo(r.avg_rent)}</td>
+      <td>${fmtMo(r.hud_monthly_rent)}</td>
       <td>${r.inferred_units}</td>
-      <td>${fmt$(r.estimated_annual_rent)}</td>
-      <td>${r.gross_yield != null
-        ? `<span class="yield-badge" style="color:${yc.color};background:${yc.bg}">${fmtPct(r.gross_yield)}</span>`
+      <td>${fmt$(r.hud_annual_rent)}</td>
+      <td>${displayYield != null
+        ? `<span class="yield-badge" style="color:${yc.color};background:${yc.bg}" title="${isActual ? 'Actual matched data' : 'HUD FMR estimate'}">${fmtPct(displayYield)}${isActual ? ' ✓' : ''}</span>`
         : '<span style="color:var(--text-dim)">—</span>'
       }</td>
     </tr>`;
@@ -822,10 +832,10 @@ function renderTable(data) {
 
 // ── Chart ──────────────────────────────────────────────
 function renderChart(data) {
-  const matched = data.filter(r => r.gross_yield != null);
+  const matched = data.filter(r => r.hud_gross_yield != null || r.gross_yield != null);
   const buckets = [0, 0, 0, 0, 0];
   matched.forEach(r => {
-    const y = r.gross_yield * 100;
+    const y = (r.gross_yield ?? r.hud_gross_yield) * 100;
     if (y < 5)       buckets[0]++;
     else if (y < 10) buckets[1]++;
     else if (y < 15) buckets[2]++;
@@ -912,8 +922,9 @@ function applyFilters() {
   const showAll   = document.getElementById('showAll').checked;
 
   filteredData = allData.filter(r => {
+    const effectiveYield = r.gross_yield ?? r.hud_gross_yield;
     if (!showAll && r.gross_yield == null) return false;
-    if (r.gross_yield != null && r.gross_yield < minYield) return false;
+    if (minYield > 0 && (effectiveYield == null || effectiveYield < minYield)) return false;
     if ((r.market_value || 0) < minValue) return false;
     if (owner && !(r.owner_name || '').toLowerCase().includes(owner)) return false;
     if (r.year_built && r.year_built < yearMin) return false;
@@ -944,7 +955,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('filterOwner').value = '';
   document.getElementById('filterYearMin').value = '';
   document.getElementById('filterYearMax').value = '';
-  document.getElementById('showAll').checked = false;
+  document.getElementById('showAll').checked = true;
   applyFilters();
 });
 

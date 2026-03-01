@@ -422,6 +422,7 @@
             </select>
         </div>
         <button class="btn-reset" id="btn-reset">&#8635; Reset</button>
+        <button class="btn-reset" id="btn-export" style="border-color:var(--amber);color:var(--amber)">&#8659; Export CSV</button>
         <div class="filter-result">Showing <span id="result-count">—</span> owners</div>
     </div>
 
@@ -629,6 +630,40 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('f-flag').value       = '';
     applyFilters();
 });
+
+/* ================================================================
+   CSV EXPORT
+================================================================ */
+function exportCSV() {
+    const cols = [
+        'owner_name', 'building_count', 'total_units', 'total_market_value',
+        'hud_est_portfolio_yield', 'avg_year_built', 'oldest_building',
+        'opportunity_flags', 'addresses'
+    ];
+    const header = cols.join(',');
+    const rows = filtered.map(o => [
+        `"${(o.owner_name || '').replace(/"/g, '""')}"`,
+        o.building_count,
+        o.total_units,
+        o.total_market_value,
+        o.hud_est_portfolio_yield != null ? (o.hud_est_portfolio_yield * 100).toFixed(2) + '%' : '',
+        o.avg_year_built || '',
+        o.oldest_building || '',
+        `"${(o.opportunity_flags || []).join('; ')}"`,
+        `"${(o.addresses || []).join('; ').replace(/"/g, '""')}"`
+    ].join(','));
+
+    const csv  = [header, ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `attleboro_owner_intelligence_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+document.getElementById('btn-export').addEventListener('click', exportCSV);
 
 /* ================================================================
    LOAD DATA
