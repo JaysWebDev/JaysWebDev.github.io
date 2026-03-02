@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BizIntel — Business Data Intelligence Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0d14;
+      --surface:   #111420;
+      --surface2:  #181c2e;
+      --border:    rgba(124,58,237,0.18);
+      --border2:   rgba(255,255,255,0.06);
+      --accent:    #7c3aed;
+      --accent2:   #a855f7;
+      --accent-glow: rgba(124,58,237,0.35);
+      --text:      #e8eaf2;
+      --muted:     #6b7280;
+      --muted2:    #9ca3af;
+      --green:     #10b981;
+      --orange:    #f59e0b;
+      --red:       #ef4444;
+      --font-display: 'Syne', sans-serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    html { font-size: 15px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-display);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glow blobs */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    header {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--border2);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg { width: 22px; height: 22px; fill: #fff; }
+
+    .brand-text h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff 30%, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .header-meta {
+      text-align: right;
+    }
+
+    .header-meta .label {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .header-meta .value {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      color: var(--muted2);
+      margin-top: 2px;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-right: 6px;
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── STATS ROW ──────────────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .stat-card:hover { border-color: var(--border); transform: translateY(-2px); }
+    .stat-card:hover::before { opacity: 1; }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-top: 10px;
+      font-family: var(--font-mono);
+      color: var(--text);
+    }
+
+    .stat-value.accent { color: var(--accent2); }
+
+    .stat-sub {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── SECTION LAYOUT ─────────────────────────────── */
+    .section-row {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+      margin-top: 20px;
+      animation: fadeUp 0.5s ease 0.45s both;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .panel-title {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border2);
+    }
+
+    /* ── QUALITY CHART ──────────────────────────────── */
+    .quality-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+
+    .quality-big {
+      font-size: 3.5rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--accent2);
+      line-height: 1;
+    }
+
+    .quality-big span {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .quality-sub {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--muted2);
+    }
+
+    .dist-bars { display: flex; flex-direction: column; gap: 10px; }
+
+    .dist-row { display: flex; flex-direction: column; gap: 4px; }
+
+    .dist-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+    }
+
+    .dist-header .bucket { color: var(--muted2); }
+    .dist-header .count  { color: var(--muted); }
+
+    .dist-track {
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .dist-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fill-red    { background: var(--red); }
+    .fill-orange { background: var(--orange); }
+    .fill-yellow { background: #eab308; }
+    .fill-green  { background: var(--green); }
+
+    .score-range {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border2);
+    }
+
+    .score-range div { display: flex; flex-direction: column; gap: 2px; }
+    .score-range .r-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .score-range .r-value { color: var(--muted2); font-size: 0.85rem; }
+
+    /* ── SEARCH ─────────────────────────────────────── */
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    #search {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 10px 14px 10px 40px;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #search:focus { border-color: var(--accent); }
+    #search::placeholder { color: var(--muted); }
+
+    .result-count {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: right;
+    }
+
+    /* ── TABLE ──────────────────────────────────────── */
+    .table-wrap {
+      margin-top: 14px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: rgba(124,58,237,0.06); }
+    tbody tr.expanded { background: var(--surface2); }
+
+    tbody td {
+      padding: 11px 12px;
+      font-size: 0.83rem;
+      vertical-align: middle;
+    }
+
+    .td-name {
+      font-weight: 600;
+      color: var(--text);
+      max-width: 220px;
+    }
+
+    .td-phone {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted2);
+      white-space: nowrap;
+    }
+
+    .td-address {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted2);
+    }
+
+    .td-zip {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 26px;
+      border-radius: 5px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    .score-green  { background: rgba(16,185,129,0.15); color: var(--green); }
+    .score-orange { background: rgba(245,158,11,0.15); color: var(--orange); }
+    .score-red    { background: rgba(239,68,68,0.15);  color: var(--red); }
+
+    /* Expanded detail row */
+    .detail-row td {
+      padding: 0;
+      cursor: default;
+    }
+    .detail-row:hover { background: transparent !important; }
+
+    .detail-inner {
+      background: var(--surface2);
+      border-top: 1px solid var(--border2);
+      border-bottom: 1px solid var(--border2);
+      padding: 14px 12px;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .detail-field { display: flex; flex-direction: column; gap: 2px; }
+    .detail-field .d-label {
+      font-size: 0.62rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .detail-field .d-value {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--muted2);
+    }
+
+    .expand-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+      color: var(--muted);
+      font-size: 0.7rem;
+      margin-right: 6px;
+    }
+
+    .expanded .expand-arrow { transform: rotate(90deg); }
+
+    tr.no-results td {
+      text-align: center;
+      padding: 32px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: default;
+    }
+    tr.no-results:hover { background: transparent; }
+
+    /* ── FULL TABLE SECTION ─────────────────────────── */
+    .full-section {
+      margin-top: 20px;
+      animation: fadeUp 0.5s ease 0.55s both;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      margin-top: 60px;
+      padding: 28px 0;
+      border-top: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      animation: fadeUp 0.5s ease 0.6s both;
+    }
+
+    .footer-brand {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-brand strong {
+      color: var(--accent2);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent2); }
+
+    /* ── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .section-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-value { font-size: 1.6rem; }
+      header { flex-direction: column; align-items: flex-start; }
+      .header-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>BizIntel</h1>
+        <p>Business Data Scraping &amp; Cleaning Lab</p>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="label"><span class="status-dot"></span>Live Dataset</div>
+      <div class="value" id="last-updated">Loading…</div>
+    </div>
+  </header>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total Records</div>
+      <div class="stat-value" id="stat-total">—</div>
+      <div class="stat-sub" id="stat-source">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Have Phone</div>
+      <div class="stat-value accent" id="stat-phone">—</div>
+      <div class="stat-sub" id="stat-phone-pct">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Have Address</div>
+      <div class="stat-value" id="stat-address">—</div>
+      <div class="stat-sub" id="stat-address-pct">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Quality Mean</div>
+      <div class="stat-value accent" id="stat-quality">—</div>
+      <div class="stat-sub" id="stat-above70">—</div>
+    </div>
+  </div>
+
+  <!-- QUALITY + SEARCH SIDE BY SIDE -->
+  <div class="section-row">
+
+    <!-- Quality Panel -->
+    <div class="panel">
+      <div class="panel-title">Quality Distribution</div>
+      <div class="quality-overview">
+        <div class="quality-big" id="q-mean">—<span>/100</span></div>
+        <div class="quality-sub" id="q-above">—% of records score above 70</div>
+      </div>
+
+      <div class="dist-bars">
+        <div class="dist-row">
+          <div class="dist-header">
+            <span class="bucket">Score 90–100</span>
+            <span class="count" id="d-90">0 records</span>
+          </div>
+          <div class="dist-track"><div class="dist-fill fill-green" id="bar-90"></div></div>
+        </div>
+        <div class="dist-row">
+          <div class="dist-header">
+            <span class="bucket">Score 70–89</span>
+            <span class="count" id="d-70">0 records</span>
+          </div>
+          <div class="dist-track"><div class="dist-fill fill-yellow" id="bar-70"></div></div>
+        </div>
+        <div class="dist-row">
+          <div class="dist-header">
+            <span class="bucket">Score 40–69</span>
+            <span class="count" id="d-40">0 records</span>
+          </div>
+          <div class="dist-track"><div class="dist-fill fill-orange" id="bar-40"></div></div>
+        </div>
+        <div class="dist-row">
+          <div class="dist-header">
+            <span class="bucket">Score 0–39</span>
+            <span class="count" id="d-0">0 records</span>
+          </div>
+          <div class="dist-track"><div class="dist-fill fill-red" id="bar-0"></div></div>
+        </div>
+      </div>
+
+      <div class="score-range">
+        <div>
+          <span class="r-label">Min</span>
+          <span class="r-value" id="q-min">—</span>
+        </div>
+        <div>
+          <span class="r-label">Max</span>
+          <span class="r-value" id="q-max">—</span>
+        </div>
+        <div>
+          <span class="r-label">Cities</span>
+          <span class="r-value" id="q-cities">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search + Mini Preview -->
+    <div class="panel" style="display:flex;flex-direction:column;">
+      <div class="panel-title">Search Records</div>
+      <div class="search-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="search" placeholder="Filter by name, phone, zip…" autocomplete="off" />
+      </div>
+      <div class="result-count" id="result-count"></div>
+      <div class="table-wrap" style="flex:1;overflow-y:auto;max-height:320px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Business Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Zip</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      Part of the <strong>jays.website</strong> Intelligence Suite
+    </div>
+    <div class="footer-links">
+      <a href="/trading/">Trading</a>
+      <a href="/rental/">Rental</a>
+    </div>
+  </footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+  let allRecords = [];
+
+  async function init() {
+    const [stats, records] = await Promise.all([
+      fetch('data/stats.json').then(r => r.json()),
+      fetch('data/records.json').then(r => r.json()),
+    ]);
+
+    allRecords = records;
+    renderStats(stats);
+    renderChart(stats.quality, records.length);
+    renderTable(records);
+
+    document.getElementById('search').addEventListener('input', e => {
+      const q = e.target.value.toLowerCase().trim();
+      const filtered = q
+        ? allRecords.filter(r =>
+            (r.name_cleaned||'').toLowerCase().includes(q) ||
+            (r.phone_cleaned||'').toLowerCase().includes(q) ||
+            (r.zip_cleaned||'').toLowerCase().includes(q) ||
+            (r.street_cleaned||'').toLowerCase().includes(q)
+          )
+        : allRecords;
+      renderTable(filtered);
+    });
+  }
+
+  function renderStats(s) {
+    document.getElementById('last-updated').textContent = s.last_updated || '—';
+    document.getElementById('stat-total').textContent = s.total_records;
+    document.getElementById('stat-source').textContent = s.source;
+    document.getElementById('stat-phone').textContent = s.with_phone;
+    document.getElementById('stat-phone-pct').textContent =
+      Math.round(s.with_phone / s.total_records * 100) + '% coverage';
+    document.getElementById('stat-address').textContent = s.with_address;
+    document.getElementById('stat-address-pct').textContent =
+      Math.round(s.with_address / s.total_records * 100) + '% coverage';
+    document.getElementById('stat-quality').textContent = s.quality.mean;
+    document.getElementById('stat-above70').textContent =
+      s.quality.above_70_pct + '% score above 70';
+  }
+
+  function renderChart(q, total) {
+    document.getElementById('q-mean').innerHTML = q.mean + '<span>/100</span>';
+    document.getElementById('q-above').textContent = q.above_70_pct + '% of records score above 70';
+    document.getElementById('q-min').textContent = q.min;
+    document.getElementById('q-max').textContent = q.max;
+
+    const dist = q.distribution;
+    const buckets = [
+      { key: '90-100', barId: 'bar-90', countId: 'd-90' },
+      { key: '70-89',  barId: 'bar-70', countId: 'd-70' },
+      { key: '40-69',  barId: 'bar-40', countId: 'd-40' },
+      { key: '0-39',   barId: 'bar-0',  countId: 'd-0'  },
+    ];
+
+    const max = Math.max(...Object.values(dist), 1);
+
+    setTimeout(() => {
+      buckets.forEach(b => {
+        const count = dist[b.key] || 0;
+        document.getElementById(b.countId).textContent = count + ' record' + (count !== 1 ? 's' : '');
+        document.getElementById(b.barId).style.width = (count / total * 100) + '%';
+      });
+    }, 300);
+  }
+
+  function renderTable(records) {
+    const tbody = document.getElementById('tbody');
+    const count = document.getElementById('result-count');
+    count.textContent = records.length + ' of ' + allRecords.length + ' records';
+
+    if (records.length === 0) {
+      tbody.innerHTML = '<tr class="no-results"><td colspan="5">No records match your search</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = records.map((r, i) => {
+      const addr = [r.street_cleaned, r.unit_cleaned].filter(Boolean).join(', ') || '—';
+      const scoreClass = r.quality_score >= 90 ? 'score-green' : r.quality_score >= 70 ? 'score-orange' : 'score-red';
+      return `
+        <tr data-idx="${i}" onclick="toggleRow(this, ${i})">
+          <td class="td-name">
+            <span class="expand-arrow">▶</span>${r.name_cleaned || '—'}
+          </td>
+          <td class="td-phone">${r.phone_cleaned || '—'}</td>
+          <td class="td-address">${addr}</td>
+          <td class="td-zip">${r.zip_cleaned || '—'}</td>
+          <td><span class="score-badge ${scoreClass}">${r.quality_score ?? '—'}</span></td>
+        </tr>`;
+    }).join('');
+
+    window._filteredRecords = records;
+  }
+
+  function toggleRow(tr, idx) {
+    const record = (window._filteredRecords || allRecords)[idx];
+    const existing = tr.nextElementSibling;
+
+    if (existing && existing.classList.contains('detail-row')) {
+      existing.remove();
+      tr.classList.remove('expanded');
+      return;
+    }
+
+    // Close any open rows
+    document.querySelectorAll('.detail-row').forEach(r => r.remove());
+    document.querySelectorAll('tr.expanded').forEach(r => r.classList.remove('expanded'));
+
+    tr.classList.add('expanded');
+
+    const detail = document.createElement('tr');
+    detail.className = 'detail-row';
+    detail.innerHTML = `
+      <td colspan="5">
+        <div class="detail-inner">
+          <div class="detail-field">
+            <span class="d-label">Full Address</span>
+            <span class="d-value">${[record.street_cleaned, record.unit_cleaned, record.city_cleaned, record.state_cleaned, record.zip_cleaned].filter(Boolean).join(', ') || '—'}</span>
+          </div>
+          <div class="detail-field">
+            <span class="d-label">City</span>
+            <span class="d-value">${record.city_cleaned || '—'}</span>
+          </div>
+          <div class="detail-field">
+            <span class="d-label">State</span>
+            <span class="d-value">${record.state_cleaned || '—'}</span>
+          </div>
+          <div class="detail-field">
+            <span class="d-label">Website</span>
+            <span class="d-value">${record.website_cleaned ? `<a href="${record.website_cleaned}" target="_blank" style="color:var(--accent2)">${record.website_cleaned}</a>` : '—'}</span>
+          </div>
+          <div class="detail-field">
+            <span class="d-label">Email</span>
+            <span class="d-value">${record.email_cleaned || '—'}</span>
+          </div>
+          <div class="detail-field">
+            <span class="d-label">Source</span>
+            <span class="d-value">${record.source || '—'}</span>
+          </div>
+        </div>
+      </td>`;
+    tr.after(detail);
+  }
+
+  // Cities in header
+  fetch('data/stats.json').then(r => r.json()).then(s => {
+    document.getElementById('q-cities').textContent = (s.cities || []).join(', ') || '—';
+  });
+
+  init().catch(err => console.error('Init error:', err));
+</script>
+</body>
+</html>
