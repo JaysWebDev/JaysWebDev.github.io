@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore — Spatial Curiosity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0c10;
+      --bg2:       #0f1218;
+      --bg3:       #141820;
+      --amber:     #f59e0b;
+      --amber-lt:  #fbbf24;
+      --amber-dim: rgba(245,158,11,0.15);
+      --amber-glow:rgba(245,158,11,0.08);
+      --text:      #e2e8f0;
+      --muted:     #94a3b8;
+      --border:    rgba(245,158,11,0.15);
+      --border-hi: rgba(245,158,11,0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* amber grid overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LOADING ── */
+    #loader {
+      position: fixed; inset: 0;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999;
+      transition: opacity 0.5s ease;
+    }
+    #loader.hidden { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 2px solid rgba(245,158,11,0.2);
+      border-top-color: var(--amber);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--amber-lt), var(--amber));
+      z-index: 100;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 3px;
+      background: rgba(10,12,16,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 90;
+      padding: 0 2rem;
+    }
+    .header-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .wordmark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .wordmark span { color: var(--amber); }
+    nav { display: flex; gap: 0.25rem; }
+    nav a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.15s, background 0.15s;
+    }
+    nav a:hover { color: var(--amber); background: var(--amber-glow); }
+    nav a.active { color: var(--amber); background: var(--amber-dim); }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      position: sticky; top: 59px;
+      background: rgba(10,12,16,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 80;
+      padding: 0.875rem 2rem;
+    }
+    .filter-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+    .filter-select {
+      appearance: none;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.45rem 2rem 0.45rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      min-width: 220px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23f59e0b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--amber);
+      box-shadow: 0 0 0 2px rgba(245,158,11,0.12);
+    }
+    .filter-select:hover { border-color: var(--border-hi); }
+    .filter-select option {
+      background: var(--bg3);
+      color: var(--text);
+    }
+    .filter-select option:disabled { color: var(--muted); }
+
+    .btn-clear {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .btn-clear:hover { color: var(--amber); border-color: var(--amber); }
+
+    .filter-divider {
+      width: 1px; height: 24px;
+      background: var(--border);
+      margin: 0 0.25rem;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      position: relative; z-index: 1;
+      max-width: 1400px; margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 50vh;
+      text-align: center;
+      gap: 1.5rem;
+      animation: fadeIn 0.4s ease;
+    }
+    .empty-icon {
+      font-size: 3rem;
+      opacity: 0.15;
+      filter: grayscale(1);
+    }
+    .empty-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .empty-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0.6;
+      max-width: 360px;
+      line-height: 1.7;
+    }
+    .empty-hints {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      justify-content: center; margin-top: 0.5rem;
+    }
+    .hint-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--amber);
+      background: var(--amber-dim);
+      border: 1px solid var(--border-hi);
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+    }
+
+    /* ── RESULT HEADER ── */
+    .result-header {
+      display: none;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      animation: slideDown 0.3s ease;
+    }
+    .result-header.visible { display: block; }
+    .result-town {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      letter-spacing: 0.06em;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.9rem;
+    }
+    .result-chips {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+    }
+    .chip {
+      display: flex; align-items: center; gap: 0.45rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.35rem 0.75rem;
+    }
+    .chip-label {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .chip-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--amber-lt);
+    }
+
+    /* ── INDUSTRY GRID ── */
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .ind-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      animation: fadeIn 0.35s ease both;
+      cursor: pointer;
+    }
+    .ind-card:hover {
+      border-color: var(--border-hi);
+      box-shadow: 0 0 20px rgba(245,158,11,0.07);
+      transform: translateY(-1px);
+    }
+    .ind-card.expanded { border-color: rgba(245,158,11,0.3); }
+    .ind-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 1rem;
+      user-select: none;
+    }
+    .ind-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+    .ind-right { display: flex; align-items: center; gap: 0.6rem; }
+    .ind-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--amber);
+      background: var(--amber-dim);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      min-width: 2rem;
+      text-align: center;
+    }
+    .ind-chevron {
+      font-size: 0.65rem;
+      color: var(--muted);
+      transition: transform 0.25s ease;
+    }
+    .ind-card.expanded .ind-chevron { transform: rotate(180deg); }
+
+    .ind-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ind-card.expanded .ind-body { max-height: 320px; }
+    .ind-list {
+      overflow-y: auto;
+      max-height: 310px;
+      padding: 0 1rem 0.75rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .ind-list::-webkit-scrollbar { width: 4px; }
+    .ind-list::-webkit-scrollbar-track { background: transparent; }
+    .ind-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .biz-row {
+      display: flex; align-items: baseline; gap: 0.5rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(245,158,11,0.06);
+    }
+    .biz-row:last-child { border-bottom: none; }
+    .biz-name {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.8rem;
+      color: var(--text);
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .biz-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* staggered card animation */
+    .ind-card:nth-child(1)  { animation-delay: 0.03s; }
+    .ind-card:nth-child(2)  { animation-delay: 0.06s; }
+    .ind-card:nth-child(3)  { animation-delay: 0.09s; }
+    .ind-card:nth-child(4)  { animation-delay: 0.12s; }
+    .ind-card:nth-child(5)  { animation-delay: 0.15s; }
+    .ind-card:nth-child(6)  { animation-delay: 0.18s; }
+    .ind-card:nth-child(7)  { animation-delay: 0.21s; }
+    .ind-card:nth-child(8)  { animation-delay: 0.24s; }
+    .ind-card:nth-child(9)  { animation-delay: 0.27s; }
+    .ind-card:nth-child(10) { animation-delay: 0.30s; }
+
+    /* no-match state inside grid */
+    .no-match {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    .footer-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      opacity: 0.5;
+      letter-spacing: 0.05em;
+    }
+    .footer-text a { color: var(--amber); text-decoration: none; opacity: 0.7; }
+    .footer-text a:hover { opacity: 1; }
+
+    @media (max-width: 640px) {
+      .filter-inner { gap: 0.5rem; }
+      .filter-select { min-width: 160px; font-size: 0.7rem; }
+      nav a { display: none; }
+      nav a.active { display: block; }
+      .result-town { font-size: 2rem; }
+      .industry-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader"><div class="spinner"></div></div>
+<div class="top-bar"></div>
+
+<header>
+  <div class="header-inner">
+    <a class="wordmark" href="index.html">SPATIAL <span>CURIOSITY</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="zones.html">Zones</a>
+      <a href="sectors.html">Sectors</a>
+      <a href="spatial.html">Spatial</a>
+      <a href="explore.html" class="active">Explore</a>
+    </nav>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <div class="filter-inner">
+    <span class="filter-label">Town</span>
+    <select id="sel-town" class="filter-select">
+      <option value="">— Select Town —</option>
+    </select>
+    <div class="filter-divider"></div>
+    <span class="filter-label">Industry</span>
+    <select id="sel-industry" class="filter-select" disabled>
+      <option value="">— All Industries —</option>
+    </select>
+    <button id="btn-clear" class="btn-clear">Clear</button>
+  </div>
+</div>
+
+<main>
+  <!-- empty state -->
+  <div class="empty-state" id="empty-state">
+    <div class="empty-icon">🔍</div>
+    <div class="empty-title">Explore Your Market</div>
+    <div class="empty-sub">Select a town to see what businesses are operating there — broken down by industry.</div>
+    <div class="empty-hints">
+      <span class="hint-pill">Landscapers in Norwood?</span>
+      <span class="hint-pill">Plumbers in Foxboro?</span>
+      <span class="hint-pill">Restaurants in Attleboro?</span>
+    </div>
+  </div>
+
+  <!-- result header -->
+  <div class="result-header" id="result-header">
+    <div class="result-town" id="result-town-name"></div>
+    <div class="result-chips" id="result-chips"></div>
+  </div>
+
+  <!-- industry grid -->
+  <div class="industry-grid" id="industry-grid"></div>
+</main>
+
+<footer>
+  <p class="footer-text">
+    Part of the <a href="https://jays.website">jays.website</a> Intelligence Suite —
+    <a href="https://jays.website/trading/">Trading</a> ·
+    <a href="https://jays.website/rental/">Rental</a>
+  </p>
+</footer>
+
+<script>
+  let DATA = null;
+
+  const selTown     = document.getElementById('sel-town');
+  const selIndustry = document.getElementById('sel-industry');
+  const btnClear    = document.getElementById('btn-clear');
+  const emptyState  = document.getElementById('empty-state');
+  const resultHdr   = document.getElementById('result-header');
+  const resultTown  = document.getElementById('result-town-name');
+  const resultChips = document.getElementById('result-chips');
+  const grid        = document.getElementById('industry-grid');
+
+  function formatTownKey(key) {
+    const [city, state] = key.split('|');
+    return state ? `${city}, ${state}` : city;
+  }
+
+  function init(data) {
+    DATA = data;
+
+    // Populate town dropdown
+    data.towns.forEach(key => {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = formatTownKey(key);
+      selTown.appendChild(opt);
+    });
+
+    // Hide loader
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden');
+    setTimeout(() => loader.remove(), 600);
+  }
+
+  function populateIndustryDropdown(townKey) {
+    const townData = DATA.by_town[townKey] || {};
+    const present  = Object.keys(townData).sort();
+
+    selIndustry.innerHTML = '<option value="">— All Industries —</option>';
+    DATA.industries.forEach(ind => {
+      const opt = document.createElement('option');
+      opt.value = ind;
+      opt.textContent = ind;
+      if (!present.includes(ind)) {
+        opt.disabled = true;
+        opt.style.color = '#4a5568';
+      }
+      selIndustry.appendChild(opt);
+    });
+    selIndustry.disabled = false;
+  }
+
+  function renderGrid(townKey, filterIndustry) {
+    const townData = DATA.by_town[townKey] || {};
+
+    // Sort industries by count desc
+    let entries = Object.entries(townData)
+      .map(([ind, bizList]) => ({ ind, bizList }))
+      .sort((a, b) => b.bizList.length - a.bizList.length);
+
+    if (filterIndustry) {
+      entries = entries.filter(e => e.ind === filterIndustry);
+    }
+
+    grid.innerHTML = '';
+
+    if (entries.length === 0) {
+      grid.innerHTML = `<div class="no-match">No businesses found${filterIndustry ? ' for ' + filterIndustry : ''} in this town.</div>`;
+      return;
+    }
+
+    entries.forEach(({ ind, bizList }) => {
+      const card = document.createElement('div');
+      card.className = 'ind-card';
+      card.innerHTML = `
+        <div class="ind-card-header">
+          <span class="ind-name">${ind}</span>
+          <span class="ind-right">
+            <span class="ind-count">${bizList.length}</span>
+            <span class="ind-chevron">▼</span>
+          </span>
+        </div>
+        <div class="ind-body">
+          <div class="ind-list">
+            ${bizList.map(b => `
+              <div class="biz-row">
+                <span class="biz-name">${b.name}</span>
+                <span class="biz-cat">${b.category || ''}</span>
+              </div>`).join('')}
+          </div>
+        </div>`;
+
+      card.querySelector('.ind-card-header').addEventListener('click', () => {
+        card.classList.toggle('expanded');
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function renderResultHeader(townKey) {
+    const townData = DATA.by_town[townKey] || {};
+    const bizCount  = Object.values(townData).reduce((s, arr) => s + arr.length, 0);
+    const indCount  = Object.keys(townData).length;
+    const topInd    = Object.entries(townData).sort((a,b) => b[1].length - a[1].length)[0];
+
+    resultTown.textContent = formatTownKey(townKey).toUpperCase();
+    resultChips.innerHTML = `
+      <div class="chip">
+        <span class="chip-label">Businesses</span>
+        <span class="chip-val">${bizCount}</span>
+      </div>
+      <div class="chip">
+        <span class="chip-label">Industries</span>
+        <span class="chip-val">${indCount}</span>
+      </div>
+      ${topInd ? `<div class="chip">
+        <span class="chip-label">Top Industry</span>
+        <span class="chip-val">${topInd[0]} · ${topInd[1].length}</span>
+      </div>` : ''}`;
+
+    resultHdr.classList.add('visible');
+    emptyState.style.display = 'none';
+  }
+
+  function clearAll() {
+    selTown.value = '';
+    selIndustry.innerHTML = '<option value="">— All Industries —</option>';
+    selIndustry.disabled = true;
+    resultHdr.classList.remove('visible');
+    grid.innerHTML = '';
+    emptyState.style.display = '';
+  }
+
+  selTown.addEventListener('change', () => {
+    const key = selTown.value;
+    if (!key) { clearAll(); return; }
+    populateIndustryDropdown(key);
+    renderResultHeader(key);
+    renderGrid(key, '');
+  });
+
+  selIndustry.addEventListener('change', () => {
+    const key = selTown.value;
+    if (!key) return;
+    renderGrid(key, selIndustry.value);
+  });
+
+  btnClear.addEventListener('click', clearAll);
+
+  // Load data
+  fetch('data/drill_down.json')
+    .then(r => r.json())
+    .then(init)
+    .catch(err => {
+      console.error('Failed to load drill_down.json', err);
+      document.getElementById('loader').classList.add('hidden');
+    });
+</script>
+</body>
+</html>
