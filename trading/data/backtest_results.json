@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-03 17:31:15",
+  "generated": "2026-03-03 20:19:50",
   "config": {
     "stop_pct": 0.03,
     "target_pct": 0.05,
@@ -111,37 +111,150 @@
       "avg_mfe": 4.47,
       "avg_mae": -4.9
     },
-    "100-119": {
-      "n": 255,
-      "target_hit": 124,
-      "stop_hit": 129,
+    "100-109": {
+      "n": 199,
+      "target_hit": 95,
+      "stop_hit": 102,
       "timeout": 1,
-      "win_rate": 49.0,
-      "avg_roi": 0.91,
+      "win_rate": 48.2,
+      "avg_roi": 0.85,
       "avg_win": 5.0,
       "avg_loss": -3.0,
       "profit_factor": 1.67,
-      "ev_per_trade": 0.92,
-      "avg_days_to_target": 1.5,
+      "ev_per_trade": 0.856,
+      "avg_days_to_target": 1.6,
       "avg_days_to_stop": 1.5,
-      "avg_mfe": 5.35,
-      "avg_mae": -5.1
+      "avg_mfe": 5.33,
+      "avg_mae": -5.19
     },
-    "120+": {
-      "n": 16,
-      "target_hit": 9,
-      "stop_hit": 7,
+    "110-119": {
+      "n": 56,
+      "target_hit": 29,
+      "stop_hit": 27,
       "timeout": 0,
-      "win_rate": 56.2,
-      "avg_roi": 1.5,
+      "win_rate": 51.8,
+      "avg_roi": 1.14,
       "avg_win": 5.0,
       "avg_loss": -3.0,
       "profit_factor": 1.67,
-      "ev_per_trade": 1.496,
+      "ev_per_trade": 1.144,
       "avg_days_to_target": 1.2,
       "avg_days_to_stop": 1.4,
-      "avg_mfe": 6.54,
-      "avg_mae": -4.54
+      "avg_mfe": 5.41,
+      "avg_mae": -4.79
+    },
+    "120-129": {
+      "n": 14,
+      "target_hit": 8,
+      "stop_hit": 6,
+      "timeout": 0,
+      "win_rate": 57.1,
+      "avg_roi": 1.57,
+      "avg_win": 5.0,
+      "avg_loss": -3.0,
+      "profit_factor": 1.67,
+      "ev_per_trade": 1.568,
+      "avg_days_to_target": 1.2,
+      "avg_days_to_stop": 1.5,
+      "avg_mfe": 5.41,
+      "avg_mae": -3.78
+    }
+  },
+  "band_signal_freq": {
+    "80-89": {
+      "n": 681,
+      "signal_pct": {
+        "BIG GAP": 52.1,
+        "HOT MOM": 49.3,
+        "STRONG CLOSE": 46.3,
+        "BB SQUEEZE": 28.9,
+        "NEAR 52WH": 25.1,
+        "5x VOL": 34.1,
+        "2x VOL": 20.6,
+        "NR3": 12.6,
+        "KELTNER BO": 59.8,
+        "SHORT TREND": 88.3,
+        "NEW HIGH": 25.4,
+        "GAP UP": 41.7,
+        "MOMENTUM": 7.5,
+        "HIGH CLOSE": 18.5
+      }
+    },
+    "90-99": {
+      "n": 319,
+      "signal_pct": {
+        "BIG GAP": 69.6,
+        "HOT MOM": 79.9,
+        "STRONG CLOSE": 42.0,
+        "BB SQUEEZE": 10.0,
+        "NEAR 52WH": 25.4,
+        "5x VOL": 30.1,
+        "2x VOL": 28.8,
+        "NR3": 11.0,
+        "KELTNER BO": 74.9,
+        "SHORT TREND": 90.9,
+        "NEW HIGH": 36.7,
+        "GAP UP": 30.1,
+        "MOMENTUM": 7.5,
+        "HIGH CLOSE": 20.1
+      }
+    },
+    "100-109": {
+      "n": 199,
+      "signal_pct": {
+        "BIG GAP": 95.0,
+        "HOT MOM": 89.4,
+        "STRONG CLOSE": 31.2,
+        "BB SQUEEZE": 3.5,
+        "NEAR 52WH": 28.1,
+        "5x VOL": 49.2,
+        "2x VOL": 34.2,
+        "NR3": 3.5,
+        "KELTNER BO": 86.9,
+        "SHORT TREND": 92.5,
+        "NEW HIGH": 22.6,
+        "GAP UP": 5.0,
+        "MOMENTUM": 3.0,
+        "HIGH CLOSE": 20.6
+      }
+    },
+    "110-119": {
+      "n": 56,
+      "signal_pct": {
+        "BIG GAP": 94.6,
+        "HOT MOM": 98.2,
+        "STRONG CLOSE": 80.4,
+        "BB SQUEEZE": 1.8,
+        "NEAR 52WH": 14.3,
+        "5x VOL": 51.8,
+        "2x VOL": 33.9,
+        "NR3": 8.9,
+        "KELTNER BO": 98.2,
+        "SHORT TREND": 100.0,
+        "NEW HIGH": 60.7,
+        "GAP UP": 5.4,
+        "MOMENTUM": 0.0,
+        "HIGH CLOSE": 17.9
+      }
+    },
+    "120-129": {
+      "n": 14,
+      "signal_pct": {
+        "BIG GAP": 100.0,
+        "HOT MOM": 100.0,
+        "STRONG CLOSE": 100.0,
+        "BB SQUEEZE": 0.0,
+        "NEAR 52WH": 64.3,
+        "5x VOL": 35.7,
+        "2x VOL": 57.1,
+        "NR3": 0.0,
+        "KELTNER BO": 85.7,
+        "SHORT TREND": 92.9,
+        "NEW HIGH": 0.0,
+        "GAP UP": 0.0,
+        "MOMENTUM": 0.0,
+        "HIGH CLOSE": 0.0
+      }
     }
   },
   "by_price": {
