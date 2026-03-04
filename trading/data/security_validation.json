@@ -1,118 +1,451 @@
 {
-  "timestamp": "2026-02-25 07:00:03",
-  "total_validated": 12,
+  "timestamp": "2026-03-04 07:00:02",
+  "total_validated": 49,
   "summary": {
-    "ACTIVE": 3,
-    "DELISTED": 2,
-    "PENNY_STOCK": 7
+    "SUSPENDED": 3,
+    "DELISTED": 1,
+    "PENNY_STOCK": 45
   },
   "results": [
     {
-      "symbol": "FI",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 69.5,
-      "volume": 11364613.8,
-      "validation_date": "2026-02-25 07:00",
-      "data_source": "Database"
+      "symbol": "MODV",
+      "status": "SUSPENDED",
+      "reason": "10 days with zero volume",
+      "last_price": 0.014999999664723873,
+      "volume": 0.0,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Volume Analysis"
     },
     {
-      "symbol": "K",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 83.44000244140625,
-      "volume": 6628325.2,
-      "validation_date": "2026-02-25 07:00",
-      "data_source": "Database"
+      "symbol": "MOFG",
+      "status": "SUSPENDED",
+      "reason": "7 days with zero volume",
+      "last_price": 49.310001373291016,
+      "volume": 105837.6,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Volume Analysis"
     },
     {
-      "symbol": "CMA",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 88.66999816894531,
-      "volume": 6862317.5,
-      "validation_date": "2026-02-25 07:00",
-      "data_source": "Database"
-    },
-    {
-      "symbol": "IPG",
-      "status": "DELISTED",
-      "reason": "No price data in database (Yahoo Finance returns no data)",
-      "last_price": null,
-      "volume": 0,
-      "validation_date": "2026-02-25 07:00",
-      "data_source": "Data Absence"
+      "symbol": "SFYX",
+      "status": "SUSPENDED",
+      "reason": "8 days with zero volume",
+      "last_price": 17.170000076293945,
+      "volume": 6621.6,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Volume Analysis"
     },
     {
       "symbol": "CRCW",
       "status": "DELISTED",
-      "reason": "Price below $0.01 ($0.0012)",
-      "last_price": 0.0012000000569969416,
-      "volume": 6732826.9,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price below $0.01 ($0.0013)",
+      "last_price": 0.0013000000035390258,
+      "volume": 6350229.3,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     },
     {
-      "symbol": "SURG",
+      "symbol": "TMRC",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.81 below $1.00 threshold",
-      "last_price": 0.8100000023841858,
-      "volume": 194582.3,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price $0.90 below $1.00 threshold",
+      "last_price": 0.8999999761581421,
+      "volume": 142834.6,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "DXLG",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.50 below $1.00 threshold",
+      "last_price": 0.5042999982833862,
+      "volume": 139164.6,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "SKYE",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.73 below $1.00 threshold",
+      "last_price": 0.7311000227928162,
+      "volume": 163333.1,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     },
     {
       "symbol": "COOK",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.84 below $1.00 threshold",
-      "last_price": 0.8411999940872192,
-      "volume": 311306.6,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price $0.85 below $1.00 threshold",
+      "last_price": 0.8492000102996826,
+      "volume": 161915.4,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     },
     {
-      "symbol": "LAZR",
+      "symbol": "GMGI",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.06 below $1.00 threshold",
-      "last_price": 0.06151000037789345,
-      "volume": 362368.3,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price $0.64 below $1.00 threshold",
+      "last_price": 0.6402999758720398,
+      "volume": 157294.7,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     },
     {
-      "symbol": "GAME",
+      "symbol": "SMXT",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.30 below $1.00 threshold",
-      "last_price": 0.29750001430511475,
-      "volume": 687935.8,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price $0.69 below $1.00 threshold",
+      "last_price": 0.6850000023841858,
+      "volume": 177348.9,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "SURG",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.83 below $1.00 threshold",
+      "last_price": 0.8277999758720398,
+      "volume": 197426.4,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "RENB",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.38 below $1.00 threshold",
+      "last_price": 0.38199999928474426,
+      "volume": 232250.0,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "MYPS",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.50 below $1.00 threshold",
+      "last_price": 0.49880000948905945,
+      "volume": 257521.6,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "PRPL",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.68 below $1.00 threshold",
+      "last_price": 0.6780999898910522,
+      "volume": 251898.2,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "HBIO",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.59 below $1.00 threshold",
+      "last_price": 0.5910000205039978,
+      "volume": 261817.9,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "ZSPC",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.25 below $1.00 threshold",
+      "last_price": 0.24770000576972961,
+      "volume": 309516.5,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "NRDY",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.94 below $1.00 threshold",
+      "last_price": 0.9399999976158142,
+      "volume": 409270.4,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "DCGO",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.70 below $1.00 threshold",
+      "last_price": 0.6996999979019165,
+      "volume": 531836.4,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "ADV",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.52 below $1.00 threshold",
+      "last_price": 0.5214999914169312,
+      "volume": 622248.5,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "HOWL",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.58 below $1.00 threshold",
+      "last_price": 0.5830000042915344,
+      "volume": 574470.4,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "CDLX",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.83 below $1.00 threshold",
+      "last_price": 0.8299999833106995,
+      "volume": 642056.3,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "FSP",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.77 below $1.00 threshold",
+      "last_price": 0.766700029373169,
+      "volume": 720476.8,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "BARK",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.81 below $1.00 threshold",
+      "last_price": 0.8112000226974487,
+      "volume": 809926.0,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     },
     {
       "symbol": "GNS",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.39 below $1.00 threshold",
-      "last_price": 0.3853999972343445,
-      "volume": 948730.4,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price $0.44 below $1.00 threshold",
+      "last_price": 0.4350999891757965,
+      "volume": 827210.7,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "OTLK",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.43 below $1.00 threshold",
+      "last_price": 0.428600013256073,
+      "volume": 855229.9,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "FBLG",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.42 below $1.00 threshold",
+      "last_price": 0.41510000824928284,
+      "volume": 903583.4,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "ARAY",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.56 below $1.00 threshold",
+      "last_price": 0.5616000294685364,
+      "volume": 977560.1,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "BRCC",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.63 below $1.00 threshold",
+      "last_price": 0.6316999793052673,
+      "volume": 962049.1,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "CHGG",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.65 below $1.00 threshold",
+      "last_price": 0.6502000093460083,
+      "volume": 1106030.1,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "MAPS",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.68 below $1.00 threshold",
+      "last_price": 0.6818000078201294,
+      "volume": 1127525.7,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "MXCT",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.79 below $1.00 threshold",
+      "last_price": 0.788100004196167,
+      "volume": 1218932.8,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "SLQT",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.78 below $1.00 threshold",
+      "last_price": 0.784600019454956,
+      "volume": 1204676.3,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "BLNK",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.67 below $1.00 threshold",
+      "last_price": 0.6697999835014343,
+      "volume": 1320804.2,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "GAME",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.31 below $1.00 threshold",
+      "last_price": 0.3068999946117401,
+      "volume": 1283305.0,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "HAIN",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.78 below $1.00 threshold",
+      "last_price": 0.7767000198364258,
+      "volume": 1430744.6,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "OPAD",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.74 below $1.00 threshold",
+      "last_price": 0.7419999837875366,
+      "volume": 1453521.2,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "REKR",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.85 below $1.00 threshold",
+      "last_price": 0.8500999808311462,
+      "volume": 2104344.3,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     },
     {
       "symbol": "INVZ",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.92 below $1.00 threshold",
-      "last_price": 0.917900025844574,
-      "volume": 1443517.9,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price $0.91 below $1.00 threshold",
+      "last_price": 0.9050999879837036,
+      "volume": 2108559.2,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "QSI",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.94 below $1.00 threshold",
+      "last_price": 0.9445000290870667,
+      "volume": 2542695.7,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "GPRO",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.89 below $1.00 threshold",
+      "last_price": 0.8927000164985657,
+      "volume": 2921358.0,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "GUTS",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.50 below $1.00 threshold",
+      "last_price": 0.49950000643730164,
+      "volume": 3023407.9,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "TNYA",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.56 below $1.00 threshold",
+      "last_price": 0.5611000061035156,
+      "volume": 3194561.0,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "UP",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.56 below $1.00 threshold",
+      "last_price": 0.5583999752998352,
+      "volume": 3270413.6,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "MVIS",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.80 below $1.00 threshold",
+      "last_price": 0.7978000044822693,
+      "volume": 3928689.8,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "AGL",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.56 below $1.00 threshold",
+      "last_price": 0.560699999332428,
+      "volume": 5922897.0,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "GETY",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.78 below $1.00 threshold",
+      "last_price": 0.7791000008583069,
+      "volume": 8351444.5,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     },
     {
       "symbol": "AREB",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.16 below $1.00 threshold",
-      "last_price": 0.16220000386238098,
-      "volume": 7204989.3,
-      "validation_date": "2026-02-25 07:00",
+      "reason": "Price $0.14 below $1.00 threshold",
+      "last_price": 0.14499999582767487,
+      "volume": 9903333.8,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "BYND",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.86 below $1.00 threshold",
+      "last_price": 0.8597000241279602,
+      "volume": 40534367.1,
+      "validation_date": "2026-03-04 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "ALIT",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.87 below $1.00 threshold",
+      "last_price": 0.8708000183105469,
+      "volume": 42386334.2,
+      "validation_date": "2026-03-04 07:00",
       "data_source": "Price Analysis"
     }
   ]

@@ -1,34 +1,83 @@
 {
-  "timestamp": "2026-03-03 07:00:02",
+  "timestamp": "2026-03-04 07:00:03",
   "analysis_summary": {
     "total_securities": 847,
-    "stale_securities": 0,
-    "validated_securities": 12
+    "stale_securities": 49,
+    "validated_securities": 49
   },
   "cleanup_actions": [
     {
       "priority": "HIGH",
       "action": "REMOVE_DELISTED",
-      "description": "Remove 2 confirmed delisted securities",
+      "description": "Remove 1 confirmed delisted securities",
       "affected_symbols": [
-        "IPG",
         "CRCW"
       ],
       "estimated_cleanup_time": "15 minutes",
-      "data_savings": "~400 records"
+      "data_savings": "~200 records"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "REVIEW_SUSPENDED",
+      "description": "Review 3 suspended securities",
+      "affected_symbols": [
+        "MODV",
+        "MOFG",
+        "SFYX"
+      ],
+      "estimated_cleanup_time": "30 minutes",
+      "recommendation": "Monitor for 30 days, then remove if still suspended"
     },
     {
       "priority": "MEDIUM",
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 7 securities under $1.00",
+      "description": "Review 45 securities under $1.00",
       "affected_symbols": [
-        "SURG",
+        "TMRC",
+        "DXLG",
+        "SKYE",
         "COOK",
-        "LAZR",
-        "GAME",
+        "GMGI",
+        "SMXT",
+        "SURG",
+        "RENB",
+        "MYPS",
+        "PRPL",
+        "HBIO",
+        "ZSPC",
+        "NRDY",
+        "DCGO",
+        "ADV",
+        "HOWL",
+        "CDLX",
+        "FSP",
+        "BARK",
         "GNS",
+        "OTLK",
+        "FBLG",
+        "ARAY",
+        "BRCC",
+        "CHGG",
+        "MAPS",
+        "MXCT",
+        "SLQT",
+        "BLNK",
+        "GAME",
+        "HAIN",
+        "OPAD",
+        "REKR",
         "INVZ",
-        "AREB"
+        "QSI",
+        "GPRO",
+        "GUTS",
+        "TNYA",
+        "UP",
+        "MVIS",
+        "AGL",
+        "GETY",
+        "AREB",
+        "BYND",
+        "ALIT"
       ],
       "estimated_cleanup_time": "45 minutes",
       "recommendation": "Consider removing from watchlist if consistently under $1.00"
@@ -75,9 +124,9 @@
     }
   ],
   "risk_assessment": {
-    "overall_risk": "LOW",
-    "stale_percentage": 0.0,
-    "data_quality_score": 100,
+    "overall_risk": "MEDIUM",
+    "stale_percentage": 5.79,
+    "data_quality_score": 2,
     "recommendations_urgency": "IMMEDIATE"
   }
 }
