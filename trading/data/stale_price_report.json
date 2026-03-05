@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-04 07:00:02",
+  "timestamp": "2026-03-05 07:00:03",
   "summary": {
-    "total_flagged": 49,
+    "total_flagged": 47,
     "high_risk": 4,
-    "medium_risk": 45,
+    "medium_risk": 43,
     "low_risk": 0,
-    "penny_stocks": 47,
+    "penny_stocks": 45,
     "stale_prices": 4,
     "no_data": 0,
-    "tracking_pending": 3,
+    "tracking_pending": 4,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
@@ -28,73 +28,91 @@
       "is_penny_stock": true,
       "is_stale_price": true,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-03",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "MOFG",
       "price": 49.310001373291016,
-      "consecutive_days": 6,
+      "consecutive_days": 5,
       "avg_volume": 0.0,
-      "zero_volume_days": 6,
+      "zero_volume_days": 5,
       "risk_level": "HIGH",
       "reasons": [
-        "6 consecutive days same price",
-        "6 zero-volume days"
+        "5 consecutive days same price",
+        "5 zero-volume days"
       ],
       "is_penny_stock": false,
       "is_stale_price": true,
       "is_no_data": false,
       "last_date": "2026-02-25",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "SFYX",
       "price": 17.170000076293945,
-      "consecutive_days": 9,
-      "avg_volume": 2405.1111111111113,
+      "consecutive_days": 8,
+      "avg_volume": 0.0,
       "zero_volume_days": 8,
       "risk_level": "HIGH",
       "reasons": [
-        "9 consecutive days same price",
+        "8 consecutive days same price",
         "8 zero-volume days"
       ],
       "is_penny_stock": false,
       "is_stale_price": true,
       "is_no_data": false,
       "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "CRCW",
-      "price": 0.0013000000035390258,
-      "consecutive_days": 8,
-      "avg_volume": 5937777.0,
+      "price": 0.00139999995008111,
+      "consecutive_days": 9,
+      "avg_volume": 6544967.7,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Extreme penny stock ($0.0013)",
-        "8 consecutive days same price"
+        "Extreme penny stock ($0.0014)",
+        "9 consecutive days same price"
       ],
       "is_penny_stock": true,
       "is_stale_price": true,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "DXLG",
+      "price": 0.5331000089645386,
+      "consecutive_days": 0,
+      "avg_volume": 134566.0,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.53 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "TMRC",
       "price": 0.8999999761581421,
       "consecutive_days": 0,
-      "avg_volume": 142834.6,
+      "avg_volume": 145860.66666666666,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -104,33 +122,15 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "DXLG",
-      "price": 0.5042999982833862,
-      "consecutive_days": 0,
-      "avg_volume": 143305.11111111112,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.50 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "SKYE",
       "price": 0.7311000227928162,
       "consecutive_days": 0,
-      "avg_volume": 163333.1,
+      "avg_volume": 159325.66666666666,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -140,51 +140,33 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
-      "symbol": "COOK",
-      "price": 0.8492000102996826,
+      "symbol": "SURG",
+      "price": 0.8277999758720398,
       "consecutive_days": 0,
-      "avg_volume": 163539.33333333334,
+      "avg_volume": 179607.11111111112,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.85 < $1.00)"
+        "Penny stock ($0.83 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "GMGI",
-      "price": 0.6402999758720398,
-      "consecutive_days": 0,
-      "avg_volume": 165383.0,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.64 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-03",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "SMXT",
       "price": 0.6850000023841858,
       "consecutive_days": 0,
-      "avg_volume": 177348.9,
+      "avg_volume": 183576.55555555556,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -194,69 +176,87 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
-      "symbol": "SURG",
-      "price": 0.8277999758720398,
+      "symbol": "COOK",
+      "price": 0.8364999890327454,
       "consecutive_days": 0,
-      "avg_volume": 197426.4,
+      "avg_volume": 187115.0,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.83 < $1.00)"
+        "Penny stock ($0.84 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "RENB",
+      "price": 0.39500001072883606,
+      "consecutive_days": 0,
+      "avg_volume": 211544.44444444444,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.40 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
-      "symbol": "RENB",
-      "price": 0.38199999928474426,
+      "symbol": "HBIO",
+      "price": 0.5802000164985657,
       "consecutive_days": 0,
-      "avg_volume": 206711.11111111112,
+      "avg_volume": 228968.6,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.38 < $1.00)"
+        "Penny stock ($0.58 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "MYPS",
-      "price": 0.49880000948905945,
+      "price": 0.5182999968528748,
       "consecutive_days": 0,
-      "avg_volume": 231035.11111111112,
+      "avg_volume": 245947.7,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.50 < $1.00)"
+        "Penny stock ($0.52 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "PRPL",
       "price": 0.6780999898910522,
       "consecutive_days": 0,
-      "avg_volume": 251898.2,
+      "avg_volume": 267875.77777777775,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -266,33 +266,15 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "HBIO",
-      "price": 0.5910000205039978,
-      "consecutive_days": 0,
-      "avg_volume": 255364.33333333334,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.59 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "ZSPC",
       "price": 0.24770000576972961,
       "consecutive_days": 0,
-      "avg_volume": 309516.5,
+      "avg_volume": 310507.22222222225,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -302,141 +284,105 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "NRDY",
-      "price": 0.9399999976158142,
-      "consecutive_days": 0,
-      "avg_volume": 432763.0,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.94 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "DCGO",
-      "price": 0.6996999979019165,
+      "price": 0.7289000153541565,
       "consecutive_days": 0,
-      "avg_volume": 536496.0,
+      "avg_volume": 573138.3,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.70 < $1.00)"
+        "Penny stock ($0.73 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "ADV",
-      "price": 0.5214999914169312,
-      "consecutive_days": 0,
-      "avg_volume": 602731.6666666666,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.52 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "HOWL",
-      "price": 0.5830000042915344,
+      "price": 0.612500011920929,
       "consecutive_days": 0,
-      "avg_volume": 611900.4444444445,
+      "avg_volume": 573803.4,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.58 < $1.00)"
+        "Penny stock ($0.61 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "CDLX",
-      "price": 0.8299999833106995,
-      "consecutive_days": 0,
-      "avg_volume": 639973.6666666666,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.83 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "FSP",
-      "price": 0.766700029373169,
+      "price": 0.7245000004768372,
       "consecutive_days": 0,
-      "avg_volume": 725596.4444444445,
+      "avg_volume": 684685.5,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.77 < $1.00)"
+        "Penny stock ($0.72 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "CDLX",
+      "price": 0.8574000000953674,
+      "consecutive_days": 0,
+      "avg_volume": 707515.9,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.86 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "BARK",
-      "price": 0.8112000226974487,
+      "price": 0.8194000124931335,
       "consecutive_days": 0,
-      "avg_volume": 816240.0,
+      "avg_volume": 743822.9,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.81 < $1.00)"
+        "Penny stock ($0.82 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "GNS",
-      "price": 0.4350999891757965,
+      "price": 0.44020000100135803,
       "consecutive_days": 0,
-      "avg_volume": 827156.3333333334,
+      "avg_volume": 751789.7,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -445,16 +391,16 @@
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "OTLK",
       "price": 0.428600013256073,
       "consecutive_days": 0,
-      "avg_volume": 855229.9,
+      "avg_volume": 809755.4444444445,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -464,69 +410,15 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "FBLG",
-      "price": 0.41510000824928284,
-      "consecutive_days": 0,
-      "avg_volume": 950181.5555555555,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.42 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "ARAY",
-      "price": 0.5616000294685364,
-      "consecutive_days": 0,
-      "avg_volume": 963577.8888888889,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.56 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "BRCC",
-      "price": 0.6316999793052673,
-      "consecutive_days": 0,
-      "avg_volume": 969499.0,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.63 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "CHGG",
       "price": 0.6502000093460083,
       "consecutive_days": 0,
-      "avg_volume": 1098577.888888889,
+      "avg_volume": 880273.1,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -535,16 +427,88 @@
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "ADV",
+      "price": 0.5491999983787537,
+      "consecutive_days": 0,
+      "avg_volume": 883415.3333333334,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.55 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-03",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "NRDY",
+      "price": 0.9186999797821045,
+      "consecutive_days": 0,
+      "avg_volume": 998878.2,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.92 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "MAPS",
-      "price": 0.6818000078201294,
+      "price": 0.7483000159263611,
       "consecutive_days": 0,
-      "avg_volume": 1133284.111111111,
+      "avg_volume": 1073352.0,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.75 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "ARAY",
+      "price": 0.5263000130653381,
+      "consecutive_days": 0,
+      "avg_volume": 1125288.4444444445,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.53 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-03",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "BLNK",
+      "price": 0.6801000237464905,
+      "consecutive_days": 0,
+      "avg_volume": 1172883.9,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -553,34 +517,34 @@
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "MXCT",
-      "price": 0.788100004196167,
+      "price": 0.7674000263214111,
       "consecutive_days": 0,
-      "avg_volume": 1199092.0,
+      "avg_volume": 1192643.7,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.79 < $1.00)"
+        "Penny stock ($0.77 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "SLQT",
       "price": 0.784600019454956,
       "consecutive_days": 0,
-      "avg_volume": 1204676.3,
+      "avg_volume": 1212162.5555555555,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -590,33 +554,33 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
-      "symbol": "BLNK",
-      "price": 0.6697999835014343,
+      "symbol": "BRCC",
+      "price": 0.7542999982833862,
       "consecutive_days": 0,
-      "avg_volume": 1245582.4444444445,
+      "avg_volume": 1244187.6,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.67 < $1.00)"
+        "Penny stock ($0.75 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "GAME",
-      "price": 0.3068999946117401,
+      "price": 0.3077000081539154,
       "consecutive_days": 0,
-      "avg_volume": 1315127.7777777778,
+      "avg_volume": 1386106.1,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -625,34 +589,52 @@
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
-      "symbol": "HAIN",
-      "price": 0.7767000198364258,
+      "symbol": "FBLG",
+      "price": 0.36390000581741333,
       "consecutive_days": 0,
-      "avg_volume": 1433871.7777777778,
+      "avg_volume": 1391977.0,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.78 < $1.00)"
+        "Penny stock ($0.36 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "HAIN",
+      "price": 0.7042999863624573,
+      "consecutive_days": 0,
+      "avg_volume": 1399061.0,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.70 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "OPAD",
       "price": 0.7419999837875366,
       "consecutive_days": 0,
-      "avg_volume": 1453521.2,
+      "avg_volume": 1532801.3333333333,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -662,15 +644,15 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "REKR",
       "price": 0.8500999808311462,
       "consecutive_days": 0,
-      "avg_volume": 2104344.3,
+      "avg_volume": 1935427.0,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -680,33 +662,33 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "INVZ",
-      "price": 0.9050999879837036,
+      "price": 0.8701000213623047,
       "consecutive_days": 0,
-      "avg_volume": 2158654.6666666665,
+      "avg_volume": 2057991.1,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.91 < $1.00)"
+        "Penny stock ($0.87 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "QSI",
       "price": 0.9445000290870667,
       "consecutive_days": 0,
-      "avg_volume": 2542695.7,
+      "avg_volume": 2279284.111111111,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -716,33 +698,15 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "GPRO",
-      "price": 0.8927000164985657,
-      "consecutive_days": 0,
-      "avg_volume": 2881175.5555555555,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.89 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "GUTS",
-      "price": 0.49950000643730164,
+      "price": 0.5,
       "consecutive_days": 0,
-      "avg_volume": 2970408.777777778,
+      "avg_volume": 2892650.7,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -751,16 +715,16 @@
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "TNYA",
       "price": 0.5611000061035156,
       "consecutive_days": 0,
-      "avg_volume": 3194561.0,
+      "avg_volume": 3250112.222222222,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -770,15 +734,15 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "UP",
       "price": 0.5583999752998352,
       "consecutive_days": 0,
-      "avg_volume": 3270413.6,
+      "avg_volume": 3314081.777777778,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -788,51 +752,15 @@
       "is_stale_price": false,
       "is_no_data": false,
       "last_date": "2026-03-03",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "MVIS",
-      "price": 0.7978000044822693,
+      "price": 0.7797999978065491,
       "consecutive_days": 0,
-      "avg_volume": 4020544.222222222,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.80 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "AGL",
-      "price": 0.560699999332428,
-      "consecutive_days": 0,
-      "avg_volume": 5524485.555555556,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.56 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-02-26"
-    },
-    {
-      "symbol": "GETY",
-      "price": 0.7791000008583069,
-      "consecutive_days": 0,
-      "avg_volume": 9001593.888888888,
+      "avg_volume": 3954520.0,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -841,16 +769,52 @@
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "AGL",
+      "price": 0.6172000169754028,
+      "consecutive_days": 0,
+      "avg_volume": 5257915.9,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.62 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-02-26"
+    },
+    {
+      "symbol": "GETY",
+      "price": 0.8784000277519226,
+      "consecutive_days": 0,
+      "avg_volume": 8496318.9,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.88 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "AREB",
-      "price": 0.14499999582767487,
+      "price": 0.14000000059604645,
       "consecutive_days": 0,
-      "avg_volume": 9376637.555555556,
+      "avg_volume": 8839683.0,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
@@ -859,45 +823,45 @@
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "BYND",
-      "price": 0.8597000241279602,
+      "price": 0.8066999912261963,
       "consecutive_days": 0,
-      "avg_volume": 43281063.44444445,
+      "avg_volume": 43139043.1,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.86 < $1.00)"
+        "Penny stock ($0.81 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     },
     {
       "symbol": "ALIT",
-      "price": 0.8708000183105469,
+      "price": 0.8999999761581421,
       "consecutive_days": 0,
-      "avg_volume": 45966660.222222224,
+      "avg_volume": 48646604.9,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.87 < $1.00)"
+        "Penny stock ($0.90 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-03-02",
-      "analysis_date": "2026-03-04 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-03-04",
+      "analysis_date": "2026-03-05 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-02-26"
     }
   ],
@@ -915,18 +879,18 @@
     },
     {
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 47 securities under $1.00",
+      "description": "Review 45 securities under $1.00",
       "symbols": [
         "MODV",
         "CRCW",
-        "TMRC",
         "DXLG",
+        "TMRC",
         "SKYE",
-        "COOK",
-        "GMGI",
-        "SMXT",
         "SURG",
-        "RENB"
+        "SMXT",
+        "COOK",
+        "RENB",
+        "HBIO"
       ],
       "priority": "MEDIUM"
     },
