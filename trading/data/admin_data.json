@@ -1,29 +1,29 @@
 {
-  "generated": "2026-03-04 16:25:01",
+  "generated": "2026-03-05 16:25:01",
   "db": {
-    "size_mb": 410.5,
+    "size_mb": 413.1,
     "path": "/media/j/Extreme SSD/Trading_Plans/Database/trading_central.db",
     "symbols": 2646,
-    "last_price_date": "2026-03-04",
-    "last_scan_date": "2026-03-04",
+    "last_price_date": "2026-03-05",
+    "last_scan_date": "2026-03-05",
     "scanner_types_today": {
-      "database_enhanced": 52,
-      "etf": 12,
+      "database_enhanced": 47,
+      "etf": 27,
       "institutional": 40,
-      "setup_accum": 26,
-      "setup_vcb": 154,
-      "under50": 37,
+      "setup_accum": 4,
+      "setup_vcb": 51,
+      "under50": 18,
       "unified": 20,
       "v3_compression": 50
     },
     "table_counts": {
-      "daily_prices": 1038415,
-      "scanner_results": 10297,
-      "multi_day_scores": 2349,
-      "multi_day_test_scores": 450,
-      "relative_strength": 13459,
-      "risk_profiles": 20842,
-      "fundamentals": 14031
+      "daily_prices": 1040613,
+      "scanner_results": 10554,
+      "multi_day_scores": 2396,
+      "multi_day_test_scores": 500,
+      "relative_strength": 14476,
+      "risk_profiles": 22992,
+      "fundamentals": 15139
     }
   },
   "cron_jobs": [
@@ -32,8 +32,8 @@
       "schedule": "7:00 AM Mon-Fri",
       "log_file": "stale_price_check.log",
       "days": "weekday",
-      "last_run": "2026-03-04 07:00",
-      "last_run_ts": 1772625603.008846
+      "last_run": "2026-03-05 07:00",
+      "last_run_ts": 1772712003.6239188
     },
     {
       "name": "LT Portfolio Review",
@@ -48,152 +48,152 @@
       "schedule": "9:30 AM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:19",
-      "last_run_ts": 1772659148.6720037
+      "last_run": "2026-03-05 16:18",
+      "last_run_ts": 1772745521.216355
     },
     {
       "name": "Report Sync (9:35)",
       "schedule": "9:35 AM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:05",
-      "last_run_ts": 1772658303.7320457
+      "last_run": "2026-03-05 16:05",
+      "last_run_ts": 1772744702.8787346
     },
     {
       "name": "Mid-Morning Scan",
       "schedule": "11:00 AM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:19",
-      "last_run_ts": 1772659148.6720037
+      "last_run": "2026-03-05 16:18",
+      "last_run_ts": 1772745521.216355
     },
     {
       "name": "Report Sync (11:05)",
       "schedule": "11:05 AM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:05",
-      "last_run_ts": 1772658303.7320457
+      "last_run": "2026-03-05 16:05",
+      "last_run_ts": 1772744702.8787346
     },
     {
       "name": "Lunch Scan",
       "schedule": "1:30 PM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:19",
-      "last_run_ts": 1772659148.6720037
+      "last_run": "2026-03-05 16:18",
+      "last_run_ts": 1772745521.216355
     },
     {
       "name": "Report Sync (1:35)",
       "schedule": "1:35 PM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:05",
-      "last_run_ts": 1772658303.7320457
+      "last_run": "2026-03-05 16:05",
+      "last_run_ts": 1772744702.8787346
     },
     {
       "name": "Market Close Scan",
       "schedule": "4:00 PM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:19",
-      "last_run_ts": 1772659148.6720037
+      "last_run": "2026-03-05 16:18",
+      "last_run_ts": 1772745521.216355
     },
     {
       "name": "Report Sync (4:05)",
       "schedule": "4:05 PM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:05",
-      "last_run_ts": 1772658303.7320457
+      "last_run": "2026-03-05 16:05",
+      "last_run_ts": 1772744702.8787346
     },
     {
       "name": "Trend Ranker",
       "schedule": "4:10 PM Mon-Fri",
       "log_file": "trend_ranker.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:10",
-      "last_run_ts": 1772658601.8581183
+      "last_run": "2026-03-05 16:10",
+      "last_run_ts": 1772745001.9656904
     },
     {
       "name": "Test Unified Scorer",
       "schedule": "4:15 PM Mon-Fri",
       "log_file": "unified_test.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:15",
-      "last_run_ts": 1772658901.9952905
+      "last_run": "2026-03-05 16:15",
+      "last_run_ts": 1772745302.1070423
     },
     {
       "name": "Cross-Scanner Report",
       "schedule": "4:20 PM Mon-Fri",
       "log_file": "cross_scanner.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:20",
-      "last_run_ts": 1772659201.9050572
+      "last_run": "2026-03-05 16:20",
+      "last_run_ts": 1772745601.426461
     },
     {
       "name": "Admin Data Generator",
       "schedule": "4:25 PM Mon-Fri",
       "log_file": "admin_data.log",
       "days": "weekday",
-      "last_run": "2026-03-03 16:25",
-      "last_run_ts": 1772573103.0530558
+      "last_run": "2026-03-04 16:25",
+      "last_run_ts": 1772659502.24685
     },
     {
       "name": "Portfolio Constructor",
       "schedule": "4:30 PM Mon-Fri",
       "log_file": "portfolio_constructor.log",
       "days": "weekday",
-      "last_run": "2026-03-03 16:30",
-      "last_run_ts": 1772573401.9798346
+      "last_run": "2026-03-04 16:30",
+      "last_run_ts": 1772659802.3210175
     },
     {
       "name": "Telegram Alerts",
       "schedule": "4:35 PM Mon-Fri",
       "log_file": "telegram_alerts.log",
       "days": "weekday",
-      "last_run": "2026-03-03 16:35",
-      "last_run_ts": 1772573702.0721924
+      "last_run": "2026-03-04 16:35",
+      "last_run_ts": 1772660102.0527527
     },
     {
       "name": "Security Data (Active)",
       "schedule": "5:00 PM Mon-Fri",
       "log_file": "security_data.log",
       "days": "weekday",
-      "last_run": "2026-03-03 18:05",
-      "last_run_ts": 1772579107.8187127
+      "last_run": "2026-03-04 18:04",
+      "last_run_ts": 1772665498.0290728
     },
     {
       "name": "Security Data (Full)",
       "schedule": "2:00 AM Sunday",
       "log_file": "security_data.log",
       "days": "sunday",
-      "last_run": "2026-03-03 18:05",
-      "last_run_ts": 1772579107.8187127
+      "last_run": "2026-03-04 18:04",
+      "last_run_ts": 1772665498.0290728
     },
     {
       "name": "Performance Tracker",
       "schedule": "7:00 PM Mon-Fri",
       "log_file": "performance_tracking.log",
       "days": "weekday",
-      "last_run": "2026-03-03 19:00",
-      "last_run_ts": 1772582403.3789241
+      "last_run": "2026-03-04 19:00",
+      "last_run_ts": 1772668803.6706743
     },
     {
       "name": "Evening Analysis",
       "schedule": "8:00 PM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:19",
-      "last_run_ts": 1772659148.6720037
+      "last_run": "2026-03-05 16:18",
+      "last_run_ts": 1772745521.216355
     },
     {
       "name": "Report Sync (8:05)",
       "schedule": "8:05 PM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-03-04 16:05",
-      "last_run_ts": 1772658303.7320457
+      "last_run": "2026-03-05 16:05",
+      "last_run_ts": 1772744702.8787346
     },
     {
       "name": "DB Backup",
@@ -264,136 +264,136 @@
     "intraday_automation": {
       "description": "Market scans & orchestrator",
       "lines": [
-        "2026-03-04 16:19:07,741 - INFO -   PM: HOLD    SRE @ $   93.47 \u2192 $   94.88  P&L: +1.5%  7d  In trend",
-        "2026-03-04 16:19:07,741 - INFO -   PM: ... and 20 more",
-        "2026-03-04 16:19:07,741 - INFO -   PM: ... and 20 more",
-        "2026-03-04 16:19:07,741 - INFO - Running Paper Portfolio tracker...",
-        "2026-03-04 16:19:07,741 - INFO - Running Paper Portfolio tracker...",
-        "2026-03-04 16:19:07,818 - INFO - Paper portfolio completed successfully",
-        "2026-03-04 16:19:07,818 - INFO - Paper portfolio completed successfully",
-        "2026-03-04 16:19:07,818 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
-        "2026-03-04 16:19:07,818 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
-        "2026-03-04 16:19:08,517 - INFO - \u2705 Telegram reports sent successfully",
-        "2026-03-04 16:19:08,517 - INFO - \u2705 Telegram reports sent successfully",
-        "2026-03-04 16:19:08,517 - INFO - \ud83d\udd12 Updating private dashboard...",
-        "2026-03-04 16:19:08,517 - INFO - \ud83d\udd12 Updating private dashboard...",
-        "2026-03-04 16:19:08,672 - INFO - \u2705 Private dashboard updated successfully",
-        "2026-03-04 16:19:08,672 - INFO - \u2705 Private dashboard updated successfully",
-        "2026-03-04 16:19:08,672 - INFO - \ud83d\udd12 Dashboard available at: http://localhost:8080",
-        "2026-03-04 16:19:08,672 - INFO - \ud83d\udd12 Dashboard available at: http://localhost:8080",
-        "2026-03-04 16:19:08,672 - INFO - \ud83c\udf10 PRIVATE ACCESS ONLY - No public exposure",
-        "2026-03-04 16:19:08,672 - INFO - \ud83c\udf10 PRIVATE ACCESS ONLY - No public exposure",
-        "2026-03-04 16:19:08,672 - INFO - \ud83c\udf89 Market close scan complete - Reports sent and private dashboard updated!",
-        "2026-03-04 16:19:08,672 - INFO - \ud83c\udf89 Market close scan complete - Reports sent and private dashboard updated!",
-        "2026-03-04 16:19:08,672 - INFO - \u2705 Market close scan completed",
-        "2026-03-04 16:19:08,672 - INFO - \u2705 Market close scan completed",
-        "2026-03-04 16:19:08,672 - INFO - \u2705 Market Close automation completed successfully",
-        "2026-03-04 16:19:08,672 - INFO - \u2705 Market Close automation completed successfully"
+        "2026-03-05 16:18:40,380 - INFO -   PM: HOLD   HTLD @ $   11.11 \u2192 $   11.26  P&L: +1.3%  2d  In trend",
+        "2026-03-05 16:18:40,380 - INFO -   PM: ... and 20 more",
+        "2026-03-05 16:18:40,380 - INFO -   PM: ... and 20 more",
+        "2026-03-05 16:18:40,380 - INFO - Running Paper Portfolio tracker...",
+        "2026-03-05 16:18:40,380 - INFO - Running Paper Portfolio tracker...",
+        "2026-03-05 16:18:40,455 - INFO - Paper portfolio completed successfully",
+        "2026-03-05 16:18:40,455 - INFO - Paper portfolio completed successfully",
+        "2026-03-05 16:18:40,455 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
+        "2026-03-05 16:18:40,455 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
+        "2026-03-05 16:18:41,075 - INFO - \u2705 Telegram reports sent successfully",
+        "2026-03-05 16:18:41,075 - INFO - \u2705 Telegram reports sent successfully",
+        "2026-03-05 16:18:41,075 - INFO - \ud83d\udd12 Updating private dashboard...",
+        "2026-03-05 16:18:41,075 - INFO - \ud83d\udd12 Updating private dashboard...",
+        "2026-03-05 16:18:41,216 - INFO - \u2705 Private dashboard updated successfully",
+        "2026-03-05 16:18:41,216 - INFO - \u2705 Private dashboard updated successfully",
+        "2026-03-05 16:18:41,216 - INFO - \ud83d\udd12 Dashboard available at: http://localhost:8080",
+        "2026-03-05 16:18:41,216 - INFO - \ud83d\udd12 Dashboard available at: http://localhost:8080",
+        "2026-03-05 16:18:41,216 - INFO - \ud83c\udf10 PRIVATE ACCESS ONLY - No public exposure",
+        "2026-03-05 16:18:41,216 - INFO - \ud83c\udf10 PRIVATE ACCESS ONLY - No public exposure",
+        "2026-03-05 16:18:41,216 - INFO - \ud83c\udf89 Market close scan complete - Reports sent and private dashboard updated!",
+        "2026-03-05 16:18:41,216 - INFO - \ud83c\udf89 Market close scan complete - Reports sent and private dashboard updated!",
+        "2026-03-05 16:18:41,216 - INFO - \u2705 Market close scan completed",
+        "2026-03-05 16:18:41,216 - INFO - \u2705 Market close scan completed",
+        "2026-03-05 16:18:41,216 - INFO - \u2705 Market Close automation completed successfully",
+        "2026-03-05 16:18:41,216 - INFO - \u2705 Market Close automation completed successfully"
       ],
-      "last_modified": "2026-03-04 16:19",
+      "last_modified": "2026-03-05 16:18",
       "exists": true
     },
     "trend_ranker": {
       "description": "Trend ranking (4:10 PM)",
       "lines": [
-        "TREND RANK \u2014 2026-03-04  (1471 symbols scored)",
+        "TREND RANK \u2014 2026-03-05  (1017 symbols scored)",
         "========================================================================",
-        "  BUY: 57   WATCH: 541   EXTENDED: 40   PULLBACK: 113",
+        "  BUY: 22   WATCH: 271   EXTENDED: 8   PULLBACK: 71",
         "  TOP 20:",
         "    # Sym    Score Class       Price   Dist52wh  Signals",
-        "    1 BULL      88 BUY      $   6.07       5.9%  5.9% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:146]",
-        "    2 FLYW     100 BUY      $  12.97       0.3%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:145]",
-        "    3 BOH      100 BUY      $  78.57       0.7%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:137]",
-        "    4 ETHT     100 BUY      $  16.53       0.4%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:133]",
-        "    5 ASO      100 BUY      $  60.25       1.3%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:130]",
-        "    6 DLR      100 BUY      $ 181.12       0.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:130]",
-        "    7 CDNS     100 BUY      $ 304.06       0.6%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:124]",
-        "    8 COST     100 BUY      $1011.55       0.9%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:120]",
-        "    9 CWAN     100 BUY      $  23.57       0.1%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:120]",
-        "   10 FE       100 BUY      $  51.01       0.7%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:120]",
-        "   11 BMRN      85 BUY      $  59.65       2.4%  Near 52wk High \u00b7 Above MA \u00b7 MACD Bull [scanner:120]",
-        "   12 ARM      100 BUY      $ 124.50       2.3%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:119]",
-        "   13 CDW      100 BUY      $ 123.71       1.9%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:119]",
-        "   14 ELVN     100 BUY      $  29.86       2.5%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:119]",
-        "   15 DIN      100 BUY      $  31.05       2.5%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:115]",
-        "   16 GHC      100 BUY      $1066.94       1.6%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:115]",
-        "   17 GILD     100 BUY      $ 148.01       1.8%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:111]",
-        "   18 CRM      100 BUY      $ 195.67       2.7%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:110]",
-        "   19 CSTM     100 BUY      $  26.66       2.7%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:110]",
-        "   20 DPZ      100 BUY      $ 408.63       1.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:110]"
+        "    1 OMCL     100 BUY      $  42.11       1.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:122]",
+        "    2 NBR       88 BUY      $  78.33       4.8%  4.8% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:120]",
+        "    3 NVDA     100 BUY      $ 183.91       0.4%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:117]",
+        "    4 OMC      100 BUY      $  85.29       2.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:117]",
+        "    5 NVO      100 BUY      $  38.62       1.0%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:113]",
+        "    6 STEM      75 BUY      $  11.88      13.3%  Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:113]",
+        "    7 NWS      100 BUY      $  27.11       0.1%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:110]",
+        "    8 ORA       75 BUY      $ 106.35       9.1%  Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:108]",
+        "    9 NWSA      85 BUY      $  24.42       0.6%  Near 52wk High \u00b7 Above MA \u00b7 MACD Bull [scanner:107]",
+        "   10 PEB       70 BUY      $  12.95       3.0%  Near 52wk High \u00b7 Above MA [scanner:107]",
+        "   11 OSCR      88 BUY      $  14.40       5.6%  5.6% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:102]",
+        "   12 TEAM     100 BUY      $  82.23       2.2%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:100]",
+        "   13 PCRX      88 BUY      $  22.86       3.7%  3.7% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:97]",
+        "   14 SOLT      75 BUY      $  53.51      11.9%  Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:88]",
+        "   15 SRRK      88 BUY      $  46.17       4.2%  4.2% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:85]",
+        "   16 NVAX      73 BUY      $   9.94       3.9%  3.9% off High \u00b7 Above MA \u00b7 MACD Bull [scanner:85]",
+        "   17 ORCL      88 BUY      $ 152.61       3.4%  3.4% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:83]",
+        "   18 BMNR      88 BUY      $  21.02       3.9%  3.9% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:81]",
+        "   19 SBUX      70 BUY      $  98.04       1.8%  Near 52wk High \u00b7 Above MA [scanner:80]",
+        "   20 RCAT      75 BUY      $  14.16      12.0%  Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:78]"
       ],
-      "last_modified": "2026-03-04 16:10",
+      "last_modified": "2026-03-05 16:10",
       "exists": true
     },
     "unified_test": {
       "description": "7-scanner test scorer (4:15 PM)",
       "lines": [
-        "2026-03-03 16:15:01,448 [INFO]   # 8 COMP    score=130  sources=1 (enhanced)",
-        "2026-03-03 16:15:01,448 [INFO]   # 9 QTWO    score=130  sources=1 (enhanced)",
-        "2026-03-03 16:15:01,448 [INFO]   #10 DOCU    score=130  sources=1 (enhanced)",
-        "2026-03-03 16:15:01,449 [INFO] === db_scanner_unified_test.py complete ===",
-        "2026-03-04 16:15:01,923 [INFO] === db_scanner_unified_test.py starting ===",
-        "2026-03-04 16:15:01,924 [INFO] Using scan_date: 2026-03-04",
-        "2026-03-04 16:15:01,925 [INFO] Scanner results: {'database_enhanced': 52, 'v3_compression': 50, 'institutional': 40, 'etf': 12, 'under50': 37, 'setup_vcb': 154, 'setup_accum': 26}",
-        "2026-03-04 16:15:01,925 [INFO] Filtered 1 inverse/leveraged ETF(s)",
-        "2026-03-04 16:15:01,925 [INFO] Unique symbols: 303",
-        "2026-03-04 16:15:01,984 [INFO] Top 50 symbols scored",
-        "2026-03-04 16:15:01,988 [INFO] Wrote 50 rows to multi_day_test_scores for 2026-03-04",
-        "2026-03-04 16:15:01,990 [INFO] JSON written: /media/j/Server/github_deploy/trading/data/unified_test_top50.json (50 picks)",
-        "2026-03-04 16:15:01,994 [INFO] HTML written: /home/j/Desktop/Trading Scans/daily/test_unified/TEST_UNIFIED_20260304_1615.html",
-        "2026-03-04 16:15:01,994 [INFO] === Top 10 Test Unified ===",
-        "2026-03-04 16:15:01,994 [INFO]   # 1 ISSC    score=152  sources=2 (enhanced,institutional)",
-        "2026-03-04 16:15:01,994 [INFO]   # 2 SEM     score=144  sources=2 (enhanced,v3)",
-        "2026-03-04 16:15:01,994 [INFO]   # 3 LWLG    score=142  sources=2 (enhanced,institutional)",
-        "2026-03-04 16:15:01,994 [INFO]   # 4 KIM     score=140  sources=3 (enhanced,setup,under50)",
-        "2026-03-04 16:15:01,994 [INFO]   # 5 STRA    score=140  sources=1 (enhanced)",
-        "2026-03-04 16:15:01,994 [INFO]   # 6 LXU     score=139  sources=2 (enhanced,institutional)",
-        "2026-03-04 16:15:01,994 [INFO]   # 7 KMT     score=138  sources=3 (enhanced,institutional,setup)",
         "2026-03-04 16:15:01,994 [INFO]   # 8 ARKK    score=138  sources=3 (enhanced,etf,setup)",
         "2026-03-04 16:15:01,994 [INFO]   # 9 IONQ    score=138  sources=1 (enhanced)",
         "2026-03-04 16:15:01,994 [INFO]   #10 MPC     score=138  sources=2 (enhanced,institutional)",
-        "2026-03-04 16:15:01,995 [INFO] === db_scanner_unified_test.py complete ==="
+        "2026-03-04 16:15:01,995 [INFO] === db_scanner_unified_test.py complete ===",
+        "2026-03-05 16:15:02,060 [INFO] === db_scanner_unified_test.py starting ===",
+        "2026-03-05 16:15:02,061 [INFO] Using scan_date: 2026-03-05",
+        "2026-03-05 16:15:02,062 [INFO] Scanner results: {'database_enhanced': 47, 'v3_compression': 50, 'institutional': 40, 'etf': 27, 'under50': 18, 'setup_vcb': 51, 'setup_accum': 4}",
+        "2026-03-05 16:15:02,062 [INFO] Filtered 2 inverse/leveraged ETF(s)",
+        "2026-03-05 16:15:02,062 [INFO] Unique symbols: 206",
+        "2026-03-05 16:15:02,095 [INFO] Top 50 symbols scored",
+        "2026-03-05 16:15:02,104 [INFO] Wrote 50 rows to multi_day_test_scores for 2026-03-05",
+        "2026-03-05 16:15:02,106 [INFO] JSON written: /media/j/Server/github_deploy/trading/data/unified_test_top50.json (50 picks)",
+        "2026-03-05 16:15:02,107 [INFO] HTML written: /home/j/Desktop/Trading Scans/daily/test_unified/TEST_UNIFIED_20260305_1615.html",
+        "2026-03-05 16:15:02,107 [INFO] === Top 10 Test Unified ===",
+        "2026-03-05 16:15:02,107 [INFO]   # 1 ISSC    score=152  sources=2 (enhanced,institutional)",
+        "2026-03-05 16:15:02,107 [INFO]   # 2 BKSY    score=145  sources=1 (enhanced)",
+        "2026-03-05 16:15:02,107 [INFO]   # 3 LWLG    score=142  sources=2 (enhanced,institutional)",
+        "2026-03-05 16:15:02,107 [INFO]   # 4 BLSH    score=140  sources=1 (enhanced)",
+        "2026-03-05 16:15:02,107 [INFO]   # 5 TNGX    score=140  sources=1 (enhanced)",
+        "2026-03-05 16:15:02,107 [INFO]   # 6 KMT     score=139  sources=2 (enhanced,institutional)",
+        "2026-03-05 16:15:02,107 [INFO]   # 7 ARKK    score=135  sources=1 (enhanced)",
+        "2026-03-05 16:15:02,107 [INFO]   # 8 NWS     score=131  sources=2 (enhanced,setup)",
+        "2026-03-05 16:15:02,107 [INFO]   # 9 FLYW    score=130  sources=1 (enhanced)",
+        "2026-03-05 16:15:02,107 [INFO]   #10 FIGS    score=130  sources=1 (enhanced)",
+        "2026-03-05 16:15:02,108 [INFO] === db_scanner_unified_test.py complete ==="
       ],
-      "last_modified": "2026-03-04 16:15",
+      "last_modified": "2026-03-05 16:15",
       "exists": true
     },
     "cross_scanner": {
       "description": "Cross-scanner conviction (4:20 PM)",
       "lines": [
-        "Securities with multi-day or multi-scanner: 421",
-        "  Elite: 2 | Strong: 35 | Watch: 30",
-        "Report saved: /home/j/Desktop/Trading Scans/cross_scanner/cross_scanner_20260304_1620.html",
+        "Securities with multi-day or multi-scanner: 430",
+        "  Elite: 7 | Strong: 35 | Watch: 30",
+        "Report saved: /home/j/Desktop/Trading Scans/cross_scanner/cross_scanner_20260305_1620.html",
         "Dashboard JSON: /media/j/Server/github_deploy/trading/data/conviction_picks.json (50 picks)",
         "================================================================================",
         "TOP 15 HIGHEST CONVICTION PICKS",
         "================================================================================",
         "  # Symbol     Conv  Days  Scan  Score      Price Scanners",
         "--------------------------------------------------------------------------------",
-        "  1 CDNS        414   4/5     4    104     $304.06 setup_accum,database_enhanced,setup_vcb,unified",
-        "  2 TXG         410   4/5     3    110      $22.13 institutional,setup_accum,database_enhanced",
-        "  3 LXU         376   4/5     3    121      $11.94 institutional,database_enhanced,v3_compression",
-        "  4 IYR         368   4/5     5    108     $101.08 etf,institutional,database_enhanced,setup_vcb,unified",
-        "  5 TRMB        364   4/5     3    114      $68.23 database_enhanced,setup_vcb,unified",
-        "  6 PLYM        341   5/5     1    100      $21.98 v3_compression",
-        "  7 LNT         339   4/5     4     94           - institutional,setup_vcb,v3_compression,unified",
-        "  8 FOXA        334   3/5     2    114      $56.65 database_enhanced,setup_vcb",
-        "  9 ARKK        324   3/5     3     89      $75.11 etf,setup_vcb,database_enhanced",
-        " 10 ISSC        323   3/5     2    128      $29.12 institutional,database_enhanced",
-        " 11 AAOI        323   5/5     3    108           - v3_compression,database_enhanced,institutional",
-        " 12 XLC         319   3/5     4    109     $117.94 database_enhanced,etf,institutional,unified",
-        " 13 TPL         318   4/5     4    103           - database_enhanced,v3_compression,setup_vcb,unified",
-        " 14 IT          318   3/5     3    103     $159.33 database_enhanced,setup_vcb,setup_accum",
-        " 15 IYZ         317   4/5     2    102      $40.20 setup_vcb,database_enhanced",
+        "  1 CDNS        467   5/5     4    107     $304.06 setup_accum,database_enhanced,setup_vcb,unified",
+        "  2 IYR         409   5/5     5    109           - etf,institutional,database_enhanced,setup_vcb,unified",
+        "  3 ARKK        396   4/5     3     96      $75.11 etf,setup_vcb,database_enhanced",
+        "  4 ISSC        391   4/5     2    131      $29.12 institutional,database_enhanced",
+        "  5 LXU         380   5/5     3    120           - institutional,database_enhanced,v3_compression",
+        "  6 KIM         376   4/5     5    106           - institutional,under50,setup_vcb,unified,database_enhanced",
+        "  7 LWLG        374   4/5     2    124       $5.60 institutional,database_enhanced",
+        "  8 EFX         373   4/5     3     93     $207.06 setup_accum,database_enhanced,setup_vcb",
+        "  9 CGON        373   5/5     3     98           - setup_vcb,v3_compression,unified",
+        " 10 CME         370   5/5     3     95           - setup_vcb,database_enhanced,v3_compression",
+        " 11 FDS         367   4/5     3    112           - database_enhanced,setup_vcb,setup_accum",
+        " 12 FLYW        366   3/5     4    116           - setup_accum,database_enhanced,setup_vcb,unified",
+        " 13 ED          362   4/5     2     97     $112.26 setup_vcb,database_enhanced",
+        " 14 PLYM        361   5/5     1    100      $21.98 v3_compression",
+        " 15 AAOI        358   5/5     3    108           - database_enhanced,v3_compression,institutional",
         "Done."
       ],
-      "last_modified": "2026-03-04 16:20",
+      "last_modified": "2026-03-05 16:20",
       "exists": true
     },
     "report_sync": {
       "description": "Report sync \u2192 GitHub Pages",
       "lines": [
         "Deploying to GitHub Pages...",
-        "Deployed to jays.website/trading/ at 2026-03-04 13:35",
+        "Deployed to jays.website/trading/ at 2026-03-05 13:35",
         "==================================================",
         "PIPELINE COMPLETE",
         "==================================================",
@@ -401,46 +401,29 @@
         "REPORT SYNC & DEPLOY PIPELINE",
         "==================================================",
         "Syncing live reports to github_deploy...",
-        "  Institutional Scanner: INST_SCAN_2026-03-04.html -> institutional_latest.html (35.7KB)",
-        "  Enhanced Breakout: BREAKOUT_SCAN_2026-03-04.html -> enhanced_latest.html (40.2KB)",
-        "  V3 Compression: RANGE_COMPRESSION_V3_2026-03-04.html -> v3_compression_latest.html (41.1KB)",
-        "  ETF Scanner: etf_scan_20260304_1603.html -> etf_latest.html (12.7KB)",
-        "  Mega Under-$50: mega_under50_scan_20260304_1603.html -> under50_latest.html (25.4KB)",
-        "  Cross-Scanner Intelligence: cross_scanner_latest.html -> cross_scanner_latest.html (192.6KB)",
-        "  Setup Scanner: SETUP_SCAN_2026-03-04.html -> setups_latest.html (69.2KB)",
-        "  Unified Multi-Day: UNIFIED_SCAN_2026-03-04.html -> unified_latest.html (35.5KB)",
+        "  Institutional Scanner: INST_SCAN_2026-03-05.html -> institutional_latest.html (35.7KB)",
+        "  Enhanced Breakout: BREAKOUT_SCAN_2026-03-05.html -> enhanced_latest.html (40.3KB)",
+        "  V3 Compression: RANGE_COMPRESSION_V3_2026-03-05.html -> v3_compression_latest.html (41.1KB)",
+        "  ETF Scanner: etf_scan_20260305_1603.html -> etf_latest.html (19.8KB)",
+        "  Mega Under-$50: mega_under50_scan_20260305_1603.html -> under50_latest.html (16.0KB)",
+        "  Cross-Scanner Intelligence: cross_scanner_latest.html -> cross_scanner_latest.html (84.3KB)",
+        "  Setup Scanner: SETUP_SCAN_2026-03-05.html -> setups_latest.html (24.7KB)",
+        "  Unified Multi-Day: UNIFIED_SCAN_2026-03-05.html -> unified_latest.html (34.6KB)",
         "Synced 8 reports to github_deploy",
         "API data files updated",
-        "Top picks updated (25 picks \u2014 database_enhanced: 5, institutional: 5, setup_vcb: 5, under50: 5, unified: 5)",
+        "Top picks updated (25 picks \u2014 database_enhanced: 5, etf: 2, institutional: 5, setup_vcb: 1, under50: 2, unified: 5, v3_compression: 5)",
         "Deploying to GitHub Pages...",
-        "Deployed to jays.website/trading/ at 2026-03-04 16:05",
+        "Deployed to jays.website/trading/ at 2026-03-05 16:05",
         "==================================================",
         "PIPELINE COMPLETE",
         "=================================================="
       ],
-      "last_modified": "2026-03-04 16:05",
+      "last_modified": "2026-03-05 16:05",
       "exists": true
     },
     "performance_tracking": {
       "description": "Signal performance tracker",
       "lines": [
-        "\ud83d\udcc8 Total Signals Tracked: 9676",
-        "\ud83c\udfaf Overall Win Rate: 36.6%",
-        "\ud83d\udcb0 Average Return: -0.3%",
-        "\u23f3 Signals Still Open: 3458",
-        "\ud83d\udd0d Recommendations:",
-        "  \ud83c\udfaf Best performing score range: 60-69 (38.4% win rate)",
-        "  \ud83d\udcc5 Best day for signals: Tuesday (40.0% win rate)",
-        "  \ud83d\udcca Overall performance: 36.6% win rate, -0.3% avg return",
-        "2026-03-03 19:00:03,060 - INFO - Processing 21006 price rows for open signals...",
-        "2026-03-03 19:00:03,130 - INFO - Updated 3121 signals \u2014 536 closed, 2585 open",
-        "2026-03-03 19:00:03,200 - INFO - Signal timing analysis completed",
-        "2026-03-03 19:00:03,260 - INFO - Signal timing analysis completed",
-        "2026-03-03 19:00:03,323 - INFO - Signal timing analysis completed",
-        "2026-03-03 19:00:03,378 - INFO - Signal timing analysis completed",
-        "2026-03-03 19:00:03,379 - INFO - Analysis report saved: /media/j/Extreme SSD/Trading_Plans/Reports/signal_analysis_20260303.json",
-        "\ud83d\udcca Signal Performance Analysis",
-        "==================================================",
         "\ud83d\udcc8 Total Signals Tracked: 9906",
         "\ud83c\udfaf Overall Win Rate: 34.3%",
         "\ud83d\udcb0 Average Return: -0.4%",
@@ -448,9 +431,26 @@
         "\ud83d\udd0d Recommendations:",
         "  \ud83c\udfaf Best performing score range: 60-69 (36.2% win rate)",
         "  \ud83d\udcc5 Best day for signals: Thursday (36.1% win rate)",
-        "  \ud83d\udcca Overall performance: 34.3% win rate, -0.4% avg return"
+        "  \ud83d\udcca Overall performance: 34.3% win rate, -0.4% avg return",
+        "2026-03-04 19:00:03,327 - INFO - Processing 21524 price rows for open signals...",
+        "2026-03-04 19:00:03,416 - INFO - Updated 3014 signals \u2014 571 closed, 2443 open",
+        "2026-03-04 19:00:03,491 - INFO - Signal timing analysis completed",
+        "2026-03-04 19:00:03,551 - INFO - Signal timing analysis completed",
+        "2026-03-04 19:00:03,610 - INFO - Signal timing analysis completed",
+        "2026-03-04 19:00:03,669 - INFO - Signal timing analysis completed",
+        "2026-03-04 19:00:03,672 - INFO - Analysis report saved: /media/j/Extreme SSD/Trading_Plans/Reports/signal_analysis_20260304.json",
+        "\ud83d\udcca Signal Performance Analysis",
+        "==================================================",
+        "\ud83d\udcc8 Total Signals Tracked: 10297",
+        "\ud83c\udfaf Overall Win Rate: 31.4%",
+        "\ud83d\udcb0 Average Return: -0.7%",
+        "\u23f3 Signals Still Open: 2972",
+        "\ud83d\udd0d Recommendations:",
+        "  \ud83c\udfaf Best performing score range: 60-69 (33.7% win rate)",
+        "  \ud83d\udcc5 Best day for signals: Monday (33.7% win rate)",
+        "  \ud83d\udcca Overall performance: 31.4% win rate, -0.7% avg return"
       ],
-      "last_modified": "2026-03-03 19:00",
+      "last_modified": "2026-03-04 19:00",
       "exists": true
     },
     "stale_price_check": {
@@ -458,8 +458,8 @@
       "lines": [
         "----------------------------------------",
         "Overall Risk Level: MEDIUM",
-        "Stale Price Percentage: 5.79%",
-        "Data Quality Score: 2/100",
+        "Stale Price Percentage: 5.55%",
+        "Data Quality Score: 6/100",
         "\ud83c\udfaf PRIORITY ACTIONS",
         "----------------------------------------",
         "\ud83d\udd34 HIGH PRIORITY:",
@@ -467,7 +467,7 @@
         "     Symbols: CRCW",
         "\ud83d\udfe1 MEDIUM PRIORITY:",
         "   \u2022 Review 3 suspended securities",
-        "   \u2022 Review 45 securities under $1.00",
+        "   \u2022 Review 43 securities under $1.00",
         "   \u2022 Implement automated stale price monitoring",
         "\u23f0 RECOMMENDED MAINTENANCE SCHEDULE",
         "----------------------------------------",
@@ -482,7 +482,7 @@
         "\ud83d\udcc4 SQL cleanup script saved to: cleanup_script.sql",
         "\u2705 Cleanup recommendations saved to: cleanup_recommendations.json"
       ],
-      "last_modified": "2026-03-04 07:00",
+      "last_modified": "2026-03-05 07:00",
       "exists": true
     },
     "db_backup": {
@@ -503,41 +503,47 @@
         "2026-03-03 16:35:02,072 - INFO - Checked 20 picks \u2014 0 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
         "2026-03-03 16:35:02,072 - INFO - Checked 20 picks \u2014 0 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
         "2026-03-03 16:35:02,072 - INFO - No picks met conviction threshold today \u2014 no alert sent",
-        "2026-03-03 16:35:02,072 - INFO - No picks met conviction threshold today \u2014 no alert sent"
+        "2026-03-03 16:35:02,072 - INFO - No picks met conviction threshold today \u2014 no alert sent",
+        "2026-03-04 16:35:01,410 - INFO - Checked 20 picks \u2014 10 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
+        "2026-03-04 16:35:01,410 - INFO - Checked 20 picks \u2014 10 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
+        "2026-03-04 16:35:01,411 - INFO - Sending alert: 10 conviction pick(s)",
+        "2026-03-04 16:35:01,411 - INFO - Sending alert: 10 conviction pick(s)",
+        "2026-03-04 16:35:02,053 - INFO - Alert sent to Telegram successfully",
+        "2026-03-04 16:35:02,053 - INFO - Alert sent to Telegram successfully"
       ],
-      "last_modified": "2026-03-03 16:35",
+      "last_modified": "2026-03-04 16:35",
       "exists": true
     },
     "security_data": {
       "description": "Security profile generator (5 PM daily / 2 AM Sunday)",
       "lines": [
-        "2026-03-03 18:05:06,400 - INFO -   Progress: 2250/2781 (2250 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,400 - INFO -   Progress: 2300/2781 (2300 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,400 - INFO -   Progress: 2300/2781 (2300 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2350/2781 (2350 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2350/2781 (2350 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2400/2781 (2400 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2400/2781 (2400 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2450/2781 (2450 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2450/2781 (2450 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2500/2781 (2500 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,401 - INFO -   Progress: 2500/2781 (2500 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,402 - INFO -   Progress: 2550/2781 (2550 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,402 - INFO -   Progress: 2550/2781 (2550 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,402 - INFO -   Progress: 2600/2781 (2600 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,402 - INFO -   Progress: 2600/2781 (2600 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,402 - INFO -   Progress: 2650/2781 (2650 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,402 - INFO -   Progress: 2650/2781 (2650 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,403 - INFO -   Progress: 2700/2781 (2700 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,403 - INFO -   Progress: 2700/2781 (2700 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,403 - INFO -   Progress: 2750/2781 (2750 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:06,403 - INFO -   Progress: 2750/2781 (2750 ok, 0 err) \u2014 3904s elapsed",
-        "2026-03-03 18:05:07,819 - INFO - Written: /media/j/Server/github_deploy/trading/data/security_lookup.json (2813 symbols)",
-        "2026-03-03 18:05:07,819 - INFO - Written: /media/j/Server/github_deploy/trading/data/security_lookup.json (2813 symbols)",
-        "2026-03-03 18:05:07,819 - INFO - === Done: 2781 updated, 0 errors, 3905s total ===",
-        "2026-03-03 18:05:07,819 - INFO - === Done: 2781 updated, 0 errors, 3905s total ==="
+        "2026-03-04 18:04:57,085 - INFO -   Progress: 2250/2771 (2250 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,085 - INFO -   Progress: 2300/2771 (2300 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,085 - INFO -   Progress: 2300/2771 (2300 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2350/2771 (2350 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2350/2771 (2350 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2400/2771 (2400 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2400/2771 (2400 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2450/2771 (2450 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2450/2771 (2450 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2500/2771 (2500 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,086 - INFO -   Progress: 2500/2771 (2500 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2550/2771 (2550 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2550/2771 (2550 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2600/2771 (2600 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2600/2771 (2600 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2650/2771 (2650 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2650/2771 (2650 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2700/2771 (2700 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2700/2771 (2700 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2750/2771 (2750 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:57,087 - INFO -   Progress: 2750/2771 (2750 ok, 0 err) \u2014 3894s elapsed",
+        "2026-03-04 18:04:58,029 - INFO - Written: /media/j/Server/github_deploy/trading/data/security_lookup.json (2813 symbols)",
+        "2026-03-04 18:04:58,029 - INFO - Written: /media/j/Server/github_deploy/trading/data/security_lookup.json (2813 symbols)",
+        "2026-03-04 18:04:58,029 - INFO - === Done: 2771 updated, 0 errors, 3895s total ===",
+        "2026-03-04 18:04:58,029 - INFO - === Done: 2771 updated, 0 errors, 3895s total ==="
       ],
-      "last_modified": "2026-03-03 18:05",
+      "last_modified": "2026-03-04 18:04",
       "exists": true
     }
   },
@@ -643,31 +649,31 @@
   "report_stats": {
     "institutional": {
       "candidates": 40,
-      "last_run": "2026-03-04 16:03"
+      "last_run": "2026-03-05 16:03"
     },
     "enhanced": {
       "candidates": 40,
-      "last_run": "2026-03-04 16:01"
+      "last_run": "2026-03-05 16:00"
     },
     "v3": {
       "candidates": 50,
-      "last_run": "2026-03-04 16:01"
+      "last_run": "2026-03-05 16:01"
     },
     "etf": {
-      "candidates": 12,
-      "last_run": "2026-03-04 16:03"
+      "candidates": 27,
+      "last_run": "2026-03-05 16:03"
     },
     "under50": {
-      "candidates": 37,
-      "last_run": "2026-03-04 16:03"
+      "candidates": 18,
+      "last_run": "2026-03-05 16:03"
     },
     "setups": {
-      "candidates": 154,
-      "last_run": "2026-03-04 16:03"
+      "candidates": 51,
+      "last_run": "2026-03-05 16:03"
     },
     "unified": {
       "candidates": 20,
-      "last_run": "2026-03-04 13:32"
+      "last_run": "2026-03-05 13:32"
     }
   },
   "telegram": {

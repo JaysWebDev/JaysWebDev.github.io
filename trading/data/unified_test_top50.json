@@ -1,16 +1,16 @@
 {
   "type": "unified_test",
-  "generated": "2026-03-04 16:15:01",
-  "score_date": "2026-03-04",
+  "generated": "2026-03-05 16:15:02",
+  "score_date": "2026-03-05",
   "scanner_counts": {
-    "database_enhanced": 52,
-    "setup_vcb": 154,
-    "setup_accum": 26,
+    "database_enhanced": 47,
+    "setup_vcb": 51,
+    "setup_accum": 4,
     "setup_pullback": 0,
     "v3_compression": 50,
     "institutional": 40,
-    "etf": 12,
-    "under50": 37
+    "etf": 27,
+    "under50": 18
   },
   "picks": [
     {
@@ -31,26 +31,26 @@
       "close": 29.1200008392334,
       "entry": 29.1200008392334,
       "stop": 28.246400814056397,
-      "days_on_list": 2
+      "days_on_list": 3
     },
     {
       "rank": 2,
-      "symbol": "SEM",
-      "test_score": 143.7,
-      "source_count": 2,
-      "sources": "enhanced,v3",
+      "symbol": "BKSY",
+      "test_score": 145.0,
+      "source_count": 1,
+      "sources": "enhanced",
       "component_scores": {
-        "enhanced": 150,
-        "v3": 105,
+        "enhanced": 145,
+        "v3": 0,
         "institutional": 0,
         "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 3x+ VOL \u2022 KELTNER BO \u2022 SHORT TREND \u2022 NEW HIGH \u2022 MOMENTUM | [v3] NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID",
-      "close": 16.2549991607666,
-      "entry": 16.2549991607666,
-      "stop": 15.767349185943603,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 HOT MOMENTUM \u2022 STRONG CLO",
+      "close": 24.059999465942383,
+      "entry": 24.059999465942383,
+      "stop": 23.33819948196411,
       "days_on_list": 2
     },
     {
@@ -71,31 +71,11 @@
       "close": 5.599999904632568,
       "entry": 5.599999904632568,
       "stop": 5.431999907493591,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
       "rank": 4,
-      "symbol": "KIM",
-      "test_score": 140.4,
-      "source_count": 3,
-      "sources": "enhanced,setup,under50",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 110,
-        "etf": 0,
-        "under50": 90
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [under50] Above SMA20 | Above EMA20 | Good Volume | Price OK | BB Breakout | Near 52W High | [setup] TIGHT SQUEEZE | BB:1.8% | NR3 | NR4 | ADX:0 | MACD CROSS | LOW VOL",
-      "close": 23.56999969482422,
-      "entry": 23.56999969482422,
-      "stop": 22.86289970397949,
-      "days_on_list": 1
-    },
-    {
-      "rank": 5,
-      "symbol": "STRA",
+      "symbol": "BLSH",
       "test_score": 140.0,
       "source_count": 1,
       "sources": "enhanced",
@@ -107,194 +87,114 @@
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM \u2022 STRONG CLOSE",
-      "close": 84.56500244140625,
-      "entry": 84.56500244140625,
-      "stop": 82.02805236816405,
-      "days_on_list": 1
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BIG GAP \u2022 STRONG CLOSE",
+      "close": 36.060001373291016,
+      "entry": 36.060001373291016,
+      "stop": 34.97820133209228,
+      "days_on_list": 2
     },
     {
-      "rank": 6,
-      "symbol": "LXU",
-      "test_score": 139.1,
-      "source_count": 2,
-      "sources": "enhanced,institutional",
-      "component_scores": {
-        "enhanced": 135,
-        "v3": 0,
-        "institutional": 112,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 HOT MOMENTUM \u2022 STRONG CLOSE | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 NEAR 20D HIGH ",
-      "close": 12.675000190734863,
-      "entry": 11.9399995803833,
-      "stop": 11.581799592971802,
-      "days_on_list": 3
-    },
-    {
-      "rank": 7,
-      "symbol": "KMT",
-      "test_score": 138.1,
-      "source_count": 3,
-      "sources": "enhanced,institutional,setup",
-      "component_scores": {
-        "enhanced": 128,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 70,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 1.5x VOL \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [setup] TIGHT SQUEEZE | NR3 | ADX:0 | MACD RISING",
-      "close": 41.79499816894531,
-      "entry": 41.79499816894531,
-      "stop": 40.54114822387695,
-      "days_on_list": 1
-    },
-    {
-      "rank": 8,
-      "symbol": "ARKK",
-      "test_score": 138.0,
-      "source_count": 3,
-      "sources": "enhanced,etf,setup",
-      "component_scores": {
-        "enhanced": 135,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 90,
-        "etf": 90,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP \u2022 STRONG CLOSE | [etf] Above SMA20 | Above EMA20 | RSI:59.2 | Strong Volume | Price OK | Near 52W High | [setup] TIGHT SQUEEZE | NR3 | ADX:0 | MACD CROSS | LOW VOL",
-      "close": 75.1050033569336,
-      "entry": 75.1050033569336,
-      "stop": 72.85185325622558,
-      "days_on_list": 1
-    },
-    {
-      "rank": 9,
-      "symbol": "IONQ",
-      "test_score": 138.0,
+      "rank": 5,
+      "symbol": "TNGX",
+      "test_score": 140.0,
       "source_count": 1,
       "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 138,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 STRONG LEVEL \u2022 BIG GAP \u2022 HOT MOMENTUM \u2022 STRON",
-      "close": 37.19499969482422,
-      "entry": 38.435001373291016,
-      "stop": 37.281951332092284,
-      "days_on_list": 3
-    },
-    {
-      "rank": 10,
-      "symbol": "MPC",
-      "test_score": 137.6,
-      "source_count": 2,
-      "sources": "enhanced,institutional",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 HIGH CLOSE | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
-      "close": 220.8000030517578,
-      "entry": 209.77999877929688,
-      "stop": 203.48659881591797,
-      "days_on_list": 3
-    },
-    {
-      "rank": 11,
-      "symbol": "BLSH",
-      "test_score": 132.8,
-      "source_count": 2,
-      "sources": "enhanced,setup",
       "component_scores": {
         "enhanced": 140,
         "v3": 0,
         "institutional": 0,
-        "setup": 90,
+        "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BIG GAP \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | NR3 | ADX:0 | MACD CROSS | LOW VOL",
-      "close": 36.060001373291016,
-      "entry": 36.060001373291016,
-      "stop": 34.97820133209228,
+      "signals": "[enhanced] 3x+ VOL \u2022 KELTNER BO \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BIG GAP \u2022 HOT MOMENTUM \u2022 STRONG ",
+      "close": 16.829999923706055,
+      "entry": 16.829999923706055,
+      "stop": 16.325099925994873,
       "days_on_list": 1
     },
     {
-      "rank": 12,
-      "symbol": "FLYW",
-      "test_score": 131.7,
+      "rank": 6,
+      "symbol": "KMT",
+      "test_score": 139.2,
       "source_count": 2,
-      "sources": "enhanced,setup",
+      "sources": "enhanced,institutional",
       "component_scores": {
-        "enhanced": 130,
+        "enhanced": 128,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 1.5x VOL \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 41.79499816894531,
+      "entry": 41.79499816894531,
+      "stop": 40.54114822387695,
+      "days_on_list": 2
+    },
+    {
+      "rank": 7,
+      "symbol": "ARKK",
+      "test_score": 135.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 135,
         "v3": 0,
         "institutional": 0,
-        "setup": 100,
+        "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP \u2022 HIGH CLOSE | [setup] TIGHT SQUEEZE | NR3 | NR4 | ADX:0 | MACD CROSS | LOW VOL",
-      "close": 12.96500015258789,
-      "entry": 12.96500015258789,
-      "stop": 12.576050148010253,
-      "days_on_list": 1
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP \u2022 STRONG CLOSE",
+      "close": 75.1050033569336,
+      "entry": 75.1050033569336,
+      "stop": 72.85185325622558,
+      "days_on_list": 2
     },
     {
-      "rank": 13,
-      "symbol": "BKSY",
-      "test_score": 131.1,
+      "rank": 8,
+      "symbol": "NWS",
+      "test_score": 130.6,
       "source_count": 2,
       "sources": "enhanced,setup",
-      "component_scores": {
-        "enhanced": 145,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 80,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 HOT MOMENTUM \u2022 STRONG CLO | [setup] BB NARROWING | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 24.059999465942383,
-      "entry": 24.059999465942383,
-      "stop": 23.33819948196411,
-      "days_on_list": 1
-    },
-    {
-      "rank": 14,
-      "symbol": "IYR",
-      "test_score": 130.0,
-      "source_count": 3,
-      "sources": "enhanced,etf,setup",
       "component_scores": {
         "enhanced": 120,
         "v3": 0,
         "institutional": 0,
-        "setup": 75,
-        "etf": 100,
+        "setup": 110,
+        "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE | [etf] Above SMA20 | Above EMA20 | RSI:69.0 | Strong Volume | Price OK | Near 52W High  | [setup] TIGHT SQUEEZE | BB:1.5% | NR3 | ADX:0",
-      "close": 101.08100128173828,
-      "entry": 101.08100128173828,
-      "stop": 98.04857124328613,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE | [setup] TIGHT SQUEEZE | BB:4.9% | NR3 | NR4 | ADX:0 | MACD CROSS | LOW VOL",
+      "close": 27.110000610351562,
+      "entry": 27.110000610351562,
+      "stop": 26.296700592041017,
       "days_on_list": 1
     },
     {
-      "rank": 15,
+      "rank": 9,
+      "symbol": "FLYW",
+      "test_score": 130.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 130,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP \u2022 HIGH CLOSE",
+      "close": 12.96500015258789,
+      "entry": 12.96500015258789,
+      "stop": 12.576050148010253,
+      "days_on_list": 2
+    },
+    {
+      "rank": 10,
       "symbol": "FIGS",
       "test_score": 130.0,
       "source_count": 1,
@@ -311,11 +211,11 @@
       "close": 17.329999923706055,
       "entry": 17.329999923706055,
       "stop": 16.810099925994873,
-      "days_on_list": 3
+      "days_on_list": 4
     },
     {
-      "rank": 16,
-      "symbol": "QTWO",
+      "rank": 11,
+      "symbol": "INTA",
       "test_score": 130.0,
       "source_count": 1,
       "sources": "enhanced",
@@ -327,14 +227,14 @@
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 STRONG CLOSE",
-      "close": 50.709999084472656,
-      "entry": 50.709999084472656,
-      "stop": 49.188699111938476,
-      "days_on_list": 2
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 HOT MOMENTUM",
+      "close": 27.243999481201172,
+      "entry": 27.243999481201172,
+      "stop": 26.426679496765136,
+      "days_on_list": 1
     },
     {
-      "rank": 17,
+      "rank": 12,
       "symbol": "FICO",
       "test_score": 130.0,
       "source_count": 1,
@@ -351,31 +251,11 @@
       "close": 1462.0799560546875,
       "entry": 1462.0799560546875,
       "stop": 1418.217557373047,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
-      "rank": 18,
-      "symbol": "TENB",
-      "test_score": 130.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 130,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 STRONG CLOSE",
-      "close": 19.950000762939453,
-      "entry": 19.950000762939453,
-      "stop": 19.351500740051268,
-      "days_on_list": 1
-    },
-    {
-      "rank": 19,
-      "symbol": "AXP",
+      "rank": 13,
+      "symbol": "NVDA",
       "test_score": 128.9,
       "source_count": 2,
       "sources": "enhanced,setup",
@@ -387,15 +267,15 @@
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | BB:3.2% | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 311.93499755859375,
-      "entry": 311.93499755859375,
-      "stop": 302.57694763183594,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | BB:3.6% | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
+      "close": 183.91000366210938,
+      "entry": 183.91000366210938,
+      "stop": 178.39270355224608,
       "days_on_list": 1
     },
     {
-      "rank": 20,
-      "symbol": "BAC",
+      "rank": 14,
+      "symbol": "NFLX",
       "test_score": 128.9,
       "source_count": 2,
       "sources": "enhanced,setup",
@@ -407,234 +287,14 @@
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | BB:1.0% | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 50.060001373291016,
-      "entry": 50.060001373291016,
-      "stop": 48.55820133209228,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HOT MOMENTUM | [setup] TIGHT SQUEEZE | BB:3.4% | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
+      "close": 98.88099670410156,
+      "entry": 98.88099670410156,
+      "stop": 95.91456680297851,
       "days_on_list": 1
     },
     {
-      "rank": 21,
-      "symbol": "CDNS",
-      "test_score": 128.9,
-      "source_count": 2,
-      "sources": "enhanced,setup",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 100,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | BB:3.0% | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 304.05999755859375,
-      "entry": 304.05999755859375,
-      "stop": 294.9381976318359,
-      "days_on_list": 3
-    },
-    {
-      "rank": 22,
-      "symbol": "ED",
-      "test_score": 126.7,
-      "source_count": 2,
-      "sources": "enhanced,setup",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 95,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | BB:2.7% | NR3 | NR4 | ADX:0 | LOW VOL",
-      "close": 112.26000213623047,
-      "entry": 112.26000213623047,
-      "stop": 108.89220207214355,
-      "days_on_list": 1
-    },
-    {
-      "rank": 23,
-      "symbol": "BIO",
-      "test_score": 126.1,
-      "source_count": 2,
-      "sources": "enhanced,setup",
-      "component_scores": {
-        "enhanced": 120,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 100,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE | [setup] TIGHT SQUEEZE | BB:4.1% | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 284.9100036621094,
-      "entry": 284.9100036621094,
-      "stop": 276.3627035522461,
-      "days_on_list": 1
-    },
-    {
-      "rank": 24,
-      "symbol": "LGND",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM",
-      "close": 208.9499969482422,
-      "entry": 202.5500030517578,
-      "stop": 196.47350296020508,
-      "days_on_list": 3
-    },
-    {
-      "rank": 25,
-      "symbol": "IYZ",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
-      "close": 40.54999923706055,
-      "entry": 40.20000076293945,
-      "stop": 38.99400074005127,
-      "days_on_list": 2
-    },
-    {
-      "rank": 26,
-      "symbol": "CCI",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
-      "close": 90.52999877929688,
-      "entry": 90.52999877929688,
-      "stop": 87.81409881591797,
-      "days_on_list": 1
-    },
-    {
-      "rank": 27,
-      "symbol": "CRK",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM",
-      "close": 20.790000915527344,
-      "entry": 20.790000915527344,
-      "stop": 20.166300888061524,
-      "days_on_list": 1
-    },
-    {
-      "rank": 28,
-      "symbol": "KGS",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM",
-      "close": 58.15999984741211,
-      "entry": 58.15999984741211,
-      "stop": 56.41519985198975,
-      "days_on_list": 1
-    },
-    {
-      "rank": 29,
-      "symbol": "SCHW",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
-      "close": 95.76000213623047,
-      "entry": 95.76000213623047,
-      "stop": 92.88720207214355,
-      "days_on_list": 2
-    },
-    {
-      "rank": 30,
-      "symbol": "CINF",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
-      "close": 168.9949951171875,
-      "entry": 168.9949951171875,
-      "stop": 163.92514526367188,
-      "days_on_list": 1
-    },
-    {
-      "rank": 31,
-      "symbol": "SIRI",
-      "test_score": 125.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
-      "close": 21.992799758911133,
-      "entry": 21.992799758911133,
-      "stop": 21.3330157661438,
-      "days_on_list": 2
-    },
-    {
-      "rank": 32,
+      "rank": 15,
       "symbol": "VTYX",
       "test_score": 125.0,
       "source_count": 1,
@@ -651,31 +311,271 @@
       "close": 14.0,
       "entry": 14.0,
       "stop": 13.58,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
-      "rank": 33,
-      "symbol": "LNN",
-      "test_score": 124.4,
-      "source_count": 2,
-      "sources": "enhanced,setup",
+      "rank": 16,
+      "symbol": "BAC",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
       "component_scores": {
         "enhanced": 125,
         "v3": 0,
         "institutional": 0,
-        "setup": 90,
+        "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | BB:2.3% | NR3 | ADX:0 | MACD CROSS",
-      "close": 135.06500244140625,
-      "entry": 135.06500244140625,
-      "stop": 131.01305236816407,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 50.060001373291016,
+      "entry": 50.060001373291016,
+      "stop": 48.55820133209228,
+      "days_on_list": 2
+    },
+    {
+      "rank": 17,
+      "symbol": "AXP",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 311.93499755859375,
+      "entry": 311.93499755859375,
+      "stop": 302.57694763183594,
+      "days_on_list": 2
+    },
+    {
+      "rank": 18,
+      "symbol": "CCI",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 90.52999877929688,
+      "entry": 90.52999877929688,
+      "stop": 87.81409881591797,
+      "days_on_list": 2
+    },
+    {
+      "rank": 19,
+      "symbol": "CDNS",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 304.05999755859375,
+      "entry": 304.05999755859375,
+      "stop": 294.9381976318359,
+      "days_on_list": 4
+    },
+    {
+      "rank": 20,
+      "symbol": "CINF",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 168.9949951171875,
+      "entry": 168.9949951171875,
+      "stop": 163.92514526367188,
+      "days_on_list": 2
+    },
+    {
+      "rank": 21,
+      "symbol": "CRC",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 HIGH CLOSE",
+      "close": 61.97999954223633,
+      "entry": 61.97999954223633,
+      "stop": 60.120599555969235,
       "days_on_list": 1
     },
     {
-      "rank": 34,
+      "rank": 22,
+      "symbol": "CRK",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM",
+      "close": 20.790000915527344,
+      "entry": 20.790000915527344,
+      "stop": 20.166300888061524,
+      "days_on_list": 2
+    },
+    {
+      "rank": 23,
+      "symbol": "LNN",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 135.06500244140625,
+      "entry": 135.06500244140625,
+      "stop": 131.01305236816407,
+      "days_on_list": 2
+    },
+    {
+      "rank": 24,
+      "symbol": "FAST",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 46.61000061035156,
+      "entry": 46.61000061035156,
+      "stop": 45.21170059204101,
+      "days_on_list": 2
+    },
+    {
+      "rank": 25,
       "symbol": "FDS",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM",
+      "close": 226.47000122070312,
+      "entry": 226.47000122070312,
+      "stop": 219.67590118408202,
+      "days_on_list": 4
+    },
+    {
+      "rank": 26,
+      "symbol": "ED",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 112.26000213623047,
+      "entry": 112.26000213623047,
+      "stop": 108.89220207214355,
+      "days_on_list": 2
+    },
+    {
+      "rank": 27,
+      "symbol": "KGS",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM",
+      "close": 58.15999984741211,
+      "entry": 58.15999984741211,
+      "stop": 56.41519985198975,
+      "days_on_list": 2
+    },
+    {
+      "rank": 28,
+      "symbol": "KIM",
+      "test_score": 125.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE",
+      "close": 23.56999969482422,
+      "entry": 23.56999969482422,
+      "stop": 22.86289970397949,
+      "days_on_list": 2
+    },
+    {
+      "rank": 29,
+      "symbol": "PD",
       "test_score": 124.4,
       "source_count": 2,
       "sources": "enhanced,setup",
@@ -688,150 +588,250 @@
         "under50": 0
       },
       "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM | [setup] TIGHT SQUEEZE | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 226.47000122070312,
-      "entry": 226.47000122070312,
-      "stop": 219.67590118408202,
-      "days_on_list": 3
-    },
-    {
-      "rank": 35,
-      "symbol": "FAST",
-      "test_score": 124.4,
-      "source_count": 2,
-      "sources": "enhanced,setup",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 90,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [setup] TIGHT SQUEEZE | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 46.61000061035156,
-      "entry": 46.61000061035156,
-      "stop": 45.21170059204101,
+      "close": 7.835000038146973,
+      "entry": 7.835000038146973,
+      "stop": 7.599950037002563,
       "days_on_list": 1
     },
     {
-      "rank": 36,
-      "symbol": "ACN",
-      "test_score": 123.9,
-      "source_count": 2,
-      "sources": "enhanced,setup",
+      "rank": 30,
+      "symbol": "XLE",
+      "test_score": 124.2,
+      "source_count": 3,
+      "sources": "etf,institutional,setup",
       "component_scores": {
-        "enhanced": 120,
+        "enhanced": 0,
         "v3": 0,
-        "institutional": 0,
-        "setup": 95,
-        "etf": 0,
+        "institutional": 120,
+        "setup": 60,
+        "etf": 100,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP | [setup] TIGHT SQUEEZE | BB:4.3% | NR3 | NR4 | ADX:0 | LOW VOL",
-      "close": 209.82000732421875,
-      "entry": 209.82000732421875,
-      "stop": 203.5254071044922,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [etf] Above SMA20 | Above EMA20 | RSI:73.2 | Strong Volume | Price OK | Near 52W High  | [setup] BB:4.8% | NR3 | NR4 | ADX:0 | MACD RISING",
+      "close": 56.525001525878906,
+      "entry": 56.53,
+      "stop": 0,
       "days_on_list": 1
     },
     {
-      "rank": 37,
-      "symbol": "LIN",
-      "test_score": 123.2,
+      "rank": 31,
+      "symbol": "ADEA",
+      "test_score": 122.5,
       "source_count": 2,
-      "sources": "enhanced,v3",
+      "sources": "institutional,v3",
       "component_scores": {
-        "enhanced": 120,
+        "enhanced": 0,
         "v3": 95,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[v3] COMPRESSED \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 20.75,
+      "entry": 20.75,
+      "stop": 18.82,
+      "days_on_list": 1
+    },
+    {
+      "rank": 32,
+      "symbol": "AAMI",
+      "test_score": 120.0,
+      "source_count": 2,
+      "sources": "institutional,v3",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 100,
+        "institutional": 110,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 FULL SUPPORT \u2022 NEAR 20D H",
+      "close": 54.68000030517578,
+      "entry": 54.68,
+      "stop": 50.05,
+      "days_on_list": 1
+    },
+    {
+      "rank": 33,
+      "symbol": "VICR",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
         "institutional": 0,
         "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE | [v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID",
-      "close": 499.19000244140625,
-      "entry": 509.3399963378906,
-      "stop": 494.0597964477539,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 GAP UP \u2022 STRONG CLOSE",
+      "close": 181.9199981689453,
+      "entry": 201.97000122070312,
+      "stop": 195.91090118408204,
+      "days_on_list": 3
+    },
+    {
+      "rank": 34,
+      "symbol": "LUNR",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 GAP UP \u2022 HOT MOMENTUM",
+      "close": 18.6200008392334,
+      "entry": 18.6200008392334,
+      "stop": 18.061400814056395,
+      "days_on_list": 2
+    },
+    {
+      "rank": 35,
+      "symbol": "BIO",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
+      "close": 284.9100036621094,
+      "entry": 284.9100036621094,
+      "stop": 276.3627035522461,
+      "days_on_list": 2
+    },
+    {
+      "rank": 36,
+      "symbol": "BR",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP",
+      "close": 189.76499938964844,
+      "entry": 189.76499938964844,
+      "stop": 184.07204940795899,
+      "days_on_list": 4
+    },
+    {
+      "rank": 37,
+      "symbol": "USPH",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
+      "close": 82.44999694824219,
+      "entry": 83.16000366210938,
+      "stop": 80.6652035522461,
       "days_on_list": 2
     },
     {
       "rank": 38,
-      "symbol": "FFIV",
-      "test_score": 121.7,
-      "source_count": 2,
-      "sources": "enhanced,setup",
-      "component_scores": {
-        "enhanced": 120,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 90,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE | [setup] TIGHT SQUEEZE | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 284.79998779296875,
-      "entry": 284.79998779296875,
-      "stop": 276.2559881591797,
-      "days_on_list": 1
-    },
-    {
-      "rank": 39,
-      "symbol": "DLR",
-      "test_score": 121.7,
-      "source_count": 2,
-      "sources": "enhanced,setup",
-      "component_scores": {
-        "enhanced": 120,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 90,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE | [setup] TIGHT SQUEEZE | BB:3.8% | NR3 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 181.1199951171875,
-      "entry": 181.1199951171875,
-      "stop": 175.68639526367187,
-      "days_on_list": 1
-    },
-    {
-      "rank": 40,
       "symbol": "INTU",
-      "test_score": 121.7,
-      "source_count": 2,
-      "sources": "enhanced,setup",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
       "component_scores": {
         "enhanced": 120,
         "v3": 0,
         "institutional": 0,
-        "setup": 90,
+        "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 HOT MOMENTUM | [setup] TIGHT SQUEEZE | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 HOT MOMENTUM",
       "close": 440.1300048828125,
       "entry": 440.1300048828125,
       "stop": 426.9261047363281,
+      "days_on_list": 2
+    },
+    {
+      "rank": 39,
+      "symbol": "ACN",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP",
+      "close": 209.82000732421875,
+      "entry": 209.82000732421875,
+      "stop": 203.5254071044922,
+      "days_on_list": 2
+    },
+    {
+      "rank": 40,
+      "symbol": "ADSK",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 MOMENTUM",
+      "close": 253.24000549316406,
+      "entry": 253.24000549316406,
+      "stop": 245.64280532836912,
       "days_on_list": 1
     },
     {
       "rank": 41,
-      "symbol": "BR",
-      "test_score": 121.7,
-      "source_count": 2,
-      "sources": "enhanced,setup",
+      "symbol": "FRT",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
       "component_scores": {
         "enhanced": 120,
         "v3": 0,
         "institutional": 0,
-        "setup": 90,
+        "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP | [setup] TIGHT SQUEEZE | NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL",
-      "close": 189.76499938964844,
-      "entry": 189.76499938964844,
-      "stop": 184.07204940795899,
-      "days_on_list": 3
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
+      "close": 110.30280303955078,
+      "entry": 110.30280303955078,
+      "stop": 106.99371894836426,
+      "days_on_list": 2
     },
     {
       "rank": 42,
@@ -851,11 +851,11 @@
       "close": 114.88999938964844,
       "entry": 114.88999938964844,
       "stop": 111.44329940795897,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
       "rank": 43,
-      "symbol": "SNDX",
+      "symbol": "FFIV",
       "test_score": 120.0,
       "source_count": 1,
       "sources": "enhanced",
@@ -867,15 +867,15 @@
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 STRONG CLOSE",
-      "close": 22.30500030517578,
-      "entry": 22.30500030517578,
-      "stop": 21.635850296020507,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
+      "close": 284.79998779296875,
+      "entry": 284.79998779296875,
+      "stop": 276.2559881591797,
       "days_on_list": 2
     },
     {
       "rank": 44,
-      "symbol": "VICR",
+      "symbol": "EFX",
       "test_score": 120.0,
       "source_count": 1,
       "sources": "enhanced",
@@ -887,15 +887,15 @@
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 GAP UP \u2022 STRONG CLOSE",
-      "close": 201.97000122070312,
-      "entry": 201.97000122070312,
-      "stop": 195.91090118408204,
-      "days_on_list": 2
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
+      "close": 207.05999755859375,
+      "entry": 207.05999755859375,
+      "stop": 200.84819763183594,
+      "days_on_list": 1
     },
     {
       "rank": 45,
-      "symbol": "USPH",
+      "symbol": "IYR",
       "test_score": 120.0,
       "source_count": 1,
       "sources": "enhanced",
@@ -908,53 +908,13 @@
         "under50": 0
       },
       "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
-      "close": 83.16000366210938,
-      "entry": 83.16000366210938,
-      "stop": 80.6652035522461,
-      "days_on_list": 1
+      "close": 101.08100128173828,
+      "entry": 101.08100128173828,
+      "stop": 98.04857124328613,
+      "days_on_list": 2
     },
     {
       "rank": 46,
-      "symbol": "LUNR",
-      "test_score": 120.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 120,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 GAP UP \u2022 HOT MOMENTUM",
-      "close": 18.6200008392334,
-      "entry": 18.6200008392334,
-      "stop": 18.061400814056395,
-      "days_on_list": 1
-    },
-    {
-      "rank": 47,
-      "symbol": "FRT",
-      "test_score": 120.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 120,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
-      "close": 110.30280303955078,
-      "entry": 110.30280303955078,
-      "stop": 106.99371894836426,
-      "days_on_list": 1
-    },
-    {
-      "rank": 48,
       "symbol": "BGS",
       "test_score": 120.0,
       "source_count": 1,
@@ -971,10 +931,10 @@
       "close": 5.755000114440918,
       "entry": 5.76,
       "stop": 0,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
-      "rank": 49,
+      "rank": 47,
       "symbol": "DNTH",
       "test_score": 120.0,
       "source_count": 1,
@@ -991,10 +951,10 @@
       "close": 62.15999984741211,
       "entry": 62.16,
       "stop": 0,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
-      "rank": 50,
+      "rank": 48,
       "symbol": "ILPT",
       "test_score": 120.0,
       "source_count": 1,
@@ -1010,6 +970,46 @@
       "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
       "close": 6.599999904632568,
       "entry": 6.6,
+      "stop": 0,
+      "days_on_list": 2
+    },
+    {
+      "rank": 49,
+      "symbol": "INNV",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 10.600000381469727,
+      "entry": 10.6,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 50,
+      "symbol": "IOVA",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 4.260000228881836,
+      "entry": 4.26,
       "stop": 0,
       "days_on_list": 1
     }

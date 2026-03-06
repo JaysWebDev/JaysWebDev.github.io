@@ -1,104 +1,19 @@
 {
   "date": "2026-03-05",
-  "generated": "2026-03-05 13:32:21",
+  "generated": "2026-03-05 16:18:40",
   "portfolio_size": 30,
   "max_positions": 30,
   "open_slots": 0,
-  "exits_today": 4,
+  "exits_today": 0,
   "trims_today": 0,
-  "new_buys_today": 4,
+  "new_buys_today": 0,
   "rules": {
     "trim1": "Sell 50% at +10%",
     "trim2": "Sell 50% of remaining at +20%",
     "stop": "Close < SMA50 AND SMA50 declining (5-day slope)",
     "emergency": "Close < SMA50 by > 1 ATR"
   },
-  "alerts": [
-    {
-      "action": "EXIT",
-      "symbol": "NEM",
-      "price": 116.65,
-      "entry_price": 122.77,
-      "pnl_pct": -4.99,
-      "blended_pnl": -4.99,
-      "days_held": 16,
-      "reason": "TREND BREAK: Close $116.65 < SMA50 $120.75 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "PPL",
-      "price": 38.14,
-      "entry_price": 37.84,
-      "pnl_pct": 0.79,
-      "blended_pnl": 0.79,
-      "days_held": 9,
-      "reason": "TREND BREAK: Close $38.14 < SMA50 $38.55 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "PL",
-      "price": 23.64,
-      "entry_price": 25.83,
-      "pnl_pct": -8.46,
-      "blended_pnl": -8.46,
-      "days_held": 2,
-      "reason": "TREND BREAK: Close $23.64 < SMA50 $25.17 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "EXIT",
-      "symbol": "POWI",
-      "price": 47.03,
-      "entry_price": 48.78,
-      "pnl_pct": -3.58,
-      "blended_pnl": -3.58,
-      "days_held": 2,
-      "reason": "TREND BREAK: Close $47.03 < SMA50 $48.07 (SMA50 declining)",
-      "had_trim1": false,
-      "had_trim2": false
-    },
-    {
-      "action": "BUY",
-      "symbol": "OMCL",
-      "price": 42.11,
-      "score": 122.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 53 ",
-      "trim1_target": 46.32,
-      "trim2_target": 50.53
-    },
-    {
-      "action": "BUY",
-      "symbol": "NBR",
-      "price": 78.33,
-      "score": 120.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 VOL ACCUM \u00b7 OBV ACCUM \u00b7 BB ",
-      "trim1_target": 86.16,
-      "trim2_target": 94.0
-    },
-    {
-      "action": "BUY",
-      "symbol": "NVDA",
-      "price": 183.91,
-      "score": 117.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 61 \u00b7 2 SCANNERS \u00b7 ",
-      "trim1_target": 202.3,
-      "trim2_target": 220.69
-    },
-    {
-      "action": "BUY",
-      "symbol": "OMC",
-      "price": 85.29,
-      "score": 117.0,
-      "signals": "ABOVE SMA50 \u00b7 SHORT ALIGNED \u00b7 SMA50 RISING \u00b7 SMA200 RISING \u00b7 NEAR HIGH \u00b7 BB SQUEEZE \u00b7 RSI RISING 59 ",
-      "trim1_target": 93.81,
-      "trim2_target": 102.34
-    }
-  ],
+  "alerts": [],
   "holdings": [
     {
       "action": "HOLD",
@@ -272,23 +187,6 @@
     },
     {
       "action": "HOLD",
-      "symbol": "UNP",
-      "entry_date": "2026-02-19",
-      "entry_price": 264.01,
-      "current_price": 265.65,
-      "pnl_pct": 0.62,
-      "score": 125,
-      "position_pct": 100.0,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "days_held": 12,
-      "status": "In trend",
-      "trim1_target": 290.41,
-      "trim2_target": 316.81,
-      "stop_ref": "SMA50 declining"
-    },
-    {
-      "action": "HOLD",
       "symbol": "BCE",
       "entry_date": "2026-02-27",
       "entry_price": 26.17,
@@ -319,23 +217,6 @@
       "status": "\u26a0 Below SMA50",
       "trim1_target": 102.82,
       "trim2_target": 112.17,
-      "stop_ref": "SMA50 declining"
-    },
-    {
-      "action": "HOLD",
-      "symbol": "TPL",
-      "entry_date": "2026-03-03",
-      "entry_price": 523.38,
-      "current_price": 523.38,
-      "pnl_pct": 0,
-      "score": 110,
-      "position_pct": 100.0,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "days_held": 0,
-      "status": "In trend",
-      "trim1_target": 575.72,
-      "trim2_target": 628.06,
       "stop_ref": "SMA50 declining"
     },
     {
@@ -510,6 +391,23 @@
     },
     {
       "action": "HOLD",
+      "symbol": "TPL",
+      "entry_date": "2026-03-03",
+      "entry_price": 523.38,
+      "current_price": 522.34,
+      "pnl_pct": -0.2,
+      "score": 110,
+      "position_pct": 100.0,
+      "trim1_hit": false,
+      "trim2_hit": false,
+      "days_held": 2,
+      "status": "\u26a0 Below SMA50",
+      "trim1_target": 575.72,
+      "trim2_target": 628.06,
+      "stop_ref": "SMA50 declining"
+    },
+    {
+      "action": "HOLD",
       "symbol": "IEX",
       "entry_date": "2026-02-27",
       "entry_price": 209.08,
@@ -595,6 +493,23 @@
     },
     {
       "action": "HOLD",
+      "symbol": "UNP",
+      "entry_date": "2026-02-19",
+      "entry_price": 264.01,
+      "current_price": 260.02,
+      "pnl_pct": -1.51,
+      "score": 125,
+      "position_pct": 100.0,
+      "trim1_hit": false,
+      "trim2_hit": false,
+      "days_held": 14,
+      "status": "\u26a0 Below SMA50",
+      "trim1_target": 290.41,
+      "trim2_target": 316.81,
+      "stop_ref": "SMA50 declining"
+    },
+    {
+      "action": "HOLD",
       "symbol": "STLD",
       "entry_date": "2026-03-03",
       "entry_price": 194.58,
@@ -613,11 +528,11 @@
   ],
   "stats": {
     "total_active": 30,
-    "winners": 13,
-    "losers": 17,
+    "winners": 12,
+    "losers": 18,
     "with_trim1": 0,
     "with_trim2": 0,
-    "total_pnl_avg": 0.64
+    "total_pnl_avg": 0.56
   },
   "track_record": {
     "total_closed": 52,
