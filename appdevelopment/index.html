@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Development — Jays Web Dev</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-start: #667eea;
+            --purple-end: #764ba2;
+            --card-bg: #ffffff;
+            --text-dark: #1a202c;
+            --text-mid: #4a5568;
+            --text-light: #718096;
+            --tag-bg: #edf2f7;
+            --shadow-sm: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.12);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.18);
+            --radius: 16px;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Sora', 'Segoe UI', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--sans);
+            background: linear-gradient(135deg, var(--purple-start) 0%, var(--purple-end) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header { padding: 3rem 0 2.5rem; color: white; animation: fadeUp 0.5s ease both; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: white; }
+        .back-link::before { content: '←'; font-size: 1rem; }
+
+        .header-inner {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-tag {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.6rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.6rem;
+            font-weight: 400;
+            max-width: 480px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: var(--mono);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: white;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.65);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.25rem;
+        }
+
+        .panel {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            margin-top: 1.5rem;
+            animation: fadeUp 0.5s 0.1s ease both;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            margin-top: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-label:first-child { margin-top: 0; }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 1.5rem;
+        }
+        .grid-2col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: 600px) {
+            .grid-2col { grid-template-columns: 1fr; }
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.6rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--accent, #667eea);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle at top right, color-mix(in srgb, var(--accent, #667eea) 8%, transparent), transparent 70%);
+            pointer-events: none;
+        }
+
+        .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+        .card-planned { opacity: 0.65; }
+        .card-planned:hover { transform: none; box-shadow: var(--shadow-sm); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .badge {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: 0.5rem;
+        }
+        .badge-live     { background: #c6f6d5; color: #22543d; }
+        .badge-active   { background: #bee3f8; color: #2a69ac; }
+        .badge-complete { background: #b2f5ea; color: #1d4044; }
+        .badge-dev      { background: #fefcbf; color: #744210; }
+        .badge-planned  { background: #edf2f7; color: #4a5568; }
+        .badge-wip      { background: #fed7d7; color: #9b2c2c; }
+
+        .card-desc {
+            font-size: 0.88rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+            margin-bottom: 1.1rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            color: var(--text-mid);
+            font-size: 0.75rem;
+            font-family: var(--mono);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+            cursor: pointer;
+            border: none;
+            font-family: var(--sans);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent, #667eea), color-mix(in srgb, var(--accent, #667eea) 60%, #000));
+            color: white;
+        }
+        .btn-primary:hover { transform: scale(1.04); }
+        .btn-disabled { background: #edf2f7; color: #a0aec0; cursor: not-allowed; }
+
+        .card-meta {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--text-light);
+        }
+
+        .cross-link-bar {
+            margin-top: 2.5rem;
+            padding: 1.1rem 1.5rem;
+            background: linear-gradient(135deg, rgba(192,86,33,0.06), rgba(123,52,30,0.06));
+            border: 1px solid rgba(192,86,33,0.18);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .cross-link-bar p { font-size: 0.85rem; color: var(--text-mid); }
+        .cross-link-bar a {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #c05621;
+            text-decoration: none;
+            padding: 0.4rem 1rem;
+            background: rgba(192,86,33,0.08);
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+        .cross-link-bar a:hover { background: rgba(192,86,33,0.15); }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-links {
+            margin-top: 0.75rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        .contact-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .contact-links a:hover { color: white; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-card { animation: fadeUp 0.4s ease both; }
+        .project-card:nth-child(1) { animation-delay: 0.15s; }
+        .project-card:nth-child(2) { animation-delay: 0.20s; }
+        .project-card:nth-child(3) { animation-delay: 0.25s; }
+        .project-card:nth-child(4) { animation-delay: 0.30s; }
+        .project-card:nth-child(5) { animation-delay: 0.35s; }
+        .project-card:nth-child(6) { animation-delay: 0.40s; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .panel { padding: 1.5rem 1rem; }
+            .header-inner { flex-direction: column; align-items: flex-start; }
+            .header-stats { width: 100%; justify-content: space-around; }
+            .project-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../" class="back-link">Back to Portfolio</a>
+        <div class="header-inner">
+            <div>
+                <div class="header-tag">// jays.website / appdevelopment</div>
+                <h1>App Development</h1>
+                <p class="tagline">Agents, infrastructure, and full-stack applications — built and running in production.</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat">
+                    <div class="stat-num">8</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">4</div>
+                    <div class="stat-label">Live</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">2</div>
+                    <div class="stat-label">Planned</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="panel">
+
+        <!-- ── SECTION 1: AI Agents & Automation ── -->
+        <div class="section-label">🤖 AI Agents &amp; Automation</div>
+        <div class="project-grid grid-2col">
+
+            <div class="project-card" style="--accent: #9f7aea;">
+                <div class="card-header">
+                    <div class="card-title">🤖 ClaudBot + Openclaw</div>
+                    <span class="badge badge-live">Live</span>
+                </div>
+                <p class="card-desc">Telegram bot powered by Openclaw, bridging directly to Claude AI. Send a message from anywhere — Claude responds with full tool access including web browsing. Monitored via live dashboard.</p>
+                <div class="tags">
+                    <span class="tag">Telegram</span><span class="tag">Openclaw</span><span class="tag">Claude AI</span><span class="tag">Browser</span><span class="tag">Systemd</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://jays.website/agent/" class="btn btn-primary" style="--accent:#9f7aea;">View Dashboard →</a>
+                    <span class="card-meta">Mar 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #e53e3e;">
+                <div class="card-header">
+                    <div class="card-title">🛡️ DashClaw</div>
+                    <span class="badge badge-live">Live</span>
+                </div>
+                <p class="card-desc">AI agent governance and audit layer. Every action the AI agent takes is logged, risk-scored, and auditable. Human-in-the-loop approval for sensitive operations and full decision history.</p>
+                <div class="tags">
+                    <span class="tag">Governance</span><span class="tag">Audit Trail</span><span class="tag">Risk Scoring</span><span class="tag">Next.js</span><span class="tag">Postgres</span>
+                </div>
+                <div class="card-footer">
+                    <span class="btn btn-disabled">Internal</span>
+                    <span class="card-meta">Mar 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #e53e3e;">
+                <div class="card-header">
+                    <div class="card-title">🧠 LLM Agent</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Multi-agent LLM system for desktop automation. Local-first with CrewAI orchestration and Ollama inference — no cloud required.</p>
+                <div class="tags">
+                    <span class="tag">CrewAI</span><span class="tag">Ollama</span><span class="tag">Python</span><span class="tag">local-first</span><span class="tag">web UI</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/llm-agent" class="btn btn-primary" style="--accent:#e53e3e;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">May 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #319795;">
+                <div class="card-header">
+                    <div class="card-title">🧠 SKS Memory System</div>
+                    <span class="badge badge-active">Active</span>
+                </div>
+                <p class="card-desc">Semantic knowledge store and memory bridge for Claude Code. Extracts facts from session logs into a RAG database and surfaces relevant context at session start.</p>
+                <div class="tags">
+                    <span class="tag">Python</span><span class="tag">Vector DB</span><span class="tag">RAG</span><span class="tag">Claude Code</span><span class="tag">cron</span>
+                </div>
+                <div class="card-footer">
+                    <span class="btn btn-disabled">Internal</span>
+                    <span class="card-meta">Apr 2026</span>
+                </div>
+            </div>
+
+        </div><!-- /agents grid -->
+
+        <!-- ── SECTION 3: Infrastructure ── -->
+        <div class="section-label">⚙️ Infrastructure</div>
+        <div class="project-grid grid-2col">
+
+            <div class="project-card" style="--accent: #ed8936;">
+                <div class="card-header">
+                    <div class="card-title">🖥️ jserv Home Lab</div>
+                    <span class="badge badge-active">Active</span>
+                </div>
+                <p class="card-desc">Dell i5-4690K tower repurposed as a dedicated dev/data lab. Runs JupyterLab, Docker, and PostgreSQL. Connected via Tailscale. Home for web scrapers, data pipelines, and ML experiments.</p>
+                <div class="tags">
+                    <span class="tag">Dell Tower</span><span class="tag">Ubuntu 24.04</span><span class="tag">JupyterLab</span><span class="tag">Docker</span><span class="tag">Tailscale</span>
+                </div>
+                <div class="card-footer">
+                    <span class="btn btn-disabled">Recovering</span>
+                    <span class="card-meta">Mar 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #319795;">
+                <div class="card-header">
+                    <div class="card-title">🖥️ AI Appliance Setup</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">One-shot bootstrapper for a private local AI stack — no cloud, no subscriptions. Installs Ollama, pulls Qwen2.5-1.5B, and sets up Open WebUI as a systemd service. Runs on any Ubuntu/Debian machine, CPU-only.</p>
+                <div class="tags">
+                    <span class="tag">bash</span><span class="tag">Ollama</span><span class="tag">Open WebUI</span><span class="tag">Qwen2.5</span><span class="tag">systemd</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/ai-appliance" class="btn btn-primary" style="--accent:#319795;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Mar 2026</span>
+                </div>
+            </div>
+
+        </div><!-- /infra grid -->
+
+        <!-- ── SECTION 4: R&D ── -->
+        <div class="section-label">🔬 R&amp;D — Work in Progress</div>
+        <div class="project-grid grid-2col">
+
+            <div class="project-card card-planned" style="--accent: #f6ad55;">
+                <div class="card-header">
+                    <div class="card-title">🍓 HomeMind Appliance</div>
+                    <span class="badge badge-wip">WIP</span>
+                </div>
+                <p class="card-desc">Local AI backend designed for a Raspberry Pi 4 (ARM64). FastAPI + llama-cpp-python inference server with streaming responses. Runs offline — no cloud required. Goal: a persistent home AI that remembers context and never phones home.</p>
+                <div class="tags">
+                    <span class="tag">FastAPI</span><span class="tag">llama-cpp</span><span class="tag">ARM64</span><span class="tag">Raspberry Pi 4</span><span class="tag">offline</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/homemind" class="btn btn-primary" style="--accent:#f6ad55;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Apr 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card card-planned" style="--accent: #fc8181;">
+                <div class="card-header">
+                    <div class="card-title">🧸 Memory Objects</div>
+                    <span class="badge badge-wip">WIP</span>
+                </div>
+                <p class="card-desc">Local LLM embedded in physical objects — a bear, a photo frame, a card. No internet, no subscription. Fine-tuned on personality data using QLoRA + voice cloning with Coqui TTS. Privacy-first memory preservation for loved ones.</p>
+                <div class="tags">
+                    <span class="tag">TinyLlama 1.1B</span><span class="tag">QLoRA</span><span class="tag">Coqui TTS</span><span class="tag">Raspberry Pi Zero</span><span class="tag">ESP32</span>
+                </div>
+                <div class="card-footer">
+                    <span class="btn btn-disabled">Design Phase</span>
+                    <span class="card-meta">Apr 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #667eea;">
+                <div class="card-header">
+                    <div class="card-title">🔬 LLM Training Lab</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Self-contained LoRA/QLoRA fine-tuning toolkit for open LLMs. Config-driven training, BLEU/ROUGE/perplexity evaluation, evolutionary hyperparameter search, and a FastAPI proposal review dashboard.</p>
+                <div class="tags">
+                    <span class="tag">LoRA</span><span class="tag">QLoRA</span><span class="tag">HuggingFace</span><span class="tag">PEFT</span><span class="tag">FastAPI</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/llm-training-lab" class="btn btn-primary" style="--accent:#667eea;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jun 2026</span>
+                </div>
+            </div>
+
+        </div><!-- /rd grid -->
+
+        <!-- Cross-link to Tools -->
+        <div class="cross-link-bar">
+            <p>Looking for system utilities, browser extensions, and dev tools?</p>
+            <a href="../tools/">→ Dev Tools</a>
+        </div>
+
+    </div><!-- /panel -->
+
+    <footer>
+        <p>&copy; 2026 Jays Web Development. Building the future of financial technology.</p>
+        <div class="contact-links">
+            <a href="https://github.com/JaysWebDev">GitHub</a>
+            <a href="../tools/">Dev Tools</a>
+            <a href="mailto:jaysweb@proton.me">Contact</a>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
