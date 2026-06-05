@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Tools — Jays Web Dev</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-a: #ed8936;
+            --accent-b: #c05621;
+            --card-bg: #ffffff;
+            --text-dark: #1a202c;
+            --text-mid: #4a5568;
+            --text-light: #718096;
+            --tag-bg: #edf2f7;
+            --shadow-sm: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.12);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.18);
+            --radius: 16px;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Sora', 'Segoe UI', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--sans);
+            background: linear-gradient(135deg, #c05621 0%, #7b341e 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header { padding: 3rem 0 2.5rem; color: white; animation: fadeUp 0.5s ease both; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: white; }
+        .back-link::before { content: '←'; font-size: 1rem; }
+
+        .header-inner {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-tag {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.6rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.6rem;
+            font-weight: 400;
+            max-width: 520px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: var(--mono);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: white;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.65);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.25rem;
+        }
+
+        .panel {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            margin-top: 1.5rem;
+            animation: fadeUp 0.5s 0.1s ease both;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            margin-top: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-label:first-child { margin-top: 0; }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .grid-2col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: 600px) {
+            .grid-2col { grid-template-columns: 1fr; }
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--accent, #ed8936);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle at top right, color-mix(in srgb, var(--accent, #ed8936) 8%, transparent), transparent 70%);
+            pointer-events: none;
+        }
+
+        .project-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .card-planned { opacity: 0.6; }
+        .card-planned:hover { transform: none; box-shadow: var(--shadow-sm); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.25;
+        }
+
+        .badge {
+            font-family: var(--mono);
+            font-size: 0.63rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            padding: 0.22rem 0.55rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: 0.5rem;
+        }
+        .badge-live     { background: #c6f6d5; color: #22543d; }
+        .badge-active   { background: #bee3f8; color: #2a69ac; }
+        .badge-complete { background: #b2f5ea; color: #1d4044; }
+        .badge-dev      { background: #fefcbf; color: #744210; }
+        .badge-planned  { background: #edf2f7; color: #4a5568; }
+        .badge-wip      { background: #fed7d7; color: #9b2c2c; }
+
+        .card-desc {
+            font-size: 0.86rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+            margin-bottom: 0.85rem;
+        }
+
+        /* ── CURL BLOCK ── */
+        .curl-block {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0f1117;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.07);
+            overflow: hidden;
+        }
+
+        .curl-block code {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: #a8d8a8;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.01em;
+        }
+
+        .curl-copy-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.7);
+            border-radius: 5px;
+            padding: 0.2rem 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: background 0.15s, color 0.15s;
+        }
+        .curl-copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+        .curl-copy-btn.copied { background: rgba(72,187,120,0.25); color: #68d391; border-color: rgba(72,187,120,0.4); }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            color: var(--text-mid);
+            font-size: 0.72rem;
+            font-family: var(--mono);
+            padding: 0.18rem 0.55rem;
+            border-radius: 6px;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.1rem;
+            border-radius: 25px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+            cursor: pointer;
+            border: none;
+            font-family: var(--sans);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent, #ed8936), color-mix(in srgb, var(--accent, #ed8936) 60%, #000));
+            color: white;
+        }
+        .btn-primary:hover { transform: scale(1.04); }
+        .btn-disabled { background: #edf2f7; color: #a0aec0; cursor: not-allowed; }
+
+        .card-meta {
+            font-family: var(--mono);
+            font-size: 0.67rem;
+            color: var(--text-light);
+        }
+
+        .planned-callout {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            background: #f7fafc;
+            border: 1px dashed #cbd5e0;
+            border-radius: 10px;
+            opacity: 0.75;
+        }
+        .planned-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .planned-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+        .planned-desc {
+            font-size: 0.82rem;
+            color: var(--text-mid);
+            line-height: 1.5;
+        }
+
+        .cross-link-bar {
+            margin-top: 2.5rem;
+            padding: 1.1rem 1.5rem;
+            background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(118,75,162,0.06));
+            border: 1px solid rgba(102,126,234,0.18);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .cross-link-bar p {
+            font-size: 0.85rem;
+            color: var(--text-mid);
+        }
+        .cross-link-bar a {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #553c9a;
+            text-decoration: none;
+            padding: 0.4rem 1rem;
+            background: rgba(102,126,234,0.1);
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+        .cross-link-bar a:hover { background: rgba(102,126,234,0.18); }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-links {
+            margin-top: 0.75rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        .contact-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .contact-links a:hover { color: white; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-card { animation: fadeUp 0.4s ease both; }
+        .project-card:nth-child(1) { animation-delay: 0.10s; }
+        .project-card:nth-child(2) { animation-delay: 0.15s; }
+        .project-card:nth-child(3) { animation-delay: 0.20s; }
+        .project-card:nth-child(4) { animation-delay: 0.25s; }
+        .project-card:nth-child(5) { animation-delay: 0.30s; }
+        .project-card:nth-child(6) { animation-delay: 0.35s; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .panel { padding: 1.5rem 1rem; }
+            .header-inner { flex-direction: column; align-items: flex-start; }
+            .header-stats { width: 100%; justify-content: space-around; }
+            .project-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+            .curl-block code { font-size: 0.62rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../" class="back-link">Back to Portfolio</a>
+        <div class="header-inner">
+            <div>
+                <div class="header-tag">// jays.website / tools</div>
+                <h1>Dev Tools</h1>
+                <p class="tagline">System utilities, browser extensions, and developer tools — open source, run anywhere.</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat">
+                    <div class="stat-num">13</div>
+                    <div class="stat-label">Tools</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">2</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">OS</div>
+                    <div class="stat-label">Open Source</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="panel">
+
+        <!-- ── SECTION 1: System Tools ── -->
+        <div class="section-label">🖥️ System Tools — install &amp; run locally on Ubuntu/Linux</div>
+        <div class="project-grid grid-2col">
+
+            <div class="project-card" style="--accent: #718096;">
+                <div class="card-header">
+                    <div class="card-title">🩺 System Health Check</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Machine-aware health snapshot — detects running services (nginx, Tailscale, Cloudflare, cron), checks CPU load, temps, disk usage, and network. Outputs clean ✓/⚠/✗ summary in under 3 seconds.</p>
+                <div class="curl-block">
+                    <code>curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/health-check/health_check.sh | bash</code>
+                    <button class="curl-copy-btn" onclick="copyCurl(this, 'curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/health-check/health_check.sh | bash')">copy</button>
+                </div>
+                <div class="tags">
+                    <span class="tag">bash</span><span class="tag">Ubuntu</span><span class="tag">memory</span><span class="tag">disk</span><span class="tag">temp</span><span class="tag">services</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/health-check" class="btn btn-primary" style="--accent:#718096;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jun 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #4a5568;">
+                <div class="card-header">
+                    <div class="card-title">🔬 Ubuntu System Diagnostic</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Comprehensive read-only system audit. Covers hardware, CPU/memory, disk health, network, open ports, security posture, recent journal errors, and pending package updates. Saves timestamped log to /tmp.</p>
+                <div class="curl-block">
+                    <code>curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/diagnostics/enhanced_ubuntu_diagnostic.sh | bash</code>
+                    <button class="curl-copy-btn" onclick="copyCurl(this, 'curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/diagnostics/enhanced_ubuntu_diagnostic.sh | bash')">copy</button>
+                </div>
+                <div class="tags">
+                    <span class="tag">bash</span><span class="tag">Ubuntu</span><span class="tag">read-only</span><span class="tag">disk health</span><span class="tag">security</span><span class="tag">logs</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/diagnostics" class="btn btn-primary" style="--accent:#4a5568;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jun 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #ed8936;">
+                <div class="card-header">
+                    <div class="card-title">🛡️ Security Hardening Setup</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">One-shot security baseline for Ubuntu. Auto-detects running services (nginx, Tailscale, OpenVPN, Gitea) before enabling UFW — no lockouts. Configures Fail2Ban with SSH brute-force protection. Supports --dry-run and --check-only flags.</p>
+                <div class="curl-block">
+                    <code>curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/security-setup/security_setup.sh | sudo bash</code>
+                    <button class="curl-copy-btn" onclick="copyCurl(this, 'curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/security-setup/security_setup.sh | sudo bash')">copy</button>
+                </div>
+                <div class="tags">
+                    <span class="tag">UFW</span><span class="tag">Fail2Ban</span><span class="tag">AppArmor</span><span class="tag">ClamAV</span><span class="tag">bash</span><span class="tag">Ubuntu</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/security-setup" class="btn btn-primary" style="--accent:#ed8936;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jun 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #38a169;">
+                <div class="card-header">
+                    <div class="card-title">🧹 Cache Cleanup</div>
+                    <span class="badge badge-active">Active</span>
+                </div>
+                <p class="card-desc">Clears Python bytecode, pip/npm caches, snap browser caches, fontconfig, mesa shader cache, and user trash. Machine-aware — uses $HOME, not hardcoded paths. Supports --dry-run. Safe to run anytime or schedule via cron.</p>
+                <div class="curl-block">
+                    <code>curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/automated-cleanup/weekly_cache_cleanup.sh | bash</code>
+                    <button class="curl-copy-btn" onclick="copyCurl(this, 'curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/system/automated-cleanup/weekly_cache_cleanup.sh | bash')">copy</button>
+                </div>
+                <div class="tags">
+                    <span class="tag">bash</span><span class="tag">Ubuntu</span><span class="tag">cron-ready</span><span class="tag">pip</span><span class="tag">npm</span><span class="tag">browser cache</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/automated-cleanup" class="btn btn-primary" style="--accent:#38a169;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jun 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #667eea;">
+                <div class="card-header">
+                    <div class="card-title">🔍 Duplicate File Detector</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Recursively scans a directory, groups files by MD5 hash, and reports duplicate groups with paths, sizes, and total wasted space. Configurable minimum file size. Outputs a detailed JSON report on request.</p>
+                <div class="curl-block">
+                    <code>curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/app-development/duplicate-detector/duplicate_detector.py | python3 - .</code>
+                    <button class="curl-copy-btn" onclick="copyCurl(this, 'curl -fsSL https://raw.githubusercontent.com/JaysWebDev/dev-tools/main/app-development/duplicate-detector/duplicate_detector.py | python3 - .')">copy</button>
+                </div>
+                <div class="tags">
+                    <span class="tag">Python</span><span class="tag">MD5 hash</span><span class="tag">recursive scan</span><span class="tag">CLI</span><span class="tag">JSON output</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/duplicate-detector" class="btn btn-primary" style="--accent:#667eea;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jan 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #805ad5;">
+                <div class="card-header">
+                    <div class="card-title">📁 Smart File Organizer</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Categorizes files by extension (video, image, note, file), strips EXIF/metadata before moving using exiftool, and outputs a clean organized directory structure. Confirm prompt before any changes — no surprises.</p>
+                <div class="tags">
+                    <span class="tag">Python</span><span class="tag">exiftool</span><span class="tag">metadata strip</span><span class="tag">CLI</span><span class="tag">categories</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/file-organizer" class="btn btn-primary" style="--accent:#805ad5;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jan 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #4299e1;">
+                <div class="card-header">
+                    <div class="card-title">📡 WiFi Network Scanner</div>
+                    <span class="badge badge-live">Live</span>
+                </div>
+                <p class="card-desc">Scans the local network to identify all connected devices by IP, MAC address, hostname, and manufacturer. Eliminates guesswork when servers change IP or new devices connect. Web UI included.</p>
+                <div class="tags">
+                    <span class="tag">Network Discovery</span><span class="tag">MAC Lookup</span><span class="tag">Device ID</span><span class="tag">Real-time</span><span class="tag">Python</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://jays.website/appdevelopment/wifi-scanner/" class="btn btn-primary" style="--accent:#4299e1;">Launch Scanner →</a>
+                    <span class="card-meta">Mar 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #48bb78;">
+                <div class="card-header">
+                    <div class="card-title">🔧 USB Recovery Toolkit</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Custom bootable USB to recover headless Linux servers with broken boot or network config. Auto-starts SSH, chroots into the broken install, reinstalls GRUB and fixes netplan — no monitor needed.</p>
+                <div class="tags">
+                    <span class="tag">Alpine Linux</span><span class="tag">GRUB Repair</span><span class="tag">Boot Recovery</span><span class="tag">SSH Auto-start</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/usb-recovery" class="btn btn-primary" style="--accent:#48bb78;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Mar 2026</span>
+                </div>
+            </div>
+
+        </div><!-- /system grid -->
+
+        <div class="planned-callout">
+            <div class="planned-icon">🕷️</div>
+            <div class="planned-body">
+                <div class="planned-title">Web Intelligence Scraper <span class="badge badge-planned" style="vertical-align:middle;">Planned</span></div>
+                <div class="planned-desc">Automated scraping and analysis system feeding trading, rental, and business dashboards — SEC filings, job postings, permit data, and sentiment analysis unified in one pipeline.</div>
+            </div>
+        </div>
+
+        <!-- ── SECTION 2: Web Tools ── -->
+        <div class="section-label">🌐 Web Tools — browser extensions &amp; web platforms</div>
+        <div class="project-grid grid-2col">
+
+            <div class="project-card" style="--accent: #667eea;">
+                <div class="card-header">
+                    <div class="card-title">🗒️ Web Note Extractor</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Chrome extension that saves any webpage as clean text or PDF with one click. Strips ads, navigation, and boilerplate. Designed for research sessions where you need permanent offline copies of articles and documentation.</p>
+                <div class="tags">
+                    <span class="tag">Chrome Extension</span><span class="tag">Manifest V3</span><span class="tag">text export</span><span class="tag">PDF export</span><span class="tag">one-click</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/web-note-extractor" class="btn btn-primary" style="--accent:#667eea;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Jan 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #e53e3e;">
+                <div class="card-header">
+                    <div class="card-title">🎬 Video Saver</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">Chrome extension that intercepts video streams (HLS/MP4/WebM) and saves them locally with one click. Background service worker monitors network requests; popup shows toggle and session stats.</p>
+                <div class="tags">
+                    <span class="tag">Chrome Extension</span><span class="tag">Manifest V3</span><span class="tag">service worker</span><span class="tag">HLS/MP4/WebM</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/video-saver" class="btn btn-primary" style="--accent:#e53e3e;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Feb 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #2dce7d;">
+                <div class="card-header">
+                    <div class="card-title">🕷️ Personal Scraper Lab</div>
+                    <span class="badge badge-active">Active</span>
+                </div>
+                <p class="card-desc">Modular web scraping and data cleaning lab. Cleaners for addresses, phone numbers, emails, business names, and URLs. Jupyter notebooks with real output. Built as a live reference for production pipelines.</p>
+                <div class="tags">
+                    <span class="tag">Python</span><span class="tag">BeautifulSoup</span><span class="tag">geocoding</span><span class="tag">data cleaning</span><span class="tag">Jupyter</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/personal-scraper-lab" class="btn btn-primary" style="--accent:#2dce7d;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">Mar 2026</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="--accent: #d69e2e;">
+                <div class="card-header">
+                    <div class="card-title">🎥 VidGen</div>
+                    <span class="badge badge-complete">Complete</span>
+                </div>
+                <p class="card-desc">AI video generation and marketing automation platform. Text-to-video, image-to-video, and virtual character generation in one Flask app. Includes job manager, marketing agent, and multi-platform distribution.</p>
+                <div class="tags">
+                    <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">text-to-video</span><span class="tag">image-to-video</span><span class="tag">marketing agent</span>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/JaysWebDev/VidGen" class="btn btn-primary" style="--accent:#d69e2e;" target="_blank">View on GitHub →</a>
+                    <span class="card-meta">May 2026</span>
+                </div>
+            </div>
+
+        </div><!-- /web grid -->
+
+        <!-- Cross-link to App Development -->
+        <div class="cross-link-bar">
+            <p>Looking for agents, infrastructure, and full-stack apps?</p>
+            <a href="../appdevelopment/">→ App Development Hub</a>
+        </div>
+
+    </div><!-- /panel -->
+
+    <footer>
+        <p>&copy; 2026 Jays Web Development. Building the future of financial technology.</p>
+        <div class="contact-links">
+            <a href="https://github.com/JaysWebDev">GitHub</a>
+            <a href="../appdevelopment/">App Development</a>
+            <a href="mailto:jaysweb@proton.me">Contact</a>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+function copyCurl(btn, cmd) {
+    navigator.clipboard.writeText(cmd).then(() => {
+        btn.textContent = '✓ copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = 'copy';
+            btn.classList.remove('copied');
+        }, 2000);
+    }).catch(() => {
+        btn.textContent = 'error';
+        setTimeout(() => btn.textContent = 'copy', 2000);
+    });
+}
+</script>
+</body>
+</html>
