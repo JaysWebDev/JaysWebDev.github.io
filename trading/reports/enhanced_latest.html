@@ -1,0 +1,823 @@
+
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+
+        <title>Enhanced Breakout Scanner - 2026-04-23</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: 'Segoe UI', -apple-system, system-ui, sans-serif;
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                color: #e2e8f0;
+                margin: 0;
+                padding: 20px;
+                line-height: 1.5;
+                min-height: 100vh;
+            }
+            .container { max-width: 1400px; margin: 0 auto; }
+            h1 { color: #3B82F6; text-align: center; border-bottom: 2px solid rgba(59,130,246,0.3); padding-bottom: 12px; font-size: 1.5rem; }
+            h2 { color: #e2e8f0; font-size: 1.1rem; }
+            .stats {
+                background: rgba(30,41,59,0.8);
+                border: 1px solid rgba(59,130,246,0.2);
+                border-radius: 10px;
+                padding: 16px;
+                margin: 20px 0;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 16px;
+            }
+            .stat { text-align: center; }
+            .stat-value { font-size: 1.6rem; font-weight: bold; color: #3B82F6; }
+            .stat-label { color: #94A3B8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: rgba(15,23,42,0.6);
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
+            th {
+                background: rgba(59,130,246,0.15);
+                color: #3B82F6;
+                padding: 12px 8px;
+                text-align: center;
+                font-weight: 600;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            td {
+                padding: 10px 8px;
+                border-bottom: 1px solid rgba(148,163,184,0.1);
+                text-align: center;
+                font-size: 13px;
+            }
+            tr:hover { background: rgba(59,130,246,0.05); }
+            .symbol { font-weight: bold; color: #3B82F6; }
+            .score-90 { background: rgba(239,68,68,0.2); color: #EF4444; font-weight: bold; border-radius: 4px; }
+            .score-80 { background: rgba(34,197,94,0.2); color: #22C55E; font-weight: bold; border-radius: 4px; }
+            .score-70 { background: rgba(59,130,246,0.2); color: #3B82F6; font-weight: bold; border-radius: 4px; }
+            .score-60 { background: rgba(245,158,11,0.2); color: #F59E0B; font-weight: bold; border-radius: 4px; }
+            .signals { max-width: 200px; font-size: 11px; color: #94A3B8; }
+            .gap-positive { color: #22C55E; }
+            .gap-negative { color: #EF4444; }
+            .momentum-positive { color: #22C55E; }
+            .momentum-negative { color: #EF4444; }
+            
+    .badge-s2  { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-s1  { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-b50 { display:inline-block; background:rgba(239,68,68,0.15);  color:#EF4444; border:1px solid rgba(239,68,68,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsh { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsm { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsl { display:inline-block; background:rgba(100,116,139,0.15);color:#94A3B8; border:1px solid rgba(100,116,139,0.3); padding:2px 5px; border-radius:3px; font-size:10px; margin:1px; }
+    .sig-gap   { color:#F59E0B; font-weight:bold; }
+    .sig-mom   { color:#F97316; font-weight:bold; }
+    .sig-kbo   { color:#38BDF8; font-weight:bold; }
+    .sig-hi    { color:#22C55E; }
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🚀 Enhanced Breakout Scanner - 2026-04-23</h1>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">40</div>
+                    <div class="stat-label">QUALIFYING SETUPS</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">774</div>
+                    <div class="stat-label">SYMBOLS SCANNED</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">200</div>
+                    <div class="stat-label">TOP SCORE</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">40</div>
+                    <div class="stat-label">PREMIUM SETUPS (80+)</div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Symbol</th>
+                        <th>Price</th>
+                        <th>Score</th>
+                        <th>Trend</th>
+                        <th>RS</th>
+                        <th>RVol 50</th>
+                        <th>RVol 20</th>
+                        <th>Gap %</th>
+                        <th>5D Mom %</th>
+                        <th>% 52WH</th>
+                        <th>ATR %</th>
+                        <th>Dollar Vol</th>
+                        <th>Key Signals</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                    <tr>
+                        <td>1</td>
+                        <td class="symbol">POET</td>
+                        <td>$12.77</td>
+                        <td class="score-90">200</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS98</span></td>
+                        <td>6.5x</td>
+                        <td>4.4x</td>
+                        <td class="gap-positive">+10.8%</td>
+                        <td class="momentum-positive">+83.2%</td>
+                        <td>98.6%</td>
+                        <td>8.2%</td>
+                        <td>$1076M</td>
+                        <td class="signals"><span class="sig-gap">NR3 • 5x+ VOL • KELTNER BO • TREND ALIGN • NEW HIGH • BIG GAP • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>2</td>
+                        <td class="symbol">HOLX</td>
+                        <td>$76.01</td>
+                        <td class="score-90">170</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsl">RS46</span></td>
+                        <td>20.7x</td>
+                        <td>12.4x</td>
+                        <td class="gap-negative">+0.0%</td>
+                        <td class="momentum-positive">+0.4%</td>
+                        <td>99.9%</td>
+                        <td>0.3%</td>
+                        <td>$7755M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • 5x+ VOL • KELTNER BO • TREND ALIGN • NEW HIGH • BB SQUEEZE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>3</td>
+                        <td class="symbol">FCEL</td>
+                        <td>$11.8</td>
+                        <td class="score-90">165</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsh">RS92</span></td>
+                        <td>8.0x</td>
+                        <td>5.2x</td>
+                        <td class="gap-positive">+18.1%</td>
+                        <td class="momentum-positive">+56.7%</td>
+                        <td>98.4%</td>
+                        <td>6.7%</td>
+                        <td>$201M</td>
+                        <td class="signals"><span class="sig-gap">5x+ VOL • KELTNER BO • TREND ALIGN • NEW HIGH • BIG GAP • HOT MOMENTUM • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>4</td>
+                        <td class="symbol">AMPX</td>
+                        <td>$22.69</td>
+                        <td class="score-90">160</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS93</span></td>
+                        <td>1.2x</td>
+                        <td>1.2x</td>
+                        <td class="gap-positive">+3.8%</td>
+                        <td class="momentum-positive">+24.0%</td>
+                        <td>99.5%</td>
+                        <td>7.3%</td>
+                        <td>$236M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • GAP UP • HOT MOMENTUM • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>5</td>
+                        <td class="symbol">FORM</td>
+                        <td>$146.18</td>
+                        <td class="score-90">150</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS98</span></td>
+                        <td>0.9x</td>
+                        <td>0.8x</td>
+                        <td class="gap-positive">+2.0%</td>
+                        <td class="momentum-positive">+12.8%</td>
+                        <td>96.2%</td>
+                        <td>5.2%</td>
+                        <td>$190M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEAR 52WH • GAP UP • MOMENTUM • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>6</td>
+                        <td class="symbol">ACLS</td>
+                        <td>$139.93</td>
+                        <td class="score-90">150</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS95</span></td>
+                        <td>1.1x</td>
+                        <td>1.2x</td>
+                        <td class="gap-positive">+1.4%</td>
+                        <td class="momentum-positive">+18.7%</td>
+                        <td>99.6%</td>
+                        <td>4.5%</td>
+                        <td>$125M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HOT MOMENTUM • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>7</td>
+                        <td class="symbol">GFS</td>
+                        <td>$60.39</td>
+                        <td class="score-90">150</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS92</span></td>
+                        <td>0.7x</td>
+                        <td>0.9x</td>
+                        <td class="gap-positive">+0.2%</td>
+                        <td class="momentum-positive">+25.0%</td>
+                        <td>99.0%</td>
+                        <td>4.2%</td>
+                        <td>$181M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HOT MOMENTUM • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>8</td>
+                        <td class="symbol">MXL</td>
+                        <td>$33.89</td>
+                        <td class="score-90">148</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS97</span></td>
+                        <td>3.0x</td>
+                        <td>2.1x</td>
+                        <td class="gap-negative">-0.3%</td>
+                        <td class="momentum-positive">+54.0%</td>
+                        <td>90.7%</td>
+                        <td>6.1%</td>
+                        <td>$152M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • 3x+ VOL • KELTNER BO • TREND ALIGN • STRONG LEVEL • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>9</td>
+                        <td class="symbol">NVTS</td>
+                        <td>$18.47</td>
+                        <td class="score-90">145</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS99</span></td>
+                        <td>3.5x</td>
+                        <td>2.8x</td>
+                        <td class="gap-positive">+14.5%</td>
+                        <td class="momentum-positive">+80.0%</td>
+                        <td>98.9%</td>
+                        <td>7.9%</td>
+                        <td>$1566M</td>
+                        <td class="signals"><span class="sig-gap">3x+ VOL • KELTNER BO • TREND ALIGN • NEW HIGH • BIG GAP • HOT MOMENTUM • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>10</td>
+                        <td class="symbol">ASTH</td>
+                        <td>$33.7</td>
+                        <td class="score-90">145</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsm">RS74</span></td>
+                        <td>0.8x</td>
+                        <td>1.0x</td>
+                        <td class="gap-positive">+2.1%</td>
+                        <td class="momentum-positive">+15.3%</td>
+                        <td>96.8%</td>
+                        <td>4.2%</td>
+                        <td>$14M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • SHORT TREND • NEAR 52WH • GAP UP • HOT MOMENTUM • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>11</td>
+                        <td class="symbol">MCRI</td>
+                        <td>$114.24</td>
+                        <td class="score-90">140</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsm">RS77</span></td>
+                        <td>4.2x</td>
+                        <td>4.0x</td>
+                        <td class="gap-positive">+10.9%</td>
+                        <td class="momentum-positive">+16.6%</td>
+                        <td>100.0%</td>
+                        <td>3.1%</td>
+                        <td>$61M</td>
+                        <td class="signals"><span class="sig-gap">3x+ VOL • KELTNER BO • SHORT TREND • NEW HIGH • BIG GAP • HOT MOMENTUM • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>12</td>
+                        <td class="symbol">DELL</td>
+                        <td>$214.65</td>
+                        <td class="score-90">140</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS93</span></td>
+                        <td>0.6x</td>
+                        <td>0.7x</td>
+                        <td class="gap-negative">-0.2%</td>
+                        <td class="momentum-positive">+21.1%</td>
+                        <td>98.7%</td>
+                        <td>4.3%</td>
+                        <td>$1177M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>13</td>
+                        <td class="symbol">ON</td>
+                        <td>$88.99</td>
+                        <td class="score-90">140</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS94</span></td>
+                        <td>1.3x</td>
+                        <td>1.3x</td>
+                        <td class="gap-positive">+0.3%</td>
+                        <td class="momentum-positive">+22.9%</td>
+                        <td>99.2%</td>
+                        <td>3.4%</td>
+                        <td>$1027M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>14</td>
+                        <td class="symbol">STLD</td>
+                        <td>$227.46</td>
+                        <td class="score-90">140</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS84</span></td>
+                        <td>1.4x</td>
+                        <td>1.5x</td>
+                        <td class="gap-positive">+1.5%</td>
+                        <td class="momentum-positive">+17.2%</td>
+                        <td>99.7%</td>
+                        <td>3.2%</td>
+                        <td>$400M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>15</td>
+                        <td class="symbol">ROKU</td>
+                        <td>$118.34</td>
+                        <td class="score-90">140</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS78</span></td>
+                        <td>0.7x</td>
+                        <td>0.9x</td>
+                        <td class="gap-positive">+1.7%</td>
+                        <td class="momentum-positive">+8.2%</td>
+                        <td>98.6%</td>
+                        <td>4.2%</td>
+                        <td>$301M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>16</td>
+                        <td class="symbol">IYZ</td>
+                        <td>$42.99</td>
+                        <td class="score-90">140</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS73</span></td>
+                        <td>2.2x</td>
+                        <td>3.1x</td>
+                        <td class="gap-negative">-0.5%</td>
+                        <td class="momentum-positive">+4.8%</td>
+                        <td>98.7%</td>
+                        <td>1.7%</td>
+                        <td>$196M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • 2x+ VOL • KELTNER BO • TREND ALIGN • NEW HIGH</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>17</td>
+                        <td class="symbol">VECO</td>
+                        <td>$50.37</td>
+                        <td class="score-90">138</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsh">RS97</span></td>
+                        <td>1.8x</td>
+                        <td>2.0x</td>
+                        <td class="gap-negative">-0.1%</td>
+                        <td class="momentum-positive">+18.1%</td>
+                        <td>99.0%</td>
+                        <td>4.6%</td>
+                        <td>$121M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • 1.5x VOL • KELTNER BO • SHORT TREND • NEW HIGH • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>18</td>
+                        <td class="symbol">ERAS</td>
+                        <td>$21.65</td>
+                        <td class="score-90">138</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS98</span></td>
+                        <td>2.2x</td>
+                        <td>1.9x</td>
+                        <td class="gap-negative">-4.2%</td>
+                        <td class="momentum-positive">+19.0%</td>
+                        <td>91.6%</td>
+                        <td>8.1%</td>
+                        <td>$243M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • 2x+ VOL • KELTNER BO • TREND ALIGN • STRONG LEVEL • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>19</td>
+                        <td class="symbol">WOLF</td>
+                        <td>$27.75</td>
+                        <td class="score-90">138</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsh">RS94</span></td>
+                        <td>4.0x</td>
+                        <td>3.1x</td>
+                        <td class="gap-positive">+4.8%</td>
+                        <td class="momentum-positive">+16.1%</td>
+                        <td>91.7%</td>
+                        <td>11.1%</td>
+                        <td>$252M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • 3x+ VOL • KELTNER NEAR • SHORT TREND • STRONG LEVEL • GAP UP • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>20</td>
+                        <td class="symbol">BFH</td>
+                        <td>$92.44</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS87</span></td>
+                        <td>1.2x</td>
+                        <td>1.2x</td>
+                        <td class="gap-positive">+0.5%</td>
+                        <td class="momentum-positive">+11.2%</td>
+                        <td>98.6%</td>
+                        <td>3.3%</td>
+                        <td>$76M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>21</td>
+                        <td class="symbol">JAAA</td>
+                        <td>$50.62</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsl">RS34</span></td>
+                        <td>0.6x</td>
+                        <td>0.8x</td>
+                        <td class="gap-negative">+0.0%</td>
+                        <td class="momentum-positive">+0.1%</td>
+                        <td>99.7%</td>
+                        <td>0.1%</td>
+                        <td>$196M</td>
+                        <td class="signals"><span class="sig-hi">NR3 • KELTNER NEAR • TREND ALIGN • NEW HIGH • BB SQUEEZE • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>22</td>
+                        <td class="symbol">IVV</td>
+                        <td>$714.56</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsl">RS56</span></td>
+                        <td>0.5x</td>
+                        <td>0.5x</td>
+                        <td class="gap-positive">+0.3%</td>
+                        <td class="momentum-positive">+1.6%</td>
+                        <td>99.8%</td>
+                        <td>1.2%</td>
+                        <td>$2950M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>23</td>
+                        <td class="symbol">NUE</td>
+                        <td>$214.26</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS85</span></td>
+                        <td>1.4x</td>
+                        <td>1.7x</td>
+                        <td class="gap-positive">+1.5%</td>
+                        <td class="momentum-positive">+13.0%</td>
+                        <td>99.1%</td>
+                        <td>2.8%</td>
+                        <td>$497M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>24</td>
+                        <td class="symbol">SPY</td>
+                        <td>$711.21</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsl">RS55</span></td>
+                        <td>0.5x</td>
+                        <td>0.6x</td>
+                        <td class="gap-positive">+0.3%</td>
+                        <td class="momentum-positive">+1.6%</td>
+                        <td>99.8%</td>
+                        <td>1.2%</td>
+                        <td>$30240M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>25</td>
+                        <td class="symbol">SEM</td>
+                        <td>$16.43</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsl">RS46</span></td>
+                        <td>0.6x</td>
+                        <td>0.4x</td>
+                        <td class="gap-negative">+0.0%</td>
+                        <td class="momentum-positive">+0.3%</td>
+                        <td>99.0%</td>
+                        <td>0.3%</td>
+                        <td>$19M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • SHORT TREND • NEW HIGH • BB SQUEEZE • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>26</td>
+                        <td class="symbol">LWLG</td>
+                        <td>$15.16</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS99</span></td>
+                        <td>2.5x</td>
+                        <td>1.8x</td>
+                        <td class="gap-positive">+10.3%</td>
+                        <td class="momentum-positive">+25.4%</td>
+                        <td>99.1%</td>
+                        <td>9.6%</td>
+                        <td>$215M</td>
+                        <td class="signals"><span class="sig-gap">2x+ VOL • KELTNER BO • TREND ALIGN • NEW HIGH • BIG GAP • HOT MOMENTUM • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>27</td>
+                        <td class="symbol">GRNY</td>
+                        <td>$26.48</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsl">RS58</span></td>
+                        <td>0.5x</td>
+                        <td>0.6x</td>
+                        <td class="gap-positive">+0.3%</td>
+                        <td class="momentum-positive">+2.8%</td>
+                        <td>100.0%</td>
+                        <td>1.4%</td>
+                        <td>$37M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>28</td>
+                        <td class="symbol">CVNA</td>
+                        <td>$416.79</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsm">RS70</span></td>
+                        <td>0.6x</td>
+                        <td>0.8x</td>
+                        <td class="gap-positive">+2.4%</td>
+                        <td class="momentum-positive">+12.3%</td>
+                        <td>85.6%</td>
+                        <td>5.2%</td>
+                        <td>$872M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • GAP UP • MOMENTUM • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>29</td>
+                        <td class="symbol">FCX</td>
+                        <td>$70.36</td>
+                        <td class="score-90">135</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS87</span></td>
+                        <td>0.8x</td>
+                        <td>0.9x</td>
+                        <td class="gap-positive">+1.4%</td>
+                        <td class="momentum-positive">+2.4%</td>
+                        <td>99.1%</td>
+                        <td>3.5%</td>
+                        <td>$1000M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>30</td>
+                        <td class="symbol">ARM</td>
+                        <td>$196.57</td>
+                        <td class="score-90">130</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsm">RS88</span></td>
+                        <td>2.2x</td>
+                        <td>1.6x</td>
+                        <td class="gap-positive">+9.2%</td>
+                        <td class="momentum-positive">+23.4%</td>
+                        <td>100.0%</td>
+                        <td>4.7%</td>
+                        <td>$2739M</td>
+                        <td class="signals"><span class="sig-gap">2x+ VOL • KELTNER BO • SHORT TREND • NEW HIGH • BIG GAP • HOT MOMENTUM • STRONG CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>31</td>
+                        <td class="symbol">HPE</td>
+                        <td>$28.51</td>
+                        <td class="score-90">130</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsm">RS86</span></td>
+                        <td>0.7x</td>
+                        <td>0.7x</td>
+                        <td class="gap-negative">-1.3%</td>
+                        <td class="momentum-positive">+15.8%</td>
+                        <td>96.2%</td>
+                        <td>3.5%</td>
+                        <td>$362M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEAR 52WH • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>32</td>
+                        <td class="symbol">DAVE</td>
+                        <td>$281.94</td>
+                        <td class="score-90">130</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsh">RS91</span></td>
+                        <td>1.1x</td>
+                        <td>1.1x</td>
+                        <td class="gap-positive">+0.9%</td>
+                        <td class="momentum-positive">+22.6%</td>
+                        <td>98.0%</td>
+                        <td>5.5%</td>
+                        <td>$196M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • SHORT TREND • NEW HIGH • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>33</td>
+                        <td class="symbol">COHU</td>
+                        <td>$44.81</td>
+                        <td class="score-90">130</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS96</span></td>
+                        <td>1.1x</td>
+                        <td>1.2x</td>
+                        <td class="gap-negative">-1.7%</td>
+                        <td class="momentum-positive">+15.0%</td>
+                        <td>96.1%</td>
+                        <td>4.3%</td>
+                        <td>$43M</td>
+                        <td class="signals"><span class="sig-mom">NR3 • KELTNER BO • TREND ALIGN • NEAR 52WH • HOT MOMENTUM</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>34</td>
+                        <td class="symbol">ACLX</td>
+                        <td>$115.0</td>
+                        <td class="score-90">130</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsl">RS63</span></td>
+                        <td>0.4x</td>
+                        <td>1.1x</td>
+                        <td class="gap-negative">-0.0%</td>
+                        <td class="momentum-negative">+0.0%</td>
+                        <td>99.9%</td>
+                        <td>0.1%</td>
+                        <td>$120M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH • BB SQUEEZE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>35</td>
+                        <td class="symbol">TH</td>
+                        <td>$14.61</td>
+                        <td class="score-90">128</td>
+                        <td><span class="badge-s1">S1</span></td>
+                        <td><span class="badge-rsh">RS99</span></td>
+                        <td>8.0x</td>
+                        <td>5.9x</td>
+                        <td class="gap-negative">-1.5%</td>
+                        <td class="momentum-negative">-1.6%</td>
+                        <td>90.6%</td>
+                        <td>7.4%</td>
+                        <td>$105M</td>
+                        <td class="signals">NR3 • 5x+ VOL • KELTNER NEAR • SHORT TREND • STRONG LEVEL</td>
+                    </tr>
+        
+                    <tr>
+                        <td>36</td>
+                        <td class="symbol">ADI</td>
+                        <td>$381.42</td>
+                        <td class="score-90">125</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS86</span></td>
+                        <td>0.7x</td>
+                        <td>0.8x</td>
+                        <td class="gap-positive">+0.2%</td>
+                        <td class="momentum-positive">+9.6%</td>
+                        <td>99.0%</td>
+                        <td>2.8%</td>
+                        <td>$960M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>37</td>
+                        <td class="symbol">ECPG</td>
+                        <td>$83.41</td>
+                        <td class="score-90">125</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsh">RS91</span></td>
+                        <td>0.9x</td>
+                        <td>0.8x</td>
+                        <td class="gap-positive">+1.2%</td>
+                        <td class="momentum-positive">+6.0%</td>
+                        <td>99.6%</td>
+                        <td>3.2%</td>
+                        <td>$23M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>38</td>
+                        <td class="symbol">EQIX</td>
+                        <td>$1102.28</td>
+                        <td class="score-90">125</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS79</span></td>
+                        <td>0.8x</td>
+                        <td>1.1x</td>
+                        <td class="gap-positive">+0.5%</td>
+                        <td class="momentum-positive">+4.7%</td>
+                        <td>99.5%</td>
+                        <td>1.9%</td>
+                        <td>$573M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>39</td>
+                        <td class="symbol">DXPE</td>
+                        <td>$163.77</td>
+                        <td class="score-90">125</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS87</span></td>
+                        <td>1.5x</td>
+                        <td>1.2x</td>
+                        <td class="gap-positive">+1.4%</td>
+                        <td class="momentum-positive">+7.9%</td>
+                        <td>95.4%</td>
+                        <td>3.9%</td>
+                        <td>$38M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEAR 52WH • HIGH CLOSE</span></td>
+                    </tr>
+        
+                    <tr>
+                        <td>40</td>
+                        <td class="symbol">CMI</td>
+                        <td>$639.22</td>
+                        <td class="score-90">125</td>
+                        <td><span class="badge-s2">S2</span></td>
+                        <td><span class="badge-rsm">RS81</span></td>
+                        <td>1.0x</td>
+                        <td>1.1x</td>
+                        <td class="gap-negative">-1.6%</td>
+                        <td class="momentum-positive">+6.3%</td>
+                        <td>98.3%</td>
+                        <td>2.9%</td>
+                        <td>$566M</td>
+                        <td class="signals"><span class="sig-kbo">NR3 • KELTNER BO • TREND ALIGN • NEW HIGH</span></td>
+                    </tr>
+        
+                </tbody>
+            </table>
+
+            <div style="margin-top: 30px; padding: 16px; background: rgba(30,41,59,0.4); border-radius: 10px; border: 1px solid rgba(148,163,184,0.1); color: #94A3B8; font-size: 0.85rem;">
+                <h2 style="color: #e2e8f0; margin-bottom: 10px;">Scanner Notes</h2>
+                <p><strong style="color: #CBD5E1;">Scoring System:</strong> Multi-factor analysis combining volume, momentum, and technical patterns</p>
+                <p><strong style="color: #CBD5E1;">Key Signals:</strong> NR3/4/7 = Narrow Range patterns, KELTNER NEAR = Near breakout bands</p>
+                <p><strong style="color: #CBD5E1;">Color Coding:</strong> <span style="color:#EF4444">Red (90+)</span> = Elite &bull; <span style="color:#22C55E">Green (80-89)</span> = Premium &bull; <span style="color:#3B82F6">Blue (70-79)</span> = Strong &bull; <span style="color:#F59E0B">Amber (60-69)</span> = Moderate</p>
+                <p><strong style="color: #CBD5E1;">Generated:</strong> {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')} by Enhanced Database Scanner</p>
+            </div>
+        </div>
+    </body>
+    </html>
+        

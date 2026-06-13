@@ -1,0 +1,235 @@
+{
+  "generated": "2026-04-06 23:50",
+  "config": {
+    "sample_every": 3,
+    "stop_pct": 3.0,
+    "target_pct": 5.0,
+    "sma20_band_pct": 5.0,
+    "extension_cap_pct": 15.0,
+    "note": "All stats use score>=90 slice where n>=10, else all signals"
+  },
+  "full_period": [
+    {
+      "label": "Baseline (no extra filter)",
+      "n": 1028,
+      "win_rate": 42.5,
+      "ev_per_trade": 0.407,
+      "avg_win": 4.99,
+      "avg_loss": -2.98,
+      "profit_factor": 1.67,
+      "signals_per_day": 5.44
+    },
+    {
+      "label": "A: NR7 day",
+      "n": 2327,
+      "win_rate": 42.7,
+      "ev_per_trade": 0.252,
+      "avg_win": 4.47,
+      "avg_loss": -2.89,
+      "profit_factor": 1.55,
+      "signals_per_day": 12.31
+    },
+    {
+      "label": "B: SMA20 touch (\u00b15%)",
+      "n": 95,
+      "win_rate": 36.8,
+      "ev_per_trade": -0.046,
+      "avg_win": 4.9,
+      "avg_loss": -2.93,
+      "profit_factor": 1.67,
+      "signals_per_day": 0.5
+    },
+    {
+      "label": "C: Extension <15%",
+      "n": 185,
+      "win_rate": 37.8,
+      "ev_per_trade": 0.033,
+      "avg_win": 4.92,
+      "avg_loss": -2.94,
+      "profit_factor": 1.67,
+      "signals_per_day": 0.98
+    },
+    {
+      "label": "D: NR7 OR SMA20 touch",
+      "n": 100,
+      "win_rate": 37.0,
+      "ev_per_trade": -0.034,
+      "avg_win": 4.91,
+      "avg_loss": -2.94,
+      "profit_factor": 1.67,
+      "signals_per_day": 0.53
+    },
+    {
+      "label": "E: NR7 AND SMA20 touch",
+      "n": 1797,
+      "win_rate": 42.8,
+      "ev_per_trade": 0.252,
+      "avg_win": 4.41,
+      "avg_loss": -2.87,
+      "profit_factor": 1.54,
+      "signals_per_day": 9.51
+    },
+    {
+      "label": "F: NR7 OR SMA20 + fresh <15%",
+      "n": 58,
+      "win_rate": 37.9,
+      "ev_per_trade": 0.045,
+      "avg_win": 4.84,
+      "avg_loss": -2.89,
+      "profit_factor": 1.68,
+      "signals_per_day": 0.31
+    }
+  ],
+  "train_2024": [
+    {
+      "label": "Baseline (no extra filter)",
+      "n": 342,
+      "win_rate": 45.6,
+      "ev_per_trade": 0.646,
+      "avg_win": 4.98,
+      "avg_loss": -2.99,
+      "profit_factor": 1.67,
+      "signals_per_day": 4.07
+    },
+    {
+      "label": "A: NR7 day",
+      "n": 715,
+      "win_rate": 45.5,
+      "ev_per_trade": 0.522,
+      "avg_win": 4.64,
+      "avg_loss": -2.91,
+      "profit_factor": 1.59,
+      "signals_per_day": 8.51
+    },
+    {
+      "label": "B: SMA20 touch (\u00b15%)",
+      "n": 18,
+      "win_rate": 61.1,
+      "ev_per_trade": 2.013,
+      "avg_win": 5.0,
+      "avg_loss": -2.68,
+      "profit_factor": 1.86,
+      "signals_per_day": 0.21
+    },
+    {
+      "label": "C: Extension <15%",
+      "n": 77,
+      "win_rate": 40.3,
+      "ev_per_trade": 0.206,
+      "avg_win": 4.89,
+      "avg_loss": -2.95,
+      "profit_factor": 1.66,
+      "signals_per_day": 0.92
+    },
+    {
+      "label": "D: NR7 OR SMA20 touch",
+      "n": 20,
+      "win_rate": 60.0,
+      "ev_per_trade": 1.911,
+      "avg_win": 5.0,
+      "avg_loss": -2.72,
+      "profit_factor": 1.84,
+      "signals_per_day": 0.24
+    },
+    {
+      "label": "E: NR7 AND SMA20 touch",
+      "n": 543,
+      "win_rate": 46.8,
+      "ev_per_trade": 0.613,
+      "avg_win": 4.59,
+      "avg_loss": -2.88,
+      "profit_factor": 1.59,
+      "signals_per_day": 6.46
+    },
+    {
+      "label": "F: NR7 OR SMA20 + fresh <15%",
+      "n": 14,
+      "win_rate": 57.1,
+      "ev_per_trade": 1.731,
+      "avg_win": 5.0,
+      "avg_loss": -2.63,
+      "profit_factor": 1.9,
+      "signals_per_day": 0.17
+    }
+  ],
+  "test_2025": [
+    {
+      "label": "Baseline (no extra filter)",
+      "n": 433,
+      "win_rate": 44.6,
+      "ev_per_trade": 0.571,
+      "avg_win": 4.98,
+      "avg_loss": -2.97,
+      "profit_factor": 1.67,
+      "signals_per_day": 5.15
+    },
+    {
+      "label": "A: NR7 day",
+      "n": 1011,
+      "win_rate": 45.3,
+      "ev_per_trade": 0.378,
+      "avg_win": 4.34,
+      "avg_loss": -2.9,
+      "profit_factor": 1.49,
+      "signals_per_day": 12.04
+    },
+    {
+      "label": "B: SMA20 touch (\u00b15%)",
+      "n": 30,
+      "win_rate": 43.3,
+      "ev_per_trade": 0.453,
+      "avg_win": 4.68,
+      "avg_loss": -2.78,
+      "profit_factor": 1.68,
+      "signals_per_day": 0.36
+    },
+    {
+      "label": "C: Extension <15%",
+      "n": 68,
+      "win_rate": 39.7,
+      "ev_per_trade": 0.208,
+      "avg_win": 4.85,
+      "avg_loss": -2.85,
+      "profit_factor": 1.7,
+      "signals_per_day": 0.81
+    },
+    {
+      "label": "D: NR7 OR SMA20 touch",
+      "n": 34,
+      "win_rate": 47.1,
+      "ev_per_trade": 0.753,
+      "avg_win": 4.74,
+      "avg_loss": -2.8,
+      "profit_factor": 1.7,
+      "signals_per_day": 0.4
+    },
+    {
+      "label": "E: NR7 AND SMA20 touch",
+      "n": 772,
+      "win_rate": 46.0,
+      "ev_per_trade": 0.41,
+      "avg_win": 4.28,
+      "avg_loss": -2.88,
+      "profit_factor": 1.48,
+      "signals_per_day": 9.19
+    },
+    {
+      "label": "F: NR7 OR SMA20 + fresh <15%",
+      "n": 17,
+      "win_rate": 41.2,
+      "ev_per_trade": 0.27,
+      "avg_win": 4.41,
+      "avg_loss": -2.63,
+      "profit_factor": 1.68,
+      "signals_per_day": 0.2
+    }
+  ],
+  "recommendation": {
+    "best_filter": "Baseline (no extra filter)",
+    "test_ev": 0.571,
+    "test_wr": 44.6,
+    "test_signals_per_day": 5.15,
+    "ev_lift_vs_baseline": 0.0,
+    "summary": "Best filter: 'Baseline (no extra filter)' \u2014 EV=+0.571% (+0.000% vs baseline), WR=44.6%, 5.2 signals/day"
+  }
+}

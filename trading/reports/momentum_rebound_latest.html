@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Momentum Rebound Scanner — 2026-04-22</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',-apple-system,system-ui,sans-serif; background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%); color:#e2e8f0; padding:20px; min-height:100vh; }
+.container { max-width:1500px; margin:0 auto; }
+h1 { color:#38BDF8; text-align:center; margin-bottom:4px; font-size:1.5rem; }
+.subtitle { text-align:center; color:#64748b; margin-bottom:24px; font-size:0.82rem; }
+.stats { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:28px; }
+.stat { background:rgba(30,41,59,0.8); border:1px solid rgba(56,189,248,0.2); border-radius:10px; padding:14px; text-align:center; }
+.stat-val { font-size:1.5rem; font-weight:bold; color:#38BDF8; }
+.stat-lbl { color:#94A3B8; font-size:0.72rem; margin-top:4px; text-transform:uppercase; letter-spacing:.05em; }
+.section { margin-bottom:30px; border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); }
+.section-header { padding:10px 18px; display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:0.9rem; }
+.badge { background:rgba(0,0,0,0.3); padding:2px 10px; border-radius:12px; font-size:0.8rem; }
+table { width:100%; border-collapse:collapse; background:rgba(15,23,42,0.6); }
+th { padding:8px 10px; text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:.05em; color:#64748b; border-bottom:1px solid rgba(255,255,255,0.06); }
+td { padding:8px 10px; font-size:0.82rem; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+tr:hover { background:rgba(56,189,248,0.04); }
+.legend { background:rgba(30,41,59,0.5); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:14px 18px; margin-bottom:24px; font-size:0.78rem; color:#94A3B8; line-height:1.8; }
+
+    .badge-s2  { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-s1  { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-b50 { display:inline-block; background:rgba(239,68,68,0.15);  color:#EF4444; border:1px solid rgba(239,68,68,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsh { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsm { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsl { display:inline-block; background:rgba(100,116,139,0.15);color:#94A3B8; border:1px solid rgba(100,116,139,0.3); padding:2px 5px; border-radius:3px; font-size:10px; margin:1px; }
+    .sig-gap   { color:#F59E0B; font-weight:bold; }
+    .sig-mom   { color:#F97316; font-weight:bold; }
+    .sig-kbo   { color:#38BDF8; font-weight:bold; }
+    .sig-hi    { color:#22C55E; }
+
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Momentum Rebound Scanner</h1>
+  <div class="subtitle">Generated 2026-04-23 16:42:08 · Scan date 2026-04-22</div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">13</div><div class="stat-lbl">Total Candidates</div></div>
+    <div class="stat"><div class="stat-val" style="color:#22C55E">10</div><div class="stat-lbl">Optimal Entry</div></div>
+    <div class="stat"><div class="stat-val" style="color:#F59E0B">0</div><div class="stat-lbl">Overbought</div></div>
+    <div class="stat"><div class="stat-val" style="color:#EF4444">0</div><div class="stat-lbl">Exit Warning</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">Rebounding</div></div>
+  </div>
+
+  <div class="legend">
+    <strong>Setup Logic:</strong> Stocks in confirmed uptrends (price above SMA-50 &amp; SMA-200) that pulled their RSI from &gt;60 down into the 35–55 zone and are now recovering upward.
+    This is the "buy the dip in a bull trend" pattern. &nbsp;|&nbsp;
+    <strong>RSI 45–60 ✓ Optimal</strong> — ideal entry zone, recovery confirmed &nbsp;|&nbsp;
+    <strong>⚠ &gt;80</strong> — getting extended, tighten stops &nbsp;|&nbsp;
+    <strong>⛔ &gt;85</strong> — consider exiting &nbsp;|&nbsp;
+    <strong>Mo. Win%</strong> — % of months with positive returns (last 2+ yrs, outliers excluded)
+  </div>
+
+  
+            <div class="section">
+              <div class="section-header" style="background:#166534">
+                <span>✓ Optimal Entry — RSI 45-60 Recovering</span>
+                <span class="badge">10</span>
+              </div>
+              <table>
+                <thead><tr>
+                  <th>Symbol</th><th>Price</th><th>RSI</th>
+                  <th>1D Ret</th><th>7D Ret</th>
+                  <th>Mo. Win%</th><th>Avg Mo.</th>
+                  <th>$ Vol</th><th>Signals</th><th>Score</th>
+                </tr></thead>
+                <tbody>
+                <tr>
+                  <td><strong>NBR</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 49', 'DEEP COOL 40', 'MACD RISING', '7D +7.8%', '1D +4.5%', 'CONSISTENT 63%', 'AVG MO +2.3%']</small></td>
+                  <td>$86.51</td>
+                  <td><span style="color:#22C55E;font-weight:bold">48.7 ✓</span></td>
+                  <td><span style="color:#22C55E">+4.5%</span></td>
+                  <td><span style="color:#22C55E">+7.8%</span></td>
+                  <td>63%</td>
+                  <td><span style="color:#22C55E">+2.3%</span></td>
+                  <td>$31.2M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 49</td>
+                  <td style="color:#38BDF8;font-weight:bold">128</td>
+                </tr>
+                <tr>
+                  <td><strong>KNTK</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'RSI REBOUND 48', 'DEEP COOL 41', 'MACD RISING', '7D +1.6%', '1D +2.5%', 'CONSISTENT 67%', 'AVG MO +2.9%']</small></td>
+                  <td>$48.04</td>
+                  <td><span style="color:#22C55E;font-weight:bold">48.3 ✓</span></td>
+                  <td><span style="color:#22C55E">+2.5%</span></td>
+                  <td><span style="color:#22C55E">+1.6%</span></td>
+                  <td>67%</td>
+                  <td><span style="color:#22C55E">+2.9%</span></td>
+                  <td>$74.0M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · RSI REBOUND 48 · DEEP COOL 41</td>
+                  <td style="color:#38BDF8;font-weight:bold">123</td>
+                </tr>
+                <tr>
+                  <td><strong>LINC</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 50', 'MACD RISING', 'ADX 28', '1D +1.5%', 'CONSISTENT 70%', 'AVG MO +7.0%']</small></td>
+                  <td>$40.77</td>
+                  <td><span style="color:#22C55E;font-weight:bold">50.4 ✓</span></td>
+                  <td><span style="color:#22C55E">+1.5%</span></td>
+                  <td><span style="color:#EF4444">-0.2%</span></td>
+                  <td>70%</td>
+                  <td><span style="color:#22C55E">+7.0%</span></td>
+                  <td>$7.7M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 50</td>
+                  <td style="color:#38BDF8;font-weight:bold">118</td>
+                </tr>
+                <tr>
+                  <td><strong>NET</strong><br><small style="color:#64748b">['ABOVE MA50/200', 'RSI REBOUND 56', 'DEEP COOL 43', 'MACD RISING', 'MACD CROSSOVER', '7D +24.3%', 'CONSISTENT 62%', 'AVG MO +4.4%']</small></td>
+                  <td>$207.56</td>
+                  <td><span style="color:#22C55E;font-weight:bold">55.8 ✓</span></td>
+                  <td><span style="color:#EF4444">-0.1%</span></td>
+                  <td><span style="color:#22C55E">+24.3%</span></td>
+                  <td>62%</td>
+                  <td><span style="color:#22C55E">+4.4%</span></td>
+                  <td>$426.6M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · RSI REBOUND 56 · DEEP COOL 43 · MACD RISING</td>
+                  <td style="color:#38BDF8;font-weight:bold">113</td>
+                </tr>
+                <tr>
+                  <td><strong>NE</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 46', 'DEEP COOL 39', 'MACD RISING', 'ADX 30', '1D +1.2%']</small></td>
+                  <td>$47.93</td>
+                  <td><span style="color:#22C55E;font-weight:bold">45.7 ✓</span></td>
+                  <td><span style="color:#22C55E">+1.2%</span></td>
+                  <td><span style="color:#EF4444">-2.0%</span></td>
+                  <td>59%</td>
+                  <td><span style="color:#22C55E">+1.5%</span></td>
+                  <td>$63.4M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 46</td>
+                  <td style="color:#38BDF8;font-weight:bold">111</td>
+                </tr>
+                <tr>
+                  <td><strong>KOS</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'RSI REBOUND 52', 'DEEP COOL 41', 'MACD RISING', '7D +10.9%', '1D +7.5%']</small></td>
+                  <td>$2.85</td>
+                  <td><span style="color:#22C55E;font-weight:bold">52.0 ✓</span></td>
+                  <td><span style="color:#22C55E">+7.5%</span></td>
+                  <td><span style="color:#22C55E">+10.9%</span></td>
+                  <td>33%</td>
+                  <td><span style="color:#22C55E">+0.6%</span></td>
+                  <td>$41.2M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · RSI REBOUND 52 · DEEP COOL 41</td>
+                  <td style="color:#38BDF8;font-weight:bold">98</td>
+                </tr>
+                <tr>
+                  <td><strong>MSEX</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 55', 'MACD RISING', 'MACD CROSSOVER', '1D +1.2%']</small></td>
+                  <td>$53.48</td>
+                  <td><span style="color:#22C55E;font-weight:bold">54.6 ✓</span></td>
+                  <td><span style="color:#22C55E">+1.2%</span></td>
+                  <td><span style="color:#EF4444">-4.2%</span></td>
+                  <td>48%</td>
+                  <td><span style="color:#22C55E">+0.5%</span></td>
+                  <td>$7.2M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 55</td>
+                  <td style="color:#38BDF8;font-weight:bold">93</td>
+                </tr>
+                <tr>
+                  <td><strong>NATH</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'RSI REBOUND 55', 'ADX 29', 'CONSISTENT 70%', 'AVG MO +2.3%']</small></td>
+                  <td>$101.14</td>
+                  <td><span style="color:#22C55E;font-weight:bold">55.2 ✓</span></td>
+                  <td><span style="color:#EF4444">-0.2%</span></td>
+                  <td><span style="color:#EF4444">-0.5%</span></td>
+                  <td>70%</td>
+                  <td><span style="color:#22C55E">+2.3%</span></td>
+                  <td>$2.2M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · RSI REBOUND 55 · ADX 29</td>
+                  <td style="color:#38BDF8;font-weight:bold">93</td>
+                </tr>
+                <tr>
+                  <td><strong>NECB</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 57', 'CONSISTENT 63%', 'AVG MO +2.7%']</small></td>
+                  <td>$24.57</td>
+                  <td><span style="color:#22C55E;font-weight:bold">56.5 ✓</span></td>
+                  <td><span style="color:#22C55E">+1.0%</span></td>
+                  <td><span style="color:#EF4444">-2.9%</span></td>
+                  <td>63%</td>
+                  <td><span style="color:#22C55E">+2.7%</span></td>
+                  <td>$705K</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 57</td>
+                  <td style="color:#38BDF8;font-weight:bold">88</td>
+                </tr>
+                <tr>
+                  <td><strong>JBSS</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 56']</small></td>
+                  <td>$80.55</td>
+                  <td><span style="color:#22C55E;font-weight:bold">56.2 ✓</span></td>
+                  <td><span style="color:#EF4444">-0.1%</span></td>
+                  <td><span style="color:#EF4444">-2.3%</span></td>
+                  <td>44%</td>
+                  <td><span style="color:#EF4444">-0.3%</span></td>
+                  <td>$8.4M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 56</td>
+                  <td style="color:#38BDF8;font-weight:bold">63</td>
+                </tr></tbody>
+              </table>
+            </div>
+            <div class="section">
+              <div class="section-header" style="background:#1e3a5f">
+                <span>Rebound Candidates — RSI Cooling / Rising</span>
+                <span class="badge">3</span>
+              </div>
+              <table>
+                <thead><tr>
+                  <th>Symbol</th><th>Price</th><th>RSI</th>
+                  <th>1D Ret</th><th>7D Ret</th>
+                  <th>Mo. Win%</th><th>Avg Mo.</th>
+                  <th>$ Vol</th><th>Signals</th><th>Score</th>
+                </tr></thead>
+                <tbody>
+                <tr>
+                  <td><strong>MGY</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 39', 'DEEP COOL 33', 'MACD RISING', '1D +2.1%', 'CONSISTENT 70%', 'AVG MO +2.1%']</small></td>
+                  <td>$29.30</td>
+                  <td>39.0</td>
+                  <td><span style="color:#22C55E">+2.1%</span></td>
+                  <td><span style="color:#EF4444">-2.0%</span></td>
+                  <td>70%</td>
+                  <td><span style="color:#22C55E">+2.1%</span></td>
+                  <td>$40.9M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 39</td>
+                  <td style="color:#38BDF8;font-weight:bold">123</td>
+                </tr>
+                <tr>
+                  <td><strong>MUR</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'MA STACK', 'RSI REBOUND 43', 'DEEP COOL 39', 'MACD RISING', '1D +1.8%']</small></td>
+                  <td>$38.76</td>
+                  <td>42.7</td>
+                  <td><span style="color:#22C55E">+1.8%</span></td>
+                  <td><span style="color:#EF4444">-0.1%</span></td>
+                  <td>56%</td>
+                  <td><span style="color:#22C55E">+1.0%</span></td>
+                  <td>$56.5M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · MA STACK · RSI REBOUND 43</td>
+                  <td style="color:#38BDF8;font-weight:bold">101</td>
+                </tr>
+                <tr>
+                  <td><strong>LYB</strong><br><small style="color:#64748b">['ABOVE MA50/200', '50>200', 'RSI REBOUND 39', 'DEEP COOL 37', 'MACD RISING']</small></td>
+                  <td>$72.00</td>
+                  <td>39.3</td>
+                  <td><span style="color:#22C55E">+0.8%</span></td>
+                  <td><span style="color:#EF4444">-2.3%</span></td>
+                  <td>52%</td>
+                  <td><span style="color:#22C55E">+0.6%</span></td>
+                  <td>$385.1M</td>
+                  <td style="color:#94A3B8;font-size:0.75rem">ABOVE MA50/200 · 50>200 · RSI REBOUND 39 · DEEP COOL 37</td>
+                  <td style="color:#38BDF8;font-weight:bold">96</td>
+                </tr></tbody>
+              </table>
+            </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+{
+  "generated": "2026-04-06",
+  "issues": [
+    {
+      "id": 1,
+      "title": "EPIC-ENTRY-001 TASK-04: Cross-scanner entry trigger backtest",
+      "status": "open",
+      "priority": "high",
+      "category": "backtest",
+      "created": "2026-03-27",
+      "notes": "Backtest: Enhanced>=90 AND Setup VCB/PULLBACK within +/-2 days on same symbol. Tasks 01-03 done. TASK-04 is the architecturally correct entry timing piece."
+    },
+    {
+      "id": 2,
+      "title": "EPIC-PUB-001: Weekly publication report generator",
+      "status": "open",
+      "priority": "medium",
+      "category": "publishing",
+      "created": "2026-02-20",
+      "notes": "Top 20 by conviction_score, grouped by setup type, HTML output. Prerequisite for external sharing and monetization path."
+    },
+    {
+      "id": 3,
+      "title": "EPIC-FUNDS-001: SEC 13F institutional tracker",
+      "status": "open",
+      "priority": "medium",
+      "category": "data",
+      "created": "2026-03-27",
+      "notes": "~50 institutional funds via EDGAR API. Cross-ref with watchlist for confirmation signal. Highest-EV enrichment not yet built."
+    },
+    {
+      "id": 4,
+      "title": "EPIC-PORT-001: Portfolio correlation limits",
+      "status": "open",
+      "priority": "low",
+      "category": "portfolio",
+      "created": "2026-03-01",
+      "notes": "Missing: portfolio-level correlation limits and max drawdown gate. Currently only ATR sizing + sector limits (max 4 per sector)."
+    },
+    {
+      "id": 5,
+      "title": "v2.0 Planning: Customer-facing condensed view",
+      "status": "planning",
+      "priority": "high",
+      "category": "ux",
+      "created": "2026-04-06",
+      "notes": "Consolidate 14 tabs into 4 views: Today (Daily Setups), Research (Lookup + charts), Portfolio, System. v1.0 fine-tuning first."
+    },
+    {
+      "id": 6,
+      "title": "EPIC-INFRA-001: JupyterLab on jserv for research",
+      "status": "planning",
+      "priority": "low",
+      "category": "infrastructure",
+      "created": "2026-03-27",
+      "notes": "JupyterLab on jserv for equity curve work, correlation analysis, walk-forward reruns. Separates research from production machine."
+    },
+    {
+      "id": 7,
+      "title": "Fundamental filter badges: Daily Setups + Signal Explorer",
+      "status": "completed",
+      "priority": "high",
+      "category": "ux",
+      "created": "2026-04-06",
+      "notes": "F-pass/fail/neutral/blocked badges wired into conviction_picks.json. Fund Pass toggle filter in Signal Explorer. EPIC-FUND-001 complete."
+    },
+    {
+      "id": 8,
+      "title": "TradingView price charts on Lookup tab",
+      "status": "completed",
+      "priority": "high",
+      "category": "ux",
+      "created": "2026-04-06",
+      "notes": "Flask /trading/api/history endpoint. Candlestick + SMA 20/50/200. TW Lightweight Charts v4.2 hosted locally. EPIC-INFRA-001 TASK-07 done."
+    },
+    {
+      "id": 9,
+      "title": "Confluence scanner wired to cron",
+      "status": "completed",
+      "priority": "high",
+      "category": "pipeline",
+      "created": "2026-04-06",
+      "notes": "db_scanner_confluence.py (SuperTrend+RSI+SMA200+ATR) added at 4:14 PM. Was stale since Mar 12. conf_scores now fresh daily."
+    },
+    {
+      "id": 10,
+      "title": "Dual regime sparklines on Overview breadth panel",
+      "status": "completed",
+      "priority": "medium",
+      "category": "ux",
+      "created": "2026-04-06",
+      "notes": "Broad Breadth (30d) + Quality Regime (30d) sparklines stacked chronologically. BULL to NEUTRAL transition visible since early March."
+    },
+    {
+      "id": 11,
+      "title": "3 new scanners + cross-scanner persistence tracking",
+      "status": "completed",
+      "priority": "high",
+      "category": "scanner",
+      "created": "2026-03-25",
+      "notes": "Momentum Rebound, RSI Staircase, ATR Momentum live with cron. stack_strength = cluster_score x persistence_score in conviction_picks."
+    },
+    {
+      "id": 12,
+      "title": "Market regime + breadth dual-view panel",
+      "status": "completed",
+      "priority": "medium",
+      "category": "ux",
+      "created": "2026-03-28",
+      "notes": "Quality Universe (market_regime.json ~723 symbols) + Broad Breadth (market_breadth.json 2632 symbols) side-by-side on Overview."
+    }
+  ],
+  "next_session_goals": [
+    "EPIC-ENTRY-001 TASK-04: cross-scanner entry trigger backtest (Enhanced>=90 + VCB/PULLBACK within +/-2 days)",
+    "EPIC-PUB-001: weekly HTML publication report (top 20 by conviction_score)",
+    "v2.0 design pass: sketch the 4-tab condensed customer-facing layout"
+  ]
+}

@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Intelligence | jays.website</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #040d1c;
+            --bg-card: #081526;
+            --bg-card-2: #0d1e35;
+            --border: rgba(255,255,255,0.07);
+            --text: #cdd9e5;
+            --text-muted: #4e6a84;
+            --text-dim: #1e3048;
+            --green: #00e5a0;
+            --green-dim: rgba(0,229,160,0.12);
+            --red: #ff3d5a;
+            --red-dim: rgba(255,61,90,0.12);
+            --yellow: #ffb800;
+            --yellow-dim: rgba(255,184,0,0.12);
+            --orange: #ff8c42;
+            --blue: #38b2f8;
+            --font-ui: 'Syne', sans-serif;
+            --font-data: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-data);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 15% 0%, rgba(0,90,200,0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 100%, rgba(0,229,160,0.04) 0%, transparent 55%),
+                repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.013) 59px, rgba(255,255,255,0.013) 60px),
+                repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.013) 59px, rgba(255,255,255,0.013) 60px);
+        }
+
+        /* ── Header ── */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(4,13,28,0.92);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-left { display: flex; align-items: center; gap: 18px; }
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            transition: color 0.2s;
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+        .back-link:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+        .brand {
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+        .brand em { color: var(--green); font-style: normal; }
+        .header-right { display: flex; align-items: center; gap: 14px; }
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .live-dot {
+            width: 6px; height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--green);
+            animation: blink 2.2s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+        .dashboard-btn {
+            background: rgba(0,229,160,0.08);
+            border: 1px solid rgba(0,229,160,0.25);
+            color: var(--green);
+            padding: 7px 14px;
+            border-radius: 4px;
+            font-family: var(--font-data);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dashboard-btn:hover { background: rgba(0,229,160,0.16); border-color: rgba(0,229,160,0.5); }
+
+        /* ── Nav Tabs ── */
+        .nav-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            background: rgba(4,13,28,0.5);
+        }
+        .tab-btn {
+            background: none; border: none;
+            color: var(--text-muted);
+            font-family: var(--font-data);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 13px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+            top: 1px;
+        }
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+        /* ── Content ── */
+        .tab-content { display: none; padding: 20px 24px; max-width: 1440px; margin: 0 auto; animation: fadeUp 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+
+        /* ── Card ── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 18px 20px;
+        }
+        .card-title {
+            font-family: var(--font-ui);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .updated-tag {
+            font-family: var(--font-data);
+            font-size: 9px;
+            color: var(--text-dim);
+            font-weight: 400;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Regime Bar ── */
+        .regime-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* Gauge instrument block */
+        .regime-gauge-block { display: flex; flex-direction: column; gap: 2px; min-width: 170px; }
+        .regime-score-label {
+            font-family: var(--font-ui);
+            font-size: 8px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        .regime-score-block { display: flex; align-items: baseline; gap: 5px; }
+        .regime-score-num {
+            font-family: var(--font-ui);
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--green);
+            text-shadow: 0 0 24px rgba(0,229,160,0.28);
+            transition: color 0.4s, text-shadow 0.4s;
+            letter-spacing: -0.02em;
+        }
+        .regime-score-num.bear { color: var(--red); text-shadow: 0 0 24px rgba(255,61,90,0.28); }
+        .regime-score-max {
+            font-family: var(--font-data);
+            font-size: 12px;
+            color: var(--text-dim);
+            font-weight: 400;
+            padding-bottom: 6px;
+        }
+        .regime-track-wrap { margin-top: 8px; }
+        .regime-track {
+            height: 3px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .regime-track-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1s cubic-bezier(0.4,0,0.2,1);
+            background: linear-gradient(90deg, rgba(0,229,160,0.5) 0%, var(--green) 100%);
+        }
+        .regime-track-fill.bear {
+            background: linear-gradient(90deg, rgba(255,61,90,0.5) 0%, var(--red) 100%);
+        }
+        .regime-track-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            font-family: var(--font-data);
+            font-size: 8px;
+            color: var(--text-dim);
+            letter-spacing: 0.04em;
+        }
+
+        .regime-badges { display: flex; flex-direction: column; gap: 6px; }
+        .rbadge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 10px; letter-spacing: 0.07em; font-weight: 600;
+            padding: 5px 12px; border-radius: 4px; text-transform: uppercase;
+        }
+        .rbadge.bull { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,229,160,0.25); }
+        .rbadge.bear { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,61,90,0.25); }
+        .rbadge.full { background: rgba(255,140,66,0.12); color: var(--orange); border: 1px solid rgba(255,140,66,0.25); }
+        .rbadge.selective { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,184,0,0.25); }
+        .rbadge.off { background: rgba(255,255,255,0.04); color: var(--text-muted); border: 1px solid var(--border); }
+
+        .vdiv { width:1px; height:52px; background: var(--border); flex-shrink:0; }
+
+        .stat-blk { display: flex; flex-direction: column; gap: 4px; }
+        .stat-val { font-size: 20px; font-weight: 600; color: var(--text); font-family: var(--font-data); }
+        .stat-lbl { font-size: 8px; color: var(--text-muted); letter-spacing: 0.09em; text-transform: uppercase; }
+
+        /* ── Index Cards ── */
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .index-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 14px 16px;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        .index-card:hover {
+            border-color: rgba(255,255,255,0.16);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .ix-header { display: flex; align-items: flex-start; justify-content: space-between; }
+        .ix-sym { font-family: var(--font-ui); font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.04em; }
+        .ix-name { font-size: 8px; color: var(--text-muted); letter-spacing: 0.04em; margin-top: 3px; }
+        .ix-futures-tag {
+            font-family: var(--font-data);
+            font-size: 7px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(56,178,248,0.08);
+            color: var(--blue);
+            border: 1px solid rgba(56,178,248,0.2);
+            padding: 2px 5px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .ix-price { font-size: 18px; font-weight: 600; margin-top: 10px; color: var(--text); font-family: var(--font-data); }
+        .ix-daily { font-size: 12px; font-weight: 600; margin-top: 3px; }
+        .ix-meta { display: flex; gap: 12px; margin-top: 8px; }
+        .ix-meta-item { font-size: 8px; color: var(--text-muted); }
+        .ix-meta-item b { font-size: 8px; font-weight: 600; }
+        .ix-no-data { font-size: 9px; color: var(--text-dim); margin-top: 10px; font-family: var(--font-data); }
+
+        /* ── Futures chart cards ── */
+        .index-card-chart { padding-bottom: 0; overflow: hidden; }
+        .index-card-chart .ix-header { padding-bottom: 8px; }
+        .tv-chart-wrap {
+            margin: 0 -16px;
+            border-top: 1px solid var(--border);
+            background: rgba(4,13,28,0.6);
+            position: relative;
+        }
+        .tv-chart-wrap .tv-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-data);
+            font-size: 8px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+        .tradingview-widget-container { display: block; }
+        .tradingview-widget-container__widget { display: block; }
+
+        /* ── Colors ── */
+        .pos { color: var(--green); }
+        .neg { color: var(--red); }
+        .neu { color: var(--text-muted); }
+
+        /* ── Sector Grid ── */
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 0;
+        }
+        .sector-tile {
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 12px 14px;
+            transition: border-color 0.2s;
+        }
+        .sector-tile:hover { border-color: rgba(255,255,255,0.12); }
+        .sector-hdr { display: flex; justify-content: space-between; align-items: center; }
+        .sector-nm { font-family: var(--font-ui); font-size: 10px; font-weight: 600; color: var(--text); }
+        .sector-etf-tag { font-size: 9px; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 3px; letter-spacing: 0.04em; }
+        .sector-pct { font-size: 20px; font-weight: 600; margin-top: 5px; }
+        .sector-sub { display: flex; gap: 12px; margin-top: 3px; font-size: 9px; color: var(--text-muted); }
+        .sector-sub b { font-weight: 500; }
+        .sector-adv-row { font-size: 9px; color: var(--text-muted); margin-top: 5px; }
+        .sma-bar-wrap { margin-top: 7px; height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+        .sma-bar-fill { height: 100%; border-radius: 2px; }
+
+        /* ── Spacing ── */
+        .mt-14 { margin-top: 14px; }
+        .mt-20 { margin-top: 20px; }
+
+        /* ── Track Record ── */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .data-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        .data-table th {
+            font-family: var(--font-ui);
+            font-size: 9px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: right;
+            white-space: nowrap;
+        }
+        .data-table th:first-child { text-align: left; }
+        .data-table th.star-col { color: var(--yellow); }
+        .data-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.025);
+            text-align: right;
+        }
+        .data-table td:first-child { text-align: left; }
+        .data-table td.star-col { background: rgba(255,184,0,0.03); }
+        .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .data-table tr:hover td.star-col { background: rgba(255,184,0,0.06); }
+        .data-table tr:last-child td { border-bottom: none; }
+
+        .win-hi { color: var(--green); font-weight: 600; }
+        .win-md { color: #9ecf6a; }
+        .win-lo { color: var(--text-muted); }
+
+        /* ── Screeners ── */
+        .regime-ctx {
+            display: flex; align-items: center; gap: 20px;
+            padding: 11px 16px;
+            background: rgba(0,229,160,0.04);
+            border: 1px solid rgba(0,229,160,0.12);
+            border-radius: 5px;
+            margin-bottom: 14px;
+            font-size: 11px;
+        }
+        .regime-ctx-item { display: flex; flex-direction: column; gap: 2px; }
+        .regime-ctx-lbl { font-size: 8px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+        .regime-ctx-val { font-size: 12px; font-weight: 600; }
+
+        .filter-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+        .flt-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-family: var(--font-data);
+            font-size: 9px;
+            letter-spacing: 0.07em;
+            padding: 4px 11px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-transform: uppercase;
+        }
+        .flt-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.18); }
+        .flt-btn.active { background: rgba(0,229,160,0.1); border-color: rgba(0,229,160,0.35); color: var(--green); }
+
+        .scanner-pill {
+            display: inline-block;
+            font-size: 9px; font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 2px 8px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        .sig-pills { display: flex; flex-wrap: wrap; gap: 3px; }
+        .sig-pill {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            font-size: 8px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .showing-tag { padding: 10px 0 2px; font-size: 9px; color: var(--text-dim); letter-spacing: 0.04em; }
+
+        /* ── Skeleton ── */
+        .skel {
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.6s infinite;
+            border-radius: 4px;
+        }
+        @keyframes shimmer { 0% { background-position:200% 0; } 100% { background-position:-200% 0; } }
+
+        /* ── Secure Link ── */
+        .dashboard-btn { text-decoration: none; }
+
+        /* ── Report Cards ── */
+        .report-card {
+            display: block;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            text-decoration: none;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .report-card:hover {
+            border-color: rgba(0,229,160,0.3);
+            transform: translateY(-2px);
+        }
+        .report-icon { font-size: 20px; margin-bottom: 6px; }
+        .report-name { font-family: var(--font-ui); font-size: 12px; font-weight: 700; color: var(--text); }
+        .report-desc { font-size: 10px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+
+        @media (max-width: 900px) {
+            #report-grid { grid-template-columns: repeat(2,1fr) !important; }
+        }
+        @media (max-width: 600px) {
+            #report-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 28px 24px;
+            font-size: 9px;
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1200px) {
+            .index-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 960px) {
+            .index-grid { grid-template-columns: repeat(3, 1fr); }
+            .sector-grid { grid-template-columns: repeat(2, 1fr); }
+            .two-col { grid-template-columns: 1fr; }
+            .regime-bar { gap: 18px; }
+        }
+        @media (max-width: 680px) {
+            .index-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .header { padding: 10px 14px; }
+            .tab-content { padding: 14px; }
+            .nav-tabs { padding: 0 14px; overflow-x: auto; scrollbar-width: none; }
+            .tab-btn { padding: 11px 14px; font-size: 9px; }
+            .brand { font-size: 12px; letter-spacing: 0.1em; }
+            .regime-score-num { font-size: 40px; }
+            .index-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .sector-grid { grid-template-columns: repeat(2, 1fr); }
+            .data-table { font-size: 10px; }
+            .data-table th, .data-table td { padding: 7px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <a href="/" class="back-link">← jays.website</a>
+        <div class="brand">Trading <em>Intelligence</em></div>
+    </div>
+    <div class="header-right">
+        <div class="live-badge"><div class="live-dot"></div> Live</div>
+        <a href="/secure/" class="dashboard-btn">Dashboard →</a>
+    </div>
+</header>
+
+<nav class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('market',this)">📊&nbsp; Market</button>
+    <button class="tab-btn" onclick="switchTab('signals',this)">⚡&nbsp; Signals</button>
+    <button class="tab-btn" onclick="switchTab('track',this)">📋&nbsp; Track Record</button>
+    <button class="tab-btn" onclick="switchTab('screeners',this)">🔍&nbsp; Screeners</button>
+    <button class="tab-btn" onclick="switchTab('reports',this)">📄&nbsp; Reports</button>
+</nav>
+
+<!-- ══ MARKET ══════════════════════════════════════════════════════════════ -->
+<div id="tab-market" class="tab-content active">
+
+    <div class="card" id="regime-card">
+        <div class="card-title">
+            Market Regime
+            <span class="updated-tag" id="regime-updated"></span>
+        </div>
+        <div class="regime-bar" id="regime-bar">
+            <div class="skel" style="width:90px;height:56px;border-radius:4px;"></div>
+            <div class="skel" style="width:160px;height:40px;border-radius:4px;"></div>
+            <div class="skel" style="width:80px;height:40px;border-radius:4px;"></div>
+            <div class="skel" style="width:80px;height:40px;border-radius:4px;"></div>
+            <div class="skel" style="width:100px;height:40px;border-radius:4px;"></div>
+        </div>
+    </div>
+
+    <div class="index-grid" id="index-grid">
+        <div class="index-card"><div class="skel" style="height:90px;"></div></div>
+        <div class="index-card"><div class="skel" style="height:90px;"></div></div>
+        <div class="index-card"><div class="skel" style="height:90px;"></div></div>
+        <div class="index-card"><div class="skel" style="height:90px;"></div></div>
+        <div class="index-card"><div class="skel" style="height:90px;"></div></div>
+        <div class="index-card"><div class="skel" style="height:90px;"></div></div>
+    </div>
+
+    <div class="card mt-20">
+        <div class="card-title">
+            Sector Performance
+            <span class="updated-tag" id="sector-updated"></span>
+        </div>
+        <div class="sector-grid" id="sector-grid">
+            <div class="skel" style="height:100px;"></div>
+            <div class="skel" style="height:100px;"></div>
+            <div class="skel" style="height:100px;"></div>
+            <div class="skel" style="height:100px;"></div>
+            <div class="skel" style="height:100px;"></div>
+            <div class="skel" style="height:100px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ TRACK RECORD ════════════════════════════════════════════════════════ -->
+<div id="tab-track" class="tab-content">
+    <div class="card">
+        <div class="card-title">
+            Live Scanner Accuracy — Forward Returns
+            <span class="updated-tag" id="accuracy-range"></span>
+        </div>
+        <div id="accuracy-wrap"><div class="skel" style="height:260px;margin-top:6px;"></div></div>
+    </div>
+
+    <div class="two-col mt-20">
+        <div class="card">
+            <div class="card-title">Conviction Score vs 5-Day Return</div>
+            <div id="score-bucket-wrap"><div class="skel" style="height:160px;margin-top:6px;"></div></div>
+        </div>
+        <div class="card">
+            <div class="card-title">Day of Week — 5-Day Return</div>
+            <div id="dow-wrap"><div class="skel" style="height:160px;margin-top:6px;"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ SCREENERS ═══════════════════════════════════════════════════════════ -->
+<div id="tab-screeners" class="tab-content">
+    <div class="regime-ctx" id="sc-ctx">
+        <div class="regime-ctx-item">
+            <span class="regime-ctx-lbl">Regime</span>
+            <span class="regime-ctx-val" id="sc-regime">—</span>
+        </div>
+        <div class="regime-ctx-item">
+            <span class="regime-ctx-lbl">Score</span>
+            <span class="regime-ctx-val" id="sc-score">—</span>
+        </div>
+        <div class="regime-ctx-item">
+            <span class="regime-ctx-lbl">As of</span>
+            <span class="regime-ctx-val" style="font-size:11px;font-weight:400;" id="sc-date">—</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Top Signals — All Scanners</div>
+        <div class="filter-row" id="filter-row">
+            <button class="flt-btn active" data-f="all" onclick="applyFilter('all',this)">All</button>
+        </div>
+        <div id="screener-wrap"><div class="skel" style="height:320px;"></div></div>
+    </div>
+</div>
+
+<!-- ══ SIGNALS ══════════════════════════════════════════════════════════════ -->
+<div id="tab-signals" class="tab-content">
+
+    <div class="card">
+        <div class="card-title">
+            🏆 Conviction Picks — Multi-Scanner Ranked
+            <span class="updated-tag" id="conv-updated"></span>
+        </div>
+        <div id="conv-wrap"><div class="skel" style="height:280px;margin-top:6px;"></div></div>
+    </div>
+
+    <div class="two-col mt-20">
+        <div class="card">
+            <div class="card-title">
+                📅 Weekly Top Picks
+                <span class="updated-tag" id="weekly-updated"></span>
+            </div>
+            <div id="weekly-wrap"><div class="skel" style="height:220px;margin-top:6px;"></div></div>
+        </div>
+        <div class="card">
+            <div class="card-title">
+                💸 Smart Money — Top Inflow
+                <span class="updated-tag" id="smf-updated"></span>
+            </div>
+            <div id="smf-wrap"><div class="skel" style="height:220px;margin-top:6px;"></div></div>
+        </div>
+    </div>
+
+    <div class="card mt-20">
+        <div class="card-title">📉 Smart Money — Top Outflow</div>
+        <div id="smf-out-wrap"><div class="skel" style="height:180px;margin-top:6px;"></div></div>
+    </div>
+</div>
+
+<!-- ══ REPORTS ═════════════════════════════════════════════════════════════ -->
+<div id="tab-reports" class="tab-content">
+    <div class="card-title" style="margin-bottom:16px;">📄 Scanner Reports — Latest Runs</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" id="report-grid">
+        <a href="/trading/reports/cross_scanner_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">📊</div>
+            <div class="report-name">Cross-Scanner Intelligence</div>
+            <div class="report-desc">Multi-scanner confluence · ranked by conviction</div>
+        </a>
+        <a href="/trading/reports/unified_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">🎯</div>
+            <div class="report-name">Unified Scanner</div>
+            <div class="report-desc">Combined signal scoring across all scanners</div>
+        </a>
+        <a href="/trading/reports/weekly_pub_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">📅</div>
+            <div class="report-name">Weekly Top Picks</div>
+            <div class="report-desc">Sunday publication · top conviction setups</div>
+        </a>
+        <a href="/trading/reports/atr_momentum_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">⚡</div>
+            <div class="report-name">ATR Momentum</div>
+            <div class="report-desc">Volatility-adjusted momentum breakouts</div>
+        </a>
+        <a href="/trading/reports/rsi_staircase_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">📈</div>
+            <div class="report-name">RSI Staircase</div>
+            <div class="report-desc">74.5% 5-day win rate · strongest scanner</div>
+        </a>
+        <a href="/trading/reports/confluence_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">🔀</div>
+            <div class="report-name">Confluence</div>
+            <div class="report-desc">Multi-indicator signal convergence</div>
+        </a>
+        <a href="/trading/reports/momentum_rebound_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">🔄</div>
+            <div class="report-name">Momentum Rebound</div>
+            <div class="report-desc">Pullback recovery setups</div>
+        </a>
+        <a href="/trading/reports/institutional_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">🏦</div>
+            <div class="report-name">Institutional</div>
+            <div class="report-desc">OBV + accumulation signals</div>
+        </a>
+        <a href="/trading/reports/setups_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">⚙️</div>
+            <div class="report-name">Setups</div>
+            <div class="report-desc">Accumulation, pullback & VCB patterns</div>
+        </a>
+        <a href="/trading/reports/v3_compression_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">🗜️</div>
+            <div class="report-name">V3 Compression</div>
+            <div class="report-desc">Range compression breakout signals</div>
+        </a>
+        <a href="/trading/reports/enhanced_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">✨</div>
+            <div class="report-name">Enhanced</div>
+            <div class="report-desc">Multi-factor enhanced scoring</div>
+        </a>
+        <a href="/trading/reports/under50_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">💲</div>
+            <div class="report-name">Under $50</div>
+            <div class="report-desc">67.5% 5-day win rate · high-volume picks</div>
+        </a>
+        <a href="/trading/reports/etf_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">🗂️</div>
+            <div class="report-name">ETF Scanner</div>
+            <div class="report-desc">Sector ETF rotation signals</div>
+        </a>
+        <a href="/trading/data/weekly_report.html" target="_blank" class="report-card">
+            <div class="report-icon">📰</div>
+            <div class="report-name">Weekly Market Report</div>
+            <div class="report-desc">Full market breadth + conviction summary</div>
+        </a>
+    </div>
+</div>
+
+<div style="text-align:center;padding:40px 24px 8px;border-top:1px solid var(--border);margin-top:40px;">
+    <div style="font-family:var(--font-ui);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Private Dashboard Access</div>
+    <a href="/secure/" style="display:inline-block;background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.3);color:var(--green);font-family:var(--font-data);font-size:12px;font-weight:600;letter-spacing:0.08em;padding:11px 28px;border-radius:4px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,229,160,0.2)'" onmouseout="this.style.background='rgba(0,229,160,0.1)'">
+        jays.website/secure/ →
+    </a>
+    <div style="font-size:9px;color:var(--text-dim);margin-top:10px;letter-spacing:0.05em;">Full dashboard · Portfolios · Admin · Authorized users only</div>
+</div>
+
+<!-- ══ FINANCIAL DISCLOSURE ════════════════════════════════════════════════ -->
+<div style="max-width:960px;margin:40px auto 0;padding:0 24px;">
+    <div style="border:1px solid var(--border);border-radius:6px;padding:22px 26px;background:rgba(4,13,28,0.6);">
+        <div style="font-family:var(--font-ui);font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--yellow);">⚠</span> Financial Disclosure
+        </div>
+        <p style="font-family:var(--font-data);font-size:10px;color:#ffffff;line-height:1.75;letter-spacing:0.01em;">This material is for informational and educational purposes only. It is provided by Jays.Website, a personal portfolio showcasing projects built with AI. Any views, strategies, tools, or projects discussed in this material may not be appropriate for all individuals and are subject to risks. Past performance is not a reliable indicator of future results. Nothing in this material should be relied upon in isolation for the purpose of making any investment, financial, or business decision. You are strongly encouraged to consider carefully whether any ideas, tools, or strategies presented here are suitable to your specific situation. You should review the objectives, risks, and limitations of any approach before taking any action. While the information contained in this material is believed to be reliable, Jays.Website does not represent or warrant its accuracy, reliability, or completeness. Jays.Website accepts no liability for any loss or damage (whether direct or indirect) arising from the use of all or any part of this material. All views, opinions, estimates, and strategies expressed here are personal and based on current conditions. They are subject to change without notice. No duty is assumed to update this information. Graphs, charts, code examples, or commentary are provided for illustration and reference purposes only. Nothing in this document shall be construed as giving rise to any duty of care, advisory relationship, or professional relationship with you. Jays.Website does not provide financial, investment, legal, tax, or accounting advice. You should consult your own qualified professionals before making any financial, investment, or business decisions.</p>
+    </div>
+</div>
+
+<footer>
+    Market data updated nightly &nbsp;·&nbsp; For informational and educational purposes only &nbsp;·&nbsp; jays.website/trading/
+</footer>
+
+<script>
+/* ── Tabs ─────────────────────────────────────────────────────────────── */
+function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+}
+
+
+/* ── Helpers ───────────────────────────────────────────────────────────── */
+const dash     = v => (v == null || v === '') ? '—' : v;
+const pct      = (v, d=1) => v == null ? '—' : (v > 0 ? '+' : '') + v.toFixed(d) + '%';
+const price    = v => v == null ? '—' : '$' + Number(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const cc       = v => v == null ? 'neu' : v > 0 ? 'pos' : v < 0 ? 'neg' : 'neu';
+const winClass = v => v == null ? 'win-lo' : v >= 65 ? 'win-hi' : v >= 55 ? 'win-md' : 'win-lo';
+const fmtWin   = v => v == null ? '—' : v.toFixed(1) + '%';
+
+const IX_NAMES = {SPY:'S&P 500', QQQ:'Nasdaq 100', IWM:'Russell 2000', DIA:'Dow Jones'};
+const SEC_ETF  = {
+    'Technology':'XLK','Consumer Cyclical':'XLY','Communication Services':'XLC',
+    'Industrials':'XLI','Health Care':'XLV','Energy':'XLE','Consumer Defensive':'XLP',
+    'Financials':'XLF','Basic Materials':'XLB','Real Estate':'XLRE','Utilities':'XLU'
+};
+const SEC_ORDER = ['Technology','Consumer Cyclical','Communication Services','Industrials',
+    'Health Care','Energy','Consumer Defensive','Financials','Basic Materials','Real Estate','Utilities'];
+
+const SC_COLORS = {
+    institutional:'#38b2f8', under50:'#a78bfa', rsi_staircase:'#00e5a0',
+    atr_momentum:'#fbbf24', confluence:'#fb923c', momentum_rebound:'#f472b6',
+    v3_compression:'#34d399', setup_accum:'#60a5fa', setup_pullback:'#c084fc',
+    enhanced:'#94a3b8', setup_vcb:'#ff6b6b', etf:'#64748b', unified:'#475569'
+};
+const SC_LABEL = {
+    under50:'Under $50', rsi_staircase:'RSI Staircase', confluence:'Confluence',
+    atr_momentum:'ATR Momentum', momentum_rebound:'Momentum Rebound',
+    institutional:'Institutional', setup_accum:'Setup: Accum',
+    v3_compression:'V3 Compression', setup_pullback:'Setup: Pullback',
+    enhanced:'Enhanced', setup_vcb:'Setup: VCB', etf:'ETF', unified:'Unified'
+};
+
+/* ── Render: Regime ────────────────────────────────────────────────────── */
+function renderRegime(b, r) {
+    const l = b.latest || {};
+    const bull = l.regime_signal === 'BULL';
+    const am = (r.alert_mode || 'OFF').toUpperCase();
+    const amCls = am === 'FULL' ? 'full' : am === 'SELECTIVE' ? 'selective' : 'off';
+    const score = l.breadth_score != null ? l.breadth_score : null;
+    const scoreW = score != null ? Math.min(Math.max(score, 0), 100) : 0;
+
+    document.getElementById('regime-updated').textContent = 'Updated: ' + (l.date || '—');
+    document.getElementById('regime-bar').innerHTML = `
+        <div class="regime-gauge-block">
+            <div class="regime-score-label">Market Breadth Score</div>
+            <div class="regime-score-block">
+                <div class="regime-score-num ${bull?'':'bear'}">${score != null ? score.toFixed(1) : '—'}</div>
+                <div class="regime-score-max">/100</div>
+            </div>
+            <div class="regime-track-wrap">
+                <div class="regime-track">
+                    <div class="regime-track-fill ${bull?'':'bear'}" style="width:${scoreW}%"></div>
+                </div>
+                <div class="regime-track-labels"><span>0</span><span>Neutral · 50</span><span>100</span></div>
+            </div>
+        </div>
+        <div class="regime-badges">
+            <div class="rbadge ${bull?'bull':'bear'}">● ${r.regime || l.regime_signal || '—'} &nbsp;·&nbsp; Score ${r.regime_score ?? score?.toFixed(1) ?? '—'}</div>
+            <div class="rbadge ${amCls}">▲ Alert: ${am}</div>
+        </div>
+        <div class="vdiv"></div>
+        <div class="stat-blk">
+            <div class="stat-val">${l.pct_above_sma50 != null ? l.pct_above_sma50.toFixed(1)+'%' : '—'}</div>
+            <div class="stat-lbl">Above SMA50</div>
+        </div>
+        <div class="stat-blk">
+            <div class="stat-val">${l.pct_above_sma200 != null ? l.pct_above_sma200.toFixed(1)+'%' : '—'}</div>
+            <div class="stat-lbl">Above SMA200</div>
+        </div>
+        <div class="stat-blk">
+            <div class="stat-val">${dash(l.new_highs)} <span style="color:var(--text-muted);font-size:14px;">/ ${dash(l.new_lows)}</span></div>
+            <div class="stat-lbl">New Highs / Lows</div>
+        </div>
+    `;
+}
+
+/* ── Render: Index Cards ───────────────────────────────────────────────── */
+const FUTURES_SYMS = new Set(['MES','MNQ']);
+const IX_NAMES_EXT = {...IX_NAMES, MES:'Micro E-mini S&P 500', MNQ:'Micro E-mini Nasdaq-100'};
+const TV_SYMBOL    = { MES:'CME_MINI:MES1!', MNQ:'CME_MINI:MNQ1!' };
+const TV_CHART_URL = { MES:'https://www.tradingview.com/chart/?symbol=CME_MINI%3AMES1%21', MNQ:'https://www.tradingview.com/chart/?symbol=CME_MINI%3AMNQ1%21' };
+
+// FLIP TO true AFTER ADDING TO CLOUDFLARE CSP:
+//   script-src  → https://s3.tradingview.com
+//   frame-src   → https://*.tradingview.com
+const TV_EMBED_ENABLED = true;
+
+function injectTVWidget(containerId, tvSymbol) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tradingview-widget-container';
+    const inner = document.createElement('div');
+    inner.className = 'tradingview-widget-container__widget';
+    wrapper.appendChild(inner);
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js';
+    script.async = true;
+    script.textContent = JSON.stringify({
+        symbol: tvSymbol,
+        width: '100%',
+        height: 148,
+        locale: 'en',
+        dateRange: '1D',
+        colorTheme: 'dark',
+        isTransparent: true,
+        autosize: false,
+        largeChartUrl: `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(tvSymbol)}`
+    });
+    wrapper.appendChild(script);
+    container.appendChild(wrapper);
+}
+
+function renderIndices(data) {
+    const idx = data.indices || {};
+
+    const etfHtml = ['SPY','QQQ','IWM','DIA'].map(sym => {
+        const d = idx[sym];
+        if (!d) return `<div class="index-card" style="color:var(--text-muted);font-size:11px;">${sym} unavailable</div>`;
+        return `
+        <div class="index-card">
+            <div class="ix-header">
+                <div class="ix-sym">${sym}</div>
+            </div>
+            <div class="ix-name">${IX_NAMES_EXT[sym]||''}</div>
+            <div class="ix-price">${price(d.close)}</div>
+            <div class="ix-daily ${cc(d.daily)}">${pct(d.daily)} <span style="font-size:8px;opacity:0.55">today</span></div>
+            <div class="ix-meta">
+                <div class="ix-meta-item">YTD <b class="${cc(d.ytd)}">${pct(d.ytd)}</b></div>
+                <div class="ix-meta-item">1YR <b class="${cc(d.one_yr)}">${pct(d.one_yr)}</b></div>
+            </div>
+        </div>`;
+    });
+
+    const futHtml = ['MES','MNQ'].map(sym => `
+        <div class="index-card index-card-chart">
+            <div class="ix-header">
+                <div>
+                    <div class="ix-sym">/${sym}</div>
+                    <div class="ix-name">${IX_NAMES_EXT[sym]}</div>
+                </div>
+                <span class="ix-futures-tag">Futures</span>
+            </div>
+            <div class="tv-chart-wrap" id="tv-${sym.toLowerCase()}">
+                <div class="tv-loading">
+                    ${TV_EMBED_ENABLED ? '' : `
+                    <a href="${TV_CHART_URL[sym]}" target="_blank" rel="noopener"
+                       style="color:var(--blue);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                        <span style="font-size:16px;">📈</span>
+                        <span>View on TradingView →</span>
+                    </a>`}
+                </div>
+            </div>
+        </div>`);
+
+    document.getElementById('index-grid').innerHTML = [...etfHtml, ...futHtml].join('');
+
+    // Inject TradingView embedded widgets (requires Cloudflare CSP update)
+    if (TV_EMBED_ENABLED) {
+        requestAnimationFrame(() => {
+            injectTVWidget('tv-mes', TV_SYMBOL.MES);
+            injectTVWidget('tv-mnq', TV_SYMBOL.MNQ);
+        });
+    }
+}
+
+/* ── Render: Sectors ───────────────────────────────────────────────────── */
+function renderSectors(data) {
+    const secs = data.sectors || {};
+    document.getElementById('sector-updated').textContent = 'Updated: ' + (data.as_of_date || '—');
+    document.getElementById('sector-grid').innerHTML = SEC_ORDER.map(name => {
+        const d = secs[name];
+        if (!d) return '';
+        const etf = SEC_ETF[name] || d.etf || '';
+        const sma50 = d.pct_above_sma50 ?? 0;
+        const barColor = (d.daily ?? 0) >= 0 ? 'var(--green)' : 'var(--red)';
+        return `
+        <div class="sector-tile">
+            <div class="sector-hdr">
+                <div class="sector-nm">${name}</div>
+                <div class="sector-etf-tag">${etf}</div>
+            </div>
+            <div class="sector-pct ${cc(d.daily)}">${pct(d.daily)}</div>
+            <div class="sector-sub">
+                <span>WTD</span>&nbsp;<b class="${cc(d.wtd)}">${pct(d.wtd)}</b>
+                &nbsp;&nbsp;<span>YTD</span>&nbsp;<b class="${cc(d.ytd)}">${pct(d.ytd)}</b>
+            </div>
+            <div class="sector-adv-row">▲${d.advancing??'—'} ▼${d.declining??'—'} &nbsp;·&nbsp; ${sma50.toFixed(0)}% above SMA50</div>
+            <div class="sma-bar-wrap"><div class="sma-bar-fill" style="width:${Math.min(sma50,100)}%;background:${barColor};"></div></div>
+        </div>`;
+    }).join('');
+}
+
+/* ── Render: Accuracy ──────────────────────────────────────────────────── */
+function renderAccuracy(data) {
+    const dr = data.data_range || {};
+    if (dr.start && dr.end) {
+        document.getElementById('accuracy-range').textContent =
+            `${dr.trading_days ?? '?'} trading days · ${dr.start} — ${dr.end}`;
+    }
+
+    const rows = (data.summary_table || []).map(r => `
+        <tr>
+            <td>${SC_LABEL[r.scanner_type] || r.label || r.scanner_type}</td>
+            <td>${r.total_signals != null ? r.total_signals.toLocaleString() : '—'}</td>
+            <td class="${winClass(r['1d_win_rate'])}">${fmtWin(r['1d_win_rate'])}</td>
+            <td class="${cc(r['1d_avg_return'])}">${pct(r['1d_avg_return'])}</td>
+            <td class="${winClass(r['5d_win_rate'])} star-col">${fmtWin(r['5d_win_rate'])}</td>
+            <td class="${cc(r['5d_avg_return'])} star-col">${pct(r['5d_avg_return'])}</td>
+            <td class="${winClass(r['10d_win_rate'])}">${fmtWin(r['10d_win_rate'])}</td>
+            <td class="${cc(r['10d_avg_return'])}">${pct(r['10d_avg_return'])}</td>
+        </tr>`).join('');
+
+    document.getElementById('accuracy-wrap').innerHTML = `
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+        <thead><tr>
+            <th>Scanner</th><th>Signals</th>
+            <th>1-Day Win%</th><th>1-Day Avg</th>
+            <th class="star-col">5-Day Win% ★</th><th class="star-col">5-Day Avg</th>
+            <th>10-Day Win%</th><th>10-Day Avg</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+    </table>
+    </div>`;
+
+    // Score buckets — JSON is {scanner: {range: {n, win_rate, avg_return}}}
+    const sbRaw = data.score_bucket_5d || {};
+    const sbData = sbRaw.unified || sbRaw.database_enhanced || sbRaw[Object.keys(sbRaw)[0]] || {};
+    const buckets = Object.entries(sbData).map(([range, s]) => `
+        <tr>
+            <td>${range}</td>
+            <td>${s.n != null ? s.n.toLocaleString() : '—'}</td>
+            <td class="${winClass(s.win_rate)}">${fmtWin(s.win_rate)}</td>
+            <td class="${cc(s.avg_return)}">${pct(s.avg_return)}</td>
+        </tr>`).join('');
+    document.getElementById('score-bucket-wrap').innerHTML = `
+    <table class="data-table">
+        <thead><tr><th>Score</th><th>n</th><th>Win%</th><th>5D Avg</th></tr></thead>
+        <tbody>${buckets}</tbody>
+    </table>`;
+
+    // Day of week — JSON is {day: {n, win_rate, avg_return}}
+    const dowRaw = data.day_of_week_5d || {};
+    const dowArr = Array.isArray(dowRaw)
+        ? dowRaw
+        : Object.entries(dowRaw).map(([day, s]) => ({day, ...s}));
+    const dow = dowArr.map(d => `
+        <tr>
+            <td>${d.day ?? '—'}</td>
+            <td>${d.n != null ? d.n.toLocaleString() : '—'}</td>
+            <td class="${winClass(d.win_rate ?? d.win_rate_5d)}">${fmtWin(d.win_rate ?? d.win_rate_5d)}</td>
+            <td class="${cc(d.avg_return ?? d.avg_return_5d)}">${pct(d.avg_return ?? d.avg_return_5d)}</td>
+        </tr>`).join('');
+    document.getElementById('dow-wrap').innerHTML = `
+    <table class="data-table">
+        <thead><tr><th>Day</th><th>n</th><th>Win%</th><th>5D Avg</th></tr></thead>
+        <tbody>${dow}</tbody>
+    </table>`;
+}
+
+/* ── Render: Screeners ─────────────────────────────────────────────────── */
+let _picks = [], _activeF = 'all';
+
+function renderScreeners(data) {
+    _picks = data.picks || [];
+
+    const reg = data.regime || '—';
+    document.getElementById('sc-regime').textContent = reg;
+    document.getElementById('sc-regime').className = 'regime-ctx-val ' + (reg==='BULL'?'pos':reg==='BEAR'?'neg':'');
+    document.getElementById('sc-score').textContent = data.regime_score ?? '—';
+    document.getElementById('sc-date').textContent = data.generated ? data.generated.split(' ')[0] : '—';
+
+    const scanners = [...new Set(_picks.map(p=>p.scanner).filter(Boolean))].sort();
+    const fRow = document.getElementById('filter-row');
+    scanners.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'flt-btn';
+        btn.dataset.f = s;
+        btn.textContent = SC_LABEL[s] || s.replace(/_/g,' ');
+        const c = SC_COLORS[s] || '#888';
+        btn.style.cssText = `border-color:${c}33;`;
+        btn.onclick = () => applyFilter(s, btn);
+        fRow.appendChild(btn);
+    });
+
+    drawTable('all');
+}
+
+function applyFilter(f, btn) {
+    _activeF = f;
+    document.querySelectorAll('.flt-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    drawTable(f);
+}
+
+function drawTable(f) {
+    const subset = f === 'all' ? _picks : _picks.filter(p => p.scanner === f);
+    const rows = subset.slice(0, 100).map(p => {
+        const sigs = (p.signals || '').split('•').map(s=>s.trim()).filter(Boolean).slice(0,3);
+        const c = SC_COLORS[p.scanner] || '#888';
+        const rsCls = (p.rs_rank ?? 0) >= 70 ? 'pos' : '';
+        return `
+        <tr>
+            <td><strong style="font-size:12px;">${p.symbol}</strong></td>
+            <td>${price(p.price)}</td>
+            <td><span class="scanner-pill" style="background:${c}1a;color:${c};border:1px solid ${c}33;">${(SC_LABEL[p.scanner]||p.scanner||'').replace(/_/g,' ')}</span></td>
+            <td>${p.conf_score != null ? p.conf_score.toFixed(1) : '—'}</td>
+            <td class="${rsCls}">${p.rs_rank != null ? p.rs_rank.toFixed(1) : '—'}</td>
+            <td><div class="sig-pills">${sigs.map(s=>`<span class="sig-pill">${s}</span>`).join('')}</div></td>
+        </tr>`;
+    }).join('');
+
+    document.getElementById('screener-wrap').innerHTML = `
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+        <thead><tr>
+            <th>Symbol</th><th>Price</th><th>Scanner</th>
+            <th>Confidence</th><th>RS Rank</th><th>Signals</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+    </table>
+    </div>
+    <div class="showing-tag">Showing ${Math.min(subset.length,100)} of ${subset.length} signals</div>`;
+}
+
+/* ── Render: Conviction Picks ──────────────────────────────────────────── */
+function renderConviction(picks) {
+    document.getElementById('conv-updated').textContent = picks[0]?.latest_date ? 'As of ' + picks[0].latest_date : '';
+    const rows = picks.slice(0,30).map(p => {
+        const scannerList = (p.scanners||'').split(',').slice(0,3).map(s =>
+            `<span class="scanner-pill" style="background:${SC_COLORS[s]||'#888'}1a;color:${SC_COLORS[s]||'#888'};border:1px solid ${SC_COLORS[s]||'#888'}33;font-size:8px;">${SC_LABEL[s]||s}</span>`
+        ).join(' ');
+        const fundCls = p.fund_tier === 'STRONG' ? 'pos' : p.fund_tier === 'BLOCKED' ? 'neg' : 'neu';
+        return `<tr>
+            <td><strong style="font-size:13px;">${p.symbol}</strong></td>
+            <td>${price(p.price)}</td>
+            <td style="color:var(--yellow);font-weight:600;">${p.conviction_score?.toFixed(0)??'—'}</td>
+            <td>${p.scanner_count??'—'}</td>
+            <td>${p.days_on_report??'—'}</td>
+            <td class="${(p.rs_rank??0)>=70?'pos':''}">${p.rs_rank?.toFixed(1)??'—'}</td>
+            <td>${p.rsi?.toFixed(1)??'—'}</td>
+            <td>${p.above_sma50?'<span class="pos">✓</span>':'<span class="neg">✗</span>'}</td>
+            <td class="${fundCls}" style="font-size:10px;">${p.fund_tier||'—'}</td>
+            <td style="max-width:160px;"><div class="sig-pills">${scannerList}</div></td>
+        </tr>`;
+    }).join('');
+    document.getElementById('conv-wrap').innerHTML = `
+    <div style="overflow-x:auto;"><table class="data-table">
+        <thead><tr>
+            <th>Symbol</th><th>Price</th><th>Conv Score</th><th>Scanners</th>
+            <th>Days On</th><th>RS Rank</th><th>RSI</th><th>SMA50</th><th>Fund</th><th>Active Scanners</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+    </table></div>
+    <div class="showing-tag">Top ${Math.min(picks.length,30)} of ${picks.length} conviction picks · ranked by conviction score</div>`;
+}
+
+/* ── Render: Weekly Picks ──────────────────────────────────────────────── */
+function renderWeekly(data) {
+    const picks = data.picks || [];
+    document.getElementById('weekly-updated').textContent = data.week_of ? 'Week of ' + data.week_of : '';
+    const rows = picks.slice(0,15).map(p => {
+        const catColor = p.category==='MOMENTUM'?'var(--green)':p.category==='SETUP'?'var(--blue)':'var(--yellow)';
+        return `<tr>
+            <td style="color:var(--text-muted);font-size:10px;">#${p.rank}</td>
+            <td><strong>${p.symbol}</strong></td>
+            <td><span style="font-size:9px;font-weight:600;color:${catColor};">${p.category||'—'}</span></td>
+            <td style="color:var(--yellow);">${p.conviction_score?.toFixed(0)??'—'}</td>
+            <td>${p.scanner_count??'—'}</td>
+            <td style="font-size:10px;color:var(--text-muted);">${p.sector||'—'}</td>
+        </tr>`;
+    }).join('');
+    document.getElementById('weekly-wrap').innerHTML = `
+    <table class="data-table">
+        <thead><tr><th>#</th><th>Symbol</th><th>Type</th><th>Score</th><th>Scanners</th><th>Sector</th></tr></thead>
+        <tbody>${rows}</tbody>
+    </table>`;
+}
+
+/* ── Render: Smart Money Flow ──────────────────────────────────────────── */
+function renderSmartMoney(data) {
+    document.getElementById('smf-updated').textContent = 'Scan: ' + (data.scan_date||'—');
+    const mkRow = p => `<tr>
+        <td><strong>${p.symbol}</strong></td>
+        <td style="font-size:10px;color:var(--text-muted);">${p.sector||'—'}</td>
+        <td style="color:var(--yellow);font-weight:600;">${p.flow_score?.toFixed(0)??'—'}</td>
+        <td class="${cc(p.ret_5d)}">${pct(p.ret_5d)}</td>
+        <td class="${cc(p.ret_20d)}">${pct(p.ret_20d)}</td>
+        <td>${p.rsi?.toFixed(1)??'—'}</td>
+    </tr>`;
+    const hdr = `<thead><tr><th>Symbol</th><th>Sector</th><th>Flow Score</th><th>5D Ret</th><th>20D Ret</th><th>RSI</th></tr></thead>`;
+    document.getElementById('smf-wrap').innerHTML = `
+    <table class="data-table">${hdr}<tbody>${(data.top_inflow||[]).slice(0,12).map(mkRow).join('')}</tbody></table>`;
+    document.getElementById('smf-out-wrap').innerHTML = `
+    <table class="data-table">${hdr}<tbody>${(data.top_outflow||[]).slice(0,10).map(mkRow).join('')}</tbody></table>`;
+}
+
+/* ── Load All ──────────────────────────────────────────────────────────── */
+async function loadAll() {
+    const [breadth, regime, perf, sector, accuracy, picks, conviction, weekly, smf] = await Promise.allSettled([
+        fetch('/trading/data/market_breadth.json').then(r=>r.json()),
+        fetch('/trading/data/market_regime.json').then(r=>r.json()),
+        fetch('/trading/data/market_performance.json').then(r=>r.json()),
+        fetch('/trading/data/sector_performance.json').then(r=>r.json()),
+        fetch('/trading/data/scanner_accuracy.json').then(r=>r.json()),
+        fetch('/trading/data/top_picks.json').then(r=>r.json()),
+        fetch('/trading/data/conviction_picks.json').then(r=>r.json()),
+        fetch('/trading/data/weekly_pub_latest.json').then(r=>r.json()),
+        fetch('/trading/data/smart_money_flow_latest.json').then(r=>r.json()),
+    ]);
+
+    if (breadth.status==='fulfilled' && regime.status==='fulfilled')
+        renderRegime(breadth.value, regime.value);
+    if (perf.status==='fulfilled')       renderIndices(perf.value);
+    if (sector.status==='fulfilled')     renderSectors(sector.value);
+    if (accuracy.status==='fulfilled')   renderAccuracy(accuracy.value);
+    if (picks.status==='fulfilled')      renderScreeners(picks.value);
+    if (conviction.status==='fulfilled') renderConviction(conviction.value);
+    if (weekly.status==='fulfilled')     renderWeekly(weekly.value);
+    if (smf.status==='fulfilled')        renderSmartMoney(smf.value);
+}
+
+loadAll();
+</script>
+</body>
+</html>

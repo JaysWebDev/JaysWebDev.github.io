@@ -1,0 +1,74 @@
+{
+  "generated": "2026-03-03T18:24:13.653768",
+  "filter": {
+    "rs_min_rank": 70,
+    "stage2_full": true,
+    "sample_every": 5
+  },
+  "baseline": {
+    "label": "Full population, 3% stop / 5% target (EV-calibrated scores)",
+    "stop": 3,
+    "target": 5,
+    "total": 43207,
+    "win_rate": 40.2,
+    "ev": 0.216,
+    "avg_roi": 0.29,
+    "avg_gain": 5.0,
+    "avg_loss": -3.0,
+    "profit_factor": 1.67,
+    "avg_mfe": 3.7,
+    "avg_mae": -3.17,
+    "avg_days_target": 6.2,
+    "avg_days_stop": 4.8
+  },
+  "filtered_runs": [
+    {
+      "label": "FILTERED: 3% stop / 5% target",
+      "stop": 3.0,
+      "target": 5.0,
+      "total": 424,
+      "win_rate": 49.4,
+      "ev": 0.952,
+      "avg_roi": 0.953,
+      "avg_gain": 5.0,
+      "avg_loss": -3.0,
+      "profit_factor": 1.67,
+      "avg_mfe": 4.76,
+      "avg_mae": -3.89,
+      "avg_days_target": 3.3,
+      "avg_days_stop": 2.4
+    },
+    {
+      "label": "FILTERED: 3% stop / 10% target",
+      "stop": 3.0,
+      "target": 10.0,
+      "total": 424,
+      "win_rate": 31.0,
+      "ev": 1.027,
+      "avg_roi": 1.071,
+      "avg_gain": 10.0,
+      "avg_loss": -3.0,
+      "profit_factor": 3.33,
+      "avg_mfe": 6.31,
+      "avg_mae": -4.35,
+      "avg_days_target": 6.4,
+      "avg_days_stop": 3.5
+    },
+    {
+      "label": "FILTERED: 3% stop / 15% target",
+      "stop": 3.0,
+      "target": 15.0,
+      "total": 424,
+      "win_rate": 24.7,
+      "ev": 1.444,
+      "avg_roi": 1.543,
+      "avg_gain": 15.0,
+      "avg_loss": -3.0,
+      "profit_factor": 5.0,
+      "avg_mfe": 7.38,
+      "avg_mae": -4.62,
+      "avg_days_target": 10.3,
+      "avg_days_stop": 3.9
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RSI Staircase Scanner — 2026-06-04</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',-apple-system,system-ui,sans-serif;
+        background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+        color:#e2e8f0; padding:20px; min-height:100vh; }
+.container { max-width:1600px; margin:0 auto; }
+h1 { color:#A78BFA; text-align:center; margin-bottom:4px; font-size:1.5rem; }
+.subtitle { text-align:center; color:#64748b; margin-bottom:24px; font-size:0.82rem; }
+.stats { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-bottom:20px; }
+.stat { background:rgba(30,41,59,0.8); border:1px solid rgba(167,139,250,0.2);
+         border-radius:10px; padding:14px; text-align:center; }
+.stat-val { font-size:1.4rem; font-weight:bold; color:#A78BFA; }
+.stat-lbl { color:#94A3B8; font-size:0.72rem; margin-top:4px; text-transform:uppercase; letter-spacing:.05em; }
+.legend { background:rgba(30,41,59,0.5); border:1px solid rgba(255,255,255,0.06);
+           border-radius:8px; padding:14px 18px; margin-bottom:24px;
+           font-size:0.78rem; color:#94A3B8; line-height:2; }
+.legend strong { color:#e2e8f0; }
+.section { margin-bottom:30px; border-radius:10px; overflow:hidden;
+            border:1px solid rgba(255,255,255,0.08); }
+.section-header { padding:10px 18px; display:flex; justify-content:space-between;
+                   align-items:center; }
+.section-title { font-weight:bold; font-size:0.9rem; margin-right:12px; }
+.section-desc { color:rgba(255,255,255,0.55); font-size:0.78rem; }
+.badge { background:rgba(0,0,0,0.3); padding:2px 10px; border-radius:12px; font-size:0.8rem; }
+table { width:100%; border-collapse:collapse; background:rgba(15,23,42,0.6); }
+th { padding:8px 10px; text-align:left; font-size:0.7rem; text-transform:uppercase;
+      letter-spacing:.05em; color:#64748b; border-bottom:1px solid rgba(255,255,255,0.06); }
+td { padding:8px 10px; font-size:0.82rem; border-bottom:1px solid rgba(255,255,255,0.04);
+      vertical-align:middle; }
+tr:hover { background:rgba(167,139,250,0.04); }
+
+    .badge-s2  { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-s1  { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-b50 { display:inline-block; background:rgba(239,68,68,0.15);  color:#EF4444; border:1px solid rgba(239,68,68,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsh { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsm { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsl { display:inline-block; background:rgba(100,116,139,0.15);color:#94A3B8; border:1px solid rgba(100,116,139,0.3); padding:2px 5px; border-radius:3px; font-size:10px; margin:1px; }
+    .sig-gap   { color:#F59E0B; font-weight:bold; }
+    .sig-mom   { color:#F97316; font-weight:bold; }
+    .sig-kbo   { color:#38BDF8; font-weight:bold; }
+    .sig-hi    { color:#22C55E; }
+
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>RSI Staircase Scanner</h1>
+  <div class="subtitle">Generated 2026-06-12 16:44:03 · Scan date 2026-06-04 · Price above SMA-50 &amp; SMA-200 · RSI 35–75</div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">1</div><div class="stat-lbl">Total Candidates</div></div>
+    <div class="stat"><div class="stat-val" style="color:#22C55E">0</div><div class="stat-lbl">Textbook Setup</div></div>
+    <div class="stat"><div class="stat-val" style="color:#38BDF8">1</div><div class="stat-lbl">Confirmed HL</div></div>
+    <div class="stat"><div class="stat-val" style="color:#A78BFA">0</div><div class="stat-lbl">Emerging</div></div>
+    <div class="stat"><div class="stat-val">65%</div><div class="stat-lbl">Avg Backtest Win%</div></div>
+    <div class="stat"><div class="stat-val" style="color:#22C55E">+5.8%</div><div class="stat-lbl">Avg Fwd 20D Return</div></div>
+  </div>
+
+  <div class="legend">
+    <strong>Pattern:</strong> Price above both SMA-50 and SMA-200 (uptrend confirmed). RSI between 35–75.
+    RSI making <strong>higher lows</strong> (each pullback stops higher than the last) and
+    <strong>higher highs</strong> (each rally goes higher) — the staircase structure of healthy momentum.
+    &nbsp;|&nbsp; <strong>Sweet zone: RSI 40–62</strong> (shown in green) — after pullback, before overbought.
+    <br>
+    <strong>Backtest Win%:</strong> Of all historical instances (last 575 days) where this stock was in this same
+    RSI zone + uptrend, what % resulted in a positive 20-day forward return?
+    Computed per-symbol from <strong>actual price history</strong> — not a market-wide average.
+    <strong style="color:#F59E0B">Use as context, not a guarantee.</strong>
+    &nbsp;|&nbsp; <strong>Higher Low ✓</strong> = most recent RSI trough is above the prior trough.
+    &nbsp;|&nbsp; <strong>Higher High ✓</strong> = most recent RSI peak is above the prior peak.
+  </div>
+
+  
+            <div class="section">
+              <div class="section-header" style="background:#1e3a5f">
+                <div>
+                  <span class="section-title">✓ Confirmed Higher Lows</span>
+                  <span class="section-desc">RSI higher low confirmed, rising from trough</span>
+                </div>
+                <span class="badge">1</span>
+              </div>
+              <table>
+                <thead><tr>
+                  <th>Symbol</th><th>Price</th><th>RSI</th>
+                  <th>Trough / Recovery</th><th>Higher Low</th><th>Higher High</th>
+                  <th>Backtest 20D Win%</th>
+                  <th>MTD</th><th>YTD</th><th>1YR</th>
+                  <th>$ Vol</th><th>Score</th>
+                </tr></thead>
+                <tbody>
+                <tr>
+                  <td><strong>ADPT</strong><br>
+                    <small style="color:#64748b;font-size:0.72rem">['HIGHER LOWS', 'HH 53→62', 'MACD+']</small>
+                  </td>
+                  <td>$18.08</td>
+                  <td><span style="color:#94A3B8">70.1</span></td>
+                  <td style="text-align:center;color:#94A3B8">46<br>
+                    <small style="color:#38BDF8">+24 pts</small></td>
+                  <td style="text-align:center">—</td>
+                  <td style="text-align:center">✓</td>
+                  <td><span style="color:#22C55E;font-weight:bold">65%</span><span style="color:#64748b;font-size:0.72rem"> win</span><br><span style="color:#22C55E;font-size:0.72rem">+5.8% avg · n=170</span></td>
+                  <td><span style="color:#22C55E">+18.7%</span></td>
+                  <td><span style="color:#22C55E">+13.6%</span></td>
+                  <td><span style="color:#22C55E">+81.2%</span></td>
+                  <td>$79.8M</td>
+                  <td style="color:#38BDF8;font-weight:bold">75</td>
+                </tr></tbody>
+              </table>
+            </div>
+</div>
+</body>
+</html>

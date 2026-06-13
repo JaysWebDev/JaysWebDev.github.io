@@ -1,0 +1,162 @@
+{
+  "generated": "2026-03-16T12:35:10.334070",
+  "config": {
+    "sma200_filter": true,
+    "tiers": [
+      {
+        "level_pct": 15.0,
+        "size_pct": 50.0
+      },
+      {
+        "level_pct": 30.0,
+        "size_pct": 25.0
+      },
+      {
+        "level_pct": 50.0,
+        "size_pct": 25.0
+      }
+    ],
+    "trend_stop_pct": 5.0,
+    "trail_stop_pct": 10.0,
+    "min_score": 50,
+    "sample_every": 5
+  },
+  "baseline": {
+    "label": "Baseline (SMA200 + 3%/5%)",
+    "n": 10206,
+    "win_rate": 43.5,
+    "t1_rate": 39.7,
+    "avg_roi": 0.397,
+    "avg_win": 4.73,
+    "avg_loss": -2.94,
+    "profit_factor": 1.61,
+    "ev_per_trade": 0.397,
+    "outcomes": {
+      "STOP_HIT": 5592,
+      "TARGET_HIT": 4056,
+      "TIMEOUT": 557,
+      "NO_DATA": 1
+    },
+    "by_threshold": {
+      "50": {
+        "n": 10206,
+        "win_rate": 43.5,
+        "ev_per_trade": 0.397,
+        "avg_win": 4.73,
+        "avg_loss": -2.94,
+        "signals_per_day": 92.8
+      },
+      "60": {
+        "n": 5041,
+        "win_rate": 43.6,
+        "ev_per_trade": 0.431,
+        "avg_win": 4.83,
+        "avg_loss": -2.96,
+        "signals_per_day": 45.8
+      },
+      "70": {
+        "n": 2474,
+        "win_rate": 44.6,
+        "ev_per_trade": 0.545,
+        "avg_win": 4.93,
+        "avg_loss": -2.98,
+        "signals_per_day": 22.5
+      },
+      "80": {
+        "n": 1290,
+        "win_rate": 44.8,
+        "ev_per_trade": 0.576,
+        "avg_win": 4.96,
+        "avg_loss": -2.98,
+        "signals_per_day": 11.7
+      },
+      "90": {
+        "n": 610,
+        "win_rate": 44.6,
+        "ev_per_trade": 0.576,
+        "avg_win": 4.99,
+        "avg_loss": -2.98,
+        "signals_per_day": 5.5
+      },
+      "100": {
+        "n": 289,
+        "win_rate": 49.1,
+        "ev_per_trade": 0.947,
+        "avg_win": 5.0,
+        "avg_loss": -2.97,
+        "signals_per_day": 2.6
+      }
+    }
+  },
+  "advanced": {
+    "label": "Advanced (SMA200 + tiered exits)",
+    "n": 10206,
+    "win_rate": 43.6,
+    "t1_rate": 12.8,
+    "avg_roi": 0.592,
+    "avg_win": 7.52,
+    "avg_loss": -4.76,
+    "profit_factor": 1.58,
+    "ev_per_trade": 0.592,
+    "outcomes": {
+      "STOP_HIT": 5306,
+      "TIMEOUT": 3592,
+      "T1_STOP": 626,
+      "T1_TIMEOUT": 487,
+      "T2_STOP": 111,
+      "T2_TIMEOUT": 60,
+      "T3_HIT": 23,
+      "NO_DATA": 1
+    },
+    "by_threshold": {
+      "50": {
+        "n": 10206,
+        "win_rate": 43.6,
+        "ev_per_trade": 0.592,
+        "avg_win": 7.52,
+        "avg_loss": -4.76,
+        "signals_per_day": 92.8
+      },
+      "60": {
+        "n": 5041,
+        "win_rate": 41.1,
+        "ev_per_trade": 0.399,
+        "avg_win": 8.08,
+        "avg_loss": -4.96,
+        "signals_per_day": 45.8
+      },
+      "70": {
+        "n": 2474,
+        "win_rate": 39.3,
+        "ev_per_trade": 0.267,
+        "avg_win": 8.7,
+        "avg_loss": -5.19,
+        "signals_per_day": 22.5
+      },
+      "80": {
+        "n": 1290,
+        "win_rate": 36.4,
+        "ev_per_trade": -0.105,
+        "avg_win": 9.06,
+        "avg_loss": -5.36,
+        "signals_per_day": 11.7
+      },
+      "90": {
+        "n": 610,
+        "win_rate": 33.1,
+        "ev_per_trade": -0.602,
+        "avg_win": 9.46,
+        "avg_loss": -5.58,
+        "signals_per_day": 5.5
+      },
+      "100": {
+        "n": 289,
+        "win_rate": 33.9,
+        "ev_per_trade": -0.57,
+        "avg_win": 9.17,
+        "avg_loss": -5.57,
+        "signals_per_day": 2.6
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#1a1040"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1200" height="5" fill="url(#accent)"/>
+
+  <!-- Left gutter accent -->
+  <rect x="80" y="80" width="3" height="470" fill="url(#accent)" opacity="0.4"/>
+
+  <!-- Domain label -->
+  <text x="108" y="136" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#667eea" font-weight="600" letter-spacing="0.5">jays.website</text>
+
+  <!-- Main name -->
+  <text x="108" y="290" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="88" fill="#ffffff" font-weight="700" letter-spacing="-1">Jeff Kirk Jr.</text>
+
+  <!-- Tagline -->
+  <text x="110" y="370" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" fill="rgba(255,255,255,0.70)" font-weight="400">AI-Powered Financial &amp; Real Estate Tools</text>
+
+  <!-- Divider -->
+  <rect x="108" y="408" width="520" height="1" fill="rgba(255,255,255,0.12)"/>
+
+  <!-- Project tags -->
+  <!-- Trading pill -->
+  <rect x="108" y="428" width="160" height="42" rx="21" fill="rgba(102,126,234,0.18)" stroke="#667eea" stroke-width="1"/>
+  <text x="188" y="454" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="#a5b4fc" text-anchor="middle" font-weight="500">📈 Trading</text>
+
+  <!-- Rental pill -->
+  <rect x="280" y="428" width="148" height="42" rx="21" fill="rgba(201,148,10,0.15)" stroke="#c9940a" stroke-width="1"/>
+  <text x="354" y="454" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="#fbbf24" text-anchor="middle" font-weight="500">🏘️ Rental</text>
+
+  <!-- Business pill -->
+  <rect x="440" y="428" width="172" height="42" rx="21" fill="rgba(45,206,125,0.13)" stroke="#2dce7d" stroke-width="1"/>
+  <text x="526" y="454" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="#6ee7b7" text-anchor="middle" font-weight="500">🗺️ Business</text>
+
+  <!-- Tools pill -->
+  <rect x="624" y="428" width="124" height="42" rx="21" fill="rgba(237,137,54,0.15)" stroke="#ed8936" stroke-width="1"/>
+  <text x="686" y="454" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="#fbd38d" text-anchor="middle" font-weight="500">🔧 Tools</text>
+
+  <!-- Subtle grid dots (decorative) -->
+  <g opacity="0.06">
+    <circle cx="1000" cy="150" r="2" fill="white"/>
+    <circle cx="1040" cy="150" r="2" fill="white"/>
+    <circle cx="1080" cy="150" r="2" fill="white"/>
+    <circle cx="1120" cy="150" r="2" fill="white"/>
+    <circle cx="1000" cy="190" r="2" fill="white"/>
+    <circle cx="1040" cy="190" r="2" fill="white"/>
+    <circle cx="1080" cy="190" r="2" fill="white"/>
+    <circle cx="1120" cy="190" r="2" fill="white"/>
+    <circle cx="1000" cy="230" r="2" fill="white"/>
+    <circle cx="1040" cy="230" r="2" fill="white"/>
+    <circle cx="1080" cy="230" r="2" fill="white"/>
+    <circle cx="1120" cy="230" r="2" fill="white"/>
+    <circle cx="1000" cy="270" r="2" fill="white"/>
+    <circle cx="1040" cy="270" r="2" fill="white"/>
+    <circle cx="1080" cy="270" r="2" fill="white"/>
+    <circle cx="1120" cy="270" r="2" fill="white"/>
+    <circle cx="1000" cy="310" r="2" fill="white"/>
+    <circle cx="1040" cy="310" r="2" fill="white"/>
+    <circle cx="1080" cy="310" r="2" fill="white"/>
+    <circle cx="1120" cy="310" r="2" fill="white"/>
+    <circle cx="1000" cy="350" r="2" fill="white"/>
+    <circle cx="1040" cy="350" r="2" fill="white"/>
+    <circle cx="1080" cy="350" r="2" fill="white"/>
+    <circle cx="1120" cy="350" r="2" fill="white"/>
+    <circle cx="1000" cy="390" r="2" fill="white"/>
+    <circle cx="1040" cy="390" r="2" fill="white"/>
+    <circle cx="1080" cy="390" r="2" fill="white"/>
+    <circle cx="1120" cy="390" r="2" fill="white"/>
+    <circle cx="1000" cy="430" r="2" fill="white"/>
+    <circle cx="1040" cy="430" r="2" fill="white"/>
+    <circle cx="1080" cy="430" r="2" fill="white"/>
+    <circle cx="1120" cy="430" r="2" fill="white"/>
+    <circle cx="960" cy="190" r="2" fill="white"/>
+    <circle cx="960" cy="230" r="2" fill="white"/>
+    <circle cx="960" cy="270" r="2" fill="white"/>
+    <circle cx="960" cy="310" r="2" fill="white"/>
+    <circle cx="960" cy="350" r="2" fill="white"/>
+    <circle cx="960" cy="390" r="2" fill="white"/>
+  </g>
+
+  <!-- Bottom right: subtle tagline -->
+  <text x="1120" y="590" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="rgba(255,255,255,0.25)" text-anchor="end">Building intelligent tools</text>
+</svg>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>ClaudBot Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; }
+        .header-right { display: flex; align-items: center; gap: 12px; color: #94a3b8; font-size: 0.85rem; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
+
+        /* ── status bar ── */
+        .status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 24px;
+            font-size: 0.88rem;
+        }
+
+        .status-item { display: flex; align-items: center; gap: 8px; }
+        .status-item .label { color: #64748b; }
+        .status-item .value { font-weight: 500; }
+
+        .status-dot {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: #3B82F6;
+            flex-shrink: 0;
+            animation: pulse 2s infinite;
+        }
+        .status-dot.green  { background: #22c55e; }
+        .status-dot.red    { background: #ef4444; animation: none; }
+        .status-dot.yellow { background: #f59e0b; }
+
+        @keyframes pulse {
+            0%   { opacity: 1; transform: scale(1); }
+            50%  { opacity: 0.5; transform: scale(1.15); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .sep { width: 1px; background: rgba(59,130,246,0.15); align-self: stretch; }
+
+        /* ── grid ── */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 900px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        /* ── cards ── */
+        .card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .card:hover { border-color: rgba(59, 130, 246, 0.3); }
+        .card-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        /* ── stat tiles ── */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .stat-tile {
+            background: rgba(59, 130, 246, 0.06);
+            border: 1px solid rgba(59, 130, 246, 0.12);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+        }
+        .stat-tile .num {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #3B82F6;
+            line-height: 1;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .stat-tile .stat-label { font-size: 0.78rem; color: #94a3b8; margin-top: 4px; }
+        .stat-tile.warn .num { color: #f59e0b; }
+        .stat-tile.err  .num { color: #ef4444; }
+
+        /* ── tables ── */
+        .tbl { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .tbl th {
+            text-align: left;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0 0 10px;
+            border-bottom: 1px solid rgba(59,130,246,0.1);
+        }
+        .tbl td {
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(30,41,59,0.6);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+        }
+        .tbl tr:last-child td { border-bottom: none; }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge.owner  { background: rgba(59,130,246,0.15); color: #3B82F6; }
+        .badge.guest  { background: rgba(148,163,184,0.1); color: #94a3b8; }
+
+        .empty-state { color: #475569; font-size: 0.85rem; text-align: center; padding: 20px 0; }
+
+        /* ── log panel ── */
+        .log-box {
+            background: rgba(5, 10, 20, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            padding: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: #94a3b8;
+            max-height: 340px;
+            overflow-y: auto;
+            word-break: break-all;
+        }
+        .log-line { padding: 1px 0; }
+        .log-line.warn { color: #f59e0b; }
+        .log-line.err  { color: #ef4444; }
+        .log-line.info-owner { color: #7dd3fc; }
+
+        /* ── health panel ── */
+        .health-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(30,41,59,0.6);
+            font-size: 0.85rem;
+        }
+        .health-row:last-child { border-bottom: none; }
+        .health-key { color: #64748b; width: 130px; flex-shrink: 0; }
+        .health-val { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; word-break: break-word; }
+        .health-val.ok     { color: #22c55e; }
+        .health-val.warn   { color: #f59e0b; }
+        .health-val.err    { color: #ef4444; }
+        .health-val.muted  { color: #475569; }
+
+        /* ── error overlay ── */
+        #error-banner {
+            display: none;
+            background: rgba(239,68,68,0.12);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            color: #fca5a5;
+            font-size: 0.88rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>ClaudBot Dashboard</h1>
+    <div class="header-right">
+        <span id="last-updated">Loading...</span>
+    </div>
+</div>
+
+<div class="container">
+    <div id="error-banner"></div>
+
+    <!-- ── Status Bar ── -->
+    <div class="status-bar">
+        <div class="status-item">
+            <div class="status-dot" id="bot-dot"></div>
+            <span class="label">Bot</span>
+            <span class="value" id="bot-status-txt">—</span>
+        </div>
+        <div class="sep"></div>
+        <div class="status-item">
+            <span class="label">Uptime</span>
+            <span class="value" id="bot-uptime">—</span>
+        </div>
+        <div class="sep"></div>
+        <div class="status-item">
+            <span class="label">PID</span>
+            <span class="value" id="bot-pid" style="font-family:'JetBrains Mono',monospace">—</span>
+        </div>
+        <div class="sep"></div>
+        <div class="status-item">
+            <span class="label">Log</span>
+            <span class="value" id="log-size">—</span>
+        </div>
+    </div>
+
+    <!-- ── Stats + Users ── -->
+    <div class="grid-2">
+        <!-- Message Stats -->
+        <div class="card">
+            <div class="card-title">Message Stats</div>
+            <div class="stat-grid">
+                <div class="stat-tile">
+                    <div class="num" id="msg-today">—</div>
+                    <div class="stat-label">Today</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="num" id="msg-week">—</div>
+                    <div class="stat-label">This Week</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="num" id="msg-total">—</div>
+                    <div class="stat-label">Total Parsed</div>
+                </div>
+                <div class="stat-tile warn" id="tile-errors">
+                    <div class="num" id="err-today">—</div>
+                    <div class="stat-label">Errors Today</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Activity -->
+        <div class="card">
+            <div class="card-title">User Activity</div>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Role</th>
+                        <th>Msgs Today</th>
+                        <th>Last Seen</th>
+                    </tr>
+                </thead>
+                <tbody id="users-tbody">
+                    <tr><td colspan="4" class="empty-state">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ── Unauthorized Attempts ── -->
+    <div class="card" style="margin-bottom:20px">
+        <div class="card-title">Unauthorized Attempts</div>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>Telegram ID</th>
+                    <th>Name</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="unauth-tbody">
+                <tr><td colspan="3" class="empty-state">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ── Log + Health ── -->
+    <div class="grid-2">
+        <!-- Recent Log -->
+        <div class="card">
+            <div class="card-title">Recent Log</div>
+            <div class="log-box" id="log-box">Loading...</div>
+        </div>
+
+        <!-- Health Checks -->
+        <div class="card">
+            <div class="card-title">Health Checks</div>
+            <div id="health-panel"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fmtUptime(s) {
+        if (s == null) return '—';
+        const h = Math.floor(s / 3600);
+        const m = Math.floor((s % 3600) / 60);
+        if (h > 0) return h + 'h ' + m + 'm';
+        return m + 'm ' + (s % 60) + 's';
+    }
+
+    function fmtTime(iso) {
+        if (!iso) return '—';
+        return iso.replace('T', ' ');
+    }
+
+    function txt(el, val) {
+        document.getElementById(el).textContent = val ?? '—';
+    }
+
+    function dot(id, color) {
+        const el = document.getElementById(id);
+        el.className = 'status-dot ' + (color || '');
+    }
+
+    function showError(msg) {
+        const b = document.getElementById('error-banner');
+        b.textContent = 'Failed to load data: ' + msg;
+        b.style.display = 'block';
+    }
+
+    function render(d) {
+        document.getElementById('error-banner').style.display = 'none';
+
+        // Header
+        txt('last-updated', 'Updated ' + fmtTime(d.generated_at));
+
+        // Bot status
+        const botActive = d.bot.status === 'active';
+        txt('bot-status-txt', d.bot.status);
+        dot('bot-dot', botActive ? 'green' : 'red');
+        txt('bot-uptime', fmtUptime(d.bot.uptime_seconds));
+        txt('bot-pid', d.bot.pid ?? '—');
+
+        // Log size
+        txt('log-size', d.log.size_mb + ' MB');
+
+        // Message stats
+        txt('msg-today',  d.messages.today);
+        txt('msg-week',   d.messages.this_week);
+        txt('msg-total',  d.messages.total_parsed);
+        const errCount = (d.errors.errors_today || 0) + (d.errors.timeouts_today || 0);
+        txt('err-today', errCount);
+        const errTile = document.getElementById('tile-errors');
+        errTile.className = 'stat-tile ' + (errCount > 0 ? 'err' : '');
+
+        // Users table
+        const utbody = document.getElementById('users-tbody');
+        utbody.innerHTML = '';
+        if (!d.users || d.users.length === 0) {
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
+            td.colSpan = 4;
+            td.className = 'empty-state';
+            td.textContent = 'No users seen today';
+            tr.appendChild(td);
+            utbody.appendChild(tr);
+        } else {
+            d.users.forEach(u => {
+                const tr = document.createElement('tr');
+                [u.id, '', u.messages_today, fmtTime(u.last_seen)].forEach((val, i) => {
+                    const td = document.createElement('td');
+                    if (i === 1) {
+                        const badge = document.createElement('span');
+                        badge.className = 'badge ' + (u.role === 'owner' ? 'owner' : 'guest');
+                        badge.textContent = u.role;
+                        td.appendChild(badge);
+                    } else {
+                        td.textContent = val;
+                    }
+                    tr.appendChild(td);
+                });
+                utbody.appendChild(tr);
+            });
+        }
+
+        // Unauthorized table
+        const atbody = document.getElementById('unauth-tbody');
+        atbody.innerHTML = '';
+        if (!d.unauthorized_attempts || d.unauthorized_attempts.length === 0) {
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
+            td.colSpan = 3;
+            td.className = 'empty-state';
+            td.textContent = 'No unauthorized attempts';
+            tr.appendChild(td);
+            atbody.appendChild(tr);
+        } else {
+            [...d.unauthorized_attempts].reverse().forEach(a => {
+                const tr = document.createElement('tr');
+                [a.telegram_id, a.name, fmtTime(a.timestamp)].forEach(val => {
+                    const td = document.createElement('td');
+                    td.textContent = val;
+                    tr.appendChild(td);
+                });
+                atbody.appendChild(tr);
+            });
+        }
+
+        // Recent log
+        const logBox = document.getElementById('log-box');
+        logBox.innerHTML = '';
+        if (!d.recent_log || d.recent_log.length === 0) {
+            logBox.textContent = '(no log entries)';
+        } else {
+            d.recent_log.forEach(line => {
+                const div = document.createElement('div');
+                div.className = 'log-line';
+                if (line.includes('[WARNING]')) div.className += ' warn';
+                else if (line.includes('[ERROR]'))   div.className += ' err';
+                else if (line.includes('[owner:'))   div.className += ' info-owner';
+                div.textContent = line;
+                logBox.appendChild(div);
+            });
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        // Health panel
+        const hp = document.getElementById('health-panel');
+        hp.innerHTML = '';
+        const rows = [
+            ['Service',       d.bot.status,                          botActive ? 'ok' : 'err'],
+            ['PID',           d.bot.pid ?? 'n/a',                    ''],
+            ['Uptime',        fmtUptime(d.bot.uptime_seconds),        ''],
+            ['Log size',      d.log.size_mb + ' MB',                  d.log.size_mb > 50 ? 'warn' : 'ok'],
+            ['Last rotated',  fmtTime(d.log.last_rotated),            ''],
+            ['Timeouts today', d.errors.timeouts_today,               d.errors.timeouts_today > 0 ? 'warn' : 'ok'],
+        ];
+        rows.forEach(([key, val, cls]) => {
+            const row = document.createElement('div');
+            row.className = 'health-row';
+            const k = document.createElement('div');
+            k.className = 'health-key';
+            k.textContent = key;
+            const v = document.createElement('div');
+            v.className = 'health-val ' + cls;
+            v.textContent = val ?? '—';
+            row.appendChild(k);
+            row.appendChild(v);
+            hp.appendChild(row);
+        });
+    }
+
+    function load() {
+        fetch('data/agent_status.json?t=' + Date.now())
+            .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+            .then(render)
+            .catch(e => showError(e.message));
+    }
+
+    load();
+    setInterval(load, 60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+{
+  "generated": "2026-03-17 17:52",
+  "config": {
+    "sample_every": 3,
+    "stop_pct": 3.0,
+    "target_pct": 5.0,
+    "sma200_filter": true,
+    "verdict_thresholds": {
+      "max_wr_drop_pp": 5.0,
+      "max_ev_drop_pct": 0.15,
+      "ev_fail_below": 0.0
+    }
+  },
+  "primary_split": {
+    "train": {
+      "label": "TRAIN 2024",
+      "n": 6728,
+      "win_rate": 45.4,
+      "t1_rate": 41.4,
+      "avg_roi": 0.54,
+      "avg_win": 4.73,
+      "avg_loss": -2.95,
+      "profit_factor": 1.61,
+      "ev_per_trade": 0.54,
+      "outcomes": {
+        "STOP_HIT": 3567,
+        "TARGET_HIT": 2783,
+        "TIMEOUT": 378
+      },
+      "by_threshold": {
+        "50": {
+          "n": 6728,
+          "win_rate": 45.4,
+          "ev_per_trade": 0.54,
+          "avg_win": 4.73,
+          "avg_loss": -2.95,
+          "signals_per_day": 80.1
+        },
+        "60": {
+          "n": 3287,
+          "win_rate": 45.2,
+          "ev_per_trade": 0.573,
+          "avg_win": 4.86,
+          "avg_loss": -2.97,
+          "signals_per_day": 39.1
+        },
+        "70": {
+          "n": 1545,
+          "win_rate": 44.9,
+          "ev_per_trade": 0.559,
+          "avg_win": 4.91,
+          "avg_loss": -2.99,
+          "signals_per_day": 18.4
+        },
+        "80": {
+          "n": 821,
+          "win_rate": 46.7,
+          "ev_per_trade": 0.698,
+          "avg_win": 4.92,
+          "avg_loss": -2.99,
+          "signals_per_day": 9.8
+        },
+        "90": {
+          "n": 349,
+          "win_rate": 46.1,
+          "ev_per_trade": 0.687,
+          "avg_win": 4.98,
+          "avg_loss": -2.99,
+          "signals_per_day": 4.2
+        },
+        "100": {
+          "n": 161,
+          "win_rate": 49.1,
+          "ev_per_trade": 0.904,
+          "avg_win": 4.96,
+          "avg_loss": -3.0,
+          "signals_per_day": 1.9
+        }
+      }
+    },
+    "test": {
+      "label": "TEST  2025",
+      "n": 7956,
+      "win_rate": 43.3,
+      "t1_rate": 38.6,
+      "avg_roi": 0.343,
+      "avg_win": 4.65,
+      "avg_loss": -2.94,
+      "profit_factor": 1.58,
+      "ev_per_trade": 0.343,
+      "outcomes": {
+        "STOP_HIT": 4382,
+        "TARGET_HIT": 3070,
+        "TIMEOUT": 504
+      },
+      "by_threshold": {
+        "50": {
+          "n": 7956,
+          "win_rate": 43.3,
+          "ev_per_trade": 0.343,
+          "avg_win": 4.65,
+          "avg_loss": -2.94,
+          "signals_per_day": 94.7
+        },
+        "60": {
+          "n": 4041,
+          "win_rate": 43.0,
+          "ev_per_trade": 0.363,
+          "avg_win": 4.75,
+          "avg_loss": -2.95,
+          "signals_per_day": 48.1
+        },
+        "70": {
+          "n": 1944,
+          "win_rate": 43.1,
+          "ev_per_trade": 0.409,
+          "avg_win": 4.88,
+          "avg_loss": -2.98,
+          "signals_per_day": 23.1
+        },
+        "80": {
+          "n": 1026,
+          "win_rate": 41.8,
+          "ev_per_trade": 0.335,
+          "avg_win": 4.95,
+          "avg_loss": -2.98,
+          "signals_per_day": 12.2
+        },
+        "90": {
+          "n": 442,
+          "win_rate": 44.8,
+          "ev_per_trade": 0.588,
+          "avg_win": 4.98,
+          "avg_loss": -2.97,
+          "signals_per_day": 5.3
+        },
+        "100": {
+          "n": 225,
+          "win_rate": 47.1,
+          "ev_per_trade": 0.758,
+          "avg_win": 4.96,
+          "avg_loss": -2.99,
+          "signals_per_day": 2.7
+        }
+      }
+    },
+    "verdict": "CONFIRMED",
+    "reasons": [
+      "WR drop 1.3pp, EV drop 0.099% \u2014 within tolerance"
+    ],
+    "score90": {
+      "train": {
+        "ev": 0.687,
+        "wr": 46.1,
+        "n": 349
+      },
+      "test": {
+        "ev": 0.588,
+        "wr": 44.8,
+        "n": 442
+      },
+      "wr_drop_pp": 1.3,
+      "ev_drop_pct": 0.099
+    }
+  },
+  "rolling_windows": [
+    {
+      "label": "Window 1",
+      "train_period": "2024-01-01 \u2192 2024-06-30",
+      "test_period": "2024-07-01 \u2192 2024-12-31",
+      "verdict": "DEGRADED",
+      "reasons": [
+        "WR dropped 7.6pp (threshold: 5.0pp)",
+        "EV dropped 0.608% (threshold: 0.15%)"
+      ],
+      "score90": {
+        "train": {
+          "ev": 0.668,
+          "wr": 46.0,
+          "n": 124
+        },
+        "test": {
+          "ev": 0.06,
+          "wr": 38.4,
+          "n": 333
+        },
+        "wr_drop_pp": 7.6,
+        "ev_drop_pct": 0.608
+      }
+    },
+    {
+      "label": "Window 2",
+      "train_period": "2024-07-01 \u2192 2024-12-31",
+      "test_period": "2025-01-01 \u2192 2025-06-30",
+      "verdict": "CONFIRMED",
+      "reasons": [
+        "WR drop -10.7pp, EV drop -0.877% \u2014 within tolerance"
+      ],
+      "score90": {
+        "train": {
+          "ev": 0.06,
+          "wr": 38.4,
+          "n": 333
+        },
+        "test": {
+          "ev": 0.937,
+          "wr": 49.1,
+          "n": 163
+        },
+        "wr_drop_pp": -10.7,
+        "ev_drop_pct": -0.877
+      }
+    },
+    {
+      "label": "Window 3",
+      "train_period": "2025-01-01 \u2192 2025-06-30",
+      "test_period": "2025-07-01 \u2192 2025-12-31",
+      "verdict": "DEGRADED",
+      "reasons": [
+        "WR dropped 6.1pp (threshold: 5.0pp)",
+        "EV dropped 0.483% (threshold: 0.15%)"
+      ],
+      "score90": {
+        "train": {
+          "ev": 0.937,
+          "wr": 49.1,
+          "n": 163
+        },
+        "test": {
+          "ev": 0.454,
+          "wr": 43.0,
+          "n": 316
+        },
+        "wr_drop_pp": 6.1,
+        "ev_drop_pct": 0.483
+      }
+    }
+  ],
+  "overall_verdict": {
+    "call": "DEGRADED",
+    "summary": "Edge degrades out-of-sample. Investigate regime sensitivity before adding complexity.",
+    "primary_split_verdict": "CONFIRMED",
+    "rolling_window_verdicts": [
+      "DEGRADED",
+      "CONFIRMED",
+      "DEGRADED"
+    ]
+  }
+}

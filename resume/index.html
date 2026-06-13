@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeffrey Kirk Jr — Resume | jays.website</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 10pt;
+    line-height: 1.45;
+    color: #1a1a1a;
+    background: #f0f0f0;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0.4in auto;
+    padding: 0.62in 0.72in;
+    background: white;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.13);
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    padding-bottom: 9px;
+    margin-bottom: 13px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .header h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+  }
+  .header .contact {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #444;
+    letter-spacing: 0.3px;
+  }
+  .header .contact a { color: #444; text-decoration: none; }
+
+  /* ── Section titles ── */
+  .section { margin-bottom: 13px; }
+
+  .section-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 2px;
+    margin-bottom: 8px;
+  }
+
+  /* ── Summary ── */
+  .summary p {
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #222;
+  }
+
+  /* ── Experience entries ── */
+  .entry { margin-bottom: 9px; }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .entry-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 10pt;
+    color: #1a1a1a;
+  }
+  .entry-date {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #555;
+    white-space: nowrap;
+    margin-left: 10px;
+    flex-shrink: 0;
+  }
+  .entry-org {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 4px;
+    margin-top: 1px;
+  }
+  .entry ul {
+    margin-left: 15px;
+    list-style-type: disc;
+  }
+  .entry ul li {
+    margin-bottom: 2px;
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+
+  /* ── R&D project sub-labels ── */
+  .project-block { margin-top: 6px; }
+  .project-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 9.5pt;
+    color: #1a1a1a;
+    margin-bottom: 3px;
+  }
+  .project-label .proj-name {
+    font-weight: normal;
+    color: #555;
+  }
+
+  /* ── Education ── */
+  .edu-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+  .edu-left .degree {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .edu-left .school {
+    font-size: 9.5pt;
+    color: #444;
+    margin-top: 1px;
+  }
+  .edu-right {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #555;
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  /* ── Skills ── */
+  .skill-row {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    margin-bottom: 1px;
+  }
+  .skill-row strong {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* ── Certifications ── */
+  .cert-inline {
+    font-size: 9.5pt;
+    line-height: 1.6;
+    color: #222;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { background: white; }
+    .page {
+      margin: 0;
+      width: 100%;
+      padding: 0.55in 0.65in;
+      box-shadow: none;
+    }
+    @page { size: letter; margin: 0; }
+    .download-btn { display: none !important; }
+  }
+
+  /* Download button styles */
+  .download-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #667eea;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .download-btn:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102,126,234,0.4);
+  }
+
+  .back-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<a href="/" class="back-link">← Back to jays.website</a>
+<a href="resume.pdf" class="download-btn" target="_blank">Download PDF →</a>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Jeffrey Kirk Jr</h1>
+    <div class="contact">
+      Norwood, MA &nbsp;&middot;&nbsp; 774.219.4927 &nbsp;&middot;&nbsp;
+      jeffkirkjr@gmail.com &nbsp;&middot;&nbsp;
+      <a href="https://linkedin.com/in/jeffkirkjr">linkedin.com/in/jeffkirkjr</a>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section summary">
+    <div class="section-title">Summary</div>
+    <p>Operations leader and AI systems builder with 11 years at elite financial services firms (Man Group, State Street) and an intensive year of independent R&D producing three production-grade AI and signal intelligence systems. Brings institutional rigor&nbsp;&mdash;&nbsp;control frameworks, anomaly detection, data integrity at scale&nbsp;&mdash;&nbsp;directly to the architecture, validation, and operation of AI systems. Rare combination: deep domain credibility and the ability to actually build.</p>
+  </div>
+
+  <!-- INDEPENDENT R&D -->
+  <div class="section">
+    <div class="section-title">Independent R&amp;D &mdash; AI Systems &amp; Signal Intelligence</div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Self-Directed Research &amp; Development</span>
+        <span class="entry-date">Jan 2025 &ndash; Present</span>
+      </div>
+      <div class="entry-org">Norwood, MA</div>
+
+      <div class="project-block">
+        <div class="project-label">Multi-Agent Orchestration &nbsp;<span class="proj-name">&middot; OpenClaw</span></div>
+        <ul>
+          <li>Designed and built a fully self-hosted multi-agent system running 6 specialized Claude agents across two physical nodes, using a filesystem-based state machine with atomic job dispatch, heartbeat/retry logic, and deliberate separation of concerns</li>
+          <li>Architected human-in-the-loop approval gates before all consequential actions&nbsp;&mdash;&nbsp;oversight baked into the architecture, not bolted on afterward</li>
+        </ul>
+      </div>
+
+      <div class="project-block">
+        <div class="project-label">Quantitative Signal Research &nbsp;<span class="proj-name">&middot; Trading Intelligence Platform</span></div>
+        <ul>
+          <li>Built a full quantitative research platform: 9 signal scanners, 2,765-symbol universe, automated daily pipelines, regime detection (BULL / BEAR / NEUTRAL / CRASH), and a composite scoring layer</li>
+          <li>Ran walk-forward validation across all scanners; identified the top 3 performers (75&ndash;81% win rate on 5-day forward returns) and cut 6 underperformers producing negative expected value before deploying any capital</li>
+          <li>Delivered a 16-tab single-page dashboard with real-time JSON feeds and regime-gated signal views&nbsp;&mdash;&nbsp;designed to surface signal, not noise</li>
+        </ul>
+      </div>
+
+      <div class="project-block">
+        <div class="project-label">Spatial Intelligence &nbsp;<span class="proj-name">&middot; Real Estate Signal Pipeline</span></div>
+        <ul>
+          <li>Built a multi-phase signal detection pipeline: public records collection &rarr; deed extraction &rarr; geographic clustering &rarr; confidence-scored signals across 3 Massachusetts cities</li>
+          <li>Implemented a Telegram-based human approval gate: pipeline pauses at classification review, waits for operator /approve, then commits&nbsp;&mdash;&nbsp;deliberate oversight enforced at every consequential step</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFESSIONAL EXPERIENCE -->
+  <div class="section">
+    <div class="section-title">Professional Experience</div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Investment Operations Manager</span>
+        <span class="entry-date">Jan 2022 &ndash; Dec 2024</span>
+      </div>
+      <div class="entry-org">Man Group &nbsp;&middot;&nbsp; Boston, MA</div>
+      <ul>
+        <li>Built and operated a control framework governing data integrity and regulatory accuracy across post-trade operations for a $45B AUM quantitative portfolio across 65+ global markets</li>
+        <li>Led a team of 10; designed SharePoint-based workflow automations targeting 80% reduction in manual error and 20% improvement in team efficiency</li>
+        <li>Built Power BI dashboards surfacing anomalies, workflow gaps, and operational risk signals for senior leadership in real time</li>
+        <li>Led UAT and QA for a Charles River OMS implementation&nbsp;&mdash;&nbsp;data migration integrity and control framework validation across multiple platforms; zero regulatory findings across semi-annual audits</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Senior Investment Operations Analyst</span>
+        <span class="entry-date">Apr 2021 &ndash; Jan 2022</span>
+      </div>
+      <div class="entry-org">Man Group &nbsp;&middot;&nbsp; Boston, MA</div>
+      <ul>
+        <li>Overhauled institutional client onboarding for 50+ clients (~$18B AUM), cutting cycle time by 20% through workflow redesign and cross-functional coordination</li>
+        <li>Deployed diagnostic reporting tools that surfaced onboarding bottlenecks in real time and drove leadership resolution of critical operational gaps</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Corporate Actions Specialist</span>
+        <span class="entry-date">Mar 2019 &ndash; Apr 2021</span>
+      </div>
+      <div class="entry-org">Man Group &nbsp;&middot;&nbsp; Boston, MA</div>
+      <ul>
+        <li>Managed 3,500+ complex corporate action events annually; served as final review point for high-variability scenarios requiring pattern recognition and auditable decision-making under ambiguity</li>
+        <li>Led SWIFT automation UAT as Operations SME; engineered SQL-based analytics dashboards for real-time data integrity and payment processing monitoring</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Client Operations Manager, Officer</span>
+        <span class="entry-date">Jan 2018 &ndash; Mar 2019</span>
+      </div>
+      <div class="entry-org">State Street Corporation &nbsp;&middot;&nbsp; Boston, MA</div>
+      <ul>
+        <li>Led team resolving 50+ complex institutional inquiries weekly; built automated monitoring achieving 99.9% data accuracy for NASDAQ mutual fund pricing</li>
+        <li>Established KPIs and standardized end-to-end procedures that reduced escalations and created an auditable, consistent service model</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Senior Corporate Actions Specialist &nbsp;/&nbsp; Expat Lead</span>
+        <span class="entry-date">Jan 2016 &ndash; Jan 2018</span>
+      </div>
+      <div class="entry-org">State Street Corporation &nbsp;&middot;&nbsp; Boston, MA &nbsp;/&nbsp; Hyderabad, India</div>
+      <ul>
+        <li>Selected for 90-day Hyderabad assignment to stand up a new operational hub; trained 20+ local staff and migrated 80% of domestic workflows while maintaining quality and operational continuity</li>
+        <li>Implemented KPI dashboards and standardized monitoring tools to govern the new center from day one</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Corporate Actions Specialist</span>
+        <span class="entry-date">Jun 2013 &ndash; Jan 2016</span>
+      </div>
+      <div class="entry-org">State Street Corporation &nbsp;&middot;&nbsp; Boston, MA</div>
+      <ul>
+        <li>Built foundational expertise across the full trade and fund operations lifecycle in a regulated financial services environment; executed operational reviews and compliance checks supporting reporting integrity and timely execution</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-entry">
+      <div class="edu-left">
+        <div class="degree">Master of Business Administration</div>
+        <div class="school">Boston University Questrom School of Business</div>
+      </div>
+      <div class="edu-right">Graduated with Honors &nbsp;&middot;&nbsp; GPA 3.6 &nbsp;&middot;&nbsp; 2024</div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-left">
+        <div class="degree">Bachelor of Science in Management</div>
+        <div class="school">Bridgewater State University &nbsp;&middot;&nbsp; Minor: Accounting &amp; Finance</div>
+      </div>
+      <div class="edu-right">Graduated Cum Laude &nbsp;&middot;&nbsp; GPA 3.48 &nbsp;&middot;&nbsp; 2014</div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL SKILLS -->
+  <div class="section">
+    <div class="section-title">Technical Skills</div>
+    <div class="skill-row"><strong>AI &amp; Systems:</strong> &nbsp;Multi-Agent Architecture &nbsp;&middot;&nbsp; Human-in-the-Loop Design &nbsp;&middot;&nbsp; Prompt Engineering &amp; Validation &nbsp;&middot;&nbsp; Walk-Forward Testing &nbsp;&middot;&nbsp; Empirical Model Evaluation &nbsp;&middot;&nbsp; Python &nbsp;&middot;&nbsp; Linux</div>
+    <div class="skill-row"><strong>Data &amp; BI:</strong> &nbsp;SQL &nbsp;&middot;&nbsp; Power BI &nbsp;&middot;&nbsp; Tableau &nbsp;&middot;&nbsp; Advanced Excel &nbsp;&middot;&nbsp; Dashboard Development &nbsp;&middot;&nbsp; Anomaly Detection &nbsp;&middot;&nbsp; Statistical Analysis</div>
+    <div class="skill-row"><strong>Operations:</strong> &nbsp;Control Frameworks &nbsp;&middot;&nbsp; Root Cause Analysis &nbsp;&middot;&nbsp; UAT / QA &nbsp;&middot;&nbsp; KPI Development &nbsp;&middot;&nbsp; Risk &amp; Compliance &nbsp;&middot;&nbsp; Process Automation &nbsp;&middot;&nbsp; SharePoint</div>
+  </div>
+
+  <!-- CERTIFICATIONS -->
+  <div class="section">
+    <div class="section-title">Certifications &nbsp;<span style="font-weight:normal; font-size:8pt; letter-spacing:0; text-transform:none; color:#666;">Google / Coursera &nbsp;&middot;&nbsp; 2026</span></div>
+    <div class="cert-inline">
+      Google AI Professional Certificate &nbsp;&middot;&nbsp;
+      Generative AI Leader Professional Certificate &nbsp;&middot;&nbsp;
+      Google AI Essentials &nbsp;&middot;&nbsp;
+      Introduction to Generative AI Learning Path
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

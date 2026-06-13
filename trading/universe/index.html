@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Universe</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0d1117;
+  --card:   #161b22;
+  --border: #30363d;
+  --text:   #e6edf3;
+  --muted:  #8b949e;
+  --dim:    #484f58;
+  --accent: #58a6ff;
+  --green:  #3fb950;
+  --red:    #f85149;
+  --yellow: #d29922;
+  --purple: #bc8cff;
+  --teal:   #2dd4bf;
+  --mono:   'Courier New', 'Lucida Console', monospace;
+  --ui:     'Trebuchet MS', 'Segoe UI', sans-serif;
+}
+
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--ui); font-size: 13px; }
+
+.shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+/* ── Top bar ── */
+.top-bar {
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 16px;
+  padding: 11px 20px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.03em; }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb .sep { margin: 0 5px; }
+.page-title {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
+}
+
+/* stat chips */
+.stats { display: flex; gap: 14px; margin-left: auto; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; align-items: center; }
+.stat-val { font-family: var(--mono); font-size: 15px; font-weight: 700; line-height: 1; }
+.stat-lbl { font-size: 9px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.sv-total  { color: var(--accent); }
+.sv-valued { color: var(--green); }
+.sv-pend   { color: var(--muted); }
+.sv-excl   { color: var(--yellow); }
+.sv-err    { color: var(--red); }
+.sv-etf    { color: var(--purple); }
+
+/* ── Filter bar ── */
+.controls {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+.ctrl-row {
+  display: flex; align-items: center; flex-wrap: wrap;
+  padding: 0 20px; border-bottom: 1px solid rgba(48,54,61,0.4);
+}
+.ctrl-row:last-child { border-bottom: none; }
+.ctrl-group { display: flex; align-items: center; gap: 6px; padding: 7px 14px 7px 0; border-right: 1px solid var(--border); margin-right: 14px; }
+.ctrl-group:last-child { border-right: none; margin-right: 0; margin-left: auto; }
+.ctrl-lbl { font-family: var(--mono); font-size: 10px; color: var(--dim); white-space: nowrap; }
+.prompt-char { font-family: var(--mono); font-size: 11px; color: var(--dim); user-select: none; }
+.search {
+  background: transparent; border: none; outline: none;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+  width: 130px; padding: 7px 0; caret-color: var(--accent);
+}
+.search::placeholder { text-transform: none; letter-spacing: 0; color: var(--border); }
+select.fsel {
+  background: transparent; border: none; outline: none;
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  cursor: pointer; padding: 4px 0; max-width: 180px;
+}
+select.fsel:focus { color: var(--accent); }
+.count-badge { font-family: var(--mono); font-size: 10px; color: var(--dim); white-space: nowrap; }
+.count-badge em { font-style: normal; color: var(--muted); }
+
+/* exclude-sector multi-select */
+.excl-wrap { position: relative; }
+.excl-btn {
+  background: transparent; border: none; outline: none; cursor: pointer;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 4px 0;
+  display: flex; align-items: center; gap: 5px;
+}
+.excl-btn:hover { color: var(--text); }
+.excl-btn.active { color: var(--yellow); }
+.excl-panel {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0; z-index: 100;
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+  min-width: 200px; max-height: 300px; overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.excl-panel.open { display: block; }
+.excl-panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+  font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: 0.08em;
+}
+.excl-clear { background: none; border: none; color: var(--accent); font-family: var(--mono); font-size: 10px; cursor: pointer; padding: 0; }
+.excl-clear:hover { text-decoration: underline; }
+.excl-item { display: flex; align-items: center; gap: 8px; padding: 5px 12px; cursor: pointer; }
+.excl-item:hover { background: rgba(88,166,255,0.06); }
+.excl-item input[type=checkbox] { accent-color: var(--accent); cursor: pointer; }
+.excl-item label { font-family: var(--mono); font-size: 11px; color: var(--muted); cursor: pointer; flex: 1; }
+.excl-item:hover label { color: var(--text); }
+
+/* ── Loading ── */
+.loading { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: var(--muted); }
+.spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Table ── */
+.scroller { flex: 1; overflow-y: auto; overflow-x: auto; }
+.scroller::-webkit-scrollbar { width: 3px; height: 3px; }
+.scroller::-webkit-scrollbar-track { background: transparent; }
+.scroller::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.scroller::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 7px 12px; text-align: left;
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim);
+  cursor: pointer; user-select: none; white-space: nowrap;
+}
+thead th:hover { color: var(--muted); }
+thead th.sort-asc::after  { content: ' ↑'; color: var(--accent); }
+thead th.sort-desc::after { content: ' ↓'; color: var(--accent); }
+thead th.num { text-align: right; }
+
+tbody tr { border-bottom: 1px solid rgba(48,54,61,0.5); transition: background 0.08s; }
+tbody tr:hover { background: rgba(88,166,255,0.04); cursor: default; }
+td { padding: 5px 12px; white-space: nowrap; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.td-idx    { font-family: var(--mono); font-size: 10px; color: var(--dim); width: 42px; }
+.td-sym    { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); width: 80px; }
+.td-name   { color: var(--muted); max-width: 200px; overflow: hidden; text-overflow: ellipsis; font-size: 12px; }
+.td-ex     { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+.td-mc     { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.td-price  { font-family: var(--mono); font-size: 11px; color: var(--text); }
+.td-vol    { font-family: var(--mono); font-size: 11px; color: var(--text); }
+.td-date   { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+.dash      { color: var(--dim); }
+
+/* sector tag */
+.stag {
+  display: inline-block; padding: 1px 6px; border-radius: 3px;
+  font-size: 10px; font-family: var(--mono);
+  background: rgba(88,166,255,0.08); color: rgba(88,166,255,0.7);
+  white-space: nowrap; max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* DCF status badges */
+.badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; }
+.b-valued   { background: rgba(63,185,80,0.1);  color: #3fb950; }
+.b-pending  { background: rgba(72,79,88,0.3);   color: #6b7280; }
+.b-excluded { background: rgba(210,153,34,0.1); color: #d29922; }
+.b-error    { background: rgba(248,81,73,0.1);  color: #f85149; }
+.b-etf      { background: rgba(188,140,255,0.1);color: #bc8cff; }
+.b-foreign  { background: rgba(45,212,191,0.1); color: #2dd4bf; }
+
+.upside-pos { font-family: var(--mono); font-size: 11px; color: var(--green); font-weight: 700; }
+.upside-neg { font-family: var(--mono); font-size: 11px; color: var(--red); }
+.upside-na  { color: var(--dim); }
+
+.no-rows { padding: 48px 20px; text-align: center; color: var(--dim); font-family: var(--mono); font-size: 12px; }
+
+/* scores */
+.score-cell { display: inline-flex; align-items: center; gap: 5px; }
+.score-pill {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  padding: 1px 7px; border-radius: 3px; min-width: 34px; text-align: center;
+  display: inline-block;
+}
+.sc-hi  { background: rgba(63,185,80,0.15);  color: #3fb950; }   /* ≥75 */
+.sc-mid { background: rgba(210,153,34,0.15); color: #d29922; }   /* 50–74 */
+.sc-lo  { background: rgba(248,81,73,0.15);  color: #f85149; }   /* 25–49 */
+.sc-bot { background: rgba(72,79,88,0.2);    color: #6b7280; }   /* <25 */
+.sc-na  { background: transparent; color: var(--dim); font-weight: 400; }
+.score-ctx { font-family: var(--mono); font-size: 9px; color: var(--dim); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div>
+      <div class="breadcrumb">
+        <a href="/trading/">Dashboard</a>
+        <span class="sep">/</span>
+        <span>Universe</span>
+      </div>
+      <div class="page-title" style="margin-top:4px;">Investment Universe</div>
+    </div>
+    <div class="stats" id="statsBar">
+      <div class="stat"><span class="stat-val sv-total" id="s-total">—</span><span class="stat-lbl">Total</span></div>
+      <div class="stat"><span class="stat-val sv-valued" id="s-valued">—</span><span class="stat-lbl">Valued</span></div>
+      <div class="stat"><span class="stat-val sv-pend" id="s-pend">—</span><span class="stat-lbl">Pending</span></div>
+      <div class="stat"><span class="stat-val sv-excl" id="s-excl">—</span><span class="stat-lbl">Excluded</span></div>
+      <div class="stat"><span class="stat-val sv-err" id="s-err">—</span><span class="stat-lbl">Error</span></div>
+      <div class="stat"><span class="stat-val sv-etf" id="s-etf">—</span><span class="stat-lbl">ETF</span></div>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="controls">
+    <!-- Row 1: search + include filters -->
+    <div class="ctrl-row">
+      <div class="ctrl-group">
+        <span class="prompt-char">&gt;</span>
+        <input type="text" class="search" id="qSearch" placeholder="symbol or name…" oninput="applyFilters()">
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-lbl">SECTOR</span>
+        <select class="fsel" id="fSector" onchange="applyFilters()">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-lbl">STATUS</span>
+        <select class="fsel" id="fStatus" onchange="applyFilters()">
+          <option value="">All</option>
+          <option value="valued">Valued</option>
+          <option value="pending">Pending</option>
+          <option value="excluded">Excluded</option>
+          <option value="error">Error</option>
+          <option value="etf">ETF</option>
+          <option value="foreign">Foreign</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-lbl">EXCHANGE</span>
+        <select class="fsel" id="fExchange" onchange="applyFilters()">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <span class="count-badge"><em id="rowCount">—</em> securities</span>
+      </div>
+    </div>
+    <!-- Row 2: dimensional filters -->
+    <div class="ctrl-row">
+      <div class="ctrl-group">
+        <span class="ctrl-lbl">MKT CAP</span>
+        <select class="fsel" id="fMktCap" onchange="applyFilters()">
+          <option value="">All sizes</option>
+          <option value="mega">Mega (&gt;$200B)</option>
+          <option value="large">Large ($50–200B)</option>
+          <option value="mid">Mid ($10–50B)</option>
+          <option value="small">Small ($2–10B)</option>
+          <option value="micro">Micro (&lt;$2B)</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-lbl">MIN VOL</span>
+        <select class="fsel" id="fVolume" onchange="applyFilters()">
+          <option value="0">Any volume</option>
+          <option value="1e7">&gt;$10M/day</option>
+          <option value="5e7">&gt;$50M/day</option>
+          <option value="1e8">&gt;$100M/day</option>
+          <option value="5e8">&gt;$500M/day</option>
+          <option value="1e9">&gt;$1B/day</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-lbl">EXCL SECTORS</span>
+        <div class="excl-wrap">
+          <button class="excl-btn" id="exclBtn" onclick="toggleExclPanel(event)">
+            <span id="exclLabel">None excluded</span> ▾
+          </button>
+          <div class="excl-panel" id="exclPanel">
+            <div class="excl-panel-header">
+              <span>EXCLUDE SECTORS</span>
+              <button class="excl-clear" onclick="clearExcl()">clear all</button>
+            </div>
+            <div id="exclList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ctrl-group" style="margin-left:auto; border-right:none;">
+        <span class="ctrl-lbl" style="color:var(--dim); font-size:9px;" id="filterSummary"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loadingMsg">
+    <div class="spinner"></div>
+    <span>Loading universe…</span>
+  </div>
+
+  <!-- Table -->
+  <div class="scroller" id="scroller" style="display:none">
+    <table id="univTable">
+      <thead>
+        <tr>
+          <th class="td-idx">#</th>
+          <th onclick="sortBy('symbol',1)">Symbol</th>
+          <th onclick="sortBy('company_name',1)">Company</th>
+          <th onclick="sortBy('sector',1)">Sector</th>
+          <th onclick="sortBy('exchange_short',1)">Exch</th>
+          <th onclick="sortBy('price',-1)" class="num">Price</th>
+          <th onclick="sortBy('implied_price',-1)" class="num">Impl $</th>
+          <th onclick="sortBy('discount_pct',-1)" class="num">Upside</th>
+          <th onclick="sortBy('sector_score',-1)" class="num" title="Percentile rank within sector (100=top of sector)">Sec Score</th>
+          <th onclick="sortBy('univ_score',-1)" class="num" title="Percentile rank across full universe (100=top overall)">Univ Score</th>
+          <th onclick="sortBy('market_cap',-1)" class="num">Mkt Cap</th>
+          <th onclick="sortBy('fmv_market_cap',-1)" class="num">FMV Cap</th>
+          <th onclick="sortBy('dollar_volume',-1)" class="num">$ Volume</th>
+          <th onclick="sortBy('dcf_status',1)">DCF</th>
+          <th onclick="sortBy('dcf_date',-1)">DCF Date</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="no-rows" id="noRows" style="display:none">No securities match the current filters.</div>
+  </div>
+
+</div>
+<script>
+const MC_BUCKETS = {
+  mega:  [200e9, Infinity],
+  large: [50e9,  200e9],
+  mid:   [10e9,  50e9],
+  small: [2e9,   10e9],
+  micro: [0,     2e9],
+};
+
+const EX_MAP = {
+  'NASDAQ NMS - GLOBAL MARKET': 'NASDAQ',
+  'NEW YORK STOCK EXCHANGE, INC.': 'NYSE',
+  'NYSE MKT LLC': 'NYSE MKT',
+  'TORONTO STOCK EXCHANGE': 'TSX',
+  'OTC MARKETS': 'OTC',
+  'BATS EXCHANGE': 'BATS',
+  'TSX VENTURE EXCHANGE - NEX': 'TSX-V',
+  'LONDON STOCK EXCHANGE': 'LSE',
+  'XETRA': 'XETRA',
+  'TOKYO STOCK EXCHANGE-TOKYO PRO MARKET': 'TSE',
+  'HONG KONG EXCHANGES AND CLEARING LTD': 'HKEX',
+  'BOLSA DE MADRID': 'BME',
+  'OSLO BORS ASA': 'OSLO',
+  'B3 S.A.': 'B3',
+  'BOLSA MEXICANA DE VALORES (MEXICAN STOCK EXCHANGE)': 'BMV',
+  'NYSE EURONEXT - EURONEXT AMSTERDAM': 'EURONEXT',
+  'JOHANNESBURG STOCK EXCHANGE': 'JSE',
+  'SANTIAGO STOCK EXCHANGE': 'SCL',
+  'TAIWAN STOCK EXCHANGE': 'TWSE',
+  'CANADIAN NATIONAL STOCK EXCHANGE': 'CNSX',
+  'OMX NORDIC EXCHANGE COPENHAGEN A/S': 'NASDAQ CPH',
+};
+
+const BADGE = {
+  valued:   '<span class="badge b-valued">VALUED</span>',
+  pending:  '<span class="badge b-pending">PENDING</span>',
+  excluded: '<span class="badge b-excluded">EXCL</span>',
+  error:    '<span class="badge b-error">ERROR</span>',
+  etf:      '<span class="badge b-etf">ETF</span>',
+  foreign:  '<span class="badge b-foreign">FOREIGN</span>',
+};
+
+function fmtMC(v) {
+  if (v == null) return '<span class="dash">—</span>';
+  if (v >= 1e12) return '$' + (v/1e12).toFixed(1) + 'T';
+  if (v >= 1e9)  return '$' + (v/1e9).toFixed(1) + 'B';
+  if (v >= 1e6)  return '$' + (v/1e6).toFixed(0) + 'M';
+  return '$' + v.toFixed(0);
+}
+function fmtVol(v) {
+  if (v == null) return '<span class="dash">—</span>';
+  if (v >= 1e9) return '$' + (v/1e9).toFixed(1) + 'B';
+  if (v >= 1e6) return '$' + (v/1e6).toFixed(0) + 'M';
+  return '$' + v.toFixed(0);
+}
+function fmtPct(v) {
+  if (v == null) return null;
+  // discount_pct from DB: values near 0 are fractions, large values are already %
+  const pct = Math.abs(v) < 20 ? v * 100 : v;
+  return pct;
+}
+
+let RAW = [];
+let filtered = [];
+let univSorted  = [];
+let univCount   = 0;
+let univIdxMap  = {};
+let sortKey = 'dollar_volume';
+let sortDir = -1;
+let sortThs = [];
+
+function pctScore(rank, count) {
+  if (count <= 1) return 50;
+  return Math.round((1 - (rank - 1) / (count - 1)) * 100);
+}
+
+function scorePill(score, title) {
+  if (score == null) return '<td class="num"><span class="score-pill sc-na">—</span></td>';
+  const cls = score >= 75 ? 'sc-hi' : score >= 50 ? 'sc-mid' : score >= 25 ? 'sc-lo' : 'sc-bot';
+  return `<td class="num" title="${title}"><span class="score-pill ${cls}">${score}</span></td>`;
+}
+
+async function load() {
+  try {
+    const res = await fetch('/api/universe');
+    if (res.status === 401) { window.location = '/login?next=/trading/universe/'; return; }
+    if (!res.ok) throw new Error(`HTTP ${res.status} — Flask may need a restart`);
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); } catch(_) {
+      throw new Error('API returned non-JSON (Flask restart required)');
+    }
+    if (data.error) throw new Error(data.error);
+
+    RAW = data.records.map(r => {
+      const disc_pct = fmtPct(r.discount_pct);
+      let fmv_mc = null;
+      if (r.implied_price != null && r.implied_price > 0 && r.price > 0 && r.market_cap > 0) {
+        fmv_mc = (r.implied_price / r.price) * r.market_cap;
+      }
+      return {
+        ...r,
+        exchange_short: EX_MAP[r.exchange] || r.exchange || '',
+        company_name: r.company_name || '',
+        sector: r.sector || 'Unknown',
+        discount_pct_pct: disc_pct,
+        fmv_market_cap: fmv_mc,
+        sector_rank: null,
+        sector_count: null,
+      };
+    });
+
+    // ── Sector scores ─────────────────────────────────────────────────────────
+    // Only valued securities participate; ranked by discount_pct desc within sector.
+    // sector_score 0-100: percentile rank within sector (100 = top of sector)
+    // univ_score   0-100: percentile rank across all valued securities
+
+    const valued = RAW.filter(r => r.dcf_status === 'valued' && r.discount_pct != null);
+
+    // Build sector groups
+    const sectorGroups = {};
+    valued.forEach(r => {
+      if (!sectorGroups[r.sector]) sectorGroups[r.sector] = [];
+      sectorGroups[r.sector].push(r);
+    });
+    Object.values(sectorGroups).forEach(arr => arr.sort((a, b) => b.discount_pct - a.discount_pct));
+
+    // Universe-wide sorted list (module-level so render() can reference it)
+    univSorted = [...valued].sort((a, b) => b.discount_pct - a.discount_pct);
+    univCount  = univSorted.length;
+    univIdxMap = {};
+    univSorted.forEach((r, i) => { univIdxMap[r.symbol] = i; });
+
+    RAW.forEach(r => {
+      r.sector_rank  = null;
+      r.sector_count = null;
+      r.sector_score = null;
+      r.univ_score   = null;
+
+      const grp = sectorGroups[r.sector];
+      if (grp) {
+        r.sector_count = grp.length;
+        const idx = grp.findIndex(x => x.symbol === r.symbol);
+        if (idx >= 0) {
+          r.sector_rank  = idx + 1;
+          r.sector_score = pctScore(idx + 1, grp.length);
+        }
+      }
+      const uidx = univIdxMap[r.symbol];
+      if (uidx !== undefined) {
+        r.univ_score = pctScore(uidx + 1, univCount);
+      }
+    });
+
+    // Stats
+    const cnt = s => RAW.filter(r => r.dcf_status === s).length;
+    document.getElementById('s-total').textContent  = RAW.length.toLocaleString();
+    document.getElementById('s-valued').textContent = cnt('valued').toLocaleString();
+    document.getElementById('s-pend').textContent   = cnt('pending').toLocaleString();
+    document.getElementById('s-excl').textContent   = cnt('excluded').toLocaleString();
+    document.getElementById('s-err').textContent    = cnt('error').toLocaleString();
+    document.getElementById('s-etf').textContent    = (cnt('etf') + cnt('foreign')).toLocaleString();
+
+    // Populate sector include-filter
+    const sectors = [...new Set(RAW.map(r => r.sector))].sort();
+    const sf = document.getElementById('fSector');
+    sectors.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sf.appendChild(o); });
+
+    // Populate exchange filter
+    const exchanges = [...new Set(RAW.map(r => r.exchange_short).filter(Boolean))].sort();
+    const ef = document.getElementById('fExchange');
+    exchanges.forEach(e => { const o = document.createElement('option'); o.value = e; o.textContent = e; ef.appendChild(o); });
+
+    // Populate exclude-sector checkboxes (with valued count per sector)
+    const exclList = document.getElementById('exclList');
+    sectors.forEach(s => {
+      const cnt = sectorGroups[s] ? sectorGroups[s].length : 0;
+      const row = document.createElement('div');
+      row.className = 'excl-item';
+      row.innerHTML = `<input type="checkbox" id="excl_${s.replace(/\W/g,'_')}" value="${s}" onchange="applyFilters()">
+        <label for="excl_${s.replace(/\W/g,'_')}">${s} <span style="color:var(--dim)">(${cnt})</span></label>`;
+      exclList.appendChild(row);
+    });
+
+    document.getElementById('loadingMsg').style.display = 'none';
+    document.getElementById('scroller').style.display = '';
+
+    sortThs = document.querySelectorAll('thead th[onclick]');
+    applyFilters();
+  } catch(e) {
+    document.getElementById('loadingMsg').innerHTML =
+      `<span style="color:var(--red)">Failed to load: ${e.message}</span>`;
+  }
+}
+
+// ── Exclude-sector panel ──────────────────────────────────────────────────────
+function toggleExclPanel(e) {
+  e.stopPropagation();
+  document.getElementById('exclPanel').classList.toggle('open');
+}
+function clearExcl() {
+  document.querySelectorAll('#exclList input[type=checkbox]').forEach(cb => cb.checked = false);
+  applyFilters();
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.excl-wrap')) {
+    document.getElementById('exclPanel').classList.remove('open');
+  }
+});
+
+function getExcludedSectors() {
+  return [...document.querySelectorAll('#exclList input[type=checkbox]:checked')].map(cb => cb.value);
+}
+
+// ── Filters ───────────────────────────────────────────────────────────────────
+function applyFilters() {
+  const q       = document.getElementById('qSearch').value.toLowerCase().trim();
+  const sec     = document.getElementById('fSector').value;
+  const sta     = document.getElementById('fStatus').value;
+  const exch    = document.getElementById('fExchange').value;
+  const mcKey   = document.getElementById('fMktCap').value;
+  const minVol  = parseFloat(document.getElementById('fVolume').value) || 0;
+  const exclSet = new Set(getExcludedSectors());
+
+  const mcRange = MC_BUCKETS[mcKey] || null;
+
+  filtered = RAW.filter(r => {
+    if (q && !r.symbol.toLowerCase().includes(q) && !r.company_name.toLowerCase().includes(q)) return false;
+    if (sec  && r.sector         !== sec)  return false;
+    if (sta  && r.dcf_status     !== sta)  return false;
+    if (exch && r.exchange_short !== exch) return false;
+    if (exclSet.has(r.sector))             return false;
+    if (mcRange) {
+      const mc = r.market_cap || 0;
+      if (mc < mcRange[0] || mc >= mcRange[1]) return false;
+    }
+    if (minVol > 0 && (r.dollar_volume || 0) < minVol) return false;
+    return true;
+  });
+
+  // Update exclude button label
+  const exclBtn = document.getElementById('exclBtn');
+  const exclLabel = document.getElementById('exclLabel');
+  if (exclSet.size === 0) {
+    exclLabel.textContent = 'None excluded';
+    exclBtn.classList.remove('active');
+  } else {
+    exclLabel.textContent = exclSet.size + ' excluded';
+    exclBtn.classList.add('active');
+  }
+
+  // Filter summary
+  const active = [
+    mcKey   ? document.getElementById('fMktCap').selectedOptions[0].text : '',
+    minVol  ? document.getElementById('fVolume').selectedOptions[0].text : '',
+    exclSet.size ? exclSet.size + ' sectors excluded' : '',
+  ].filter(Boolean).join(' · ');
+  document.getElementById('filterSummary').textContent = active;
+
+  render();
+}
+
+function sortBy(key, defaultDir) {
+  if (sortKey === key) {
+    sortDir = -sortDir;
+  } else {
+    sortKey = key;
+    sortDir = defaultDir;
+  }
+  render();
+}
+
+function render() {
+  const sorted = [...filtered].sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (av == null) av = typeof bv === 'string' ? '' : -Infinity;
+    if (bv == null) bv = typeof av === 'string' ? '' : -Infinity;
+    if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+    return sortDir * (av - bv);
+  });
+
+  document.getElementById('rowCount').textContent = sorted.length.toLocaleString();
+
+  const tbody = document.getElementById('tbody');
+  const noRows = document.getElementById('noRows');
+
+  if (sorted.length === 0) {
+    tbody.innerHTML = '';
+    noRows.style.display = '';
+    return;
+  }
+  noRows.style.display = 'none';
+
+  tbody.innerHTML = sorted.map((r, i) => {
+    const pct = r.discount_pct_pct;
+
+    // Upside cell
+    let upsideHtml;
+    if (pct != null) {
+      const cls = pct > 0 ? 'upside-pos' : 'upside-neg';
+      const sign = pct > 0 ? '+' : '';
+      upsideHtml = `<td class="num ${cls}">${sign}${pct.toFixed(1)}%</td>`;
+    } else {
+      upsideHtml = '<td class="num"><span class="dash">—</span></td>';
+    }
+
+    // Implied price cell — color-coded vs current price
+    let implHtml;
+    if (r.implied_price != null && r.implied_price > 0) {
+      const impCls = r.implied_price > r.price ? 'upside-pos' : 'upside-neg';
+      implHtml = `<td class="num ${impCls}">$${r.implied_price.toFixed(2)}</td>`;
+    } else {
+      implHtml = '<td class="num"><span class="dash">—</span></td>';
+    }
+
+    // FMV market cap cell
+    const fmvHtml = r.fmv_market_cap != null
+      ? `<td class="num td-mc">${fmtMC(r.fmv_market_cap)}</td>`
+      : '<td class="num"><span class="dash">—</span></td>';
+
+    // Score cells
+    const secTitle  = r.sector_rank != null
+      ? `#${r.sector_rank} of ${r.sector_count} valued in ${r.sector}`
+      : 'No sector peers';
+    const univTitle = r.univ_score != null
+      ? `#${(univIdxMap[r.symbol] ?? 0) + 1} of ${univCount} valued universe`
+      : 'Not valued';
+    const secScoreHtml  = scorePill(r.sector_score,  secTitle);
+    const univScoreHtml = scorePill(r.univ_score, univTitle);
+
+    return `<tr>
+      <td class="td-idx">${i+1}</td>
+      <td class="td-sym">${r.symbol}</td>
+      <td class="td-name" title="${r.company_name}">${r.company_name || '<span class="dash">—</span>'}</td>
+      <td><span class="stag" title="${r.sector}">${r.sector}</span></td>
+      <td class="td-ex">${r.exchange_short || '<span class="dash">—</span>'}</td>
+      <td class="num td-price">${r.price != null ? '$'+r.price.toFixed(2) : '<span class="dash">—</span>'}</td>
+      ${implHtml}
+      ${upsideHtml}
+      ${secScoreHtml}
+      ${univScoreHtml}
+      <td class="num td-mc">${fmtMC(r.market_cap)}</td>
+      ${fmvHtml}
+      <td class="num td-vol">${fmtVol(r.dollar_volume)}</td>
+      <td>${BADGE[r.dcf_status] || r.dcf_status}</td>
+      <td class="td-date">${r.dcf_date || ''}</td>
+    </tr>`;
+  }).join('');
+}
+
+load();
+</script>
+</body>
+</html>

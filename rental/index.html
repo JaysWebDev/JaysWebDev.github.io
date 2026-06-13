@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Intelligence Engine — Multifamily Real Estate Research | jays.website</title>
+    <meta name="description" content="Multifamily real estate research platform covering 1,400+ buildings across Attleboro, MA. Identifies acquisition targets and portfolio owners using MassGIS parcel data and HUD benchmarks.">
+    <meta name="author" content="Jeff Kirk Jr.">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://jays.website/rental/">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jays.website/rental/">
+    <meta property="og:title" content="Rental Intelligence Engine — Multifamily Real Estate Research | jays.website">
+    <meta property="og:description" content="Multifamily real estate research platform covering 1,400+ buildings across Attleboro, MA. Identifies acquisition targets and portfolio owners using MassGIS parcel data and HUD benchmarks.">
+    <meta property="og:site_name" content="jays.website">
+    <meta property="og:image" content="https://jays.website/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rental Intelligence Engine — Multifamily Real Estate Research">
+    <meta name="twitter:description" content="Real estate research platform covering 1,400+ multifamily buildings. Acquisition targeting using MassGIS parcel data and HUD Fair Market Rent benchmarks.">
+    <meta name="twitter:image" content="https://jays.website/og-image.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:      #060810;
+            --surface: #0d1117;
+            --border:  #1e2530;
+            --amber:   #c9940a;
+            --amber-hi:#f5b400;
+            --text:    #c8cdd6;
+            --muted:   #4a5568;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            padding-top: 5rem;
+        }
+
+        nav.site-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(6,8,16,0.92);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        nav.site-nav a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Barlow', sans-serif;
+            transition: background 0.2s, color 0.2s;
+        }
+        nav.site-nav a:hover { background: rgba(255,255,255,0.08); color: white; }
+        nav.site-nav a.active { color: var(--amber-hi); }
+        nav.site-nav a.nav-resume {
+            margin-left: auto;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        nav.site-nav a.nav-resume:hover { background: rgba(255,255,255,0.15); color: white; }
+
+        .wordmark {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: 0.12em;
+            color: #fff;
+            line-height: 1;
+        }
+        .wordmark span { color: var(--amber-hi); }
+
+        .subtitle {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--amber);
+            margin: 2.5rem auto;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            width: 100%;
+            max-width: 860px;
+        }
+        @media (max-width: 600px) {
+            .nav-grid { grid-template-columns: 1fr; }
+            nav.site-nav a.nav-resume { margin-left: 0; }
+        }
+
+        .nav-card {
+            display: block;
+            text-decoration: none;
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.75rem 2rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .nav-card:hover {
+            border-color: var(--amber);
+            transform: translateY(-2px);
+        }
+
+        .nav-card-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-card-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 0.06em;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-card-desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .nav-card .arrow {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--amber);
+        }
+
+        .related-apps { width: 100%; max-width: 380px; margin: 0 auto; }
+        .related-label {
+            font-family: var(--font-mono, monospace);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted, #888);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .related-card { display: block; text-decoration: none; }
+
+        footer {
+            margin-top: 4rem;
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/trading/">Trading</a>
+        <a href="/rental/" class="active">Rental</a>
+        <a href="/business/">Business Intel</a>
+        <a href="/tools/">Tools</a>
+        <a href="/appdevelopment/">Apps</a>
+        <a href="/resume/" class="nav-resume">Resume →</a>
+    </nav>
+
+    <div class="wordmark">Rental <span>Intelligence</span></div>
+    <div class="subtitle">Attleboro, MA &mdash; Research Platform</div>
+
+    <div class="divider"></div>
+
+    <nav class="nav-grid">
+        <a class="nav-card" href="investment_analytics.html">
+            <div class="nav-card-label">Yield Analysis</div>
+            <div class="nav-card-title">Investment Analytics</div>
+            <div class="nav-card-desc">Gross yield, market value, rental matching, and top investment opportunities across 1,400+ parcels.</div>
+            <div class="arrow">VIEW REPORT &rarr;</div>
+        </a>
+
+        <a class="nav-card" href="spatial.html">
+            <div class="nav-card-label">Interactive Map</div>
+            <div class="nav-card-title">Spatial Intelligence</div>
+            <div class="nav-card-desc">Interactive map of the full building portfolio. All 1,407 buildings colored by HUD FMR estimated yield.</div>
+            <div class="arrow">OPEN MAP &rarr;</div>
+        </a>
+
+        <a class="nav-card" href="owners.html">
+            <div class="nav-card-label">Ownership</div>
+            <div class="nav-card-title">Owner Intelligence</div>
+            <div class="nav-card-desc">1,333 unique owners. 49 multi-building portfolios. Filter by flags: aging stock, large portfolio, institutional scale — find acquisition and management targets.</div>
+            <div class="arrow">VIEW OWNERS &rarr;</div>
+        </a>
+
+        <a class="nav-card" href="scored_opportunities.html">
+            <div class="nav-card-label">Opportunity Score</div>
+            <div class="nav-card-title">Scored Opportunities</div>
+            <div class="nav-card-desc">34,448 property parcels ranked by composite opportunity score. Cap rate, NOI, and ownership signals — filtered for data quality, top 100 exported.</div>
+            <div class="arrow">VIEW RANKINGS &rarr;</div>
+        </a>
+    </nav>
+
+    <div class="divider" style="margin: 3rem auto 2rem;"></div>
+
+    <section class="related-apps">
+        <div class="related-label">Related App</div>
+        <a class="nav-card related-card" href="https://github.com/JaysWebDev/landlord-app" target="_blank">
+            <div class="nav-card-label">Full-Stack App</div>
+            <div class="nav-card-title">🏠 Landlord App</div>
+            <div class="nav-card-desc">Property management platform — tenant/lease tracking, maintenance requests, financial reporting, and AI assistant. React 19 + TypeScript + tRPC + Drizzle ORM.</div>
+            <div class="arrow">VIEW ON GITHUB &rarr;</div>
+        </a>
+    </section>
+
+    <footer>jays.website / rental-research</footer>
+
+</body>
+</html>

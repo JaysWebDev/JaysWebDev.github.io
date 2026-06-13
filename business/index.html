@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Intelligence Engine — Spatial Economic Analysis | jays.website</title>
+<meta name="description" content="Spatial business intelligence engine that identifies geographic areas with unrealized potential. Analyzes industry density, sector gaps, and economic imbalance across ZIP codes and towns.">
+<meta name="author" content="Jeff Kirk Jr.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://jays.website/business/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jays.website/business/">
+<meta property="og:title" content="Business Intelligence Engine — Spatial Economic Analysis | jays.website">
+<meta property="og:description" content="Spatial business intelligence engine that identifies geographic areas with unrealized potential. Analyzes industry density, sector gaps, and economic imbalance across ZIP codes and towns.">
+<meta property="og:site_name" content="jays.website">
+<meta property="og:image" content="https://jays.website/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Business Intelligence Engine — Spatial Economic Analysis">
+<meta name="twitter:description" content="Identifies geographic areas with unrealized business potential. Analyzes industry density, sector gaps, and economic imbalance across ZIP codes and towns.">
+<meta name="twitter:image" content="https://jays.website/og-image.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #060810;
+  --surface:  #0d1117;
+  --border:   #1e2530;
+  --amber:    #c9940a;
+  --amber-hi: #f5b400;
+  --text:     #c8cdd6;
+  --muted:    #4a5568;
+  --font-display: 'Bebas Neue', cursive;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-ui:      'Barlow', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-weight: 300;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  padding-top: 5rem;
+  position: relative;
+}
+
+nav.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(6,8,16,0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  padding: 0.6rem 1.5rem;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+nav.site-nav a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: var(--font-ui);
+  transition: background 0.2s, color 0.2s;
+}
+nav.site-nav a:hover { background: rgba(255,255,255,0.08); color: white; }
+nav.site-nav a.active { color: var(--amber-hi); }
+nav.site-nav a.nav-resume {
+  margin-left: auto;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+nav.site-nav a.nav-resume:hover { background: rgba(255,255,255,0.15); color: white; }
+@media (max-width: 600px) {
+  nav.site-nav a.nav-resume { margin-left: 0; }
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,148,10,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,148,10,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber-hi), transparent);
+  z-index: 100;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: 0.12em;
+  color: #fff;
+  line-height: 1;
+}
+.wordmark span { color: var(--amber-hi); }
+
+.subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--amber);
+  margin: 2.5rem auto;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+@media (max-width: 600px) {
+  .nav-grid { grid-template-columns: 1fr; }
+}
+
+.nav-card {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.75rem 2rem;
+  transition: border-color 0.2s, transform 0.2s;
+  text-align: left;
+}
+.nav-card:hover {
+  border-color: var(--amber);
+  transform: translateY(-2px);
+}
+
+.nav-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.4rem;
+}
+
+.nav-card-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.nav-card-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.nav-card .arrow {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--amber);
+}
+
+.related-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/trading/">Trading</a>
+    <a href="/rental/">Rental</a>
+    <a href="/business/" class="active">Business Intel</a>
+    <a href="/tools/">Tools</a>
+    <a href="/appdevelopment/">Apps</a>
+    <a href="/resume/" class="nav-resume">Resume →</a>
+</nav>
+
+<div class="content">
+  <div class="wordmark">Business <span>Intelligence</span></div>
+  <div class="subtitle">Spatial Economic Analysis &mdash; Massachusetts</div>
+
+  <div class="divider"></div>
+
+  <nav class="nav-grid">
+    <a class="nav-card" href="zones.html">
+      <div class="nav-card-label">Analysis</div>
+      <div class="nav-card-title">Curiosity Zones</div>
+      <div class="nav-card-desc">Identify geographic areas with missing services, density imbalance, and unrealized potential. Filter by zone type, state, and curiosity score.</div>
+      <div class="arrow">EXPLORE ZONES →</div>
+    </a>
+
+    <a class="nav-card" href="sectors.html">
+      <div class="nav-card-label">Industry</div>
+      <div class="nav-card-title">Sector Breakdown</div>
+      <div class="nav-card-desc">Explore the industry distribution across all indexed zones. See which sectors dominate and which are systematically absent.</div>
+      <div class="arrow">VIEW SECTORS →</div>
+    </a>
+
+    <a class="nav-card" href="spatial.html">
+      <div class="nav-card-label">Coverage</div>
+      <div class="nav-card-title">Spatial Coverage</div>
+      <div class="nav-card-desc">Zone-level aggregate statistics for ZIP codes, towns, and counties. Diversity scores, business density, and coverage metrics.</div>
+      <div class="arrow">VIEW COVERAGE →</div>
+    </a>
+
+    <a class="nav-card" href="explore.html">
+      <div class="nav-card-label">Drill-Down</div>
+      <div class="nav-card-title">Explore by Town</div>
+      <div class="nav-card-desc">Filter businesses by town and industry. How many landscapers in Norwood? Plumbers in Foxboro? Answer market questions directly.</div>
+      <div class="arrow">START EXPLORING →</div>
+    </a>
+  </nav>
+  <div class="divider" style="margin: 3rem auto 2rem;"></div>
+
+  <div class="related-label">Related App</div>
+  <div style="max-width: 380px; margin: 0 auto;">
+    <a class="nav-card" href="https://find.outdoorwashing.com" target="_blank">
+      <div class="nav-card-label">Live</div>
+      <div class="nav-card-title">Powerwash Directory</div>
+      <div class="nav-card-desc">1,445 power washing companies across 20 city pages. Scraped and structured market data — built as a proof-of-concept for turning business intelligence into a live directory product.</div>
+      <div class="arrow">EXPLORE DIRECTORY →</div>
+    </a>
+  </div>
+</div>
+
+<footer>jays.website / business-analyzer</footer>
+
+</body>
+</html>

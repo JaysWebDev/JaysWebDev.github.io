@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DCF Results — EDGAR</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0d1117;
+  --border: #30363d;
+  --text:   #e6edf3;
+  --muted:  #8b949e;
+  --dim:    #484f58;
+  --accent: #58a6ff;
+  --green:  #3fb950;
+  --red:    #f85149;
+  --mono:   'Courier New', 'Lucida Console', monospace;
+  --ui:     'Trebuchet MS', 'Segoe UI', sans-serif;
+}
+
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--ui); font-size: 13px; }
+
+/* full-height, no page scroll */
+.shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+/* top bar */
+.top-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 20px 11px;
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.03em; }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb .sep { margin: 0 5px; }
+
+.page-title {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
+}
+
+.meta { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: 0.03em; margin-left: auto; white-space: nowrap; }
+.meta em { font-style: normal; color: var(--muted); }
+
+/* controls */
+.controls {
+  flex-shrink: 0; display: flex; align-items: center;
+  padding: 0 20px; border-bottom: 1px solid var(--border);
+}
+.prompt-char { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-right: 4px; user-select: none; }
+.search {
+  background: transparent; border: none; outline: none;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent);
+  width: 140px; padding: 10px 0; caret-color: var(--accent);
+}
+.search::placeholder { text-transform: none; letter-spacing: 0; color: var(--border); }
+.vr { width: 1px; height: 18px; background: var(--border); margin: 0 16px; }
+.count { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-left: auto; }
+.count em { font-style: normal; color: var(--muted); }
+
+/* scroll area */
+.scroller { flex: 1; overflow-y: auto; overflow-x: auto; }
+.scroller::-webkit-scrollbar { width: 3px; }
+.scroller::-webkit-scrollbar-track { background: transparent; }
+.scroller::-webkit-scrollbar-thumb { background: var(--border); }
+.scroller::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* table */
+table { width: 100%; border-collapse: collapse; }
+col.c-sym { width: 110px; }
+col.c-dcf { width: 200px; }
+col.c-mkt { width: 160px; }
+col.c-chg { width: 140px; }
+col.c-sector { width: 180px; }
+
+thead { position: sticky; top: 0; z-index: 5; background: var(--bg); }
+thead::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: var(--border);
+}
+
+th {
+  padding: 9px 20px; font-family: var(--mono); font-size: 9px;
+  font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--dim); text-align: right; cursor: pointer; user-select: none;
+  white-space: nowrap; transition: color 0.1s;
+}
+th:first-child { text-align: left; }
+th:hover { color: var(--muted); }
+th.sorted { color: var(--text); }
+.arr { margin-left: 4px; font-size: 9px; opacity: 0.35; }
+th.sorted .arr { opacity: 1; color: var(--accent); }
+
+/* rows */
+tbody tr {
+  border-bottom: 1px solid rgba(48, 54, 61, 0.35);
+  cursor: pointer; position: relative; transition: background 0.06s;
+}
+tbody tr::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--accent);
+  transform: scaleY(0); transition: transform 0.09s ease;
+}
+tbody tr:hover { background: rgba(88, 166, 255, 0.035); }
+tbody tr:hover::before { transform: scaleY(1); }
+tbody tr.err { opacity: 0.28; }
+tbody tr.err:hover { opacity: 0.55; }
+
+td {
+  padding: 7px 20px; font-family: var(--mono); font-size: 12px;
+  text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+td:first-child { text-align: left; }
+
+.sym { font-size: 13px; font-weight: 700; letter-spacing: 0.07em; color: var(--text); }
+.price { color: var(--muted); }
+.null  { color: var(--dim); }
+.epill {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--dim); border: 1px solid rgba(48, 54, 61, 0.8); padding: 1px 5px;
+}
+.pos { color: var(--green); font-weight: 700; }
+.neg { color: var(--red);   font-weight: 700; }
+.pos.big { text-shadow: 0 0 14px rgba(63, 185, 80, 0.45); }
+.neg.big { text-shadow: 0 0 14px rgba(248, 81, 73, 0.45); }
+
+/* states */
+.state {
+  padding: 80px 20px; text-align: center; font-family: var(--mono);
+  font-size: 11px; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase;
+}
+.state .sub { color: var(--red); margin-top: 8px; letter-spacing: 0.04em; text-transform: none; }
+.dots::after { content: ''; animation: dt 1.2s step-end infinite; }
+@keyframes dt { 0%{content:''} 33%{content:'.'} 66%{content:'..'} 99%{content:'...'} }
+
+/* outlier warning */
+tbody tr.outlier td.chg-cell { color: var(--dim) !important; text-shadow: none !important; font-weight: 400; }
+.outlier-badge {
+  font-size: 8px; font-family: var(--mono); letter-spacing: 0.05em;
+  color: var(--dim); border: 1px solid rgba(48,54,61,0.7); padding: 1px 4px;
+  margin-left: 6px; vertical-align: middle; text-transform: uppercase;
+}
+
+/* sector label */
+.sec { font-size: 10px; color: var(--dim); font-family: var(--ui); letter-spacing: 0; }
+
+/* controls extras */
+.ctrl-select {
+  background: transparent; border: none; border-left: 1px solid var(--border);
+  outline: none; font-family: var(--mono); font-size: 11px; color: var(--muted);
+  padding: 10px 14px; cursor: pointer; appearance: none;
+}
+.ctrl-select option { background: #0d1117; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="top-bar">
+    <div class="breadcrumb">
+      <a href="/trading/">← Trading</a><span class="sep">/</span><a href="/trading/edgar/">EDGAR</a><span class="sep">/</span>DCF Results
+    </div>
+    <div class="page-title">DCF Valuations</div>
+    <div class="meta" id="meta">—</div>
+  </div>
+
+  <div class="controls">
+    <span class="prompt-char">&gt;</span>
+    <input class="search" id="search" type="text" placeholder="filter ticker" maxlength="10" autocomplete="off" spellcheck="false">
+    <div class="vr"></div>
+    <select class="ctrl-select" id="sectorFilter" onchange="applyFilters()">
+      <option value="">All Sectors</option>
+    </select>
+    <div class="vr"></div>
+    <select class="ctrl-select" id="outlierFilter" onchange="applyFilters()">
+      <option value="qualified">Qualified only</option>
+      <option value="all">Show all</option>
+    </select>
+    <div class="vr"></div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="scroller">
+    <table>
+      <colgroup><col class="c-sym"><col class="c-dcf"><col class="c-mkt"><col class="c-chg"><col class="c-sector"></colgroup>
+      <thead>
+        <tr>
+          <th id="h-symbol"        onclick="sort('symbol')">       Ticker          <span class="arr" id="a-symbol">↕</span></th>
+          <th id="h-implied_price" onclick="sort('implied_price')">Calculated Price <span class="arr" id="a-implied_price">↕</span></th>
+          <th id="h-market_price"  onclick="sort('market_price')"> Market Price     <span class="arr" id="a-market_price">↕</span></th>
+          <th id="h-discount_pct"  onclick="sort('discount_pct')"> Change %         <span class="arr" id="a-discount_pct">↓</span></th>
+          <th id="h-sector"        onclick="sort('sector')">       Sector           <span class="arr" id="a-sector">↕</span></th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="4"><div class="state"><span class="dots">Loading</span></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<script>
+let rows = [], sortKey = 'discount_pct', sortDir = -1, q = '', sectorQ = '', showOutliers = false;
+const COLS = ['symbol','implied_price','market_price','discount_pct','sector'];
+const OUTLIER_THRESHOLD = 5.0; // discount_pct ratio > 5 (500%) = outlier
+
+function isOutlier(r) {
+  if (r.error || r.implied_price == null || r.market_price == null) return false;
+  return Math.abs(r.discount_pct || 0) > OUTLIER_THRESHOLD;
+}
+
+function shortErr(e) {
+  if (!e) return 'error';
+  if (e.startsWith('financial_sector_skip')) return 'fin sector';
+  if (e.startsWith('pre_revenue'))           return 'pre-revenue';
+  if (e.startsWith('negative_implied'))      return 'neg fcf';
+  if (e.startsWith('No filings'))            return 'no filings';
+  if (e.startsWith('not_equity'))            return 'not equity';
+  if (e.startsWith('No consolidated'))       return 'no data';
+  return (e.split(':')[0] || 'error').slice(0, 14);
+}
+
+function applyFilters() {
+  sectorQ = document.getElementById('sectorFilter').value;
+  showOutliers = document.getElementById('outlierFilter').value === 'all';
+  q = document.getElementById('search').value.trim().toUpperCase();
+  render();
+}
+
+function render() {
+  let vis = rows.filter(r => {
+    if (q && !r.symbol.startsWith(q)) return false;
+    if (sectorQ && r.sector !== sectorQ) return false;
+    if (!showOutliers && isOutlier(r)) return false;
+    return true;
+  });
+
+  vis = [...vis].sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1; if (bv == null) return -1;
+    return typeof av === 'string' ? av.localeCompare(bv) * sortDir : (av - bv) * sortDir;
+  });
+
+  const total = rows.filter(r => !showOutliers ? !isOutlier(r) : true).length;
+  document.getElementById('count').innerHTML = `<em>${vis.length.toLocaleString()}</em> of ${total.toLocaleString()}`;
+
+  if (!vis.length) {
+    document.getElementById('tbody').innerHTML = `<tr><td colspan="5"><div class="state">No results</div></td></tr>`;
+    return;
+  }
+
+  document.getElementById('tbody').innerHTML = vis.map(r => {
+    const isErr    = !!r.error;
+    const isValued = !isErr && r.implied_price != null;
+    const outlier  = isOutlier(r);
+
+    const dcf = isValued
+      ? `<span class="price">$${(+r.implied_price).toFixed(2)}</span>`
+      : isErr
+        ? `<span class="epill">${shortErr(r.error)}</span>`
+        : `<span class="null">—</span>`;
+
+    const mkt = r.market_price != null
+      ? `<span class="price">$${(+r.market_price).toFixed(2)}</span>`
+      : `<span class="null">—</span>`;
+
+    let chgHtml = `<span class="null">—</span>`;
+    if (isValued && r.discount_pct != null) {
+      const pct  = r.discount_pct * 100;
+      const big  = Math.abs(pct) > 50 && !outlier ? ' big' : '';
+      const cls  = pct >= 0 ? 'pos' : 'neg';
+      const badge = outlier ? `<span class="outlier-badge">⚠ outlier</span>` : '';
+      chgHtml = `<span class="chg-cell ${cls}${big}">${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%${badge}</span>`;
+    }
+
+    const sec = r.sector ? `<span class="sec">${r.sector}</span>` : `<span class="null">—</span>`;
+
+    return `<tr class="${isErr ? 'err' : ''}${outlier ? ' outlier' : ''}" onclick="window.location='/trading/edgar/?ticker=${r.symbol}'">
+      <td><span class="sym">${r.symbol}</span></td>
+      <td>${dcf}</td><td>${mkt}</td><td class="chg-cell">${chgHtml}</td><td style="text-align:left">${sec}</td>
+    </tr>`;
+  }).join('');
+}
+
+const DIR0 = { symbol: 1, implied_price: -1, market_price: -1, discount_pct: -1, sector: 1 };
+function sort(key) {
+  sortDir = sortKey === key ? sortDir * -1 : (DIR0[key] ?? -1);
+  sortKey = key;
+  COLS.forEach(k => {
+    const hEl = document.getElementById('h-' + k);
+    const aEl = document.getElementById('a-' + k);
+    if (hEl) hEl.classList.toggle('sorted', k === sortKey);
+    if (aEl) aEl.textContent = k === sortKey ? (sortDir === -1 ? '↓' : '↑') : '↕';
+  });
+  render();
+}
+
+document.getElementById('search').addEventListener('input', applyFilters);
+document.getElementById('h-discount_pct').classList.add('sorted');
+
+async function load() {
+  try {
+    const res  = await fetch('/api/edgar/results');
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    rows = data.results || [];
+
+    // Populate sector dropdown
+    const sectors = [...new Set(rows.map(r => r.sector).filter(Boolean))].sort();
+    const sel = document.getElementById('sectorFilter');
+    sectors.forEach(s => {
+      const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o);
+    });
+
+    const valued    = rows.filter(r => !r.error && r.implied_price != null).length;
+    const outlierCt = rows.filter(r => isOutlier(r)).length;
+    document.getElementById('meta').innerHTML =
+      `<em>${valued.toLocaleString()}</em> valued &nbsp;·&nbsp; ${outlierCt} outliers &nbsp;·&nbsp; ${data.run_date || '—'}`;
+    render();
+  } catch (e) {
+    document.getElementById('tbody').innerHTML =
+      `<tr><td colspan="5"><div class="state">Failed to load<div class="sub">${e.message}</div></div></td></tr>`;
+  }
+}
+
+load();
+</script>
+</body>
+</html>

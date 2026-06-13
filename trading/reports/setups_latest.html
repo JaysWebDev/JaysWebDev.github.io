@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Setup Scanner - 2026-06-04</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', -apple-system, system-ui, sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; margin: 0; padding: 20px; min-height: 100vh; }
+.container { max-width: 1400px; margin: 0 auto; }
+h1 { color: #3B82F6; text-align: center; margin-bottom: 5px; font-size: 1.5rem; }
+.subtitle { text-align: center; color: #64748b; margin-bottom: 30px; font-size: 0.85rem; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 30px; }
+.stat { background: rgba(30,41,59,0.8); border: 1px solid rgba(59,130,246,0.2); border-radius: 10px; padding: 16px; text-align: center; }
+.stat-val { font-size: 1.6rem; font-weight: bold; }
+.stat-lbl { color: #94A3B8; font-size: 0.75rem; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+.setup-section { margin-bottom: 35px; }
+.setup-header { padding: 12px 20px; border-radius: 10px 10px 0 0; display: flex; justify-content: space-between; align-items: center; }
+.setup-header h2 { margin: 0; font-size: 1.1rem; }
+.setup-desc { font-size: 12px; color: #94A3B8; max-width: 600px; }
+.setup-count { font-size: 1.5rem; font-weight: bold; }
+table { width: 100%; border-collapse: collapse; background: rgba(15,23,42,0.6); }
+th { background: rgba(59,130,246,0.1); color: #3B82F6; padding: 10px 8px; text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+td { padding: 9px 8px; border-bottom: 1px solid rgba(148,163,184,0.1); text-align: center; font-size: 13px; }
+tr:hover { background: rgba(59,130,246,0.05); }
+.sym { font-weight: bold; color: #3B82F6; }
+.score-high { color: #22C55E; font-weight: bold; }
+.score-med { color: #F59E0B; }
+.signals { font-size: 11px; color: #94A3B8; max-width: 250px; text-align: left; }
+.risk { font-size: 11px; }
+.stop { color: #EF4444; }
+.target { color: #22C55E; }
+.empty { padding: 30px; text-align: center; color: #64748b; }
+.footer { margin-top: 30px; padding: 16px; background: rgba(30,41,59,0.4); border-radius: 10px; border: 1px solid rgba(148,163,184,0.1); font-size: 12px; color: #94A3B8; }
+.footer strong { color: #CBD5E1; }
+
+    .badge-s2  { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-s1  { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-b50 { display:inline-block; background:rgba(239,68,68,0.15);  color:#EF4444; border:1px solid rgba(239,68,68,0.4);  padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsh { display:inline-block; background:rgba(34,197,94,0.15);  color:#22C55E; border:1px solid rgba(34,197,94,0.4);  padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsm { display:inline-block; background:rgba(59,130,246,0.15); color:#3B82F6; border:1px solid rgba(59,130,246,0.4); padding:2px 5px; border-radius:3px; font-size:10px; font-weight:bold; margin:1px; }
+    .badge-rsl { display:inline-block; background:rgba(100,116,139,0.15);color:#94A3B8; border:1px solid rgba(100,116,139,0.3); padding:2px 5px; border-radius:3px; font-size:10px; margin:1px; }
+    .sig-gap   { color:#F59E0B; font-weight:bold; }
+    .sig-mom   { color:#F97316; font-weight:bold; }
+    .sig-kbo   { color:#38BDF8; font-weight:bold; }
+    .sig-hi    { color:#22C55E; }
+
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Setup Scanner</h1>
+<p class="subtitle">2026-06-04 &mdash; 3% stop / 5% target &mdash; generated 2026-06-09 16:02:03</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-val" style="color:#38BDF8">58</div><div class="stat-lbl">VCB SETUPS</div></div>
+  <div class="stat"><div class="stat-val" style="color:#22C55E">0</div><div class="stat-lbl">ACCUMULATION</div></div>
+  <div class="stat"><div class="stat-val" style="color:#F59E0B">20</div><div class="stat-lbl">PULLBACK</div></div>
+  <div class="stat"><div class="stat-val" style="color:#3B82F6">78</div><div class="stat-lbl">TOTAL SETUPS</div></div>
+</div>
+
+<div class="setup-section">
+<div class="setup-header" style="background: #38BDF822; border: 1px solid #38BDF844;">
+  <div><h2 style="color:#38BDF8">Volatility Contraction Breakout</h2><div class="setup-desc">Compression before expansion — BB squeeze + NR patterns + low ADX. These stocks are coiling and ready to move.</div></div>
+  <div class="setup-count" style="color:#38BDF8">58</div>
+</div>
+<table><thead><tr>
+<th>#</th><th>Symbol</th><th>Trend</th><th>RS</th><th>Price</th><th>Score</th>
+<th>Stop</th><th>Target</th><th>RVol</th><th>$Vol</th><th>Signals</th>
+</tr></thead><tbody><tr>
+<td>1</td><td class="sym">AMR</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS47</span></td>
+<td>$215.21</td><td class="score-high">70</td>
+<td class="stop risk">$208.75</td><td class="target risk">$225.97</td>
+<td>0.7x</td><td>$42M</td>
+<td class="signals">NR3 | NR4 | ADX:16 | MACD RISING | LOW VOL</td></tr><tr>
+<td>2</td><td class="sym">CNR</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS41</span></td>
+<td>$98.91</td><td class="score-high">70</td>
+<td class="stop risk">$95.94</td><td class="target risk">$103.86</td>
+<td>0.7x</td><td>$61M</td>
+<td class="signals">NR3 | NR4 | ADX:24 | MACD CROSS | LOW VOL</td></tr><tr>
+<td>3</td><td class="sym">CRGY</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS55</span></td>
+<td>$12.20</td><td class="score-high">70</td>
+<td class="stop risk">$11.83</td><td class="target risk">$12.81</td>
+<td>0.4x</td><td>$42M</td>
+<td class="signals">NR3 | NR4 | ADX:16 | MACD RISING | LOW VOL</td></tr><tr>
+<td>4</td><td class="sym">CWT</td>
+<td><span class="badge-b50">↓50</span></td><td><span class="badge-rsl">RS37</span></td>
+<td>$45.24</td><td class="score-high">70</td>
+<td class="stop risk">$43.88</td><td class="target risk">$47.50</td>
+<td>0.7x</td><td>$17M</td>
+<td class="signals">NR3 | NR4 | ADX:13 | MACD RISING | LOW VOL</td></tr><tr>
+<td>5</td><td class="sym">DJCO</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS48</span></td>
+<td>$528.30</td><td class="score-high">70</td>
+<td class="stop risk">$512.45</td><td class="target risk">$554.72</td>
+<td>0.6x</td><td>$23M</td>
+<td class="signals">NR3 | NR4 | ADX:14 | MACD RISING | LOW VOL</td></tr><tr>
+<td>6</td><td class="sym">EOG</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS55</span></td>
+<td>$140.88</td><td class="score-high">70</td>
+<td class="stop risk">$136.65</td><td class="target risk">$147.92</td>
+<td>0.5x</td><td>$297M</td>
+<td class="signals">NR3 | NR4 | ADX:19 | MACD RISING | LOW VOL</td></tr><tr>
+<td>7</td><td class="sym">FLR</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS57</span></td>
+<td>$50.41</td><td class="score-high">70</td>
+<td class="stop risk">$48.90</td><td class="target risk">$52.93</td>
+<td>0.9x</td><td>$96M</td>
+<td class="signals">NR3 | NR4 | ADX:14 | MACD CROSS</td></tr><tr>
+<td>8</td><td class="sym">JCI</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsm">RS72</span></td>
+<td>$147.40</td><td class="score-high">70</td>
+<td class="stop risk">$142.98</td><td class="target risk">$154.77</td>
+<td>1.4x</td><td>$688M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | MACD CROSS</td></tr><tr>
+<td>9</td><td class="sym">LII</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS55</span></td>
+<td>$518.08</td><td class="score-high">70</td>
+<td class="stop risk">$502.54</td><td class="target risk">$543.98</td>
+<td>0.5x</td><td>$109M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | MACD RISING | LOW VOL</td></tr><tr>
+<td>10</td><td class="sym">MO</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS58</span></td>
+<td>$70.60</td><td class="score-high">70</td>
+<td class="stop risk">$68.48</td><td class="target risk">$74.13</td>
+<td>0.7x</td><td>$409M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | MACD RISING | LOW VOL</td></tr><tr>
+<td>11</td><td class="sym">TALO</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS71</span></td>
+<td>$15.30</td><td class="score-high">70</td>
+<td class="stop risk">$14.84</td><td class="target risk">$16.07</td>
+<td>0.8x</td><td>$25M</td>
+<td class="signals">NR3 | NR4 | ADX:14 | MACD CROSS</td></tr><tr>
+<td>12</td><td class="sym">WSM</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS59</span></td>
+<td>$208.09</td><td class="score-high">70</td>
+<td class="stop risk">$201.85</td><td class="target risk">$218.49</td>
+<td>0.8x</td><td>$185M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | MACD RISING | LOW VOL</td></tr><tr>
+<td>13</td><td class="sym">CALY</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS63</span></td>
+<td>$15.00</td><td class="score-high">65</td>
+<td class="stop risk">$14.55</td><td class="target risk">$15.75</td>
+<td>0.7x</td><td>$25M</td>
+<td class="signals">NR3 | NR4 | ADX:17 | LOW VOL</td></tr><tr>
+<td>14</td><td class="sym">CCJ</td>
+<td><span class="badge-b50">↓50</span></td><td><span class="badge-rsl">RS57</span></td>
+<td>$114.02</td><td class="score-high">65</td>
+<td class="stop risk">$110.60</td><td class="target risk">$119.72</td>
+<td>0.8x</td><td>$247M</td>
+<td class="signals">NR3 | NR4 | ADX:12 | LOW VOL</td></tr><tr>
+<td>15</td><td class="sym">CRWV</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS67</span></td>
+<td>$108.03</td><td class="score-high">65</td>
+<td class="stop risk">$104.79</td><td class="target risk">$113.43</td>
+<td>0.8x</td><td>$2890M</td>
+<td class="signals">NR3 | NR4 | ADX:20 | LOW VOL</td></tr><tr>
+<td>16</td><td class="sym">DKNG</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS39</span></td>
+<td>$25.37</td><td class="score-high">65</td>
+<td class="stop risk">$24.61</td><td class="target risk">$26.64</td>
+<td>0.7x</td><td>$238M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | LOW VOL</td></tr><tr>
+<td>17</td><td class="sym">EME</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsm">RS72</span></td>
+<td>$845.43</td><td class="score-high">65</td>
+<td class="stop risk">$820.07</td><td class="target risk">$887.70</td>
+<td>0.7x</td><td>$202M</td>
+<td class="signals">NR3 | NR4 | ADX:20 | LOW VOL</td></tr><tr>
+<td>18</td><td class="sym">EMR</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS52</span></td>
+<td>$142.06</td><td class="score-high">65</td>
+<td class="stop risk">$137.80</td><td class="target risk">$149.16</td>
+<td>0.6x</td><td>$261M</td>
+<td class="signals">NR3 | NR4 | ADX:19 | LOW VOL</td></tr><tr>
+<td>19</td><td class="sym">ESE</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS67</span></td>
+<td>$291.96</td><td class="score-high">65</td>
+<td class="stop risk">$283.20</td><td class="target risk">$306.56</td>
+<td>0.6x</td><td>$64M</td>
+<td class="signals">NR3 | NR4 | ADX:20 | LOW VOL</td></tr><tr>
+<td>20</td><td class="sym">FLOC</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS63</span></td>
+<td>$23.53</td><td class="score-high">65</td>
+<td class="stop risk">$22.82</td><td class="target risk">$24.71</td>
+<td>0.8x</td><td>$14M</td>
+<td class="signals">NR3 | NR4 | ADX:20 | LOW VOL</td></tr><tr>
+<td>21</td><td class="sym">GHC</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS45</span></td>
+<td>$1115.99</td><td class="score-high">65</td>
+<td class="stop risk">$1082.51</td><td class="target risk">$1171.79</td>
+<td>0.8x</td><td>$15M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | LOW VOL</td></tr><tr>
+<td>22</td><td class="sym">IEFA</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS57</span></td>
+<td>$98.11</td><td class="score-high">65</td>
+<td class="stop risk">$95.17</td><td class="target risk">$103.02</td>
+<td>0.6x</td><td>$614M</td>
+<td class="signals">NR3 | NR4 | ADX:15 | LOW VOL</td></tr><tr>
+<td>23</td><td class="sym">JAAA</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS39</span></td>
+<td>$50.55</td><td class="score-high">65</td>
+<td class="stop risk">$49.03</td><td class="target risk">$53.08</td>
+<td>1.0x</td><td>$215M</td>
+<td class="signals">BB:0.8% | NR3 | NR4 | ADX:18</td></tr><tr>
+<td>24</td><td class="sym">KNTK</td>
+<td><span class="badge-b50">↓50</span></td><td><span class="badge-rsl">RS47</span></td>
+<td>$45.78</td><td class="score-high">65</td>
+<td class="stop risk">$44.41</td><td class="target risk">$48.07</td>
+<td>0.8x</td><td>$38M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | LOW VOL</td></tr><tr>
+<td>25</td><td class="sym">MMM</td>
+<td><span class="badge-b50">↓50</span></td><td><span class="badge-rsl">RS41</span></td>
+<td>$152.77</td><td class="score-high">65</td>
+<td class="stop risk">$148.19</td><td class="target risk">$160.41</td>
+<td>0.7x</td><td>$378M</td>
+<td class="signals">NR3 | NR4 | ADX:15 | LOW VOL</td></tr><tr>
+<td>26</td><td class="sym">RUN</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS75</span></td>
+<td>$14.82</td><td class="score-high">65</td>
+<td class="stop risk">$14.38</td><td class="target risk">$15.56</td>
+<td>0.6x</td><td>$75M</td>
+<td class="signals">NR3 | NR4 | ADX:19 | LOW VOL</td></tr><tr>
+<td>27</td><td class="sym">STNG</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS34</span></td>
+<td>$75.08</td><td class="score-high">65</td>
+<td class="stop risk">$72.83</td><td class="target risk">$78.83</td>
+<td>0.4x</td><td>$38M</td>
+<td class="signals">NR3 | NR4 | ADX:10 | LOW VOL</td></tr><tr>
+<td>28</td><td class="sym">TLN</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS57</span></td>
+<td>$378.08</td><td class="score-high">65</td>
+<td class="stop risk">$366.74</td><td class="target risk">$396.98</td>
+<td>0.8x</td><td>$198M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | LOW VOL</td></tr><tr>
+<td>29</td><td class="sym">UAL</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS53</span></td>
+<td>$104.94</td><td class="score-high">65</td>
+<td class="stop risk">$101.79</td><td class="target risk">$110.19</td>
+<td>0.5x</td><td>$442M</td>
+<td class="signals">NR3 | NR4 | ADX:17 | LOW VOL</td></tr><tr>
+<td>30</td><td class="sym">URBN</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS59</span></td>
+<td>$72.91</td><td class="score-high">65</td>
+<td class="stop risk">$70.72</td><td class="target risk">$76.56</td>
+<td>0.5x</td><td>$53M</td>
+<td class="signals">NR3 | NR4 | ADX:20 | LOW VOL</td></tr><tr>
+<td>31</td><td class="sym">WRBY</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS23</span></td>
+<td>$24.12</td><td class="score-high">65</td>
+<td class="stop risk">$23.40</td><td class="target risk">$25.33</td>
+<td>0.7x</td><td>$36M</td>
+<td class="signals">NR3 | NR4 | ADX:15 | LOW VOL</td></tr><tr>
+<td>32</td><td class="sym">AME</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS57</span></td>
+<td>$228.76</td><td class="score-high">60</td>
+<td class="stop risk">$221.90</td><td class="target risk">$240.20</td>
+<td>0.9x</td><td>$223M</td>
+<td class="signals">NR3 | NR4 | ADX:19 | MACD RISING</td></tr><tr>
+<td>33</td><td class="sym">AVA</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS47</span></td>
+<td>$41.61</td><td class="score-high">60</td>
+<td class="stop risk">$40.36</td><td class="target risk">$43.69</td>
+<td>1.2x</td><td>$32M</td>
+<td class="signals">NR3 | NR4 | ADX:11 | MACD RISING</td></tr><tr>
+<td>34</td><td class="sym">CARR</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS71</span></td>
+<td>$68.54</td><td class="score-high">60</td>
+<td class="stop risk">$66.48</td><td class="target risk">$71.97</td>
+<td>0.8x</td><td>$377M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | MACD RISING</td></tr><tr>
+<td>35</td><td class="sym">CHEF</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS77</span></td>
+<td>$77.54</td><td class="score-high">60</td>
+<td class="stop risk">$75.21</td><td class="target risk">$81.42</td>
+<td>0.5x</td><td>$15M</td>
+<td class="signals">NR3 | NR4 | ADX:24 | MACD RISING | LOW VOL</td></tr><tr>
+<td>36</td><td class="sym">CNK</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS63</span></td>
+<td>$30.81</td><td class="score-high">60</td>
+<td class="stop risk">$29.89</td><td class="target risk">$32.35</td>
+<td>0.7x</td><td>$49M</td>
+<td class="signals">NR3 | ADX:16 | MACD RISING | LOW VOL</td></tr><tr>
+<td>37</td><td class="sym">CVX</td>
+<td><span class="badge-b50">↓50</span></td><td><span class="badge-rsl">RS47</span></td>
+<td>$188.35</td><td class="score-high">60</td>
+<td class="stop risk">$182.70</td><td class="target risk">$197.77</td>
+<td>0.4x</td><td>$972M</td>
+<td class="signals">NR3 | NR4 | ADX:24 | MACD RISING | LOW VOL</td></tr><tr>
+<td>38</td><td class="sym">DBC</td>
+<td><span class="badge-s1">S1</span></td><td></td>
+<td>$29.88</td><td class="score-high">60</td>
+<td class="stop risk">$28.98</td><td class="target risk">$31.37</td>
+<td>0.5x</td><td>$23M</td>
+<td class="signals">NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL</td></tr><tr>
+<td>39</td><td class="sym">DRS</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS52</span></td>
+<td>$46.71</td><td class="score-high">60</td>
+<td class="stop risk">$45.31</td><td class="target risk">$49.05</td>
+<td>0.7x</td><td>$36M</td>
+<td class="signals">NR3 | ADX:15 | MACD RISING | LOW VOL</td></tr><tr>
+<td>40</td><td class="sym">EIX</td>
+<td><span class="badge-b50">↓50</span></td><td><span class="badge-rsl">RS56</span></td>
+<td>$71.81</td><td class="score-high">60</td>
+<td class="stop risk">$69.66</td><td class="target risk">$75.40</td>
+<td>0.9x</td><td>$187M</td>
+<td class="signals">NR3 | NR4 | ADX:19 | MACD RISING</td></tr><tr>
+<td>41</td><td class="sym">EW</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS51</span></td>
+<td>$87.45</td><td class="score-high">60</td>
+<td class="stop risk">$84.83</td><td class="target risk">$91.82</td>
+<td>0.9x</td><td>$396M</td>
+<td class="signals">NR3 | NR4 | ADX:20 | MACD RISING</td></tr><tr>
+<td>42</td><td class="sym">FTV</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS63</span></td>
+<td>$61.47</td><td class="score-high">60</td>
+<td class="stop risk">$59.63</td><td class="target risk">$64.54</td>
+<td>1.1x</td><td>$205M</td>
+<td class="signals">NR3 | ADX:20 | MACD CROSS</td></tr><tr>
+<td>43</td><td class="sym">HALO</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS55</span></td>
+<td>$71.60</td><td class="score-high">60</td>
+<td class="stop risk">$69.45</td><td class="target risk">$75.18</td>
+<td>1.5x</td><td>$161M</td>
+<td class="signals">NR3 | NR4 | ADX:15 | MACD RISING</td></tr><tr>
+<td>44</td><td class="sym">IMAX</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS58</span></td>
+<td>$39.10</td><td class="score-high">60</td>
+<td class="stop risk">$37.93</td><td class="target risk">$41.05</td>
+<td>0.9x</td><td>$38M</td>
+<td class="signals">NR3 | NR4 | ADX:17 | MACD RISING</td></tr><tr>
+<td>45</td><td class="sym">KSS</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS56</span></td>
+<td>$15.96</td><td class="score-high">60</td>
+<td class="stop risk">$15.48</td><td class="target risk">$16.76</td>
+<td>0.8x</td><td>$61M</td>
+<td class="signals">NR3 | NR4 | ADX:20 | MACD RISING</td></tr><tr>
+<td>46</td><td class="sym">LB</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS58</span></td>
+<td>$74.27</td><td class="score-high">60</td>
+<td class="stop risk">$72.04</td><td class="target risk">$77.98</td>
+<td>1.1x</td><td>$29M</td>
+<td class="signals">NR3 | NR4 | ADX:18 | MACD RISING</td></tr><tr>
+<td>47</td><td class="sym">MGM</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS81</span></td>
+<td>$47.94</td><td class="score-high">60</td>
+<td class="stop risk">$46.50</td><td class="target risk">$50.34</td>
+<td>0.7x</td><td>$177M</td>
+<td class="signals">NR3 | NR4 | ADX:25 | MACD RISING | LOW VOL</td></tr><tr>
+<td>48</td><td class="sym">PDBC</td>
+<td><span class="badge-s1">S1</span></td><td></td>
+<td>$17.85</td><td class="score-high">60</td>
+<td class="stop risk">$17.31</td><td class="target risk">$18.74</td>
+<td>0.3x</td><td>$53M</td>
+<td class="signals">NR3 | NR4 | ADX:0 | MACD RISING | LOW VOL</td></tr><tr>
+<td>49</td><td class="sym">PRKS</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS77</span></td>
+<td>$40.78</td><td class="score-high">60</td>
+<td class="stop risk">$39.56</td><td class="target risk">$42.82</td>
+<td>0.8x</td><td>$30M</td>
+<td class="signals">NR3 | NR4 | ADX:22 | MACD RISING | LOW VOL</td></tr><tr>
+<td>50</td><td class="sym">QLYS</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS70</span></td>
+<td>$111.53</td><td class="score-high">60</td>
+<td class="stop risk">$108.18</td><td class="target risk">$117.10</td>
+<td>0.7x</td><td>$75M</td>
+<td class="signals">NR3 | NR4 | ADX:24 | MACD RISING | LOW VOL</td></tr><tr>
+<td>51</td><td class="sym">RVTY</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS54</span></td>
+<td>$102.40</td><td class="score-high">60</td>
+<td class="stop risk">$99.33</td><td class="target risk">$107.52</td>
+<td>0.8x</td><td>$89M</td>
+<td class="signals">NR3 | NR4 | ADX:21 | MACD RISING | LOW VOL</td></tr><tr>
+<td>52</td><td class="sym">TRNS</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS81</span></td>
+<td>$93.24</td><td class="score-high">60</td>
+<td class="stop risk">$90.44</td><td class="target risk">$97.90</td>
+<td>1.1x</td><td>$17M</td>
+<td class="signals">NR3 | NR4 | ADX:14 | MACD RISING</td></tr><tr>
+<td>53</td><td class="sym">VTEB</td>
+<td><span class="badge-s1">S1</span></td><td></td>
+<td>$50.38</td><td class="score-high">60</td>
+<td class="stop risk">$48.87</td><td class="target risk">$52.90</td>
+<td>0.9x</td><td>$294M</td>
+<td class="signals">BB:1.2% | NR3 | NR4 | ADX:0 | MACD RISING</td></tr><tr>
+<td>54</td><td class="sym">WMB</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS50</span></td>
+<td>$72.43</td><td class="score-high">60</td>
+<td class="stop risk">$70.26</td><td class="target risk">$76.05</td>
+<td>1.1x</td><td>$475M</td>
+<td class="signals">NR3 | NR4 | ADX:19 | MACD RISING</td></tr><tr>
+<td>55</td><td class="sym">CWAN</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS50</span></td>
+<td>$24.38</td><td class="score-med">55</td>
+<td class="stop risk">$23.65</td><td class="target risk">$25.60</td>
+<td>0.4x</td><td>$42M</td>
+<td class="signals">BB:3.9% | NR3 | NR4 | LOW VOL</td></tr><tr>
+<td>56</td><td class="sym">DBRG</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS52</span></td>
+<td>$15.67</td><td class="score-med">55</td>
+<td class="stop risk">$15.20</td><td class="target risk">$16.45</td>
+<td>0.3x</td><td>$15M</td>
+<td class="signals">BB:2.3% | NR3 | NR4 | LOW VOL</td></tr><tr>
+<td>57</td><td class="sym">PRA</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS40</span></td>
+<td>$24.53</td><td class="score-med">50</td>
+<td class="stop risk">$23.79</td><td class="target risk">$25.76</td>
+<td>1.0x</td><td>$23M</td>
+<td class="signals">BB:3.9% | NR3 | NR4 | MACD RISING</td></tr><tr>
+<td>58</td><td class="sym">TXNM</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS36</span></td>
+<td>$59.28</td><td class="score-med">50</td>
+<td class="stop risk">$57.50</td><td class="target risk">$62.24</td>
+<td>0.6x</td><td>$44M</td>
+<td class="signals">BB:1.4% | NR3 | MACD RISING | LOW VOL</td></tr></tbody></table></div>
+<div class="setup-section">
+<div class="setup-header" style="background: #22C55E22; border: 1px solid #22C55E44;">
+  <div><h2 style="color:#22C55E">Accumulation Breakout</h2><div class="setup-desc">Smart money buying — OBV rising while price is flat, strong buying volume ratio, near 52-week highs.</div></div>
+  <div class="setup-count" style="color:#22C55E">0</div>
+</div>
+<div class="empty">No setups found</div></div>
+<div class="setup-section">
+<div class="setup-header" style="background: #F59E0B22; border: 1px solid #F59E0B44;">
+  <div><h2 style="color:#F59E0B">Pullback in Trend</h2><div class="setup-desc">Buy the dip — strong ADX trend, RSI pulled back to support, price testing SMA20. Trend intact.</div></div>
+  <div class="setup-count" style="color:#F59E0B">20</div>
+</div>
+<table><thead><tr>
+<th>#</th><th>Symbol</th><th>Trend</th><th>RS</th><th>Price</th><th>Score</th>
+<th>Stop</th><th>Target</th><th>RVol</th><th>$Vol</th><th>Signals</th>
+</tr></thead><tbody><tr>
+<td>1</td><td class="sym">FUBO</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsm">RS78</span></td>
+<td>$10.16</td><td class="score-high">80</td>
+<td class="stop risk">$9.86</td><td class="target risk">$10.67</td>
+<td>0.5x</td><td>$12M</td>
+<td class="signals">STRONG ADX:37 | RSI DIP:38 | MACD POS | TREND TEMPLATE | QUIET PULLBACK</td></tr><tr>
+<td>2</td><td class="sym">OILK</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsm">RS74</span></td>
+<td>$56.01</td><td class="score-high">80</td>
+<td class="stop risk">$54.33</td><td class="target risk">$58.81</td>
+<td>0.7x</td><td>$12M</td>
+<td class="signals">STRONG ADX:37 | RSI MILD:57 | NEAR SMA20 | MACD POS | TREND TEMPLATE | QUIET PULLBACK</td></tr><tr>
+<td>3</td><td class="sym">USO</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsm">RS87</span></td>
+<td>$136.74</td><td class="score-high">80</td>
+<td class="stop risk">$132.64</td><td class="target risk">$143.58</td>
+<td>0.1x</td><td>$573M</td>
+<td class="signals">STRONG ADX:42 | RSI DIP:49 | MACD POS | TREND TEMPLATE | QUIET PULLBACK</td></tr><tr>
+<td>4</td><td class="sym">APEI</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS56</span></td>
+<td>$52.99</td><td class="score-high">70</td>
+<td class="stop risk">$51.40</td><td class="target risk">$55.64</td>
+<td>0.9x</td><td>$13M</td>
+<td class="signals">STRONG ADX:32 | RSI DIP:40 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>5</td><td class="sym">DLR</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS58</span></td>
+<td>$188.70</td><td class="score-high">70</td>
+<td class="stop risk">$183.04</td><td class="target risk">$198.13</td>
+<td>1.0x</td><td>$403M</td>
+<td class="signals">ADX:28 | RSI MILD:57 | AT SMA20 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>6</td><td class="sym">DNTH</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsm">RS73</span></td>
+<td>$84.13</td><td class="score-high">70</td>
+<td class="stop risk">$81.61</td><td class="target risk">$88.34</td>
+<td>1.1x</td><td>$76M</td>
+<td class="signals">STRONG ADX:33 | RSI DIP:47 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>7</td><td class="sym">HTH</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS51</span></td>
+<td>$37.13</td><td class="score-high">70</td>
+<td class="stop risk">$36.02</td><td class="target risk">$38.99</td>
+<td>0.9x</td><td>$10M</td>
+<td class="signals">ADX:22 | RSI MILD:54 | AT SMA20 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>8</td><td class="sym">NEXT</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsm">RS84</span></td>
+<td>$8.66</td><td class="score-high">70</td>
+<td class="stop risk">$8.40</td><td class="target risk">$9.09</td>
+<td>0.6x</td><td>$20M</td>
+<td class="signals">STRONG ADX:37 | RSI DIP:49 | MACD POS | QUIET PULLBACK</td></tr><tr>
+<td>9</td><td class="sym">SQM</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS68</span></td>
+<td>$77.69</td><td class="score-high">70</td>
+<td class="stop risk">$75.36</td><td class="target risk">$81.57</td>
+<td>0.7x</td><td>$75M</td>
+<td class="signals">ADX:25 | RSI DIP:49 | MACD POS | TREND TEMPLATE | QUIET PULLBACK</td></tr><tr>
+<td>10</td><td class="sym">VLO</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsm">RS81</span></td>
+<td>$258.85</td><td class="score-high">70</td>
+<td class="stop risk">$251.08</td><td class="target risk">$271.79</td>
+<td>0.7x</td><td>$592M</td>
+<td class="signals">STRONG ADX:35 | RSI MILD:54 | MACD POS | TREND TEMPLATE | QUIET PULLBACK</td></tr><tr>
+<td>11</td><td class="sym">BGC</td>
+<td><span class="badge-s1">S1</span></td><td><span class="badge-rsl">RS61</span></td>
+<td>$10.56</td><td class="score-high">60</td>
+<td class="stop risk">$10.24</td><td class="target risk">$11.09</td>
+<td>1.1x</td><td>$33M</td>
+<td class="signals">STRONG ADX:32 | RSI DIP:49 | MACD POS</td></tr><tr>
+<td>12</td><td class="sym">BKSY</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsh">RS91</span></td>
+<td>$39.66</td><td class="score-high">60</td>
+<td class="stop risk">$38.47</td><td class="target risk">$41.64</td>
+<td>1.0x</td><td>$99M</td>
+<td class="signals">STRONG ADX:34 | RSI MILD:57 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>13</td><td class="sym">BOH</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS50</span></td>
+<td>$76.37</td><td class="score-high">60</td>
+<td class="stop risk">$74.08</td><td class="target risk">$80.19</td>
+<td>0.8x</td><td>$24M</td>
+<td class="signals">ADX:25 | RSI DIP:50 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>14</td><td class="sym">CNR</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS41</span></td>
+<td>$98.91</td><td class="score-high">60</td>
+<td class="stop risk">$95.94</td><td class="target risk">$103.86</td>
+<td>0.7x</td><td>$61M</td>
+<td class="signals">ADX:24 | RSI DIP:49 | TREND TEMPLATE | QUIET PULLBACK</td></tr><tr>
+<td>15</td><td class="sym">ECVT</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS61</span></td>
+<td>$12.93</td><td class="score-high">60</td>
+<td class="stop risk">$12.54</td><td class="target risk">$13.58</td>
+<td>1.4x</td><td>$40M</td>
+<td class="signals">ADX:30 | RSI DIP:49 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>16</td><td class="sym">ESQ</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS44</span></td>
+<td>$108.62</td><td class="score-high">60</td>
+<td class="stop risk">$105.36</td><td class="target risk">$114.05</td>
+<td>0.8x</td><td>$11M</td>
+<td class="signals">ADX:27 | RSI DIP:45 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>17</td><td class="sym">ETR</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS59</span></td>
+<td>$109.28</td><td class="score-high">60</td>
+<td class="stop risk">$106.00</td><td class="target risk">$114.74</td>
+<td>1.7x</td><td>$571M</td>
+<td class="signals">ADX:25 | RSI DIP:40 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>18</td><td class="sym">NJR</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS54</span></td>
+<td>$54.61</td><td class="score-high">60</td>
+<td class="stop risk">$52.97</td><td class="target risk">$57.34</td>
+<td>1.5x</td><td>$36M</td>
+<td class="signals">ADX:27 | RSI DIP:39 | MACD POS | TREND TEMPLATE</td></tr><tr>
+<td>19</td><td class="sym">PRA</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS40</span></td>
+<td>$24.53</td><td class="score-high">60</td>
+<td class="stop risk">$23.79</td><td class="target risk">$25.76</td>
+<td>1.0x</td><td>$23M</td>
+<td class="signals">ADX:25 | RSI MILD:56 | AT SMA20 | TREND TEMPLATE</td></tr><tr>
+<td>20</td><td class="sym">GKOS</td>
+<td><span class="badge-s2">S2</span></td><td><span class="badge-rsl">RS61</span></td>
+<td>$121.69</td><td class="score-med">50</td>
+<td class="stop risk">$118.04</td><td class="target risk">$127.77</td>
+<td>2.0x</td><td>$193M</td>
+<td class="signals">ADX:25 | RSI MILD:56 | MACD POS | TREND TEMPLATE</td></tr></tbody></table></div>
+<div class="footer">
+<strong>Setup Logic:</strong> VCB = BB squeeze + NR patterns + ADX&lt;25 + MACD shift &bull;
+ACCUM = OBV divergence + buying volume + near 52WH &bull;
+PULLBACK = ADX&gt;25 trend + RSI 40-55 dip + price at SMA20<br>
+<strong>Risk:</strong> 3% stop / 5% target (optimized via historical backtest of 23K+ signals)<br>
+<strong>Filters:</strong> Price &gt; $5 &bull; Dollar volume &gt; $10M &bull; Score &gt;= 40
+</div>
+</div></body></html>

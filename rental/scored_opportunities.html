@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scored Opportunities — Rental Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #222538;
+      --border: #2e3148;
+      --text: #e2e8f0;
+      --text-muted: #8892a4;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --green-bg: rgba(34,197,94,0.12);
+      --amber-bg: rgba(245,158,11,0.12);
+      --yellow-bg: rgba(234,179,8,0.12);
+      --red-bg: rgba(239,68,68,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent-light);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover, .nav-links a.active { background: var(--surface2); color: var(--text); }
+    .nav-links a.active { color: var(--accent-light); }
+    .page-wrap { max-width: 1400px; margin: 0 auto; padding: 28px 24px 60px; }
+    .page-header { margin-bottom: 28px; }
+    .page-title { font-size: 22px; font-weight: 700; letter-spacing: -0.4px; }
+    .page-subtitle { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+    #last-updated { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .kpi-value { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+    .kpi-value.green { color: var(--green); }
+    .kpi-value.amber { color: var(--amber); }
+    .kpi-sub { font-size: 12px; color: var(--text-muted); margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .filter-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-end;
+    }
+    .filter-group { display: flex; flex-direction: column; gap: 6px; min-width: 160px; }
+    .filter-group.slider-group { min-width: 220px; }
+    .filter-label { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); }
+    .filter-select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .filter-select:focus { border-color: var(--accent); }
+    .slider-row { display: flex; align-items: center; gap: 10px; }
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 160px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+    }
+    .slider-val { font-size: 13px; font-weight: 600; color: var(--text); min-width: 28px; text-align: right; }
+    .filter-actions { display: flex; gap: 8px; align-items: flex-end; margin-left: auto; }
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn.secondary {
+      background: var(--surface2);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn.secondary:hover { color: var(--text); }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+    .section-title { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
+    .section-count { font-size: 12px; color: var(--text-muted); }
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 3px 8px;
+      min-width: 44px;
+      letter-spacing: -0.2px;
+    }
+    .score-badge.green  { background: var(--green-bg);  color: var(--green); }
+    .score-badge.amber  { background: var(--amber-bg);  color: var(--amber); }
+    .score-badge.yellow { background: var(--yellow-bg); color: var(--yellow); }
+    .score-badge.red    { background: var(--red-bg);    color: var(--red); }
+    .score-bar-wrap {
+      width: 52px; height: 4px; background: var(--border);
+      border-radius: 2px; overflow: hidden; display: inline-block;
+      vertical-align: middle; margin-left: 6px;
+    }
+    .score-bar { height: 100%; border-radius: 2px; transition: width 0.3s; }
+    .score-bar.green  { background: var(--green); }
+    .score-bar.amber  { background: var(--amber); }
+    .score-bar.yellow { background: var(--yellow); }
+    .score-bar.red    { background: var(--red); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .opp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .opp-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .opp-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .opp-address { font-size: 13px; font-weight: 600; line-height: 1.4; flex: 1; }
+    .opp-county { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .opp-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+    .opp-metric-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
+    .opp-metric-value { font-size: 13px; font-weight: 500; color: var(--text); margin-top: 2px; }
+    .opp-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 10px; }
+    .confidence-pill {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 4px;
+      background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border);
+    }
+    .rank-badge { font-size: 10px; font-weight: 700; color: var(--text-muted); }
+    .table-section { margin-top: 8px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: var(--surface);
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.15s;
+    }
+    thead th:hover { color: var(--text); }
+    thead th .sort-icon { margin-left: 4px; opacity: 0.35; font-style: normal; }
+    thead th.sorted .sort-icon { opacity: 1; color: var(--accent-light); }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface2); }
+    tbody td { padding: 10px 14px; color: var(--text); white-space: nowrap; }
+    tbody td.address-cell { white-space: normal; max-width: 220px; }
+    .no-data { text-align: center; padding: 48px 20px; color: var(--text-muted); font-size: 14px; }
+    .error-banner {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #fca5a5;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      display: none;
+    }
+    .loading { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+    .spinner {
+      display: inline-block;
+      width: 28px; height: 28px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .page-wrap { padding: 20px 16px 48px; }
+      .nav-links { display: none; }
+      .filter-bar { gap: 14px; }
+      .filter-actions { margin-left: 0; width: 100%; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Rental Intelligence</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Dashboard</a></li>
+    <li><a href="scored_opportunities.html" class="active">Opportunities</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <h1 class="page-title">Scored Opportunities</h1>
+    <p class="page-subtitle">Buildings ranked by composite opportunity score</p>
+    <p id="last-updated"></p>
+  </div>
+
+  <div id="error-banner" class="error-banner"></div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Scored</div>
+      <div class="kpi-value" id="kpi-total">&mdash;</div>
+      <div class="kpi-sub">buildings evaluated</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Avg Opportunity Score</div>
+      <div class="kpi-value amber" id="kpi-avg">&mdash;</div>
+      <div class="kpi-sub">across all scored buildings</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Top Score</div>
+      <div class="kpi-value green" id="kpi-top-score">&mdash;</div>
+      <div class="kpi-sub" id="kpi-top-addr">highest opportunity score</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">High Opportunity (&ge;50)</div>
+      <div class="kpi-value" id="kpi-high-conf">&mdash;</div>
+      <div class="kpi-sub">buildings scoring &ge;50</div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-group slider-group">
+      <label class="filter-label">Min Opportunity Score</label>
+      <div class="slider-row">
+        <input type="range" id="score-slider" min="0" max="100" value="0" step="1">
+        <span class="slider-val" id="score-val">0</span>
+      </div>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">City / Town</label>
+      <select class="filter-select" id="city-select">
+        <option value="">All Cities</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">Score Tier</label>
+      <select class="filter-select" id="tier-select">
+        <option value="">All Tiers</option>
+        <option value="green">Strong (&ge;75)</option>
+        <option value="amber">Good (50&ndash;74)</option>
+        <option value="yellow">Moderate (25&ndash;49)</option>
+        <option value="red">Weak (&lt;25)</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">Min Cap Rate</label>
+      <select class="filter-select" id="caprate-select">
+        <option value="">Any</option>
+        <option value="0.05">5%+</option>
+        <option value="0.10">10%+</option>
+        <option value="0.15">15%+</option>
+        <option value="0.20">20%+</option>
+      </select>
+    </div>
+    <div class="filter-actions">
+      <button class="btn secondary" onclick="resetFilters()">Reset</button>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2 class="section-title">Top Opportunities</h2>
+    <span class="section-count" id="cards-count"></span>
+  </div>
+  <div id="cards-loading" class="loading">
+    <div class="spinner"></div>
+    <div>Loading opportunities&hellip;</div>
+  </div>
+  <div class="cards-grid" id="cards-grid" style="display:none"></div>
+
+  <div class="table-section">
+    <div class="section-header">
+      <h2 class="section-title">All Scored Buildings</h2>
+      <span class="section-count" id="table-count"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortTable('rank')" id="th-rank">Rank <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('address')" id="th-address">Address <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('city')" id="th-city">City <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('opportunity_score')" id="th-opportunity_score" class="sorted">Score <i class="sort-icon">&#9660;</i></th>
+            <th onclick="sortTable('cap_rate')" id="th-cap_rate">Cap Rate <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('noi')" id="th-noi">Annual NOI <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('rent_estimate')" id="th-rent_estimate">Mo. Rent <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('cash_flow')" id="th-cash_flow">Mo. Cash Flow <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('units')" id="th-units">Units <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('updated_at')" id="th-updated_at">Scored <i class="sort-icon">&#9650;</i></th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="10" class="no-data">Loading&hellip;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  let allBuildings = [];
+  let summaryMeta = {};
+  let sortCol = 'opportunity_score';
+  let sortDir = 'desc';
+
+  function scoreTier(score) {
+    if (score >= 75) return 'green';
+    if (score >= 50) return 'amber';
+    if (score >= 25) return 'yellow';
+    return 'red';
+  }
+
+  function scoreBadgeHTML(score) {
+    const tier = scoreTier(score);
+    const pct = Math.min(100, Math.max(0, score));
+    return '<span class="score-badge ' + tier + '">' + score.toFixed(1) + '</span>'
+      + '<span class="score-bar-wrap"><span class="score-bar ' + tier + '" style="width:' + pct + '%"></span></span>';
+  }
+
+  function fmtCurrency(val) {
+    if (val == null || val === '') return '\u2014';
+    const n = parseFloat(val);
+    if (isNaN(n)) return '\u2014';
+    return '$' + Math.round(n).toLocaleString();
+  }
+
+  function fmtPct(val) {
+    if (val == null || val === '') return '\u2014';
+    const n = parseFloat(val);
+    if (isNaN(n)) return '\u2014';
+    return (n * 100).toFixed(1) + '%';
+  }
+
+  function fmtDate(val) {
+    if (!val) return '\u2014';
+    try { return new Date(val).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}); }
+    catch(e) { return val; }
+  }
+
+  function fmtCashFlow(rent, expense) {
+    if (rent == null || expense == null) return '\u2014';
+    const cf = parseFloat(rent) - parseFloat(expense);
+    if (isNaN(cf)) return '\u2014';
+    const color = cf >= 0 ? 'var(--green)' : 'var(--red)';
+    return '<span style="color:' + color + '">' + (cf >= 0 ? '+' : '') + '$' + Math.round(cf).toLocaleString() + '</span>';
+  }
+
+  function confLabel(source) {
+    if (!source) return '\u2014';
+    const count = source.split(',').length;
+    return count + '/5';
+  }
+
+  function getFilters() {
+    return {
+      minScore:  parseInt(document.getElementById('score-slider').value, 10) || 0,
+      city:      document.getElementById('city-select').value,
+      tier:      document.getElementById('tier-select').value,
+      minCapRate: parseFloat(document.getElementById('caprate-select').value) || 0,
+    };
+  }
+
+  function applyFilters(buildings) {
+    const f = getFilters();
+    return buildings.filter(function(b) {
+      if (b.opportunity_score < f.minScore) return false;
+      if (f.city && (b.city || '').toUpperCase() !== f.city.toUpperCase()) return false;
+      if (f.tier && scoreTier(b.opportunity_score) !== f.tier) return false;
+      if (f.minCapRate && (b.cap_rate == null || b.cap_rate < f.minCapRate)) return false;
+      return true;
+    });
+  }
+
+  function sortBuildings(buildings) {
+    return buildings.slice().sort(function(a, b) {
+      var av = sortCol === 'rank' ? a._rank : (sortCol === 'cash_flow' ? a._cash_flow : a[sortCol]);
+      var bv = sortCol === 'rank' ? b._rank : (sortCol === 'cash_flow' ? b._cash_flow : b[sortCol]);
+      if (av == null) av = sortDir === 'asc' ? Infinity : -Infinity;
+      if (bv == null) bv = sortDir === 'asc' ? Infinity : -Infinity;
+      if (typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+      return sortDir === 'asc' ? av - bv : bv - av;
+    });
+  }
+
+  function sortTable(col) {
+    if (sortCol === col) {
+      sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      sortCol = col;
+      sortDir = 'desc';
+    }
+    updateSortHeaders();
+    render();
+  }
+
+  function updateSortHeaders() {
+    document.querySelectorAll('thead th').forEach(function(th) {
+      th.classList.remove('sorted');
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.innerHTML = '&#9650;';
+    });
+    var th = document.getElementById('th-' + sortCol);
+    if (th) {
+      th.classList.add('sorted');
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.innerHTML = sortDir === 'asc' ? '&#9650;' : '&#9660;';
+    }
+  }
+
+  function renderKPIs() {
+    document.getElementById('kpi-total').textContent = allBuildings.length.toLocaleString();
+
+    var avg = allBuildings.length
+      ? allBuildings.reduce(function(s,b){return s+b.opportunity_score;},0) / allBuildings.length
+      : 0;
+    document.getElementById('kpi-avg').textContent = avg.toFixed(1);
+
+    var top = allBuildings[0];
+    if (top) {
+      document.getElementById('kpi-top-score').textContent = top.opportunity_score.toFixed(1);
+      var addr = [top.address, top.city].filter(Boolean).join(', ');
+      document.getElementById('kpi-top-addr').textContent = addr || 'N/A';
+    }
+
+    var highOpp = allBuildings.filter(function(b) { return b.opportunity_score >= 50; }).length;
+    document.getElementById('kpi-high-conf').textContent = highOpp.toLocaleString();
+
+    if (summaryMeta.generated_at) {
+      document.getElementById('last-updated').textContent = 'Last updated: ' + fmtDate(summaryMeta.generated_at);
+    }
+  }
+
+  function renderCards(filtered) {
+    var top25 = filtered.slice(0, 25);
+    var grid = document.getElementById('cards-grid');
+    document.getElementById('cards-count').textContent =
+      'Showing ' + top25.length + ' of ' + filtered.length + ' filtered';
+
+    if (top25.length === 0) {
+      grid.innerHTML = '<p class="no-data" style="grid-column:1/-1;padding:32px">No buildings match the current filters.</p>';
+      return;
+    }
+
+    grid.innerHTML = top25.map(function(b, i) {
+      var rank = b._rank || (i + 1);
+      var addr = b.address || 'Unknown Address';
+      var loc = [b.city, b.state].filter(Boolean).join(', ');
+      var unitsStr = b.units != null ? b.units + ' unit' + (b.units !== 1 ? 's' : '') : null;
+      var cf = b.rent_estimate != null && b.expense_estimate != null
+        ? parseFloat(b.rent_estimate) - parseFloat(b.expense_estimate) : null;
+      var cfColor = cf != null ? (cf >= 0 ? 'var(--green)' : 'var(--red)') : '';
+      return '<div class="opp-card">'
+        + '<div class="opp-card-header">'
+        + '<div>'
+        + '<div class="opp-address">' + addr
+          + (loc ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:12px">' + loc + '</span>' : '')
+          + '</div>'
+        + (unitsStr ? '<div class="opp-county">' + unitsStr + '</div>' : '')
+        + '</div>'
+        + '<div>' + scoreBadgeHTML(b.opportunity_score) + '</div>'
+        + '</div>'
+        + '<div class="opp-metrics">'
+        + '<div><div class="opp-metric-label">Cap Rate</div><div class="opp-metric-value">' + fmtPct(b.cap_rate) + '</div></div>'
+        + '<div><div class="opp-metric-label">Annual NOI</div><div class="opp-metric-value">' + fmtCurrency(b.noi) + '</div></div>'
+        + '<div><div class="opp-metric-label">Mo. Rent</div><div class="opp-metric-value">' + fmtCurrency(b.rent_estimate) + '</div></div>'
+        + '<div><div class="opp-metric-label">Mo. Cash Flow</div><div class="opp-metric-value">'
+          + (cf != null ? '<span style="color:' + cfColor + '">' + (cf >= 0 ? '+' : '') + '$' + Math.round(cf).toLocaleString() + '</span>' : '\u2014')
+          + '</div></div>'
+        + '</div>'
+        + '<div class="opp-footer">'
+        + '<span class="confidence-pill">' + confLabel(b.confidence_source) + ' data</span>'
+        + '<span class="rank-badge">#' + rank + '</span>'
+        + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  function renderTable(filtered) {
+    var sorted = sortBuildings(filtered);
+    document.getElementById('table-count').textContent =
+      sorted.length + ' building' + (sorted.length !== 1 ? 's' : '');
+
+    var tbody = document.getElementById('table-body');
+    if (sorted.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="10" class="no-data">No buildings match the current filters.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = sorted.map(function(b) {
+      return '<tr>'
+        + '<td style="color:var(--text-muted);font-size:12px">#' + (b._rank || '') + '</td>'
+        + '<td class="address-cell">' + (b.address || '\u2014') + '</td>'
+        + '<td>' + (b.city || '\u2014') + '</td>'
+        + '<td>' + scoreBadgeHTML(b.opportunity_score) + '</td>'
+        + '<td>' + fmtPct(b.cap_rate) + '</td>'
+        + '<td>' + fmtCurrency(b.noi) + '</td>'
+        + '<td>' + fmtCurrency(b.rent_estimate) + '</td>'
+        + '<td>' + fmtCashFlow(b.rent_estimate, b.expense_estimate) + '</td>'
+        + '<td>' + (b.units != null ? b.units : '\u2014') + '</td>'
+        + '<td style="color:var(--text-muted);font-size:12px">' + fmtDate(b.updated_at) + '</td>'
+        + '</tr>';
+    }).join('');
+  }
+
+  function populateCities() {
+    var cities = allBuildings.map(function(b){return b.city;}).filter(Boolean);
+    cities = cities.filter(function(c,i){return cities.indexOf(c)===i;}).sort();
+    var sel = document.getElementById('city-select');
+    cities.forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c.charAt(0) + c.slice(1).toLowerCase();
+      sel.appendChild(opt);
+    });
+  }
+
+  function render() {
+    var filtered = applyFilters(allBuildings);
+    renderCards(filtered);
+    renderTable(filtered);
+  }
+
+  function resetFilters() {
+    document.getElementById('score-slider').value = 0;
+    document.getElementById('score-val').textContent = '0';
+    document.getElementById('city-select').value = '';
+    document.getElementById('tier-select').value = '';
+    document.getElementById('caprate-select').value = '';
+    render();
+  }
+
+  document.getElementById('score-slider').addEventListener('input', function() {
+    document.getElementById('score-val').textContent = this.value;
+    render();
+  });
+  document.getElementById('city-select').addEventListener('change', render);
+  document.getElementById('tier-select').addEventListener('change', render);
+  document.getElementById('caprate-select').addEventListener('change', render);
+
+  async function loadData() {
+    var errBanner = document.getElementById('error-banner');
+    var cardsLoading = document.getElementById('cards-loading');
+    var cardsGrid = document.getElementById('cards-grid');
+    try {
+      var res = await fetch('data/scoring_summary.json');
+      if (!res.ok) throw new Error('HTTP ' + res.status + ': ' + res.statusText);
+      var data = await res.json();
+
+      summaryMeta = { generated_at: data.generated_at || null };
+
+      var raw = data.buildings || [];
+      allBuildings = raw.map(function(b, i) {
+        var cf = (b.rent_estimate != null && b.expense_estimate != null)
+          ? parseFloat(b.rent_estimate) - parseFloat(b.expense_estimate) : null;
+        return Object.assign({}, b, {
+          opportunity_score: parseFloat(b.opportunity_score || 0),
+          cap_rate:          b.cap_rate != null ? parseFloat(b.cap_rate) : null,
+          noi:               b.noi      != null ? parseFloat(b.noi)      : null,
+          rent_estimate:     b.rent_estimate != null ? parseFloat(b.rent_estimate) : null,
+          expense_estimate:  b.expense_estimate != null ? parseFloat(b.expense_estimate) : null,
+          _cash_flow:        cf,
+          _rank:             i + 1,
+        });
+      });
+
+      allBuildings.sort(function(a,b){return b.opportunity_score - a.opportunity_score;});
+      allBuildings.forEach(function(b,i){b._rank = i+1;});
+
+      cardsLoading.style.display = 'none';
+      cardsGrid.style.display = '';
+
+      populateCities();
+      renderKPIs();
+      render();
+    } catch(err) {
+      cardsLoading.style.display = 'none';
+      cardsGrid.style.display = '';
+      errBanner.style.display = 'block';
+      errBanner.textContent = 'Failed to load scoring data: ' + err.message + '. Ensure web/data/scoring_summary.json exists.';
+      document.getElementById('table-body').innerHTML = '<tr><td colspan="10" class="no-data">No data available.</td></tr>';
+    }
+  }
+
+  loadData();
+</script>
+
+</body>
+</html>
