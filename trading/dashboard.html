@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
-         crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3689,9 +3687,102 @@
                           <style>
                             #universe-main { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
                             #universe-main.active { display: flex; }
-                            #univ-iframe { flex: 1; border: none; width: 100%; height: calc(100vh - 140px); }
+                            .univ-bar {
+                              flex-shrink: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+                              padding: 10px 16px; border-bottom: 1px solid #30363d; background: #0d1117;
+                            }
+                            .univ-liq-btns { display: flex; gap: 4px; }
+                            .univ-liq-btn {
+                              background: transparent; border: 1px solid #30363d;
+                              color: #8b949e; font-family: 'Courier New', monospace; font-size: 10px;
+                              padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: all 0.12s;
+                            }
+                            .univ-liq-btn:hover { border-color: #8b949e; color: #e6edf3; }
+                            .univ-liq-btn.active { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.4); color: #00d4aa; }
+                            .univ-search {
+                              background: rgba(255,255,255,0.04); border: 1px solid #30363d; border-radius: 6px;
+                              padding: 4px 10px; color: #e6edf3; font-family: 'Courier New', monospace; font-size: 11px;
+                              outline: none; width: 150px;
+                            }
+                            .univ-search:focus { border-color: #58a6ff; }
+                            .univ-fsel {
+                              background: #161b22; border: 1px solid #30363d; border-radius: 6px;
+                              padding: 4px 8px; color: #8b949e; font-size: 11px; font-family: 'Courier New', monospace;
+                              outline: none; cursor: pointer;
+                            }
+                            .univ-count { font-family: 'Courier New', monospace; font-size: 10px; color: #484f58; margin-left: auto; white-space: nowrap; }
+                            .univ-count em { font-style: normal; color: #8b949e; }
+                            .univ-scroller { flex: 1; overflow-y: auto; overflow-x: auto; }
+                            .univ-scroller::-webkit-scrollbar { width: 3px; }
+                            .univ-scroller::-webkit-scrollbar-thumb { background: #30363d; }
+                            #univ-table { width: 100%; border-collapse: collapse; }
+                            #univ-table thead { position: sticky; top: 0; z-index: 5; background: #0d1117; }
+                            #univ-table thead::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: #30363d; }
+                            #univ-table th {
+                              padding: 7px 12px; font-family: 'Courier New', monospace; font-size: 9px; font-weight: 700;
+                              letter-spacing: 0.12em; text-transform: uppercase; color: #484f58;
+                              text-align: left; white-space: nowrap; cursor: pointer; user-select: none;
+                            }
+                            #univ-table th:hover { color: #8b949e; }
+                            #univ-table th.u-num { text-align: right; }
+                            #univ-table th.u-sort-asc::after  { content: ' ↑'; color: #00d4aa; }
+                            #univ-table th.u-sort-desc::after { content: ' ↓'; color: #00d4aa; }
+                            #univ-table tbody tr { border-bottom: 1px solid rgba(48,54,61,0.4); }
+                            #univ-table tbody tr:hover { background: rgba(88,166,255,0.04); }
+                            #univ-table td { padding: 5px 12px; white-space: nowrap; font-size: 12px; }
+                            #univ-table td.u-num { text-align: right; font-variant-numeric: tabular-nums; }
+                            .u-sym   { font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; color: #58a6ff; }
+                            .u-co    { color: #8b949e; max-width: 200px; overflow: hidden; text-overflow: ellipsis; font-size: 11px; }
+                            .u-mc    { font-family: 'Courier New', monospace; font-size: 11px; color: #8b949e; }
+                            .u-price { font-family: 'Courier New', monospace; font-size: 11px; color: #e6edf3; }
+                            .u-ex    { font-family: 'Courier New', monospace; font-size: 10px; color: #484f58; }
+                            .u-sect  { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; background: rgba(88,166,255,0.08); color: rgba(88,166,255,0.6); }
+                            .u-vol-hi  { font-family: 'Courier New', monospace; font-size: 11px; color: #3fb950; }
+                            .u-vol-mid { font-family: 'Courier New', monospace; font-size: 11px; color: #d29922; }
+                            .u-vol-lo  { font-family: 'Courier New', monospace; font-size: 11px; color: #8b949e; }
+                            .u-badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 10px; }
+                            .u-b-valued   { background: rgba(63,185,80,0.1);  border: 1px solid rgba(63,185,80,0.3);  color: #3fb950; }
+                            .u-b-pending  { background: rgba(139,148,158,0.12); border: 1px solid rgba(139,148,158,0.3); color: #8b949e; }
+                            .u-b-excluded { background: rgba(210,153,34,0.1); border: 1px solid rgba(210,153,34,0.3); color: #d29922; }
+                            .u-b-error    { background: rgba(248,81,73,0.1);  border: 1px solid rgba(248,81,73,0.3);  color: #f85149; }
+                            .u-b-etf      { background: rgba(188,140,255,0.1);border: 1px solid rgba(188,140,255,0.3);color: #bc8cff; }
+                            .u-b-foreign  { background: rgba(45,212,191,0.1); border: 1px solid rgba(45,212,191,0.3); color: #2dd4bf; }
+                            .u-state { color: #484f58; font-size: 11px; padding: 40px; text-align: center; font-family: 'Courier New', monospace; }
+                            .univ-liq-lbl { font-family: 'Courier New', monospace; font-size: 10px; color: #484f58; white-space: nowrap; }
                           </style>
-                          <iframe id="univ-iframe" src="" title="Symbol Universe"></iframe>
+                          <div class="univ-bar">
+                            <input class="univ-search" id="univSearch" placeholder="symbol or name…" oninput="univApply()">
+                            <span class="univ-liq-lbl">LIQUIDITY</span>
+                            <div class="univ-liq-btns">
+                              <button class="univ-liq-btn active" data-minvol="0"   onclick="univLiqClick(this)">All</button>
+                              <button class="univ-liq-btn"        data-minvol="1e7" onclick="univLiqClick(this)">&gt;$10M</button>
+                              <button class="univ-liq-btn"        data-minvol="5e7" onclick="univLiqClick(this)">&gt;$50M</button>
+                              <button class="univ-liq-btn"        data-minvol="1e8" onclick="univLiqClick(this)">&gt;$100M</button>
+                              <button class="univ-liq-btn"        data-minvol="5e8" onclick="univLiqClick(this)">&gt;$500M</button>
+                            </div>
+                            <select class="univ-fsel" id="univFSector" onchange="univApply()">
+                              <option value="">All Sectors</option>
+                            </select>
+                            <select class="univ-fsel" id="univFExch" onchange="univApply()">
+                              <option value="">All Exchanges</option>
+                            </select>
+                            <div class="univ-count"><em id="univRowCount">—</em> securities</div>
+                          </div>
+                          <div class="univ-scroller">
+                            <table id="univ-table">
+                              <thead><tr>
+                                <th onclick="univSort('symbol',1)">Symbol</th>
+                                <th onclick="univSort('company_name',1)">Company</th>
+                                <th onclick="univSort('sector',1)">Sector</th>
+                                <th onclick="univSort('exchange_short',1)">Exch</th>
+                                <th class="u-num" onclick="univSort('price',-1)">Price</th>
+                                <th class="u-num" onclick="univSort('dollar_volume',-1)">$ Vol/Day</th>
+                                <th class="u-num" onclick="univSort('market_cap',-1)">Mkt Cap</th>
+                                <th onclick="univSort('dcf_status',1)">DCF</th>
+                              </tr></thead>
+                              <tbody id="univTbody"><tr><td colspan="8"><div class="u-state">—</div></td></tr></tbody>
+                            </table>
+                          </div>
                         </div>
 
                         <!-- ── DCF COVERAGE ────────────────────────────────── -->
@@ -9661,15 +9752,135 @@
             drUpdateHeaders();
         })();
 
-        // SYMBOL UNIVERSE TAB
+        // UNIVERSE TAB
         // ══════════════════════════════════════════════════════════════════════
         (function() {
-            let loaded = false;
-            window.univLoad = function() {
-                if (loaded) return;
-                loaded = true;
-                const fr = document.getElementById('univ-iframe');
-                if (fr) fr.src = '/trading/universe/';
+            let univRaw = [], univFiltered = [], univLoaded = false;
+            let univSortKey = 'dollar_volume', univSortDir = -1, univMinVol = 0;
+
+            const U_EX_MAP = {
+                'NASDAQ NMS - GLOBAL MARKET': 'NASDAQ',
+                'NASDAQ GLOBAL SELECT MARKET': 'NASDAQ',
+                'NEW YORK STOCK EXCHANGE, INC.': 'NYSE',
+                'NYSE MKT LLC': 'NYSE MKT',
+                'NYSE ARCA': 'NYSE ARCA',
+                'OTC MARKETS': 'OTC',
+                'BATS EXCHANGE': 'BATS',
+            };
+
+            const U_DCF_BADGE = {
+                valued:   '<span class="u-badge u-b-valued">valued</span>',
+                pending:  '<span class="u-badge u-b-pending">pending</span>',
+                excluded: '<span class="u-badge u-b-excluded">excl</span>',
+                error:    '<span class="u-badge u-b-error">error</span>',
+                etf:      '<span class="u-badge u-b-etf">etf</span>',
+                foreign:  '<span class="u-badge u-b-foreign">foreign</span>',
+            };
+
+            function uFmtMC(v) {
+                if (v == null) return '<span style="color:#484f58">—</span>';
+                if (v >= 1e12) return '$' + (v/1e12).toFixed(1) + 'T';
+                if (v >= 1e9)  return '$' + (v/1e9).toFixed(1) + 'B';
+                if (v >= 1e6)  return '$' + (v/1e6).toFixed(0) + 'M';
+                return '$' + v.toFixed(0);
+            }
+
+            function uFmtVol(v) {
+                if (v == null) return '<span style="color:#484f58">—</span>';
+                const cls = v >= 1e8 ? 'u-vol-hi' : v >= 1e7 ? 'u-vol-mid' : 'u-vol-lo';
+                if (v >= 1e9) return `<span class="${cls}">$${(v/1e9).toFixed(1)}B</span>`;
+                if (v >= 1e6) return `<span class="${cls}">$${(v/1e6).toFixed(0)}M</span>`;
+                return `<span class="${cls}">$${v.toLocaleString()}</span>`;
+            }
+
+            function univRender() {
+                const sorted = [...univFiltered].sort((a, b) => {
+                    let av = a[univSortKey], bv = b[univSortKey];
+                    if (av == null) av = typeof bv === 'string' ? '' : -Infinity;
+                    if (bv == null) bv = typeof av === 'string' ? '' : -Infinity;
+                    if (typeof av === 'string') return univSortDir * av.localeCompare(bv);
+                    return univSortDir * (av - bv);
+                });
+
+                document.getElementById('univRowCount').textContent = sorted.length.toLocaleString();
+
+                document.querySelectorAll('#univ-table th').forEach(th => {
+                    th.classList.remove('u-sort-asc', 'u-sort-desc');
+                    const m = (th.getAttribute('onclick') || '').match(/univSort\('([^']+)'/);
+                    if (m && m[1] === univSortKey) {
+                        th.classList.add(univSortDir === 1 ? 'u-sort-asc' : 'u-sort-desc');
+                    }
+                });
+
+                const tbody = document.getElementById('univTbody');
+                if (!sorted.length) {
+                    tbody.innerHTML = '<tr><td colspan="8"><div class="u-state">No securities match filters.</div></td></tr>';
+                    return;
+                }
+                tbody.innerHTML = sorted.map(r => `<tr>
+                    <td><span class="u-sym">${r.symbol}</span></td>
+                    <td><div class="u-co" title="${r.company_name||''}">${r.company_name||'<span style="color:#484f58">—</span>'}</div></td>
+                    <td><span class="u-sect">${r.sector||'—'}</span></td>
+                    <td class="u-ex">${r.exchange_short||'—'}</td>
+                    <td class="u-num u-price">${r.price != null ? '$'+r.price.toFixed(2) : '<span style="color:#484f58">—</span>'}</td>
+                    <td class="u-num">${uFmtVol(r.dollar_volume)}</td>
+                    <td class="u-num u-mc">${uFmtMC(r.market_cap)}</td>
+                    <td>${U_DCF_BADGE[r.dcf_status] || r.dcf_status}</td>
+                </tr>`).join('');
+            }
+
+            window.univSort = function(key, defaultDir) {
+                if (univSortKey === key) { univSortDir = -univSortDir; }
+                else { univSortKey = key; univSortDir = defaultDir; }
+                univRender();
+            };
+
+            window.univLiqClick = function(btn) {
+                univMinVol = parseFloat(btn.dataset.minvol) || 0;
+                document.querySelectorAll('.univ-liq-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                univApply();
+            };
+
+            window.univApply = function() {
+                const q    = (document.getElementById('univSearch').value || '').toLowerCase().trim();
+                const sec  = document.getElementById('univFSector').value || '';
+                const exch = document.getElementById('univFExch').value || '';
+                univFiltered = univRaw.filter(r => {
+                    if (q && !r.symbol.toLowerCase().includes(q) && !(r.company_name||'').toLowerCase().includes(q)) return false;
+                    if (sec  && r.sector         !== sec)  return false;
+                    if (exch && r.exchange_short !== exch) return false;
+                    if (univMinVol > 0 && (r.dollar_volume || 0) < univMinVol) return false;
+                    return true;
+                });
+                univRender();
+            };
+
+            window.univLoad = async function() {
+                if (univLoaded) return;
+                const tbody = document.getElementById('univTbody');
+                if (tbody) tbody.innerHTML = '<tr><td colspan="8"><div class="u-state">Loading…</div></td></tr>';
+                try {
+                    const res = await fetch('/api/universe');
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    univRaw = (data.records || []).map(r => ({
+                        ...r,
+                        exchange_short: U_EX_MAP[r.exchange] || r.exchange || '',
+                        company_name: r.company_name || '',
+                        sector: r.sector || 'Unknown',
+                    }));
+                    univLoaded = true;
+                    const sectors = [...new Set(univRaw.map(r => r.sector))].sort();
+                    const sf = document.getElementById('univFSector');
+                    sectors.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sf.appendChild(o); });
+                    const exchs = [...new Set(univRaw.map(r => r.exchange_short).filter(Boolean))].sort();
+                    const ef = document.getElementById('univFExch');
+                    exchs.forEach(e => { const o = document.createElement('option'); o.value = e; o.textContent = e; ef.appendChild(o); });
+                    univApply();
+                } catch(e) {
+                    if (tbody) tbody.innerHTML = `<tr><td colspan="8"><div class="u-state" style="color:#f85149">Failed: ${e.message}</div></td></tr>`;
+                }
             };
         })();
 
