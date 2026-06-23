@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+         crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scored Opportunities — Rental Intelligence</title>
+  <link rel="canonical" href="https://jays.website/rental/scored_opportunities.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -247,6 +250,31 @@
     tbody td { padding: 10px 14px; color: var(--text); white-space: nowrap; }
     tbody td.address-cell { white-space: normal; max-width: 220px; }
     .no-data { text-align: center; padding: 48px 20px; color: var(--text-muted); font-size: 14px; }
+    .dist-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+    }
+    .dist-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+    .dist-title { font-size: 13px; font-weight: 600; }
+    .dist-meta { font-size: 11px; color: var(--text-muted); }
+    .dist-bars { display: flex; align-items: flex-end; gap: 4px; height: 56px; }
+    .dist-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; min-width: 28px; }
+    .dist-bar {
+      width: 100%;
+      border-radius: 3px 3px 0 0;
+      background: var(--accent);
+      opacity: 0.75;
+      transition: opacity 0.15s;
+      min-height: 2px;
+    }
+    .dist-bar:hover { opacity: 1; }
+    .dist-bar-label { font-size: 9px; color: var(--text-muted); text-align: center; white-space: nowrap; }
+    .dist-stats { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+    .dist-stat { font-size: 11px; color: var(--text-muted); }
+    .dist-stat strong { color: var(--text); }
     .error-banner {
       background: rgba(239,68,68,0.1);
       border: 1px solid rgba(239,68,68,0.3);
@@ -318,6 +346,20 @@
       <div class="kpi-value" id="kpi-high-conf">&mdash;</div>
       <div class="kpi-sub">buildings scoring &ge;50</div>
     </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Flagged / Excluded</div>
+      <div class="kpi-value" id="kpi-flagged">&mdash;</div>
+      <div class="kpi-sub" id="kpi-flagged-sub">poor valuation data</div>
+    </div>
+  </div>
+
+  <div class="dist-section" id="dist-section" style="display:none">
+    <div class="dist-header">
+      <span class="dist-title">Score Distribution — Top 100</span>
+      <span class="dist-meta" id="dist-meta"></span>
+    </div>
+    <div class="dist-bars" id="dist-bars"></div>
+    <div class="dist-stats" id="dist-stats"></div>
   </div>
 
   <div class="filter-bar">
@@ -383,15 +425,17 @@
             <th onclick="sortTable('city')" id="th-city">City <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('opportunity_score')" id="th-opportunity_score" class="sorted">Score <i class="sort-icon">&#9660;</i></th>
             <th onclick="sortTable('cap_rate')" id="th-cap_rate">Cap Rate <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('market_value')" id="th-market_value">Assessed Value <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('noi')" id="th-noi">Annual NOI <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('rent_estimate')" id="th-rent_estimate">Mo. Rent <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('cash_flow')" id="th-cash_flow">Mo. Cash Flow <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('units')" id="th-units">Units <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('last_sale_date')" id="th-last_sale_date">Last Sale <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('updated_at')" id="th-updated_at">Scored <i class="sort-icon">&#9650;</i></th>
           </tr>
         </thead>
         <tbody id="table-body">
-          <tr><td colspan="10" class="no-data">Loading&hellip;</td></tr>
+          <tr><td colspan="12" class="no-data">Loading&hellip;</td></tr>
         </tbody>
       </table>
     </div>
@@ -474,8 +518,8 @@
 
   function sortBuildings(buildings) {
     return buildings.slice().sort(function(a, b) {
-      var av = sortCol === 'rank' ? a._rank : (sortCol === 'cash_flow' ? a._cash_flow : a[sortCol]);
-      var bv = sortCol === 'rank' ? b._rank : (sortCol === 'cash_flow' ? b._cash_flow : b[sortCol]);
+      var av = sortCol === 'rank' ? a._rank : sortCol === 'cash_flow' ? a._cash_flow : a[sortCol];
+      var bv = sortCol === 'rank' ? b._rank : sortCol === 'cash_flow' ? b._cash_flow : b[sortCol];
       if (av == null) av = sortDir === 'asc' ? Infinity : -Infinity;
       if (bv == null) bv = sortDir === 'asc' ? Infinity : -Infinity;
       if (typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
@@ -583,7 +627,7 @@
 
     var tbody = document.getElementById('table-body');
     if (sorted.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="10" class="no-data">No buildings match the current filters.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="12" class="no-data">No buildings match the current filters.</td></tr>';
       return;
     }
 
@@ -594,10 +638,12 @@
         + '<td>' + (b.city || '\u2014') + '</td>'
         + '<td>' + scoreBadgeHTML(b.opportunity_score) + '</td>'
         + '<td>' + fmtPct(b.cap_rate) + '</td>'
+        + '<td style="color:var(--text-muted)">' + fmtCurrency(b.market_value) + '</td>'
         + '<td>' + fmtCurrency(b.noi) + '</td>'
         + '<td>' + fmtCurrency(b.rent_estimate) + '</td>'
         + '<td>' + fmtCashFlow(b.rent_estimate, b.expense_estimate) + '</td>'
         + '<td>' + (b.units != null ? b.units : '\u2014') + '</td>'
+        + '<td style="color:var(--text-muted);font-size:12px">' + fmtDate(b.last_sale_date) + '</td>'
         + '<td style="color:var(--text-muted);font-size:12px">' + fmtDate(b.updated_at) + '</td>'
         + '</tr>';
     }).join('');
@@ -638,16 +684,60 @@
   document.getElementById('tier-select').addEventListener('change', render);
   document.getElementById('caprate-select').addEventListener('change', render);
 
+  function renderDistribution() {
+    var scores = allBuildings.map(function(b) { return b.opportunity_score; });
+    var buckets = [0,5,10,15,20,25,30,35,40,45,50,55,60];
+    var counts = buckets.map(function(lo, i) {
+      var hi = buckets[i+1] || Infinity;
+      return scores.filter(function(s) { return s >= lo && s < hi; }).length;
+    });
+    var maxCount = Math.max.apply(null, counts) || 1;
+
+    var barsEl = document.getElementById('dist-bars');
+    barsEl.innerHTML = counts.map(function(cnt, i) {
+      var lo = buckets[i];
+      var hi = buckets[i+1] ? (buckets[i+1]-1) : 60;
+      var h = Math.max(2, Math.round(cnt / maxCount * 52));
+      return '<div class="dist-bar-wrap" title="' + lo + '–' + hi + ': ' + cnt + ' buildings">'
+        + '<div class="dist-bar" style="height:' + h + 'px"></div>'
+        + '<div class="dist-bar-label">' + lo + '</div>'
+        + '</div>';
+    }).join('');
+
+    document.getElementById('dist-meta').textContent = 'top 100 buildings shown';
+    document.getElementById('dist-section').style.display = '';
+
+    var avg = scores.reduce(function(s,v){return s+v;},0) / (scores.length||1);
+    var above50 = scores.filter(function(s){return s>=50;}).length;
+    document.getElementById('dist-stats').innerHTML =
+      '<span class="dist-stat">Avg: <strong>' + avg.toFixed(1) + '</strong></span>'
+      + '<span class="dist-stat">Min: <strong>' + Math.min.apply(null,scores).toFixed(1) + '</strong></span>'
+      + '<span class="dist-stat">Max: <strong>' + Math.max.apply(null,scores).toFixed(1) + '</strong></span>'
+      + '<span class="dist-stat">≥50: <strong>' + above50 + '</strong></span>';
+  }
+
   async function loadData() {
     var errBanner = document.getElementById('error-banner');
     var cardsLoading = document.getElementById('cards-loading');
     var cardsGrid = document.getElementById('cards-grid');
     try {
-      var res = await fetch('data/scoring_summary.json');
-      if (!res.ok) throw new Error('HTTP ' + res.status + ': ' + res.statusText);
-      var data = await res.json();
+      var [summaryRes, metaRes] = await Promise.all([
+        fetch('data/scoring_summary.json'),
+        fetch('data/run_metadata.json'),
+      ]);
+      if (!summaryRes.ok) throw new Error('HTTP ' + summaryRes.status + ': ' + summaryRes.statusText);
+      var data = await summaryRes.json();
+      var meta = metaRes.ok ? await metaRes.json() : null;
 
       summaryMeta = { generated_at: data.generated_at || null };
+
+      if (meta) {
+        var vq = meta.valuation_quality || {};
+        document.getElementById('kpi-flagged').textContent =
+          (vq.flagged_count || 0).toLocaleString();
+        document.getElementById('kpi-flagged-sub').textContent =
+          (vq.flagged_pct || 0).toFixed(1) + '% of ' + (meta.building_count || 0).toLocaleString() + ' total';
+      }
 
       var raw = data.buildings || [];
       allBuildings = raw.map(function(b, i) {
@@ -656,6 +746,7 @@
         return Object.assign({}, b, {
           opportunity_score: parseFloat(b.opportunity_score || 0),
           cap_rate:          b.cap_rate != null ? parseFloat(b.cap_rate) : null,
+          market_value:      b.market_value != null ? parseFloat(b.market_value) : null,
           noi:               b.noi      != null ? parseFloat(b.noi)      : null,
           rent_estimate:     b.rent_estimate != null ? parseFloat(b.rent_estimate) : null,
           expense_estimate:  b.expense_estimate != null ? parseFloat(b.expense_estimate) : null,
@@ -672,13 +763,14 @@
 
       populateCities();
       renderKPIs();
+      renderDistribution();
       render();
     } catch(err) {
       cardsLoading.style.display = 'none';
       cardsGrid.style.display = '';
       errBanner.style.display = 'block';
       errBanner.textContent = 'Failed to load scoring data: ' + err.message + '. Ensure web/data/scoring_summary.json exists.';
-      document.getElementById('table-body').innerHTML = '<tr><td colspan="10" class="no-data">No data available.</td></tr>';
+      document.getElementById('table-body').innerHTML = '<tr><td colspan="12" class="no-data">No data available.</td></tr>';
     }
   }
 
