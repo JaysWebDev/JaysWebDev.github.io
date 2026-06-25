@@ -1,23 +1,65 @@
 {
-  "scan_date": "2026-06-04",
-  "generated_at": "2026-06-12 16:44:03",
-  "count": 1,
+  "scan_date": "2026-06-22",
+  "generated_at": "2026-06-25 16:44:02",
+  "count": 2,
   "results": [
     {
-      "symbol": "ADPT",
-      "score": 75,
-      "date": "2026-06-04",
-      "close": 18.08,
-      "rsi": 70.1,
+      "symbol": "MIRM",
+      "score": 93,
+      "date": "2026-06-22",
+      "close": 107.77,
+      "rsi": 64.2,
       "strength": 2,
-      "rsi_recovery": 23.8,
-      "last_trough": 46.4,
-      "days_since_trough": 3,
+      "rsi_recovery": 19.0,
+      "last_trough": 45.2,
+      "days_since_trough": 4,
       "higher_low": false,
       "higher_high": true,
-      "dollar_volume": 79841425.0,
-      "adx": 14.1,
-      "dist_52wh": 12.9,
+      "dollar_volume": 130104039.0,
+      "adx": 21.7,
+      "dist_52wh": 2.3,
+      "backtest": {
+        "instances": 111,
+        "win_rate_10d": 59.5,
+        "win_rate_20d": 63.1,
+        "avg_fwd_10d": 3.87,
+        "avg_fwd_20d": 8.48,
+        "median_fwd_20d": 8.38,
+        "best_20d": 54.3,
+        "worst_20d": -18.3
+      },
+      "backtest_edge": 63.1,
+      "recent": {
+        "mtd_ret": 11.88,
+        "qtd_ret": 13.9,
+        "ytd_ret": 38.04,
+        "one_yr_ret": 114.08
+      },
+      "signals": [
+        "HIGHER LOWS",
+        "HH 64\u219265",
+        "MACD+"
+      ],
+      "m_consistency": 55.2,
+      "m_avg_ret": 5.61,
+      "m_months": 29,
+      "high_consistency": false
+    },
+    {
+      "symbol": "ADPT",
+      "score": 90,
+      "date": "2026-06-22",
+      "close": 17.37,
+      "rsi": 69.0,
+      "strength": 3,
+      "rsi_recovery": 6.3,
+      "last_trough": 62.7,
+      "days_since_trough": 3,
+      "higher_low": true,
+      "higher_high": true,
+      "dollar_volume": 39290749.0,
+      "adx": 17.9,
+      "dist_52wh": 16.3,
       "backtest": {
         "instances": 170,
         "win_rate_10d": 55.3,
@@ -30,18 +72,19 @@
       },
       "backtest_edge": 64.7,
       "recent": {
-        "mtd_ret": 18.71,
-        "qtd_ret": 25.29,
-        "ytd_ret": 13.64,
-        "one_yr_ret": 81.16
+        "mtd_ret": 14.05,
+        "qtd_ret": 20.37,
+        "ytd_ret": 9.18,
+        "one_yr_ret": 67.34
       },
       "signals": [
-        "HIGHER LOWS",
-        "HH 53\u219262",
+        "TEXTBOOK STAIRCASE",
+        "HL 46\u219263",
+        "HH 70\u219274",
         "MACD+"
       ],
       "m_consistency": 62.1,
-      "m_avg_ret": 6.51,
+      "m_avg_ret": 6.35,
       "m_months": 29,
       "high_consistency": true
     }

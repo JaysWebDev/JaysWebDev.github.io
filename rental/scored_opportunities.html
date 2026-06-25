@@ -285,6 +285,28 @@
       font-size: 13px;
       display: none;
     }
+    .info-note {
+      background: var(--amber-bg);
+      border: 1px solid rgba(245,158,11,0.25);
+      color: var(--amber);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: none;
+    }
+    .version-badge {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-variant-numeric: tabular-nums;
+    }
     .loading { text-align: center; padding: 60px 20px; color: var(--text-muted); }
     .spinner {
       display: inline-block;
@@ -318,12 +340,13 @@
 
 <div class="page-wrap">
   <div class="page-header">
-    <h1 class="page-title">Scored Opportunities</h1>
+    <h1 class="page-title">Scored Opportunities <span id="version-badge" class="version-badge" style="display:none"></span></h1>
     <p class="page-subtitle">Buildings ranked by composite opportunity score</p>
     <p id="last-updated"></p>
   </div>
 
   <div id="error-banner" class="error-banner"></div>
+  <div id="signal-note" class="info-note"></div>
 
   <div class="kpi-grid">
     <div class="kpi-card">
@@ -570,8 +593,19 @@
     var highOpp = allBuildings.filter(function(b) { return b.opportunity_score >= 50; }).length;
     document.getElementById('kpi-high-conf').textContent = highOpp.toLocaleString();
 
-    if (summaryMeta.generated_at) {
-      document.getElementById('last-updated').textContent = 'Last updated: ' + fmtDate(summaryMeta.generated_at);
+    if (summaryMeta.scoring_version) {
+      var badge = document.getElementById('version-badge');
+      badge.textContent = 'v' + summaryMeta.scoring_version;
+      badge.style.display = '';
+    }
+
+    var freshness = summaryMeta.generated_at ? 'Scored ' + fmtDate(summaryMeta.generated_at) : '';
+    document.getElementById('last-updated').textContent = freshness;
+
+    var noteEl = document.getElementById('signal-note');
+    if (summaryMeta.signal_note) {
+      noteEl.textContent = '⚠️ Signal scores: ' + summaryMeta.signal_note;
+      noteEl.style.display = '';
     }
   }
 
@@ -709,11 +743,18 @@
 
     var avg = scores.reduce(function(s,v){return s+v;},0) / (scores.length||1);
     var above50 = scores.filter(function(s){return s>=50;}).length;
-    document.getElementById('dist-stats').innerHTML =
+    var statsHtml =
       '<span class="dist-stat">Avg: <strong>' + avg.toFixed(1) + '</strong></span>'
       + '<span class="dist-stat">Min: <strong>' + Math.min.apply(null,scores).toFixed(1) + '</strong></span>'
       + '<span class="dist-stat">Max: <strong>' + Math.max.apply(null,scores).toFixed(1) + '</strong></span>'
       + '<span class="dist-stat">≥50: <strong>' + above50 + '</strong></span>';
+    if (summaryMeta.universe_dist) {
+      var ud = summaryMeta.universe_dist;
+      statsHtml += '<span class="dist-stat" style="margin-left:16px;border-left:1px solid var(--border);padding-left:16px"'
+        + ' title="Full ' + (ud.count || '340k') + ' building universe">Universe — p90: <strong>' + ud.p90.toFixed(1)
+        + '</strong> &nbsp; p99: <strong>' + ud.p99.toFixed(1) + '</strong></span>';
+    }
+    document.getElementById('dist-stats').innerHTML = statsHtml;
   }
 
   async function loadData() {
@@ -729,9 +770,15 @@
       var data = await summaryRes.json();
       var meta = metaRes.ok ? await metaRes.json() : null;
 
-      summaryMeta = { generated_at: data.generated_at || null };
+      summaryMeta = {
+        generated_at:    data.generated_at || null,
+        scoring_version: data.scoring_version || null,
+      };
 
       if (meta) {
+        summaryMeta.universe_dist  = meta.opportunity_score_distribution || null;
+        summaryMeta.signal_note    = meta.signal_score_note || null;
+
         var vq = meta.valuation_quality || {};
         document.getElementById('kpi-flagged').textContent =
           (vq.flagged_count || 0).toLocaleString();
@@ -756,6 +803,18 @@
       });
 
       allBuildings.sort(function(a,b){return b.opportunity_score - a.opportunity_score;});
+
+      // Dedup: keep only the highest-scoring parcel per (address, city).
+      // MassGIS records townhouse complexes and condo developments as multiple
+      // parcels sharing the same street address, causing duplicate leaderboard rows.
+      var _seen = {};
+      allBuildings = allBuildings.filter(function(b) {
+        var key = (b.address || '').trim().toUpperCase() + '||' + (b.city || '').trim().toUpperCase();
+        if (_seen[key]) return false;
+        _seen[key] = true;
+        return true;
+      });
+
       allBuildings.forEach(function(b,i){b._rank = i+1;});
 
       cardsLoading.style.display = 'none';

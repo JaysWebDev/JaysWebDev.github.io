@@ -1,32 +1,32 @@
 {
-  "generated": "2026-04-06",
+  "generated": "2026-06-25",
   "issues": [
     {
       "id": 1,
-      "title": "EPIC-ENTRY-001 TASK-04: Cross-scanner entry trigger backtest",
+      "title": "EPIC-FUNDS-001: SEC 13F institutional tracker",
       "status": "open",
       "priority": "high",
-      "category": "backtest",
+      "category": "data",
       "created": "2026-03-27",
-      "notes": "Backtest: Enhanced>=90 AND Setup VCB/PULLBACK within +/-2 days on same symbol. Tasks 01-03 done. TASK-04 is the architecturally correct entry timing piece."
+      "notes": "~50 institutional funds via EDGAR API. Cross-ref with watchlist for confirmation signal. 9 tasks: CIK config, fund_tracker.py, DB schema, report generator, cron, sync, Funds tab, watchlist overlap, 4-quarter backfill."
     },
     {
       "id": 2,
-      "title": "EPIC-PUB-001: Weekly publication report generator",
+      "title": "EPIC-UX-004: Dashboard nav restructure",
       "status": "open",
       "priority": "medium",
-      "category": "publishing",
-      "created": "2026-02-20",
-      "notes": "Top 20 by conviction_score, grouped by setup type, HTML output. Prerequisite for external sharing and monetization path."
+      "category": "ux",
+      "created": "2026-04-06",
+      "notes": "Intro→Trading→Securities→Research→Simulation→Portfolio→Operations→Reports. Consolidate 14+ tab groups into logical nav hierarchy."
     },
     {
       "id": 3,
-      "title": "EPIC-FUNDS-001: SEC 13F institutional tracker",
+      "title": "EPIC-PORT-002 TASK-PORT2-05: Backtest fundamental filter impact",
       "status": "open",
-      "priority": "medium",
-      "category": "data",
-      "created": "2026-03-27",
-      "notes": "~50 institutional funds via EDGAR API. Cross-ref with watchlist for confirmation signal. Highest-EV enrichment not yet built."
+      "priority": "low",
+      "category": "backtest",
+      "created": "2026-06-22",
+      "notes": "Rerun historical_backtester with quality gate applied. Needs heavy compute — jserv preferred (currently unreachable). Optional — system already live."
     },
     {
       "id": 4,
@@ -35,84 +35,84 @@
       "priority": "low",
       "category": "portfolio",
       "created": "2026-03-01",
-      "notes": "Missing: portfolio-level correlation limits and max drawdown gate. Currently only ATR sizing + sector limits (max 4 per sector)."
+      "notes": "Avoid adding stocks that move together (e.g. 3 energy names in correction). Sector cap done (25%), beta done, drawdown gate done. Correlation limit is the remaining guard."
     },
     {
       "id": 5,
-      "title": "v2.0 Planning: Customer-facing condensed view",
+      "title": "EPIC-LLM-001: LLM analyst layer",
       "status": "planning",
-      "priority": "high",
-      "category": "ux",
+      "priority": "medium",
+      "category": "ai",
       "created": "2026-04-06",
-      "notes": "Consolidate 14 tabs into 4 views: Today (Daily Setups), Research (Lookup + charts), Portfolio, System. v1.0 fine-tuning first."
+      "notes": "Local Ollama on jserv. Flask /api/analyst/<symbol> endpoint. 'Ask the Analyst' panel in Lookup tab. Depends on jserv being reachable + composite score live (both done)."
     },
     {
       "id": 6,
-      "title": "EPIC-INFRA-001: JupyterLab on jserv for research",
+      "title": "EPIC-INFRA-001: jserv JupyterLab + OCI A1.Flex",
       "status": "planning",
       "priority": "low",
       "category": "infrastructure",
       "created": "2026-03-27",
-      "notes": "JupyterLab on jserv for equity curve work, correlation analysis, walk-forward reruns. Separates research from production machine."
+      "notes": "jserv unreachable since Jun 16. OCI A1.Flex capacity retry cron active (every 10 min, 3 Ashburn ADs). Once up: Flask trading app, DB-sync rsync, cloudflared cutover."
     },
     {
       "id": 7,
-      "title": "Fundamental filter badges: Daily Setups + Signal Explorer",
+      "title": "Liquidity purge + security_profiles tiers",
       "status": "completed",
       "priority": "high",
-      "category": "ux",
-      "created": "2026-04-06",
-      "notes": "F-pass/fail/neutral/blocked badges wired into conviction_picks.json. Fund Pass toggle filter in Signal Explorer. EPIC-FUND-001 complete."
+      "category": "data",
+      "created": "2026-06-21",
+      "notes": "Purged 376 symbols with ADDV < $2.5M. 2,269 active symbols remain. avg_dollar_volume + liquidity_tier (A/B/C) added to security_profiles. DB: 669MB → 585MB."
     },
     {
       "id": 8,
-      "title": "TradingView price charts on Lookup tab",
+      "title": "EPIC-PORT-002: Sector cap + drawdown gate + beta",
       "status": "completed",
       "priority": "high",
-      "category": "ux",
-      "created": "2026-04-06",
-      "notes": "Flask /trading/api/history endpoint. Candlestick + SMA 20/50/200. TW Lightweight Charts v4.2 hosted locally. EPIC-INFRA-001 TASK-07 done."
+      "category": "portfolio",
+      "created": "2026-06-22",
+      "notes": "MAX_SECTOR_PCT=0.25, denominator fix, fallback gate added. Drawdown gate: -10% pause / -15% BEAR override. Portfolio beta confirmed pre-existing. Dashboard thresholds updated."
     },
     {
       "id": 9,
-      "title": "Confluence scanner wired to cron",
+      "title": "EPIC-PUB-001: Quarterly + weekly publication reports",
       "status": "completed",
       "priority": "high",
-      "category": "pipeline",
-      "created": "2026-04-06",
-      "notes": "db_scanner_confluence.py (SuperTrend+RSI+SMA200+ATR) added at 4:14 PM. Was stale since Mar 12. conf_scores now fresh daily."
+      "category": "publishing",
+      "created": "2026-02-20",
+      "notes": "weekly_publication_report.py + quarterly_report.py both live. quarterly_report_2026-Q2.html generated (57KB). Pub Archive tab shows gold quarterly card + weekly. Cron: quarterly first Sunday of Jan/Apr/Jul/Oct."
     },
     {
       "id": 10,
-      "title": "Dual regime sparklines on Overview breadth panel",
-      "status": "completed",
-      "priority": "medium",
-      "category": "ux",
-      "created": "2026-04-06",
-      "notes": "Broad Breadth (30d) + Quality Regime (30d) sparklines stacked chronologically. BULL to NEUTRAL transition visible since early March."
-    },
-    {
-      "id": 11,
-      "title": "3 new scanners + cross-scanner persistence tracking",
+      "title": "EPIC-COMPOSITE-001: Composite signal score",
       "status": "completed",
       "priority": "high",
       "category": "scanner",
-      "created": "2026-03-25",
-      "notes": "Momentum Rebound, RSI Staircase, ATR Momentum live with cron. stack_strength = cluster_score x persistence_score in conviction_picks."
+      "created": "2026-04-10",
+      "notes": "composite_score = fund_score×0.35 + (conviction/6)×0.65. Default sort in Signal Explorer + Daily Setups. Effective weight ~78% fund / ~22% conv due to score compression."
+    },
+    {
+      "id": 11,
+      "title": "EPIC-ENTRY-001: Cross-scanner entry trigger backtest",
+      "status": "completed",
+      "priority": "high",
+      "category": "backtest",
+      "created": "2026-03-27",
+      "notes": "Inverse finding: Clean Break (no setup co-occurrence) = +0.975% EV/5d vs -0.556% with overlap. CB badge live in Daily Setups. EPIC complete Apr 11."
     },
     {
       "id": 12,
-      "title": "Market regime + breadth dual-view panel",
+      "title": "Watchlist Tab + Admin EPIC board (live from requirements)",
       "status": "completed",
       "priority": "medium",
       "category": "ux",
-      "created": "2026-03-28",
-      "notes": "Quality Universe (market_regime.json ~723 symbols) + Broad Breadth (market_breadth.json 2632 symbols) side-by-side on Overview."
+      "created": "2026-06-25",
+      "notes": "Watchlist Tab: personal watchlist chips + add/remove, 4 curated chip grids, 3 universe count cards. EPIC table now parsed dynamically from PROJECT_REQUIREMENTS.md via generate_admin_data.py."
     }
   ],
   "next_session_goals": [
-    "EPIC-ENTRY-001 TASK-04: cross-scanner entry trigger backtest (Enhanced>=90 + VCB/PULLBACK within +/-2 days)",
-    "EPIC-PUB-001: weekly HTML publication report (top 20 by conviction_score)",
-    "v2.0 design pass: sketch the 4-tab condensed customer-facing layout"
+    "EPIC-FUNDS-001: start 13F tracker — compile CIK list, create fund_config.json, build fund_tracker.py skeleton",
+    "EPIC-PORT-001: correlation gate — measure pairwise 63-day corr, block adds if top-corr stock already held",
+    "EPIC-UX-004: sketch nav restructure — map current 14 tab groups to proposed 8 top-level sections"
   ]
 }

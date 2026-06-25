@@ -1,155 +1,43 @@
 {
-  "timestamp": "2026-06-08 07:00:03",
+  "timestamp": "2026-06-19 07:00:03",
   "summary": {
-    "total_flagged": 6,
-    "high_risk": 3,
-    "medium_risk": 3,
+    "total_flagged": 1,
+    "high_risk": 0,
+    "medium_risk": 1,
     "low_risk": 0,
-    "penny_stocks": 3,
+    "penny_stocks": 1,
     "stale_prices": 0,
-    "no_data": 3,
-    "tracking_pending": 12,
+    "no_data": 0,
+    "tracking_pending": 13,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
-      "symbol": "BF-B",
-      "price": 0.0,
+      "symbol": "SNBR",
+      "price": 0.2072,
       "consecutive_days": 0,
-      "avg_volume": 0.0,
+      "avg_volume": 101990524.8,
       "zero_volume_days": 0,
-      "risk_level": "HIGH",
+      "risk_level": "MEDIUM",
       "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
+        "Penny stock ($0.21 < $1.00)"
       ],
-      "is_penny_stock": false,
+      "is_penny_stock": true,
       "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-06-08 07:00",
-      "consecutive_failures": 12,
-      "first_flagged": "2026-03-16"
-    },
-    {
-      "symbol": "BRK-B",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-06-08 07:00",
-      "consecutive_failures": 12,
-      "first_flagged": "2026-04-16"
-    },
-    {
-      "symbol": "HTBK",
-      "price": 13.45,
-      "consecutive_days": 0,
-      "avg_volume": 2056783.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "Data stopped updating (last: 2026-04-17, expected: 2026-06-04)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "2026-04-17",
-      "analysis_date": "2026-06-08 07:00",
+      "is_no_data": false,
+      "last_date": "2026-06-18",
+      "analysis_date": "2026-06-19 07:00",
       "consecutive_failures": 5,
-      "first_flagged": "2026-06-01"
-    },
-    {
-      "symbol": "GOCO",
-      "price": 0.73,
-      "consecutive_days": 0,
-      "avg_volume": 107246.6,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.73 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-06-04",
-      "analysis_date": "2026-06-08 07:00",
-      "consecutive_failures": 6,
-      "first_flagged": "2026-05-28"
-    },
-    {
-      "symbol": "DH",
-      "price": 0.9073,
-      "consecutive_days": 0,
-      "avg_volume": 272042.0,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.91 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-06-04",
-      "analysis_date": "2026-06-08 07:00",
-      "consecutive_failures": 6,
-      "first_flagged": "2026-04-10"
-    },
-    {
-      "symbol": "PROP",
-      "price": 0.8711,
-      "consecutive_days": 0,
-      "avg_volume": 3244445.8,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.87 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-06-04",
-      "analysis_date": "2026-06-08 07:00",
-      "consecutive_failures": 6,
-      "first_flagged": "2026-05-28"
+      "first_flagged": "2026-06-05"
     }
   ],
   "recommendations": [
     {
-      "action": "REMOVE_NO_DATA",
-      "description": "Remove 3 securities with no Yahoo Finance data (likely delisted)",
-      "symbols": [
-        "BF-B",
-        "BRK-B",
-        "HTBK"
-      ],
-      "priority": "HIGH"
-    },
-    {
-      "action": "IMMEDIATE_REVIEW",
-      "description": "Review 3 high-risk securities (likely delisted or worthless)",
-      "symbols": [
-        "BF-B",
-        "BRK-B",
-        "HTBK"
-      ],
-      "priority": "HIGH"
-    },
-    {
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 3 securities under $1.00",
+      "description": "Review 1 securities under $1.00",
       "symbols": [
-        "GOCO",
-        "DH",
-        "PROP"
+        "SNBR"
       ],
       "priority": "MEDIUM"
     }

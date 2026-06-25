@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Intelligence — Spatial Map</title>
+    <link rel="canonical" href="https://jays.website/rental/spatial.html">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
@@ -559,7 +560,7 @@
 
     <div class="header-title-block">
         <div class="header-title">Spatial Intelligence</div>
-        <div class="header-sub">Bristol &amp; Norfolk County, MA</div>
+        <div class="header-sub">Massachusetts &mdash; All 14 Counties</div>
     </div>
 
     <div class="header-stats">
@@ -594,8 +595,20 @@
                 <div class="filter-label">County</div>
                 <select id="county-filter">
                     <option value="">All Counties</option>
+                    <option value="Barnstable County">Barnstable County</option>
+                    <option value="Berkshire County">Berkshire County</option>
                     <option value="Bristol County">Bristol County</option>
+                    <option value="Dukes County">Dukes County</option>
+                    <option value="Essex County">Essex County</option>
+                    <option value="Franklin County">Franklin County</option>
+                    <option value="Hampden County">Hampden County</option>
+                    <option value="Hampshire County">Hampshire County</option>
+                    <option value="Middlesex County">Middlesex County</option>
+                    <option value="Nantucket County">Nantucket County</option>
                     <option value="Norfolk County">Norfolk County</option>
+                    <option value="Plymouth County">Plymouth County</option>
+                    <option value="Suffolk County">Suffolk County</option>
+                    <option value="Worcester County">Worcester County</option>
                 </select>
             </div>
 
@@ -657,7 +670,7 @@
                 &lt; 5% &mdash; Low
             </div>
             <div class="legend-row" style="margin-top:0.6rem; border-top:1px solid var(--border); padding-top:0.5rem; font-size:0.6rem; color:var(--muted); line-height:1.5">
-                34,448 buildings colored by HUD FMR estimated yield.<br>
+                339,856 buildings across 14 MA counties colored by HUD FMR estimated yield.<br>
                 Clusters group markers at lower zoom levels.
             </div>
         </div>

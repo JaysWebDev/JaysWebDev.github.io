@@ -683,14 +683,16 @@
                         <button class="tab-button" data-group="signals" style="display:none" onclick="showTab(event,'reports')">📄 Scanner Reports</button>
                         <button class="tab-button" data-group="signals" style="display:none" onclick="showTab(event,'setups')">🎯 Today's Setups</button>
                         <button class="tab-button" data-group="signals" style="display:none" onclick="showTab(event,'weekly-pub')">📰 Weekly Publication</button>
+                        <button class="tab-button" data-group="signals" style="display:none;color:#a78bfa;" onclick="showTab(event,'pub-archive')">📚 Pub Archive</button>
                         <!-- Track Record group (hidden initially) -->
                         <button class="tab-button" data-group="track-record" style="display:none" onclick="showTab(event,'research')">🔬 Scanner Accuracy</button>
                         <button class="tab-button" data-group="track-record" style="display:none;color:#f59e0b;" onclick="showTab(event,'alpha-gen')">⚡ Alpha vs Market</button>
                         <button class="tab-button" data-group="track-record" style="display:none" onclick="showTab(event,'backtest')">🧪 Backtest</button>
                         <button class="tab-button" data-group="track-record" style="display:none" onclick="showTab(event,'confluence')">🔀 Confluence</button>
                         <!-- Portfolios group (hidden initially) -->
-                        <button class="tab-button" data-group="portfolios" style="display:none" onclick="showTab(event,'positions')">💼 Positions</button>
-                        <button class="tab-button" data-group="portfolios" style="display:none" onclick="showTab(event,'portfolio')">📦 Paper Portfolio</button>
+                        <button class="tab-button" data-group="portfolios" style="display:none" onclick="showTab(event,'positions')">💼 Position Manager</button>
+                        <button class="tab-button" data-group="portfolios" style="display:none" onclick="showTab(event,'portfolio')">📦 LT Portfolio</button>
+                        <button class="tab-button" data-group="portfolios" style="display:none;color:#FBBF24;" onclick="showTab(event,'paper-portfolio')">📄 Paper Portfolio</button>
                         <button class="tab-button" data-group="portfolios" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">🔄 Rotation Engine</button>
                         <!-- Screeners group (hidden initially) -->
                         <button class="tab-button" data-group="screeners" style="display:none" onclick="showTab(event,'trends')">🔥 Trends</button>
@@ -703,6 +705,7 @@
                         <button class="tab-button" data-group="lookup" style="display:none" onclick="showTab(event,'lookup')">🔎 Lookup</button>
                         <!-- Admin group (hidden initially) -->
                         <button class="tab-button" data-group="admin-grp" style="display:none" onclick="showTab(event,'admin')">⚙️ System Admin</button>
+                        <button class="tab-button" data-group="admin-grp" style="display:none;color:#34d399;" onclick="showTab(event,'watchlist-tab');loadWatchlist()">📋 Watchlists</button>
                         <button class="tab-button" data-group="admin-grp" style="display:none;color:#a78bfa;" onclick="showTab(event,'system-tools');stLoadTools()">🛠️ Tools</button>
                         <!-- Universe group (hidden initially) -->
                         <button class="tab-button" data-group="universe-grp" style="display:none;color:#34d399;" onclick="showTab(event,'universe-main');univLoad()">🌐 Symbol Universe</button>
@@ -1112,100 +1115,6 @@
                                     </div>
                                 </div>
 
-                                <!-- ═══ PAPER PORTFOLIO SIMULATION ═══ -->
-                                <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid rgba(251,191,36,0.3);">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                                        <h3 style="color: #FBBF24; margin: 0;">Paper Portfolio — $5,000 · 10-Slot Rotation</h3>
-                                        <span id="pp-dates" style="color: #64748b; font-size: 0.75rem;"></span>
-                                    </div>
-
-                                    <!-- Equity Summary -->
-                                    <div id="pp-summary" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
-                                        <div style="background: rgba(251,191,36,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(251,191,36,0.3);">
-                                            <div id="pp-value" style="font-size: 1.6rem; font-weight: bold; color: #FBBF24;">-</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Portfolio Value</div>
-                                        </div>
-                                        <div style="background: rgba(16,185,129,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(16,185,129,0.2);">
-                                            <div id="pp-return" style="font-size: 1.6rem; font-weight: bold; color: #10B981;">-</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Total Return</div>
-                                        </div>
-                                        <div style="background: rgba(59,130,246,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(59,130,246,0.2);">
-                                            <div id="pp-return-dollar" style="font-size: 1.6rem; font-weight: bold; color: #3B82F6;">-</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">P&L ($)</div>
-                                        </div>
-                                        <div style="background: rgba(148,163,184,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.2);">
-                                            <div id="pp-cash" style="font-size: 1.6rem; font-weight: bold; color: #94A3B8;">-</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Cash</div>
-                                        </div>
-                                        <div style="background: rgba(148,163,184,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(148,163,184,0.2);">
-                                            <div id="pp-positions" style="font-size: 1.6rem; font-weight: bold; color: #CBD5E1;">-</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Positions</div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Equity Curve -->
-                                    <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 15px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1);">
-                                        <h4 style="color: #CBD5E1; margin-bottom: 10px; font-size: 0.85rem;">Equity Curve</h4>
-                                        <div id="pp-equity-chart" style="height: 120px; display: flex; align-items: flex-end; gap: 2px;"></div>
-                                    </div>
-
-                                    <!-- Today's Actions -->
-                                    <div id="pp-actions-section" style="margin-top: 15px;">
-                                        <h4 style="color: #CBD5E1; margin-bottom: 10px; font-size: 0.85rem;">Today's Actions</h4>
-                                        <div id="pp-actions" style="display: grid; gap: 8px;">
-                                            <div style="color: #64748b; text-align: center; padding: 15px; font-size: 0.85rem;">Loading paper portfolio...</div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Paper Holdings Table -->
-                                    <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; margin-top: 15px; border: 1px solid rgba(148,163,184,0.1);">
-                                        <h4 style="color: #CBD5E1; margin-bottom: 15px; font-size: 0.85rem;">Paper Holdings</h4>
-                                        <div style="overflow-x: auto;">
-                                            <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
-                                                <thead>
-                                                    <tr style="border-bottom: 2px solid rgba(251,191,36,0.3);">
-                                                        <th style="padding: 8px 6px; text-align: left; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Symbol</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Shares</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Entry</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Current</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">P&L %</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">P&L $</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Mkt Value</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Weight</th>
-                                                        <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Days</th>
-                                                        <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Stage</th>
-                                                        <th style="padding: 8px 6px; text-align: center; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trend</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 1</th>
-                                                        <th style="padding: 8px 6px; text-align: right; color: #94A3B8; font-size: 0.7rem; text-transform: uppercase;">Trim 2</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="pp-holdings-body">
-                                                    <tr><td colspan="12" style="padding: 20px; text-align: center; color: #64748b;">Loading...</td></tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    <!-- Closed Trades Summary -->
-                                    <div id="pp-closed-section" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 15px;">
-                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                            <div id="pp-closed-total" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">0</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Closed Trades</div>
-                                        </div>
-                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                            <div id="pp-win-rate" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">-</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Win Rate</div>
-                                        </div>
-                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                            <div id="pp-realized" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">$0</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Total Realized P&L</div>
-                                        </div>
-                                        <div style="background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(148,163,184,0.1);">
-                                            <div id="pp-days-running" style="font-size: 1.3rem; font-weight: bold; color: #CBD5E1;">0</div>
-                                            <div style="font-size: 0.7rem; color: #94A3B8;">Days Running</div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
@@ -1703,7 +1612,7 @@
                         <!-- ═══════════════════════════════════════════════════ -->
                         <div id="portfolio" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-                                <h3 style="color:#10B981;margin:0;">📦 Portfolio Dashboard</h3>
+                                <h3 style="color:#10B981;margin:0;">📦 LT Portfolio</h3>
                                 <span id="port-generated" style="color:#64748b;font-size:0.75rem;">Loading...</span>
                             </div>
 
@@ -1849,59 +1758,6 @@
                                     <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:18px;border:1px solid rgba(167,139,250,0.2);">
                                         <h4 style="color:#A78BFA;margin:0 0 12px 0;font-size:0.85rem;text-transform:uppercase;">🎯 Next Candidates</h4>
                                         <div id="port-candidates" style="font-size:0.78rem;color:#94A3B8;">Loading...</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Paper Portfolio compact view -->
-                            <div style="margin-top:16px;">
-                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                                    <h4 style="color:#FBBF24;margin:0;font-size:0.85rem;text-transform:uppercase;">💼 Paper Portfolio — 10-Slot Rotation</h4>
-                                    <span id="portpp-dates" style="color:#64748b;font-size:0.72rem;"></span>
-                                </div>
-                                <!-- Stat cards -->
-                                <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:12px;">
-                                    <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:12px;text-align:center;">
-                                        <div id="portpp-value" style="font-size:1.3rem;font-weight:bold;color:#FBBF24;">-</div>
-                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Total Value</div>
-                                    </div>
-                                    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;text-align:center;">
-                                        <div id="portpp-return" style="font-size:1.3rem;font-weight:bold;color:#10B981;">-</div>
-                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Return</div>
-                                    </div>
-                                    <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:12px;text-align:center;">
-                                        <div id="portpp-positions" style="font-size:1.3rem;font-weight:bold;color:#60A5FA;">-</div>
-                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Positions</div>
-                                    </div>
-                                    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:12px;text-align:center;">
-                                        <div id="portpp-winners" style="font-size:1.3rem;font-weight:bold;color:#10B981;">-</div>
-                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Winners</div>
-                                    </div>
-                                    <div style="background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:8px;padding:12px;text-align:center;">
-                                        <div id="portpp-cash" style="font-size:1.3rem;font-weight:bold;color:#94A3B8;">-</div>
-                                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Cash</div>
-                                    </div>
-                                </div>
-                                <!-- Compact holdings table -->
-                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:16px;border:1px solid rgba(251,191,36,0.15);">
-                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
-                                        <thead>
-                                            <tr style="border-bottom:1px solid rgba(251,191,36,0.2);">
-                                                <th style="padding:5px 6px;text-align:left;color:#64748b;">Symbol</th>
-                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">Entry</th>
-                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">Current</th>
-                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">PnL%</th>
-                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">PnL$</th>
-                                                <th style="padding:5px 6px;text-align:center;color:#64748b;">Days</th>
-                                                <th style="padding:5px 6px;text-align:right;color:#64748b;">Score</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="portpp-body">
-                                            <tr><td colspan="7" style="padding:12px;text-align:center;color:#64748b;">Loading...</td></tr>
-                                        </tbody>
-                                    </table>
-                                    <div style="margin-top:8px;text-align:right;">
-                                        <a href="#" onclick="showTab(event,'positions');return false;" style="color:#FBBF24;font-size:0.72rem;text-decoration:none;">Full view → Positions tab ↗</a>
                                     </div>
                                 </div>
                             </div>
@@ -2510,13 +2366,12 @@
                                                     <th style="padding:6px 8px;text-align:left;color:#64748b;">EPIC</th>
                                                     <th style="padding:6px 8px;text-align:left;color:#64748b;">Name</th>
                                                     <th style="padding:6px 8px;text-align:center;color:#64748b;">Phase</th>
-                                                    <th style="padding:6px 8px;text-align:center;color:#64748b;">Status</th>
-                                                    <th style="padding:6px 8px;text-align:center;color:#64748b;">Progress</th>
-                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">Notes</th>
+                                                    <th style="padding:6px 8px;text-align:center;color:#64748b;">Stage</th>
+                                                    <th style="padding:6px 8px;text-align:left;color:#64748b;">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="adm-epics-body">
-                                                <tr><td colspan="6" style="padding:10px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                                <tr><td colspan="5" style="padding:10px;text-align:center;color:#64748b;">Loading...</td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -3246,6 +3101,103 @@
                         <!-- ═══════════════════════════════════════════════════ -->
                         <!-- ROTATION PORTFOLIO TAB                              -->
                         <!-- ═══════════════════════════════════════════════════ -->
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <!-- PAPER PORTFOLIO TAB                                -->
+                        <!-- ═══════════════════════════════════════════════════ -->
+                        <div id="paper-portfolio" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <h3 style="color:#FBBF24;margin:0;">📄 Paper Portfolio — $5,000 · 10-Slot Rotation</h3>
+                                <span id="pp-dates" style="color:#64748b;font-size:0.75rem;"></span>
+                            </div>
+
+                            <!-- Equity Summary -->
+                            <div id="pp-summary" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+                                <div style="background:rgba(251,191,36,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(251,191,36,0.3);">
+                                    <div id="pp-value" style="font-size:1.6rem;font-weight:bold;color:#FBBF24;">-</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Portfolio Value</div>
+                                </div>
+                                <div style="background:rgba(16,185,129,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(16,185,129,0.2);">
+                                    <div id="pp-return" style="font-size:1.6rem;font-weight:bold;color:#10B981;">-</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Total Return</div>
+                                </div>
+                                <div style="background:rgba(59,130,246,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(59,130,246,0.2);">
+                                    <div id="pp-return-dollar" style="font-size:1.6rem;font-weight:bold;color:#3B82F6;">-</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">P&L ($)</div>
+                                </div>
+                                <div style="background:rgba(148,163,184,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(148,163,184,0.2);">
+                                    <div id="pp-cash" style="font-size:1.6rem;font-weight:bold;color:#94A3B8;">-</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Cash</div>
+                                </div>
+                                <div style="background:rgba(148,163,184,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(148,163,184,0.2);">
+                                    <div id="pp-positions" style="font-size:1.6rem;font-weight:bold;color:#CBD5E1;">-</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Positions</div>
+                                </div>
+                            </div>
+
+                            <!-- Equity Curve -->
+                            <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:15px;margin-top:15px;border:1px solid rgba(148,163,184,0.1);">
+                                <h4 style="color:#CBD5E1;margin-bottom:10px;font-size:0.85rem;">Equity Curve vs SPY / QQQ</h4>
+                                <div id="pp-equity-chart" style="height:120px;display:flex;align-items:flex-end;gap:2px;"></div>
+                            </div>
+
+                            <!-- Today's Actions -->
+                            <div id="pp-actions-section" style="margin-top:15px;">
+                                <h4 style="color:#CBD5E1;margin-bottom:10px;font-size:0.85rem;">Today's Actions</h4>
+                                <div id="pp-actions" style="display:grid;gap:8px;">
+                                    <div style="color:#64748b;text-align:center;padding:15px;font-size:0.85rem;">Loading paper portfolio...</div>
+                                </div>
+                            </div>
+
+                            <!-- Holdings Table -->
+                            <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:20px;margin-top:15px;border:1px solid rgba(148,163,184,0.1);">
+                                <h4 style="color:#CBD5E1;margin-bottom:15px;font-size:0.85rem;">Paper Holdings</h4>
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+                                        <thead>
+                                            <tr style="border-bottom:2px solid rgba(251,191,36,0.3);">
+                                                <th style="padding:8px 6px;text-align:left;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Symbol</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Shares</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Entry</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Current</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">P&L %</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">P&L $</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Mkt Value</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Weight</th>
+                                                <th style="padding:8px 6px;text-align:center;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Days</th>
+                                                <th style="padding:8px 6px;text-align:center;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Stage</th>
+                                                <th style="padding:8px 6px;text-align:center;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Trend</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Trim 1</th>
+                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Trim 2</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pp-holdings-body">
+                                            <tr><td colspan="12" style="padding:20px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Closed Trades Summary -->
+                            <div id="pp-closed-section" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:15px;">
+                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-closed-total" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">0</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Closed Trades</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-win-rate" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">-</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Win Rate</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-realized" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">$0</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Total Realized P&L</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-days-running" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">0</div>
+                                    <div style="font-size:0.7rem;color:#94A3B8;">Days Running</div>
+                                </div>
+                            </div>
+                        </div><!-- /paper-portfolio -->
+
                         <div id="rotation" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
                                 <div>
@@ -3389,7 +3341,10 @@
                                     <h3 style="margin:0;">📰 Weekly Publication</h3>
                                     <div style="color:#475569;font-size:0.72rem;margin-top:3px;">Weekly top picks · fundamental + technical screening · 20-stock watchlist</div>
                                 </div>
-                                <span id="weekly-pub-meta" style="color:#475569;font-size:0.72rem;"></span>
+                                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                                    <span id="weekly-pub-meta" style="color:#475569;font-size:0.72rem;"></span>
+                                    <a href="/trading/reports/weekly_pub_latest.html" target="_blank" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:5px 12px;border-radius:6px;font-size:0.75rem;text-decoration:none;white-space:nowrap;">📄 Full Report →</a>
+                                </div>
                             </div>
                             <div id="weekly-pub-header" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;"></div>
                             <div style="overflow-x:auto;">
@@ -3413,6 +3368,36 @@
                                 </table>
                             </div>
                             <div style="margin-top:10px;font-size:0.68rem;color:#334155;">Source: weekly_pub_latest.json · generated Sunday · top 20 shown</div>
+                        </div>
+
+                        <!-- ── PUBLICATIONS ARCHIVE ──────────────────────────── -->
+                        <div id="pub-archive" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <div>
+                                    <h3 style="margin:0;color:#a78bfa;">📚 Publications Archive</h3>
+                                    <div style="color:#475569;font-size:0.72rem;margin-top:3px;">Weekly conviction picks · Quarterly top 10 with thesis · fundamental + technical screening</div>
+                                </div>
+                            </div>
+
+                            <!-- Quarterly conviction card -->
+                            <div id="pa-quarterly" style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.22);border-radius:12px;padding:18px;margin-bottom:16px;">
+                                <div style="font-size:0.65rem;color:#b8860b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">⭐ Quarterly Top 10 — Conviction Holds</div>
+                                <div id="pa-quarterly-body" style="color:#475569;font-size:0.82rem;">Loading…</div>
+                            </div>
+
+                            <!-- Current week card -->
+                            <div id="pa-current" style="background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.25);border-radius:12px;padding:18px;margin-bottom:24px;">
+                                <div style="font-size:0.65rem;color:#7c6faa;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Current Weekly Report</div>
+                                <div id="pa-current-body" style="color:#475569;font-size:0.82rem;">Loading…</div>
+                            </div>
+
+                            <!-- Archive list -->
+                            <div>
+                                <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Past Reports</div>
+                                <div id="pa-archive-list" style="display:flex;flex-direction:column;gap:8px;">
+                                    <div style="color:#475569;font-size:0.82rem;">Loading…</div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- ── CONFLUENCE ANALYSIS ─────────────────────────── -->
@@ -3451,6 +3436,42 @@
                                     style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:6px 14px;border-radius:6px;font-size:0.78rem;cursor:pointer;">
                                     View full walk-forward analysis in Backtest →
                                 </button>
+                            </div>
+                        </div>
+
+                        <!-- ── WATCHLIST TAB ─────────────────────────────────── -->
+                        <div id="watchlist-tab" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <div>
+                                    <h3 style="margin:0;color:#34d399;">📋 Watchlists</h3>
+                                    <div style="color:#475569;font-size:0.72rem;margin-top:3px;">Symbol universe · curated lists · personal watchlist</div>
+                                </div>
+                                <button onclick="loadWatchlist(true)" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;padding:6px 14px;border-radius:8px;font-size:0.78rem;cursor:pointer;">↻ Refresh</button>
+                            </div>
+
+                            <!-- Personal watchlist -->
+                            <div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:12px;padding:18px;margin-bottom:20px;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                    <div>
+                                        <span style="font-size:0.65rem;color:#2d9e6e;text-transform:uppercase;letter-spacing:0.08em;">Personal Watchlist</span>
+                                        <span id="wl-personal-count" style="margin-left:10px;font-size:0.78rem;color:#64748b;"></span>
+                                    </div>
+                                    <div style="display:flex;gap:8px;">
+                                        <button onclick="wlAddSymbol()" style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.35);color:#34d399;padding:4px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;">+ Add</button>
+                                    </div>
+                                </div>
+                                <div id="wl-personal-chips" style="display:flex;flex-wrap:wrap;gap:6px;min-height:32px;">
+                                    <span style="color:#475569;font-size:0.82rem;">Loading…</span>
+                                </div>
+                            </div>
+
+                            <!-- Curated lists -->
+                            <div id="wl-curated-lists" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:20px;"></div>
+
+                            <!-- Large universe lists -->
+                            <div style="margin-bottom:8px;">
+                                <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Full Universe</div>
+                                <div id="wl-universe-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;"></div>
                             </div>
                         </div>
 
@@ -3749,16 +3770,23 @@
                             .u-b-foreign  { background: rgba(45,212,191,0.1); border: 1px solid rgba(45,212,191,0.3); color: #2dd4bf; }
                             .u-state { color: #484f58; font-size: 11px; padding: 40px; text-align: center; font-family: 'Courier New', monospace; }
                             .univ-liq-lbl { font-family: 'Courier New', monospace; font-size: 10px; color: #484f58; white-space: nowrap; }
+                            .u-tier { display: inline-block; width: 18px; text-align: center; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 10px; font-weight: 700; padding: 1px 0; }
+                            .u-tier-A { background: rgba(63,185,80,0.12);  border: 1px solid rgba(63,185,80,0.35);  color: #3fb950; }
+                            .u-tier-B { background: rgba(88,166,255,0.10); border: 1px solid rgba(88,166,255,0.30); color: #58a6ff; }
+                            .u-tier-C { background: rgba(210,153,34,0.10); border: 1px solid rgba(210,153,34,0.30); color: #d29922; }
+                            .u-rs { font-family: 'Courier New', monospace; font-size: 11px; }
+                            .u-rs-hi  { color: #3fb950; }
+                            .u-rs-mid { color: #d29922; }
+                            .u-rs-lo  { color: #8b949e; }
                           </style>
                           <div class="univ-bar">
                             <input class="univ-search" id="univSearch" placeholder="symbol or name…" oninput="univApply()">
-                            <span class="univ-liq-lbl">LIQUIDITY</span>
+                            <span class="univ-liq-lbl">TIER</span>
                             <div class="univ-liq-btns">
-                              <button class="univ-liq-btn active" data-minvol="0"   onclick="univLiqClick(this)">All</button>
-                              <button class="univ-liq-btn"        data-minvol="1e7" onclick="univLiqClick(this)">&gt;$10M</button>
-                              <button class="univ-liq-btn"        data-minvol="5e7" onclick="univLiqClick(this)">&gt;$50M</button>
-                              <button class="univ-liq-btn"        data-minvol="1e8" onclick="univLiqClick(this)">&gt;$100M</button>
-                              <button class="univ-liq-btn"        data-minvol="5e8" onclick="univLiqClick(this)">&gt;$500M</button>
+                              <button class="univ-liq-btn active" data-tier=""  onclick="univTierClick(this)">All</button>
+                              <button class="univ-liq-btn"        data-tier="C" onclick="univTierClick(this)" title="≥$2.5M/day">C+</button>
+                              <button class="univ-liq-btn"        data-tier="B" onclick="univTierClick(this)" title="≥$5M/day">B+</button>
+                              <button class="univ-liq-btn"        data-tier="A" onclick="univTierClick(this)" title="≥$25M/day">A</button>
                             </div>
                             <select class="univ-fsel" id="univFSector" onchange="univApply()">
                               <option value="">All Sectors</option>
@@ -3778,9 +3806,11 @@
                                 <th class="u-num" onclick="univSort('price',-1)">Price</th>
                                 <th class="u-num" onclick="univSort('dollar_volume',-1)">$ Vol/Day</th>
                                 <th class="u-num" onclick="univSort('market_cap',-1)">Mkt Cap</th>
+                                <th onclick="univSort('liquidity_tier',1)">Tier</th>
+                                <th class="u-num" onclick="univSort('rs_rank',-1)">RS</th>
                                 <th onclick="univSort('dcf_status',1)">DCF</th>
                               </tr></thead>
-                              <tbody id="univTbody"><tr><td colspan="8"><div class="u-state">—</div></td></tr></tbody>
+                              <tbody id="univTbody"><tr><td colspan="10"><div class="u-state">—</div></td></tr></tbody>
                             </table>
                           </div>
                         </div>
@@ -4115,6 +4145,10 @@
                 setTimeout(() => loadSetups(), 100);
             } else if (tabName === 'weekly-pub') {
                 setTimeout(() => loadWeeklyPub(), 100);
+            } else if (tabName === 'pub-archive') {
+                setTimeout(() => loadPubArchive(), 100);
+            } else if (tabName === 'watchlist-tab') {
+                setTimeout(() => loadWatchlist(), 100);
             } else if (tabName === 'confluence') {
                 setTimeout(() => loadConfluenceTab(), 100);
             }
@@ -4692,43 +4726,6 @@
                     realEl.style.color = ct.total_realized >= 0 ? '#10B981' : '#EF4444';
                     document.getElementById('pp-days-running').textContent = pp.stats.days_running;
 
-                    // ── Portfolio tab compact view ──
-                    const ppDates = document.getElementById('portpp-dates');
-                    if (ppDates) ppDates.textContent = `Started: ${pp.start_date} · Updated: ${pp.current_date}`;
-                    const ppVal = document.getElementById('portpp-value');
-                    if (ppVal) ppVal.textContent = '$' + pp.total_value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    const ppRet = document.getElementById('portpp-return');
-                    if (ppRet) {
-                        ppRet.textContent = (pp.total_return_pct >= 0 ? '+' : '') + pp.total_return_pct.toFixed(2) + '%';
-                        ppRet.style.color = pp.total_return_pct >= 0 ? '#10B981' : '#EF4444';
-                    }
-                    const ppPos = document.getElementById('portpp-positions');
-                    if (ppPos) ppPos.textContent = pp.num_positions + ' / ' + pp.max_positions;
-                    const ppWin = document.getElementById('portpp-winners');
-                    if (ppWin) ppWin.textContent = (pp.stats.active_winners || 0) + 'W / ' + (pp.stats.active_losers || 0) + 'L';
-                    const ppCash = document.getElementById('portpp-cash');
-                    if (ppCash) ppCash.textContent = '$' + pp.cash.toFixed(0);
-                    const ppBody = document.getElementById('portpp-body');
-                    if (ppBody) {
-                        if (!pp.positions || pp.positions.length === 0) {
-                            ppBody.innerHTML = '<tr><td colspan="7" style="padding:12px;text-align:center;color:#64748b;">No positions yet.</td></tr>';
-                        } else {
-                            ppBody.innerHTML = pp.positions.map(p => {
-                                const c = p.pnl_pct >= 0 ? '#10B981' : '#EF4444';
-                                const s = p.pnl_pct >= 0 ? '+' : '';
-                                const d = p.pnl_dollar >= 0 ? '+$' : '-$';
-                                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
-                                    <td style="padding:5px 6px;font-weight:bold;">${p.symbol}</td>
-                                    <td style="padding:5px 6px;text-align:right;color:#94A3B8;">$${p.entry_price}</td>
-                                    <td style="padding:5px 6px;text-align:right;">$${p.current_price}</td>
-                                    <td style="padding:5px 6px;text-align:right;color:${c};font-weight:bold;">${s}${p.pnl_pct.toFixed(2)}%</td>
-                                    <td style="padding:5px 6px;text-align:right;color:${c};">${d}${Math.abs(p.pnl_dollar).toFixed(2)}</td>
-                                    <td style="padding:5px 6px;text-align:center;color:#94A3B8;">${p.days_held}d</td>
-                                    <td style="padding:5px 6px;text-align:right;color:#64748b;">${p.score || '-'}</td>
-                                </tr>`;
-                            }).join('');
-                        }
-                    }
                 })
                 .catch(err => {
                     console.error('Paper portfolio load error:', err);
@@ -4749,6 +4746,7 @@
         let _trSort       = { col: 'trend_score', dir: 'desc' };
         let _trPage       = 0;
         let _trEnriched   = false;        // has screener join been done?
+        let _trNamesEnriched = false;     // has name join from _lookupIndex been done?
         const TR_PAGE_SIZE = 30;
 
         const _trClassColor = { BUY:'#10B981', WATCH:'#3B82F6', EXTENDED:'#F59E0B', PULLBACK:'#94A3B8' };
@@ -4775,6 +4773,18 @@
                     trRender();
                 })
                 .catch(() => {});  // enrichment is best-effort; table still works without it
+        }
+
+        function _trLoadNames() {
+            if (_trNamesEnriched) return;
+            if (_lookupIndex) {
+                const nm = {};
+                _lookupIndex.securities.forEach(s => { nm[s.sym] = s.name; });
+                _trAll.forEach(t => { t._name = nm[t.symbol] || ''; });
+                _trNamesEnriched = true;
+            } else {
+                loadLookupIndex();  // will enrich + re-render when it completes
+            }
         }
 
         function trPopulateSectorDropdown() {
@@ -4855,7 +4865,10 @@
                 if (_trSector !== 'ALL' && (t._sector || '') !== _trSector) return false;
                 if (_trTier   !== 'ALL' && (t._tier   || '') !== _trTier)   return false;
                 if (_trScanOnly && !t.in_scanner) return false;
-                if (q && !t.symbol.includes(q)) return false;
+                if (q) {
+                    if (!_trNamesEnriched) _trLoadNames();
+                    if (!t.symbol.includes(q) && !(t._name || '').toUpperCase().includes(q)) return false;
+                }
                 return true;
             }).sort((a, b) => {
                 const va = a[_trSort.col] ?? (_trSort.dir === 'desc' ? -Infinity : Infinity);
@@ -5163,7 +5176,7 @@
                     if (topsecEl && s.top_sector_pct != null) {
                         const pct = s.top_sector_pct;
                         topsecEl.textContent = pct.toFixed(0) + '%';
-                        topsecEl.style.color = pct > 30 ? '#EF4444' : pct > 20 ? '#FBBF24' : '#10B981';
+                        topsecEl.style.color = pct > 25 ? '#EF4444' : pct > 15 ? '#FBBF24' : '#10B981';
                     }
                     if (topsecLblEl && s.top_sector) topsecLblEl.textContent = (s.top_sector || '').replace(' Services','').replace(' Cyclical',' Cyc');
                     const gateEl = document.getElementById('port-risk-gate');
@@ -5227,10 +5240,10 @@
                             .map(([sec, cnt]) => {
                                 const pct = total > 0 ? (cnt / total * 100) : 0;
                                 const pctStr = pct.toFixed(0) + '%';
-                                const warn = pct >= 25;
-                                const barColor = pct >= 30 ? 'rgba(239,68,68,0.4)' : pct >= 25 ? 'rgba(245,158,11,0.35)' : 'rgba(59,130,246,0.2)';
-                                const lblColor = pct >= 30 ? '#EF4444' : pct >= 25 ? '#FBBF24' : '#60A5FA';
-                                const warnIcon = pct >= 25 ? '<span style="color:#FBBF24;margin-left:2px;font-size:0.6rem;">⚠</span>' : '';
+                                const warn = pct >= 20;
+                                const barColor = pct >= 25 ? 'rgba(239,68,68,0.4)' : pct >= 20 ? 'rgba(245,158,11,0.35)' : 'rgba(59,130,246,0.2)';
+                                const lblColor = pct >= 25 ? '#EF4444' : pct >= 20 ? '#FBBF24' : '#60A5FA';
+                                const warnIcon = pct >= 20 ? '<span style="color:#FBBF24;margin-left:2px;font-size:0.6rem;">⚠</span>' : '';
                                 return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
                                     <span style="color:#94A3B8;font-size:0.72rem;">${sec.replace(' Services','').replace(' Cyclical',' Cyc')}${warnIcon}</span>
                                     <div style="display:flex;align-items:center;gap:6px;">
@@ -5378,24 +5391,18 @@
                     // ── EPIC Tracker ──
                     const epicsBody = document.getElementById('adm-epics-body');
                     if (epicsBody && ad.epics) {
-                        const statusColors = {complete:'#10B981', active:'#60A5FA', in_progress:'#FBBF24', partial:'#F59E0B', not_started:'#64748b', deferred:'#475569'};
-                        const statusLabels = {complete:'✅ Complete', active:'🔵 Active', in_progress:'🟡 In Progress', partial:'🟠 Partial', not_started:'⬜ Not Started', deferred:'⏸ Deferred'};
+                        const colColors = {done:'#10B981', in_progress:'#FBBF24', mostly_done:'#60A5FA', planned:'#64748b'};
+                        const colLabels = {done:'✅ Done', in_progress:'🟡 Active', mostly_done:'🔵 Almost', planned:'⬜ Planned'};
                         epicsBody.innerHTML = ad.epics.map(e => {
-                            const pct = e.tasks_total > 0 ? Math.round(e.tasks_done / e.tasks_total * 100) : 0;
-                            const col = statusColors[e.status] || '#94A3B8';
-                            const label = statusLabels[e.status] || e.status;
+                            const col = colColors[e.col] || '#94A3B8';
+                            const label = colLabels[e.col] || e.col;
+                            const statusText = e.status.replace(/\*\*/g, '').replace(/\s*\(.*\)/, '');
                             return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
                                 <td style="padding:5px 8px;color:#A78BFA;font-size:0.72rem;white-space:nowrap;">${e.id}</td>
                                 <td style="padding:5px 8px;color:#CBD5E1;">${e.name}</td>
                                 <td style="padding:5px 8px;text-align:center;color:#64748b;">${e.phase}</td>
                                 <td style="padding:5px 8px;text-align:center;"><span style="color:${col};font-size:0.72rem;">${label}</span></td>
-                                <td style="padding:5px 8px;text-align:center;">
-                                    <div style="background:rgba(15,23,42,0.8);border-radius:4px;height:6px;width:80px;display:inline-block;vertical-align:middle;">
-                                        <div style="background:${col};height:6px;border-radius:4px;width:${pct}%;"></div>
-                                    </div>
-                                    <span style="color:#64748b;font-size:0.68rem;margin-left:5px;">${e.tasks_done}/${e.tasks_total}</span>
-                                </td>
-                                <td style="padding:5px 8px;color:#64748b;font-size:0.72rem;">${e.notes}</td>
+                                <td style="padding:5px 8px;color:#64748b;font-size:0.72rem;">${statusText}</td>
                             </tr>`;
                         }).join('');
                     }
@@ -7233,6 +7240,15 @@
                     _lookupIndex = d;
                     const el = document.getElementById('lookup-db-count');
                     if (el) el.textContent = `${d.count.toLocaleString()} symbols · live data on search · index ${d.generated}`;
+                    // Backfill Trends name search if a search is active
+                    if (_trAll.length && !_trNamesEnriched) {
+                        const nm = {};
+                        d.securities.forEach(s => { nm[s.sym] = s.name; });
+                        _trAll.forEach(t => { t._name = nm[t.symbol] || ''; });
+                        _trNamesEnriched = true;
+                        const q = (document.getElementById('tr-search')?.value || '').trim();
+                        if (q) trRender();  // re-render only if a search is active
+                    }
                 })
                 .catch(() => {
                     const el = document.getElementById('lookup-db-count');
@@ -9608,6 +9624,190 @@
             } catch(e) { console.warn('loadWeeklyPub:', e); }
         }
 
+        // ── Publications Archive ──────────────────────────────────────────────
+        async function loadPubArchive() {
+            const regimeColor = r => r === 'BULL' ? '#10B981' : r === 'BEAR' ? '#EF4444' : '#FBBF24';
+
+            // Quarterly card — from quarterly_report_latest.json
+            try {
+                const qEl = document.getElementById('pa-quarterly-body');
+                const resp = await fetch('/trading/data/quarterly_report_latest.json');
+                if (resp.ok) {
+                    const d = await resp.json();
+                    const rc = regimeColor(d.regime || '');
+                    qEl.innerHTML = `
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                            <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Quarter</div>
+                                    <div style="font-size:1rem;font-weight:700;color:#e2e8f0;">${d.quarter || '—'}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Regime</div>
+                                    <div style="font-size:1rem;font-weight:700;color:${rc};">${d.regime || '—'}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Picks</div>
+                                    <div style="font-size:1rem;font-weight:700;color:#FBBF24;">${d.top_n ?? '—'}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Generated</div>
+                                    <div style="font-size:0.88rem;font-weight:600;color:#94A3B8;">${(d.generated || '').slice(0,10)}</div>
+                                </div>
+                            </div>
+                            <a href="/trading/reports/quarterly_report_${d.quarter || 'latest'}.html" target="_blank"
+                               style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.35);color:#FBBF24;padding:8px 18px;border-radius:8px;font-size:0.82rem;text-decoration:none;white-space:nowrap;font-weight:600;">
+                                ⭐ Open Report →
+                            </a>
+                        </div>`;
+                } else {
+                    qEl.innerHTML = '<span style="color:#475569;">No quarterly report yet</span>';
+                }
+            } catch(e) { document.getElementById('pa-quarterly-body').innerHTML = '<span style="color:#475569;">Failed to load</span>'; }
+
+            // Current week — from weekly_pub_latest.json
+            try {
+                const cur = document.getElementById('pa-current-body');
+                const resp = await fetch('/trading/data/weekly_pub_latest.json');
+                if (resp.ok) {
+                    const d = await resp.json();
+                    const rc = regimeColor(d.regime || '');
+                    cur.innerHTML = `
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                            <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Week of</div>
+                                    <div style="font-size:1rem;font-weight:700;color:#e2e8f0;">${d.week_of || '—'}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Regime</div>
+                                    <div style="font-size:1rem;font-weight:700;color:${rc};">${d.regime || '—'}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Picks</div>
+                                    <div style="font-size:1rem;font-weight:700;color:#60A5FA;">${d.top_n ?? '—'}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Alert Mode</div>
+                                    <div style="font-size:1rem;font-weight:700;color:#94A3B8;">${d.alert_mode || '—'}</div>
+                                </div>
+                            </div>
+                            <a href="/trading/reports/weekly_pub_latest.html" target="_blank"
+                               style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);color:#a78bfa;padding:8px 18px;border-radius:8px;font-size:0.82rem;text-decoration:none;white-space:nowrap;font-weight:600;">
+                                📄 Open Report →
+                            </a>
+                        </div>`;
+                } else {
+                    cur.innerHTML = '<span style="color:#475569;">No current report available</span>';
+                }
+            } catch(e) { document.getElementById('pa-current-body').innerHTML = '<span style="color:#475569;">Failed to load</span>'; }
+
+            // Archive list — from pub_archive_index.json
+            try {
+                const listEl = document.getElementById('pa-archive-list');
+                const resp = await fetch('/trading/data/pub_archive_index.json');
+                if (!resp.ok) { listEl.innerHTML = '<span style="color:#475569;">No archive entries yet</span>'; return; }
+                const entries = await resp.json();
+                if (!entries.length) { listEl.innerHTML = '<span style="color:#475569;">No past reports archived yet</span>'; return; }
+                listEl.innerHTML = entries.slice().reverse().map(e => {
+                    const rc = regimeColor(e.regime || '');
+                    const isQ = e.type === 'quarterly';
+                    const typeBadge = isQ
+                        ? `<span style="font-size:0.68rem;background:rgba(251,191,36,0.12);color:#FBBF24;border:1px solid rgba(251,191,36,0.3);padding:1px 7px;border-radius:4px;font-weight:700;">Quarterly</span>`
+                        : `<span style="font-size:0.68rem;background:rgba(167,139,250,0.1);color:#a78bfa;border:1px solid rgba(167,139,250,0.25);padding:1px 7px;border-radius:4px;font-weight:700;">Weekly</span>`;
+                    const label = e.label || e.week_of || e.date;
+                    return `<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(30,41,59,0.5);border:1px solid rgba(148,163,184,0.08);border-radius:8px;padding:12px 16px;flex-wrap:wrap;gap:10px;">
+                        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                            ${typeBadge}
+                            <div style="font-weight:600;color:#CBD5E1;font-size:0.88rem;">${label}</div>
+                            <div style="font-size:0.75rem;color:${rc};font-weight:600;">${e.regime || '—'}</div>
+                            ${e.picks ? `<div style="font-size:0.75rem;color:#64748b;">${e.picks} picks</div>` : ''}
+                        </div>
+                        <a href="${e.url}" target="_blank"
+                           style="font-size:0.75rem;color:#60A5FA;text-decoration:none;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);padding:4px 12px;border-radius:5px;white-space:nowrap;">
+                            View →
+                        </a>
+                    </div>`;
+                }).join('');
+            } catch(e) { document.getElementById('pa-archive-list').innerHTML = '<span style="color:#475569;">Failed to load archive</span>'; }
+        }
+
+        // ── Watchlist Tab ─────────────────────────────────────────────────────
+        let _wlLoaded = false;
+        async function loadWatchlist(force) {
+            if (_wlLoaded && !force) return;
+            _wlLoaded = true;
+
+            const chipStyle = (sym) =>
+                `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(30,41,59,0.8);border:1px solid rgba(148,163,184,0.15);border-radius:5px;padding:3px 8px;font-size:0.72rem;font-family:monospace;color:#CBD5E1;cursor:pointer;"
+                    onclick="document.querySelector('[data-group=lookup]').click();lookupSelect('${sym}')"
+                    title="Open in Lookup">${sym}</span>`;
+
+            // Personal watchlist — live from Flask API
+            try {
+                const r = await fetch('/api/watchlist');
+                const d = r.ok ? await r.json() : {symbols:[], count:0};
+                const syms = d.symbols || [];
+                document.getElementById('wl-personal-count').textContent = `${syms.length} symbol${syms.length !== 1 ? 's' : ''}`;
+                document.getElementById('wl-personal-chips').innerHTML = syms.length
+                    ? syms.map(s => `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(30,41,59,0.8);border:1px solid rgba(52,211,153,0.2);border-radius:5px;padding:3px 8px;font-size:0.72rem;font-family:monospace;color:#34d399;cursor:pointer;"
+                        onclick="document.querySelector('[data-group=lookup]').click();lookupSelect('${s}')"
+                        title="Open in Lookup">${s}
+                        <span onclick="event.stopPropagation();wlRemoveSymbol('${s}')" style="color:#64748b;font-size:0.65rem;margin-left:2px;cursor:pointer;" title="Remove">✕</span>
+                    </span>`).join('')
+                    : '<span style="color:#475569;font-size:0.82rem;">No symbols — click + Add to start tracking</span>';
+            } catch(e) {
+                document.getElementById('wl-personal-chips').innerHTML = '<span style="color:#ef4444;font-size:0.82rem;">Failed to load personal watchlist</span>';
+            }
+
+            // Curated + universe lists — from admin_data.json
+            try {
+                const r = await fetch('/trading/data/admin_data.json');
+                if (!r.ok) return;
+                const ad = await r.json();
+                const lists = (ad.watchlists || []).filter(w => w.name !== 'personal_watchlist');
+                const curated = lists.filter(w => w.count < 250);
+                const universe = lists.filter(w => w.count >= 250);
+
+                document.getElementById('wl-curated-lists').innerHTML = curated.map(w => {
+                    const chips = (w.symbols || w.preview || []).map(s => chipStyle(s)).join('');
+                    const extra = w.count > (w.symbols || []).length ? `<span style="color:#475569;font-size:0.7rem;"> +${w.count - (w.symbols||[]).length} more</span>` : '';
+                    return `<div style="background:rgba(15,23,42,0.6);border:1px solid rgba(148,163,184,0.1);border-radius:10px;padding:14px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                            <span style="font-weight:600;color:#CBD5E1;font-size:0.82rem;">${w.name}</span>
+                            <span style="font-size:0.72rem;color:#64748b;">${w.count} symbols · ${w.modified}</span>
+                        </div>
+                        <div style="display:flex;flex-wrap:wrap;gap:5px;">${chips}${extra}</div>
+                    </div>`;
+                }).join('');
+
+                document.getElementById('wl-universe-list').innerHTML = universe.map(w =>
+                    `<div style="background:rgba(15,23,42,0.6);border:1px solid rgba(148,163,184,0.08);border-radius:8px;padding:12px;">
+                        <div style="font-weight:600;color:#CBD5E1;font-size:0.82rem;margin-bottom:4px;">${w.name}</div>
+                        <div style="font-size:1.4rem;font-weight:700;color:#60A5FA;">${w.count.toLocaleString()}</div>
+                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">symbols · updated ${w.modified}</div>
+                        <div style="font-size:0.65rem;color:#475569;margin-top:4px;">${(w.preview||[]).slice(0,5).join(', ')}…</div>
+                    </div>`
+                ).join('');
+            } catch(e) { console.warn('Watchlist admin data failed', e); }
+        }
+
+        async function wlAddSymbol() {
+            const sym = prompt('Add symbol to personal watchlist (e.g. AAPL):');
+            if (!sym) return;
+            const r = await fetch('/api/watchlist', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'add', symbol: sym.trim().toUpperCase()})});
+            const d = await r.json();
+            if (d.ok) { _wlLoaded = false; loadWatchlist(true); }
+            else alert(d.error || 'Failed to add');
+        }
+
+        async function wlRemoveSymbol(sym) {
+            if (!confirm(`Remove ${sym} from personal watchlist?`)) return;
+            const r = await fetch('/api/watchlist', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'remove', symbol: sym})});
+            const d = await r.json();
+            if (d.ok) { _wlLoaded = false; loadWatchlist(true); }
+        }
+
         // ── Confluence Tab ────────────────────────────────────────────────────
         async function loadConfluenceTab() {
             try {
@@ -9756,7 +9956,7 @@
         // ══════════════════════════════════════════════════════════════════════
         (function() {
             let univRaw = [], univFiltered = [], univLoaded = false;
-            let univSortKey = 'dollar_volume', univSortDir = -1, univMinVol = 0;
+            let univSortKey = 'dollar_volume', univSortDir = -1, univMinTier = '';
 
             const U_EX_MAP = {
                 'NASDAQ NMS - GLOBAL MARKET': 'NASDAQ',
@@ -9776,6 +9976,12 @@
                 etf:      '<span class="u-badge u-b-etf">etf</span>',
                 foreign:  '<span class="u-badge u-b-foreign">foreign</span>',
             };
+
+            function uFmtRS(v) {
+                if (v == null) return '<span style="color:#484f58">—</span>';
+                const cls = v >= 80 ? 'u-rs-hi' : v >= 50 ? 'u-rs-mid' : 'u-rs-lo';
+                return `<span class="u-rs ${cls}">${v.toFixed(0)}</span>`;
+            }
 
             function uFmtMC(v) {
                 if (v == null) return '<span style="color:#484f58">—</span>';
@@ -9814,7 +10020,7 @@
 
                 const tbody = document.getElementById('univTbody');
                 if (!sorted.length) {
-                    tbody.innerHTML = '<tr><td colspan="8"><div class="u-state">No securities match filters.</div></td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="10"><div class="u-state">No securities match filters.</div></td></tr>';
                     return;
                 }
                 tbody.innerHTML = sorted.map(r => `<tr>
@@ -9825,6 +10031,8 @@
                     <td class="u-num u-price">${r.price != null ? '$'+r.price.toFixed(2) : '<span style="color:#484f58">—</span>'}</td>
                     <td class="u-num">${uFmtVol(r.dollar_volume)}</td>
                     <td class="u-num u-mc">${uFmtMC(r.market_cap)}</td>
+                    <td style="text-align:center">${r.liquidity_tier ? `<span class="u-tier u-tier-${r.liquidity_tier}">${r.liquidity_tier}</span>` : '<span style="color:#484f58">—</span>'}</td>
+                    <td class="u-num">${uFmtRS(r.rs_rank)}</td>
                     <td>${U_DCF_BADGE[r.dcf_status] || r.dcf_status}</td>
                 </tr>`).join('');
             }
@@ -9835,13 +10043,14 @@
                 univRender();
             };
 
-            window.univLiqClick = function(btn) {
-                univMinVol = parseFloat(btn.dataset.minvol) || 0;
+            window.univTierClick = function(btn) {
+                univMinTier = btn.dataset.tier || '';
                 document.querySelectorAll('.univ-liq-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 univApply();
             };
 
+            const TIER_ORDER = { 'A': 3, 'B': 2, 'C': 1 };
             window.univApply = function() {
                 const q    = (document.getElementById('univSearch').value || '').toLowerCase().trim();
                 const sec  = document.getElementById('univFSector').value || '';
@@ -9850,7 +10059,7 @@
                     if (q && !r.symbol.toLowerCase().includes(q) && !(r.company_name||'').toLowerCase().includes(q)) return false;
                     if (sec  && r.sector         !== sec)  return false;
                     if (exch && r.exchange_short !== exch) return false;
-                    if (univMinVol > 0 && (r.dollar_volume || 0) < univMinVol) return false;
+                    if (univMinTier && (TIER_ORDER[r.liquidity_tier] || 0) < TIER_ORDER[univMinTier]) return false;
                     return true;
                 });
                 univRender();
@@ -9859,7 +10068,7 @@
             window.univLoad = async function() {
                 if (univLoaded) return;
                 const tbody = document.getElementById('univTbody');
-                if (tbody) tbody.innerHTML = '<tr><td colspan="8"><div class="u-state">Loading…</div></td></tr>';
+                if (tbody) tbody.innerHTML = '<tr><td colspan="10"><div class="u-state">Loading…</div></td></tr>';
                 try {
                     const res = await fetch('/api/universe');
                     const data = await res.json();
@@ -9879,7 +10088,7 @@
                     exchs.forEach(e => { const o = document.createElement('option'); o.value = e; o.textContent = e; ef.appendChild(o); });
                     univApply();
                 } catch(e) {
-                    if (tbody) tbody.innerHTML = `<tr><td colspan="8"><div class="u-state" style="color:#f85149">Failed: ${e.message}</div></td></tr>`;
+                    if (tbody) tbody.innerHTML = `<tr><td colspan="10"><div class="u-state" style="color:#f85149">Failed: ${e.message}</div></td></tr>`;
                 }
             };
         })();

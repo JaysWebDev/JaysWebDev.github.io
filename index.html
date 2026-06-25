@@ -225,6 +225,21 @@
             margin-bottom: 2rem;
             color: white;
         }
+        .hero-inner {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+        .hero-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .hero-text { flex: 1; }
         .hero h2 {
             font-size: 1.1rem;
             font-weight: 600;
@@ -274,6 +289,8 @@
             .projects { padding: 2rem 1rem; }
             .project-grid { grid-template-columns: 1fr; }
             .hero { padding: 1.75rem; }
+            .hero-inner { flex-direction: column; align-items: center; text-align: center; }
+            .hero-photo { width: 100px; height: 100px; }
             nav.site-nav a.nav-resume { margin-left: 0; }
         }
     </style>
@@ -289,24 +306,31 @@
 
         <nav class="site-nav">
             <a href="/">Home</a>
+            <a href="/about/">About</a>
             <a href="/trading/">Trading</a>
             <a href="/rental/">Rental</a>
             <a href="/business/">Business Intel</a>
             <a href="/tools/">Tools</a>
             <a href="/appdevelopment/">Apps</a>
+            <a href="/contact/">Contact</a>
             <a href="/resume/" class="nav-resume">Resume →</a>
         </nav>
 
         <div class="hero">
-            <h2>I'm Jeff "Jay" Kirk Jr. — Investment Operations Professional Building Production AI Systems</h2>
-            <p>
-                11+ years in institutional investment operations (Man Group, State Street — $45B AUM portfolios), now building production AI systems.
-                I combine deep domain expertise in trade lifecycle, risk &amp; controls, and real estate with quantitative dashboards and data pipelines. Available for opportunities in AI engineering, quantitative tooling,
-                full-stack development, or technical operations roles.
-            </p>
-            <div class="hero-ctas">
-                <a href="/resume/" class="cta-btn">View Full Resume →</a>
-                <a href="mailto:jeffkirkjr@gmail.com" class="cta-btn secondary">Get in Touch →</a>
+            <div class="hero-inner">
+                <img src="/headshot.jpg?v=1" alt="Jeff Jay Kirk Jr." class="hero-photo">
+                <div class="hero-text">
+                    <h2>I'm Jeff "Jay" Kirk Jr. — Investment Operations Professional Building Production AI Systems</h2>
+                    <p>
+                        11+ years in institutional investment operations (Man Group, State Street — $45B AUM portfolios), now building production AI systems.
+                        I combine deep domain expertise in trade lifecycle, risk &amp; controls, and real estate with quantitative dashboards and data pipelines.
+                        Particularly interested in roles building AI-native tools for capital markets, real estate analytics, or technical operations at growth-stage fintech or proptech companies.
+                    </p>
+                    <div class="hero-ctas">
+                        <a href="/resume/" class="cta-btn">View Full Resume →</a>
+                        <a href="mailto:jeffkirkjr@gmail.com" class="cta-btn secondary">Get in Touch →</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -316,14 +340,14 @@
             <div class="project-grid">
 
                 <div class="project-card" style="border-left-color: #9f7aea;">
-                    <h3>⚙️ Tools &amp; Dev Hub</h3>
+                    <h3>⚙️ Dev Tools &amp; AI Infrastructure</h3>
                     <div class="features">
-                        <span class="feature-tag">ClaudBot</span>
-                        <span class="feature-tag">8 Projects</span>
+                        <span class="feature-tag">AI Infrastructure</span>
                         <span class="feature-tag">Home Lab</span>
                         <span class="feature-tag">Open Source</span>
+                        <span class="feature-tag">Self-Hosted</span>
                     </div>
-                    <p>Automation agents, open-source developer utilities, and self-hosted infrastructure. ClaudBot orchestrates multi-worker AI scheduling across two machines via Tailscale. Dev tools include WiFi scanner, USB recovery toolkit, and system diagnostics — all open source with one-liner installs.</p>
+                    <p>Open-source developer utilities and self-hosted AI infrastructure. Tools include WiFi scanner, USB recovery toolkit, system diagnostics, duplicate detector, and web scraping utilities — all with one-liner installs. Home lab runs local AI agent workflows and memory systems across Tailscale-networked machines.</p>
                     <a href="/appdevelopment/" class="project-link" style="background: linear-gradient(135deg, #9f7aea 0%, #6b46c1 100%);">Explore →</a>
                 </div>
 
@@ -372,7 +396,7 @@
             <div class="contact-links">
                 <a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a>
-                <a href="mailto:jeffkirkjr@gmail.com">Contact</a>
+                <a href="/contact/">Contact</a>
                 <a href="/privacy/">Privacy Policy</a>
             </div>
         </footer>
