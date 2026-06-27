@@ -318,6 +318,100 @@
       margin-bottom: 12px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+    tbody tr { cursor: pointer; }
+    .opp-card { cursor: pointer; }
+
+    /* Brief panel */
+    #brief-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 200;
+    }
+    #brief-panel {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 420px;
+      max-width: 96vw;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 201;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.22s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    #brief-panel.open { transform: translateX(0); }
+    .brief-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: var(--surface);
+      z-index: 1;
+    }
+    .brief-title-block { flex: 1; min-width: 0; }
+    .brief-address { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; }
+    .brief-city { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .brief-close {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text-muted); border-radius: 6px;
+      width: 30px; height: 30px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+      transition: color 0.15s;
+    }
+    .brief-close:hover { color: var(--text); }
+    .brief-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 20px; }
+    .brief-tier-row { display: flex; align-items: center; gap: 12px; }
+    .brief-tier {
+      font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+      padding: 4px 14px; border-radius: 8px;
+    }
+    .tier-A { background: rgba(34,197,94,0.15); color: var(--green); }
+    .tier-B { background: rgba(99,102,241,0.15); color: var(--accent-light); }
+    .tier-C { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .tier-D { background: rgba(239,68,68,0.12); color: var(--red); }
+    .brief-opp-score { font-size: 13px; color: var(--text-muted); }
+    .brief-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.9px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .brief-thesis {
+      font-size: 13px; line-height: 1.65; color: var(--text);
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px;
+    }
+    .brief-financials {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+    }
+    .bf-item { }
+    .bf-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
+    .bf-value { font-size: 15px; font-weight: 600; margin-top: 2px; }
+    .bf-note { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+    .signals-list { display: flex; flex-direction: column; gap: 7px; }
+    .signal-row { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; }
+    .signal-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+    .signal-dot.on { background: var(--green); }
+    .signal-dot.off { background: var(--border); }
+    .signal-name { font-weight: 600; width: 110px; flex-shrink: 0; }
+    .signal-name.on { color: var(--green); }
+    .signal-name.off { color: var(--text-muted); }
+    .signal-desc { color: var(--text-muted); line-height: 1.5; }
+    .risks-list { display: flex; flex-direction: column; gap: 6px; }
+    .risk-row {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 12px; color: var(--amber); line-height: 1.5;
+    }
+    .risk-icon { flex-shrink: 0; margin-top: 1px; }
+    .no-risks { font-size: 12px; color: var(--green); }
+
     @media (max-width: 640px) {
       nav { padding: 0 16px; }
       .page-wrap { padding: 20px 16px 48px; }
@@ -325,6 +419,7 @@
       .filter-bar { gap: 14px; }
       .filter-actions { margin-left: 0; width: 100%; }
       .cards-grid { grid-template-columns: 1fr; }
+      #brief-panel { width: 100vw; }
     }
   </style>
 </head>
@@ -337,6 +432,45 @@
     <li><a href="scored_opportunities.html" class="active">Opportunities</a></li>
   </ul>
 </nav>
+
+<div id="brief-overlay" onclick="closeBrief()"></div>
+<div id="brief-panel">
+  <div class="brief-header">
+    <div class="brief-title-block">
+      <div class="brief-address" id="brief-address"></div>
+      <div class="brief-city" id="brief-city"></div>
+    </div>
+    <button class="brief-close" onclick="closeBrief()">&times;</button>
+  </div>
+  <div class="brief-body">
+    <div class="brief-tier-row">
+      <div class="brief-tier" id="brief-tier"></div>
+      <div>
+        <div class="brief-opp-score" id="brief-opp-score"></div>
+        <div class="brief-opp-score" id="brief-score-label"></div>
+      </div>
+    </div>
+    <div>
+      <div class="brief-section-label">Deal Thesis</div>
+      <div class="brief-thesis" id="brief-thesis"></div>
+    </div>
+    <div>
+      <div class="brief-section-label">Estimated Financials</div>
+      <div class="brief-financials" id="brief-financials"></div>
+    </div>
+    <div>
+      <div class="brief-section-label">Investment Signals</div>
+      <div class="signals-list" id="brief-signals"></div>
+    </div>
+    <div>
+      <div class="brief-section-label">Risk Flags</div>
+      <div id="brief-risks"></div>
+    </div>
+    <div style="padding:4px 0 8px;font-size:11px;color:var(--text-muted)">
+      Estimates are algorithmic. Verify rent, units, and ownership before underwriting.
+    </div>
+  </div>
+</div>
 
 <div class="page-wrap">
   <div class="page-header">
@@ -628,7 +762,7 @@
       var cf = b.rent_estimate != null && b.expense_estimate != null
         ? parseFloat(b.rent_estimate) - parseFloat(b.expense_estimate) : null;
       var cfColor = cf != null ? (cf >= 0 ? 'var(--green)' : 'var(--red)') : '';
-      return '<div class="opp-card">'
+      return '<div class="opp-card" onclick="openBriefByRank(' + rank + ')" title="Click for deal brief">'
         + '<div class="opp-card-header">'
         + '<div>'
         + '<div class="opp-address">' + addr
@@ -666,7 +800,7 @@
     }
 
     tbody.innerHTML = sorted.map(function(b) {
-      return '<tr>'
+      return '<tr onclick="openBriefByRank(' + b._rank + ')" title="Click for deal brief">'
         + '<td style="color:var(--text-muted);font-size:12px">#' + (b._rank || '') + '</td>'
         + '<td class="address-cell">' + (b.address || '\u2014') + '</td>'
         + '<td>' + (b.city || '\u2014') + '</td>'
@@ -832,6 +966,190 @@
       document.getElementById('table-body').innerHTML = '<tr><td colspan="12" class="no-data">No data available.</td></tr>';
     }
   }
+
+  // ── Brief Engine ──────────────────────────────────────────────────────────
+
+  function inferSignals(b) {
+    var owner = (b.owner_name || '').toUpperCase();
+    var co = /\b(LLC|CORP|TRUST|INC|LP|LLP)\b/.test(owner);
+    var lsd = b.last_sale_date ? new Date(b.last_sale_date) : null;
+    var sp = parseFloat(b.last_sale_price) || 0;
+    var now = new Date();
+    var cutoff = new Date(now.getFullYear(), now.getMonth() - 18, now.getDate());
+    var rt = !!(lsd && lsd >= cutoff && sp >= 1000);
+    // Back-calculate assessment_gap and ownership_cluster from signal_score
+    // Weights: RT=10, AP=15, OC=20, AG=25, CO=10, MAX=80
+    var sig = parseInt(b.signal_score) || 0;
+    var raw = Math.round(sig / 100 * 80);
+    var knownRaw = (rt ? 10 : 0) + (co ? 10 : 0);
+    var remaining = raw - knownRaw;
+    var ag = remaining >= 25;
+    var oc = (remaining - (ag ? 25 : 0)) >= 20;
+    return { co: co, rt: rt, ag: ag, oc: oc };
+  }
+
+  function briefTier(opp) {
+    if (opp >= 80) return 'A';
+    if (opp >= 70) return 'B';
+    if (opp >= 55) return 'C';
+    return 'D';
+  }
+
+  function buildThesis(b, signals) {
+    var cap = b.cap_rate != null ? parseFloat(b.cap_rate) * 100 : null;
+    var city = b.city ? b.city.charAt(0) + b.city.slice(1).toLowerCase() : 'Unknown';
+    var units = b.units || 2;
+    var bt = (b.building_type || 'multifamily').replace(/_/g, ' ').toLowerCase();
+    var parts = [];
+
+    var capStr = cap != null ? ' at a ' + cap.toFixed(1) + '% cap rate' : '';
+    var yieldCtx = cap == null ? '' : cap >= 14 ? ' — strong yield for MA multifamily' : cap >= 10 ? ' — solid yield for the market' : '';
+    parts.push(units + '-unit ' + bt + ' in ' + city + capStr + yieldCtx);
+
+    var sigs = [];
+    if (signals.ag) sigs.push('assessed value below the town median (assessment gap)');
+    if (signals.oc) sigs.push('owner manages multiple buildings in the portfolio (cluster)');
+    if (signals.co) sigs.push('LLC / corporate ownership structure');
+    if (signals.rt) sigs.push('recently transacted at market price');
+
+    if (sigs.length >= 3) {
+      parts.push('Three active signals: ' + sigs.join(', '));
+    } else if (sigs.length === 2) {
+      parts.push(sigs[0].charAt(0).toUpperCase() + sigs[0].slice(1) + ', and ' + sigs[1]);
+    } else if (sigs.length === 1) {
+      parts.push(sigs[0].charAt(0).toUpperCase() + sigs[0].slice(1));
+    } else {
+      parts.push('No strong investment signals — scored on financial metrics alone');
+    }
+    return parts.join('. ') + '.';
+  }
+
+  function briefCashFlow(b) {
+    var mv = parseFloat(b.market_value) || 0;
+    var noi = parseFloat(b.noi) || 0;
+    if (!mv || !noi) return null;
+    var r = 0.07 / 12;
+    var loan = mv * 0.80;
+    var pi = loan * r / (1 - Math.pow(1 + r, -360));
+    return { monthlyNOI: noi / 12, pi: pi, cf: noi / 12 - pi, down: mv * 0.20 };
+  }
+
+  function buildRisks(b, signals, cap) {
+    var risks = [];
+    var lsd = b.last_sale_date ? new Date(b.last_sale_date) : null;
+    var sp = parseFloat(b.last_sale_price) || 0;
+    if (b.valuation_flagged) {
+      risks.push(b.cap_rate_note || 'Valuation flagged — assessed value may be stale or unreliable');
+    }
+    if (b.cap_rate == null) {
+      risks.push('Cap rate not computed — valuation data insufficient');
+    } else if (cap != null && cap > 17) {
+      risks.push('Cap rate above 17% — rare for MA; verify rent estimate against local listings');
+    }
+    if (!b.units || b.units === 0) {
+      risks.push('Unit count unverified in MassGIS — confirm with town assessor');
+    }
+    if (!signals.rt && (!lsd || lsd.getFullYear() < 2018)) {
+      risks.push('No recent market sale — assessed value used as denominator; confirm current price');
+    }
+    if (sp > 1000 && sp < 75000 && lsd && lsd.getFullYear() >= 2018) {
+      risks.push('Recent sale below $75K — may indicate distressed or non-arm\'s-length transfer');
+    }
+    var city = b.city ? b.city.charAt(0) + b.city.slice(1).toLowerCase() : 'the area';
+    risks.push('Rent is HUD FMR estimate — verify against current listings in ' + city);
+    return risks;
+  }
+
+  function openBriefByRank(rank) {
+    var b = allBuildings.find(function(x) { return x._rank === rank; });
+    if (b) openBrief(b);
+  }
+
+  function openBrief(b) {
+    var signals = inferSignals(b);
+    var cap = b.cap_rate != null ? parseFloat(b.cap_rate) * 100 : null;
+    var opp = parseFloat(b.opportunity_score);
+    var tier = briefTier(opp);
+    var cf = briefCashFlow(b);
+    var risks = buildRisks(b, signals, cap);
+
+    document.getElementById('brief-address').textContent = b.address || 'Unknown Address';
+    var loc = [b.city ? b.city.charAt(0) + b.city.slice(1).toLowerCase() : null, b.state].filter(Boolean);
+    var ustr = (b.units != null && b.units > 0) ? ' · ' + b.units + ' units' : '';
+    document.getElementById('brief-city').textContent = loc.join(', ') + ustr;
+
+    var tierEl = document.getElementById('brief-tier');
+    tierEl.textContent = 'Tier ' + tier;
+    tierEl.className = 'brief-tier tier-' + tier;
+    document.getElementById('brief-opp-score').textContent = 'Opportunity ' + opp.toFixed(1) + ' / 100';
+    document.getElementById('brief-score-label').textContent = 'Signal ' + (b.signal_score || 0) + ' / 100';
+
+    document.getElementById('brief-thesis').textContent = buildThesis(b, signals);
+
+    var finHtml = '';
+    if (cap != null) {
+      var capColor = cap >= 10 ? 'green' : cap >= 6 ? 'amber' : 'red';
+      finHtml += '<div class="bf-item"><div class="bf-label">Cap Rate</div><div class="bf-value" style="color:var(--' + capColor + ')">' + cap.toFixed(1) + '%</div></div>';
+    }
+    if (b.noi) {
+      finHtml += '<div class="bf-item"><div class="bf-label">Annual NOI</div><div class="bf-value">$' + Math.round(b.noi).toLocaleString() + '</div></div>';
+    }
+    if (b.rent_estimate) {
+      finHtml += '<div class="bf-item"><div class="bf-label">Monthly Rent</div><div class="bf-value">$' + Math.round(b.rent_estimate).toLocaleString() + '</div><div class="bf-note">HUD FMR estimate</div></div>';
+    }
+    if (cf) {
+      var cfColor2 = cf.cf >= 0 ? 'green' : 'red';
+      finHtml += '<div class="bf-item"><div class="bf-label">Est. Cash Flow/Mo.</div><div class="bf-value" style="color:var(--' + cfColor2 + ')">' + (cf.cf >= 0 ? '+' : '−') + '$' + Math.round(Math.abs(cf.cf)).toLocaleString() + '</div><div class="bf-note">20% down · 7.0% · 30yr</div></div>';
+      finHtml += '<div class="bf-item"><div class="bf-label">Down Payment</div><div class="bf-value" style="color:var(--text-muted)">$' + Math.round(cf.down).toLocaleString() + '</div><div class="bf-note">20% of assessed value</div></div>';
+    }
+    if (b.market_value) {
+      finHtml += '<div class="bf-item"><div class="bf-label">Assessed Value</div><div class="bf-value" style="color:var(--text-muted)">$' + Math.round(b.market_value).toLocaleString() + '</div></div>';
+    }
+    if (b.last_sale_price && parseFloat(b.last_sale_price) > 1000) {
+      finHtml += '<div class="bf-item"><div class="bf-label">Last Sale</div><div class="bf-value" style="color:var(--text-muted)">$' + Math.round(b.last_sale_price).toLocaleString() + '</div><div class="bf-note">' + (b.last_sale_date ? fmtDate(b.last_sale_date) : '—') + '</div></div>';
+    }
+    document.getElementById('brief-financials').innerHTML = finHtml;
+
+    var signalDefs = [
+      { name: 'Assessment Gap', desc: 'Market value &gt;20% below town median — potential undervaluation vs peers', on: signals.ag },
+      { name: 'Owner Cluster',  desc: 'Owner holds 3+ buildings — experienced landlord, possible off-market access', on: signals.oc },
+      { name: 'Corporate Owner', desc: 'LLC / Corp / Trust ownership — active management structure', on: signals.co },
+      { name: 'Recent Transfer', desc: 'Sold within 18 months at market price — confirms current valuation', on: signals.rt },
+      { name: 'Active Permit',  desc: 'Open building permit — active improvement or renovation detected (rare)', on: false },
+    ];
+    document.getElementById('brief-signals').innerHTML = signalDefs.map(function(s) {
+      return '<div class="signal-row">'
+        + '<div class="signal-dot ' + (s.on ? 'on' : 'off') + '"></div>'
+        + '<div class="signal-name ' + (s.on ? 'on' : 'off') + '">' + s.name + '</div>'
+        + '<div class="signal-desc">' + s.desc + '</div>'
+        + '</div>';
+    }).join('');
+
+    var risksEl = document.getElementById('brief-risks');
+    if (risks.length === 0) {
+      risksEl.innerHTML = '<div class="no-risks">No significant risk flags detected.</div>';
+    } else {
+      risksEl.innerHTML = '<div class="risks-list">' + risks.map(function(r) {
+        return '<div class="risk-row"><span class="risk-icon">&#9888;</span><span>' + r + '</span></div>';
+      }).join('') + '</div>';
+    }
+
+    document.getElementById('brief-overlay').style.display = 'block';
+    document.getElementById('brief-panel').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBrief() {
+    document.getElementById('brief-overlay').style.display = 'none';
+    document.getElementById('brief-panel').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeBrief();
+  });
+
+  // ── End Brief Engine ───────────────────────────────────────────────────────
 
   loadData();
 </script>
