@@ -601,8 +601,9 @@
         th.sort-desc::after { content: ' ↓'; color: #818cf8; }
 
         @media (max-width: 900px) {
-            .nav-groups { flex-wrap: wrap; }
-            .nav-group-btn { font-size: 0.65rem; padding: 6px 10px; }
+            .nav-groups { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .nav-groups::-webkit-scrollbar { display: none; }
+            .nav-group-btn { font-size: 0.65rem; padding: 6px 10px; flex-shrink: 0; }
         }
     </style>
 </head>
@@ -665,59 +666,110 @@
                 <div class="main-display">
                     <!-- Group navigation -->
                     <div class="nav-groups">
-                        <button class="nav-group-btn active" onclick="showGroup(event,'market')">📊 Market</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'signals')">⚡ Signals</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'track-record')">📋 Track Record</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'portfolios')">💼 Portfolios</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'screeners')">🔍 Screeners</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'lookup')">🔎 Lookup</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'admin-grp')">⚙️ Admin</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'universe-grp')" style="color:#34d399;">🌐 Universe</button>
-                        <button class="nav-group-btn" onclick="showGroup(event,'fundamentals')" style="color:#58a6ff;">📋 Fundamentals</button>
+                        <button class="nav-group-btn active" onclick="showGroup(event,'intro')">🏠 Intro</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'trading')">📈 Trading</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'securities')">🔍 Securities</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'research')">🔬 Research</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'simulation')">🧪 Simulation</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'portfolio')">💼 Portfolio</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'operations')">⚙️ Operations</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'reports')">📄 Reports</button>
                     </div>
                     <!-- Sub-tab row (filtered by active group) -->
                     <div class="tabs">
-                        <!-- Market group -->
-                        <button class="tab-button active" data-group="market" onclick="showTab(event,'overview')">📈 Overview</button>
-                        <!-- Signals group (hidden initially) -->
-                        <button class="tab-button" data-group="signals" style="display:none" onclick="showTab(event,'reports')">📄 Scanner Reports</button>
-                        <button class="tab-button" data-group="signals" style="display:none" onclick="showTab(event,'setups')">🎯 Today's Setups</button>
-                        <button class="tab-button" data-group="signals" style="display:none" onclick="showTab(event,'weekly-pub')">📰 Weekly Publication</button>
-                        <button class="tab-button" data-group="signals" style="display:none;color:#a78bfa;" onclick="showTab(event,'pub-archive')">📚 Pub Archive</button>
-                        <!-- Track Record group (hidden initially) -->
-                        <button class="tab-button" data-group="track-record" style="display:none" onclick="showTab(event,'research')">🔬 Scanner Accuracy</button>
-                        <button class="tab-button" data-group="track-record" style="display:none;color:#f59e0b;" onclick="showTab(event,'alpha-gen')">⚡ Alpha vs Market</button>
-                        <button class="tab-button" data-group="track-record" style="display:none" onclick="showTab(event,'backtest')">🧪 Backtest</button>
-                        <button class="tab-button" data-group="track-record" style="display:none" onclick="showTab(event,'confluence')">🔀 Confluence</button>
-                        <!-- Portfolios group (hidden initially) -->
-                        <button class="tab-button" data-group="portfolios" style="display:none" onclick="showTab(event,'positions')">💼 Position Manager</button>
-                        <button class="tab-button" data-group="portfolios" style="display:none" onclick="showTab(event,'portfolio')">📦 LT Portfolio</button>
-                        <button class="tab-button" data-group="portfolios" style="display:none;color:#FBBF24;" onclick="showTab(event,'paper-portfolio')">📄 Paper Portfolio</button>
-                        <button class="tab-button" data-group="portfolios" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">🔄 Rotation Engine</button>
-                        <!-- Screeners group (hidden initially) -->
-                        <button class="tab-button" data-group="screeners" style="display:none" onclick="showTab(event,'trends')">🔥 Trends</button>
-                        <button class="tab-button" data-group="screeners" style="display:none;color:#818cf8;" onclick="showTab(event,'screener')">📉 Signal Explorer</button>
-                        <button class="tab-button" data-group="screeners" style="display:none;color:#00d4aa;" onclick="showTab(event,'mktcaps')">📊 Market Caps</button>
-                        <button class="tab-button" data-group="screeners" style="display:none;color:#fbbf24;" onclick="showTab(event,'capital-flow')">💰 Capital Flow</button>
-                        <button class="tab-button" data-group="screeners" style="display:none;color:#a78bfa;" onclick="showTab(event,'rsi-momentum')">📊 RSI Momentum</button>
-                        <button class="tab-button" data-group="screeners" style="display:none;color:#4ade80;" onclick="showTab(event,'atr')">📈 ATR</button>
-                        <!-- Lookup group (hidden initially) -->
-                        <button class="tab-button" data-group="lookup" style="display:none" onclick="showTab(event,'lookup')">🔎 Lookup</button>
-                        <!-- Admin group (hidden initially) -->
-                        <button class="tab-button" data-group="admin-grp" style="display:none" onclick="showTab(event,'admin')">⚙️ System Admin</button>
-                        <button class="tab-button" data-group="admin-grp" style="display:none;color:#34d399;" onclick="showTab(event,'watchlist-tab');loadWatchlist()">📋 Watchlists</button>
-                        <button class="tab-button" data-group="admin-grp" style="display:none;color:#a78bfa;" onclick="showTab(event,'system-tools');stLoadTools()">🛠️ Tools</button>
-                        <!-- Universe group (hidden initially) -->
-                        <button class="tab-button" data-group="universe-grp" style="display:none;color:#34d399;" onclick="showTab(event,'universe-main');univLoad()">🌐 Symbol Universe</button>
-                        <button class="tab-button" data-group="universe-grp" style="display:none;color:#f59e0b;" onclick="showTab(event,'dcf-coverage');dcfCovLoad()">📊 DCF Coverage</button>
-                        <!-- Fundamentals group (hidden initially) -->
-                        <button class="tab-button" data-group="fundamentals" style="display:none;color:#58a6ff;" onclick="showTab(event,'edgar')">🏦 EDGAR Analysis</button>
-                        <button class="tab-button" data-group="fundamentals" style="display:none;color:#58a6ff;" onclick="showTab(event,'dcf-results');loadDcfResults()">📋 DCF Results</button>
+                        <!-- Intro group -->
+                        <button class="tab-button active" data-group="intro" onclick="showTab(event,'overview')">📈 Overview</button>
+                        <!-- Trading group (hidden initially) -->
+                        <button class="tab-button" data-group="trading" style="display:none" onclick="showTab(event,'setups')">🎯 Today's Setups</button>
+                        <button class="tab-button" data-group="trading" style="display:none" onclick="showTab(event,'trends')">🔥 Trends</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#818cf8;" onclick="showTab(event,'screener')">📉 Signal Explorer</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#fbbf24;" onclick="showTab(event,'capital-flow')">💰 Capital Flow</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#a78bfa;" onclick="showTab(event,'rsi-momentum')">📊 RSI Momentum</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#4ade80;" onclick="showTab(event,'atr')">📈 ATR</button>
+                        <!-- Securities group (hidden initially) -->
+                        <button class="tab-button" data-group="securities" style="display:none" onclick="showTab(event,'lookup')">🔎 Lookup</button>
+                        <button class="tab-button" data-group="securities" style="display:none;color:#00d4aa;" onclick="showTab(event,'mktcaps')">📊 Market Caps</button>
+                        <button class="tab-button" data-group="securities" style="display:none;color:#58a6ff;" onclick="showTab(event,'edgar')">🏦 EDGAR Analysis</button>
+                        <button class="tab-button" data-group="securities" style="display:none;color:#58a6ff;" onclick="showTab(event,'dcf-results');loadDcfResults()">📋 DCF</button>
+                        <!-- Research group (hidden initially) -->
+                        <button class="tab-button" data-group="research" style="display:none" onclick="showTab(event,'research')">🔬 Scanner Accuracy</button>
+                        <button class="tab-button" data-group="research" style="display:none;color:#f59e0b;" onclick="showTab(event,'alpha-gen')">⚡ Alpha vs Market</button>
+                        <button class="tab-button" data-group="research" style="display:none" onclick="showTab(event,'confluence')">🔀 Confluence</button>
+                        <button class="tab-button" data-group="research" style="display:none;color:#f59e0b;" onclick="showTab(event,'funds');loadFunds()">🏛️ Smart Money</button>
+                        <!-- Simulation group (hidden initially) -->
+                        <button class="tab-button" data-group="simulation" style="display:none" onclick="showTab(event,'backtest')">🧪 Backtest</button>
+                        <button class="tab-button" data-group="simulation" style="display:none;color:#FBBF24;" onclick="showTab(event,'paper-portfolio')">📄 Paper Portfolio</button>
+                        <!-- Portfolio group (hidden initially) -->
+                        <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'positions')">💼 Position Manager</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'portfolio')">📦 LT Portfolio</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">🔄 Rotation Engine</button>
+                        <!-- Operations group (hidden initially) -->
+                        <button class="tab-button" data-group="operations" style="display:none" onclick="showTab(event,'admin')">⚙️ System Admin</button>
+                        <button class="tab-button" data-group="operations" style="display:none;color:#34d399;" onclick="showTab(event,'watchlist-tab');loadWatchlist()">📋 Watchlists</button>
+                        <button class="tab-button" data-group="operations" style="display:none;color:#a78bfa;" onclick="showTab(event,'system-tools');stLoadTools()">🛠️ Tools</button>
+                        <!-- Reports group (hidden initially) -->
+                        <button class="tab-button" data-group="reports" style="display:none" onclick="showTab(event,'reports')">📄 Scanner Reports</button>
+                        <button class="tab-button" data-group="reports" style="display:none" onclick="showTab(event,'weekly-pub')">📰 Weekly Publication</button>
+                        <button class="tab-button" data-group="reports" style="display:none;color:#a78bfa;" onclick="showTab(event,'pub-archive')">📚 Pub Archive</button>
                     </div>
 
                     <div class="tab-content">
                         <div id="overview" class="tab-panel active">
-                            <h3>System Overview</h3>
+                            <!-- ── Landing Header ─────────────────────────────────────────── -->
+                            <div style="margin-bottom:18px;">
+                                <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
+                                    <div>
+                                        <div style="font-size:1.4rem;font-weight:700;color:#e2e8f0;letter-spacing:-0.01em;">Trading Intelligence</div>
+                                        <div style="font-size:0.78rem;color:#64748b;margin-top:3px;">Multi-scanner synthesis · 2,700+ symbols · EOD signals</div>
+                                    </div>
+                                    <!-- System status pills -->
+                                    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                                        <div id="intro-regime-pill" style="padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;background:rgba(148,163,184,0.1);border:1px solid rgba(148,163,184,0.2);color:#94A3B8;">Regime —</div>
+                                        <div id="intro-signals-pill" style="padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:#60A5FA;">Signals —</div>
+                                        <div id="intro-updated-pill" style="padding:4px 12px;border-radius:20px;font-size:0.72rem;color:#475569;background:rgba(30,41,59,0.6);border:1px solid rgba(148,163,184,0.1);">Updated —</div>
+                                    </div>
+                                </div>
+
+                                <!-- Quick-nav cards -->
+                                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:14px;">
+                                    <button class="intro-nav-card" onclick="navTo('trading')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(59,130,246,0.5)'" onmouseout="this.style.borderColor='rgba(59,130,246,0.2)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">📈</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Trading</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Setups · Trends · Screeners</div>
+                                    </button>
+                                    <button class="intro-nav-card" onclick="navTo('securities')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(52,211,153,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(52,211,153,0.5)'" onmouseout="this.style.borderColor='rgba(52,211,153,0.2)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">🔍</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Securities</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Lookup · Universe · DCF · EDGAR</div>
+                                    </button>
+                                    <button class="intro-nav-card" onclick="navTo('research')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(251,191,36,0.5)'" onmouseout="this.style.borderColor='rgba(251,191,36,0.2)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">🔬</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Research</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Accuracy · Alpha · Confluence</div>
+                                    </button>
+                                    <button class="intro-nav-card" onclick="navTo('simulation')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(167,139,250,0.5)'" onmouseout="this.style.borderColor='rgba(167,139,250,0.2)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">🧪</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Simulation</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Backtest · Paper Portfolio</div>
+                                    </button>
+                                    <button class="intro-nav-card" onclick="navTo('portfolio')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(96,165,250,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">💼</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Portfolio</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Positions · LT Holdings · Rotation</div>
+                                    </button>
+                                    <button class="intro-nav-card" onclick="navTo('operations')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(148,163,184,0.15);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(148,163,184,0.35)'" onmouseout="this.style.borderColor='rgba(148,163,184,0.15)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">⚙️</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Operations</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Admin · Watchlists · Tools</div>
+                                    </button>
+                                    <button class="intro-nav-card" onclick="navTo('reports')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(167,139,250,0.15);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(167,139,250,0.4)'" onmouseout="this.style.borderColor='rgba(167,139,250,0.15)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">📄</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Reports</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Scanner · Weekly · Archive</div>
+                                    </button>
+                                </div>
+                            </div>
+
                             <div id="overview-content">
                                 <!-- Hidden placeholders — JS writes to these IDs from admin_data.json -->
                                 <span id="stat-active-scanners" style="display:none;"></span>
@@ -899,6 +951,10 @@
                                     <a href="/trading/reports/cross_scanner_latest.html" style="display: block; background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-decoration: none; color: #e2e8f0; border: 1px solid rgba(148,163,184,0.1); border-left: 4px solid #EF4444; grid-column: 1 / -1; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#EF4444'" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)'; this.style.borderLeftColor='#EF4444'">
                                         <div style="font-weight: bold; font-size: 1.05rem;">Cross-Scanner Intelligence</div>
                                         <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 5px;">Multi-scanner overlap + multi-day persistence — highest conviction picks</div>
+                                    </a>
+                                    <a href="/trading/reports/liquid_watchlist_latest.html" style="display: block; background: rgba(30,41,59,0.6); border-radius: 10px; padding: 20px; text-decoration: none; color: #e2e8f0; border: 1px solid rgba(148,163,184,0.1); border-left: 4px solid #6366f1; grid-column: 1 / -1; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)'; this.style.borderLeftColor='#6366f1'">
+                                        <div style="font-weight: bold; font-size: 1.05rem;">Liquid Watchlist Intelligence</div>
+                                        <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 5px;">Top 1,000 symbols by vol + market cap — signals filtered to tradeable, liquid names</div>
                                     </a>
                                 </div>
                             </div>
@@ -1985,6 +2041,48 @@
                                 <div id="lookup-not-found-msg"></div>
                                 <div style="margin-top:8px;font-size:0.75rem;color:#475569;">Security data updates daily at 5 PM. Run manually:<br>
                                 <code style="color:#60A5FA;">cd /home/j/trading-pipeline && trading_env/bin/python3 security_data_generator.py --mode=single --symbol=TICKER</code></div>
+                            </div>
+
+                            <!-- ── Browse Universe ──────────────────────────── -->
+                            <div style="margin-top:28px;border-top:1px solid rgba(148,163,184,0.1);padding-top:20px;">
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                                    <span style="font-weight:700;font-size:0.95rem;color:#CBD5E1;">🌐 Symbol Universe</span>
+                                    <button onclick="univLoad()" style="background:transparent;border:1px solid #30363d;color:#8b949e;font-size:11px;font-family:'Courier New',monospace;padding:4px 12px;border-radius:6px;cursor:pointer;">↻ Load</button>
+                                </div>
+                                <div class="univ-bar" style="background:rgba(13,17,23,0.6);border-radius:8px 8px 0 0;border:1px solid #30363d;border-bottom:none;">
+                                    <input class="univ-search" id="univSearch" type="text" placeholder="Symbol or name…" oninput="univApply()">
+                                    <span class="univ-liq-lbl" style="margin-left:8px;">TIER</span>
+                                    <div class="univ-liq-btns">
+                                        <button class="univ-liq-btn active" data-tier=""  onclick="univTierClick(this)">All</button>
+                                        <button class="univ-liq-btn" data-tier="C" onclick="univTierClick(this)" title="≥$2.5M/day">C+</button>
+                                        <button class="univ-liq-btn" data-tier="B" onclick="univTierClick(this)" title="≥$5M/day">B+</button>
+                                        <button class="univ-liq-btn" data-tier="A" onclick="univTierClick(this)" title="≥$25M/day">A</button>
+                                    </div>
+                                    <select class="univ-fsel" id="univFSector" onchange="univApply()">
+                                        <option value="">All Sectors</option>
+                                    </select>
+                                    <select class="univ-fsel" id="univFExch" onchange="univApply()">
+                                        <option value="">All Exchanges</option>
+                                    </select>
+                                    <div class="univ-count" style="margin-left:auto;"><em id="univRowCount">—</em> securities</div>
+                                </div>
+                                <div class="univ-scroller" style="border:1px solid #30363d;border-radius:0 0 8px 8px;max-height:500px;">
+                                    <table id="univ-table">
+                                        <thead><tr>
+                                            <th onclick="univSort('symbol',1)">Symbol</th>
+                                            <th onclick="univSort('company_name',1)">Company</th>
+                                            <th onclick="univSort('sector',1)">Sector</th>
+                                            <th onclick="univSort('exchange_short',1)">Exch</th>
+                                            <th class="u-num" onclick="univSort('price',-1)">Price</th>
+                                            <th class="u-num" onclick="univSort('dollar_volume',-1)">$ Vol/Day</th>
+                                            <th class="u-num" onclick="univSort('market_cap',-1)">Mkt Cap</th>
+                                            <th onclick="univSort('liquidity_tier',1)">Tier</th>
+                                            <th class="u-num" onclick="univSort('rs_rank',-1)">RS</th>
+                                            <th onclick="univSort('dcf_status',1)">DCF</th>
+                                        </tr></thead>
+                                        <tbody id="univTbody"><tr><td colspan="10" style="padding:30px;text-align:center;color:#484f58;font-family:'Courier New',monospace;font-size:11px;">Click Load to browse all securities</td></tr></tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
@@ -3432,7 +3530,7 @@
                                 </div>
                             </div>
                             <div style="margin-top:14px;text-align:right;">
-                                <button onclick="document.querySelector('[data-group=track-record]').click();showTab(event,'backtest');"
+                                <button onclick="document.querySelector('[data-group=simulation]').click();showTab(event,'backtest');"
                                     style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:6px 14px;border-radius:6px;font-size:0.78rem;cursor:pointer;">
                                     View full walk-forward analysis in Backtest →
                                 </button>
@@ -3444,7 +3542,6 @@
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
                                 <div>
                                     <h3 style="margin:0;color:#34d399;">📋 Watchlists</h3>
-                                    <div style="color:#475569;font-size:0.72rem;margin-top:3px;">Symbol universe · curated lists · personal watchlist</div>
                                 </div>
                                 <button onclick="loadWatchlist(true)" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;padding:6px 14px;border-radius:8px;font-size:0.78rem;cursor:pointer;">↻ Refresh</button>
                             </div>
@@ -3453,25 +3550,27 @@
                             <div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:12px;padding:18px;margin-bottom:20px;">
                                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
                                     <div>
-                                        <span style="font-size:0.65rem;color:#2d9e6e;text-transform:uppercase;letter-spacing:0.08em;">Personal Watchlist</span>
+                                        <span style="font-size:0.65rem;color:#2d9e6e;text-transform:uppercase;letter-spacing:0.08em;">Personal</span>
                                         <span id="wl-personal-count" style="margin-left:10px;font-size:0.78rem;color:#64748b;"></span>
                                     </div>
-                                    <div style="display:flex;gap:8px;">
-                                        <button onclick="wlAddSymbol()" style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.35);color:#34d399;padding:4px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;">+ Add</button>
-                                    </div>
+                                    <button onclick="wlAddSymbol()" style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.35);color:#34d399;padding:4px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;">+ Add</button>
                                 </div>
                                 <div id="wl-personal-chips" style="display:flex;flex-wrap:wrap;gap:6px;min-height:32px;">
                                     <span style="color:#475569;font-size:0.82rem;">Loading…</span>
                                 </div>
                             </div>
 
-                            <!-- Curated lists -->
-                            <div id="wl-curated-lists" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:20px;"></div>
-
-                            <!-- Large universe lists -->
-                            <div style="margin-bottom:8px;">
-                                <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Full Universe</div>
-                                <div id="wl-universe-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;"></div>
+                            <!-- List selector + symbol table -->
+                            <div>
+                                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+                                    <select id="wl-list-sel" onchange="wlShowList(this.value)" style="background:#161b22;border:1px solid #30363d;border-radius:8px;color:#e6edf3;font-size:0.82rem;padding:6px 12px;outline:none;cursor:pointer;min-width:180px;">
+                                        <option value="">— select a list —</option>
+                                    </select>
+                                    <span id="wl-list-meta" style="color:#484f58;font-family:'Courier New',monospace;font-size:11px;"></span>
+                                </div>
+                                <div id="wl-list-content" style="background:rgba(13,17,23,0.6);border:1px solid #30363d;border-radius:10px;min-height:80px;overflow:hidden;">
+                                    <div style="padding:24px;text-align:center;color:#484f58;font-size:0.82rem;">Select a list above</div>
+                                </div>
                             </div>
                         </div>
 
@@ -3642,11 +3741,15 @@
                             </div>
                         </div>
 
-                        <!-- ── DCF RESULTS ─────────────────────────────────── -->
+                        <!-- ── DCF (Valuations + Coverage) ─────────────────── -->
                         <div id="dcf-results" class="tab-panel">
                           <style>
                             #dcf-results { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
                             #dcf-results.active { display: flex; }
+                            .dcf-toggle-bar { display:flex; gap:0; border-bottom:1px solid #30363d; flex-shrink:0; }
+                            .dcf-toggle { background:transparent; border:none; border-bottom:2px solid transparent; color:#484f58; font-family:'Courier New',monospace; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:8px 18px; cursor:pointer; transition:all 0.12s; }
+                            .dcf-toggle:hover { color:#8b949e; }
+                            .dcf-toggle.active { color:#58a6ff; border-bottom-color:#58a6ff; }
                             .dr-bar { display:flex; align-items:center; gap:0; padding:10px 16px; border-bottom:1px solid #30363d; flex-shrink:0; }
                             .dr-prompt { font-family:'Courier New',monospace; font-size:11px; color:#484f58; margin-right:4px; }
                             .dr-search { background:transparent; border:none; outline:none; font-family:'Courier New',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#58a6ff; width:130px; padding:0; caret-color:#58a6ff; }
@@ -3654,7 +3757,7 @@
                             .dr-vr { width:1px; height:16px; background:#30363d; margin:0 14px; }
                             .dr-meta { font-family:'Courier New',monospace; font-size:10px; color:#484f58; margin-left:auto; }
                             .dr-meta em { font-style:normal; color:#8b949e; }
-                            .dr-scroll { flex:1; overflow-y:auto; overflow-x:auto; max-height:calc(100vh - 180px); }
+                            .dr-scroll { flex:1; overflow-y:auto; overflow-x:auto; max-height:calc(100vh - 215px); }
                             .dr-scroll::-webkit-scrollbar { width:3px; } .dr-scroll::-webkit-scrollbar-thumb { background:#30363d; }
                             #dr-table { width:100%; border-collapse:collapse; }
                             #dr-table col.dc-s { width:100px; } #dr-table col.dc-c { width:180px; } #dr-table col.dc-m { width:150px; } #dr-table col.dc-p { width:130px; }
@@ -3680,146 +3783,8 @@
                             .dr-state .dr-sub { color:#f85149; margin-top:8px; text-transform:none; letter-spacing:0.04em; }
                             .drdots::after { content:''; animation:drd 1.2s step-end infinite; }
                             @keyframes drd { 0%{content:''} 33%{content:'.'} 66%{content:'..'} 99%{content:'...'} }
-                          </style>
-                          <div class="dr-bar">
-                            <span class="dr-prompt">&gt;</span>
-                            <input class="dr-search" id="drSearch" type="text" placeholder="filter ticker" maxlength="10" autocomplete="off" spellcheck="false">
-                            <div class="dr-vr"></div>
-                            <div class="dr-meta" id="drMeta">—</div>
-                          </div>
-                          <div class="dr-scroll">
-                            <table id="dr-table">
-                              <colgroup><col class="dc-s"><col class="dc-c"><col class="dc-m"><col class="dc-p"></colgroup>
-                              <thead><tr>
-                                <th id="drh-symbol"        onclick="drSort('symbol')">       Ticker          <span class="da" id="dra-symbol">↕</span></th>
-                                <th id="drh-implied_price" onclick="drSort('implied_price')">Calculated Price <span class="da" id="dra-implied_price">↕</span></th>
-                                <th id="drh-market_price"  onclick="drSort('market_price')"> Market Price     <span class="da" id="dra-market_price">↕</span></th>
-                                <th id="drh-discount_pct"  onclick="drSort('discount_pct')"> Change %         <span class="da" id="dra-discount_pct">↓</span></th>
-                              </tr></thead>
-                              <tbody id="drTbody">
-                                <tr><td colspan="4"><div class="dr-state">—</div></td></tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-
-                        <!-- ── SYMBOL UNIVERSE ────────────────────────────── -->
-                        <div id="universe-main" class="tab-panel">
-                          <style>
-                            #universe-main { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-                            #universe-main.active { display: flex; }
-                            .univ-bar {
-                              flex-shrink: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
-                              padding: 10px 16px; border-bottom: 1px solid #30363d; background: #0d1117;
-                            }
-                            .univ-liq-btns { display: flex; gap: 4px; }
-                            .univ-liq-btn {
-                              background: transparent; border: 1px solid #30363d;
-                              color: #8b949e; font-family: 'Courier New', monospace; font-size: 10px;
-                              padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: all 0.12s;
-                            }
-                            .univ-liq-btn:hover { border-color: #8b949e; color: #e6edf3; }
-                            .univ-liq-btn.active { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.4); color: #00d4aa; }
-                            .univ-search {
-                              background: rgba(255,255,255,0.04); border: 1px solid #30363d; border-radius: 6px;
-                              padding: 4px 10px; color: #e6edf3; font-family: 'Courier New', monospace; font-size: 11px;
-                              outline: none; width: 150px;
-                            }
-                            .univ-search:focus { border-color: #58a6ff; }
-                            .univ-fsel {
-                              background: #161b22; border: 1px solid #30363d; border-radius: 6px;
-                              padding: 4px 8px; color: #8b949e; font-size: 11px; font-family: 'Courier New', monospace;
-                              outline: none; cursor: pointer;
-                            }
-                            .univ-count { font-family: 'Courier New', monospace; font-size: 10px; color: #484f58; margin-left: auto; white-space: nowrap; }
-                            .univ-count em { font-style: normal; color: #8b949e; }
-                            .univ-scroller { flex: 1; overflow-y: auto; overflow-x: auto; }
-                            .univ-scroller::-webkit-scrollbar { width: 3px; }
-                            .univ-scroller::-webkit-scrollbar-thumb { background: #30363d; }
-                            #univ-table { width: 100%; border-collapse: collapse; }
-                            #univ-table thead { position: sticky; top: 0; z-index: 5; background: #0d1117; }
-                            #univ-table thead::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: #30363d; }
-                            #univ-table th {
-                              padding: 7px 12px; font-family: 'Courier New', monospace; font-size: 9px; font-weight: 700;
-                              letter-spacing: 0.12em; text-transform: uppercase; color: #484f58;
-                              text-align: left; white-space: nowrap; cursor: pointer; user-select: none;
-                            }
-                            #univ-table th:hover { color: #8b949e; }
-                            #univ-table th.u-num { text-align: right; }
-                            #univ-table th.u-sort-asc::after  { content: ' ↑'; color: #00d4aa; }
-                            #univ-table th.u-sort-desc::after { content: ' ↓'; color: #00d4aa; }
-                            #univ-table tbody tr { border-bottom: 1px solid rgba(48,54,61,0.4); }
-                            #univ-table tbody tr:hover { background: rgba(88,166,255,0.04); }
-                            #univ-table td { padding: 5px 12px; white-space: nowrap; font-size: 12px; }
-                            #univ-table td.u-num { text-align: right; font-variant-numeric: tabular-nums; }
-                            .u-sym   { font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; color: #58a6ff; }
-                            .u-co    { color: #8b949e; max-width: 200px; overflow: hidden; text-overflow: ellipsis; font-size: 11px; }
-                            .u-mc    { font-family: 'Courier New', monospace; font-size: 11px; color: #8b949e; }
-                            .u-price { font-family: 'Courier New', monospace; font-size: 11px; color: #e6edf3; }
-                            .u-ex    { font-family: 'Courier New', monospace; font-size: 10px; color: #484f58; }
-                            .u-sect  { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; background: rgba(88,166,255,0.08); color: rgba(88,166,255,0.6); }
-                            .u-vol-hi  { font-family: 'Courier New', monospace; font-size: 11px; color: #3fb950; }
-                            .u-vol-mid { font-family: 'Courier New', monospace; font-size: 11px; color: #d29922; }
-                            .u-vol-lo  { font-family: 'Courier New', monospace; font-size: 11px; color: #8b949e; }
-                            .u-badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 10px; }
-                            .u-b-valued   { background: rgba(63,185,80,0.1);  border: 1px solid rgba(63,185,80,0.3);  color: #3fb950; }
-                            .u-b-pending  { background: rgba(139,148,158,0.12); border: 1px solid rgba(139,148,158,0.3); color: #8b949e; }
-                            .u-b-excluded { background: rgba(210,153,34,0.1); border: 1px solid rgba(210,153,34,0.3); color: #d29922; }
-                            .u-b-error    { background: rgba(248,81,73,0.1);  border: 1px solid rgba(248,81,73,0.3);  color: #f85149; }
-                            .u-b-etf      { background: rgba(188,140,255,0.1);border: 1px solid rgba(188,140,255,0.3);color: #bc8cff; }
-                            .u-b-foreign  { background: rgba(45,212,191,0.1); border: 1px solid rgba(45,212,191,0.3); color: #2dd4bf; }
-                            .u-state { color: #484f58; font-size: 11px; padding: 40px; text-align: center; font-family: 'Courier New', monospace; }
-                            .univ-liq-lbl { font-family: 'Courier New', monospace; font-size: 10px; color: #484f58; white-space: nowrap; }
-                            .u-tier { display: inline-block; width: 18px; text-align: center; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 10px; font-weight: 700; padding: 1px 0; }
-                            .u-tier-A { background: rgba(63,185,80,0.12);  border: 1px solid rgba(63,185,80,0.35);  color: #3fb950; }
-                            .u-tier-B { background: rgba(88,166,255,0.10); border: 1px solid rgba(88,166,255,0.30); color: #58a6ff; }
-                            .u-tier-C { background: rgba(210,153,34,0.10); border: 1px solid rgba(210,153,34,0.30); color: #d29922; }
-                            .u-rs { font-family: 'Courier New', monospace; font-size: 11px; }
-                            .u-rs-hi  { color: #3fb950; }
-                            .u-rs-mid { color: #d29922; }
-                            .u-rs-lo  { color: #8b949e; }
-                          </style>
-                          <div class="univ-bar">
-                            <input class="univ-search" id="univSearch" placeholder="symbol or name…" oninput="univApply()">
-                            <span class="univ-liq-lbl">TIER</span>
-                            <div class="univ-liq-btns">
-                              <button class="univ-liq-btn active" data-tier=""  onclick="univTierClick(this)">All</button>
-                              <button class="univ-liq-btn"        data-tier="C" onclick="univTierClick(this)" title="≥$2.5M/day">C+</button>
-                              <button class="univ-liq-btn"        data-tier="B" onclick="univTierClick(this)" title="≥$5M/day">B+</button>
-                              <button class="univ-liq-btn"        data-tier="A" onclick="univTierClick(this)" title="≥$25M/day">A</button>
-                            </div>
-                            <select class="univ-fsel" id="univFSector" onchange="univApply()">
-                              <option value="">All Sectors</option>
-                            </select>
-                            <select class="univ-fsel" id="univFExch" onchange="univApply()">
-                              <option value="">All Exchanges</option>
-                            </select>
-                            <div class="univ-count"><em id="univRowCount">—</em> securities</div>
-                          </div>
-                          <div class="univ-scroller">
-                            <table id="univ-table">
-                              <thead><tr>
-                                <th onclick="univSort('symbol',1)">Symbol</th>
-                                <th onclick="univSort('company_name',1)">Company</th>
-                                <th onclick="univSort('sector',1)">Sector</th>
-                                <th onclick="univSort('exchange_short',1)">Exch</th>
-                                <th class="u-num" onclick="univSort('price',-1)">Price</th>
-                                <th class="u-num" onclick="univSort('dollar_volume',-1)">$ Vol/Day</th>
-                                <th class="u-num" onclick="univSort('market_cap',-1)">Mkt Cap</th>
-                                <th onclick="univSort('liquidity_tier',1)">Tier</th>
-                                <th class="u-num" onclick="univSort('rs_rank',-1)">RS</th>
-                                <th onclick="univSort('dcf_status',1)">DCF</th>
-                              </tr></thead>
-                              <tbody id="univTbody"><tr><td colspan="10"><div class="u-state">—</div></td></tr></tbody>
-                            </table>
-                          </div>
-                        </div>
-
-                        <!-- ── DCF COVERAGE ────────────────────────────────── -->
-                        <div id="dcf-coverage" class="tab-panel">
-                          <style>
-                            #dcf-coverage { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-                            #dcf-coverage.active { display: flex; }
+                            /* Coverage view (embedded) */
+                            #dcf-cov-view { flex:1; display:none; flex-direction:column; overflow:hidden; }
                             .cov-bar { display:flex; align-items:center; gap:14px; padding:10px 16px; border-bottom:1px solid #30363d; flex-shrink:0; flex-wrap:wrap; }
                             .cov-chip { display:flex; flex-direction:column; align-items:center; min-width:64px; }
                             .cov-chip-val { font-family:'Courier New',monospace; font-size:16px; font-weight:700; line-height:1; }
@@ -3829,7 +3794,7 @@
                             .cov-flt-btn { background:transparent; border:1px solid #30363d; color:#8b949e; font-size:11px; font-family:'Courier New',monospace; padding:4px 10px; border-radius:100px; cursor:pointer; transition:all 0.12s; }
                             .cov-flt-btn:hover { border-color:#8b949e; color:#e6edf3; }
                             .cov-flt-btn.active { background:rgba(88,166,255,0.1); border-color:#58a6ff; color:#58a6ff; }
-                            .cov-scroll { flex:1; overflow-y:auto; overflow-x:auto; max-height:calc(100vh - 190px); }
+                            .cov-scroll { flex:1; overflow-y:auto; overflow-x:auto; max-height:calc(100vh - 215px); }
                             .cov-scroll::-webkit-scrollbar { width:3px; } .cov-scroll::-webkit-scrollbar-thumb { background:#30363d; }
                             #cov-table { width:100%; border-collapse:collapse; }
                             #cov-table thead { position:sticky; top:0; z-index:5; background:#0d1117; }
@@ -3852,39 +3817,131 @@
                             .cov-err-txt { font-size:10px; color:#484f58; max-width:300px; overflow:hidden; text-overflow:ellipsis; }
                             .cov-state { color:#484f58; font-size:11px; padding:20px; text-align:center; }
                           </style>
-                          <div class="cov-bar">
-                            <div class="cov-chip"><span class="cov-chip-val" id="cov-total" style="color:#58a6ff;">—</span><span class="cov-chip-lbl">Total</span></div>
-                            <div class="cov-divider"></div>
-                            <div class="cov-chip"><span class="cov-chip-val" id="cov-valued" style="color:#3fb950;">—</span><span class="cov-chip-lbl">Valued</span></div>
-                            <div class="cov-chip"><span class="cov-chip-val" id="cov-pending" style="color:#8b949e;">—</span><span class="cov-chip-lbl">Pending</span></div>
-                            <div class="cov-chip"><span class="cov-chip-val" id="cov-excluded" style="color:#d29922;">—</span><span class="cov-chip-lbl">Excluded</span></div>
-                            <div class="cov-chip"><span class="cov-chip-val" id="cov-error" style="color:#f85149;">—</span><span class="cov-chip-lbl">Error</span></div>
-                            <div class="cov-chip"><span class="cov-chip-val" id="cov-etf" style="color:#bc8cff;">—</span><span class="cov-chip-lbl">ETF</span></div>
-                            <div class="cov-chip"><span class="cov-chip-val" id="cov-foreign" style="color:#2dd4bf;">—</span><span class="cov-chip-lbl">Foreign</span></div>
-                            <div class="cov-divider"></div>
-                            <div class="cov-filter">
-                              <button class="cov-flt-btn active" data-cov-filter="all" onclick="covFilter('all',this)">All</button>
-                              <button class="cov-flt-btn" data-cov-filter="pending" onclick="covFilter('pending',this)">Pending</button>
-                              <button class="cov-flt-btn" data-cov-filter="error" onclick="covFilter('error',this)">Errors</button>
-                              <button class="cov-flt-btn" data-cov-filter="excluded" onclick="covFilter('excluded',this)">Excluded</button>
-                              <button class="cov-flt-btn" data-cov-filter="valued" onclick="covFilter('valued',this)">Valued</button>
-                              <button class="cov-flt-btn" data-cov-filter="etf" onclick="covFilter('etf',this)">ETF</button>
-                              <button class="cov-flt-btn" data-cov-filter="foreign" onclick="covFilter('foreign',this)">Foreign</button>
+                          <!-- View toggle -->
+                          <div class="dcf-toggle-bar">
+                            <button id="dcf-v-btn" class="dcf-toggle active" onclick="dcfSwitchView('val')">📋 Valuations</button>
+                            <button id="dcf-c-btn" class="dcf-toggle" onclick="dcfSwitchView('cov')">📊 Coverage</button>
+                          </div>
+                          <!-- Valuations view -->
+                          <div id="dcf-val-view" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+                            <div class="dr-bar">
+                              <span class="dr-prompt">&gt;</span>
+                              <input class="dr-search" id="drSearch" type="text" placeholder="filter ticker" maxlength="10" autocomplete="off" spellcheck="false">
+                              <div class="dr-vr"></div>
+                              <div class="dr-meta" id="drMeta">—</div>
+                            </div>
+                            <div class="dr-scroll">
+                              <table id="dr-table">
+                                <colgroup><col class="dc-s"><col class="dc-c"><col class="dc-m"><col class="dc-p"></colgroup>
+                                <thead><tr>
+                                  <th id="drh-symbol"        onclick="drSort('symbol')">       Ticker          <span class="da" id="dra-symbol">↕</span></th>
+                                  <th id="drh-implied_price" onclick="drSort('implied_price')">Calculated Price <span class="da" id="dra-implied_price">↕</span></th>
+                                  <th id="drh-market_price"  onclick="drSort('market_price')"> Market Price     <span class="da" id="dra-market_price">↕</span></th>
+                                  <th id="drh-discount_pct"  onclick="drSort('discount_pct')"> Change %         <span class="da" id="dra-discount_pct">↓</span></th>
+                                </tr></thead>
+                                <tbody id="drTbody">
+                                  <tr><td colspan="4"><div class="dr-state">—</div></td></tr>
+                                </tbody>
+                              </table>
                             </div>
                           </div>
-                          <div class="cov-scroll">
-                            <table id="cov-table">
-                              <thead><tr>
-                                <th>Symbol</th>
-                                <th>Company</th>
-                                <th>Sector</th>
-                                <th>Status</th>
-                                <th>Error Detail</th>
-                                <th style="text-align:right">Mkt Cap</th>
-                              </tr></thead>
-                              <tbody id="covTbody"><tr><td colspan="6"><div class="cov-state">—</div></td></tr></tbody>
-                            </table>
+                          <!-- Coverage view -->
+                          <div id="dcf-cov-view">
+                            <div class="cov-bar">
+                              <div class="cov-chip"><span class="cov-chip-val" id="cov-total" style="color:#58a6ff;">—</span><span class="cov-chip-lbl">Total</span></div>
+                              <div class="cov-divider"></div>
+                              <div class="cov-chip"><span class="cov-chip-val" id="cov-valued" style="color:#3fb950;">—</span><span class="cov-chip-lbl">Valued</span></div>
+                              <div class="cov-chip"><span class="cov-chip-val" id="cov-pending" style="color:#8b949e;">—</span><span class="cov-chip-lbl">Pending</span></div>
+                              <div class="cov-chip"><span class="cov-chip-val" id="cov-excluded" style="color:#d29922;">—</span><span class="cov-chip-lbl">Excluded</span></div>
+                              <div class="cov-chip"><span class="cov-chip-val" id="cov-error" style="color:#f85149;">—</span><span class="cov-chip-lbl">Error</span></div>
+                              <div class="cov-chip"><span class="cov-chip-val" id="cov-etf" style="color:#bc8cff;">—</span><span class="cov-chip-lbl">ETF</span></div>
+                              <div class="cov-chip"><span class="cov-chip-val" id="cov-foreign" style="color:#2dd4bf;">—</span><span class="cov-chip-lbl">Foreign</span></div>
+                              <div class="cov-divider"></div>
+                              <div class="cov-filter">
+                                <button class="cov-flt-btn active" data-cov-filter="all" onclick="covFilter('all',this)">All</button>
+                                <button class="cov-flt-btn" data-cov-filter="pending" onclick="covFilter('pending',this)">Pending</button>
+                                <button class="cov-flt-btn" data-cov-filter="error" onclick="covFilter('error',this)">Errors</button>
+                                <button class="cov-flt-btn" data-cov-filter="excluded" onclick="covFilter('excluded',this)">Excluded</button>
+                                <button class="cov-flt-btn" data-cov-filter="valued" onclick="covFilter('valued',this)">Valued</button>
+                                <button class="cov-flt-btn" data-cov-filter="etf" onclick="covFilter('etf',this)">ETF</button>
+                                <button class="cov-flt-btn" data-cov-filter="foreign" onclick="covFilter('foreign',this)">Foreign</button>
+                              </div>
+                            </div>
+                            <div class="cov-scroll">
+                              <table id="cov-table">
+                                <thead><tr>
+                                  <th>Symbol</th><th>Company</th><th>Sector</th><th>Status</th><th>Error Detail</th><th style="text-align:right">Mkt Cap</th>
+                                </tr></thead>
+                                <tbody id="covTbody"><tr><td colspan="6"><div class="cov-state">—</div></td></tr></tbody>
+                              </table>
+                            </div>
                           </div>
+                        </div>
+
+                        <!-- ── SYMBOL UNIVERSE ────────────────────────────── -->
+                        <div id="universe-main" class="tab-panel"><!-- merged into #lookup --></div>
+
+                        <!-- ── DCF COVERAGE ────────────────────────────────── -->
+                        <div id="dcf-coverage" class="tab-panel"><!-- merged into #dcf-results --></div>
+
+                        <!-- ── SMART MONEY / FUNDS ────────────────────────────── -->
+                        <div id="funds" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="margin:0;">🏛️ Smart Money Tracker</h3>
+                                    <div style="color:#475569;font-size:0.72rem;margin-top:3px;">SEC 13F institutional holdings · <span id="funds-meta">loading…</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Section switcher -->
+                            <div style="display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;">
+                                <button id="fsb-model"   onclick="fundsSection('model')"   style="padding:5px 14px;border-radius:6px;border:1px solid rgba(251,191,36,0.4);background:rgba(251,191,36,0.12);color:#fbbf24;font-size:0.78rem;cursor:pointer;">Model Portfolio</button>
+                                <button id="fsb-fund"    onclick="fundsSection('fund')"    style="padding:5px 14px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:transparent;color:#94a3b8;font-size:0.78rem;cursor:pointer;">By Fund</button>
+                                <button id="fsb-symbol"  onclick="fundsSection('symbol')"  style="padding:5px 14px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:transparent;color:#94a3b8;font-size:0.78rem;cursor:pointer;">By Symbol</button>
+                                <button id="fsb-sector"  onclick="fundsSection('sector')"  style="padding:5px 14px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:transparent;color:#94a3b8;font-size:0.78rem;cursor:pointer;">Sector Flow</button>
+                                <button id="fsb-overlap" onclick="fundsSection('overlap')" style="padding:5px 14px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:transparent;color:#94a3b8;font-size:0.78rem;cursor:pointer;">Watchlist Overlap</button>
+                            </div>
+
+                            <!-- Model Portfolio -->
+                            <div id="fsp-model" style="display:none;">
+                                <div id="funds-model-content"></div>
+                            </div>
+
+                            <!-- By Fund -->
+                            <div id="fsp-fund">
+                                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+                                    <select id="funds-select" onchange="renderFundHoldings()" style="background:#1e293b;border:1px solid rgba(148,163,184,0.2);color:#e2e8f0;padding:6px 10px;border-radius:6px;font-size:0.82rem;min-width:220px;"></select>
+                                    <div id="funds-fund-meta" style="font-size:0.75rem;color:#64748b;"></div>
+                                </div>
+                                <div id="funds-holdings-wrap" style="overflow-x:auto;">
+                                    <div id="funds-holdings-table" style="font-size:0.82rem;"></div>
+                                </div>
+                            </div>
+
+                            <!-- By Symbol -->
+                            <div id="fsp-symbol" style="display:none;">
+                                <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+                                    <input id="funds-sym-input" placeholder="Enter symbol (e.g. NVDA)" onkeydown="if(event.key==='Enter')renderSymbolFunds()" style="background:#1e293b;border:1px solid rgba(148,163,184,0.2);color:#e2e8f0;padding:6px 10px;border-radius:6px;font-size:0.82rem;width:160px;text-transform:uppercase;">
+                                    <button onclick="renderSymbolFunds()" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa;padding:6px 14px;border-radius:6px;font-size:0.78rem;cursor:pointer;">Search</button>
+                                </div>
+                                <div id="funds-symbol-result" style="font-size:0.82rem;"></div>
+                            </div>
+
+                            <!-- Sector Flow -->
+                            <div id="fsp-sector" style="display:none;">
+                                <div id="funds-sector-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;"></div>
+                            </div>
+
+                            <!-- Watchlist Overlap -->
+                            <div id="fsp-overlap" style="display:none;">
+                                <p style="color:#64748b;font-size:0.75rem;margin:0 0 14px;">Symbols from your active signals that appear in 2+ fund portfolios.</p>
+                                <div id="funds-overlap-table" style="font-size:0.82rem;"></div>
+                            </div>
+                        </div>
+
+                        <!-- ── Group Landing Panel ────────────────────────────── -->
+                        <div id="group-landing" class="tab-panel">
+                            <div id="group-landing-content"></div>
                         </div>
 
                     </div>
@@ -3935,8 +3992,128 @@
         };
 
         // ── Navigation group state ────────────────────────────────────────────
-        let _activeGroup = 'market';
+        let _activeGroup = 'intro';
 
+        // ── Group landing page definitions ────────────────────────────────────
+        const _groupDefs = {
+            trading: {
+                icon: '📈', label: 'Trading', desc: 'Active signals, screeners, and market flow analysis',
+                tabs: [
+                    { icon: '🎯', label: "Today's Setups", tab: 'setups',        desc: 'Top conviction picks from cross-scanner synthesis · EOD signals for next open' },
+                    { icon: '🔥', label: 'Trends',         tab: 'trends',        desc: 'Trend rankings for 2,700+ symbols — BUY / WATCH / EXTENDED tables' },
+                    { icon: '📉', label: 'Signal Explorer', tab: 'screener',     desc: 'Filter all active signals by scanner, stage, and fundamentals', color: '#818cf8' },
+                    { icon: '💰', label: 'Capital Flow',   tab: 'capital-flow',  desc: 'Money flow and volume surge detection across the universe', color: '#fbbf24' },
+                    { icon: '📊', label: 'RSI Momentum',   tab: 'rsi-momentum',  desc: 'RSI staircase and momentum rebound patterns with win-rate backtest', color: '#a78bfa' },
+                    { icon: '📈', label: 'ATR',             tab: 'atr',           desc: 'ATR z-score compression and expansion entry signals', color: '#4ade80' },
+                ]
+            },
+            securities: {
+                icon: '🔍', label: 'Securities', desc: 'Individual security research — lookup, fundamentals, and valuation',
+                tabs: [
+                    { icon: '🔎', label: 'Lookup',        tab: 'lookup',      desc: 'Price chart, technicals, and fundamentals for any symbol — browse full universe below' },
+                    { icon: '📊', label: 'Market Caps',   tab: 'mktcaps',     desc: 'Performance by market cap tier across 5 time periods', color: '#00d4aa' },
+                    { icon: '🏦', label: 'EDGAR Analysis',tab: 'edgar',       desc: 'SEC filing analysis — balance sheet, revenue trends, earnings', color: '#58a6ff' },
+                    { icon: '📋', label: 'DCF',           tab: 'dcf-results', desc: 'Valuations (calculated vs market price) and coverage status across the universe', color: '#58a6ff' },
+                ]
+            },
+            research: {
+                icon: '🔬', label: 'Research', desc: 'Scanner accuracy, alpha generation, and signal confluence studies',
+                tabs: [
+                    { icon: '🔬', label: 'Scanner Accuracy', tab: 'research',    desc: 'Win rate, avg return, and forward performance tracked per scanner' },
+                    { icon: '⚡', label: 'Alpha vs Market',  tab: 'alpha-gen',   desc: 'Scanner picks benchmarked against SPY / QQQ over rolling periods', color: '#f59e0b' },
+                    { icon: '🔀', label: 'Confluence',       tab: 'confluence',  desc: 'Multi-scanner signal overlap — where multiple scanners agree' },
+                    { icon: '🏛️', label: 'Smart Money',     tab: 'funds',       desc: 'SEC 13F institutional holdings — by fund, by symbol, sector flow, watchlist overlap', color: '#f59e0b', extraClick: 'loadFunds()' },
+                ]
+            },
+            simulation: {
+                icon: '🧪', label: 'Simulation', desc: 'Backtesting and paper trading to validate strategies before going live',
+                tabs: [
+                    { icon: '🧪', label: 'Backtest',         tab: 'backtest',       desc: 'Walk-forward validation — signal win rates across market regimes' },
+                    { icon: '📄', label: 'Paper Portfolio',  tab: 'paper-portfolio', desc: 'Simulated portfolio tracking signals without real capital', color: '#FBBF24' },
+                ]
+            },
+            portfolio: {
+                icon: '💼', label: 'Portfolio', desc: 'Active positions, long-term holdings, and sector rotation strategy',
+                tabs: [
+                    { icon: '💼', label: 'Position Manager', tab: 'positions', desc: 'Active trades — P&L, stops, trim levels, and open slot count' },
+                    { icon: '📦', label: 'LT Portfolio',     tab: 'portfolio', desc: '30-stock + 10-ETF long-term portfolio with sector allocation view' },
+                    { icon: '🔄', label: 'Rotation Engine',  tab: 'rotation',  desc: 'Sector rotation signals — relative strength ranking by sector', color: '#34d399' },
+                ]
+            },
+            operations: {
+                icon: '⚙️', label: 'Operations', desc: 'System health, watchlist management, and admin tools',
+                tabs: [
+                    { icon: '⚙️', label: 'System Admin', tab: 'admin',        desc: 'DB health, cron status, log viewer, EPIC tracker, user management' },
+                    { icon: '📋', label: 'Watchlists',   tab: 'watchlist-tab', desc: 'Personal and curated watchlists — add / remove symbols', color: '#34d399', extraClick: 'loadWatchlist()' },
+                    { icon: '🛠️', label: 'Tools',        tab: 'system-tools',  desc: 'System utilities and maintenance tools', color: '#a78bfa', extraClick: 'stLoadTools()' },
+                ]
+            },
+            reports: {
+                icon: '📄', label: 'Reports', desc: 'Scanner HTML output, weekly publications, and archive',
+                tabs: [
+                    { icon: '📄', label: 'Scanner Reports',     tab: 'reports',      desc: 'Latest output from all 10 scanners + cross-scanner intelligence report' },
+                    { icon: '📰', label: 'Weekly Publication',  tab: 'weekly-pub',   desc: 'Weekly market summary and top conviction picks narrative' },
+                    { icon: '📚', label: 'Pub Archive',         tab: 'pub-archive',  desc: 'Archive of all weekly and quarterly publications', color: '#a78bfa' },
+                ]
+            }
+        };
+
+        function showGroupLanding(groupName) {
+            const def = _groupDefs[groupName];
+            if (!def) return;
+
+            // Populate landing content
+            const el = document.getElementById('group-landing-content');
+            if (el) {
+                el.innerHTML = `
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:1.3rem;font-weight:700;color:#e2e8f0;">${def.icon} ${def.label}</div>
+                        <div style="font-size:0.8rem;color:#64748b;margin-top:4px;">${def.desc}</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;">
+                        ${def.tabs.map(t => {
+                            const col = t.color || '#94A3B8';
+                            const borderAlpha = col.startsWith('#') ? col + '44' : col;
+                            return `<button onclick="navToTab('${groupName}','${t.tab}'${t.extraClick ? ",'"+t.extraClick+"'" : ''})"
+                                style="background:rgba(30,41,59,0.7);border:1px solid rgba(148,163,184,0.15);border-left:3px solid ${col};border-radius:10px;padding:14px 16px;text-align:left;cursor:pointer;transition:background 0.15s;width:100%;"
+                                onmouseover="this.style.background='rgba(30,41,59,0.95)'" onmouseout="this.style.background='rgba(30,41,59,0.7)'">
+                                <div style="font-size:1rem;margin-bottom:5px;">${t.icon}</div>
+                                <div style="font-size:0.85rem;font-weight:700;color:${col};margin-bottom:4px;">${t.label}</div>
+                                <div style="font-size:0.72rem;color:#64748b;line-height:1.4;">${t.desc}</div>
+                            </button>`;
+                        }).join('')}
+                    </div>`;
+            }
+
+            // Show the group-landing panel as if it were a tab
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById('group-landing').classList.add('active');
+            _pushHash(groupName, '_');
+        }
+
+        function dcfSwitchView(v) {
+            const toVal = v === 'val';
+            const vEl = document.getElementById('dcf-val-view');
+            const cEl = document.getElementById('dcf-cov-view');
+            if (vEl) vEl.style.display = toVal ? 'flex' : 'none';
+            if (cEl) { cEl.style.display = toVal ? 'none' : 'flex'; cEl.style.flexDirection = 'column'; }
+            document.getElementById('dcf-v-btn').classList.toggle('active', toVal);
+            document.getElementById('dcf-c-btn').classList.toggle('active', !toVal);
+            if (!toVal) dcfCovLoad();
+        }
+
+        const _extraFns = { 'loadWatchlist()': () => loadWatchlist(), 'stLoadTools()': () => stLoadTools() };
+        function navToTab(groupName, tabName, extraFn) {
+            const tabBtn = document.querySelector(`.tab-button[data-group="${groupName}"][onclick*="'${tabName}'"]`);
+            if (tabBtn) tabBtn.click();
+            if (extraFn && _extraFns[extraFn]) _extraFns[extraFn]();
+        }
+
+        function navTo(groupName) {
+            const btn = document.querySelector(`.nav-group-btn[onclick*="'${groupName}'"]`);
+            if (btn) showGroup({currentTarget: btn}, groupName);
+        }
         function showGroup(event, groupName) {
             _activeGroup = groupName;
             document.querySelectorAll('.nav-group-btn').forEach(b => b.classList.remove('active'));
@@ -3945,9 +4122,13 @@
             document.querySelectorAll('.tab-button[data-group]').forEach(b => {
                 b.style.display = b.dataset.group === groupName ? '' : 'none';
             });
-            // Activate the first visible tab in this group
-            const first = document.querySelector(`.tab-button[data-group="${groupName}"]`);
-            if (first) first.click();
+            // Intro goes straight to overview; all other groups show the group landing
+            if (groupName === 'intro') {
+                const first = document.querySelector(`.tab-button[data-group="intro"]`);
+                if (first) first.click();
+            } else {
+                showGroupLanding(groupName);
+            }
         }
 
         // ── Overview: Index Sparklines ────────────────────────────────────────
@@ -4097,6 +4278,9 @@
             setInterval(loadMarketPerformance, 300000);
             setInterval(loadScannerAccuracy, 900000);  // refresh every 15 min
             setInterval(loadRotationPortfolio, 300000);
+
+            // Restore group+tab from URL hash (after all loaders registered)
+            _restoreFromHash();
         };
 
         function logout() {
@@ -4108,6 +4292,39 @@
             const timeStr = now.toLocaleTimeString();
             document.getElementById('current-time').textContent = timeStr;
         }
+
+        // ── Hash-based nav persistence ────────────────────────────────────────
+        function _pushHash(group, tab) {
+            history.replaceState(null, '', '#' + group + ':' + tab);
+        }
+
+        function _restoreFromHash() {
+            const hash = window.location.hash.slice(1); // strip '#'
+            if (!hash || !hash.includes(':')) return false;
+            const [group, tab] = hash.split(':');
+            // Verify group button exists
+            const groupBtn = document.querySelector(`.nav-group-btn[onclick*="'${group}'"]`);
+            if (!groupBtn) return false;
+            // Activate group nav button + show sub-tab bar (without auto-navigating)
+            _activeGroup = group;
+            document.querySelectorAll('.nav-group-btn').forEach(b => b.classList.remove('active'));
+            groupBtn.classList.add('active');
+            document.querySelectorAll('.tab-button[data-group]').forEach(b => {
+                b.style.display = b.dataset.group === group ? '' : 'none';
+            });
+            // '_' means group landing page
+            if (tab === '_') {
+                showGroupLanding(group);
+                return true;
+            }
+            // Verify tab panel exists then navigate
+            if (!document.getElementById(tab)) return false;
+            const tabBtn = document.querySelector(`.tab-button[data-group="${group}"][onclick*="'${tab}'"]`);
+            if (tabBtn) tabBtn.click();
+            return true;
+        }
+
+        window.addEventListener('hashchange', () => _restoreFromHash());
 
         function showTab(event, tabName) {
             // Hide all tabs
@@ -4121,6 +4338,9 @@
             // Show selected tab
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
+
+            // Persist to URL hash
+            _pushHash(_activeGroup, tabName);
 
             // Load content based on tab
             if (tabName === 'admin') {
@@ -6358,6 +6578,8 @@
                 if (warnEl) warnEl.style.display = l.distribution_warning ? 'block' : 'none';
 
                 _dom.setTs('breadth-updated', d.generated_at);
+                const uPill = document.getElementById('intro-updated-pill');
+                if (uPill && d.generated_at) { const dt = new Date(d.generated_at); uPill.textContent = 'Updated ' + dt.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); }
 
                 // Quality universe overlay (market_regime.json)
                 try {
@@ -6383,6 +6605,14 @@
                             badgeEl.style.color = bc;
                             badgeEl.style.background = bg;
                             badgeEl.style.borderColor = bc.replace(')', ',0.3)').replace('rgb','rgba');
+                        }
+                        // Intro landing pills
+                        const rPill = document.getElementById('intro-regime-pill');
+                        if (rPill && regime) {
+                            const pc = regime === 'BULL' ? '#4ade80' : regime === 'NEUTRAL' ? '#fbbf24' : '#f87171';
+                            const pb = regime === 'BULL' ? 'rgba(74,222,128,0.12)' : regime === 'NEUTRAL' ? 'rgba(251,191,36,0.12)' : 'rgba(248,113,113,0.12)';
+                            rPill.textContent = 'Regime: ' + regime;
+                            rPill.style.color = pc; rPill.style.background = pb; rPill.style.borderColor = pc + '55';
                         }
 
                         const scoreEl2 = document.getElementById('regime-score');
@@ -6428,6 +6658,8 @@
 
             const p2 = fetch('/trading/data/conviction_picks.json').then(r=>r.json()).then(picks => {
                 if (metaEl) metaEl.textContent = `${picks.length} signals · ${new Date().toLocaleDateString()}`;
+                const sPill = document.getElementById('intro-signals-pill');
+                if (sPill) { sPill.textContent = picks.length + ' signals today'; }
 
                 // Regime banner (from top_picks)
                 if (regimeEl && regimeData) {
@@ -9740,7 +9972,7 @@
 
             const chipStyle = (sym) =>
                 `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(30,41,59,0.8);border:1px solid rgba(148,163,184,0.15);border-radius:5px;padding:3px 8px;font-size:0.72rem;font-family:monospace;color:#CBD5E1;cursor:pointer;"
-                    onclick="document.querySelector('[data-group=lookup]').click();lookupSelect('${sym}')"
+                    onclick="document.querySelector('[data-group=securities]').click();lookupSelect('${sym}')"
                     title="Open in Lookup">${sym}</span>`;
 
             // Personal watchlist — live from Flask API
@@ -9751,7 +9983,7 @@
                 document.getElementById('wl-personal-count').textContent = `${syms.length} symbol${syms.length !== 1 ? 's' : ''}`;
                 document.getElementById('wl-personal-chips').innerHTML = syms.length
                     ? syms.map(s => `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(30,41,59,0.8);border:1px solid rgba(52,211,153,0.2);border-radius:5px;padding:3px 8px;font-size:0.72rem;font-family:monospace;color:#34d399;cursor:pointer;"
-                        onclick="document.querySelector('[data-group=lookup]').click();lookupSelect('${s}')"
+                        onclick="document.querySelector('[data-group=securities]').click();lookupSelect('${s}')"
                         title="Open in Lookup">${s}
                         <span onclick="event.stopPropagation();wlRemoveSymbol('${s}')" style="color:#64748b;font-size:0.65rem;margin-left:2px;cursor:pointer;" title="Remove">✕</span>
                     </span>`).join('')
@@ -9760,36 +9992,51 @@
                 document.getElementById('wl-personal-chips').innerHTML = '<span style="color:#ef4444;font-size:0.82rem;">Failed to load personal watchlist</span>';
             }
 
-            // Curated + universe lists — from admin_data.json
+            // Curated lists — populate selector from admin_data.json
             try {
                 const r = await fetch('/trading/data/admin_data.json');
                 if (!r.ok) return;
                 const ad = await r.json();
-                const lists = (ad.watchlists || []).filter(w => w.name !== 'personal_watchlist');
-                const curated = lists.filter(w => w.count < 250);
-                const universe = lists.filter(w => w.count >= 250);
-
-                document.getElementById('wl-curated-lists').innerHTML = curated.map(w => {
-                    const chips = (w.symbols || w.preview || []).map(s => chipStyle(s)).join('');
-                    const extra = w.count > (w.symbols || []).length ? `<span style="color:#475569;font-size:0.7rem;"> +${w.count - (w.symbols||[]).length} more</span>` : '';
-                    return `<div style="background:rgba(15,23,42,0.6);border:1px solid rgba(148,163,184,0.1);border-radius:10px;padding:14px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                            <span style="font-weight:600;color:#CBD5E1;font-size:0.82rem;">${w.name}</span>
-                            <span style="font-size:0.72rem;color:#64748b;">${w.count} symbols · ${w.modified}</span>
-                        </div>
-                        <div style="display:flex;flex-wrap:wrap;gap:5px;">${chips}${extra}</div>
-                    </div>`;
-                }).join('');
-
-                document.getElementById('wl-universe-list').innerHTML = universe.map(w =>
-                    `<div style="background:rgba(15,23,42,0.6);border:1px solid rgba(148,163,184,0.08);border-radius:8px;padding:12px;">
-                        <div style="font-weight:600;color:#CBD5E1;font-size:0.82rem;margin-bottom:4px;">${w.name}</div>
-                        <div style="font-size:1.4rem;font-weight:700;color:#60A5FA;">${w.count.toLocaleString()}</div>
-                        <div style="font-size:0.65rem;color:#64748b;margin-top:2px;">symbols · updated ${w.modified}</div>
-                        <div style="font-size:0.65rem;color:#475569;margin-top:4px;">${(w.preview||[]).slice(0,5).join(', ')}…</div>
-                    </div>`
-                ).join('');
+                _wlLists = (ad.watchlists || []).filter(w => w.name !== 'personal_watchlist');
+                const sel = document.getElementById('wl-list-sel');
+                if (sel) {
+                    sel.innerHTML = '<option value="">— select a list —</option>' +
+                        _wlLists.map((w, i) => `<option value="${i}">${w.name} (${w.count})</option>`).join('');
+                    if (_wlLists.length) { sel.value = '0'; wlShowList('0'); }
+                }
             } catch(e) { console.warn('Watchlist admin data failed', e); }
+        }
+
+        let _wlLists = [];
+        function wlShowList(idx) {
+            const container = document.getElementById('wl-list-content');
+            const metaEl    = document.getElementById('wl-list-meta');
+            if (!container) return;
+            if (idx === '' || idx == null) {
+                container.innerHTML = '<div style="padding:24px;text-align:center;color:#484f58;font-size:0.82rem;">Select a list above</div>';
+                if (metaEl) metaEl.textContent = '';
+                return;
+            }
+            const w = _wlLists[parseInt(idx)];
+            if (!w) return;
+            const syms = w.symbols || w.preview || [];
+            if (metaEl) metaEl.textContent = `${w.count} symbols · ${w.modified || ''}`;
+            if (!syms.length) {
+                container.innerHTML = '<div style="padding:24px;text-align:center;color:#484f58;font-size:0.82rem;">No symbols available</div>';
+                return;
+            }
+            const rows = syms.map(s => `<tr>
+                <td style="padding:5px 16px;font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:#58a6ff;cursor:pointer;"
+                    onclick="navTo('securities');setTimeout(()=>lookupSelect('${s}'),80)"
+                    title="Open in Lookup">${s}</td>
+            </tr>`).join('');
+            const extra = w.count > syms.length ? `<tr><td style="padding:8px 16px;color:#484f58;font-family:'Courier New',monospace;font-size:10px;">+${w.count - syms.length} more symbols not shown</td></tr>` : '';
+            container.innerHTML = `<div style="overflow-y:auto;max-height:480px;">
+                <table style="width:100%;border-collapse:collapse;">
+                    <thead><tr><th style="padding:7px 16px;font-family:'Courier New',monospace;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#484f58;text-align:left;border-bottom:1px solid #30363d;background:#0d1117;position:sticky;top:0;">Symbol</th></tr></thead>
+                    <tbody>${rows}${extra}</tbody>
+                </table>
+            </div>`;
         }
 
         async function wlAddSymbol() {
@@ -10483,6 +10730,351 @@
                 });
             }
         })();
+
+        // ══════════════════════════════════════════════════════════════════════
+        // SMART MONEY TRACKER — FUNDS TAB
+        // ══════════════════════════════════════════════════════════════════════
+
+        let _fundsData = null;
+
+        async function loadFunds(force) {
+            if (_fundsData && !force) return;
+            try {
+                const resp = await fetch('/trading/data/fund_flow_data.json');
+                if (!resp.ok) throw new Error(resp.status);
+                _fundsData = await resp.json();
+            } catch(e) {
+                document.getElementById('funds-meta').textContent = 'data unavailable';
+                return;
+            }
+
+            const d = _fundsData;
+            document.getElementById('funds-meta').textContent =
+                `${d.fund_count} funds · generated ${(d.generated||'').slice(0,10)}`;
+
+            // Populate fund dropdown
+            const sel = document.getElementById('funds-select');
+            sel.innerHTML = '<option value="">Select a fund…</option>';
+            const cats = {large_passive:'Large Passive', large_active:'Large Active', high_conviction:'High Conviction', thematic:'Thematic'};
+            const byType = {};
+            Object.keys(d.by_fund).forEach(name => {
+                const t = d.by_fund[name].type || 'active';
+                (byType[t] = byType[t]||[]).push(name);
+            });
+            // Group by category using type field
+            const catOrder = ['passive','active','thematic'];
+            const catLabels = {passive:'Large Passive', active:'Active / Conviction', thematic:'Thematic'};
+            catOrder.forEach(cat => {
+                const names = byType[cat];
+                if (!names || !names.length) return;
+                const og = document.createElement('optgroup');
+                og.label = catLabels[cat];
+                names.sort().forEach(n => {
+                    const opt = document.createElement('option');
+                    opt.value = n;
+                    opt.textContent = n + (d.by_fund[n].manager ? ` — ${d.by_fund[n].manager}` : '');
+                    og.appendChild(opt);
+                });
+                sel.appendChild(og);
+            });
+
+            // Pre-render all sections
+            renderSectorFlow();
+            renderOverlap();
+
+            // Select first fund automatically
+            if (sel.options.length > 1) {
+                sel.selectedIndex = 1;
+                renderFundHoldings();
+            }
+
+            // Default to model portfolio view
+            fundsSection('model');
+        }
+
+        function fundsSection(name) {
+            ['model','fund','symbol','sector','overlap'].forEach(s => {
+                document.getElementById(`fsp-${s}`).style.display = s === name ? '' : 'none';
+                const btn = document.getElementById(`fsb-${s}`);
+                if (s === name) {
+                    btn.style.background = 'rgba(251,191,36,0.12)';
+                    btn.style.borderColor = 'rgba(251,191,36,0.4)';
+                    btn.style.color = '#fbbf24';
+                } else {
+                    btn.style.background = 'transparent';
+                    btn.style.borderColor = 'rgba(148,163,184,0.2)';
+                    btn.style.color = '#94a3b8';
+                }
+            });
+            if (name === 'model') renderModelPortfolio();
+        }
+
+        function renderFundHoldings() {
+            if (!_fundsData) return;
+            const sel = document.getElementById('funds-select');
+            const name = sel.value;
+            if (!name) return;
+            const fund = _fundsData.by_fund[name];
+            if (!fund) return;
+
+            const fmt = v => v >= 1e9 ? `$${(v/1e9).toFixed(1)}B`
+                          : v >= 1e6 ? `$${(v/1e6).toFixed(0)}M`
+                          : v >= 1e3 ? `$${(v/1e3).toFixed(0)}K` : `$${v}`;
+            const qoqBadge = q => {
+                if (q == null) return '<span style="color:#475569">—</span>';
+                const color = q > 0 ? '#10b981' : '#ef4444';
+                const sign  = q > 0 ? '+' : '';
+                return `<span style="color:${color}">${sign}${q.toFixed(1)}%</span>`;
+            };
+
+            // Meta bar
+            document.getElementById('funds-fund-meta').innerHTML =
+                `<span style="color:#94a3b8">${fund.quarter}</span>` +
+                `<span style="margin:0 8px;color:#334155;">·</span>` +
+                `<span style="color:#64748b">${fund.total_holdings} holdings</span>`;
+
+            // Top 20 table
+            const rows = (fund.top20 || []).map((h,i) => {
+                const sym = h.symbol
+                    ? `<a onclick="document.querySelector('[data-group=securities]').click();lookupSelect('${h.symbol}')" style="color:#60a5fa;cursor:pointer;text-decoration:none;">${h.symbol}</a>`
+                    : `<span style="color:#64748b;font-size:0.72rem;">${(h.name||'').slice(0,18)}</span>`;
+                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                    <td style="padding:5px 8px;color:#475569;">${i+1}</td>
+                    <td style="padding:5px 8px;">${sym}</td>
+                    <td style="padding:5px 8px;color:#94a3b8;font-size:0.75rem;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.name||''}</td>
+                    <td style="padding:5px 8px;text-align:right;color:#e2e8f0;">${fmt(h.value_usd||0)}</td>
+                    <td style="padding:5px 8px;text-align:right;color:#94a3b8;">${h.pct != null ? h.pct.toFixed(2)+'%' : '—'}</td>
+                    <td style="padding:5px 8px;text-align:right;">${qoqBadge(h.qoq_pct)}</td>
+                </tr>`;
+            }).join('');
+
+            // Adds / Trims
+            const addHtml = (fund.adds||[]).map(h =>
+                `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(16,185,129,0.08);">
+                    <span style="color:#e2e8f0;">${h.symbol || h.name || '?'}</span>
+                    <span style="color:#10b981;">+${(h.qoq_pct||0).toFixed(1)}%</span>
+                </div>`).join('') || '<div style="color:#475569;font-size:0.75rem;">—</div>';
+
+            const trimHtml = (fund.trims||[]).map(h =>
+                `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(239,68,68,0.08);">
+                    <span style="color:#e2e8f0;">${h.symbol || h.name || '?'}</span>
+                    <span style="color:#ef4444;">${(h.qoq_pct||0).toFixed(1)}%</span>
+                </div>`).join('') || '<div style="color:#475569;font-size:0.75rem;">—</div>';
+
+            document.getElementById('funds-holdings-table').innerHTML = `
+                <div style="display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:start;">
+                    <div>
+                        <div style="font-size:0.7rem;color:#64748b;text-transform:uppercase;margin-bottom:8px;">Top 20 Holdings</div>
+                        <table style="width:100%;border-collapse:collapse;">
+                            <thead>
+                                <tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                    <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">#</th>
+                                    <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Symbol</th>
+                                    <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Name</th>
+                                    <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.72rem;">Value</th>
+                                    <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.72rem;">% Port</th>
+                                    <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.72rem;">QoQ</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                    <div style="min-width:150px;">
+                        <div style="font-size:0.7rem;color:#10b981;text-transform:uppercase;margin-bottom:8px;">Top Adds</div>
+                        ${addHtml}
+                    </div>
+                    <div style="min-width:150px;">
+                        <div style="font-size:0.7rem;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">Top Trims</div>
+                        ${trimHtml}
+                    </div>
+                </div>`;
+        }
+
+        function renderSymbolFunds() {
+            if (!_fundsData) return;
+            const raw = (document.getElementById('funds-sym-input').value || '').trim().toUpperCase();
+            const el  = document.getElementById('funds-symbol-result');
+            if (!raw) { el.innerHTML = ''; return; }
+
+            const data = _fundsData.by_symbol[raw];
+            if (!data) {
+                el.innerHTML = `<div style="color:#64748b;padding:12px 0;">No institutional holdings found for <strong style="color:#e2e8f0;">${raw}</strong>.</div>`;
+                return;
+            }
+
+            const fmt = v => v >= 1e9 ? `$${(v/1e9).toFixed(1)}B`
+                          : v >= 1e6 ? `$${(v/1e6).toFixed(0)}M`
+                          : `$${(v||0).toLocaleString()}`;
+
+            const rows = (data.funds||[])
+                .sort((a,b) => (b.pct||0) - (a.pct||0))
+                .map(f => {
+                    const qoq = f.qoq_pct;
+                    const qoqHtml = qoq == null ? '—'
+                        : `<span style="color:${qoq>0?'#10b981':'#ef4444'}">${qoq>0?'+':''}${qoq.toFixed(1)}%</span>`;
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:5px 8px;color:#e2e8f0;">${f.fund}</td>
+                        <td style="padding:5px 8px;text-align:right;color:#94a3b8;">${f.pct != null ? f.pct.toFixed(2)+'%' : '—'}</td>
+                        <td style="padding:5px 8px;text-align:right;">${qoqHtml}</td>
+                    </tr>`;
+                }).join('');
+
+            el.innerHTML = `
+                <div style="color:#e2e8f0;font-size:0.95rem;font-weight:700;margin-bottom:10px;">
+                    ${raw} <span style="color:#64748b;font-size:0.8rem;font-weight:400;">— ${data.name || ''}</span>
+                    <span style="margin-left:10px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);color:#fbbf24;padding:2px 8px;border-radius:12px;font-size:0.72rem;">${data.funds.length} fund${data.funds.length!==1?'s':''}</span>
+                </div>
+                <table style="width:100%;border-collapse:collapse;max-width:500px;">
+                    <thead>
+                        <tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                            <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Fund</th>
+                            <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.72rem;">% Portfolio</th>
+                            <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.72rem;">QoQ</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>`;
+        }
+
+        function renderSectorFlow() {
+            if (!_fundsData) return;
+            const sectors = _fundsData.sector_flow || [];
+            const maxVal  = Math.max(...sectors.map(s => s.total_value || 0), 1);
+            const el = document.getElementById('funds-sector-grid');
+            el.innerHTML = sectors.slice(0,16).map(s => {
+                const pct   = Math.round((s.total_value || 0) / maxVal * 100);
+                const ratio = s.adds + s.trims > 0 ? s.adds / (s.adds + s.trims) : 0.5;
+                const color = ratio > 0.6 ? '#10b981' : ratio < 0.4 ? '#ef4444' : '#fbbf24';
+                const fmt   = v => v >= 1e12 ? `$${(v/1e12).toFixed(1)}T`
+                              : v >= 1e9 ? `$${(v/1e9).toFixed(0)}B`
+                              : v >= 1e6 ? `$${(v/1e6).toFixed(0)}M` : `$${v}`;
+                return `<div style="background:#1e293b;border:1px solid rgba(148,163,184,0.1);border-radius:8px;padding:12px;">
+                    <div style="font-size:0.78rem;font-weight:600;color:#e2e8f0;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.sector}</div>
+                    <div style="height:3px;background:rgba(148,163,184,0.1);border-radius:2px;margin-bottom:8px;">
+                        <div style="height:100%;width:${pct}%;background:${color};border-radius:2px;"></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:0.7rem;">
+                        <span style="color:#64748b;">${fmt(s.total_value||0)}</span>
+                        <span><span style="color:#10b981;">+${s.adds}</span> <span style="color:#475569;">/</span> <span style="color:#ef4444;">−${s.trims}</span></span>
+                    </div>
+                    <div style="font-size:0.65rem;color:#475569;margin-top:3px;">${s.symbol_count} symbols</div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderModelPortfolio() {
+            if (!_fundsData) return;
+            const mp = _fundsData.model_portfolio;
+            const el = document.getElementById('funds-model-content');
+            if (!mp || !mp.positions || !mp.positions.length) {
+                el.innerHTML = '<div style="color:#475569;font-size:0.82rem;">No model portfolio data.</div>';
+                return;
+            }
+            const positions = mp.positions;
+            const maxW = Math.max(...positions.map(p => p.weight_pct));
+
+            const sectorColors = {
+                'Technology':'#6366f1','Semiconductors':'#8b5cf6','Financial Services':'#3b82f6',
+                'Health Care':'#10b981','Biotechnology':'#06b6d4','Media':'#f59e0b',
+                'Retail':'#f97316','Energy':'#eab308','Industrials':'#94a3b8',
+                'Unknown':'#475569',
+            };
+            const sColor = s => {
+                for (const [k,v] of Object.entries(sectorColors)) if (s && s.includes(k)) return v;
+                return '#475569';
+            };
+
+            const rows = positions.map(p => {
+                const barW = Math.round(p.weight_pct / maxW * 100);
+                const symLink = `<a onclick="document.querySelector('[data-group=securities]').click();lookupSelect('${p.symbol}')" style="color:#60a5fa;cursor:pointer;font-weight:700;font-size:0.9rem;">${p.symbol}</a>`;
+                const addBadges = p.added_by.slice(0,3).map(a =>
+                    `<span style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);color:#10b981;border-radius:4px;padding:1px 5px;font-size:0.65rem;white-space:nowrap;">${a.fund}+${a.qoq_pct.toFixed(0)}%</span>`
+                ).join(' ');
+                const sc = sColor(p.sector);
+                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                    <td style="padding:6px 8px;color:#475569;font-size:0.75rem;">${p.rank}</td>
+                    <td style="padding:6px 8px;">${symLink}</td>
+                    <td style="padding:6px 8px;color:#64748b;font-size:0.73rem;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name||''}</td>
+                    <td style="padding:6px 8px;">
+                        <span style="background:rgba(${sc.replace('#','').match(/.{2}/g).map(x=>parseInt(x,16)).join(',')},0.15);border:1px solid rgba(${sc.replace('#','').match(/.{2}/g).map(x=>parseInt(x,16)).join(',')},0.3);color:${sc};border-radius:4px;padding:1px 6px;font-size:0.65rem;white-space:nowrap;">${(p.sector||'—').split(' ')[0]}</span>
+                    </td>
+                    <td style="padding:6px 16px 6px 8px;min-width:110px;">
+                        <div style="display:flex;align-items:center;gap:6px;">
+                            <div style="flex:1;height:5px;background:rgba(148,163,184,0.12);border-radius:3px;min-width:60px;">
+                                <div style="height:100%;width:${barW}%;background:#fbbf24;border-radius:3px;"></div>
+                            </div>
+                            <span style="color:#e2e8f0;font-size:0.82rem;font-weight:600;white-space:nowrap;">${p.weight_pct.toFixed(1)}%</span>
+                        </div>
+                    </td>
+                    <td style="padding:6px 8px;text-align:center;">
+                        <span style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);color:#fbbf24;border-radius:10px;padding:1px 7px;font-size:0.68rem;">${p.conviction_funds} HFs</span>
+                    </td>
+                    <td style="padding:6px 8px;">${addBadges}</td>
+                </tr>`;
+            }).join('');
+
+            const tickers = positions.map(p => p.symbol).join(',');
+
+            el.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                    <div>
+                        <span style="color:#e2e8f0;font-size:0.9rem;font-weight:700;">Conviction-Weighted Model Portfolio</span>
+                        <span style="margin-left:10px;color:#64748b;font-size:0.75rem;">${mp.data_quarter} · ${positions.length} positions · 12 conviction HFs</span>
+                    </div>
+                    <button onclick="navigator.clipboard.writeText('${tickers}');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Tickers',1500)"
+                        style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);color:#fbbf24;padding:4px 12px;border-radius:6px;font-size:0.72rem;cursor:pointer;">Copy Tickers</button>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                                <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.7rem;">#</th>
+                                <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.7rem;">Symbol</th>
+                                <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.7rem;">Name</th>
+                                <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.7rem;">Sector</th>
+                                <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.7rem;">Weight</th>
+                                <th style="padding:4px 8px;text-align:center;color:#64748b;font-size:0.7rem;">Holders</th>
+                                <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.7rem;">Q1 Adds</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+                <div style="margin-top:10px;color:#475569;font-size:0.68rem;">
+                    Scoring: base (fund count × 3 + avg port% × 0.5) × 60% + momentum (adds × 1.5 + log magnitude) × 40%. Positions capped at 8%. 13F data lags ~2 months.
+                </div>`;
+        }
+
+        function renderOverlap() {
+            if (!_fundsData) return;
+            const items = _fundsData.watchlist_overlap || [];
+            const el = document.getElementById('funds-overlap-table');
+            if (!items.length) {
+                el.innerHTML = '<div style="color:#475569;font-size:0.82rem;">No overlap data yet — run the tracker to load all funds.</div>';
+                return;
+            }
+            const rows = items.map(o => {
+                const sym = `<a onclick="document.querySelector('[data-group=securities]').click();lookupSelect('${o.symbol}')" style="color:#60a5fa;cursor:pointer;font-weight:700;">${o.symbol}</a>`;
+                const badges = o.funds.map(f => `<span style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);color:#94a3b8;border-radius:4px;padding:1px 6px;font-size:0.68rem;margin:1px;">${f}</span>`).join(' ');
+                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                    <td style="padding:5px 8px;">${sym}</td>
+                    <td style="padding:5px 8px;text-align:center;">
+                        <span style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);color:#fbbf24;border-radius:10px;padding:1px 8px;font-size:0.72rem;">${o.fund_count} funds</span>
+                    </td>
+                    <td style="padding:5px 8px;">${badges}</td>
+                </tr>`;
+            }).join('');
+            el.innerHTML = `<table style="width:100%;border-collapse:collapse;">
+                <thead>
+                    <tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                        <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Symbol</th>
+                        <th style="padding:4px 8px;text-align:center;color:#64748b;font-size:0.72rem;">Funds</th>
+                        <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.72rem;">Fund Names</th>
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>`;
+        }
 
     </script>
     <footer style="background:rgba(15,23,42,0.92);border-top:1px solid rgba(148,163,184,0.08);padding:10px 20px;text-align:center;font-size:0.68rem;color:#475569;margin-top:20px;">
