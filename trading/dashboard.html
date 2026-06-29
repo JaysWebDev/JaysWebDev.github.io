@@ -10822,6 +10822,7 @@
                           : v >= 1e3 ? `$${(v/1e3).toFixed(0)}K` : `$${v}`;
             const qoqBadge = q => {
                 if (q == null) return '<span style="color:#475569">—</span>';
+                if (q > 500)   return '<span style="color:#10b981;font-size:0.68rem;font-style:italic;">NEW</span>';
                 const color = q > 0 ? '#10b981' : '#ef4444';
                 const sign  = q > 0 ? '+' : '';
                 return `<span style="color:${color}">${sign}${q.toFixed(1)}%</span>`;
@@ -10844,7 +10845,7 @@
                     <td style="padding:5px 8px;color:#94a3b8;font-size:0.75rem;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.name||''}</td>
                     <td style="padding:5px 8px;text-align:right;color:#e2e8f0;">${fmt(h.value_usd||0)}</td>
                     <td style="padding:5px 8px;text-align:right;color:#94a3b8;">${h.pct != null ? h.pct.toFixed(2)+'%' : '—'}</td>
-                    <td style="padding:5px 8px;text-align:right;">${qoqBadge(h.qoq_pct)}</td>
+                    <td style="padding:5px 8px;text-align:right;">${h.new_pos ? '<span style="color:#10b981;font-size:0.68rem;font-style:italic;">NEW</span>' : qoqBadge(h.qoq_pct)}</td>
                 </tr>`;
             }).join('');
 
@@ -10910,7 +10911,9 @@
                 .sort((a,b) => (b.pct||0) - (a.pct||0))
                 .map(f => {
                     const qoq = f.qoq_pct;
-                    const qoqHtml = qoq == null ? '—'
+                    const qoqHtml = f.new_pos ? '<span style="color:#10b981;font-size:0.68rem;font-style:italic;">NEW</span>'
+                        : qoq == null ? '—'
+                        : qoq > 500 ? '<span style="color:#10b981;font-size:0.68rem;font-style:italic;">NEW</span>'
                         : `<span style="color:${qoq>0?'#10b981':'#ef4444'}">${qoq>0?'+':''}${qoq.toFixed(1)}%</span>`;
                     return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
                         <td style="padding:5px 8px;color:#e2e8f0;">${f.fund}</td>
