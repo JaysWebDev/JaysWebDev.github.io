@@ -2028,6 +2028,12 @@
                                     </div>
                                 </div>
 
+                                <!-- Smart Money Holdings -->
+                                <div id="lk-smart-money" style="background:rgba(30,41,59,0.6);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:14px;margin-bottom:12px;display:none;">
+                                    <div style="color:#fbbf24;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">🏛️ Smart Money Holdings</div>
+                                    <div id="lk-smart-money-content"></div>
+                                </div>
+
                                 <!-- Description -->
                                 <div style="background:rgba(30,41,59,0.4);border:1px solid rgba(59,130,246,0.1);border-radius:8px;padding:14px;">
                                     <div style="color:#64748b;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">About</div>
@@ -7729,8 +7735,62 @@
             // Description
             set('lk-description', s.desc || '');
 
+            // Smart Money
+            lookupRenderSmartMoney(s.sym);
+
             // Load price chart
             loadLookupChart(s.sym);
+        }
+
+        // ── Lookup Smart Money Panel ────────────────────────────────────────────
+        async function lookupRenderSmartMoney(sym) {
+            const wrap = document.getElementById('lk-smart-money');
+            const el   = document.getElementById('lk-smart-money-content');
+            if (!wrap || !el) return;
+            wrap.style.display = 'none';
+
+            if (!_fundsData) await loadFunds();
+            if (!_fundsData) return;
+
+            const data = _fundsData.by_symbol[sym];
+            if (!data || !data.funds || !data.funds.length) return;
+
+            const fmt = v => v >= 1e9 ? `$${(v/1e9).toFixed(1)}B`
+                           : v >= 1e6 ? `$${(v/1e6).toFixed(0)}M`
+                           : `$${(v||0).toLocaleString()}`;
+
+            const rows = [...data.funds]
+                .sort((a, b) => (b.value_usd || 0) - (a.value_usd || 0))
+                .map(f => {
+                    const qoq = f.qoq_pct;
+                    const qoqHtml = f.new_pos ? '<span style="color:#10b981;font-size:0.68rem;">NEW</span>'
+                        : qoq == null ? '<span style="color:#475569;">—</span>'
+                        : qoq > 500  ? '<span style="color:#10b981;font-size:0.68rem;">NEW</span>'
+                        : `<span style="color:${qoq>0?'#10b981':'#ef4444'};font-family:\'JetBrains Mono\',monospace;">${qoq>0?'+':''}${qoq.toFixed(1)}%</span>`;
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:4px 8px;color:#e2e8f0;font-size:0.8rem;">${f.fund}</td>
+                        <td style="padding:4px 8px;text-align:right;color:#94a3b8;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">${f.pct != null ? f.pct.toFixed(2)+'%' : '—'}</td>
+                        <td style="padding:4px 8px;text-align:right;font-size:0.78rem;">${fmt(f.value_usd||0)}</td>
+                        <td style="padding:4px 8px;text-align:right;font-size:0.78rem;">${qoqHtml}</td>
+                    </tr>`;
+                }).join('');
+
+            el.innerHTML = `
+                <div style="margin-bottom:8px;">
+                    <span style="color:#fbbf24;font-size:0.78rem;font-weight:600;">${data.funds.length} fund${data.funds.length!==1?'s':''} holding ${sym}</span>
+                </div>
+                <table style="width:100%;border-collapse:collapse;">
+                    <thead>
+                        <tr style="border-bottom:1px solid rgba(148,163,184,0.15);">
+                            <th style="padding:4px 8px;text-align:left;color:#64748b;font-size:0.68rem;text-transform:uppercase;">Fund</th>
+                            <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.68rem;text-transform:uppercase;">% Portfolio</th>
+                            <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.68rem;text-transform:uppercase;">Value</th>
+                            <th style="padding:4px 8px;text-align:right;color:#64748b;font-size:0.68rem;text-transform:uppercase;">QoQ</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>`;
+            wrap.style.display = 'block';
         }
 
         // ── Lookup Price Chart (TradingView Lightweight Charts) ─────────────────
