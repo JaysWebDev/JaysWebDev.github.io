@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Development — AI Agents & Infrastructure | jays.website</title>
-    <meta name="description" content="AI agents, automation systems, and infrastructure experiments. ClaudBot multi-worker AI scheduler, LLM agents, SKS memory system, and a dedicated home lab for data pipelines.">
+    <meta name="description" content="AI agents, automation systems, and infrastructure experiments. LLM agents, SKS memory system, fine-tuning lab, and a dedicated home lab for data pipelines.">
     <meta name="author" content="Jeff Kirk Jr.">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="canonical" href="https://jays.website/appdevelopment/">
@@ -14,16 +14,16 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jays.website/appdevelopment/">
     <meta property="og:title" content="App Development — AI Agents & Infrastructure | jays.website">
-    <meta property="og:description" content="AI agents, automation systems, and infrastructure experiments. ClaudBot multi-worker AI scheduler, LLM agents, SKS memory system, and a dedicated home lab for data pipelines.">
+    <meta property="og:description" content="AI agents, automation systems, and infrastructure experiments. LLM agents, SKS memory system, fine-tuning lab, and a dedicated home lab for data pipelines.">
     <meta property="og:site_name" content="jays.website">
-    <meta property="og:image" content="https://jays.website/og-image.svg">
+    <meta property="og:image" content="https://jays.website/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="App Development — AI Agents & Infrastructure | jays.website">
-    <meta name="twitter:description" content="AI agents, automation systems, and infrastructure experiments. ClaudBot multi-worker scheduler, LLM agents, SKS memory system, home lab server.">
-    <meta name="twitter:image" content="https://jays.website/og-image.svg">
+    <meta name="twitter:description" content="AI agents, automation systems, and infrastructure experiments. LLM agents, SKS memory system, fine-tuning lab, home lab server.">
+    <meta name="twitter:image" content="https://jays.website/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -376,11 +376,13 @@
 
     <nav style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;padding:0.6rem 1rem;background:rgba(0,0,0,0.08);border-radius:10px;">
         <a href="/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Home</a>
+        <a href="/about/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">About</a>
         <a href="/trading/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Trading</a>
         <a href="/rental/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Rental</a>
         <a href="/business/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Business Intel</a>
         <a href="/tools/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Tools</a>
         <a href="/appdevelopment/" style="color:#667eea;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;background:rgba(102,126,234,0.1);" onmouseover="this.style.background='rgba(102,126,234,0.15)'" onmouseout="this.style.background='rgba(102,126,234,0.1)'">Apps</a>
+        <a href="/contact/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Contact</a>
         <a href="/resume/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;margin-left:auto;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Resume →</a>
     </nav>
 
@@ -418,7 +420,7 @@
             <div class="project-card" style="--accent: #9f7aea;">
                 <div class="card-header">
                     <div class="card-title">🤖 ClaudBot + Openclaw</div>
-                    <span class="badge badge-live">Live</span>
+                    <span class="badge badge-planned">Paused</span>
                 </div>
                 <p class="card-desc">Telegram bot powered by Openclaw, bridging directly to Claude AI. Send a message from anywhere — Claude responds with full tool access including web browsing. Monitored via live dashboard.</p>
                 <div class="tags">
