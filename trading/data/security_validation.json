@@ -1,17 +1,54 @@
 {
-  "timestamp": "2026-06-26 07:00:02",
-  "total_validated": 1,
+  "timestamp": "2026-07-03 07:00:02",
+  "total_validated": 5,
   "summary": {
-    "PENNY_STOCK": 1
+    "ACTIVE": 3,
+    "PENNY_STOCK": 2
   },
   "results": [
     {
-      "symbol": "SNBR",
+      "symbol": "CVGW",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 26.09,
+      "volume": 453381.8,
+      "validation_date": "2026-07-03 07:00",
+      "data_source": "Database"
+    },
+    {
+      "symbol": "THR",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 61.14,
+      "volume": 560049.6,
+      "validation_date": "2026-07-03 07:00",
+      "data_source": "Database"
+    },
+    {
+      "symbol": "AMWD",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 48.09,
+      "volume": 205705.4,
+      "validation_date": "2026-07-03 07:00",
+      "data_source": "Database"
+    },
+    {
+      "symbol": "QSI",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.12 below $1.00 threshold",
-      "last_price": 0.125,
-      "volume": 105734512.3,
-      "validation_date": "2026-06-26 07:00",
+      "reason": "Price $0.93 below $1.00 threshold",
+      "last_price": 0.9304,
+      "volume": 7758882.5,
+      "validation_date": "2026-07-03 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "IVVD",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.89 below $1.00 threshold",
+      "last_price": 0.8938,
+      "volume": 8667341.6,
+      "validation_date": "2026-07-03 07:00",
       "data_source": "Price Analysis"
     }
   ]

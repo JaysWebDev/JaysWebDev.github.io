@@ -434,6 +434,46 @@
         }
         .showing-tag { padding: 10px 0 2px; font-size: 9px; color: var(--text-dim); letter-spacing: 0.04em; }
 
+        /* ── System Strip ── */
+        .system-strip {
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            background: rgba(255,255,255,0.012);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            scrollbar-width: none;
+            flex-shrink: 0;
+        }
+        .system-strip::-webkit-scrollbar { display: none; }
+        .sys-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 11px 26px;
+            flex-shrink: 0;
+            border-right: 1px solid var(--border);
+        }
+        .sys-stat:first-child { padding-left: 0; }
+        .sys-stat:last-child { border-right: none; }
+        .sys-val {
+            font-family: var(--font-data);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.01em;
+            line-height: 1;
+        }
+        .sys-lbl {
+            font-family: var(--font-ui);
+            font-size: 8px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
         /* ── Skeleton ── */
         .skel {
             background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
@@ -464,11 +504,47 @@
         .report-name { font-family: var(--font-ui); font-size: 12px; font-weight: 700; color: var(--text); }
         .report-desc { font-size: 10px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
 
+        /* ── Report Sections ── */
+        .report-section-hdr {
+            font-family: var(--font-ui);
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .report-section-hdr + .report-section-hdr { margin-top: 0; }
+        .section-pill {
+            background: rgba(0,229,160,0.1);
+            color: var(--green);
+            border: 1px solid rgba(0,229,160,0.22);
+            font-size: 8px;
+            padding: 2px 7px;
+            border-radius: 3px;
+            letter-spacing: 0.06em;
+        }
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .report-card-featured {
+            border-color: rgba(0,229,160,0.18);
+            background: rgba(0,229,160,0.018);
+        }
+        .report-card-featured .report-name { color: var(--green); }
+
         @media (max-width: 900px) {
-            #report-grid { grid-template-columns: repeat(2,1fr) !important; }
+            .report-grid { grid-template-columns: repeat(2,1fr); }
         }
         @media (max-width: 600px) {
-            #report-grid { grid-template-columns: 1fr !important; }
+            .report-grid { grid-template-columns: 1fr; }
         }
 
         /* ── Footer ── */
@@ -507,6 +583,7 @@
             .sector-grid { grid-template-columns: repeat(2, 1fr); }
             .data-table { font-size: 10px; }
             .data-table th, .data-table td { padding: 7px 8px; }
+            .col-hide-sm { display: none; }
         }
     </style>
 </head>
@@ -518,7 +595,7 @@
         <div class="brand">Trading <em>Intelligence</em></div>
     </div>
     <div class="header-right">
-        <div class="live-badge"><div class="live-dot"></div> Live</div>
+        <div class="live-badge"><div class="live-dot"></div> <span id="hdr-live-label">Live</span></div>
         <a href="/secure/" class="dashboard-btn">Dashboard →</a>
     </div>
 </header>
@@ -530,6 +607,29 @@
     <button class="tab-btn" onclick="switchTab('screeners',this)">🔍&nbsp; Screeners</button>
     <button class="tab-btn" onclick="switchTab('reports',this)">📄&nbsp; Reports</button>
 </nav>
+
+<div class="system-strip">
+    <div class="sys-stat">
+        <div class="sys-val">2,612</div>
+        <div class="sys-lbl">Securities</div>
+    </div>
+    <div class="sys-stat">
+        <div class="sys-val">13</div>
+        <div class="sys-lbl">Scanners</div>
+    </div>
+    <div class="sys-stat">
+        <div class="sys-val">26</div>
+        <div class="sys-lbl">Institutional Funds</div>
+    </div>
+    <div class="sys-stat">
+        <div class="sys-val">900+</div>
+        <div class="sys-lbl">Signals Tracked</div>
+    </div>
+    <div class="sys-stat">
+        <div class="sys-val neu" id="strip-regime">—</div>
+        <div class="sys-lbl">Market Regime</div>
+    </div>
+</div>
 
 <!-- ══ MARKET ══════════════════════════════════════════════════════════════ -->
 <div id="tab-market" class="tab-content active">
@@ -575,6 +675,12 @@
 
 <!-- ══ TRACK RECORD ════════════════════════════════════════════════════════ -->
 <div id="tab-track" class="tab-content">
+    <div id="track-highlights" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">
+        <div class="skel" style="height:100px;border-radius:6px;"></div>
+        <div class="skel" style="height:100px;border-radius:6px;"></div>
+        <div class="skel" style="height:100px;border-radius:6px;"></div>
+    </div>
+
     <div class="card">
         <div class="card-title">
             Live Scanner Accuracy — Forward Returns
@@ -657,42 +763,60 @@
 
 <!-- ══ REPORTS ═════════════════════════════════════════════════════════════ -->
 <div id="tab-reports" class="tab-content">
-    <div class="card-title" style="margin-bottom:16px;">📄 Scanner Reports — Latest Runs</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" id="report-grid">
-        <a href="/trading/reports/cross_scanner_latest.html" target="_blank" class="report-card">
+
+    <div class="report-section-hdr">
+        Combined Intelligence
+        <span class="section-pill">Start Here</span>
+    </div>
+    <div class="report-grid">
+        <a href="/trading/reports/cross_scanner_latest.html" target="_blank" class="report-card report-card-featured">
             <div class="report-icon">📊</div>
             <div class="report-name">Cross-Scanner Intelligence</div>
-            <div class="report-desc">Multi-scanner confluence · ranked by conviction</div>
+            <div class="report-desc">All scanners unified · ranked by conviction score</div>
         </a>
-        <a href="/trading/reports/unified_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/unified_latest.html" target="_blank" class="report-card report-card-featured">
             <div class="report-icon">🎯</div>
             <div class="report-name">Unified Scanner</div>
-            <div class="report-desc">Combined signal scoring across all scanners</div>
+            <div class="report-desc">Multi-day composite scoring across all signal types</div>
         </a>
-        <a href="/trading/reports/weekly_pub_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/weekly_pub_latest.html" target="_blank" class="report-card report-card-featured">
             <div class="report-icon">📅</div>
             <div class="report-name">Weekly Top Picks</div>
             <div class="report-desc">Sunday publication · top conviction setups</div>
+        </a>
+        <a href="/trading/data/weekly_report.html" target="_blank" class="report-card report-card-featured">
+            <div class="report-icon">📰</div>
+            <div class="report-name">Weekly Market Report</div>
+            <div class="report-desc">Full market breadth + regime + conviction summary</div>
+        </a>
+    </div>
+
+    <div class="report-section-hdr" style="margin-top:28px;">Individual Scanners</div>
+    <div class="report-grid">
+        <a href="/trading/reports/rsi_staircase_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">📈</div>
+            <div class="report-name">RSI Staircase</div>
+            <div class="report-desc">74.5% 5-day win rate · strongest scanner</div>
+        </a>
+        <a href="/trading/reports/under50_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">💲</div>
+            <div class="report-name">Under $50</div>
+            <div class="report-desc">67.5% 5-day win rate · high-volume picks</div>
         </a>
         <a href="/trading/reports/atr_momentum_latest.html" target="_blank" class="report-card">
             <div class="report-icon">⚡</div>
             <div class="report-name">ATR Momentum</div>
             <div class="report-desc">Volatility-adjusted momentum breakouts</div>
         </a>
-        <a href="/trading/reports/rsi_staircase_latest.html" target="_blank" class="report-card">
-            <div class="report-icon">📈</div>
-            <div class="report-name">RSI Staircase</div>
-            <div class="report-desc">74.5% 5-day win rate · strongest scanner</div>
+        <a href="/trading/reports/momentum_rebound_latest.html" target="_blank" class="report-card">
+            <div class="report-icon">🔄</div>
+            <div class="report-name">Momentum Rebound</div>
+            <div class="report-desc">Pullback recovery setups</div>
         </a>
         <a href="/trading/reports/confluence_latest.html" target="_blank" class="report-card">
             <div class="report-icon">🔀</div>
             <div class="report-name">Confluence</div>
             <div class="report-desc">Multi-indicator signal convergence</div>
-        </a>
-        <a href="/trading/reports/momentum_rebound_latest.html" target="_blank" class="report-card">
-            <div class="report-icon">🔄</div>
-            <div class="report-name">Momentum Rebound</div>
-            <div class="report-desc">Pullback recovery setups</div>
         </a>
         <a href="/trading/reports/institutional_latest.html" target="_blank" class="report-card">
             <div class="report-icon">🏦</div>
@@ -714,20 +838,10 @@
             <div class="report-name">Enhanced</div>
             <div class="report-desc">Multi-factor enhanced scoring</div>
         </a>
-        <a href="/trading/reports/under50_latest.html" target="_blank" class="report-card">
-            <div class="report-icon">💲</div>
-            <div class="report-name">Under $50</div>
-            <div class="report-desc">67.5% 5-day win rate · high-volume picks</div>
-        </a>
         <a href="/trading/reports/etf_latest.html" target="_blank" class="report-card">
             <div class="report-icon">🗂️</div>
             <div class="report-name">ETF Scanner</div>
             <div class="report-desc">Sector ETF rotation signals</div>
-        </a>
-        <a href="/trading/data/weekly_report.html" target="_blank" class="report-card">
-            <div class="report-icon">📰</div>
-            <div class="report-name">Weekly Market Report</div>
-            <div class="report-desc">Full market breadth + conviction summary</div>
         </a>
     </div>
 </div>
@@ -770,6 +884,7 @@ const pct      = (v, d=1) => v == null ? '—' : (v > 0 ? '+' : '') + v.toFixed(
 const price    = v => v == null ? '—' : '$' + Number(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 const cc       = v => v == null ? 'neu' : v > 0 ? 'pos' : v < 0 ? 'neg' : 'neu';
 const winClass = v => v == null ? 'win-lo' : v >= 65 ? 'win-hi' : v >= 55 ? 'win-md' : 'win-lo';
+const confClass = v => v == null ? 'neu' : v >= 90 ? 'pos' : v >= 70 ? 'win-md' : 'neu';
 const fmtWin   = v => v == null ? '—' : v.toFixed(1) + '%';
 
 const IX_NAMES = {SPY:'S&P 500', QQQ:'Nasdaq 100', IWM:'Russell 2000', DIA:'Dow Jones'};
@@ -805,6 +920,18 @@ function renderRegime(b, r) {
     const scoreW = score != null ? Math.min(Math.max(score, 0), 100) : 0;
 
     document.getElementById('regime-updated').textContent = 'Updated: ' + (l.date || '—');
+    const stripReg = document.getElementById('strip-regime');
+    if (stripReg) {
+        const regLabel = r.regime || l.regime_signal || '—';
+        stripReg.textContent = regLabel;
+        stripReg.className = 'sys-val ' + (regLabel === 'BULL' ? 'pos' : regLabel === 'BEAR' ? 'neg' : 'neu');
+    }
+    const hdrLabel = document.getElementById('hdr-live-label');
+    if (hdrLabel && l.date) {
+        const d = new Date(l.date + 'T00:00:00');
+        const fmt = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        hdrLabel.textContent = `Live · ${fmt}`;
+    }
     document.getElementById('regime-bar').innerHTML = `
         <div class="regime-gauge-block">
             <div class="regime-score-label">Market Breadth Score</div>
@@ -965,6 +1092,32 @@ function renderAccuracy(data) {
             `${dr.trading_days ?? '?'} trading days · ${dr.start} — ${dr.end}`;
     }
 
+    // ── Track Record Highlights ──────────────────────────────────────────────
+    const table = data.summary_table || [];
+    const ranked = [...table].sort((a, b) => (b['5d_win_rate'] || 0) - (a['5d_win_rate'] || 0));
+    const totalSig = table.reduce((s, r) => s + (r.total_signals || 0), 0);
+    const hlCard = (r, badge) => `
+        <div class="card" style="text-align:center;padding:18px 14px;">
+            <div style="font-family:var(--font-ui);font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:7px;">
+                ${SC_LABEL[r.scanner_type] || r.scanner_type}
+                ${badge ? `<span style="background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.22);font-size:7px;padding:1px 6px;border-radius:3px;letter-spacing:0.06em;">${badge}</span>` : ''}
+            </div>
+            <div style="font-family:var(--font-data);font-size:36px;font-weight:700;color:var(--green);line-height:1;letter-spacing:-0.02em;">${r['5d_win_rate'] != null ? r['5d_win_rate'].toFixed(1) : '—'}<span style="font-size:18px;font-weight:400;">%</span></div>
+            <div style="font-size:8px;color:var(--text-muted);letter-spacing:0.09em;text-transform:uppercase;margin-top:5px;">5-Day Win Rate</div>
+            <div style="font-size:9px;color:var(--text-dim);margin-top:5px;">${r.total_signals != null ? r.total_signals.toLocaleString() : '—'} signals</div>
+        </div>`;
+    const hlThird = `
+        <div class="card" style="text-align:center;padding:18px 14px;">
+            <div style="font-family:var(--font-ui);font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">All Scanners</div>
+            <div style="font-family:var(--font-data);font-size:36px;font-weight:700;color:var(--text);line-height:1;letter-spacing:-0.02em;">${totalSig.toLocaleString()}</div>
+            <div style="font-size:8px;color:var(--text-muted);letter-spacing:0.09em;text-transform:uppercase;margin-top:5px;">Signals Tracked</div>
+            <div style="font-size:9px;color:var(--text-dim);margin-top:5px;">${dr.start ? dr.start + ' — ' + dr.end : ''}</div>
+        </div>`;
+    document.getElementById('track-highlights').innerHTML =
+        (ranked[0] ? hlCard(ranked[0], '#1 Win Rate') : '') +
+        (ranked[1] ? hlCard(ranked[1], '#2') : '') +
+        hlThird;
+
     const rows = (data.summary_table || []).map(r => `
         <tr>
             <td>${SC_LABEL[r.scanner_type] || r.label || r.scanner_type}</td>
@@ -1071,7 +1224,7 @@ function drawTable(f) {
             <td><strong style="font-size:12px;">${p.symbol}</strong></td>
             <td>${price(p.price)}</td>
             <td><span class="scanner-pill" style="background:${c}1a;color:${c};border:1px solid ${c}33;">${(SC_LABEL[p.scanner]||p.scanner||'').replace(/_/g,' ')}</span></td>
-            <td>${p.conf_score != null ? p.conf_score.toFixed(1) : '—'}</td>
+            <td class="${confClass(p.conf_score)}">${p.conf_score != null ? p.conf_score.toFixed(1) : '—'}</td>
             <td class="${rsCls}">${p.rs_rank != null ? p.rs_rank.toFixed(1) : '—'}</td>
             <td><div class="sig-pills">${sigs.map(s=>`<span class="sig-pill">${s}</span>`).join('')}</div></td>
         </tr>`;
@@ -1103,11 +1256,11 @@ function renderConviction(picks) {
             <td>${price(p.price)}</td>
             <td style="color:var(--yellow);font-weight:600;">${p.conviction_score?.toFixed(0)??'—'}</td>
             <td>${p.scanner_count??'—'}</td>
-            <td>${p.days_on_report??'—'}</td>
-            <td class="${(p.rs_rank??0)>=70?'pos':''}">${p.rs_rank?.toFixed(1)??'—'}</td>
-            <td>${p.rsi?.toFixed(1)??'—'}</td>
-            <td>${p.above_sma50?'<span class="pos">✓</span>':'<span class="neg">✗</span>'}</td>
-            <td class="${fundCls}" style="font-size:10px;">${p.fund_tier||'—'}</td>
+            <td class="col-hide-sm">${p.days_on_report??'—'}</td>
+            <td class="${(p.rs_rank??0)>=70?'pos':''} col-hide-sm">${p.rs_rank?.toFixed(1)??'—'}</td>
+            <td class="col-hide-sm">${p.rsi?.toFixed(1)??'—'}</td>
+            <td class="col-hide-sm">${p.above_sma50?'<span class="pos">✓</span>':'<span class="neg">✗</span>'}</td>
+            <td class="${fundCls} col-hide-sm" style="font-size:10px;">${p.fund_tier||'—'}</td>
             <td style="max-width:160px;"><div class="sig-pills">${scannerList}</div></td>
         </tr>`;
     }).join('');
@@ -1115,7 +1268,7 @@ function renderConviction(picks) {
     <div style="overflow-x:auto;"><table class="data-table">
         <thead><tr>
             <th>Symbol</th><th>Price</th><th>Conv Score</th><th>Scanners</th>
-            <th>Days On</th><th>RS Rank</th><th>RSI</th><th>SMA50</th><th>Fund</th><th>Active Scanners</th>
+            <th class="col-hide-sm">Days On</th><th class="col-hide-sm">RS Rank</th><th class="col-hide-sm">RSI</th><th class="col-hide-sm">SMA50</th><th class="col-hide-sm">Fund</th><th>Active Scanners</th>
         </tr></thead>
         <tbody>${rows}</tbody>
     </table></div>

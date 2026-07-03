@@ -1007,6 +1007,7 @@
                                                 <th style="padding:6px 4px;cursor:pointer;text-align:right;" onclick="sigSort('days_on_report')"><span class="sig-hdr" data-col="days_on_report">Days</span></th>
                                                 <th style="padding:6px 4px;cursor:pointer;text-align:right;" onclick="sigSort('scanner_count')"><span class="sig-hdr" data-col="scanner_count">Scnrs</span></th>
                                                 <th style="padding:6px 4px;cursor:pointer;text-align:right;" onclick="sigSort('price')"><span class="sig-hdr" data-col="price">Price</span></th>
+                                                <th style="padding:6px 4px;color:#334155;">Chart</th>
                                                 <th style="padding:6px 4px;cursor:pointer;text-align:right;" onclick="sigSort('_stop_pct')"><span class="sig-hdr" data-col="_stop_pct">Stop%</span></th>
                                                 <th style="padding:6px 4px;cursor:pointer;text-align:right;" onclick="sigSort('rsi')"><span class="sig-hdr" data-col="rsi">RSI</span></th>
                                                 <th style="padding:6px 4px;cursor:pointer;text-align:right;" onclick="sigSort('rs_rank')"><span class="sig-hdr" data-col="rs_rank">RS</span></th>
@@ -1016,7 +1017,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="sig-body">
-                                            <tr><td colspan="13" style="padding:20px;text-align:center;color:#475569;">Loading…</td></tr>
+                                            <tr><td colspan="14" style="padding:20px;text-align:center;color:#475569;">Loading…</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -6738,7 +6739,7 @@
                     };
                     const fundBadge = p.fund_tier ? (FUND_BADGE[p.fund_tier] || '') : '';
 
-                    return `<div style="display:grid;grid-template-columns:2rem 7rem 1fr auto;align-items:center;gap:12px;padding:11px 14px;background:rgba(15,23,42,0.6);border-radius:8px;border:1px solid rgba(148,163,184,0.08);">
+                    return `<div style="display:grid;grid-template-columns:2rem 7rem 1fr 60px auto;align-items:center;gap:12px;padding:11px 14px;background:rgba(15,23,42,0.6);border-radius:8px;border:1px solid rgba(148,163,184,0.08);">
                         <div style="color:#475569;font-size:0.8rem;text-align:center;">${i+1}</div>
                         <div>
                             <div style="font-weight:700;font-size:0.92rem;color:#e2e8f0;">${p.symbol}${stage2Badge}${cleanBadge} ${fundBadge}</div>
@@ -6748,6 +6749,7 @@
                             <span style="color:#94A3B8;">${signals || '—'}</span>
                             ${confBadge ? `<span style="margin-left:6px;">${confBadge}</span>` : ''}
                         </div>
+                        <div style="display:flex;justify-content:center;align-items:center;">${makeSparkline(p.symbol)}</div>
                         <div style="text-align:right;white-space:nowrap;">
                             <div style="display:flex;gap:16px;align-items:baseline;justify-content:flex-end;">
                                 <span style="color:${convC};font-weight:700;font-size:1rem;">${conv.toFixed(0)}</span>
@@ -6887,7 +6889,7 @@
 
             const tbody = document.getElementById('sig-body');
             if (rows.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="12" style="padding:20px;text-align:center;color:#475569;">No signals match current filters</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="14" style="padding:20px;text-align:center;color:#475569;">No signals match current filters</td></tr>';
                 return;
             }
 
@@ -6925,6 +6927,7 @@
                     <td style="padding:5px 4px;text-align:right;color:#94A3B8;">${r.days_on_report}d</td>
                     <td style="padding:5px 4px;">${scannerTags}</td>
                     <td style="padding:5px 4px;text-align:right;color:#CBD5E1;">${priceStr}</td>
+                    <td style="padding:5px 4px;">${makeSparkline(r.symbol)}</td>
                     <td style="padding:5px 4px;text-align:right;color:#EF4444;">${stopPct}</td>
                     <td style="padding:5px 4px;text-align:right;color:${rsiColor};">${rsiStr}</td>
                     <td style="padding:5px 4px;text-align:right;color:${rsColor};">${rsStr}</td>
