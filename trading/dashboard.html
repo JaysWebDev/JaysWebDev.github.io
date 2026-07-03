@@ -2840,6 +2840,7 @@
                                             <tr style="background:rgba(15,23,42,0.6);border-bottom:1px solid rgba(51,65,85,0.5);">
                                                 <th style="padding:7px 8px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;font-weight:600;width:30px;">#</th>
                                                 <th style="padding:7px 8px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;font-weight:600;">Symbol</th>
+                                                <th style="padding:7px 6px;color:#64748b;font-size:0.63rem;text-transform:uppercase;font-weight:600;">Trend</th>
                                                 <th style="padding:7px 6px;text-align:center;color:#64748b;font-size:0.63rem;text-transform:uppercase;font-weight:600;">Class</th>
                                                 <th class="sortable" data-col="trend_score" style="padding:7px 8px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;font-weight:600;" onclick="trSetSort('trend_score')">Score</th>
                                                 <th class="sortable" data-col="price" style="padding:7px 8px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;font-weight:600;" onclick="trSetSort('price')">Price</th>
@@ -2852,7 +2853,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tr-main-body">
-                                            <tr><td colspan="11" style="padding:30px;text-align:center;" class="data-unavail">Fetching trend data…</td></tr>
+                                            <tr><td colspan="12" style="padding:30px;text-align:center;" class="data-unavail">Fetching trend data…</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -5150,7 +5151,7 @@
 
             if (page.length === 0) {
                 const hasFilters = _trFilter !== 'ALL' || _trSector !== 'ALL' || _trTier !== 'ALL' || _trScanOnly || document.getElementById('tr-search')?.value;
-                body.innerHTML = `<tr><td colspan="11" style="padding:36px;text-align:center;">
+                body.innerHTML = `<tr><td colspan="12" style="padding:36px;text-align:center;">
                     <div class="data-unavail">${hasFilters ? 'No results match the current filters' : 'Trend data not yet available'}</div>
                     ${hasFilters ? `<div style="margin-top:8px;font-size:0.7rem;color:#475569;"><a href="#" onclick="trResetFilters();return false;" style="color:#818cf8;">Clear all filters</a></div>` : ''}
                 </td></tr>`;
@@ -5181,6 +5182,7 @@
                     <td style="padding:6px 8px;">
                         <span style="font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">${t.symbol}</span>${scanBadge}${sectorTag}
                     </td>
+                    <td style="padding:4px 6px;">${makeSparkline(t.symbol)}</td>
                     <td style="padding:6px;text-align:center;">
                         <span style="background:${bg};color:${color};padding:2px 7px;border-radius:4px;font-size:0.62rem;font-weight:700;letter-spacing:0.04em;">${cls}</span>
                     </td>
@@ -6485,8 +6487,9 @@
                 .then(d => {
                     _sparklineData = d.symbols || {};
                     // Re-render any already-loaded tables that use sparklines
-                    const grid = document.getElementById('wip-setups-grid');
-                    if (grid && grid.children.length > 0) loadWipSetups();
+                    if (_trAll && _trAll.length) trRender();
+                    if (_atrData) atrRender();
+                    if (_rebData && _stairData) rsiMomRender();
                 })
                 .catch(() => {});  // Sparklines are optional — fail silently
         }
@@ -8698,6 +8701,7 @@
               <table style="width:100%;border-collapse:collapse;background:rgba(15,23,42,0.7);font-size:0.78rem;">
                 <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
                   <th style="padding:7px 10px;text-align:left;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Symbol</th>
+                  <th style="padding:7px 6px;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Trend</th>
                   <th style="padding:7px 10px;text-align:center;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Type</th>
                   <th style="padding:7px 10px;text-align:right;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Price</th>
                   <th style="padding:7px 10px;text-align:right;color:#64748b;font-size:0.65rem;text-transform:uppercase;">RSI</th>
@@ -8719,6 +8723,7 @@
                 const mc = r.m_consistency != null ? r.m_consistency : null;
                 html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.03);" onmouseover="this.style.background='rgba(167,139,250,0.04)'" onmouseout="this.style.background=''">
                   <td style="padding:7px 10px;"><strong style="color:#e2e8f0;">${r.symbol}</strong><br><span style="color:#475569;font-size:0.65rem;">${(r.signals||[]).slice(0,3).join(' · ')}</span></td>
+                  <td style="padding:4px 6px;">${makeSparkline(r.symbol)}</td>
                   <td style="padding:7px 10px;text-align:center;">${typeTag}</td>
                   <td style="padding:7px 10px;text-align:right;font-family:'JetBrains Mono',monospace;color:#cbd5e1;">$${r.close}</td>
                   <td style="padding:7px 10px;text-align:right;">${rsiStr}</td>
@@ -9134,6 +9139,7 @@
               <table style="width:100%;border-collapse:collapse;background:rgba(15,23,42,0.7);font-size:0.78rem;">
                 <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
                   <th style="padding:7px 10px;text-align:left;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Symbol</th>
+                  <th style="padding:7px 6px;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Trend</th>
                   <th style="padding:7px 10px;text-align:center;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Zone</th>
                   <th style="padding:7px 10px;text-align:right;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Price</th>
                   <th style="padding:7px 10px;text-align:center;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Daily z</th>
@@ -9147,6 +9153,7 @@
             for (const r of top20) {
                 html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.03);" onmouseover="this.style.background='rgba(74,222,128,0.04)'" onmouseout="this.style.background=''">
                   <td style="padding:7px 10px;"><strong style="color:#e2e8f0;">${r.symbol}</strong><br><span style="color:#475569;font-size:0.65rem;">${(r.signals||[]).slice(0,3).join(' · ')}</span></td>
+                  <td style="padding:4px 6px;">${makeSparkline(r.symbol)}</td>
                   <td style="padding:7px 10px;text-align:center;">${zoneBadge(r.zone)}</td>
                   <td style="padding:7px 10px;text-align:right;font-family:'JetBrains Mono',monospace;color:#cbd5e1;">$${r.close}</td>
                   <td style="padding:7px 10px;text-align:center;">${fmtZ(r.atr_z)}</td>
@@ -9172,6 +9179,7 @@
                   <table style="width:100%;border-collapse:collapse;background:rgba(15,23,42,0.7);font-size:0.78rem;">
                     <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
                       <th style="padding:7px 10px;text-align:left;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Symbol</th>
+                      <th style="padding:7px 6px;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Trend</th>
                       <th style="padding:7px 10px;text-align:right;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Price</th>
                       <th style="padding:7px 10px;text-align:center;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Daily z</th>
                       <th style="padding:7px 10px;text-align:center;color:#64748b;font-size:0.65rem;text-transform:uppercase;">Weekly z</th>
@@ -9190,6 +9198,7 @@
                     const rsiColor = r.rsi != null && r.rsi <= 65 && r.rsi >= 35 ? '#22c55e' : '#94a3b8';
                     html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.03);" onmouseover="this.style.background='rgba(74,222,128,0.04)'" onmouseout="this.style.background=''">
                       <td style="padding:7px 10px;"><strong style="color:#e2e8f0;">${r.symbol}</strong><br><span style="color:#475569;font-size:0.65rem;">${(r.signals||[]).slice(0,3).join(' · ')}</span></td>
+                      <td style="padding:4px 6px;">${makeSparkline(r.symbol)}</td>
                       <td style="padding:7px 10px;text-align:right;font-family:'JetBrains Mono',monospace;color:#cbd5e1;">$${r.close}</td>
                       <td style="padding:7px 10px;text-align:center;">${fmtZ(r.atr_z)}</td>
                       <td style="padding:7px 10px;text-align:center;">${fmtZ(r.atr_z_w)}</td>
