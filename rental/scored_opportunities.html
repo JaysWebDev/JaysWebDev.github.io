@@ -295,6 +295,20 @@
       font-size: 12px;
       display: none;
     }
+    .fmr-warn {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 4px;
+      padding: 1px 5px;
+      margin-left: 5px;
+      vertical-align: middle;
+      cursor: default;
+      letter-spacing: 0;
+    }
     .version-badge {
       display: inline-block;
       font-size: 11px;
@@ -743,6 +757,19 @@
     }
   }
 
+  // Cities where HUD FMR is a metro-wide average that significantly overstates local rents.
+  // Lawrence is in the Boston-Cambridge-Newton HMFA ($2,484/2BR) but actual rents are ~$1,400-1,700.
+  const FMR_WARN_CITIES = new Set(['LAWRENCE']);
+  const FMR_WARN_TOOLTIP = {
+    'LAWRENCE': 'HUD FMR ($2,484/mo) is a Boston metro average — actual Lawrence rents are ~40% lower. Cap rate is likely overstated.'
+  };
+
+  function rentWarnHTML(city) {
+    if (!city || !FMR_WARN_CITIES.has(city.toUpperCase())) return '';
+    var tip = FMR_WARN_TOOLTIP[city.toUpperCase()] || 'HUD FMR may overstate rents in this market.';
+    return '<span class="fmr-warn" title="' + tip + '">FMR ↑</span>';
+  }
+
   function renderCards(filtered) {
     var top25 = filtered.slice(0, 25);
     var grid = document.getElementById('cards-grid');
@@ -766,7 +793,7 @@
         + '<div class="opp-card-header">'
         + '<div>'
         + '<div class="opp-address">' + addr
-          + (loc ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:12px">' + loc + '</span>' : '')
+          + (loc ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:12px">' + loc + rentWarnHTML(b.city) + '</span>' : '')
           + '</div>'
         + (unitsStr ? '<div class="opp-county">' + unitsStr + '</div>' : '')
         + '</div>'
@@ -803,7 +830,7 @@
       return '<tr onclick="openBriefByRank(' + b._rank + ')" title="Click for deal brief">'
         + '<td style="color:var(--text-muted);font-size:12px">#' + (b._rank || '') + '</td>'
         + '<td class="address-cell">' + (b.address || '\u2014') + '</td>'
-        + '<td>' + (b.city || '\u2014') + '</td>'
+        + '<td>' + (b.city || '\u2014') + rentWarnHTML(b.city) + '</td>'
         + '<td>' + scoreBadgeHTML(b.opportunity_score) + '</td>'
         + '<td>' + fmtPct(b.cap_rate) + '</td>'
         + '<td style="color:var(--text-muted)">' + fmtCurrency(b.market_value) + '</td>'
