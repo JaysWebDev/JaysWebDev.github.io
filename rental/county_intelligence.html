@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+       crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>County Intelligence — Rental Intelligence</title>
+  <link rel="canonical" href="https://jays.website/rental/county_intelligence.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg:           #060810;
+  --surface:      #0b0f1a;
+  --surface-2:    #101520;
+  --surface-3:    #161d2e;
+  --border:       #1c2640;
+  --border-hi:    #253050;
+  --text:         #9aa5be;
+  --text-dim:     #404c65;
+  --text-bright:  #d4dff5;
+  --amber:        #c9940a;
+  --amber-hi:     #f5b400;
+  --amber-dim:    #7a5a06;
+  --green:        #2dce7d;
+  --lime:         #8fd11e;
+  --yellow:       #e8b321;
+  --red:          #f05252;
+  --font-display: 'Bebas Neue', cursive;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-ui:      'Barlow', sans-serif;
+  --radius:       4px;
+  --gutter:       24px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,148,10,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,148,10,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber-hi), transparent);
+  z-index: 100;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HEADER ───────────────────────────────────────────── */
+header {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(6,8,16,.98) 0%, rgba(11,15,26,.95) 100%);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--amber);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-back:hover { color: var(--amber-hi); }
+.nav-back::before { content: '←'; font-size: 14px; }
+
+.header-title {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.header-title h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: .06em;
+  color: var(--text-bright);
+  line-height: 1;
+}
+
+.header-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--amber);
+  background: rgba(201,148,10,.1);
+  border: 1px solid var(--amber-dim);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: .1em;
+}
+
+.header-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  text-align: right;
+  letter-spacing: .04em;
+}
+.header-meta span { display: block; color: var(--text); }
+
+/* ── KPIs ─────────────────────────────────────────────── */
+.kpi-section { padding: 28px 0 20px; }
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--amber-dim);
+}
+.kpi-card.highlight::before { background: var(--green); }
+
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: .04em;
+  color: var(--amber-hi);
+  line-height: 1;
+}
+.kpi-card.highlight .kpi-value { color: var(--green); }
+
+.kpi-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── SECTION HEADER ───────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: .06em;
+  color: var(--text-bright);
+}
+
+.section-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: .06em;
+}
+
+/* ── SORT BAR ─────────────────────────────────────────── */
+.sort-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sort-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.sort-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.sort-btn:hover { color: var(--text); border-color: var(--border-hi); }
+.sort-btn.active { color: var(--amber-hi); border-color: var(--amber-dim); background: rgba(201,148,10,.08); }
+
+/* ── COUNTY GRID ──────────────────────────────────────── */
+.county-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 14px;
+  margin-bottom: 60px;
+}
+
+.county-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .2s;
+  cursor: pointer;
+}
+.county-card:hover { border-color: var(--border-hi); }
+
+.county-card-top {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.county-rank {
+  font-family: var(--font-display);
+  font-size: 42px;
+  letter-spacing: .04em;
+  color: var(--text-dim);
+  line-height: 1;
+  padding: 16px 14px 16px 16px;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+  background: rgba(0,0,0,.2);
+}
+
+.county-main {
+  flex: 1;
+  padding: 14px 16px;
+}
+
+.county-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: .04em;
+  color: var(--text-bright);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.county-stats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.county-stat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .06em;
+  color: var(--text-dim);
+}
+.county-stat strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.county-score-block {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  min-width: 90px;
+}
+
+.score-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: .04em;
+  line-height: 1;
+}
+.score-value.high  { color: var(--green); }
+.score-value.mid   { color: var(--amber-hi); }
+.score-value.low   { color: var(--text-dim); }
+
+.score-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── TOWN BREAKDOWN ───────────────────────────────────── */
+.county-towns {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  display: none;
+}
+.county-card.expanded .county-towns { display: block; }
+
+.towns-header {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.town-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(28,38,64,.5);
+}
+.town-row:last-child { border-bottom: none; }
+
+.town-name {
+  flex: 1;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.town-bldgs {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  min-width: 70px;
+  text-align: right;
+}
+
+.town-bar-wrap {
+  width: 100px;
+  height: 4px;
+  background: var(--surface-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.town-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--amber-dim);
+  transition: width .4s ease;
+}
+.town-bar.high { background: var(--green); }
+.town-bar.mid  { background: var(--amber); }
+
+.town-score {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  min-width: 32px;
+  text-align: right;
+}
+.town-score.high { color: var(--green); }
+.town-score.mid  { color: var(--amber-hi); }
+.town-score.low  { color: var(--text-dim); }
+
+.expand-hint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  transition: color .15s;
+}
+.county-card:hover .expand-hint { color: var(--amber); }
+.county-card.expanded .expand-hint { color: var(--amber); }
+
+/* ── MARKET VALUE BAR CHART ───────────────────────────── */
+.value-section { margin-bottom: 60px; }
+
+.value-bars {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+}
+
+.value-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.value-county-name {
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  color: var(--text);
+  font-weight: 500;
+  min-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.value-bar-wrap {
+  flex: 1;
+  height: 16px;
+  background: var(--surface-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.value-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--amber-dim), var(--amber));
+  transition: width .6s ease;
+}
+
+.value-amt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  min-width: 60px;
+  text-align: right;
+}
+
+/* ── LOADING SCREEN ───────────────────────────────────── */
+#loadScreen {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  gap: 16px;
+  transition: opacity .4s;
+}
+#loadScreen.hidden { opacity: 0; pointer-events: none; }
+
+.loading-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.loading-bar {
+  width: 200px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+.loading-bar::after {
+  content: '';
+  position: absolute; top: 0; left: -40%;
+  width: 40%;
+  height: 100%;
+  background: var(--amber-hi);
+  animation: loadSlide 1s ease-in-out infinite;
+}
+@keyframes loadSlide {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .county-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .header-title h1 { font-size: 20px; }
+  .header-badge { display: none; }
+}
+  </style>
+</head>
+<body>
+
+<div id="loadScreen">
+  <div class="loading-text">Loading county data</div>
+  <div class="loading-bar"></div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="nav-back">Rental Intelligence</a>
+      <div class="header-title">
+        <h1>County Intelligence</h1>
+        <span class="header-badge">ALL 14 MA COUNTIES</span>
+      </div>
+      <div class="header-meta">
+        <span id="headerDate"></span>
+        Geographic Opportunity Breakdown
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <section class="kpi-section">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Counties Ranked</div>
+        <div class="kpi-value" id="kpiCounties">—</div>
+        <div class="kpi-sub">All 14 MA counties</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Buildings</div>
+        <div class="kpi-value" id="kpiBuildings">—</div>
+        <div class="kpi-sub">Multifamily parcels statewide</div>
+      </div>
+      <div class="kpi-card highlight">
+        <div class="kpi-label">Top County Avg Score</div>
+        <div class="kpi-value" id="kpiTopScore">—</div>
+        <div class="kpi-sub" id="kpiTopCounty">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Largest Market</div>
+        <div class="kpi-value" id="kpiLargestVal">—</div>
+        <div class="kpi-sub" id="kpiLargestName">By total assessed value</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-bottom: 32px;">
+    <div class="section-header">
+      <div class="section-title">County Rankings</div>
+      <div class="section-meta">Click any county to expand top towns</div>
+    </div>
+    <div class="sort-bar">
+      <span class="sort-label">Sort by</span>
+      <button class="sort-btn active" data-sort="avg_score">Avg Score</button>
+      <button class="sort-btn" data-sort="building_count">Buildings</button>
+      <button class="sort-btn" data-sort="total_value">Market Value</button>
+      <button class="sort-btn" data-sort="town_count">Town Count</button>
+    </div>
+    <div class="county-grid" id="countyGrid"></div>
+  </section>
+
+  <section class="value-section">
+    <div class="section-header">
+      <div class="section-title">Total Market Value by County</div>
+      <div class="section-meta">Assessed value · all multifamily buildings</div>
+    </div>
+    <div class="value-bars" id="valueBars"></div>
+  </section>
+
+</div>
+</main>
+
+<script>
+let countyData = [];
+let sortKey = 'avg_score';
+
+function scoreClass(score) {
+  if (score >= 15) return 'high';
+  if (score >= 10) return 'mid';
+  return 'low';
+}
+
+function fmt$(v) {
+  if (v >= 1e9) return '$' + (v / 1e9).toFixed(1) + 'B';
+  if (v >= 1e6) return '$' + (v / 1e6).toFixed(0) + 'M';
+  return '$' + v.toLocaleString();
+}
+
+function fmtK(v) {
+  if (v >= 1000) return (v / 1000).toFixed(1) + 'k';
+  return v.toLocaleString();
+}
+
+function renderCountyGrid(data) {
+  const grid = document.getElementById('countyGrid');
+  const sorted = [...data].sort((a, b) => {
+    if (sortKey === 'avg_score')      return b.avg_score - a.avg_score;
+    if (sortKey === 'building_count') return b.building_count - a.building_count;
+    if (sortKey === 'total_value')    return b.total_value - a.total_value;
+    if (sortKey === 'town_count')     return b.town_count - a.town_count;
+    return 0;
+  });
+
+  grid.innerHTML = sorted.map((c, i) => {
+    const sc = scoreClass(c.avg_score);
+    const towns = (c.top_towns || []).slice(0, 5);
+    const maxTownScore = Math.max(...towns.map(t => t.avg_score), 1);
+
+    return `
+    <div class="county-card" onclick="toggleExpand(this)">
+      <div class="county-card-top">
+        <div class="county-rank">${i + 1}</div>
+        <div class="county-main">
+          <div class="county-name">${c.county.replace(' County', '')}</div>
+          <div class="county-stats">
+            <div class="county-stat"><strong>${c.building_count.toLocaleString()}</strong> buildings</div>
+            <div class="county-stat"><strong>${c.town_count}</strong> towns</div>
+            <div class="county-stat"><strong>${fmt$(c.total_value)}</strong> total value</div>
+          </div>
+        </div>
+        <div class="county-score-block">
+          <div class="score-value ${sc}">${c.avg_score.toFixed(1)}</div>
+          <div class="score-label">Avg Score</div>
+        </div>
+      </div>
+      <div class="county-towns">
+        <div class="towns-header">Top Towns by Avg Opportunity Score</div>
+        ${towns.map(t => {
+          const tc = scoreClass(t.avg_score);
+          const barPct = Math.round((t.avg_score / maxTownScore) * 100);
+          return `
+          <div class="town-row">
+            <div class="town-name">${t.town}</div>
+            <div class="town-bldgs">${t.building_count.toLocaleString()} bldgs</div>
+            <div class="town-bar-wrap">
+              <div class="town-bar ${tc}" style="width:${barPct}%"></div>
+            </div>
+            <div class="town-score ${tc}">${t.avg_score.toFixed(1)}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="expand-hint">▼ Top Towns</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleExpand(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  card.classList.toggle('expanded');
+  const hint = card.querySelector('.expand-hint');
+  hint.textContent = card.classList.contains('expanded') ? '▲ Collapse' : '▼ Top Towns';
+}
+
+function renderValueBars(data) {
+  const sorted = [...data].sort((a, b) => b.total_value - a.total_value);
+  const maxVal = sorted[0].total_value;
+  const container = document.getElementById('valueBars');
+  container.innerHTML = sorted.map(c => {
+    const pct = Math.round((c.total_value / maxVal) * 100);
+    return `
+    <div class="value-row">
+      <div class="value-county-name">${c.county.replace(' County', '')}</div>
+      <div class="value-bar-wrap">
+        <div class="value-bar" style="width:${pct}%"></div>
+      </div>
+      <div class="value-amt">${fmt$(c.total_value)}</div>
+    </div>`;
+  }).join('');
+}
+
+function countUp(el, target, duration, formatter) {
+  if (!el || target == null) return;
+  const start = performance.now();
+  const tick = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = t < .5 ? 2*t*t : -1+(4-2*t)*t;
+    el.textContent = formatter(ease * target);
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = formatter(target);
+  };
+  requestAnimationFrame(tick);
+}
+
+async function loadData() {
+  const [summary, countyJson] = await Promise.all([
+    fetch('data/investment_summary.json').then(r => r.json()),
+    fetch('data/county_town_summary.json').then(r => r.json())
+  ]);
+
+  document.getElementById('headerDate').textContent =
+    new Date(countyJson.generated_at).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+
+  // Merge total_value from investment_summary county_breakdown
+  const cb = summary.county_breakdown || {};
+  countyData = countyJson.counties.map(c => ({
+    ...c,
+    total_value: (cb[c.county] || {}).total_value || 0
+  }));
+
+  // KPIs
+  const sorted = [...countyData].sort((a, b) => b.avg_score - a.avg_score);
+  const topCounty = sorted[0];
+  const largestByValue = [...countyData].sort((a, b) => b.total_value - a.total_value)[0];
+
+  countUp(document.getElementById('kpiCounties'),  countyData.length,       500, v => Math.round(v));
+  countUp(document.getElementById('kpiBuildings'), countyJson.total_buildings, 700, v => Math.round(v).toLocaleString());
+  countUp(document.getElementById('kpiTopScore'),  topCounty.avg_score,     800, v => v.toFixed(1));
+  document.getElementById('kpiTopCounty').textContent = topCounty.county;
+
+  const largestValEl = document.getElementById('kpiLargestVal');
+  largestValEl.textContent = fmt$(largestByValue.total_value);
+  document.getElementById('kpiLargestName').textContent = largestByValue.county;
+
+  renderCountyGrid(countyData);
+  renderValueBars(countyData);
+
+  // Sort buttons
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sortKey = btn.dataset.sort;
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCountyGrid(countyData);
+    });
+  });
+
+  const loader = document.getElementById('loadScreen');
+  loader.classList.add('hidden');
+  setTimeout(() => loader.remove(), 500);
+}
+
+loadData().catch(err => {
+  document.getElementById('loadScreen').innerHTML =
+    `<div class="loading-text" style="color:var(--red)">Failed to load data</div>`;
+  console.error(err);
+});
+</script>
+</body>
+</html>

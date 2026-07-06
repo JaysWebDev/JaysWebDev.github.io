@@ -500,7 +500,7 @@ function sectorColor(sector) {
 let allBusinesses = [];
 let markerLayer   = null;
 
-const map = L.map('map', { zoomControl: false }).setView([39.8, -89.6], 7);
+const map = L.map('map', { zoomControl: false }).setView([42.2, -71.5], 9);
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -549,6 +549,7 @@ function renderMarkers(data) {
 
     data.forEach(b => {
         if (b.lat == null || b.lng == null) return;
+        if (b.lat < 41 || b.lat > 43 || b.lng < -73.5 || b.lng > -69.5) return;
         const col = sectorColor(b.sector);
         L.circleMarker([b.lat, b.lng], {
             radius: 5, color: col, fillColor: col, fillOpacity: 0.75, weight: 1
@@ -578,10 +579,11 @@ function updateSectorTable(data) {
 }
 
 function fitAll() {
-    const lats = allBusinesses.map(b => b.lat).filter(v => v != null);
-    const lngs = allBusinesses.map(b => b.lng).filter(v => v != null);
-    if (lats.length) map.fitBounds(
-        [[Math.min(...lats), Math.min(...lngs)], [Math.max(...lats), Math.max(...lngs)]],
+    const valid = allBusinesses.filter(b => b.lat != null && b.lng != null
+        && b.lat > 41 && b.lat < 43 && b.lng > -73.5 && b.lng < -69.5);
+    if (valid.length) map.fitBounds(
+        [[Math.min(...valid.map(b => b.lat)), Math.min(...valid.map(b => b.lng))],
+         [Math.max(...valid.map(b => b.lat)), Math.max(...valid.map(b => b.lng))]],
         { padding: [40, 40], maxZoom: 12 }
     );
 }

@@ -854,7 +854,14 @@
 
   function renderDistribution() {
     var scores = allBuildings.map(function(b) { return b.opportunity_score; });
-    var buckets = [0,5,10,15,20,25,30,35,40,45,50,55,60];
+    var dataMin = Math.min.apply(null, scores);
+    var dataMax = Math.max.apply(null, scores);
+    var bucketStart = Math.floor(dataMin / 5) * 5;
+    var bucketEnd   = Math.ceil(dataMax / 5) * 5;
+    var buckets = [];
+    for (var v = bucketStart; v < bucketEnd; v += 5) buckets.push(v);
+    if (buckets.length === 0) buckets = [bucketStart];
+
     var counts = buckets.map(function(lo, i) {
       var hi = buckets[i+1] || Infinity;
       return scores.filter(function(s) { return s >= lo && s < hi; }).length;
@@ -864,7 +871,7 @@
     var barsEl = document.getElementById('dist-bars');
     barsEl.innerHTML = counts.map(function(cnt, i) {
       var lo = buckets[i];
-      var hi = buckets[i+1] ? (buckets[i+1]-1) : 60;
+      var hi = buckets[i+1] ? (buckets[i+1] - 1) : Math.ceil(dataMax);
       var h = Math.max(2, Math.round(cnt / maxCount * 52));
       return '<div class="dist-bar-wrap" title="' + lo + '–' + hi + ': ' + cnt + ' buildings">'
         + '<div class="dist-bar" style="height:' + h + 'px"></div>'
@@ -872,7 +879,7 @@
         + '</div>';
     }).join('');
 
-    document.getElementById('dist-meta').textContent = 'top 100 buildings shown';
+    document.getElementById('dist-meta').textContent = allBuildings.length + ' buildings';
     document.getElementById('dist-section').style.display = '';
 
     var avg = scores.reduce(function(s,v){return s+v;},0) / (scores.length||1);

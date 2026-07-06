@@ -787,7 +787,7 @@ async function loadData() {
   document.getElementById('headerDate').textContent =
     new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
 
-  renderKPIs(summary[0], metrics);
+  renderKPIs(summary, metrics);
   allData = metrics;
   filteredData = metrics; // all buildings shown by default
   renderOpportunities(filteredData);
@@ -802,13 +802,16 @@ async function loadData() {
 
 // ── KPIs ───────────────────────────────────────────────
 function renderKPIs(s, data) {
-  countUp(document.getElementById('kpiTotal'),   s.total_buildings,  700, v => Math.round(v).toLocaleString());
-  countUp(document.getElementById('kpiMatched'), s.matched_buildings, 700, v => Math.round(v).toLocaleString());
-  countUp(document.getElementById('kpiAvgYield'), s.avg_hud_yield || 0, 900, v => (v * 100).toFixed(1) + '%');
-  countUp(document.getElementById('kpiMaxYield'), s.max_gross_yield || 0, 900, v => (v * 100).toFixed(1) + '%');
-
-  // Max actual yield address
+  const withHud = data.filter(r => r.hud_gross_yield != null);
+  const avgHudYield = withHud.length
+    ? withHud.reduce((acc, r) => acc + r.hud_gross_yield, 0) / withHud.length : 0;
   const top = data.filter(r => r.gross_yield != null).sort((a, b) => b.gross_yield - a.gross_yield)[0];
+
+  countUp(document.getElementById('kpiTotal'),    s.total_buildings,          700, v => Math.round(v).toLocaleString());
+  countUp(document.getElementById('kpiMatched'),  s.scored_buildings,         700, v => Math.round(v).toLocaleString());
+  countUp(document.getElementById('kpiAvgYield'), avgHudYield,                900, v => (v * 100).toFixed(1) + '%');
+  countUp(document.getElementById('kpiMaxYield'), top ? top.gross_yield : 0,  900, v => (v * 100).toFixed(1) + '%');
+
   if (top) document.getElementById('kpiMaxAddr').textContent = top.address;
 }
 

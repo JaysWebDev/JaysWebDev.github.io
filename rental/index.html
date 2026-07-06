@@ -1,257 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
-         crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
+       crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MA Multifamily Intelligence — Find Deals Before Everyone Else</title>
+  <meta name="description" content="339,856 Massachusetts multifamily buildings scored by cap rate, yield, and ownership signals. County rankings, owner intelligence, and deal scoring across all 14 MA counties.">
+  <meta name="author" content="Jeff Kirk Jr.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://jays.website/rental/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jays.website/rental/">
+  <meta property="og:title" content="MA Multifamily Intelligence — Find Deals Before Everyone Else">
+  <meta property="og:description" content="339,856 Massachusetts buildings scored by cap rate, yield, and ownership signals. County rankings and deal intelligence across all 14 MA counties.">
+  <meta property="og:image" content="https://jays.website/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rental Intelligence Engine — Multifamily Real Estate Research | jays.website</title>
-    <meta name="description" content="Multifamily real estate research platform covering 339,000+ buildings across Massachusetts. Identifies acquisition targets and portfolio owners using MassGIS parcel data and HUD benchmarks.">
-    <meta name="author" content="Jeff Kirk Jr.">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="canonical" href="https://jays.website/rental/">
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jays.website/rental/">
-    <meta property="og:title" content="Rental Intelligence Engine — Multifamily Real Estate Research | jays.website">
-    <meta property="og:description" content="Multifamily real estate research platform covering 339,000+ buildings across Massachusetts. Identifies acquisition targets and portfolio owners using MassGIS parcel data and HUD benchmarks.">
-    <meta property="og:site_name" content="jays.website">
-    <meta property="og:image" content="https://jays.website/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Rental Intelligence Engine — Multifamily Real Estate Research">
-    <meta name="twitter:description" content="Real estate research platform covering 339,000+ multifamily buildings across Massachusetts. Acquisition targeting using MassGIS parcel data and HUD Fair Market Rent benchmarks.">
-    <meta name="twitter:image" content="https://jays.website/og-image.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #060810;
+  --surface:  #0d1117;
+  --surface2: #101520;
+  --border:   #1e2530;
+  --border-hi:#2a3550;
+  --amber:    #c9940a;
+  --amber-hi: #f5b400;
+  --amber-dim:#7a5a06;
+  --green:    #2dce7d;
+  --text:     #c8cdd6;
+  --text-dim: #4a5568;
+  --text-bright: #e8edf5;
+  --font-display: 'Bebas Neue', cursive;
+  --font-ui:  'Barlow', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
 
-        :root {
-            --bg:      #060810;
-            --surface: #0d1117;
-            --border:  #1e2530;
-            --amber:   #c9940a;
-            --amber-hi:#f5b400;
-            --text:    #c8cdd6;
-            --muted:   #4a5568;
-        }
+html { scroll-behavior: smooth; }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Barlow', sans-serif;
-            font-weight: 300;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            padding-top: 5rem;
-        }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-        nav.site-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: rgba(6,8,16,0.92);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(8px);
-            padding: 0.6rem 1.5rem;
-            display: flex;
-            gap: 0.25rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        nav.site-nav a {
-            color: rgba(255,255,255,0.6);
-            text-decoration: none;
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            font-family: 'Barlow', sans-serif;
-            transition: background 0.2s, color 0.2s;
-        }
-        nav.site-nav a:hover { background: rgba(255,255,255,0.08); color: white; }
-        nav.site-nav a.active { color: var(--amber-hi); }
-        nav.site-nav a.nav-resume {
-            margin-left: auto;
-            background: rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.8);
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        nav.site-nav a.nav-resume:hover { background: rgba(255,255,255,0.15); color: white; }
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,148,10,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,148,10,.025) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+  z-index: 0;
+}
 
-        .wordmark {
-            font-family: 'Bebas Neue', cursive;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            letter-spacing: 0.12em;
-            color: #fff;
-            line-height: 1;
-        }
-        .wordmark span { color: var(--amber-hi); }
+/* ── NAV ──────────────────────────────────────────────── */
+nav.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(6,8,16,0.94);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  padding: 0.55rem 1.5rem;
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+nav.site-nav a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  padding: 0.3rem 0.75rem;
+  border-radius: 5px;
+  font-size: 0.83rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+nav.site-nav a:hover { background: rgba(255,255,255,0.07); color: white; }
+nav.site-nav a.active { color: var(--amber-hi); }
+nav.site-nav a.nav-resume {
+  margin-left: auto;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+nav.site-nav a.nav-resume:hover { background: rgba(255,255,255,0.13); color: white; }
 
-        .subtitle {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
+/* ── LAYOUT ───────────────────────────────────────────── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
 
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: var(--amber);
-            margin: 2.5rem auto;
-        }
+section { position: relative; z-index: 1; }
 
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            width: 100%;
-            max-width: 860px;
-        }
-        @media (max-width: 600px) {
-            .nav-grid { grid-template-columns: 1fr; }
-            nav.site-nav a.nav-resume { margin-left: 0; }
-        }
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 7rem 24px 5rem;
+}
 
-        .nav-card {
-            display: block;
-            text-decoration: none;
-            color: var(--text);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 1.75rem 2rem;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-        .nav-card:hover {
-            border-color: var(--amber);
-            transform: translateY(-2px);
-        }
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--amber-dim);
+}
 
-        .nav-card-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 0.4rem;
-        }
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  letter-spacing: .05em;
+  color: var(--text-bright);
+  line-height: 1.0;
+  max-width: 780px;
+  margin: 0 auto 20px;
+}
+.hero-headline span { color: var(--amber-hi); }
 
-        .nav-card-title {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 1.5rem;
-            letter-spacing: 0.06em;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--text-dim);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+.hero-sub strong { color: var(--text); font-weight: 500; }
 
-        .nav-card-desc {
-            font-size: 0.82rem;
-            color: var(--muted);
-            line-height: 1.5;
-        }
+/* ── EMAIL FORM ───────────────────────────────────────── */
+.capture-form {
+  display: flex;
+  gap: 0;
+  max-width: 460px;
+  width: 100%;
+  margin: 0 auto 14px;
+  border: 1px solid var(--border-hi);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.capture-form input[type="email"] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 14px 18px;
+  color: var(--text-bright);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 400;
+}
+.capture-form input[type="email"]::placeholder { color: var(--text-dim); }
+.capture-form button {
+  background: var(--amber);
+  color: #000;
+  border: none;
+  padding: 14px 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s;
+}
+.capture-form button:hover { background: var(--amber-hi); }
 
-        .nav-card .arrow {
-            display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            color: var(--amber);
-        }
+.form-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: .06em;
+}
 
-        .related-apps { width: 100%; max-width: 380px; margin: 0 auto; }
-        .related-label {
-            font-family: var(--font-mono, monospace);
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted, #888);
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .related-card { display: block; text-decoration: none; }
+.form-success {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green);
+  letter-spacing: .08em;
+  padding: 14px 0;
+}
 
-        footer {
-            margin-top: 4rem;
-            font-size: 0.7rem;
-            color: var(--muted);
-            letter-spacing: 0.1em;
-        }
-    </style>
+/* ── STATS STRIP ──────────────────────────────────────── */
+.stats-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  padding: 28px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  letter-spacing: .04em;
+  color: var(--amber-hi);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── FEATURES ─────────────────────────────────────────── */
+.features-section { padding: 80px 0; }
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: .05em;
+  color: var(--text-bright);
+  margin-bottom: 10px;
+}
+.section-sub {
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 520px;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.feature-card {
+  display: block;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 26px;
+  transition: border-color .2s, transform .2s;
+}
+.feature-card:hover {
+  border-color: var(--amber-dim);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 22px;
+  margin-bottom: 14px;
+  display: block;
+}
+.feature-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+.feature-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: .04em;
+  color: var(--text-bright);
+  margin-bottom: 10px;
+}
+.feature-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  font-weight: 400;
+}
+.feature-cta {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--amber);
+  text-transform: uppercase;
+}
+
+/* ── HOW IT WORKS ─────────────────────────────────────── */
+.how-section {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--border);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 48px;
+}
+.step {
+  display: flex;
+  gap: 18px;
+}
+.step-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: .04em;
+  color: var(--border-hi);
+  line-height: 1;
+  min-width: 48px;
+}
+.step-body {}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: .04em;
+  color: var(--text-bright);
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ── PRICING ──────────────────────────────────────────── */
+.pricing-section {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 780px;
+  margin: 48px auto 0;
+}
+
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 30px;
+}
+.pricing-card.featured {
+  border-color: var(--amber-dim);
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(201,148,10,.05) 100%);
+  position: relative;
+}
+.pricing-badge {
+  position: absolute;
+  top: -1px; right: 24px;
+  background: var(--amber);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 0 0 4px 4px;
+}
+.pricing-tier {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: .04em;
+  color: var(--text-bright);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.pricing-card.featured .pricing-price { color: var(--amber-hi); }
+.pricing-period {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: .06em;
+  margin-bottom: 24px;
+}
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.pricing-features li {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 400;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.pricing-features li::before {
+  content: '✓';
+  color: var(--text-dim);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.pricing-card.featured .pricing-features li::before { color: var(--amber); }
+.pricing-features li.muted { color: var(--text-dim); }
+
+.pricing-cta {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border: 1px solid var(--border-hi);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.pricing-cta:hover { border-color: var(--text-dim); color: var(--text); }
+.pricing-card.featured .pricing-cta {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #000;
+  font-weight: 500;
+}
+.pricing-card.featured .pricing-cta:hover { background: var(--amber-hi); border-color: var(--amber-hi); }
+
+/* ── BOTTOM CTA ───────────────────────────────────────── */
+.bottom-cta {
+  padding: 80px 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.bottom-cta .hero-headline { font-size: clamp(2rem, 5vw, 3.8rem); margin-bottom: 16px; }
+.bottom-cta .hero-sub { margin-bottom: 36px; }
+
+/* ── EXPLORE SECTION ──────────────────────────────────── */
+.explore-section {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--border);
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 36px;
+}
+
+.explore-card {
+  display: block;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 22px;
+  transition: border-color .2s;
+}
+.explore-card:hover { border-color: var(--border-hi); }
+.explore-card-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 5px;
+}
+.explore-card-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: .04em;
+  color: var(--text-bright);
+  margin-bottom: 6px;
+}
+.explore-card-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* ── FOOTER ───────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: .06em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 860px) {
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+  .explore-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3) { border-right: 1px solid var(--border); }
+  .stat-item { padding: 16px 12px; border-bottom: 1px solid var(--border); }
+  .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
+  .features-grid { grid-template-columns: 1fr; }
+  .explore-grid { grid-template-columns: 1fr; }
+  nav.site-nav a.nav-resume { margin-left: 0; }
+  .capture-form { flex-direction: column; border-radius: 4px; }
+  .capture-form input[type="email"] { border-bottom: 1px solid var(--border-hi); }
+  .capture-form button { width: 100%; }
+}
+  </style>
 </head>
 <body>
 
-    <nav class="site-nav">
-        <a href="/">Home</a>
-        <a href="/about/">About</a>
-        <a href="/trading/">Trading</a>
-        <a href="/rental/" class="active">Rental</a>
-        <a href="/business/">Business Intel</a>
-        <a href="/tools/">Tools</a>
-        <a href="/appdevelopment/">Apps</a>
-        <a href="/contact/">Contact</a>
-        <a href="/resume/" class="nav-resume">Resume &rarr;</a>
-    </nav>
+<nav class="site-nav">
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+  <a href="/trading/">Trading</a>
+  <a href="/rental/" class="active">Rental</a>
+  <a href="/business/">Business Intel</a>
+  <a href="/tools/">Tools</a>
+  <a href="/appdevelopment/">Apps</a>
+  <a href="/contact/">Contact</a>
+  <a href="/resume/" class="nav-resume">Resume &rarr;</a>
+</nav>
 
-    <div class="wordmark">Rental <span>Intelligence</span></div>
-    <div class="subtitle">Massachusetts &mdash; Research Platform</div>
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-eyebrow">Massachusetts Multifamily Intelligence</div>
+  <h1 class="hero-headline">Find <span>MA Deals</span><br>Before Everyone Else</h1>
+  <p class="hero-sub">
+    <strong>339,856 buildings</strong> scored by cap rate, yield, and ownership signals
+    across all 14 Massachusetts counties. Free to explore — Pro deal tools coming soon.
+  </p>
 
-    <div class="divider"></div>
+  <form class="capture-form" id="waitlistForm" action="/api/waitlist" method="POST">
+    <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+    <button type="submit">Get Early Access</button>
+  </form>
+  <div class="form-success" id="formSuccess">You're on the list — we'll be in touch.</div>
+  <div class="form-note">No spam. Early access when Pro launches.</div>
+</section>
 
-    <nav class="nav-grid">
-        <a class="nav-card" href="county_intelligence.html">
-            <div class="nav-card-label">Geographic Breakdown</div>
-            <div class="nav-card-title">County Intelligence</div>
-            <div class="nav-card-desc">All 14 MA counties ranked by opportunity score. 339,856 buildings with town-level breakdowns — find the highest-yield markets statewide.</div>
-            <div class="arrow">VIEW COUNTIES &rarr;</div>
-        </a>
+<!-- ── STATS ──────────────────────────────────────────── -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value">339K+</div>
+        <div class="stat-label">Buildings Tracked</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">14</div>
+        <div class="stat-label">Counties Ranked</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">30K+</div>
+        <div class="stat-label">Owners Mapped</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">87.2</div>
+        <div class="stat-label">Top Deal Score</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <a class="nav-card" href="scored_opportunities.html">
-            <div class="nav-card-label">Opportunity Score</div>
-            <div class="nav-card-title">Scored Opportunities</div>
-            <div class="nav-card-desc">339,856 property parcels statewide ranked by composite opportunity score. Cap rate, NOI, and ownership signals — filtered for data quality, top 100 exported.</div>
-            <div class="arrow">VIEW RANKINGS &rarr;</div>
-        </a>
+<!-- ── FEATURES ───────────────────────────────────────── -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-label">What You Get</div>
+    <h2 class="section-title">Intelligence Built for Investors</h2>
+    <p class="section-sub">Every tool connects back to the data — no black boxes, no hidden methodology.</p>
 
-        <a class="nav-card" href="investment_analytics.html">
-            <div class="nav-card-label">Yield Analysis</div>
-            <div class="nav-card-title">Investment Analytics</div>
-            <div class="nav-card-desc">Gross yield, market value, rental matching, and top investment opportunities across 339,000+ parcels in all 14 Massachusetts counties.</div>
-            <div class="arrow">VIEW REPORT &rarr;</div>
-        </a>
+    <div class="features-grid">
+      <a class="feature-card" href="scored_opportunities.html">
+        <span class="feature-icon">🎯</span>
+        <div class="feature-tag">Deal Score</div>
+        <div class="feature-name">Scored Opportunities</div>
+        <div class="feature-desc">Every building ranked 0–100 using cap rate, NOI estimate, distress signals, and data quality. Sort by what actually matters.</div>
+        <div class="feature-cta">View Rankings &rarr;</div>
+      </a>
 
-        <a class="nav-card" href="owners.html">
-            <div class="nav-card-label">Ownership</div>
-            <div class="nav-card-title">Owner Intelligence</div>
-            <div class="nav-card-desc">260,744 unique owners. 50,490 multi-building portfolios across Massachusetts. Filter by flags: aging stock, large portfolio, institutional scale.</div>
-            <div class="arrow">VIEW OWNERS &rarr;</div>
-        </a>
+      <a class="feature-card" href="county_intelligence.html">
+        <span class="feature-icon">🗺️</span>
+        <div class="feature-tag">Geographic</div>
+        <div class="feature-name">County Intelligence</div>
+        <div class="feature-desc">All 14 MA counties ranked by opportunity score with town-level breakdowns. Find the highest-yield markets before they get crowded.</div>
+        <div class="feature-cta">View Counties &rarr;</div>
+      </a>
 
-        <a class="nav-card" href="spatial.html">
-            <div class="nav-card-label">Interactive Map</div>
-            <div class="nav-card-title">Spatial Intelligence</div>
-            <div class="nav-card-desc">Interactive map of the full building portfolio. 339,856 buildings across all 14 MA counties colored by HUD FMR estimated yield.</div>
-            <div class="arrow">OPEN MAP &rarr;</div>
-        </a>
+      <a class="feature-card" href="owners.html">
+        <span class="feature-icon">🏛️</span>
+        <div class="feature-tag">Ownership</div>
+        <div class="feature-name">Owner Intelligence</div>
+        <div class="feature-desc">30,251 unique owners mapped. Multi-building portfolios flagged. Aging stock, absentee owners, and institutional-scale holders identified.</div>
+        <div class="feature-cta">View Owners &rarr;</div>
+      </a>
 
-        <a class="nav-card related-card" href="https://github.com/JaysWebDev/landlord-app" target="_blank">
-            <div class="nav-card-label">Full-Stack App</div>
-            <div class="nav-card-title">Landlord App</div>
-            <div class="nav-card-desc">Property management platform — tenant/lease tracking, maintenance requests, financial reporting, and AI assistant. React 19 + TypeScript + tRPC + Drizzle ORM.</div>
-            <div class="arrow">VIEW ON GITHUB &rarr;</div>
-        </a>
-    </nav>
+      <a class="feature-card" href="investment_analytics.html">
+        <span class="feature-icon">📊</span>
+        <div class="feature-tag">Yield Analysis</div>
+        <div class="feature-name">Investment Analytics</div>
+        <div class="feature-desc">HUD FMR benchmarks against assessed values for 107,000+ buildings with rental data. Filter by county, yield floor, year built, and market value.</div>
+        <div class="feature-cta">View Analytics &rarr;</div>
+      </a>
 
-    <footer>jays.website / rental-research</footer>
+      <a class="feature-card" href="spatial.html">
+        <span class="feature-icon">📍</span>
+        <div class="feature-tag">Interactive Map</div>
+        <div class="feature-name">Spatial Intelligence</div>
+        <div class="feature-desc">Every building plotted and color-coded by estimated yield. Zoom from county down to street level. Filter by sector, owner, and building type.</div>
+        <div class="feature-cta">Open Map &rarr;</div>
+      </a>
+
+      <div class="feature-card" style="border-style: dashed; cursor: default;">
+        <span class="feature-icon">🔒</span>
+        <div class="feature-tag">Pro — Coming Soon</div>
+        <div class="feature-name">Deal Alerts</div>
+        <div class="feature-desc">Weekly email digest of new high-score opportunities in your target counties. Export filtered lists to CSV. Cap rate calculator with financing inputs.</div>
+        <div class="feature-cta" style="color: var(--text-dim);">Early Access Below &darr;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ────────────────────────────────────── -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-label">Methodology</div>
+    <h2 class="section-title">How the Scoring Works</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">Public Data, Normalized</div>
+          <div class="step-desc">MassGIS parcel data and town assessor records cover every multifamily building in the state — 339,856 parcels with address, unit count, year built, and assessed value.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">HUD FMR Yield Estimate</div>
+          <div class="step-desc">HUD Fair Market Rents for FY2025 are applied by bedroom count and county. Gross yield = annual FMR ÷ assessed value. A proxy, not a guarantee — but consistent across 339k buildings.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">Composite Deal Score</div>
+          <div class="step-desc">Cap rate, distress signals (building age, ownership flags, permit gaps), and data quality confidence are combined into a 0–100 score. Sort by score to find the top of the stack fast.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ─────────────────────────────────────────── -->
+<section class="pricing-section">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple. No Surprises.</h2>
+    <p class="section-sub" style="margin: 0 auto;">Free forever for exploration. Pro unlocks deal alerts, exports, and the cap rate calculator.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price">$0</div>
+        <div class="pricing-period">Forever</div>
+        <ul class="pricing-features">
+          <li>County rankings (all 14 MA counties)</li>
+          <li>Scored opportunities (top 100)</li>
+          <li>Interactive map — full MA</li>
+          <li>Owner Intelligence — public data</li>
+          <li>Investment analytics dashboard</li>
+          <li class="muted">Deal alerts</li>
+          <li class="muted">CSV export</li>
+          <li class="muted">Cap rate calculator</li>
+        </ul>
+        <a href="county_intelligence.html" class="pricing-cta">Start Exploring &rarr;</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Coming Soon</div>
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-price">$49</div>
+        <div class="pricing-period">per month · cancel anytime</div>
+        <ul class="pricing-features">
+          <li>Everything in Free</li>
+          <li>Weekly deal alert emails</li>
+          <li>CSV export — filtered lists</li>
+          <li>Cap rate calculator (financing inputs)</li>
+          <li>Cash flow / NOI projector</li>
+          <li>Saved searches &amp; watchlists</li>
+          <li>Priority data refresh</li>
+        </ul>
+        <a href="#bottom-cta" class="pricing-cta">Join the Waitlist</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOTTOM CTA ──────────────────────────────────────── -->
+<section class="bottom-cta" id="bottom-cta">
+  <div class="container">
+    <h2 class="hero-headline">Be First When <span>Pro</span> Launches</h2>
+    <p class="hero-sub">Join the list. No spam — one email when early access opens, plus a founding member discount.</p>
+
+    <form class="capture-form" id="waitlistForm2" action="/api/waitlist" method="POST" style="margin-bottom: 14px;">
+      <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+      <button type="submit">Join Waitlist</button>
+    </form>
+    <div class="form-success" id="formSuccess2"></div>
+    <div class="form-note">Founding members get 40% off for life.</div>
+  </div>
+</section>
+
+<!-- ── EXPLORE ─────────────────────────────────────────── -->
+<section class="explore-section">
+  <div class="container">
+    <div class="section-label">Explore the Data</div>
+    <h2 class="section-title" style="font-size:1.8rem;">Start Anywhere</h2>
+    <div class="explore-grid">
+      <a class="explore-card" href="county_intelligence.html">
+        <div class="explore-card-label">Geographic</div>
+        <div class="explore-card-title">County Intelligence</div>
+        <div class="explore-card-desc">14 counties ranked by avg opportunity score with top towns</div>
+      </a>
+      <a class="explore-card" href="scored_opportunities.html">
+        <div class="explore-card-label">Deal Score</div>
+        <div class="explore-card-title">Scored Opportunities</div>
+        <div class="explore-card-desc">Top 100 buildings by composite score statewide</div>
+      </a>
+      <a class="explore-card" href="investment_analytics.html">
+        <div class="explore-card-label">Yield</div>
+        <div class="explore-card-title">Investment Analytics</div>
+        <div class="explore-card-desc">HUD yield estimates across 107k+ buildings with rental data</div>
+      </a>
+      <a class="explore-card" href="owners.html">
+        <div class="explore-card-label">Ownership</div>
+        <div class="explore-card-title">Owner Intelligence</div>
+        <div class="explore-card-desc">30,251 owners — portfolio sizes, flags, opportunity signals</div>
+      </a>
+      <a class="explore-card" href="spatial.html">
+        <div class="explore-card-label">Map</div>
+        <div class="explore-card-title">Spatial Intelligence</div>
+        <div class="explore-card-desc">Interactive map of all 339k buildings colored by yield</div>
+      </a>
+      <a class="explore-card" href="https://github.com/JaysWebDev/landlord-app" target="_blank">
+        <div class="explore-card-label">Open Source</div>
+        <div class="explore-card-title">Landlord App</div>
+        <div class="explore-card-desc">Property management platform built on top of this dataset</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  jays.website / rental-intelligence &nbsp;·&nbsp; Data: MassGIS + HUD FMR FY2025 &nbsp;·&nbsp; Updated Jun 2026
+</footer>
+
+<script>
+function handleForm(formId, successId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.querySelector('input[type="email"]').value.trim();
+    const success = document.getElementById(successId);
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'rental-landing' })
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        success.textContent = "You're on the list — we'll be in touch.";
+      } else {
+        success.style.display = 'block';
+        success.style.color = 'var(--amber)';
+        success.textContent = 'Something went wrong — try again.';
+      }
+    } catch {
+      success.style.display = 'block';
+      success.style.color = 'var(--amber)';
+      success.textContent = 'Something went wrong — try again.';
+    }
+  });
+}
+
+handleForm('waitlistForm', 'formSuccess');
+handleForm('waitlistForm2', 'formSuccess2');
+</script>
 
 </body>
 </html>
