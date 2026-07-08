@@ -661,10 +661,18 @@
     return '<span style="color:' + color + '">' + (cf >= 0 ? '+' : '') + '$' + Math.round(cf).toLocaleString() + '</span>';
   }
 
-  function confLabel(source) {
-    if (!source) return '\u2014';
-    const count = source.split(',').length;
-    return count + '/5';
+  function confLabel(b) {
+    const src = b.valuation_source;
+    if (src === 'sale') {
+      const yr = b.last_sale_date ? new Date(b.last_sale_date).getFullYear() : null;
+      return yr ? 'Sale \u00b7 ' + yr : 'Sale';
+    }
+    if (src === 'avm')      return 'AVM est.';
+    if (src === 'assessed') return 'Assessment';
+    if (src === 'flagged')  return '\u26a0 Estimate';
+    // legacy fallback
+    const count = (b.confidence_source || '').split(',').filter(Boolean).length;
+    return count ? count + '/5' : '\u2014';
   }
 
   function getFilters() {
@@ -808,7 +816,8 @@
           + '</div></div>'
         + '</div>'
         + '<div class="opp-footer">'
-        + '<span class="confidence-pill">' + confLabel(b.confidence_source) + ' data</span>'
+        + '<span class="confidence-pill">' + confLabel(b) + '</span>'
+        + '<span style="color:var(--text-muted);font-size:11px;margin-left:6px">' + (b.last_sale_date ? 'sold ' + fmtDate(b.last_sale_date) : '') + '</span>'
         + '<span class="rank-badge">#' + rank + '</span>'
         + '</div>'
         + '</div>';
