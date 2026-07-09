@@ -425,6 +425,22 @@
     }
     .risk-icon { flex-shrink: 0; margin-top: 1px; }
     .no-risks { font-size: 12px; color: var(--green); }
+    .src-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-left: 5px;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+    .src-badge.sale     { background: var(--green-bg);  color: var(--green); }
+    .src-badge.avm      { background: rgba(99,102,241,0.12); color: var(--accent-light); }
+    .src-badge.assessed { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+    .src-badge.flagged  { background: var(--red-bg);   color: var(--red); }
+    .stale-date { color: var(--amber); }
 
     @media (max-width: 640px) {
       nav { padding: 0 16px; }
@@ -596,7 +612,7 @@
             <th onclick="sortTable('city')" id="th-city">City <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('opportunity_score')" id="th-opportunity_score" class="sorted">Score <i class="sort-icon">&#9660;</i></th>
             <th onclick="sortTable('cap_rate')" id="th-cap_rate">Cap Rate <i class="sort-icon">&#9650;</i></th>
-            <th onclick="sortTable('market_value')" id="th-market_value">Assessed Value <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('market_value')" id="th-market_value">Market Value <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('noi')" id="th-noi">Annual NOI <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('rent_estimate')" id="th-rent_estimate">Mo. Rent <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('cash_flow')" id="th-cash_flow">Mo. Cash Flow <i class="sort-icon">&#9650;</i></th>
@@ -673,6 +689,33 @@
     // legacy fallback
     const count = (b.confidence_source || '').split(',').filter(Boolean).length;
     return count ? count + '/5' : '\u2014';
+  }
+
+  function srcBadge(b) {
+    var src = b.valuation_source;
+    if (!src) return '';
+    var labels = { sale: 'Sale', avm: 'AVM', assessed: 'Est.', flagged: '⚠' };
+    var label = labels[src] || src;
+    return '<span class="src-badge ' + src + '" title="Valuation source: ' + src + '">' + label + '</span>';
+  }
+
+  function mvLabel(src) {
+    if (src === 'sale')     return 'Last Sale Price';
+    if (src === 'avm')      return 'AVM (Market Est.)';
+    if (src === 'assessed') return 'Assessed Value';
+    return 'Market Value';
+  }
+
+  function fmtLastSale(val) {
+    if (!val) return '—';
+    var d = new Date(val);
+    var yr = d.getFullYear();
+    var str = fmtDate(val);
+    if (yr < 2021) {
+      var age = 2026 - yr;
+      return '<span class="stale-date" title="' + age + '-year-old sale — market value may be stale">' + str + '</span>';
+    }
+    return str;
   }
 
   function getFilters() {
@@ -838,12 +881,12 @@
         + '<td>' + (b.city || '\u2014') + rentWarnHTML(b) + '</td>'
         + '<td>' + scoreBadgeHTML(b.opportunity_score) + '</td>'
         + '<td>' + fmtPct(b.cap_rate) + '</td>'
-        + '<td style="color:var(--text-muted)">' + fmtCurrency(b.market_value) + '</td>'
+        + '<td style="color:var(--text-muted)">' + fmtCurrency(b.market_value) + srcBadge(b) + '</td>'
         + '<td>' + fmtCurrency(b.noi) + '</td>'
         + '<td>' + fmtCurrency(b.rent_estimate) + '</td>'
         + '<td>' + fmtCashFlow(b.rent_estimate, b.expense_estimate) + '</td>'
         + '<td>' + (b.units != null ? b.units : '\u2014') + '</td>'
-        + '<td style="color:var(--text-muted);font-size:12px">' + fmtDate(b.last_sale_date) + '</td>'
+        + '<td style="font-size:12px">' + fmtLastSale(b.last_sale_date) + '</td>'
         + '<td style="color:var(--text-muted);font-size:12px">' + fmtDate(b.updated_at) + '</td>'
         + '</tr>';
     }).join('');
@@ -1088,7 +1131,7 @@
     if (!b.units || b.units === 0) {
       risks.push('Unit count unverified in MassGIS — confirm with town assessor');
     }
-    if (!signals.rt && (!lsd || lsd.getFullYear() < 2018)) {
+    if (!signals.rt && (!lsd || lsd.getFullYear() < 2021)) {
       risks.push('No recent market sale — assessed value used as denominator; confirm current price');
     }
     if (sp > 1000 && sp < 75000 && lsd && lsd.getFullYear() >= 2018) {
@@ -1142,7 +1185,8 @@
       finHtml += '<div class="bf-item"><div class="bf-label">Down Payment</div><div class="bf-value" style="color:var(--text-muted)">$' + Math.round(cf.down).toLocaleString() + '</div><div class="bf-note">20% of assessed value</div></div>';
     }
     if (b.market_value) {
-      finHtml += '<div class="bf-item"><div class="bf-label">Assessed Value</div><div class="bf-value" style="color:var(--text-muted)">$' + Math.round(b.market_value).toLocaleString() + '</div></div>';
+      var mvLbl = mvLabel(b.valuation_source);
+      finHtml += '<div class="bf-item"><div class="bf-label">' + mvLbl + '</div><div class="bf-value" style="color:var(--text-muted)">$' + Math.round(b.market_value).toLocaleString() + '</div></div>';
     }
     if (b.last_sale_price && parseFloat(b.last_sale_price) > 1000) {
       finHtml += '<div class="bf-item"><div class="bf-label">Last Sale</div><div class="bf-value" style="color:var(--text-muted)">$' + Math.round(b.last_sale_price).toLocaleString() + '</div><div class="bf-note">' + (b.last_sale_date ? fmtDate(b.last_sale_date) : '—') + '</div></div>';
