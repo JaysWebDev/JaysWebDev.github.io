@@ -1,1030 +1,125 @@
 {
-  "type": "paper_portfolio",
-  "model": "10-slot rotation",
-  "start_date": "2026-02-17",
-  "current_date": "2026-07-02",
-  "generated": "2026-07-03 13:32:58",
+  "generated": "2026-07-09T13:35:00.723507",
+  "start_date": "2026-07-04",
   "starting_capital": 5000.0,
-  "total_value": 4850.7,
-  "cash": 149.77,
-  "positions_value": 4700.93,
-  "cash_pct": 3.1,
-  "invested_pct": 96.9,
-  "total_return_pct": -2.99,
-  "total_return_dollar": -149.3,
-  "num_positions": 10,
-  "max_positions": 10,
-  "rules": {
-    "model": "10-slot equal-weight rotation (~$500/slot)",
-    "entry": "Composite score: cycle stage \u00d7 scanner quality",
-    "rotation": "Rotate after 5d if cycle stage < 35",
-    "trim1": "Sell 50% at +10%",
-    "trim2": "Sell 50% of remaining at +20%",
-    "stop": "Close < SMA50 AND SMA50 declining (5-day slope)",
-    "emergency": "Close < SMA50 by > 1 ATR"
-  },
-  "today_actions": [
-    {
-      "action": "ROTATE_OUT",
-      "symbol": "AUPH",
-      "price": 15.61,
-      "pnl_pct": 2.22,
-      "reason": "Cycle stage 28 \u2014 rotating to EA (stage 83)"
-    },
-    {
-      "action": "ROTATE_IN",
-      "symbol": "EA",
-      "shares": 1,
-      "price": 205.21,
-      "cost": 205.21,
-      "score": 142.0,
-      "cycle_stage": 83
-    }
-  ],
+  "total_value": 5088.6,
+  "cash": 0.0,
+  "pnl_pct": 1.77,
+  "open_count": 10,
+  "closed_count": 0,
+  "win_rate": 0.0,
+  "avg_trade_pnl": 0.0,
   "positions": [
     {
-      "symbol": "KO",
-      "entry_date": "2026-06-15",
-      "entry_price": 80.91,
-      "current_price": 84.14,
-      "shares": 5,
-      "original_shares": 5,
-      "cost_basis": 404.55,
-      "market_value": 420.7,
-      "pnl_pct": 3.99,
-      "pnl_dollar": 16.15,
-      "weight_pct": 8.7,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 89.0,
-      "trim2_target": 97.09,
-      "days_held": 17,
-      "score": 137.0,
-      "cycle_stage": 46,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 0,
-      "rsi_at_entry": 58.4
-    },
-    {
-      "symbol": "VTR",
-      "entry_date": "2026-06-29",
-      "entry_price": 89.3,
-      "current_price": 92.52,
-      "shares": 6,
-      "original_shares": 6,
-      "cost_basis": 535.8,
-      "market_value": 555.12,
-      "pnl_pct": 3.61,
-      "pnl_dollar": 19.32,
-      "weight_pct": 11.4,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 98.23,
-      "trim2_target": 107.16,
-      "days_held": 3,
-      "score": 127.0,
-      "cycle_stage": 65,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 100,
-      "rsi_at_entry": 55.9
-    },
-    {
-      "symbol": "AFL",
-      "entry_date": "2026-06-15",
-      "entry_price": 116.96,
-      "current_price": 120.88,
-      "shares": 3,
-      "original_shares": 3,
-      "cost_basis": 350.88,
-      "market_value": 362.64,
-      "pnl_pct": 3.35,
-      "pnl_dollar": 11.76,
-      "weight_pct": 7.5,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 128.66,
-      "trim2_target": 140.35,
-      "days_held": 17,
-      "score": 112.0,
-      "cycle_stage": 73,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 0,
-      "rsi_at_entry": 61.9
-    },
-    {
-      "symbol": "GRDN",
-      "entry_date": "2026-06-04",
-      "entry_price": 40.8,
-      "current_price": 42.0,
-      "shares": 19,
-      "original_shares": 19,
-      "cost_basis": 775.2,
-      "market_value": 798.0,
-      "pnl_pct": 2.94,
-      "pnl_dollar": 22.8,
-      "weight_pct": 16.5,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 44.88,
-      "trim2_target": 48.96,
-      "days_held": 28,
-      "score": 139.0,
-      "cycle_stage": 60,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 0,
-      "rsi_at_entry": 55.7
-    },
-    {
-      "symbol": "AHR",
-      "entry_date": "2026-07-01",
-      "entry_price": 53.65,
-      "current_price": 55.04,
-      "shares": 7,
-      "original_shares": 7,
-      "cost_basis": 375.55,
-      "market_value": 385.28,
-      "pnl_pct": 2.59,
-      "pnl_dollar": 9.73,
-      "weight_pct": 7.9,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 59.02,
-      "trim2_target": 64.38,
-      "days_held": 1,
-      "score": 137.0,
-      "cycle_stage": 65,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 100,
-      "rsi_at_entry": 60.4
-    },
-    {
-      "symbol": "PNW",
-      "entry_date": "2026-06-25",
-      "entry_price": 107.28,
-      "current_price": 109.37,
-      "shares": 3,
-      "original_shares": 3,
-      "cost_basis": 321.84,
-      "market_value": 328.11,
-      "pnl_pct": 1.95,
-      "pnl_dollar": 6.27,
-      "weight_pct": 6.8,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 118.01,
-      "trim2_target": 128.74,
-      "days_held": 7,
-      "score": 137.0,
-      "cycle_stage": 65,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 100,
-      "rsi_at_entry": 59.4
-    },
-    {
-      "symbol": "CBU",
-      "entry_date": "2026-06-29",
-      "entry_price": 66.82,
-      "current_price": 67.61,
-      "shares": 11,
-      "original_shares": 11,
-      "cost_basis": 735.02,
-      "market_value": 743.71,
-      "pnl_pct": 1.18,
-      "pnl_dollar": 8.69,
-      "weight_pct": 15.3,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 73.5,
-      "trim2_target": 80.18,
-      "days_held": 3,
-      "score": 133.0,
-      "cycle_stage": 60,
-      "cycle_stage_at_entry": 78,
-      "trend_score": 100,
-      "rsi_at_entry": 60.7
-    },
-    {
-      "symbol": "HOLX",
-      "entry_date": "2026-02-17",
-      "entry_price": 75.19,
-      "current_price": 76.01,
-      "shares": 6,
-      "original_shares": 6,
-      "cost_basis": 451.14,
-      "market_value": 456.06,
-      "pnl_pct": 1.09,
-      "pnl_dollar": 4.92,
-      "weight_pct": 9.4,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 82.71,
-      "trim2_target": 90.23,
-      "days_held": 135,
-      "score": 133.0,
-      "cycle_stage": 28,
-      "cycle_stage_at_entry": 100,
-      "trend_score": 0,
-      "rsi_at_entry": 54.3
-    },
-    {
-      "symbol": "CNP",
-      "entry_date": "2026-06-25",
-      "entry_price": 44.22,
-      "current_price": 44.61,
-      "shares": 10,
-      "original_shares": 10,
-      "cost_basis": 442.2,
-      "market_value": 446.1,
-      "pnl_pct": 0.88,
-      "pnl_dollar": 3.9,
-      "weight_pct": 9.2,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 48.64,
-      "trim2_target": 53.06,
-      "days_held": 7,
-      "score": 137.0,
-      "cycle_stage": 83,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 100,
-      "rsi_at_entry": 60.4
-    },
-    {
-      "symbol": "EA",
+      "symbol": "BCRX",
       "entry_date": "2026-07-02",
-      "entry_price": 205.21,
-      "current_price": 205.21,
-      "shares": 1,
-      "original_shares": 1,
-      "cost_basis": 205.21,
-      "market_value": 205.21,
-      "pnl_pct": 0.0,
-      "pnl_dollar": 0.0,
-      "weight_pct": 4.2,
-      "trim1_hit": false,
-      "trim2_hit": false,
-      "trim1_target": 225.73,
-      "trim2_target": 246.25,
-      "days_held": 0,
-      "score": 142.0,
-      "cycle_stage": 83,
-      "cycle_stage_at_entry": 83,
-      "trend_score": 100,
-      "rsi_at_entry": 57.7
+      "entry_price": 9.84,
+      "current_price": 11.11,
+      "pnl_pct": 12.91,
+      "days_held": 4,
+      "stop_price": 9.05,
+      "conviction_score": 449.7,
+      "scanners": "under50,confluence,setup_pullback,rsi_staircase,atr_momentum"
+    },
+    {
+      "symbol": "ALMS",
+      "entry_date": "2026-07-02",
+      "entry_price": 26.5,
+      "current_price": 29.74,
+      "pnl_pct": 12.23,
+      "days_held": 4,
+      "stop_price": 24.38,
+      "conviction_score": 460.1,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum,v3_compression"
+    },
+    {
+      "symbol": "PBF",
+      "entry_date": "2026-07-02",
+      "entry_price": 47.81,
+      "current_price": 52.9,
+      "pnl_pct": 10.65,
+      "days_held": 4,
+      "stop_price": 43.99,
+      "conviction_score": 538.0,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum,setup_vcb,database_enhanced"
+    },
+    {
+      "symbol": "DYN",
+      "entry_date": "2026-07-02",
+      "entry_price": 23.07,
+      "current_price": 23.83,
+      "pnl_pct": 3.29,
+      "days_held": 4,
+      "stop_price": 21.22,
+      "conviction_score": 475.7,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum,v3_compression"
+    },
+    {
+      "symbol": "CTRE",
+      "entry_date": "2026-07-02",
+      "entry_price": 41.76,
+      "current_price": 41.34,
+      "pnl_pct": -1.01,
+      "days_held": 4,
+      "stop_price": 38.42,
+      "conviction_score": 486.6,
+      "scanners": "under50,confluence,rsi_staircase,setup_vcb,database_enhanced"
+    },
+    {
+      "symbol": "PACS",
+      "entry_date": "2026-07-02",
+      "entry_price": 44.48,
+      "current_price": 44.02,
+      "pnl_pct": -1.03,
+      "days_held": 4,
+      "stop_price": 40.92,
+      "conviction_score": 569.0,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum,setup_vcb,database_enhanced"
+    },
+    {
+      "symbol": "CPAY",
+      "entry_date": "2026-07-02",
+      "entry_price": 352.46,
+      "current_price": 345.85,
+      "pnl_pct": -1.88,
+      "days_held": 4,
+      "stop_price": 324.26,
+      "conviction_score": 470.5,
+      "scanners": "confluence,setup_pullback,atr_momentum,setup_vcb,rsi_staircase,v3_compression,database_enhanced"
+    },
+    {
+      "symbol": "AUB",
+      "entry_date": "2026-07-02",
+      "entry_price": 42.26,
+      "current_price": 40.68,
+      "pnl_pct": -3.74,
+      "days_held": 4,
+      "stop_price": 38.88,
+      "conviction_score": 474.8,
+      "scanners": "institutional,under50,confluence,rsi_staircase,atr_momentum"
+    },
+    {
+      "symbol": "IBRX",
+      "entry_date": "2026-07-02",
+      "entry_price": 9.44,
+      "current_price": 8.8,
+      "pnl_pct": -6.78,
+      "days_held": 4,
+      "stop_price": 8.68,
+      "conviction_score": 500.5,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum,setup_vcb,database_enhanced"
+    },
+    {
+      "symbol": "LFST",
+      "entry_date": "2026-07-02",
+      "entry_price": 11.27,
+      "current_price": 10.49,
+      "pnl_pct": -6.92,
+      "days_held": 4,
+      "stop_price": 10.37,
+      "conviction_score": 450.4,
+      "scanners": "under50,confluence,database_enhanced,v3_compression"
     }
   ],
-  "closed_trades": {
-    "total": 46,
-    "winners": 19,
-    "losers": 27,
-    "win_rate": 41.3,
-    "avg_pnl_pct": -0.85,
-    "avg_pnl_dollar": -5.5,
-    "total_realized": -252.95,
-    "avg_days_held": 25.0,
-    "stop_exits": 20,
-    "rotation_exits": 26
-  },
-  "equity_curve": [
-    {
-      "date": "2026-02-17",
-      "total_value": 5000.02,
-      "cash": 712.14,
-      "positions_value": 4287.88,
-      "num_positions": 10,
-      "total_return_pct": 0.0,
-      "actions_today": 10
-    },
-    {
-      "date": "2026-02-19",
-      "total_value": 5000.14,
-      "cash": 712.14,
-      "positions_value": 4288.0,
-      "num_positions": 10,
-      "total_return_pct": 0.0,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-02-20",
-      "total_value": 5017.17,
-      "cash": 712.14,
-      "positions_value": 4305.03,
-      "num_positions": 10,
-      "total_return_pct": 0.34,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-02-23",
-      "total_value": 5017.17,
-      "cash": 712.14,
-      "positions_value": 4305.03,
-      "num_positions": 10,
-      "total_return_pct": 0.34,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-02-25",
-      "total_value": 5002.31,
-      "cash": 712.14,
-      "positions_value": 4290.17,
-      "num_positions": 10,
-      "total_return_pct": 0.05,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-02-27",
-      "total_value": 4980.49,
-      "cash": 712.14,
-      "positions_value": 4268.35,
-      "num_positions": 10,
-      "total_return_pct": -0.39,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-02",
-      "total_value": 5028.97,
-      "cash": 712.14,
-      "positions_value": 4316.83,
-      "num_positions": 10,
-      "total_return_pct": 0.58,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-04",
-      "total_value": 5033.83,
-      "cash": 82.56,
-      "positions_value": 4951.27,
-      "num_positions": 10,
-      "total_return_pct": 0.68,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-03-05",
-      "total_value": 4958.53,
-      "cash": 225.39,
-      "positions_value": 4733.14,
-      "num_positions": 10,
-      "total_return_pct": -0.83,
-      "actions_today": 10
-    },
-    {
-      "date": "2026-03-06",
-      "total_value": 4888.67,
-      "cash": 225.39,
-      "positions_value": 4663.28,
-      "num_positions": 10,
-      "total_return_pct": -2.23,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-09",
-      "total_value": 4890.07,
-      "cash": 225.39,
-      "positions_value": 4664.68,
-      "num_positions": 10,
-      "total_return_pct": -2.2,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-10",
-      "total_value": 4803.09,
-      "cash": 52.62,
-      "positions_value": 4750.47,
-      "num_positions": 10,
-      "total_return_pct": -3.94,
-      "actions_today": 6
-    },
-    {
-      "date": "2026-03-11",
-      "total_value": 4802.53,
-      "cash": 52.62,
-      "positions_value": 4749.91,
-      "num_positions": 10,
-      "total_return_pct": -3.95,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-12",
-      "total_value": 4751.21,
-      "cash": 106.84,
-      "positions_value": 4644.37,
-      "num_positions": 10,
-      "total_return_pct": -4.98,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-03-13",
-      "total_value": 4751.07,
-      "cash": 106.84,
-      "positions_value": 4644.23,
-      "num_positions": 10,
-      "total_return_pct": -4.98,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-16",
-      "total_value": 4695.5,
-      "cash": 106.84,
-      "positions_value": 4588.66,
-      "num_positions": 10,
-      "total_return_pct": -6.09,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-17",
-      "total_value": 4706.98,
-      "cash": 106.84,
-      "positions_value": 4600.14,
-      "num_positions": 10,
-      "total_return_pct": -5.86,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-18",
-      "total_value": 4696.07,
-      "cash": 50.68,
-      "positions_value": 4645.39,
-      "num_positions": 10,
-      "total_return_pct": -6.08,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-03-23",
-      "total_value": 4700.72,
-      "cash": 50.68,
-      "positions_value": 4650.04,
-      "num_positions": 10,
-      "total_return_pct": -5.99,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-24",
-      "total_value": 4700.72,
-      "cash": 50.68,
-      "positions_value": 4650.04,
-      "num_positions": 10,
-      "total_return_pct": -5.99,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-25",
-      "total_value": 4652.66,
-      "cash": 50.68,
-      "positions_value": 4601.98,
-      "num_positions": 10,
-      "total_return_pct": -6.95,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-27",
-      "total_value": 4660.49,
-      "cash": 50.68,
-      "positions_value": 4609.81,
-      "num_positions": 10,
-      "total_return_pct": -6.79,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-03-30",
-      "total_value": 4641.25,
-      "cash": 127.75,
-      "positions_value": 4513.5,
-      "num_positions": 10,
-      "total_return_pct": -7.18,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-03-31",
-      "total_value": 4599.86,
-      "cash": 127.75,
-      "positions_value": 4472.11,
-      "num_positions": 10,
-      "total_return_pct": -8.0,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-04-01",
-      "total_value": 4644.2,
-      "cash": 127.75,
-      "positions_value": 4516.45,
-      "num_positions": 10,
-      "total_return_pct": -7.12,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-04-02",
-      "total_value": 4669.78,
-      "cash": 127.75,
-      "positions_value": 4542.03,
-      "num_positions": 10,
-      "total_return_pct": -6.6,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-04-06",
-      "total_value": 4674.27,
-      "cash": 127.75,
-      "positions_value": 4546.52,
-      "num_positions": 10,
-      "total_return_pct": -6.51,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-04-07",
-      "total_value": 4693.6,
-      "cash": 127.75,
-      "positions_value": 4565.85,
-      "num_positions": 10,
-      "total_return_pct": -6.13,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-04-10",
-      "total_value": 4674.27,
-      "cash": 108.12,
-      "positions_value": 4566.15,
-      "num_positions": 10,
-      "total_return_pct": -6.51,
-      "actions_today": 8
-    },
-    {
-      "date": "2026-04-13",
-      "total_value": 4684.94,
-      "cash": 126.2,
-      "positions_value": 4558.74,
-      "num_positions": 10,
-      "total_return_pct": -6.3,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-04-15",
-      "total_value": 4647.9,
-      "cash": 21.21,
-      "positions_value": 4626.69,
-      "num_positions": 10,
-      "total_return_pct": -7.04,
-      "actions_today": 4
-    },
-    {
-      "date": "2026-04-16",
-      "total_value": 4680.5,
-      "cash": 21.21,
-      "positions_value": 4659.29,
-      "num_positions": 10,
-      "total_return_pct": -6.39,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-04-17",
-      "total_value": 4786.35,
-      "cash": 431.02,
-      "positions_value": 4355.33,
-      "num_positions": 10,
-      "total_return_pct": -4.27,
-      "actions_today": 1
-    },
-    {
-      "date": "2026-04-20",
-      "total_value": 4778.73,
-      "cash": 68.77,
-      "positions_value": 4709.96,
-      "num_positions": 10,
-      "total_return_pct": -4.43,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-04-21",
-      "total_value": 4676.87,
-      "cash": 43.62,
-      "positions_value": 4633.25,
-      "num_positions": 10,
-      "total_return_pct": -6.46,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-04-22",
-      "total_value": 4692.0,
-      "cash": 13.04,
-      "positions_value": 4678.96,
-      "num_positions": 10,
-      "total_return_pct": -6.16,
-      "actions_today": 4
-    },
-    {
-      "date": "2026-05-27",
-      "total_value": 4832.85,
-      "cash": 185.47,
-      "positions_value": 4647.38,
-      "num_positions": 10,
-      "total_return_pct": -3.34,
-      "actions_today": 9
-    },
-    {
-      "date": "2026-05-29",
-      "total_value": 4824.89,
-      "cash": 68.0,
-      "positions_value": 4756.89,
-      "num_positions": 10,
-      "total_return_pct": -3.5,
-      "actions_today": 3
-    },
-    {
-      "date": "2026-06-01",
-      "total_value": 4812.81,
-      "cash": 65.03,
-      "positions_value": 4747.78,
-      "num_positions": 10,
-      "total_return_pct": -3.74,
-      "actions_today": 6
-    },
-    {
-      "date": "2026-06-04",
-      "total_value": 4780.71,
-      "cash": 78.65,
-      "positions_value": 4702.06,
-      "num_positions": 10,
-      "total_return_pct": -4.39,
-      "actions_today": 4
-    },
-    {
-      "date": "2026-06-15",
-      "total_value": 4782.66,
-      "cash": 216.25,
-      "positions_value": 4566.41,
-      "num_positions": 10,
-      "total_return_pct": -4.35,
-      "actions_today": 7
-    },
-    {
-      "date": "2026-06-17",
-      "total_value": 4761.41,
-      "cash": 96.39,
-      "positions_value": 4665.02,
-      "num_positions": 10,
-      "total_return_pct": -4.77,
-      "actions_today": 4
-    },
-    {
-      "date": "2026-06-18",
-      "total_value": 4734.68,
-      "cash": 8.18,
-      "positions_value": 4726.5,
-      "num_positions": 10,
-      "total_return_pct": -5.31,
-      "actions_today": 4
-    },
-    {
-      "date": "2026-06-22",
-      "total_value": 4780.7,
-      "cash": 3.79,
-      "positions_value": 4776.91,
-      "num_positions": 10,
-      "total_return_pct": -4.39,
-      "actions_today": 3
-    },
-    {
-      "date": "2026-06-25",
-      "total_value": 4752.64,
-      "cash": 0.34,
-      "positions_value": 4752.3,
-      "num_positions": 10,
-      "total_return_pct": -4.95,
-      "actions_today": 5
-    },
-    {
-      "date": "2026-06-26",
-      "total_value": 4831.01,
-      "cash": 0.34,
-      "positions_value": 4830.67,
-      "num_positions": 10,
-      "total_return_pct": -3.38,
-      "actions_today": 0
-    },
-    {
-      "date": "2026-06-29",
-      "total_value": 4783.3,
-      "cash": 11.93,
-      "positions_value": 4771.37,
-      "num_positions": 10,
-      "total_return_pct": -4.33,
-      "actions_today": 4
-    },
-    {
-      "date": "2026-07-01",
-      "total_value": 4799.83,
-      "cash": 42.78,
-      "positions_value": 4757.05,
-      "num_positions": 10,
-      "total_return_pct": -4.0,
-      "actions_today": 2
-    },
-    {
-      "date": "2026-07-02",
-      "total_value": 4850.7,
-      "cash": 149.77,
-      "positions_value": 4700.93,
-      "num_positions": 10,
-      "total_return_pct": -2.99,
-      "actions_today": 2
-    }
-  ],
-  "benchmark": [
-    {
-      "date": "2026-02-17",
-      "spy_return_pct": 0.0,
-      "qqq_return_pct": 0.0
-    },
-    {
-      "date": "2026-02-18",
-      "spy_return_pct": 0.5,
-      "qqq_return_pct": 0.75
-    },
-    {
-      "date": "2026-02-19",
-      "spy_return_pct": 0.24,
-      "qqq_return_pct": 0.36
-    },
-    {
-      "date": "2026-02-20",
-      "spy_return_pct": 0.96,
-      "qqq_return_pct": 1.25
-    },
-    {
-      "date": "2026-02-23",
-      "spy_return_pct": -0.07,
-      "qqq_return_pct": 0.02
-    },
-    {
-      "date": "2026-02-24",
-      "spy_return_pct": 0.66,
-      "qqq_return_pct": 1.09
-    },
-    {
-      "date": "2026-02-25",
-      "spy_return_pct": 1.51,
-      "qqq_return_pct": 2.56
-    },
-    {
-      "date": "2026-02-26",
-      "spy_return_pct": 0.94,
-      "qqq_return_pct": 1.32
-    },
-    {
-      "date": "2026-02-27",
-      "spy_return_pct": 0.46,
-      "qqq_return_pct": 1.0
-    },
-    {
-      "date": "2026-03-02",
-      "spy_return_pct": 0.52,
-      "qqq_return_pct": 1.13
-    },
-    {
-      "date": "2026-03-03",
-      "spy_return_pct": -0.37,
-      "qqq_return_pct": 0.05
-    },
-    {
-      "date": "2026-03-04",
-      "spy_return_pct": 0.33,
-      "qqq_return_pct": 1.57
-    },
-    {
-      "date": "2026-03-05",
-      "spy_return_pct": -0.23,
-      "qqq_return_pct": 1.27
-    },
-    {
-      "date": "2026-03-06",
-      "spy_return_pct": -1.53,
-      "qqq_return_pct": -0.26
-    },
-    {
-      "date": "2026-03-09",
-      "spy_return_pct": -0.67,
-      "qqq_return_pct": 1.07
-    },
-    {
-      "date": "2026-03-10",
-      "spy_return_pct": -0.83,
-      "qqq_return_pct": 1.08
-    },
-    {
-      "date": "2026-03-11",
-      "spy_return_pct": -0.95,
-      "qqq_return_pct": 1.06
-    },
-    {
-      "date": "2026-03-12",
-      "spy_return_pct": -2.46,
-      "qqq_return_pct": -0.67
-    },
-    {
-      "date": "2026-03-13",
-      "spy_return_pct": -3.01,
-      "qqq_return_pct": -1.26
-    },
-    {
-      "date": "2026-03-16",
-      "spy_return_pct": -2.02,
-      "qqq_return_pct": -0.15
-    },
-    {
-      "date": "2026-03-17",
-      "spy_return_pct": -1.77,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-18",
-      "spy_return_pct": -3.14,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-19",
-      "spy_return_pct": -3.38,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-20",
-      "spy_return_pct": -5.02,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-23",
-      "spy_return_pct": -4.02,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-24",
-      "spy_return_pct": -4.35,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-25",
-      "spy_return_pct": -3.81,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-26",
-      "spy_return_pct": -5.53,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-27",
-      "spy_return_pct": -7.14,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-30",
-      "spy_return_pct": -7.45,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-03-31",
-      "spy_return_pct": -4.76,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-04-01",
-      "spy_return_pct": -4.04,
-      "qqq_return_pct": null
-    },
-    {
-      "date": "2026-04-02",
-      "spy_return_pct": -3.96,
-      "qqq_return_pct": -2.71
-    },
-    {
-      "date": "2026-04-06",
-      "spy_return_pct": -3.5,
-      "qqq_return_pct": -2.13
-    },
-    {
-      "date": "2026-04-07",
-      "spy_return_pct": -3.46,
-      "qqq_return_pct": -2.11
-    },
-    {
-      "date": "2026-04-08",
-      "spy_return_pct": -1.0,
-      "qqq_return_pct": 0.8
-    },
-    {
-      "date": "2026-04-09",
-      "spy_return_pct": -0.43,
-      "qqq_return_pct": 1.48
-    },
-    {
-      "date": "2026-04-10",
-      "spy_return_pct": -0.5,
-      "qqq_return_pct": 1.62
-    },
-    {
-      "date": "2026-04-13",
-      "spy_return_pct": 0.48,
-      "qqq_return_pct": 2.68
-    },
-    {
-      "date": "2026-04-15",
-      "spy_return_pct": 2.5,
-      "qqq_return_pct": 6.0
-    },
-    {
-      "date": "2026-04-16",
-      "spy_return_pct": 2.75,
-      "qqq_return_pct": 6.51
-    },
-    {
-      "date": "2026-04-17",
-      "spy_return_pct": 4.0,
-      "qqq_return_pct": 7.91
-    },
-    {
-      "date": "2026-04-20",
-      "spy_return_pct": 3.79,
-      "qqq_return_pct": 7.57
-    },
-    {
-      "date": "2026-04-21",
-      "spy_return_pct": 3.11,
-      "qqq_return_pct": 7.16
-    },
-    {
-      "date": "2026-04-22",
-      "spy_return_pct": 4.15,
-      "qqq_return_pct": 8.95
-    },
-    {
-      "date": "2026-05-27",
-      "spy_return_pct": 9.9,
-      "qqq_return_pct": 21.31
-    },
-    {
-      "date": "2026-05-29",
-      "spy_return_pct": 10.78,
-      "qqq_return_pct": 22.79
-    },
-    {
-      "date": "2026-06-01",
-      "spy_return_pct": 11.08,
-      "qqq_return_pct": 23.52
-    },
-    {
-      "date": "2026-06-04",
-      "spy_return_pct": 10.87,
-      "qqq_return_pct": 23.17
-    },
-    {
-      "date": "2026-06-15",
-      "spy_return_pct": 10.54,
-      "qqq_return_pct": 23.73
-    },
-    {
-      "date": "2026-06-17",
-      "spy_return_pct": 8.51,
-      "qqq_return_pct": 20.16
-    },
-    {
-      "date": "2026-06-18",
-      "spy_return_pct": 9.36,
-      "qqq_return_pct": 23.17
-    },
-    {
-      "date": "2026-06-22",
-      "spy_return_pct": 9.01,
-      "qqq_return_pct": 22.73
-    },
-    {
-      "date": "2026-06-25",
-      "spy_return_pct": 7.53,
-      "qqq_return_pct": 19.14
-    },
-    {
-      "date": "2026-06-26",
-      "spy_return_pct": 6.76,
-      "qqq_return_pct": 17.5
-    },
-    {
-      "date": "2026-06-29",
-      "spy_return_pct": 8.52,
-      "qqq_return_pct": 20.42
-    },
-    {
-      "date": "2026-07-01",
-      "spy_return_pct": 9.21,
-      "qqq_return_pct": 20.6
-    },
-    {
-      "date": "2026-07-02",
-      "spy_return_pct": 9.07,
-      "qqq_return_pct": 18.51
-    }
-  ],
-  "stats": {
-    "active_winners": 9,
-    "active_losers": 1,
-    "avg_active_pnl": 2.16,
-    "avg_cycle_stage": 63.0,
-    "days_running": 49
-  }
+  "closed_trades": []
 }

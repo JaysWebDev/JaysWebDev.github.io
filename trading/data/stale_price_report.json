@@ -1,107 +1,71 @@
 {
-  "timestamp": "2026-07-03 07:00:02",
+  "timestamp": "2026-07-09 07:00:02",
   "summary": {
-    "total_flagged": 5,
+    "total_flagged": 3,
     "high_risk": 3,
-    "medium_risk": 2,
+    "medium_risk": 0,
     "low_risk": 0,
-    "penny_stocks": 2,
+    "penny_stocks": 0,
     "stale_prices": 0,
     "no_data": 3,
-    "tracking_pending": 12,
+    "tracking_pending": 9,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
-      "symbol": "CVGW",
-      "price": 0.0,
+      "symbol": "LC",
+      "price": 19.21,
       "consecutive_days": 0,
-      "avg_volume": 0.0,
+      "avg_volume": 2293337.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
+        "Data stopped updating (last: 2026-06-18, expected: 2026-07-08)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-07-03 07:00",
+      "last_date": "2026-06-18",
+      "analysis_date": "2026-07-09 07:00",
       "consecutive_failures": 6,
-      "first_flagged": "2026-06-18"
+      "first_flagged": "2026-07-02"
     },
     {
-      "symbol": "THR",
-      "price": 0.0,
+      "symbol": "SATS",
+      "price": 106.4,
       "consecutive_days": 0,
-      "avg_volume": 0.0,
+      "avg_volume": 17455075.5,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
+        "Data stopped updating (last: 2026-06-22, expected: 2026-07-08)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-07-03 07:00",
+      "last_date": "2026-06-22",
+      "analysis_date": "2026-07-09 07:00",
       "consecutive_failures": 5,
-      "first_flagged": "2026-06-19"
+      "first_flagged": "2026-07-03"
     },
     {
-      "symbol": "AMWD",
-      "price": 0.0,
+      "symbol": "CWAN",
+      "price": 24.53,
       "consecutive_days": 0,
-      "avg_volume": 0.0,
+      "avg_volume": 20500043.5,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
+        "Data stopped updating (last: 2026-06-22, expected: 2026-07-08)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-07-03 07:00",
-      "consecutive_failures": 6,
-      "first_flagged": "2026-06-18"
-    },
-    {
-      "symbol": "QSI",
-      "price": 0.9304,
-      "consecutive_days": 0,
-      "avg_volume": 7758882.5,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.93 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-07-02",
-      "analysis_date": "2026-07-03 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-03-23"
-    },
-    {
-      "symbol": "IVVD",
-      "price": 0.8938,
-      "consecutive_days": 0,
-      "avg_volume": 8667341.6,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.89 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-07-02",
-      "analysis_date": "2026-07-03 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-06-16"
+      "last_date": "2026-06-22",
+      "analysis_date": "2026-07-09 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-07-03"
     }
   ],
   "recommendations": [
@@ -109,9 +73,9 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 3 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "CVGW",
-        "THR",
-        "AMWD"
+        "LC",
+        "SATS",
+        "CWAN"
       ],
       "priority": "HIGH"
     },
@@ -119,20 +83,11 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 3 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "CVGW",
-        "THR",
-        "AMWD"
+        "LC",
+        "SATS",
+        "CWAN"
       ],
       "priority": "HIGH"
-    },
-    {
-      "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 2 securities under $1.00",
-      "symbols": [
-        "QSI",
-        "IVVD"
-      ],
-      "priority": "MEDIUM"
     }
   ]
 }
