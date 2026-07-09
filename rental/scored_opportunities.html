@@ -765,16 +765,12 @@
     }
   }
 
-  // Cities where HUD FMR is a metro-wide average that significantly overstates local rents.
-  // Lawrence is in the Boston-Cambridge-Newton HMFA ($2,484/2BR) but actual rents are ~$1,400-1,700.
-  const FMR_WARN_CITIES = new Set(['LAWRENCE']);
-  const FMR_WARN_TOOLTIP = {
-    'LAWRENCE': 'HUD FMR ($2,484/mo) is a Boston metro average — actual Lawrence rents are ~40% lower. Cap rate is likely overstated.'
-  };
-
-  function rentWarnHTML(city) {
-    if (!city || !FMR_WARN_CITIES.has(city.toUpperCase())) return '';
-    var tip = FMR_WARN_TOOLTIP[city.toUpperCase()] || 'HUD FMR may overstate rents in this market.';
+  // FMR divergent-city warnings are data-driven: b.fmr_warn / b.fmr_warn_msg
+  // come from config/hud_fmr_ma.json via generate_opportunity_scores.py.
+  // To add/remove cities, edit the JSON config — no HTML change needed.
+  function rentWarnHTML(b) {
+    if (!b || !b.fmr_warn) return '';
+    var tip = b.fmr_warn_msg || 'HUD FMR may overstate rents in this market.';
     return '<span class="fmr-warn" title="' + tip + '">FMR ↑</span>';
   }
 
@@ -801,7 +797,7 @@
         + '<div class="opp-card-header">'
         + '<div>'
         + '<div class="opp-address">' + addr
-          + (loc ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:12px">' + loc + rentWarnHTML(b.city) + '</span>' : '')
+          + (loc ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:12px">' + loc + rentWarnHTML(b) + '</span>' : '')
           + '</div>'
         + (unitsStr ? '<div class="opp-county">' + unitsStr + '</div>' : '')
         + '</div>'
@@ -839,7 +835,7 @@
       return '<tr onclick="openBriefByRank(' + b._rank + ')" title="Click for deal brief">'
         + '<td style="color:var(--text-muted);font-size:12px">#' + (b._rank || '') + '</td>'
         + '<td class="address-cell">' + (b.address || '\u2014') + '</td>'
-        + '<td>' + (b.city || '\u2014') + rentWarnHTML(b.city) + '</td>'
+        + '<td>' + (b.city || '\u2014') + rentWarnHTML(b) + '</td>'
         + '<td>' + scoreBadgeHTML(b.opportunity_score) + '</td>'
         + '<td>' + fmtPct(b.cap_rate) + '</td>'
         + '<td style="color:var(--text-muted)">' + fmtCurrency(b.market_value) + '</td>'
