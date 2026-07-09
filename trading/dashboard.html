@@ -672,6 +672,7 @@
                         <button class="nav-group-btn" onclick="showGroup(event,'research')">🔬 Research</button>
                         <button class="nav-group-btn" onclick="showGroup(event,'simulation')">🧪 Simulation</button>
                         <button class="nav-group-btn" onclick="showGroup(event,'portfolio')">💼 Portfolio</button>
+                        <button class="nav-group-btn" onclick="showGroup(event,'crypto')" style="color:#F7931A;">₿ Crypto</button>
                         <button class="nav-group-btn" onclick="showGroup(event,'operations')">⚙️ Operations</button>
                         <button class="nav-group-btn" onclick="showGroup(event,'reports')">📄 Reports</button>
                     </div>
@@ -698,12 +699,16 @@
                         <button class="tab-button" data-group="research" style="display:none;color:#f59e0b;" onclick="showTab(event,'funds');loadFunds()">🏛️ Smart Money</button>
                         <!-- Simulation group (hidden initially) -->
                         <button class="tab-button" data-group="simulation" style="display:none" onclick="showTab(event,'backtest')">🧪 Backtest</button>
-                        <button class="tab-button" data-group="simulation" style="display:none;color:#FBBF24;" onclick="showTab(event,'paper-portfolio')">📄 Paper Portfolio</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#FBBF24;" onclick="showTab(event,'paper-portfolio')">📄 Paper Portfolio</button>
                         <!-- Portfolio group (hidden initially) -->
                         <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'positions')">💼 Position Manager</button>
                         <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'portfolio')">📦 LT Portfolio</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">🔄 Rotation Engine</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#22d3ee;" onclick="showTab(event,'flow-portfolio');loadFlowPortfolio()">🌊 Flow Portfolio</button>
                         <!-- Operations group (hidden initially) -->
+                        <!-- Crypto group -->
+                        <button class="tab-button" data-group="crypto" style="display:none;color:#F7931A;" onclick="showTab(event,'crypto-signals');loadCryptoSignals()">₿ Signals</button>
+                        <button class="tab-button" data-group="crypto" style="display:none;color:#FBBF24;" onclick="showTab(event,'crypto-portfolio');loadCryptoPaperPortfolio()">📄 Paper Trade</button>
                         <button class="tab-button" data-group="operations" style="display:none" onclick="showTab(event,'admin')">⚙️ System Admin</button>
                         <button class="tab-button" data-group="operations" style="display:none;color:#34d399;" onclick="showTab(event,'watchlist-tab');loadWatchlist()">📋 Watchlists</button>
                         <button class="tab-button" data-group="operations" style="display:none;color:#a78bfa;" onclick="showTab(event,'system-tools');stLoadTools()">🛠️ Tools</button>
@@ -750,12 +755,17 @@
                                     <button class="intro-nav-card" onclick="navTo('simulation')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(167,139,250,0.5)'" onmouseout="this.style.borderColor='rgba(167,139,250,0.2)'">
                                         <div style="font-size:1.1rem;margin-bottom:4px;">🧪</div>
                                         <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Simulation</div>
-                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Backtest · Paper Portfolio</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Backtest</div>
                                     </button>
                                     <button class="intro-nav-card" onclick="navTo('portfolio')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(96,165,250,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)'">
                                         <div style="font-size:1.1rem;margin-bottom:4px;">💼</div>
                                         <div style="font-size:0.82rem;font-weight:700;color:#CBD5E1;">Portfolio</div>
-                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Positions · LT Holdings · Rotation</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">Positions · LT Holdings · Rotation · Paper</div>
+                                    </button>
+                                    <button class="intro-nav-card" onclick="navTo('crypto');loadCryptoSignals()" style="background:rgba(30,41,59,0.7);border:1px solid rgba(247,147,26,0.2);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(247,147,26,0.5)'" onmouseout="this.style.borderColor='rgba(247,147,26,0.2)'">
+                                        <div style="font-size:1.1rem;margin-bottom:4px;">₿</div>
+                                        <div style="font-size:0.82rem;font-weight:700;color:#F7931A;">Crypto</div>
+                                        <div style="font-size:0.68rem;color:#64748b;margin-top:2px;">BTC · ETH · SOL · 4H signals · paper trade</div>
                                     </button>
                                     <button class="intro-nav-card" onclick="navTo('operations')" style="background:rgba(30,41,59,0.7);border:1px solid rgba(148,163,184,0.15);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(148,163,184,0.35)'" onmouseout="this.style.borderColor='rgba(148,163,184,0.15)'">
                                         <div style="font-size:1.1rem;margin-bottom:4px;">⚙️</div>
@@ -973,14 +983,14 @@
                                 <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center;">
                                     <span style="color:#64748b;font-size:0.72rem;margin-right:2px;">SCANNER:</span>
                                     <button class="sig-filter-btn active" data-scanner="all" onclick="sigSetScanner(this,'all')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.25);background:rgba(59,130,246,0.2);color:#93C5FD;font-size:0.72rem;cursor:pointer;">All</button>
-                                    <button class="sig-filter-btn" data-scanner="database_enhanced" onclick="sigSetScanner(this,'database_enhanced')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">Enhanced</button>
-                                    <button class="sig-filter-btn" data-scanner="institutional" onclick="sigSetScanner(this,'institutional')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">Institutional</button>
-                                    <button class="sig-filter-btn" data-scanner="v3_compression" onclick="sigSetScanner(this,'v3_compression')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">V3</button>
-                                    <button class="sig-filter-btn" data-scanner="confluence" onclick="sigSetScanner(this,'confluence')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">Confluence</button>
-                                    <button class="sig-filter-btn" data-scanner="setup" onclick="sigSetScanner(this,'setup')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">Setups</button>
-                                    <button class="sig-filter-btn" data-scanner="under50" onclick="sigSetScanner(this,'under50')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">Under-$50</button>
-                                    <button class="sig-filter-btn" data-scanner="unified" onclick="sigSetScanner(this,'unified')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">Unified</button>
-                                    <button class="sig-filter-btn" data-scanner="etf" onclick="sigSetScanner(this,'etf')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">ETF</button>
+                                    <button class="sig-filter-btn" data-scanner="database_enhanced" onclick="sigSetScanner(this,'database_enhanced')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.25);background:transparent;color:#94a3b8;font-size:0.72rem;cursor:pointer;">Enhanced</button>
+                                    <button class="sig-filter-btn" data-scanner="institutional" onclick="sigSetScanner(this,'institutional')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(56,178,248,0.3);background:transparent;color:#38b2f8;font-size:0.72rem;cursor:pointer;">Institutional</button>
+                                    <button class="sig-filter-btn" data-scanner="v3_compression" onclick="sigSetScanner(this,'v3_compression')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(52,211,153,0.3);background:transparent;color:#34d399;font-size:0.72rem;cursor:pointer;">V3</button>
+                                    <button class="sig-filter-btn" data-scanner="confluence" onclick="sigSetScanner(this,'confluence')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(251,146,60,0.3);background:transparent;color:#fb923c;font-size:0.72rem;cursor:pointer;">Confluence</button>
+                                    <button class="sig-filter-btn" data-scanner="setup" onclick="sigSetScanner(this,'setup')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(192,132,252,0.3);background:transparent;color:#c084fc;font-size:0.72rem;cursor:pointer;">Setups</button>
+                                    <button class="sig-filter-btn" data-scanner="under50" onclick="sigSetScanner(this,'under50')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(167,139,250,0.3);background:transparent;color:#a78bfa;font-size:0.72rem;cursor:pointer;">Under-$50</button>
+                                    <button class="sig-filter-btn" data-scanner="unified" onclick="sigSetScanner(this,'unified')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.2);background:transparent;color:#64748b;font-size:0.72rem;cursor:pointer;">Unified</button>
+                                    <button class="sig-filter-btn" data-scanner="etf" onclick="sigSetScanner(this,'etf')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(100,116,139,0.25);background:transparent;color:#64748b;font-size:0.72rem;cursor:pointer;">ETF</button>
                                     <span style="color:#334155;margin:0 4px;">|</span>
                                     <button id="sig-sma-btn" onclick="sigToggle('sma')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">SMA50 ↑</button>
                                     <button id="sig-stage2-btn" onclick="sigToggle('stage2')" style="padding:3px 10px;border-radius:5px;border:1px solid rgba(148,163,184,0.15);background:transparent;color:#94A3B8;font-size:0.72rem;cursor:pointer;">Stage 2</button>
@@ -3211,95 +3221,84 @@
                         <!-- PAPER PORTFOLIO TAB                                -->
                         <!-- ═══════════════════════════════════════════════════ -->
                         <div id="paper-portfolio" class="tab-panel">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-                                <h3 style="color:#FBBF24;margin:0;">📄 Paper Portfolio — $5,000 · 10-Slot Rotation</h3>
-                                <span id="pp-dates" style="color:#64748b;font-size:0.75rem;"></span>
-                            </div>
-
-                            <!-- Equity Summary -->
-                            <div id="pp-summary" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
-                                <div style="background:rgba(251,191,36,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(251,191,36,0.3);">
-                                    <div id="pp-value" style="font-size:1.6rem;font-weight:bold;color:#FBBF24;">-</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Portfolio Value</div>
-                                </div>
-                                <div style="background:rgba(16,185,129,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(16,185,129,0.2);">
-                                    <div id="pp-return" style="font-size:1.6rem;font-weight:bold;color:#10B981;">-</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Total Return</div>
-                                </div>
-                                <div style="background:rgba(59,130,246,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(59,130,246,0.2);">
-                                    <div id="pp-return-dollar" style="font-size:1.6rem;font-weight:bold;color:#3B82F6;">-</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">P&L ($)</div>
-                                </div>
-                                <div style="background:rgba(148,163,184,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(148,163,184,0.2);">
-                                    <div id="pp-cash" style="font-size:1.6rem;font-weight:bold;color:#94A3B8;">-</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Cash</div>
-                                </div>
-                                <div style="background:rgba(148,163,184,0.1);border-radius:10px;padding:15px;text-align:center;border:1px solid rgba(148,163,184,0.2);">
-                                    <div id="pp-positions" style="font-size:1.6rem;font-weight:bold;color:#CBD5E1;">-</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Positions</div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#FBBF24;margin:0;font-size:1.05rem;">📄 Paper Portfolio — Conviction Picks · $5,000 · -8% Stop</h3>
+                                    <div id="pp-dates" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
                                 </div>
                             </div>
 
-                            <!-- Equity Curve -->
-                            <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:15px;margin-top:15px;border:1px solid rgba(148,163,184,0.1);">
-                                <h4 style="color:#CBD5E1;margin-bottom:10px;font-size:0.85rem;">Equity Curve vs SPY / QQQ</h4>
-                                <div id="pp-equity-chart" style="height:120px;display:flex;align-items:flex-end;gap:2px;"></div>
-                            </div>
-
-                            <!-- Today's Actions -->
-                            <div id="pp-actions-section" style="margin-top:15px;">
-                                <h4 style="color:#CBD5E1;margin-bottom:10px;font-size:0.85rem;">Today's Actions</h4>
-                                <div id="pp-actions" style="display:grid;gap:8px;">
-                                    <div style="color:#64748b;text-align:center;padding:15px;font-size:0.85rem;">Loading paper portfolio...</div>
+                            <!-- Summary cards -->
+                            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;">
+                                <div style="background:rgba(251,191,36,0.08);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(251,191,36,0.25);">
+                                    <div id="pp-value" style="font-size:1.5rem;font-weight:700;color:#FBBF24;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Value</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-return" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Total Return</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-win-rate" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Win Rate</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-avg-trade" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Avg Trade</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="pp-positions" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Open / Closed</div>
                                 </div>
                             </div>
 
-                            <!-- Holdings Table -->
-                            <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:20px;margin-top:15px;border:1px solid rgba(148,163,184,0.1);">
-                                <h4 style="color:#CBD5E1;margin-bottom:15px;font-size:0.85rem;">Paper Holdings</h4>
+                            <!-- Open Positions -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Open Positions</div>
                                 <div style="overflow-x:auto;">
-                                    <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
                                         <thead>
-                                            <tr style="border-bottom:2px solid rgba(251,191,36,0.3);">
-                                                <th style="padding:8px 6px;text-align:left;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Symbol</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Shares</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Entry</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Current</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">P&L %</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">P&L $</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Mkt Value</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Weight</th>
-                                                <th style="padding:8px 6px;text-align:center;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Days</th>
-                                                <th style="padding:8px 6px;text-align:center;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Stage</th>
-                                                <th style="padding:8px 6px;text-align:center;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Trend</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Trim 1</th>
-                                                <th style="padding:8px 6px;text-align:right;color:#94A3B8;font-size:0.7rem;text-transform:uppercase;">Trim 2</th>
+                                            <tr style="border-bottom:1px solid rgba(251,191,36,0.2);">
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Symbol</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">In Date</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Entry</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Current</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L %</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Stop</th>
+                                                <th style="padding:6px 8px;text-align:center;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Days</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Conv</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Scanners</th>
                                             </tr>
                                         </thead>
                                         <tbody id="pp-holdings-body">
-                                            <tr><td colspan="12" style="padding:20px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                            <tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Loading...</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
-                            <!-- Closed Trades Summary -->
-                            <div id="pp-closed-section" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:15px;">
-                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
-                                    <div id="pp-closed-total" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">0</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Closed Trades</div>
-                                </div>
-                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
-                                    <div id="pp-win-rate" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">-</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Win Rate</div>
-                                </div>
-                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
-                                    <div id="pp-realized" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">$0</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Total Realized P&L</div>
-                                </div>
-                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
-                                    <div id="pp-days-running" style="font-size:1.3rem;font-weight:bold;color:#CBD5E1;">0</div>
-                                    <div style="font-size:0.7rem;color:#94A3B8;">Days Running</div>
+                            <!-- Closed Trade History -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-top:12px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Closed Trades</div>
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                        <thead>
+                                            <tr style="border-bottom:1px solid rgba(148,163,184,0.12);">
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Symbol</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">In</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Out</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Entry</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Exit</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L %</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L $</th>
+                                                <th style="padding:6px 8px;text-align:center;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Days</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pp-closed-body">
+                                            <tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No closed trades yet.</td></tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div><!-- /paper-portfolio -->
@@ -3407,6 +3406,144 @@
 
                         </div><!-- /rotation -->
 
+                        <!-- 🌊 FLOW CONVICTION PORTFOLIO TAB -->
+                        <div id="flow-portfolio" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                                <div>
+                                    <h3 style="color:#22d3ee;margin:0;font-size:1.1rem;">🌊 Flow Conviction Portfolio</h3>
+                                    <div id="fp-meta" style="color:#64748b;font-size:0.72rem;margin-top:3px;">Loading…</div>
+                                </div>
+                                <div style="display:flex;gap:8px;align-items:center;">
+                                    <span id="fp-stats" style="background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.25);border-radius:6px;padding:5px 12px;font-size:0.75rem;color:#22d3ee;font-family:'JetBrains Mono',monospace;">—</span>
+                                    <button onclick="loadFlowPortfolio(true)" style="background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.25);border-radius:5px;padding:5px 10px;color:#22d3ee;font-size:0.72rem;cursor:pointer;">↺ Refresh</button>
+                                </div>
+                            </div>
+                            <div id="fp-content" style="color:#475569;font-size:0.85rem;text-align:center;padding:40px;">Loading…</div>
+                        </div><!-- /flow-portfolio -->
+
+                        <!-- ── CRYPTO SIGNALS ─────────────────────────────── -->
+                        <div id="crypto-signals" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#F7931A;margin:0;font-size:1.05rem;">₿ Crypto Signals — BTC · ETH · SOL · 4H Bars</h3>
+                                    <div id="cs-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                                <button onclick="loadCryptoSignals()" style="background:rgba(247,147,26,0.1);border:1px solid rgba(247,147,26,0.3);border-radius:6px;padding:5px 12px;color:#F7931A;font-size:0.75rem;cursor:pointer;">↻ Refresh</button>
+                            </div>
+
+                            <!-- Coin signal cards -->
+                            <div id="cs-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;">
+                                <div style="background:rgba(30,41,59,0.6);border-radius:10px;padding:20px;text-align:center;color:#64748b;">Loading…</div>
+                            </div>
+
+                            <!-- Signal detail table -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Indicator Detail</div>
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                        <thead>
+                                            <tr style="border-bottom:1px solid rgba(247,147,26,0.2);">
+                                                <th style="padding:6px 10px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Coin</th>
+                                                <th style="padding:6px 10px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Price</th>
+                                                <th style="padding:6px 10px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">24H</th>
+                                                <th style="padding:6px 10px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">RSI(14)</th>
+                                                <th style="padding:6px 10px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">EMA20</th>
+                                                <th style="padding:6px 10px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">EMA50</th>
+                                                <th style="padding:6px 10px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">vs EMA20</th>
+                                                <th style="padding:6px 10px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Vol Ratio</th>
+                                                <th style="padding:6px 10px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Bar Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cs-table-body">
+                                            <tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Loading…</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!-- /crypto-signals -->
+
+                        <!-- ── CRYPTO PAPER PORTFOLIO ──────────────────────── -->
+                        <div id="crypto-portfolio" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#FBBF24;margin:0;font-size:1.05rem;">📄 Crypto Paper Portfolio — $1,000 · 3 Slots · -5% Stop</h3>
+                                    <div id="cp-dates" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Summary cards -->
+                            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;">
+                                <div style="background:rgba(247,147,26,0.08);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(247,147,26,0.25);">
+                                    <div id="cp-value" style="font-size:1.5rem;font-weight:700;color:#F7931A;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Value</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="cp-return" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Total Return</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="cp-win-rate" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Win Rate</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="cp-avg-trade" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Avg Trade</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="cp-positions" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Open / Closed</div>
+                                </div>
+                            </div>
+
+                            <!-- Open Positions -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Open Positions</div>
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                        <thead>
+                                            <tr style="border-bottom:1px solid rgba(247,147,26,0.2);">
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Coin</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">In Date</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Entry</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Current</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L %</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Stop</th>
+                                                <th style="padding:6px 8px;text-align:center;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Signal</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Conv</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cp-holdings-body">
+                                            <tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">Loading…</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Closed Trades -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-top:12px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Closed Trades</div>
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                        <thead>
+                                            <tr style="border-bottom:1px solid rgba(148,163,184,0.12);">
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Coin</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">In</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Out</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Entry</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Exit</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L %</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L $</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cp-closed-body">
+                                            <tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">No closed trades yet.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!-- /crypto-portfolio -->
+
                         <!-- ── TODAY'S SETUPS ─────────────────────────────── -->
                         <div id="setups" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
@@ -3425,7 +3562,7 @@
                                             <th style="padding:7px 8px;text-align:left;color:#64748b;">Symbol</th>
                                             <th style="padding:7px 8px;text-align:right;color:#64748b;">Price</th>
                                             <th style="padding:7px 8px;text-align:right;color:#64748b;">Score</th>
-                                            <th style="padding:7px 8px;text-align:center;color:#64748b;">Scanners</th>
+                                            <th style="padding:7px 8px;text-align:left;color:#64748b;">Active Scanners</th>
                                             <th style="padding:7px 8px;text-align:right;color:#64748b;">RSI</th>
                                             <th style="padding:7px 8px;text-align:right;color:#64748b;">RS Rank</th>
                                             <th style="padding:7px 8px;text-align:right;color:#64748b;">Days</th>
@@ -3617,12 +3754,6 @@
                             </div>
                           </div>
 
-                          <div id="st-web-section">
-                            <div class="st-section-title">🌐 Web Tools — browser extensions & platforms</div>
-                            <div class="st-grid" id="st-web-grid">
-                              <div style="color:#64748b;font-size:12px;">Loading tools...</div>
-                            </div>
-                          </div>
                         </div>
 
                         <!-- ── EDGAR FUNDAMENTALS ──────────────────────────── -->
@@ -4034,18 +4165,25 @@
                 ]
             },
             simulation: {
-                icon: '🧪', label: 'Simulation', desc: 'Backtesting and paper trading to validate strategies before going live',
+                icon: '🧪', label: 'Simulation', desc: 'Backtesting to validate strategies before going live',
                 tabs: [
                     { icon: '🧪', label: 'Backtest',         tab: 'backtest',       desc: 'Walk-forward validation — signal win rates across market regimes' },
-                    { icon: '📄', label: 'Paper Portfolio',  tab: 'paper-portfolio', desc: 'Simulated portfolio tracking signals without real capital', color: '#FBBF24' },
                 ]
             },
             portfolio: {
-                icon: '💼', label: 'Portfolio', desc: 'Active positions, long-term holdings, and sector rotation strategy',
+                icon: '💼', label: 'Portfolio', desc: 'Active positions, long-term holdings, sector rotation, and paper tracking',
                 tabs: [
-                    { icon: '💼', label: 'Position Manager', tab: 'positions', desc: 'Active trades — P&L, stops, trim levels, and open slot count' },
-                    { icon: '📦', label: 'LT Portfolio',     tab: 'portfolio', desc: '30-stock + 10-ETF long-term portfolio with sector allocation view' },
-                    { icon: '🔄', label: 'Rotation Engine',  tab: 'rotation',  desc: 'Sector rotation signals — relative strength ranking by sector', color: '#34d399' },
+                    { icon: '💼', label: 'Position Manager', tab: 'positions',      desc: 'Active trades — P&L, stops, trim levels, and open slot count' },
+                    { icon: '📦', label: 'LT Portfolio',     tab: 'portfolio',      desc: '30-stock + 10-ETF long-term portfolio with sector allocation view' },
+                    { icon: '🔄', label: 'Rotation Engine',  tab: 'rotation',       desc: 'Sector rotation signals — relative strength ranking by sector', color: '#34d399' },
+                    { icon: '📄', label: 'Paper Portfolio',  tab: 'paper-portfolio', desc: 'Live conviction picks tracker — $5k · 10 slots · -8% stop', color: '#FBBF24' },
+                ]
+            },
+            crypto: {
+                icon: '₿', label: 'Crypto', desc: 'Intraday BTC/ETH/SOL signals on 4H bars — RSI, EMA trend, volume — with paper portfolio tracking',
+                tabs: [
+                    { icon: '₿',  label: 'Signals',    tab: 'crypto-signals',   desc: 'Live BTC/ETH/SOL signals — conviction score, RSI, EMA trend, volume ratio', color: '#F7931A', extraClick: 'loadCryptoSignals()' },
+                    { icon: '📄', label: 'Paper Trade', tab: 'crypto-portfolio', desc: '$1,000 · 3 slots · -5% stop — paper trades driven by crypto signals', color: '#FBBF24', extraClick: 'loadCryptoPaperPortfolio()' },
                 ]
             },
             operations: {
@@ -4782,183 +4920,305 @@
             fetch('/trading/data/paper_portfolio.json')
                 .then(r => r.json())
                 .then(pp => {
-                    // Dates
+                    const gen = pp.generated ? pp.generated.slice(0,16).replace('T',' ') : '';
                     document.getElementById('pp-dates').textContent =
-                        `Started: ${pp.start_date} | Updated: ${pp.generated}`;
+                        `Started: ${pp.start_date || '—'} · Updated: ${gen}`;
 
-                    // Summary cards
-                    document.getElementById('pp-value').textContent = '$' + pp.total_value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    // ── Summary cards ────────────────────────────────────────
+                    document.getElementById('pp-value').textContent =
+                        '$' + (pp.total_value || 0).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
                     const retEl = document.getElementById('pp-return');
-                    retEl.textContent = (pp.total_return_pct >= 0 ? '+' : '') + pp.total_return_pct.toFixed(2) + '%';
-                    retEl.style.color = pp.total_return_pct >= 0 ? '#10B981' : '#EF4444';
-                    const retDolEl = document.getElementById('pp-return-dollar');
-                    retDolEl.textContent = (pp.total_return_dollar >= 0 ? '+$' : '-$') + Math.abs(pp.total_return_dollar).toFixed(2);
-                    retDolEl.style.color = pp.total_return_dollar >= 0 ? '#10B981' : '#EF4444';
-                    document.getElementById('pp-cash').textContent = '$' + pp.cash.toFixed(0);
-                    document.getElementById('pp-positions').textContent = pp.num_positions;
+                    const pnl = pp.pnl_pct || 0;
+                    retEl.textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%';
+                    retEl.style.color = pnl >= 0 ? '#10B981' : '#EF4444';
 
-                    // Equity curve — SVG line chart with SPY/QQQ benchmark
-                    const chartDiv = document.getElementById('pp-equity-chart');
-                    const curve = pp.equity_curve || [];
-                    const bench = pp.benchmark || [];
-                    if (curve.length > 1) {
-                        // Build lookup maps (return_pct indexed from start)
-                        const portMap = {};
-                        curve.forEach(d => portMap[d.date] = d.total_return_pct);
-                        const spyMap = {}, qqqMap = {};
-                        bench.forEach(d => {
-                            if (d.spy_return_pct != null) spyMap[d.date] = d.spy_return_pct;
-                            if (d.qqq_return_pct != null) qqqMap[d.date] = d.qqq_return_pct;
-                        });
+                    const wrEl = document.getElementById('pp-win-rate');
+                    const wr = pp.win_rate || 0;
+                    wrEl.textContent = pp.closed_count > 0 ? wr.toFixed(1) + '%' : '—';
+                    wrEl.style.color = wr >= 55 ? '#10B981' : wr >= 45 ? '#F59E0B' : pp.closed_count > 0 ? '#EF4444' : '#CBD5E1';
 
-                        const dates = curve.map(d => d.date);
-                        const portVals = dates.map(d => portMap[d] ?? 0);
-                        const spyVals  = dates.map(d => spyMap[d]  ?? null);
-                        const qqqVals  = dates.map(d => qqqMap[d]  ?? null);
+                    const avgEl = document.getElementById('pp-avg-trade');
+                    const avg = pp.avg_trade_pnl || 0;
+                    avgEl.textContent = pp.closed_count > 0 ? (avg >= 0 ? '+' : '') + avg.toFixed(2) + '%' : '—';
+                    avgEl.style.color = avg >= 0 ? '#10B981' : '#EF4444';
 
-                        const allVals = [...portVals, ...spyVals.filter(v=>v!=null), ...qqqVals.filter(v=>v!=null)];
-                        const minV = Math.min(-0.5, ...allVals);
-                        const maxV = Math.max(0.5, ...allVals);
-                        const range = maxV - minV || 1;
+                    document.getElementById('pp-positions').textContent =
+                        `${pp.open_count || 0} / ${pp.closed_count || 0}`;
 
-                        const W = 500, H = 120;
-                        const pad = { t: 16, b: 22, l: 36, r: 10 };
-                        const cW = W - pad.l - pad.r;
-                        const cH = H - pad.t - pad.b;
-                        const n = dates.length;
-                        const xP = i => pad.l + (n > 1 ? (i / (n - 1)) * cW : cW / 2);
-                        const yP = v => pad.t + (1 - (v - minV) / range) * cH;
-                        const zeroY = yP(0);
-
-                        const makeLine = (vals, color, sw=1.8) => {
-                            const pts = vals.map((v, i) => v != null ? `${xP(i).toFixed(1)},${yP(v).toFixed(1)}` : null);
-                            // split on nulls
-                            let paths = '', seg = [];
-                            pts.forEach(p => {
-                                if (p) { seg.push(p); }
-                                else if (seg.length > 1) { paths += `<polyline points="${seg.join(' ')}" stroke="${color}" stroke-width="${sw}" fill="none" stroke-linejoin="round"/>`; seg = []; }
-                                else { seg = []; }
-                            });
-                            if (seg.length > 1) paths += `<polyline points="${seg.join(' ')}" stroke="${color}" stroke-width="${sw}" fill="none" stroke-linejoin="round"/>`;
-                            return paths;
-                        };
-
-                        // Y-axis labels
-                        const yLabels = [minV, 0, maxV].map(v => `<text x="${pad.l-4}" y="${yP(v)+4}" text-anchor="end" fill="#475569" font-size="9">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</text>`).join('');
-
-                        // X-axis date labels (first and last)
-                        const xLabels = `
-                            <text x="${xP(0)}" y="${H-4}" text-anchor="start" fill="#475569" font-size="9">${dates[0].slice(5)}</text>
-                            <text x="${xP(n-1)}" y="${H-4}" text-anchor="end" fill="#475569" font-size="9">${dates[n-1].slice(5)}</text>`;
-
-                        // Final values for tooltip dots
-                        const lastPort = portVals[n-1];
-                        const lastSpy  = spyVals.filter(v=>v!=null).pop() ?? null;
-                        const lastQqq  = qqqVals.filter(v=>v!=null).pop() ?? null;
-                        const portColor = lastPort >= 0 ? '#10B981' : '#EF4444';
-
-                        chartDiv.style.height = 'auto';
-                        chartDiv.innerHTML = `
-                            <svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block;">
-                                <!-- Grid -->
-                                <line x1="${pad.l}" y1="${zeroY}" x2="${W-pad.r}" y2="${zeroY}" stroke="#334155" stroke-width="1" stroke-dasharray="4,3"/>
-                                <!-- Benchmark lines (behind portfolio) -->
-                                ${makeLine(spyVals, '#64748B', 1.5)}
-                                ${makeLine(qqqVals, '#3B82F6', 1.5)}
-                                <!-- Portfolio line (on top) -->
-                                ${makeLine(portVals, portColor, 2.2)}
-                                <!-- End dots -->
-                                ${lastSpy  != null ? `<circle cx="${xP(n-1)}" cy="${yP(lastSpy)}" r="3" fill="#64748B"/>` : ''}
-                                ${lastQqq  != null ? `<circle cx="${xP(n-1)}" cy="${yP(lastQqq)}" r="3" fill="#3B82F6"/>` : ''}
-                                <circle cx="${xP(n-1)}" cy="${yP(lastPort)}" r="3.5" fill="${portColor}"/>
-                                <!-- Axis labels -->
-                                ${yLabels}${xLabels}
-                                <!-- Legend -->
-                                <circle cx="${pad.l+2}" cy="9" r="3" fill="${portColor}"/>
-                                <text x="${pad.l+8}" y="13" fill="${portColor}" font-size="9" font-weight="600">Portfolio ${lastPort >= 0 ? '+' : ''}${lastPort.toFixed(2)}%</text>
-                                <circle cx="${pad.l+90}" cy="9" r="3" fill="#64748B"/>
-                                <text x="${pad.l+96}" y="13" fill="#64748B" font-size="9">SPY ${lastSpy != null ? (lastSpy >= 0 ? '+' : '') + lastSpy.toFixed(2) + '%' : 'N/A'}</text>
-                                <circle cx="${pad.l+148}" cy="9" r="3" fill="#3B82F6"/>
-                                <text x="${pad.l+154}" y="13" fill="#3B82F6" font-size="9">QQQ ${lastQqq != null ? (lastQqq >= 0 ? '+' : '') + lastQqq.toFixed(2) + '%' : 'N/A'}</text>
-                            </svg>`;
+                    // ── Open positions table ─────────────────────────────────
+                    const tbody = document.getElementById('pp-holdings-body');
+                    const positions = pp.positions || [];
+                    if (positions.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No open positions.</td></tr>';
                     } else {
-                        chartDiv.innerHTML = '<div style="color:#64748b;text-align:center;width:100%;padding:20px;font-size:0.8rem;">Equity curve builds over time...</div>';
-                    }
-
-                    // Today's actions
-                    const actionsDiv = document.getElementById('pp-actions');
-                    const actions = pp.today_actions || [];
-                    if (actions.length === 0) {
-                        actionsDiv.innerHTML = '<div style="color:#64748b;text-align:center;padding:10px;font-size:0.85rem;">No actions today — portfolio holding steady.</div>';
-                    } else {
-                        actionsDiv.innerHTML = actions.map(a => {
-                            let bg, border, icon, text;
-                            if (a.action === 'BUY' || a.action === 'ROTATE_IN') {
-                                bg = 'rgba(16,185,129,0.08)'; border = 'rgba(16,185,129,0.3)'; icon = a.action === 'ROTATE_IN' ? '🔄' : '🟢';
-                                const stageStr = a.cycle_stage !== undefined ? ` · Stage:${a.cycle_stage}` : '';
-                                text = `<b>${a.action === 'ROTATE_IN' ? 'ROTATE IN' : 'BUY'} ${a.symbol}</b>: ${a.shares} shares @ $${a.price} = $${a.cost.toFixed(2)}${stageStr}`;
-                            } else if (a.action === 'EXIT' || a.action === 'ROTATE_OUT') {
-                                bg = 'rgba(239,68,68,0.08)'; border = 'rgba(239,68,68,0.3)'; icon = a.action === 'ROTATE_OUT' ? '🔄' : '🔴';
-                                const pnl = a.pnl_pct !== undefined ? ` | P&L: <span style="color:${a.pnl_pct >= 0 ? '#10B981' : '#EF4444'};">${a.pnl_pct >= 0 ? '+' : ''}${a.pnl_pct.toFixed(1)}%</span>` : '';
-                                text = `<b>${a.action === 'ROTATE_OUT' ? 'ROTATE OUT' : 'EXIT'} ${a.symbol}</b>${pnl} <span style="color:#64748b;font-size:0.75rem;">${a.reason || ''}</span>`;
-                            } else {
-                                bg = 'rgba(251,191,36,0.08)'; border = 'rgba(251,191,36,0.3)'; icon = '🟡';
-                                text = `<b>${a.action} ${a.symbol}</b>: Sold ${a.shares_sold} shares @ $${a.price} = $${a.proceeds.toFixed(2)} | ${a.shares_remaining} remaining`;
-                            }
-                            return `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:8px 12px;font-size:0.8rem;">
-                                ${icon} ${text}</div>`;
+                        tbody.innerHTML = positions.map(p => {
+                            const pct = p.pnl_pct || 0;
+                            const pnlColor = pct >= 0 ? '#10B981' : pct > -4 ? '#F59E0B' : '#EF4444';
+                            const stopDist = p.stop_price && p.current_price
+                                ? ((p.stop_price - p.current_price) / p.current_price * 100).toFixed(1)
+                                : '—';
+                            // Stop-distance bar: 100% = full room, 0% = at stop
+                            const roomPct = Math.max(0, Math.min(100, 100 - (Math.abs(Math.min(pct, 0)) / 8 * 100)));
+                            const barClr = roomPct >= 60 ? '#10B981' : roomPct >= 30 ? '#F59E0B' : '#EF4444';
+                            const scanners = (p.scanners || '').split(',').map(s => s.trim()).filter(Boolean);
+                            const scanBadges = scanners.slice(0,3).map(s => {
+                                const c = _SETUP_SC_COLORS[s] || '#818cf8';
+                                const lbl = _SETUP_SC_LABEL[s] || s;
+                                return `<span style="display:inline-block;background:${c}1a;border:1px solid ${c}33;border-radius:3px;padding:1px 5px;font-size:0.58rem;color:${c};margin-right:2px;">${lbl}</span>`;
+                            }).join('');
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
+                                <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pnlColor};">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
+                                <td style="padding:7px 8px;min-width:90px;">
+                                    <div style="text-align:right;font-size:0.72rem;color:#EF4444;">$${(p.stop_price||0).toFixed(2)} <span style="color:#475569;font-size:0.62rem;">${stopDist}%</span></div>
+                                    <div style="margin-top:3px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;">
+                                        <div style="width:${roomPct}%;height:100%;background:${barClr};border-radius:2px;transition:width 0.6s;"></div>
+                                    </div>
+                                </td>
+                                <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${p.days_held||1}</td>
+                                <td style="padding:7px 8px;text-align:right;color:#FBBF24;">${Math.round(p.conviction_score||0)}</td>
+                                <td style="padding:7px 8px;">${scanBadges}</td>
+                            </tr>`;
                         }).join('');
                     }
 
-                    // Holdings table
-                    const tbody = document.getElementById('pp-holdings-body');
-                    if (!pp.positions || pp.positions.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="12" style="padding:15px;text-align:center;color:#64748b;">No positions yet.</td></tr>';
+                    // ── Closed trades table ──────────────────────────────────
+                    const ctbody = document.getElementById('pp-closed-body');
+                    const closed = (pp.closed_trades || []).slice().reverse().slice(0, 20);
+                    if (closed.length === 0) {
+                        ctbody.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No closed trades yet.</td></tr>';
                     } else {
-                        tbody.innerHTML = pp.positions.map(p => {
-                            const pnlColor = p.pnl_pct >= 0 ? '#10B981' : '#EF4444';
-                            const pnlSign = p.pnl_pct >= 0 ? '+' : '';
-                            const dolSign = p.pnl_dollar >= 0 ? '+$' : '-$';
-                            const trimBadge = p.trim2_hit ? '<span style="color:#FBBF24;font-size:0.65rem;">T1+T2</span>' :
-                                              p.trim1_hit ? '<span style="color:#FBBF24;font-size:0.65rem;">T1</span>' : '';
-                            const stage = p.cycle_stage !== undefined ? p.cycle_stage : 0;
-                            const stageColor = stage >= 70 ? '#10B981' : stage >= 40 ? '#F59E0B' : '#EF4444';
-                            const trend = p.trend_score !== undefined ? p.trend_score : 0;
-                            const trendColor = trend >= 80 ? '#10B981' : trend >= 60 ? '#FBBF24' : '#EF4444';
-                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
-                                <td style="padding:6px;font-weight:bold;">${p.symbol} ${trimBadge}</td>
-                                <td style="padding:6px;text-align:right;">${p.shares}${p.shares !== p.original_shares ? '<span style="color:#64748b;font-size:0.7rem;">/' + p.original_shares + '</span>' : ''}</td>
-                                <td style="padding:6px;text-align:right;">$${p.entry_price}</td>
-                                <td style="padding:6px;text-align:right;">$${p.current_price}</td>
-                                <td style="padding:6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${p.pnl_pct.toFixed(2)}%</td>
-                                <td style="padding:6px;text-align:right;color:${pnlColor};">${dolSign}${Math.abs(p.pnl_dollar).toFixed(2)}</td>
-                                <td style="padding:6px;text-align:right;">$${p.market_value.toFixed(0)}</td>
-                                <td style="padding:6px;text-align:right;color:#64748b;">${p.weight_pct}%</td>
-                                <td style="padding:6px;text-align:center;">${p.days_held}</td>
-                                <td style="padding:6px;text-align:center;font-weight:bold;color:${stageColor};">${stage}</td>
-                                <td style="padding:6px;text-align:center;font-weight:bold;color:${trendColor};">${trend}</td>
-                                <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim1_target}</td>
-                                <td style="padding:6px;text-align:right;color:#64748b;font-size:0.75rem;">$${p.trim2_target}</td>
+                        ctbody.innerHTML = closed.map(t => {
+                            const pct = t.pnl_pct || 0;
+                            const dol = t.pnl_dollars || 0;
+                            const pnlColor = pct >= 0 ? '#10B981' : '#EF4444';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${t.symbol}</td>
+                                <td style="padding:7px 8px;color:#64748b;">${t.entry_date}</td>
+                                <td style="padding:7px 8px;color:#64748b;">${t.exit_date}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(t.entry_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(t.exit_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pnlColor};">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
+                                <td style="padding:7px 8px;text-align:right;color:${pnlColor};">${dol >= 0 ? '+$' : '-$'}${Math.abs(dol).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${t.days_held||'—'}</td>
+                                <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_reason||''}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+                })
+                .catch(err => {
+                    console.error('Paper portfolio load error:', err);
+                    document.getElementById('pp-holdings-body').innerHTML =
+                        '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Portfolio data unavailable.</td></tr>';
+                });
+        }
+
+        // ══════════════════════════════════════════════════════════════════════
+        // CRYPTO SIGNALS
+        // ══════════════════════════════════════════════════════════════════════
+
+        const _SIG_COLOR  = { BUY:'#10B981', WATCH:'#3B82F6', HOLD:'#F59E0B', AVOID:'#EF4444' };
+        const _SIG_BG     = { BUY:'rgba(16,185,129,0.12)', WATCH:'rgba(59,130,246,0.12)', HOLD:'rgba(245,158,11,0.1)', AVOID:'rgba(239,68,68,0.1)' };
+        const _RSI_COLOR  = r => r > 72 ? '#EF4444' : r >= 65 ? '#F59E0B' : r >= 45 ? '#10B981' : r >= 35 ? '#F59E0B' : '#EF4444';
+
+        function loadCryptoSignals() {
+            fetch('/trading/data/crypto_signals.json?t=' + Date.now())
+                .then(r => r.json())
+                .then(data => {
+                    const gen = data.generated ? data.generated.slice(0,16).replace('T',' ') : '';
+                    document.getElementById('cs-meta').textContent = `Updated: ${gen} UTC · 4H bars · Polygon.io`;
+
+                    const signals = data.signals || [];
+
+                    // ── Coin cards ────────────────────────────────────────────
+                    const cardsEl = document.getElementById('cs-cards');
+                    if (signals.length === 0) {
+                        cardsEl.innerHTML = '<div style="color:#64748b;grid-column:1/-1;text-align:center;padding:20px;">No signal data available.</div>';
+                    } else {
+                        cardsEl.innerHTML = signals.map(s => {
+                            const sigColor = _SIG_COLOR[s.signal] || '#94A3B8';
+                            const sigBg    = _SIG_BG[s.signal]    || 'rgba(148,163,184,0.08)';
+                            const chgColor = s.change_24h >= 0 ? '#10B981' : '#EF4444';
+                            const convBar  = Math.min(100, s.conviction || 0);
+                            const convClr  = convBar >= 70 ? '#10B981' : convBar >= 50 ? '#F59E0B' : '#EF4444';
+                            const coinColor = s.color || '#94A3B8';
+                            return `
+                            <div style="background:rgba(30,41,59,0.7);border-radius:12px;padding:20px;border:1px solid ${coinColor}33;position:relative;overflow:hidden;">
+                                <div style="position:absolute;top:0;right:0;width:60px;height:60px;background:${coinColor}0d;border-radius:0 12px 0 60px;"></div>
+                                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+                                    <div>
+                                        <div style="font-size:1.1rem;font-weight:800;color:${coinColor};">${s.label}</div>
+                                        <div style="font-size:0.68rem;color:#64748b;">${s.name}</div>
+                                    </div>
+                                    <div style="background:${sigBg};border:1px solid ${sigColor}44;border-radius:6px;padding:3px 10px;font-size:0.72rem;font-weight:700;color:${sigColor};">${s.signal}</div>
+                                </div>
+                                <div style="font-size:1.8rem;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace;margin-bottom:4px;">
+                                    $${Number(s.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+                                </div>
+                                <div style="font-size:0.75rem;font-weight:600;color:${chgColor};margin-bottom:14px;">
+                                    ${s.change_24h >= 0 ? '+' : ''}${(s.change_24h||0).toFixed(2)}% (24H)
+                                </div>
+                                <!-- Conviction bar -->
+                                <div style="margin-bottom:10px;">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                                        <span style="font-size:0.62rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;">Conviction</span>
+                                        <span style="font-size:0.72rem;font-weight:700;color:${convClr};">${convBar}</span>
+                                    </div>
+                                    <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;">
+                                        <div style="width:${convBar}%;height:100%;background:${convClr};border-radius:2px;transition:width 0.6s;"></div>
+                                    </div>
+                                </div>
+                                <!-- Mini indicators -->
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:0.68rem;">
+                                    <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:5px 8px;">
+                                        <span style="color:#64748b;">RSI </span>
+                                        <span style="color:${_RSI_COLOR(s.rsi)};font-weight:600;">${(s.rsi||0).toFixed(1)}</span>
+                                    </div>
+                                    <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:5px 8px;">
+                                        <span style="color:#64748b;">Vol </span>
+                                        <span style="color:${(s.volume_ratio||0) >= 1.5 ? '#10B981' : '#94A3B8'};font-weight:600;">${(s.volume_ratio||0).toFixed(2)}x</span>
+                                    </div>
+                                    <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:5px 8px;">
+                                        <span style="color:#64748b;">EMA20 </span>
+                                        <span style="color:${(s.ema20_dist_pct||0) >= 0 ? '#10B981' : '#EF4444'};font-weight:600;">${(s.ema20_dist_pct||0) >= 0 ? '+' : ''}${(s.ema20_dist_pct||0).toFixed(1)}%</span>
+                                    </div>
+                                    <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:5px 8px;">
+                                        <span style="color:#64748b;">EMA50 </span>
+                                        <span style="color:${(s.ema50_dist_pct||0) >= 0 ? '#10B981' : '#EF4444'};font-weight:600;">${(s.ema50_dist_pct||0) >= 0 ? '+' : ''}${(s.ema50_dist_pct||0).toFixed(1)}%</span>
+                                    </div>
+                                </div>
+                            </div>`;
+                        }).join('');
+                    }
+
+                    // ── Detail table ──────────────────────────────────────────
+                    const tbody = document.getElementById('cs-table-body');
+                    if (signals.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No data.</td></tr>';
+                    } else {
+                        tbody.innerHTML = signals.map(s => {
+                            const sigColor = _SIG_COLOR[s.signal] || '#94A3B8';
+                            const chgColor = s.change_24h >= 0 ? '#10B981' : '#EF4444';
+                            const barTs    = s.bar_time ? s.bar_time.replace('T',' ').replace('Z','') : '—';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <td style="padding:7px 10px;font-weight:700;color:${s.color||'#e2e8f0'};">${s.label}
+                                    <span style="font-size:0.62rem;font-weight:400;color:#475569;margin-left:4px;">${s.name}</span></td>
+                                <td style="padding:7px 10px;text-align:right;font-family:'JetBrains Mono',monospace;">$${Number(s.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+                                <td style="padding:7px 10px;text-align:right;color:${chgColor};font-weight:600;">${s.change_24h >= 0 ? '+' : ''}${(s.change_24h||0).toFixed(2)}%</td>
+                                <td style="padding:7px 10px;text-align:right;color:${_RSI_COLOR(s.rsi)};font-weight:600;">${(s.rsi||0).toFixed(1)}</td>
+                                <td style="padding:7px 10px;text-align:right;color:#94A3B8;font-family:'JetBrains Mono',monospace;">$${Number(s.ema20||0).toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+                                <td style="padding:7px 10px;text-align:right;color:#94A3B8;font-family:'JetBrains Mono',monospace;">$${Number(s.ema50||0).toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+                                <td style="padding:7px 10px;text-align:right;color:${(s.ema20_dist_pct||0) >= 0 ? '#10B981' : '#EF4444'};font-weight:600;">${(s.ema20_dist_pct||0) >= 0 ? '+' : ''}${(s.ema20_dist_pct||0).toFixed(2)}%</td>
+                                <td style="padding:7px 10px;text-align:right;color:${(s.volume_ratio||0) >= 1.5 ? '#10B981' : '#94A3B8'};">${(s.volume_ratio||0).toFixed(2)}x</td>
+                                <td style="padding:7px 10px;color:#475569;font-size:0.7rem;">${barTs} UTC</td>
+                            </tr>`;
+                        }).join('');
+                    }
+                })
+                .catch(err => {
+                    console.error('Crypto signals load error:', err);
+                    document.getElementById('cs-cards').innerHTML =
+                        '<div style="color:#64748b;grid-column:1/-1;text-align:center;padding:20px;">Signal data unavailable — scanner may not have run yet.</div>';
+                });
+        }
+
+        function loadCryptoPaperPortfolio() {
+            fetch('/trading/data/crypto_paper_portfolio.json?t=' + Date.now())
+                .then(r => r.json())
+                .then(cp => {
+                    const gen = cp.generated ? cp.generated.slice(0,16).replace('T',' ') : '';
+                    document.getElementById('cp-dates').textContent =
+                        `Started: ${cp.start_date || '—'} · Updated: ${gen}`;
+
+                    // Summary cards
+                    document.getElementById('cp-value').textContent =
+                        '$' + (cp.total_value || 0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+                    const retEl = document.getElementById('cp-return');
+                    const pnl = cp.pnl_pct || 0;
+                    retEl.textContent  = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%';
+                    retEl.style.color  = pnl >= 0 ? '#10B981' : '#EF4444';
+
+                    const wrEl = document.getElementById('cp-win-rate');
+                    const wr = cp.win_rate || 0;
+                    wrEl.textContent = cp.closed_count > 0 ? wr.toFixed(1) + '%' : '—';
+                    wrEl.style.color = wr >= 55 ? '#10B981' : wr >= 45 ? '#F59E0B' : cp.closed_count > 0 ? '#EF4444' : '#CBD5E1';
+
+                    const avgEl = document.getElementById('cp-avg-trade');
+                    const avg = cp.avg_trade_pnl || 0;
+                    avgEl.textContent = cp.closed_count > 0 ? (avg >= 0 ? '+' : '') + avg.toFixed(2) + '%' : '—';
+                    avgEl.style.color = avg >= 0 ? '#10B981' : '#EF4444';
+
+                    document.getElementById('cp-positions').textContent =
+                        `${cp.open_count || 0} / ${cp.closed_count || 0}`;
+
+                    // Open positions
+                    const tbody = document.getElementById('cp-holdings-body');
+                    const positions = cp.positions || [];
+                    if (positions.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">No open positions.</td></tr>';
+                    } else {
+                        tbody.innerHTML = positions.map(p => {
+                            const pct = p.pnl_pct || 0;
+                            const pnlColor = pct >= 0 ? '#10B981' : pct > -2.5 ? '#F59E0B' : '#EF4444';
+                            const sigColor = _SIG_COLOR[p.signal] || '#94A3B8';
+                            const stopDist = p.stop_price && p.current_price
+                                ? ((p.stop_price - p.current_price) / p.current_price * 100).toFixed(1)
+                                : '—';
+                            const roomPct  = Math.max(0, Math.min(100, 100 - (Math.abs(Math.min(pct,0)) / 5 * 100)));
+                            const barClr   = roomPct >= 60 ? '#10B981' : roomPct >= 30 ? '#F59E0B' : '#EF4444';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <td style="padding:7px 8px;font-weight:700;color:#F7931A;">${p.label}
+                                    <span style="font-size:0.62rem;font-weight:400;color:#475569;margin-left:3px;">${p.name||''}</span></td>
+                                <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
+                                <td style="padding:7px 8px;text-align:right;font-family:'JetBrains Mono',monospace;">$${Number(p.entry_price||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+                                <td style="padding:7px 8px;text-align:right;font-family:'JetBrains Mono',monospace;">$${Number(p.current_price||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+                                <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pnlColor};">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
+                                <td style="padding:7px 8px;min-width:90px;">
+                                    <div style="text-align:right;font-size:0.72rem;color:#EF4444;">$${Number(p.stop_price||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})} <span style="color:#475569;font-size:0.62rem;">${stopDist}%</span></div>
+                                    <div style="margin-top:3px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;">
+                                        <div style="width:${roomPct}%;height:100%;background:${barClr};border-radius:2px;transition:width 0.6s;"></div>
+                                    </div>
+                                </td>
+                                <td style="padding:7px 8px;text-align:center;">
+                                    <span style="background:${_SIG_BG[p.signal]||'rgba(148,163,184,0.08)'};border:1px solid ${sigColor}44;border-radius:4px;padding:2px 7px;font-size:0.62rem;font-weight:700;color:${sigColor};">${p.signal||'—'}</span>
+                                </td>
+                                <td style="padding:7px 8px;text-align:right;color:#FBBF24;">${p.conviction||0}</td>
                             </tr>`;
                         }).join('');
                     }
 
                     // Closed trades
-                    const ct = pp.closed_trades;
-                    document.getElementById('pp-closed-total').textContent = ct.total;
-                    const wrEl = document.getElementById('pp-win-rate');
-                    wrEl.textContent = ct.total > 0 ? ct.win_rate.toFixed(1) + '%' : '-';
-                    wrEl.style.color = ct.win_rate >= 50 ? '#10B981' : ct.total > 0 ? '#F59E0B' : '#CBD5E1';
-                    const realEl = document.getElementById('pp-realized');
-                    realEl.textContent = (ct.total_realized >= 0 ? '+$' : '-$') + Math.abs(ct.total_realized).toFixed(2);
-                    realEl.style.color = ct.total_realized >= 0 ? '#10B981' : '#EF4444';
-                    document.getElementById('pp-days-running').textContent = pp.stats.days_running;
-
+                    const ctbody = document.getElementById('cp-closed-body');
+                    const closed = (cp.closed_trades || []).slice().reverse().slice(0,20);
+                    if (closed.length === 0) {
+                        ctbody.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">No closed trades yet.</td></tr>';
+                    } else {
+                        ctbody.innerHTML = closed.map(t => {
+                            const pct = t.pnl_pct || 0;
+                            const dol = t.pnl_dollars || 0;
+                            const pnlColor = pct >= 0 ? '#10B981' : '#EF4444';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <td style="padding:7px 8px;font-weight:700;color:#F7931A;">${t.label}</td>
+                                <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.entry_date}</td>
+                                <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_date}</td>
+                                <td style="padding:7px 8px;text-align:right;font-family:'JetBrains Mono',monospace;">$${Number(t.entry_price||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+                                <td style="padding:7px 8px;text-align:right;font-family:'JetBrains Mono',monospace;">$${Number(t.exit_price||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+                                <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pnlColor};">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
+                                <td style="padding:7px 8px;text-align:right;color:${pnlColor};">${dol >= 0 ? '+$' : '-$'}${Math.abs(dol).toFixed(2)}</td>
+                                <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_reason||''}</td>
+                            </tr>`;
+                        }).join('');
+                    }
                 })
                 .catch(err => {
-                    console.error('Paper portfolio load error:', err);
-                    document.getElementById('pp-actions').innerHTML =
-                        '<div style="color:#64748b;text-align:center;padding:15px;font-size:0.85rem;">Paper portfolio not yet initialized — starts Monday.</div>';
+                    console.error('Crypto paper portfolio load error:', err);
+                    document.getElementById('cp-holdings-body').innerHTML =
+                        '<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">Portfolio data unavailable.</td></tr>';
                 });
         }
 
@@ -4974,6 +5234,7 @@
         let _trSort       = { col: 'trend_score', dir: 'desc' };
         let _trPage       = 0;
         let _trEnriched   = false;        // has screener join been done?
+        let _trEnrichMap  = null;         // cached sector/tier map for re-applying on auto-refresh
         let _trNamesEnriched = false;     // has name join from _lookupIndex been done?
         const TR_PAGE_SIZE = 30;
 
@@ -4983,6 +5244,15 @@
         const _trRsiColor   = r => r == null ? '#475569' : r >= 70 ? '#EF4444' : r >= 60 ? '#F59E0B' : r >= 45 ? '#10B981' : '#94A3B8';
 
         // ── Sector/tier enrichment (lazy, from performance_screener.json) ────
+        function _trApplyEnrichMap() {
+            if (!_trEnrichMap) return;
+            _trAll.forEach(t => {
+                const info = _trEnrichMap[t.symbol] || {};
+                t._sector = info.sec || '';
+                t._tier   = info.tier || '';
+            });
+        }
+
         function loadTrEnrichment() {
             if (_trEnriched) { trPopulateSectorDropdown(); return; }
             fetch('/trading/data/performance_screener.json')
@@ -4991,11 +5261,8 @@
                     if (!d || !d.symbols) return;
                     const map = {};
                     d.symbols.forEach(s => { map[s.s] = { sec: s.sec || '', tier: s.tier || '' }; });
-                    _trAll.forEach(t => {
-                        const info = map[t.symbol] || {};
-                        t._sector = info.sec || '';
-                        t._tier   = info.tier || '';
-                    });
+                    _trEnrichMap = map;
+                    _trApplyEnrichMap();
                     _trEnriched = true;
                     trPopulateSectorDropdown();
                     trRender();
@@ -5215,6 +5482,7 @@
                 .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
                 .then(tr => {
                     _trAll = tr.top_trends || [];
+                    _trApplyEnrichMap();
                     _dom.set('trend-generated', `${tr.generated || 'Unknown'} · ${tr.total_ranked || _trAll.length} symbols ranked`);
                     // Remove loading class and set counts
                     ['tr-buy-count','tr-watch-count','tr-extended-count','tr-pullback-count'].forEach(id => {
@@ -6700,20 +6968,6 @@
                     return;
                 }
 
-                // Scanner badge colors (match Signal Explorer)
-                const SCANNER_COLORS = {
-                    db_scanner: '#3B82F6', db_scanner_institutional: '#F97316',
-                    db_scanner_v3_compression: '#A855F7', db_scanner_etf: '#10B981',
-                    db_scanner_mega_under50: '#EF4444', db_scanner_setups: '#06B6D4',
-                    db_scanner_unified: '#FBBF24', confluence: '#8B5CF6'
-                };
-                const SCANNER_LABELS = {
-                    db_scanner: 'ENH', db_scanner_institutional: 'INST',
-                    db_scanner_v3_compression: 'V3', db_scanner_etf: 'ETF',
-                    db_scanner_mega_under50: 'U50', db_scanner_setups: 'SETUP',
-                    db_scanner_unified: 'UNI', confluence: 'CONF'
-                };
-
                 grid.innerHTML = top.map((p, i) => {
                     const conv    = p.conviction_score || 0;
                     const convC   = conv >= 80 ? '#22C55E' : conv >= 60 ? '#3B82F6' : '#F59E0B';
@@ -6728,8 +6982,8 @@
                         : p.conf_score >= 6
                         ? `<span style="color:#64748b;font-size:0.68rem;">C${Number(p.conf_score).toFixed(1)}</span>` : '';
                     const scannerBadges = scanners.map(s => {
-                        const col = SCANNER_COLORS[s] || '#64748b';
-                        const lbl = SCANNER_LABELS[s] || s.replace('db_scanner_','').toUpperCase();
+                        const col = _SETUP_SC_COLORS[s] || '#64748b';
+                        const lbl = _SETUP_SC_LABEL[s] || s;
                         return `<span style="background:${col}22;border:1px solid ${col}55;color:${col};border-radius:4px;padding:1px 6px;font-size:0.65rem;font-weight:600;">${lbl}</span>`;
                     }).join('');
                     const stage2Badge = p.stage2 ? `<span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10B981;border-radius:4px;padding:1px 5px;font-size:0.65rem;font-weight:600;margin-left:4px;">S2</span>` : '';
@@ -9371,6 +9625,135 @@
 
 
         // ═══════════════════════════════════════════════════════
+        // 🌊 FLOW CONVICTION PORTFOLIO TAB
+        // ═══════════════════════════════════════════════════════
+
+        let _fpData = null;
+
+        async function loadFlowPortfolio(force = false) {
+            if (_fpData && !force) { fpRender(); return; }
+            document.getElementById('fp-content').innerHTML = '<div style="padding:40px;text-align:center;color:#475569;">Loading…</div>';
+            try {
+                const r = await fetch('data/flow_conviction_portfolio.json?t=' + Date.now());
+                if (!r.ok) throw new Error('not found');
+                _fpData = await r.json();
+                fpRender();
+            } catch(e) {
+                document.getElementById('fp-meta').textContent = 'Failed to load flow_conviction_portfolio.json';
+                document.getElementById('fp-content').innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444;">Data not available — run flow_conviction_portfolio.py</div>';
+            }
+        }
+
+        function fpRender() {
+            const d = _fpData;
+            document.getElementById('fp-meta').textContent =
+                `Generated ${d.generated_at} · flow date ${d.flow_date} · ${d.eligible_count}/${d.universe_size} eligible · ${d.excluded_count} excluded (OUTFLOW)`;
+            document.getElementById('fp-stats').textContent =
+                `${d.portfolio_size} picks`;
+
+            const flowColors = {
+                INFLOW:       { bg: 'rgba(74,222,128,0.12)',  border: 'rgba(74,222,128,0.4)',  text: '#4ade80'  },
+                ACCUMULATING: { bg: 'rgba(34,211,238,0.10)',  border: 'rgba(34,211,238,0.35)', text: '#22d3ee'  },
+                NEUTRAL:      { bg: 'rgba(148,163,184,0.08)', border: 'rgba(148,163,184,0.2)', text: '#94a3b8'  },
+                DISTRIBUTING: { bg: 'rgba(249,115,22,0.10)',  border: 'rgba(249,115,22,0.35)', text: '#f97316'  },
+                OUTFLOW:      { bg: 'rgba(239,68,68,0.12)',   border: 'rgba(239,68,68,0.4)',   text: '#ef4444'  },
+            };
+
+            function flowBadge(label) {
+                const c = flowColors[label] || flowColors.NEUTRAL;
+                return `<span style="background:${c.bg};border:1px solid ${c.border};color:${c.text};padding:2px 7px;border-radius:4px;font-size:0.67rem;font-weight:700;letter-spacing:0.05em;">${label}</span>`;
+            }
+
+            function fmtN(v, dec=1, suffix='') {
+                if (v == null) return '<span style="color:#475569">—</span>';
+                const c = v >= 0 ? '#34d399' : '#f87171';
+                return `<span style="color:${c};font-family:'JetBrains Mono',monospace;">${v >= 0 ? '+' : ''}${v.toFixed(dec)}${suffix}</span>`;
+            }
+
+            function fmtMono(v, dec=1) {
+                if (v == null) return '<span style="color:#475569">—</span>';
+                return `<span style="font-family:'JetBrains Mono',monospace;color:#e2e8f0;">${v.toFixed(dec)}</span>`;
+            }
+
+            // ── Rotation summary ───────────────────────────────────────────
+            const rot = d.rotation_summary || {};
+            const intoStr = (rot.inflow_sectors || []).concat(rot.accumulating_sectors || []).join(' · ') || '—';
+            const outStr  = (rot.outflow_sectors || []).join(' · ') || '—';
+            let html = `
+            <div style="background:rgba(30,41,59,0.5);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 18px;margin-bottom:20px;font-size:0.8rem;line-height:2;">
+              <div><span style="color:#4ade80;font-weight:700;">↑ Buying (INFLOW / ACCUMULATING) &nbsp;</span><span style="color:#94a3b8;">${intoStr}</span></div>
+              <div><span style="color:#ef4444;font-weight:700;">↓ Avoiding (OUTFLOW) &nbsp;</span><span style="color:#94a3b8;">${outStr}</span></div>
+            </div>`;
+
+            // ── Sector breakdown ───────────────────────────────────────────
+            const sec = d.sector_breakdown || [];
+            if (sec.length) {
+                html += `<div style="margin-bottom:20px;">
+                <div style="font-size:0.72rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Sector Allocation</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+                for (const s of sec) {
+                    const fc = flowColors[s.flow_label] || flowColors.NEUTRAL;
+                    html += `<div style="background:${fc.bg};border:1px solid ${fc.border};border-radius:6px;padding:6px 12px;font-size:0.75rem;">
+                        <span style="color:#e2e8f0;font-weight:600;">${s.sector}</span>
+                        <span style="color:#64748b;margin:0 4px;">·</span>
+                        <span style="color:${fc.text};font-weight:700;">${s.weight_pct.toFixed(1)}%</span>
+                        <span style="color:#475569;font-size:0.68rem;margin-left:4px;">${s.pick_count} pick${s.pick_count > 1 ? 's' : ''}</span>
+                    </div>`;
+                }
+                html += `</div></div>`;
+            }
+
+            // ── Picks table ────────────────────────────────────────────────
+            const picks = d.picks || [];
+            html += `<div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+            <table style="width:100%;border-collapse:collapse;background:rgba(15,23,42,0.6);font-size:0.75rem;">
+            <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);color:#64748b;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.05em;">
+              <th style="padding:8px 12px;text-align:left;width:28px;">#</th>
+              <th style="padding:8px 12px;text-align:left;">Symbol</th>
+              <th style="padding:8px 12px;text-align:left;">Sector</th>
+              <th style="padding:8px 12px;">Flow</th>
+              <th style="padding:8px 12px;text-align:right;">Rot Score</th>
+              <th style="padding:8px 12px;text-align:right;">Weight</th>
+              <th style="padding:8px 12px;text-align:right;">Price</th>
+              <th style="padding:8px 12px;text-align:right;">RSI</th>
+              <th style="padding:8px 12px;text-align:right;">RS Rank</th>
+              <th style="padding:8px 12px;text-align:left;color:#64748b;">Scanners</th>
+            </tr></thead><tbody>`;
+
+            for (const p of picks) {
+                const fc = flowColors[p.flow_label] || flowColors.NEUTRAL;
+                const rowBg = p.rank % 2 === 0 ? 'background:rgba(255,255,255,0.02);' : '';
+                const multLabel = p.sector_mult === 1.4 ? '×1.4' : p.sector_mult === 1.2 ? '×1.2' : '×1.0';
+                const rsiColor = p.rsi > 70 ? '#f87171' : p.rsi < 30 ? '#4ade80' : '#94a3b8';
+                html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);${rowBg}">
+                  <td style="padding:8px 12px;color:#475569;font-family:'JetBrains Mono',monospace;">${p.rank}</td>
+                  <td style="padding:8px 12px;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace;">${p.symbol}</td>
+                  <td style="padding:8px 12px;color:#64748b;font-size:0.7rem;">${p.sector}</td>
+                  <td style="padding:8px 12px;text-align:center;">${flowBadge(p.flow_label)} <span style="color:#475569;font-size:0.65rem;margin-left:3px;">${multLabel}</span></td>
+                  <td style="padding:8px 12px;text-align:right;font-family:'JetBrains Mono',monospace;color:#22d3ee;font-weight:700;">${p.rotation_score.toFixed(1)}</td>
+                  <td style="padding:8px 12px;text-align:right;font-family:'JetBrains Mono',monospace;color:#fbbf24;font-weight:600;">${p.weight_pct.toFixed(1)}%</td>
+                  <td style="padding:8px 12px;text-align:right;color:#94a3b8;">${p.price != null ? '$' + p.price.toFixed(2) : '—'}</td>
+                  <td style="padding:8px 12px;text-align:right;color:${rsiColor};font-family:'JetBrains Mono',monospace;">${p.rsi != null ? p.rsi.toFixed(0) : '—'}</td>
+                  <td style="padding:8px 12px;text-align:right;color:#94a3b8;font-family:'JetBrains Mono',monospace;">${p.rs_rank != null ? p.rs_rank.toFixed(0) : '—'}</td>
+                  <td style="padding:8px 12px;color:#475569;font-size:0.68rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;">${p.scanners}</td>
+                </tr>`;
+            }
+            html += `</tbody></table></div>`;
+
+            // ── Excluded symbols ───────────────────────────────────────────
+            const excl = d.excluded_symbols || [];
+            if (excl.length) {
+                html += `<div style="margin-top:14px;padding:10px 14px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:6px;font-size:0.75rem;">
+                <span style="color:#ef4444;font-weight:700;">Excluded (OUTFLOW): </span>
+                <span style="color:#64748b;">${excl.map(e => `${e.symbol} <span style="color:#475569">(${e.sector})</span>`).join(' · ')}</span>
+                </div>`;
+            }
+
+            document.getElementById('fp-content').innerHTML = html;
+        }
+
+
+        // ═══════════════════════════════════════════════════════
         // ⚡ ALPHA GENERATION TAB
         // ═══════════════════════════════════════════════════════
 
@@ -9824,6 +10207,20 @@
         }
 
         // ── Today's Setups ────────────────────────────────────────────────────
+        const _SETUP_SC_COLORS = {
+            institutional:'#38b2f8', under50:'#a78bfa', rsi_staircase:'#00e5a0',
+            atr_momentum:'#fbbf24', confluence:'#fb923c', momentum_rebound:'#f472b6',
+            v3_compression:'#34d399', setup_accum:'#60a5fa', setup_pullback:'#c084fc',
+            database_enhanced:'#94a3b8', setup_vcb:'#ff6b6b', etf:'#64748b', unified:'#475569'
+        };
+        const _SETUP_SC_LABEL = {
+            under50:'Under $50', rsi_staircase:'RSI Staircase', confluence:'Confluence',
+            atr_momentum:'ATR Momentum', momentum_rebound:'Momentum Rebound',
+            institutional:'Institutional', setup_accum:'Accum', v3_compression:'V3',
+            setup_pullback:'Pullback', database_enhanced:'Enhanced', setup_vcb:'VCB',
+            etf:'ETF', unified:'Unified'
+        };
+
         async function loadSetups() {
             try {
                 const [picksResp, primeResp] = await Promise.all([
@@ -9860,12 +10257,14 @@
                     const sc = p.conviction_score >= 400 ? '#10B981' : p.conviction_score >= 200 ? '#FBBF24' : '#94A3B8';
                     const signals = (p.signals || '').split('•').map(s => s.trim()).filter(Boolean)
                         .map(s => `<span style="display:inline-block;font-size:0.6rem;background:rgba(148,163,184,0.08);border-radius:3px;padding:1px 4px;margin:1px;color:#64748b;">${s}</span>`).join('');
+                    const scannerPills = (p.scanners || '').split(',').map(s => s.trim()).filter(Boolean).slice(0,3)
+                        .map(s => { const c = _SETUP_SC_COLORS[s] || '#888'; return `<span style="display:inline-block;background:${c}1a;border:1px solid ${c}33;border-radius:3px;padding:1px 5px;font-size:0.58rem;color:${c};white-space:nowrap;margin:1px;">${_SETUP_SC_LABEL[s]||s}</span>`; }).join('');
                     return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);${i<3?'background:rgba(16,185,129,0.03);':''}">
                         <td style="padding:6px 8px;color:#475569;font-size:0.75rem;">${i+1}</td>
                         <td style="padding:6px 8px;font-weight:700;color:#CBD5E1;">${p.symbol}</td>
                         <td style="padding:6px 8px;text-align:right;color:#94A3B8;">${p.price ? '$'+p.price.toFixed(2) : '—'}</td>
                         <td style="padding:6px 8px;text-align:right;font-weight:600;color:${sc};">${p.conviction_score?.toFixed(0) ?? '—'}</td>
-                        <td style="padding:6px 8px;text-align:center;color:#60A5FA;">${p.scanner_count ?? '—'}</td>
+                        <td style="padding:6px 8px;">${scannerPills}</td>
                         <td style="padding:6px 8px;text-align:right;color:${(p.rsi??0)>70?'#EF4444':(p.rsi??0)<30?'#10B981':'#94A3B8'};">${p.rsi?.toFixed(1) ?? '—'}</td>
                         <td style="padding:6px 8px;text-align:right;color:#94A3B8;">${p.rs_rank?.toFixed(1) ?? '—'}</td>
                         <td style="padding:6px 8px;text-align:right;color:#64748b;">${p.days_on_report ?? '—'}</td>
@@ -10715,9 +11114,7 @@
                     .then(d => {
                         _toolsLoaded = true;
                         const desktop = (d.tools||[]).filter(t => t.category === 'desktop');
-                        const web     = (d.tools||[]).filter(t => t.category === 'web');
                         renderGrid('st-desktop-grid', desktop);
-                        renderGrid('st-web-grid', web);
                     })
                     .catch(e => {
                         document.getElementById('st-desktop-grid').innerHTML =

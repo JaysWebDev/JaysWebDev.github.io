@@ -622,7 +622,7 @@
         <div class="sys-lbl">Institutional Funds</div>
     </div>
     <div class="sys-stat">
-        <div class="sys-val">900+</div>
+        <div class="sys-val" id="strip-signals">900+</div>
         <div class="sys-lbl">Signals Tracked</div>
     </div>
     <div class="sys-stat">
@@ -769,12 +769,12 @@
         <span class="section-pill">Start Here</span>
     </div>
     <div class="report-grid">
-        <a href="/trading/reports/cross_scanner_latest.html" target="_blank" class="report-card report-card-featured">
+        <a href="/trading/reports/cross_scanner_latest.html" target="_blank" class="report-card report-card-featured" data-scanner="cross_scanner">
             <div class="report-icon">📊</div>
             <div class="report-name">Cross-Scanner Intelligence</div>
             <div class="report-desc">All scanners unified · ranked by conviction score</div>
         </a>
-        <a href="/trading/reports/unified_latest.html" target="_blank" class="report-card report-card-featured">
+        <a href="/trading/reports/unified_latest.html" target="_blank" class="report-card report-card-featured" data-scanner="unified">
             <div class="report-icon">🎯</div>
             <div class="report-name">Unified Scanner</div>
             <div class="report-desc">Multi-day composite scoring across all signal types</div>
@@ -793,52 +793,52 @@
 
     <div class="report-section-hdr" style="margin-top:28px;">Individual Scanners</div>
     <div class="report-grid">
-        <a href="/trading/reports/rsi_staircase_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/rsi_staircase_latest.html" target="_blank" class="report-card" data-scanner="rsi_staircase">
             <div class="report-icon">📈</div>
             <div class="report-name">RSI Staircase</div>
-            <div class="report-desc">74.5% 5-day win rate · strongest scanner</div>
+            <div class="report-desc">Stepped RSI momentum — strongest scanner</div>
         </a>
-        <a href="/trading/reports/under50_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/under50_latest.html" target="_blank" class="report-card" data-scanner="under50">
             <div class="report-icon">💲</div>
             <div class="report-name">Under $50</div>
-            <div class="report-desc">67.5% 5-day win rate · high-volume picks</div>
+            <div class="report-desc">High-volume breakouts under $50</div>
         </a>
-        <a href="/trading/reports/atr_momentum_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/atr_momentum_latest.html" target="_blank" class="report-card" data-scanner="atr_momentum">
             <div class="report-icon">⚡</div>
             <div class="report-name">ATR Momentum</div>
             <div class="report-desc">Volatility-adjusted momentum breakouts</div>
         </a>
-        <a href="/trading/reports/momentum_rebound_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/momentum_rebound_latest.html" target="_blank" class="report-card" data-scanner="momentum_rebound">
             <div class="report-icon">🔄</div>
             <div class="report-name">Momentum Rebound</div>
             <div class="report-desc">Pullback recovery setups</div>
         </a>
-        <a href="/trading/reports/confluence_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/confluence_latest.html" target="_blank" class="report-card" data-scanner="confluence">
             <div class="report-icon">🔀</div>
             <div class="report-name">Confluence</div>
             <div class="report-desc">Multi-indicator signal convergence</div>
         </a>
-        <a href="/trading/reports/institutional_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/institutional_latest.html" target="_blank" class="report-card" data-scanner="institutional">
             <div class="report-icon">🏦</div>
             <div class="report-name">Institutional</div>
             <div class="report-desc">OBV + accumulation signals</div>
         </a>
-        <a href="/trading/reports/setups_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/setups_latest.html" target="_blank" class="report-card" data-scanner="setups">
             <div class="report-icon">⚙️</div>
             <div class="report-name">Setups</div>
             <div class="report-desc">Accumulation, pullback & VCB patterns</div>
         </a>
-        <a href="/trading/reports/v3_compression_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/v3_compression_latest.html" target="_blank" class="report-card" data-scanner="v3_compression">
             <div class="report-icon">🗜️</div>
             <div class="report-name">V3 Compression</div>
             <div class="report-desc">Range compression breakout signals</div>
         </a>
-        <a href="/trading/reports/enhanced_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/enhanced_latest.html" target="_blank" class="report-card" data-scanner="database_enhanced">
             <div class="report-icon">✨</div>
             <div class="report-name">Enhanced</div>
             <div class="report-desc">Multi-factor enhanced scoring</div>
         </a>
-        <a href="/trading/reports/etf_latest.html" target="_blank" class="report-card">
+        <a href="/trading/reports/etf_latest.html" target="_blank" class="report-card" data-scanner="etf">
             <div class="report-icon">🗂️</div>
             <div class="report-name">ETF Scanner</div>
             <div class="report-desc">Sector ETF rotation signals</div>
@@ -1117,6 +1117,8 @@ function renderAccuracy(data) {
         (ranked[0] ? hlCard(ranked[0], '#1 Win Rate') : '') +
         (ranked[1] ? hlCard(ranked[1], '#2') : '') +
         hlThird;
+    const stripSig = document.getElementById('strip-signals');
+    if (stripSig) stripSig.textContent = totalSig.toLocaleString();
 
     const rows = (data.summary_table || []).map(r => `
         <tr>
@@ -1143,21 +1145,34 @@ function renderAccuracy(data) {
     </table>
     </div>`;
 
-    // Score buckets — JSON is {scanner: {range: {n, win_rate, avg_return}}}
+    // Score buckets — visual bars, best scanner first
     const sbRaw = data.score_bucket_5d || {};
-    const sbData = sbRaw.unified || sbRaw.database_enhanced || sbRaw[Object.keys(sbRaw)[0]] || {};
-    const buckets = Object.entries(sbData).map(([range, s]) => `
-        <tr>
-            <td>${range}</td>
-            <td>${s.n != null ? s.n.toLocaleString() : '—'}</td>
-            <td class="${winClass(s.win_rate)}">${fmtWin(s.win_rate)}</td>
-            <td class="${cc(s.avg_return)}">${pct(s.avg_return)}</td>
-        </tr>`).join('');
+    const sbData = sbRaw.rsi_staircase || sbRaw.atr_momentum || sbRaw[Object.keys(sbRaw)[0]] || {};
+    const sbLabel = sbRaw.rsi_staircase ? 'RSI Staircase' : sbRaw.atr_momentum ? 'ATR Momentum' : 'Scanner';
+    const bucketOrder = ['60-79','80-99','100-119','120+'];
+    const bucketBars = bucketOrder.filter(k => sbData[k]).map(k => {
+        const s = sbData[k];
+        const wr = s.win_rate || 0;
+        const barW = Math.min(Math.round(wr), 100);
+        const barClr = wr >= 65 ? 'var(--green)' : wr >= 55 ? '#9ecf6a' : 'var(--text-muted)';
+        const retClr = (s.avg_return || 0) >= 0 ? 'var(--green)' : 'var(--red)';
+        const retStr = (s.avg_return || 0) > 0 ? '+' + s.avg_return.toFixed(2) : s.avg_return?.toFixed(2) ?? '—';
+        return `
+        <div style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+                <span style="font-family:var(--font-data);font-size:10px;color:var(--text-muted);letter-spacing:0.04em;">Score ${k}</span>
+                <span style="font-family:var(--font-data);font-size:9px;color:var(--text-dim);">${s.n != null ? s.n.toLocaleString() : '—'} signals &nbsp;·&nbsp; avg <span style="color:${retClr}">${retStr}%</span></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div style="flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
+                    <div style="width:${barW}%;height:100%;background:${barClr};border-radius:3px;"></div>
+                </div>
+                <span style="font-family:var(--font-data);font-size:13px;font-weight:600;color:${barClr};min-width:46px;text-align:right;">${wr.toFixed(1)}%</span>
+            </div>
+        </div>`; }).join('');
     document.getElementById('score-bucket-wrap').innerHTML = `
-    <table class="data-table">
-        <thead><tr><th>Score</th><th>n</th><th>Win%</th><th>5D Avg</th></tr></thead>
-        <tbody>${buckets}</tbody>
-    </table>`;
+        <div style="font-family:var(--font-ui);font-size:8px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;">${sbLabel} &nbsp;·&nbsp; Score vs 5-Day Win Rate</div>
+        ${bucketBars}`;
 
     // Day of week — JSON is {day: {n, win_rate, avg_return}}
     const dowRaw = data.day_of_week_5d || {};
@@ -1246,13 +1261,15 @@ function drawTable(f) {
 /* ── Render: Conviction Picks ──────────────────────────────────────────── */
 function renderConviction(picks) {
     document.getElementById('conv-updated').textContent = picks[0]?.latest_date ? 'As of ' + picks[0].latest_date : '';
-    const rows = picks.slice(0,30).map(p => {
+    const rows = picks.slice(0,30).map((p, idx) => {
         const scannerList = (p.scanners||'').split(',').slice(0,3).map(s =>
             `<span class="scanner-pill" style="background:${SC_COLORS[s]||'#888'}1a;color:${SC_COLORS[s]||'#888'};border:1px solid ${SC_COLORS[s]||'#888'}33;font-size:8px;">${SC_LABEL[s]||s}</span>`
         ).join(' ');
         const fundCls = p.fund_tier === 'STRONG' ? 'pos' : p.fund_tier === 'BLOCKED' ? 'neg' : 'neu';
-        return `<tr>
-            <td><strong style="font-size:13px;">${p.symbol}</strong></td>
+        const rowBg = idx === 0 ? 'background:rgba(0,229,160,0.04);' : idx < 3 ? 'background:rgba(0,229,160,0.02);' : '';
+        const rankDot = idx === 0 ? '<span style="color:var(--green);font-size:10px;margin-right:5px;vertical-align:middle;">▲</span>' : idx < 3 ? '<span style="color:rgba(0,229,160,0.4);font-size:10px;margin-right:5px;vertical-align:middle;">▲</span>' : '';
+        return `<tr style="${rowBg}">
+            <td><strong style="font-size:13px;">${rankDot}${p.symbol}</strong></td>
             <td>${price(p.price)}</td>
             <td style="color:var(--yellow);font-weight:600;">${p.conviction_score?.toFixed(0)??'—'}</td>
             <td>${p.scanner_count??'—'}</td>
@@ -1315,6 +1332,26 @@ function renderSmartMoney(data) {
     <table class="data-table">${hdr}<tbody>${(data.top_outflow||[]).slice(0,10).map(mkRow).join('')}</tbody></table>`;
 }
 
+/* ── Render: Report Win Rates ──────────────────────────────────────────── */
+function renderReports(accuracy) {
+    const wrMap = {};
+    (accuracy.summary_table || []).forEach(r => { wrMap[r.scanner_type] = r['5d_win_rate']; });
+    wrMap['cross_scanner'] = wrMap['conviction_3plus'];
+    const setupTypes = ['setup_pullback','setup_accum','setup_vcb'];
+    const setupRates = setupTypes.map(t => wrMap[t]).filter(v => v != null);
+    wrMap['setups'] = setupRates.length ? setupRates.reduce((a,b) => a+b, 0) / setupRates.length : null;
+
+    document.querySelectorAll('[data-scanner]').forEach(card => {
+        const wr = wrMap[card.dataset.scanner];
+        if (wr == null) return;
+        const clr = wr >= 65 ? 'var(--green)' : wr >= 55 ? '#9ecf6a' : 'var(--text-muted)';
+        const el = document.createElement('div');
+        el.style.cssText = `font-family:var(--font-data);font-size:11px;font-weight:600;color:${clr};margin-top:8px;`;
+        el.textContent = wr.toFixed(1) + '% 5-Day Win Rate';
+        card.appendChild(el);
+    });
+}
+
 /* ── Load All ──────────────────────────────────────────────────────────── */
 async function loadAll() {
     const [breadth, regime, perf, sector, accuracy, picks, conviction, weekly, smf] = await Promise.allSettled([
@@ -1333,7 +1370,7 @@ async function loadAll() {
         renderRegime(breadth.value, regime.value);
     if (perf.status==='fulfilled')       renderIndices(perf.value);
     if (sector.status==='fulfilled')     renderSectors(sector.value);
-    if (accuracy.status==='fulfilled')   renderAccuracy(accuracy.value);
+    if (accuracy.status==='fulfilled') { renderAccuracy(accuracy.value); renderReports(accuracy.value); }
     if (picks.status==='fulfilled')      renderScreeners(picks.value);
     if (conviction.status==='fulfilled') renderConviction(conviction.value);
     if (weekly.status==='fulfilled')     renderWeekly(weekly.value);
