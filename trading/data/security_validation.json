@@ -1,36 +1,74 @@
 {
-  "timestamp": "2026-07-09 07:00:03",
-  "total_validated": 3,
+  "timestamp": "2026-07-31 07:00:03",
+  "total_validated": 7,
   "summary": {
-    "ACTIVE": 3
+    "ACTIVE": 4,
+    "MONITOR": 2,
+    "PENNY_STOCK": 1
   },
   "results": [
     {
-      "symbol": "LC",
+      "symbol": "NUVL",
       "status": "ACTIVE",
       "reason": "Normal trading activity",
-      "last_price": 19.21,
-      "volume": 2271853.0,
-      "validation_date": "2026-07-09 07:00",
+      "last_price": 123.96,
+      "volume": 1749292.1,
+      "validation_date": "2026-07-31 07:00",
       "data_source": "Database"
     },
     {
-      "symbol": "SATS",
+      "symbol": "CPRX",
+      "status": "MONITOR",
+      "reason": "Stale price (3 days) but appears active",
+      "last_price": 31.49,
+      "volume": 3179113.9,
+      "validation_date": "2026-07-31 07:00",
+      "data_source": "Heuristic"
+    },
+    {
+      "symbol": "XOMA",
       "status": "ACTIVE",
       "reason": "Normal trading activity",
-      "last_price": 106.4,
-      "volume": 11143774.2,
-      "validation_date": "2026-07-09 07:00",
+      "last_price": 40.17,
+      "volume": 906211.8,
+      "validation_date": "2026-07-31 07:00",
       "data_source": "Database"
     },
     {
-      "symbol": "CWAN",
+      "symbol": "GTLS",
       "status": "ACTIVE",
       "reason": "Normal trading activity",
-      "last_price": 24.53,
-      "volume": 7406121.5,
-      "validation_date": "2026-07-09 07:00",
+      "last_price": 209.9,
+      "volume": 1428842.5,
+      "validation_date": "2026-07-31 07:00",
       "data_source": "Database"
+    },
+    {
+      "symbol": "WSR",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 18.99,
+      "volume": 827769.1,
+      "validation_date": "2026-07-31 07:00",
+      "data_source": "Database"
+    },
+    {
+      "symbol": "MVST",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.86 below $1.00 threshold",
+      "last_price": 0.8601,
+      "volume": 5740117.6,
+      "validation_date": "2026-07-31 07:00",
+      "data_source": "Price Analysis"
+    },
+    {
+      "symbol": "GBTG",
+      "status": "MONITOR",
+      "reason": "Stale price (7 days) but appears active",
+      "last_price": 9.42,
+      "volume": 1270389.8,
+      "validation_date": "2026-07-31 07:00",
+      "data_source": "Heuristic"
     }
   ]
 }

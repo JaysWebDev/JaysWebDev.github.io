@@ -588,6 +588,43 @@
     </style>
 </head>
 <body>
+<!-- shared site-nav v2 (canonical — keep identical across all pages) -->
+<style>
+nav.site-nav{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;margin:0 auto 1.5rem;padding:.6rem 1rem;max-width:1200px;background:rgba(10,13,22,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;z-index:50}
+nav.site-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.35rem .75rem;border-radius:7px;transition:background .15s,color .15s;letter-spacing:.01em;text-transform:none}
+nav.site-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+nav.site-nav a.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume:hover{background:rgba(255,255,255,.22)}
+nav.site-nav a.nav-brand{display:none;color:#fff;font-weight:700;font-size:.95rem;padding:.35rem .5rem}
+nav.site-nav .nav-burger{display:none;cursor:pointer;color:rgba(255,255,255,.85);padding:.3rem .5rem;border-radius:7px;margin-left:auto;line-height:0}
+nav.site-nav .nav-burger:hover{background:rgba(255,255,255,.12)}
+nav.site-nav input.nav-toggle{display:none}
+@media(max-width:768px){
+nav.site-nav a.nav-brand{display:block;width:auto}
+nav.site-nav .nav-burger{display:block}
+nav.site-nav a{display:none;width:100%}
+nav.site-nav a.nav-resume{display:none;margin-left:0}
+nav.site-nav input.nav-toggle:checked~a{display:block}
+nav.site-nav input.nav-toggle:checked~a.nav-brand{width:auto}
+nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:auto}
+}
+</style>
+<nav class="site-nav">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/trading/" class="active">Trading</a>
+    <a href="/rental/">Rental</a>
+    <a href="/business/">Business Intel</a>
+    <a href="/tools/">Tools</a>
+    <a href="/appdevelopment/">Apps</a>
+    <a href="/architecture/">Architecture</a>
+    <a href="/contact/">Contact</a>
+    <a href="/resume/" class="nav-resume">Resume →</a>
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><svg class="lucide lucide-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 12h16" /> <path d="M4 18h16" /> <path d="M4 6h16" /> </svg></label>
+</nav>
 
 <header class="header">
     <div class="header-left">
@@ -675,6 +712,24 @@
 
 <!-- ══ TRACK RECORD ════════════════════════════════════════════════════════ -->
 <div id="tab-track" class="tab-content">
+
+    <!-- Paper Portfolio Live Track Record -->
+    <div class="card" style="margin-bottom:14px;border-color:rgba(0,229,160,0.2);">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <span>📄 Paper Portfolio — Live Track Record</span>
+            <span id="pp-meta" style="font-size:9px;font-weight:400;color:var(--text-muted);letter-spacing:0.04em;"></span>
+        </div>
+        <div id="pp-stats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
+            <div class="skel" style="height:72px;border-radius:6px;"></div>
+            <div class="skel" style="height:72px;border-radius:6px;"></div>
+            <div class="skel" style="height:72px;border-radius:6px;"></div>
+            <div class="skel" style="height:72px;border-radius:6px;"></div>
+        </div>
+        <div id="pp-curve" style="margin-bottom:14px;"><div class="skel" style="height:70px;border-radius:4px;"></div></div>
+        <div style="font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Current Positions</div>
+        <div id="pp-positions"><div class="skel" style="height:120px;border-radius:4px;"></div></div>
+    </div>
+
     <div id="track-highlights" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">
         <div class="skel" style="height:100px;border-radius:6px;"></div>
         <div class="skel" style="height:100px;border-radius:6px;"></div>
@@ -864,8 +919,18 @@
     </div>
 </div>
 
-<footer>
-    Market data updated nightly &nbsp;·&nbsp; For informational and educational purposes only &nbsp;·&nbsp; jays.website/trading/
+<!-- shared site-footer (canonical — keep identical across all pages) -->
+<style>
+footer.site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5;background:none;border:none}
+footer.site-footer p{margin:.2rem 0;color:rgba(255,255,255,.6)}
+footer.site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
+footer.site-footer a:hover{color:#fff;text-decoration:underline}
+footer.site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
+</style>
+<footer class="site-footer">
+    <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
+    <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
+    <div class="sf-note">Market data updated nightly &nbsp;&middot;&nbsp; For informational and educational purposes only</div>
 </footer>
 
 <script>
@@ -919,7 +984,7 @@ function renderRegime(b, r) {
     const score = l.breadth_score != null ? l.breadth_score : null;
     const scoreW = score != null ? Math.min(Math.max(score, 0), 100) : 0;
 
-    document.getElementById('regime-updated').textContent = 'Updated: ' + (l.date || '—');
+    document.getElementById('regime-updated').textContent = 'Data through: ' + (l.date || '—');
     const stripReg = document.getElementById('strip-regime');
     if (stripReg) {
         const regLabel = r.regime || l.regime_signal || '—';
@@ -947,7 +1012,7 @@ function renderRegime(b, r) {
             </div>
         </div>
         <div class="regime-badges">
-            <div class="rbadge ${bull?'bull':'bear'}">● ${r.regime || l.regime_signal || '—'} &nbsp;·&nbsp; Score ${r.regime_score ?? score?.toFixed(1) ?? '—'}</div>
+            <div class="rbadge ${bull?'bull':'bear'}">● ${r.regime || l.regime_signal || '—'} &nbsp;·&nbsp; Regime Score ${r.regime_score ?? score?.toFixed(1) ?? '—'}</div>
             <div class="rbadge ${amCls}">▲ Alert: ${am}</div>
         </div>
         <div class="vdiv"></div>
@@ -972,10 +1037,12 @@ const IX_NAMES_EXT = {...IX_NAMES, MES:'Micro E-mini S&P 500', MNQ:'Micro E-mini
 const TV_SYMBOL    = { MES:'CME_MINI:MES1!', MNQ:'CME_MINI:MNQ1!' };
 const TV_CHART_URL = { MES:'https://www.tradingview.com/chart/?symbol=CME_MINI%3AMES1%21', MNQ:'https://www.tradingview.com/chart/?symbol=CME_MINI%3AMNQ1%21' };
 
-// FLIP TO true AFTER ADDING TO CLOUDFLARE CSP:
-//   script-src  → https://s3.tradingview.com
-//   frame-src   → https://*.tradingview.com
-const TV_EMBED_ENABLED = true;
+// TradingView embed disabled 2026-07-29: the widget's data websocket to
+// widgetdata-backup.tradingview.com fails (ERR_NAME_NOT_RESOLVED), leaving the
+// /MES & /MNQ mini-charts blank + spamming ~190 console errors. Root cause is
+// TradingView-side infra, not our code. Falls back to a "View on TradingView →"
+// link (see futHtml below). Re-enable only if the widget socket is confirmed working.
+const TV_EMBED_ENABLED = false;
 
 function injectTVWidget(containerId, tvSymbol) {
     const container = document.getElementById(containerId);
@@ -1060,7 +1127,7 @@ function renderIndices(data) {
 /* ── Render: Sectors ───────────────────────────────────────────────────── */
 function renderSectors(data) {
     const secs = data.sectors || {};
-    document.getElementById('sector-updated').textContent = 'Updated: ' + (data.as_of_date || '—');
+    document.getElementById('sector-updated').textContent = 'Data through: ' + (data.as_of_date || '—');
     document.getElementById('sector-grid').innerHTML = SEC_ORDER.map(name => {
         const d = secs[name];
         if (!d) return '';
@@ -1354,7 +1421,7 @@ function renderReports(accuracy) {
 
 /* ── Load All ──────────────────────────────────────────────────────────── */
 async function loadAll() {
-    const [breadth, regime, perf, sector, accuracy, picks, conviction, weekly, smf] = await Promise.allSettled([
+    const [breadth, regime, perf, sector, accuracy, picks, conviction, weekly, smf, pp] = await Promise.allSettled([
         fetch('/trading/data/market_breadth.json').then(r=>r.json()),
         fetch('/trading/data/market_regime.json').then(r=>r.json()),
         fetch('/trading/data/market_performance.json').then(r=>r.json()),
@@ -1364,6 +1431,7 @@ async function loadAll() {
         fetch('/trading/data/conviction_picks.json').then(r=>r.json()),
         fetch('/trading/data/weekly_pub_latest.json').then(r=>r.json()),
         fetch('/trading/data/smart_money_flow_latest.json').then(r=>r.json()),
+        fetch('/trading/data/paper_portfolio.json').then(r=>r.json()),
     ]);
 
     if (breadth.status==='fulfilled' && regime.status==='fulfilled')
@@ -1375,6 +1443,90 @@ async function loadAll() {
     if (conviction.status==='fulfilled') renderConviction(conviction.value);
     if (weekly.status==='fulfilled')     renderWeekly(weekly.value);
     if (smf.status==='fulfilled')        renderSmartMoney(smf.value);
+    if (pp.status==='fulfilled')         renderPaperPortfolio(pp.value);
+}
+
+function renderPaperPortfolio(d) {
+    const pnl = d.pnl_pct || 0;
+    const pnlColor = pnl >= 0 ? 'var(--green)' : 'var(--red)';
+    const days = d.equity_curve && d.equity_curve.length > 1
+        ? Math.round((new Date(d.equity_curve[d.equity_curve.length-1].date) - new Date(d.equity_curve[0].date)) / 86400000)
+        : 0;
+
+    // Meta line
+    const gen = d.generated ? d.generated.slice(0,10) : '';
+    document.getElementById('pp-meta').textContent =
+        `Started ${d.start_date || '—'} · Updated ${gen} · $${(d.starting_capital||5000).toLocaleString()} starting capital`;
+
+    // Stat cards
+    const statCard = (val, label, color) => `
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:14px;text-align:center;">
+            <div style="font-family:var(--font-data);font-size:24px;font-weight:700;color:${color};line-height:1;">${val}</div>
+            <div style="font-size:8px;color:var(--text-muted);letter-spacing:0.09em;text-transform:uppercase;margin-top:5px;">${label}</div>
+        </div>`;
+    document.getElementById('pp-stats').innerHTML =
+        statCard('$' + (d.total_value||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}), 'Portfolio Value', 'var(--green)') +
+        statCard((pnl>=0?'+':'') + pnl.toFixed(2) + '%', 'Total Return', pnlColor) +
+        statCard(d.open_count + ' open', 'Positions', 'var(--text)') +
+        statCard(days + ' days', 'Track Record', 'var(--text-muted)');
+
+    // Equity curve SVG
+    const curve = d.equity_curve || [];
+    const curveEl = document.getElementById('pp-curve');
+    if (curve.length >= 2) {
+        const vals = curve.map(p => p.value);
+        const dates = curve.map(p => p.date);
+        const start = vals[0];
+        const rets = vals.map(v => ((v - start) / start) * 100);
+        const minV = Math.min(-0.1, ...rets), maxV = Math.max(0.1, ...rets);
+        const range = maxV - minV || 1;
+        const W = 600, H = 60, pad = {t:6,b:16,l:30,r:6};
+        const cW = W-pad.l-pad.r, cH = H-pad.t-pad.b, n = rets.length;
+        const xP = i => pad.l + (n>1 ? (i/(n-1))*cW : cW/2);
+        const yP = v => pad.t + (1-(v-minV)/range)*cH;
+        const zY = yP(0);
+        const pts = rets.map((v,i)=>`${xP(i).toFixed(1)},${yP(v).toFixed(1)}`).join(' ');
+        const lV = rets[n-1], lC = lV>=0?'#00E5A0':'#ef4444';
+        const apts = `${xP(0).toFixed(1)},${zY.toFixed(1)} ${pts} ${xP(n-1).toFixed(1)},${zY.toFixed(1)}`;
+        const yLbls = [minV,0,maxV].map(v=>`<text x="${pad.l-3}" y="${yP(v)+3}" text-anchor="end" fill="#475569" font-size="7">${v>=0?'+':''}${v.toFixed(1)}%</text>`).join('');
+        const xLbls = `<text x="${xP(0)}" y="${H-1}" text-anchor="start" fill="#475569" font-size="7">${dates[0].slice(5)}</text><text x="${xP(n-1)}" y="${H-1}" text-anchor="end" fill="#475569" font-size="7">${dates[n-1].slice(5)}</text>`;
+        curveEl.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block;">
+            <line x1="${pad.l}" y1="${zY.toFixed(1)}" x2="${W-pad.r}" y2="${zY.toFixed(1)}" stroke="rgba(100,116,139,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+            <polygon points="${apts}" fill="${lC}" fill-opacity="0.07"/>
+            <polyline points="${pts}" stroke="${lC}" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+            <circle cx="${xP(n-1).toFixed(1)}" cy="${yP(lV).toFixed(1)}" r="3" fill="${lC}"/>
+            ${yLbls}${xLbls}</svg>`;
+    } else {
+        curveEl.innerHTML = '<div style="font-size:10px;color:var(--text-muted);padding:12px 0;">Equity curve accumulates daily — check back after market close.</div>';
+    }
+
+    // Positions table
+    const pos = (d.positions || []).slice(0, 8);
+    const posEl = document.getElementById('pp-positions');
+    if (!pos.length) {
+        posEl.innerHTML = '<div style="font-size:10px;color:var(--text-muted);padding:8px 0;">No open positions.</div>';
+        return;
+    }
+    posEl.innerHTML = `<div style="overflow-x:auto;"><table class="data-table" style="font-size:10px;">
+        <thead><tr>
+            <th>Symbol</th><th>Entry</th><th>Current</th>
+            <th class="star-col">P&amp;L</th><th>Stop</th><th>Days</th><th>Conv</th>
+        </tr></thead>
+        <tbody>${pos.map(p => {
+            const pc = p.pnl_pct||0, pc_c = pc>=0?'var(--green)':pc>-4?'#F59E0B':'var(--red)';
+            const stopDist = p.stop_price&&p.current_price ? ((p.stop_price-p.current_price)/p.current_price*100).toFixed(1)+'%' : '—';
+            return `<tr>
+                <td style="font-weight:700;">${p.symbol}</td>
+                <td>$${(p.entry_price||0).toFixed(2)}</td>
+                <td>$${(p.current_price||0).toFixed(2)}</td>
+                <td class="star-col" style="color:${pc_c};font-weight:700;">${pc>=0?'+':''}${pc.toFixed(2)}%</td>
+                <td style="color:#ef4444;font-size:9px;">$${(p.stop_price||0).toFixed(2)} <span style="color:var(--text-dim)">${stopDist}</span></td>
+                <td style="color:var(--text-muted);">${p.days_held||1}d</td>
+                <td style="color:#FBBF24;">${Math.round(p.conviction_score||0)}</td>
+            </tr>`;
+        }).join('')}</tbody>
+    </table></div>
+    ${d.closed_count===0 ? '<div style="font-size:9px;color:var(--text-muted);margin-top:8px;padding:6px;background:rgba(255,255,255,0.02);border-radius:4px;">⏳ No closed trades yet — portfolio started '+d.start_date+'. Win rate will appear after first exits.</div>' : ''}`;
 }
 
 loadAll();

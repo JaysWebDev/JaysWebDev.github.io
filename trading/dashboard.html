@@ -687,6 +687,7 @@
                         <button class="tab-button" data-group="trading" style="display:none;color:#fbbf24;" onclick="showTab(event,'capital-flow')">💰 Capital Flow</button>
                         <button class="tab-button" data-group="trading" style="display:none;color:#a78bfa;" onclick="showTab(event,'rsi-momentum')">📊 RSI Momentum</button>
                         <button class="tab-button" data-group="trading" style="display:none;color:#4ade80;" onclick="showTab(event,'atr')">📈 ATR</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#f472b6;" onclick="showTab(event,'ai-analyst');loadAiAnalyst()">🤖 AI Analyst</button>
                         <!-- Securities group (hidden initially) -->
                         <button class="tab-button" data-group="securities" style="display:none" onclick="showTab(event,'lookup')">🔎 Lookup</button>
                         <button class="tab-button" data-group="securities" style="display:none;color:#00d4aa;" onclick="showTab(event,'mktcaps')">📊 Market Caps</button>
@@ -705,6 +706,9 @@
                         <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'portfolio')">📦 LT Portfolio</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">🔄 Rotation Engine</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#22d3ee;" onclick="showTab(event,'flow-portfolio');loadFlowPortfolio()">🌊 Flow Portfolio</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'lt-top25');loadLtTop25()">🏆 LT Top 25</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#A78BFA;" onclick="showTab(event,'claude-portfolio');loadClaudePortfolio()">🤖 Claude</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#2DD4BF;" onclick="showTab(event,'quant-portfolio');loadQuantPortfolio()">📐 Quant</button>
                         <!-- Operations group (hidden initially) -->
                         <!-- Crypto group -->
                         <button class="tab-button" data-group="crypto" style="display:none;color:#F7931A;" onclick="showTab(event,'crypto-signals');loadCryptoSignals()">₿ Signals</button>
@@ -1889,6 +1893,43 @@
                                 <span id="lookup-db-count" style="color:#64748b;font-size:0.75rem;">Loading index...</span>
                             </div>
 
+                            <!-- ── Ask the Analyst ─────────────────────── -->
+                            <!-- ── Analyst Comparison Panel ────────────────── -->
+                            <div id="lk-analyst-panel" style="background:rgba(15,23,42,0.4);border:1px solid rgba(148,163,184,0.15);border-radius:10px;padding:16px 20px;margin-bottom:20px;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                    <div style="display:flex;align-items:center;gap:8px;">
+                                        <span style="color:#CBD5E1;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">🤖 Analyst Comparison</span>
+                                        <span id="lk-an-regime" style="display:none;padding:2px 8px;border-radius:10px;font-size:0.7rem;font-weight:700;"></span>
+                                    </div>
+                                </div>
+                                <!-- Two-column: Claude | Quant -->
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                                    <!-- Claude Haiku -->
+                                    <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);border-radius:8px;padding:12px;">
+                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                                            <span style="color:#A78BFA;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Claude Haiku</span>
+                                            <span id="lk-an-generated" style="color:#475569;font-size:0.65rem;"></span>
+                                        </div>
+                                        <p id="lk-an-summary" style="color:#94A3B8;font-size:0.75rem;line-height:1.5;margin:0 0 10px 0;">Loading…</p>
+                                        <div id="lk-an-picks" style="display:flex;flex-wrap:wrap;gap:5px;"></div>
+                                    </div>
+                                    <!-- Quant Formula -->
+                                    <div style="background:rgba(20,184,166,0.05);border:1px solid rgba(20,184,166,0.2);border-radius:8px;padding:12px;">
+                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                                            <span style="color:#2DD4BF;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Quant Formula</span>
+                                            <span id="lk-an-quant-generated" style="color:#475569;font-size:0.65rem;"></span>
+                                        </div>
+                                        <p id="lk-an-quant-summary" style="color:#94A3B8;font-size:0.75rem;line-height:1.5;margin:0 0 10px 0;">Loading…</p>
+                                        <div id="lk-an-quant-picks" style="display:flex;flex-wrap:wrap;gap:5px;"></div>
+                                    </div>
+                                </div>
+                                <!-- Consensus row -->
+                                <div style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:10px 12px;">
+                                    <span style="color:#FBBF24;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">✨ Both agree — <span id="lk-an-consensus-count" style="font-weight:400;">—</span></span>
+                                    <div id="lk-an-consensus" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;"></div>
+                                </div>
+                            </div>
+
                             <!-- Search bar -->
                             <div style="position:relative;margin-bottom:20px;">
                                 <input id="lookup-input" type="text" placeholder="Enter ticker symbol (e.g. AAPL, MSFT, NVDA)..."
@@ -2044,6 +2085,9 @@
                                     <div style="color:#fbbf24;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">🏛️ Smart Money Holdings</div>
                                     <div id="lk-smart-money-content"></div>
                                 </div>
+
+                                <!-- Analyst pick (shown when symbol is in today's top 25 from either engine) -->
+                                <div id="lk-analyst-pick" style="display:none;border-radius:8px;padding:14px;margin-bottom:12px;"></div>
 
                                 <!-- Description -->
                                 <div style="background:rgba(30,41,59,0.4);border:1px solid rgba(59,130,246,0.1);border-radius:8px;padding:14px;">
@@ -3182,6 +3226,99 @@
                             <div id="atr-content" style="color:#475569;font-size:0.85rem;text-align:center;padding:40px;">Loading…</div>
                         </div><!-- /atr -->
 
+                        <!-- ── AI Analyst ──────────────────────────────────────── -->
+                        <div id="ai-analyst" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                                <div>
+                                    <h3 style="color:#f472b6;margin:0;font-size:1.1rem;">🤖 AI Analyst — Top 25 Picks</h3>
+                                    <div id="ai-meta" style="color:#64748b;font-size:0.72rem;margin-top:3px;">Loading…</div>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <span id="ai-regime-badge" style="font-size:0.72rem;padding:3px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;"></span>
+                                    <span id="ai-model-badge" style="color:#475569;font-size:0.65rem;font-family:'JetBrains Mono',monospace;"></span>
+                                </div>
+                            </div>
+
+                            <!-- Summary card -->
+                            <div id="ai-summary" style="background:rgba(244,114,182,0.06);border:1px solid rgba(244,114,182,0.2);border-radius:10px;padding:16px;margin-bottom:20px;display:none;">
+                                <div style="color:#94a3b8;font-size:0.75rem;line-height:1.6;" id="ai-summary-text"></div>
+                            </div>
+
+                            <!-- Picks table -->
+                            <div style="background:rgba(30,41,59,0.4);border-radius:10px;border:1px solid rgba(51,65,85,0.6);overflow:hidden;margin-bottom:24px;">
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.77rem;">
+                                        <thead>
+                                            <tr style="background:rgba(15,23,42,0.7);border-bottom:1px solid rgba(51,65,85,0.8);">
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;width:32px;">#</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Symbol</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Scanners</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Score</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Rationale</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Watch</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ai-picks-tbody">
+                                            <tr><td colspan="6" style="padding:30px;text-align:center;color:#475569;font-size:0.8rem;">Loading…</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Token cost note -->
+                            <div id="ai-token-info" style="color:#334155;font-size:0.65rem;font-family:'JetBrains Mono',monospace;text-align:right;margin-top:-16px;"></div>
+                        </div><!-- /ai-analyst -->
+
+                        <!-- ── LT Top 25 ──────────────────────────────────────── -->
+                        <div id="lt-top25" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+                                <div>
+                                    <h3 style="color:#38bdf8;margin:0;font-size:1.1rem;">🏆 LT Top 25 — Long-Term Hold Ranking</h3>
+                                    <div id="lt25-meta" style="color:#64748b;font-size:0.72rem;margin-top:3px;">Loading…</div>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <span id="lt25-quarter-badge" style="display:none;font-size:0.72rem;padding:3px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);color:#38bdf8;"></span>
+                                    <span id="lt25-universe-badge" style="color:#475569;font-size:0.65rem;font-family:'JetBrains Mono',monospace;"></span>
+                                </div>
+                            </div>
+
+                            <!-- Overnight rotation strip -->
+                            <div id="lt25-rotation" style="background:rgba(30,41,59,0.4);border:1px solid rgba(51,65,85,0.6);border-radius:10px;padding:12px 16px;margin-bottom:20px;display:none;">
+                                <div style="color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:7px;">Overnight rotation <span id="lt25-rotation-vs" style="text-transform:none;letter-spacing:0;color:#475569;"></span></div>
+                                <div id="lt25-rotation-chips" style="display:flex;flex-wrap:wrap;gap:6px;font-family:'JetBrains Mono',monospace;"></div>
+                            </div>
+
+                            <!-- Picks table -->
+                            <div style="background:rgba(30,41,59,0.4);border-radius:10px;border:1px solid rgba(51,65,85,0.6);overflow:hidden;margin-bottom:24px;">
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.77rem;">
+                                        <thead>
+                                            <tr style="background:rgba(15,23,42,0.7);border-bottom:1px solid rgba(51,65,85,0.8);">
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;width:56px;">#</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Symbol</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Sector</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Score</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Close</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">20D</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">3M</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">6M</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">1Y</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Funds</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">RS</th>
+                                                <th style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Conv</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="lt25-tbody">
+                                            <tr><td colspan="12" style="padding:30px;text-align:center;color:#475569;font-size:0.8rem;">Loading…</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Methodology footnote -->
+                            <div id="lt25-method" style="color:#334155;font-size:0.65rem;font-family:'JetBrains Mono',monospace;text-align:right;margin-top:-16px;"></div>
+                        </div><!-- /lt-top25 -->
+
                         <div id="capital-flow" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
                                 <div>
@@ -3250,6 +3387,12 @@
                                     <div id="pp-positions" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
                                     <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Open / Closed</div>
                                 </div>
+                            </div>
+
+                            <!-- Equity curve -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span></div>
+                                <div id="pp-equity-chart" style="color:#64748b;font-size:0.72rem;">Loading…</div>
                             </div>
 
                             <!-- Open Positions -->
@@ -3407,6 +3550,34 @@
                         </div><!-- /rotation -->
 
                         <!-- 🌊 FLOW CONVICTION PORTFOLIO TAB -->
+                        <!-- ── CLAUDE PORTFOLIO ──────────────────────────── -->
+                        <div id="claude-portfolio" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#A78BFA;margin:0;font-size:1.05rem;">🤖 Claude Portfolio — AI Analyst Picks · $5,000 · -8% Stop · 10d Time Stop</h3>
+                                    <div id="cp-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                                <button onclick="loadClaudePortfolio(true)" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);border-radius:5px;padding:5px 10px;color:#A78BFA;font-size:0.72rem;cursor:pointer;">↺ Refresh</button>
+                            </div>
+                            <div id="cp-content">
+                                <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
+                            </div>
+                        </div>
+
+                        <!-- ── QUANT PORTFOLIO ────────────────────────────── -->
+                        <div id="quant-portfolio" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#2DD4BF;margin:0;font-size:1.05rem;">📐 Quant Portfolio — Deterministic Formula · $5,000 · -8% Stop · 10d Time Stop</h3>
+                                    <div id="qp-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                                <button onclick="loadQuantPortfolio(true)" style="background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.3);border-radius:5px;padding:5px 10px;color:#2DD4BF;font-size:0.72rem;cursor:pointer;">↺ Refresh</button>
+                            </div>
+                            <div id="qp-content">
+                                <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
+                            </div>
+                        </div>
+
                         <div id="flow-portfolio" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
                                 <div>
@@ -3493,6 +3664,12 @@
                                     <div id="cp-positions" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
                                     <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Open / Closed</div>
                                 </div>
+                            </div>
+
+                            <!-- Equity curve -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily snapshot</span></div>
+                                <div id="cp-equity-chart" style="color:#64748b;font-size:0.72rem;">Loading…</div>
                             </div>
 
                             <!-- Open Positions -->
@@ -4144,6 +4321,7 @@
                     { icon: '💰', label: 'Capital Flow',   tab: 'capital-flow',  desc: 'Money flow and volume surge detection across the universe', color: '#fbbf24' },
                     { icon: '📊', label: 'RSI Momentum',   tab: 'rsi-momentum',  desc: 'RSI staircase and momentum rebound patterns with win-rate backtest', color: '#a78bfa' },
                     { icon: '📈', label: 'ATR',             tab: 'atr',           desc: 'ATR z-score compression and expansion entry signals', color: '#4ade80' },
+                    { icon: '🤖', label: 'AI Analyst',     tab: 'ai-analyst',    desc: 'Claude Haiku ranks the top 25 picks nightly from all scanner data', color: '#f472b6', extraClick: 'loadAiAnalyst()' },
                 ]
             },
             securities: {
@@ -4177,6 +4355,7 @@
                     { icon: '📦', label: 'LT Portfolio',     tab: 'portfolio',      desc: '30-stock + 10-ETF long-term portfolio with sector allocation view' },
                     { icon: '🔄', label: 'Rotation Engine',  tab: 'rotation',       desc: 'Sector rotation signals — relative strength ranking by sector', color: '#34d399' },
                     { icon: '📄', label: 'Paper Portfolio',  tab: 'paper-portfolio', desc: 'Live conviction picks tracker — $5k · 10 slots · -8% stop', color: '#FBBF24' },
+                    { icon: '🏆', label: 'LT Top 25',        tab: 'lt-top25',       desc: 'Nightly long-term hold ranking — volume, gains, 13F buying, relative strength', color: '#38bdf8', extraClick: 'loadLtTop25()' },
                 ]
             },
             crypto: {
@@ -4493,6 +4672,7 @@
                 setTimeout(() => loadStaleData(), 100);
             } else if (tabName === 'lookup') {
                 if (!_lookupIndex) setTimeout(() => loadLookupIndex(), 100);
+                if (!_analystData) loadAnalystPanel();
             } else if (tabName === 'reports') {
                 setTimeout(() => loadSignalExplorer(), 100);
             } else if (tabName === 'mktcaps') {
@@ -4503,6 +4683,10 @@
                 setTimeout(() => loadRSIMomentum(), 100);
             } else if (tabName === 'atr') {
                 setTimeout(() => loadATR(), 100);
+            } else if (tabName === 'ai-analyst') {
+                setTimeout(() => loadAiAnalyst(), 100);
+            } else if (tabName === 'lt-top25') {
+                setTimeout(() => loadLtTop25(), 100);
             } else if (tabName === 'capital-flow') {
                 setTimeout(() => loadCapitalFlow(), 100);
             } else if (tabName === 'alpha-gen') {
@@ -4582,6 +4766,164 @@
             } catch (e) {
                 const el = document.getElementById('unified-perf-content');
                 if (el) el.innerHTML = '<span style="color: #64748B;">Performance data not yet available — tracker runs nightly at 8 PM.</span>';
+            }
+        }
+
+        let _aiAnalystLoaded = false;
+        async function loadAiAnalyst() {
+            if (_aiAnalystLoaded) return;
+            _aiAnalystLoaded = true;
+            const tbody = document.getElementById('ai-picks-tbody');
+            const meta  = document.getElementById('ai-meta');
+            try {
+                const r = await fetch('data/claude_top25.json?t=' + Date.now());
+                if (!r.ok) throw new Error('Not available yet — runs nightly at 8:30 PM');
+                const d = await r.json();
+
+                // Meta line
+                const ts = new Date(d.generated).toLocaleString();
+                if (meta) meta.textContent = `Generated ${ts} · ${d.picks?.length || 0} picks`;
+
+                // Regime badge
+                const rb = document.getElementById('ai-regime-badge');
+                if (rb && d.regime) {
+                    const col = d.regime === 'BULL' ? '#22c55e' : d.regime === 'BEAR' ? '#ef4444' : '#f59e0b';
+                    rb.textContent = d.regime;
+                    rb.style.background = col + '22';
+                    rb.style.border = '1px solid ' + col + '55';
+                    rb.style.color = col;
+                }
+
+                // Model badge
+                const mb = document.getElementById('ai-model-badge');
+                if (mb && d.model) mb.textContent = d.model;
+
+                // Summary
+                if (d.analysis_summary) {
+                    const sc = document.getElementById('ai-summary');
+                    const st = document.getElementById('ai-summary-text');
+                    if (sc) sc.style.display = 'block';
+                    if (st) st.textContent = d.analysis_summary;
+                }
+
+                // Picks table
+                const scannerColor = s => {
+                    if (!s) return '#94a3b8';
+                    if (s.includes('under50'))          return '#f472b6';
+                    if (s.includes('rsi_staircase'))    return '#a78bfa';
+                    if (s.includes('atr_momentum'))     return '#4ade80';
+                    if (s.includes('confluence'))       return '#38bdf8';
+                    if (s.includes('database_enhanced')) return '#fb923c';
+                    if (s.includes('institutional'))    return '#fbbf24';
+                    return '#94a3b8';
+                };
+
+                let rows = '';
+                (d.picks || []).forEach(p => {
+                    const scanners = (p.scanners || '').split(',').map(s => s.trim()).filter(Boolean);
+                    const scanBadges = scanners.map(s =>
+                        `<span style="display:inline-block;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:1px 5px;font-size:0.6rem;color:${scannerColor(s)};margin:1px;">${s.replace(/_/g,' ')}</span>`
+                    ).join(' ');
+                    const rankColor = p.rank <= 5 ? '#f472b6' : p.rank <= 10 ? '#a78bfa' : '#94a3b8';
+                    rows += `<tr style="border-bottom:1px solid rgba(51,65,85,0.4);">
+                        <td style="padding:8px 10px;color:${rankColor};font-weight:600;font-family:'JetBrains Mono',monospace;">${p.rank}</td>
+                        <td style="padding:8px 10px;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace;">${p.symbol}</td>
+                        <td style="padding:8px 10px;">${scanBadges}</td>
+                        <td style="padding:8px 10px;text-align:right;color:#94a3b8;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${p.conviction_score ?? '—'}</td>
+                        <td style="padding:8px 10px;color:#cbd5e1;font-size:0.73rem;line-height:1.5;">${p.rationale || ''}</td>
+                        <td style="padding:8px 10px;color:#64748b;font-size:0.7rem;font-style:italic;">${p.watch || ''}</td>
+                    </tr>`;
+                });
+                if (tbody) tbody.innerHTML = rows || '<tr><td colspan="6" style="padding:20px;text-align:center;color:#475569;">No picks returned.</td></tr>';
+
+                // Token info
+                const ti = document.getElementById('ai-token-info');
+                if (ti && d.input_tokens) ti.textContent = `${d.input_tokens} in / ${d.output_tokens} out tokens`;
+
+            } catch (e) {
+                if (tbody) tbody.innerHTML = `<tr><td colspan="6" style="padding:30px;text-align:center;color:#475569;font-size:0.8rem;">${e.message}</td></tr>`;
+                if (meta) meta.textContent = e.message;
+                _aiAnalystLoaded = false;
+            }
+        }
+
+        let _ltTop25Loaded = false;
+        async function loadLtTop25() {
+            if (_ltTop25Loaded) return;
+            _ltTop25Loaded = true;
+            const tbody = document.getElementById('lt25-tbody');
+            const meta  = document.getElementById('lt25-meta');
+            try {
+                const r = await fetch('data/lt_top25.json?t=' + Date.now());
+                if (!r.ok) throw new Error('Not available yet — ranker runs nightly at 3:30 AM');
+                const d = await r.json();
+
+                if (meta) meta.textContent = `Generated ${new Date(d.generated_at).toLocaleString()} · prices as of ${d.as_of_date} · ${d.picks?.length || 0} picks`;
+
+                const qb = document.getElementById('lt25-quarter-badge');
+                if (qb && d.fund_quarter) { qb.textContent = '13F ' + d.fund_quarter; qb.style.display = 'inline-block'; }
+                const ub = document.getElementById('lt25-universe-badge');
+                if (ub && d.universe_size) ub.textContent = d.universe_size.toLocaleString() + ' screened';
+
+                // Overnight rotation strip
+                const rot = d.rotation || {};
+                if ((rot.entered && rot.entered.length) || (rot.dropped && rot.dropped.length)) {
+                    const vs = document.getElementById('lt25-rotation-vs');
+                    if (vs && rot.previous_run) vs.textContent = '· vs ' + new Date(rot.previous_run).toLocaleDateString();
+                    let chips = '';
+                    (rot.entered || []).forEach(s => {
+                        chips += `<span style="font-size:0.68rem;padding:2px 8px;border-radius:4px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.35);color:#22c55e;">▲ ${s}</span>`;
+                    });
+                    (rot.dropped || []).forEach(s => {
+                        chips += `<span style="font-size:0.68rem;padding:2px 8px;border-radius:4px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);color:#ef4444;">▼ ${s}</span>`;
+                    });
+                    const chipBox = document.getElementById('lt25-rotation-chips');
+                    if (chipBox) chipBox.innerHTML = chips;
+                    const box = document.getElementById('lt25-rotation');
+                    if (box) box.style.display = 'block';
+                }
+
+                const pct = v => v == null ? '<span style="color:#334155;">—</span>'
+                    : `<span style="color:${v >= 0 ? '#22c55e' : '#ef4444'};">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</span>`;
+
+                let rows = '';
+                (d.picks || []).forEach(p => {
+                    let move = '';
+                    if (p.prev_rank) {
+                        const delta = p.prev_rank - p.rank;
+                        if (delta) move = `<span style="font-size:0.6rem;color:${delta > 0 ? '#22c55e' : '#ef4444'};margin-left:4px;">${delta > 0 ? '▲' : '▼'}${Math.abs(delta)}</span>`;
+                    } else if (rot.previous_run) {
+                        move = `<span style="font-size:0.55rem;color:#38bdf8;border:1px solid rgba(56,189,248,0.4);border-radius:3px;padding:0 3px;margin-left:4px;">NEW</span>`;
+                    }
+                    const rankColor = p.rank <= 5 ? '#38bdf8' : p.rank <= 10 ? '#7dd3fc' : '#94a3b8';
+                    const funds = `${p.num_funds}${p.new_positions ? ` <span style="color:#22c55e;font-size:0.65rem;">+${p.new_positions}</span>` : ''}`;
+                    const conv = p.conviction
+                        ? `<span style="color:#f472b6;" title="conviction score ${p.conviction.conviction_score} · ${p.conviction.scanner_count} scanners">#${p.conviction.conviction_rank}</span>`
+                        : '<span style="color:#334155;">—</span>';
+                    rows += `<tr style="border-bottom:1px solid rgba(51,65,85,0.4);">
+                        <td style="padding:8px 10px;color:${rankColor};font-weight:600;font-family:'JetBrains Mono',monospace;white-space:nowrap;">${p.rank}${move}</td>
+                        <td style="padding:8px 10px;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace;">${p.symbol}</td>
+                        <td style="padding:8px 10px;color:#64748b;font-size:0.7rem;">${p.sector || ''}</td>
+                        <td style="padding:8px 10px;text-align:right;color:#38bdf8;font-family:'JetBrains Mono',monospace;font-weight:600;">${p.lt_score.toFixed(1)}</td>
+                        <td style="padding:8px 10px;text-align:right;color:#94a3b8;font-family:'JetBrains Mono',monospace;">$${p.close.toFixed(2)}</td>
+                        <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${pct(p.gain_20d)}</td>
+                        <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${pct(p.gain_3m)}</td>
+                        <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${pct(p.gain_6m)}</td>
+                        <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${pct(p.gain_1y)}</td>
+                        <td style="padding:8px 10px;text-align:right;color:#94a3b8;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${funds}</td>
+                        <td style="padding:8px 10px;text-align:right;color:#94a3b8;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${p.rs_composite.toFixed(1)}</td>
+                        <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${conv}</td>
+                    </tr>`;
+                });
+                if (tbody) tbody.innerHTML = rows || '<tr><td colspan="12" style="padding:20px;text-align:center;color:#475569;">No picks returned.</td></tr>';
+
+                const mf = document.getElementById('lt25-method');
+                if (mf && d.methodology) mf.textContent = d.methodology;
+
+            } catch (e) {
+                if (tbody) tbody.innerHTML = `<tr><td colspan="12" style="padding:30px;text-align:center;color:#475569;font-size:0.8rem;">${e.message}</td></tr>`;
+                if (meta) meta.textContent = e.message;
+                _ltTop25Loaded = false;
             }
         }
 
@@ -4946,6 +5288,14 @@
                     document.getElementById('pp-positions').textContent =
                         `${pp.open_count || 0} / ${pp.closed_count || 0}`;
 
+                    // ── Equity curve ─────────────────────────────────────────
+                    const ppChart = document.getElementById('pp-equity-chart');
+                    if (ppChart) {
+                        const svg = equityCurveSVG(pp.equity_curve);
+                        ppChart.innerHTML = svg ||
+                            '<span style="color:#64748b;">Accumulating history — the curve appears after a few daily snapshots.</span>';
+                    }
+
                     // ── Open positions table ─────────────────────────────────
                     const tbody = document.getElementById('pp-holdings-body');
                     const positions = pp.positions || [];
@@ -5132,7 +5482,7 @@
                 .then(cp => {
                     const gen = cp.generated ? cp.generated.slice(0,16).replace('T',' ') : '';
                     document.getElementById('cp-dates').textContent =
-                        `Started: ${cp.start_date || '—'} · Updated: ${gen}`;
+                        `Started: ${cp.start_date || '—'} · Updated: ${gen} · Cash: $${(cp.cash || 0).toFixed(2)}`;
 
                     // Summary cards
                     document.getElementById('cp-value').textContent =
@@ -5155,6 +5505,14 @@
 
                     document.getElementById('cp-positions').textContent =
                         `${cp.open_count || 0} / ${cp.closed_count || 0}`;
+
+                    // Equity curve
+                    const cpChart = document.getElementById('cp-equity-chart');
+                    if (cpChart) {
+                        const svg = equityCurveSVG(cp.equity_curve);
+                        cpChart.innerHTML = svg ||
+                            '<span style="color:#64748b;">Accumulating history — the curve appears after a few daily snapshots.</span>';
+                    }
 
                     // Open positions
                     const tbody = document.getElementById('cp-holdings-body');
@@ -5219,6 +5577,175 @@
                     console.error('Crypto paper portfolio load error:', err);
                     document.getElementById('cp-holdings-body').innerHTML =
                         '<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">Portfolio data unavailable.</td></tr>';
+                });
+        }
+
+        // ── Analyst Portfolios (Claude + Quant) ────────────────────────────────
+        function _renderAnalystPortfolio(data, contentId, metaId, cfg) {
+            const metaEl = document.getElementById(metaId);
+            if (metaEl) metaEl.textContent =
+                `Started: ${data.start_date||'—'} · Updated: ${(data.generated||'').slice(0,16).replace('T',' ')}`;
+
+            const pnl = data.pnl_pct || 0;
+            const wr  = data.win_rate || 0;
+            const avg = data.avg_trade_pnl || 0;
+            const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
+            const wrColor  = wr >= 55 ? '#10B981' : wr >= 45 ? '#F59E0B' : data.closed_count > 0 ? '#EF4444' : '#CBD5E1';
+            const avgColor = avg >= 0 ? '#10B981' : '#EF4444';
+
+            const positions = data.positions || [];
+            const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
+
+            const posRows = positions.length === 0
+                ? `<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No open positions.</td></tr>`
+                : positions.map(p => {
+                    const pct = p.pnl_pct || 0;
+                    const pc  = pct >= 0 ? '#10B981' : pct > -4 ? '#F59E0B' : '#EF4444';
+                    const stopDist = p.stop_price && p.current_price
+                        ? ((p.stop_price - p.current_price) / p.current_price * 100).toFixed(1) : '—';
+                    const roomPct = Math.max(0, Math.min(100, 100 - (Math.abs(Math.min(pct,0)) / 8 * 100)));
+                    const barClr  = roomPct >= 60 ? '#10B981' : roomPct >= 30 ? '#F59E0B' : '#EF4444';
+                    const scoreVal = cfg.scoreField === 'claude_rank'
+                        ? (p.claude_rank != null ? `#${p.claude_rank}` : '—')
+                        : (p[cfg.scoreField] != null ? Math.round(p[cfg.scoreField]) : '—');
+                    const scanners = (p.scanners||'').split(',').map(s=>s.trim()).filter(Boolean);
+                    const scanBadges = scanners.slice(0,3).map(s => {
+                        const c = _SETUP_SC_COLORS[s]||'#818cf8';
+                        const l = _SETUP_SC_LABEL[s]||s;
+                        return `<span style="display:inline-block;background:${c}1a;border:1px solid ${c}33;border-radius:3px;padding:1px 5px;font-size:0.58rem;color:${c};margin-right:2px;">${l}</span>`;
+                    }).join('');
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;min-width:90px;">
+                            <div style="text-align:right;font-size:0.72rem;color:#EF4444;">$${(p.stop_price||0).toFixed(2)} <span style="color:#475569;font-size:0.62rem;">${stopDist}%</span></div>
+                            <div style="margin-top:3px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;">
+                                <div style="width:${roomPct}%;height:100%;background:${barClr};border-radius:2px;transition:width 0.6s;"></div>
+                            </div>
+                        </td>
+                        <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${p.days_held||0}</td>
+                        <td style="padding:7px 8px;text-align:right;color:${cfg.color};">${scoreVal}</td>
+                        <td style="padding:7px 8px;">${scanBadges}</td>
+                    </tr>`;
+                }).join('');
+
+            const closedRows = closed.length === 0
+                ? `<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No closed trades yet — first cohort exits ~10 trading days after entry.</td></tr>`
+                : closed.map(t => {
+                    const pct = t.pnl_pct || 0;
+                    const dol = t.pnl_dollars || 0;
+                    const pc  = pct >= 0 ? '#10B981' : '#EF4444';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${t.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.entry_date}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.exit_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.exit_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;text-align:right;color:${pc};">${dol>=0?'+$':'-$'}${Math.abs(dol).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${t.days_held||'—'}</td>
+                        <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_reason||''}</td>
+                    </tr>`;
+                }).join('');
+
+            const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
+            document.getElementById(contentId).innerHTML = `
+                <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;">
+                    <div style="background:${cfg.color}14;border-radius:9px;padding:13px;text-align:center;border:1px solid ${cfg.color}44;">
+                        <div style="font-size:1.5rem;font-weight:700;color:${cfg.color};font-family:'JetBrains Mono',monospace;">$${(data.total_value||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Value</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${pnlColor};font-family:'JetBrains Mono',monospace;">${pnl>=0?'+':''}${pnl.toFixed(2)}%</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Total Return</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${wrColor};font-family:'JetBrains Mono',monospace;">${data.closed_count>0?wr.toFixed(1)+'%':'—'}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Win Rate</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${avgColor};font-family:'JetBrains Mono',monospace;">${data.closed_count>0?(avg>=0?'+':'')+avg.toFixed(2)+'%':'—'}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Avg Trade</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">${data.open_count||0} / ${data.closed_count||0}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Open / Closed</div>
+                    </div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span></div>
+                    ${equityCurveSVG(data.equity_curve) || '<span style="color:#64748b;font-size:0.72rem;">Accumulating history — appears after a few daily snapshots.</span>'}
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Open Positions</div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${cfg.color}33;">
+                            <th style="${thStyle}text-align:left;">Symbol</th>
+                            <th style="${thStyle}text-align:left;">In Date</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Current</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:left;">Stop</th>
+                            <th style="${thStyle}text-align:center;">Days</th>
+                            <th style="${thStyle}text-align:right;">${cfg.scoreLabel}</th>
+                            <th style="${thStyle}text-align:left;">Scanners</th>
+                        </tr></thead>
+                        <tbody>${posRows}</tbody>
+                    </table></div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Closed Trades (last 20)</div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${cfg.color}33;">
+                            <th style="${thStyle}text-align:left;">Symbol</th>
+                            <th style="${thStyle}text-align:left;">In</th>
+                            <th style="${thStyle}text-align:left;">Out</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Exit</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L $</th>
+                            <th style="${thStyle}text-align:center;">Days</th>
+                            <th style="${thStyle}text-align:left;">Reason</th>
+                        </tr></thead>
+                        <tbody>${closedRows}</tbody>
+                    </table></div>
+                </div>`;
+        }
+
+        let _cpAnalystLoaded = false, _qpLoaded = false;
+
+        function loadClaudePortfolio(force = false) {
+            if (_cpAnalystLoaded && !force) return;
+            fetch('/trading/data/claude_portfolio.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => {
+                    _cpAnalystLoaded = true;
+                    _renderAnalystPortfolio(d, 'cp-content', 'cp-meta', {
+                        color: '#A78BFA', scoreField: 'claude_rank', scoreLabel: 'Rank'
+                    });
+                })
+                .catch(() => {
+                    document.getElementById('cp-content').innerHTML =
+                        '<div style="text-align:center;padding:40px;color:#64748b;">Portfolio data unavailable — runs nightly at 8:32 PM.</div>';
+                });
+        }
+
+        function loadQuantPortfolio(force = false) {
+            if (_qpLoaded && !force) return;
+            fetch('/trading/data/quant_analyst_portfolio.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => {
+                    _qpLoaded = true;
+                    _renderAnalystPortfolio(d, 'qp-content', 'qp-meta', {
+                        color: '#2DD4BF', scoreField: 'quant_score', scoreLabel: 'QScore'
+                    });
+                })
+                .catch(() => {
+                    document.getElementById('qp-content').innerHTML =
+                        '<div style="text-align:center;padding:40px;color:#64748b;">Portfolio data unavailable — runs nightly at 8:35 PM.</div>';
                 });
         }
 
@@ -6068,19 +6595,26 @@
                     const issues = pb.issues || [];
                     const kanban = document.getElementById('board-kanban');
                     if (kanban) {
+                        const MAX_DONE = 5;
                         kanban.innerHTML = Object.entries(statusConfig).map(([status, cfg]) => {
                             const group = issues.filter(i => i.status === status);
+                            const isDone = status === 'completed';
+                            const shown = isDone && group.length > MAX_DONE ? group.slice(0, MAX_DONE) : group;
+                            const overflow = isDone ? group.length - shown.length : 0;
                             return `<div style="background:${cfg.bg};border:1px solid ${cfg.border};border-radius:8px;padding:12px;">
                                 <div style="color:${cfg.color};font-size:0.78rem;font-weight:bold;margin-bottom:10px;">${cfg.label} (${group.length})</div>
                                 ${group.length === 0
                                     ? `<div class="data-unavail" style="text-align:center;padding:10px;">Empty</div>`
-                                    : group.map(issue => `
-                                        <div style="background:rgba(15,23,42,0.6);border-radius:6px;padding:8px 10px;margin-bottom:8px;border-left:3px solid ${priColors[issue.priority]||'#64748b'};">
-                                            <div style="color:#CBD5E1;font-size:0.75rem;font-weight:600;margin-bottom:4px;">#${issue.id} ${issue.title}</div>
-                                            ${issue.notes ? `<div style="color:#64748b;font-size:0.68rem;line-height:1.4;">${issue.notes}</div>` : ''}
-                                            <div style="color:#475569;font-size:0.65rem;margin-top:4px;">${issue.category} · ${issue.created}</div>
-                                        </div>`
-                                    ).join('')}
+                                    : shown.map(issue => {
+                                        const notes = issue.notes || '';
+                                        const truncNotes = !isDone && notes.length > 120 ? notes.slice(0, 120) + '…' : notes;
+                                        return `<div style="background:rgba(15,23,42,${isDone ? '0.4' : '0.6'});border-radius:6px;padding:8px 10px;margin-bottom:6px;border-left:3px solid ${priColors[issue.priority]||'#64748b'};${isDone ? 'opacity:0.75;' : ''}">
+                                            <div style="color:${isDone ? '#94A3B8' : '#CBD5E1'};font-size:0.75rem;font-weight:600;margin-bottom:${!isDone && truncNotes ? '4px' : '0'};">#${issue.id} ${issue.title}</div>
+                                            ${!isDone && truncNotes ? `<div style="color:#64748b;font-size:0.68rem;line-height:1.4;">${truncNotes}</div>` : ''}
+                                            <div style="color:#475569;font-size:0.65rem;margin-top:3px;">${issue.category} · ${issue.created}</div>
+                                        </div>`;
+                                      }).join('')}
+                                ${overflow ? `<div style="color:#475569;font-size:0.68rem;text-align:center;padding-top:6px;border-top:1px solid rgba(148,163,184,0.1);">+${overflow} more completed</div>` : ''}
                             </div>`;
                         }).join('');
                     }
@@ -6730,6 +7264,43 @@
         // ── Sparklines ─────────────────────────────────────────────────────────
         let _sparklineData = {};
 
+        function equityCurveSVG(curve) {
+            // curve: [{date:'YYYY-MM-DD', value:N}, ...] → % return line chart vs first point.
+            // Returns '' when there aren't enough points to draw a line.
+            if (!curve || curve.length < 2) return '';
+            const vals = curve.map(p => p.value);
+            const dates = curve.map(p => p.date);
+            const start = vals[0];
+            const retVals = vals.map(v => ((v - start) / start) * 100);
+            const minV = Math.min(-0.1, ...retVals);
+            const maxV = Math.max(0.1, ...retVals);
+            const range = maxV - minV || 1;
+            const W = 600, H = 70;
+            const pad = {t:10, b:18, l:34, r:8};
+            const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
+            const n = retVals.length;
+            const xP = i => pad.l + (n > 1 ? (i / (n-1)) * cW : cW/2);
+            const yP = v => pad.t + (1 - (v - minV) / range) * cH;
+            const zeroY = yP(0);
+            const pts = retVals.map((v,i) => `${xP(i).toFixed(1)},${yP(v).toFixed(1)}`).join(' ');
+            const lastV = retVals[n-1];
+            const lineColor = lastV >= 0 ? '#34d399' : '#ef4444';
+            const areaPts = `${xP(0).toFixed(1)},${zeroY.toFixed(1)} ${pts} ${xP(n-1).toFixed(1)},${zeroY.toFixed(1)}`;
+            const yLabels = [minV, 0, maxV].map(v =>
+                `<text x="${pad.l-3}" y="${yP(v)+4}" text-anchor="end" fill="#475569" font-size="8">${v>=0?'+':''}${v.toFixed(1)}%</text>`
+            ).join('');
+            const xLabels = `
+                <text x="${xP(0)}" y="${H-2}" text-anchor="start" fill="#475569" font-size="8">${dates[0].slice(5)}</text>
+                <text x="${xP(n-1)}" y="${H-2}" text-anchor="end" fill="#475569" font-size="8">${dates[n-1].slice(5)}</text>`;
+            return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;display:block;">
+                <line x1="${pad.l}" y1="${zeroY.toFixed(1)}" x2="${W-pad.r}" y2="${zeroY.toFixed(1)}" stroke="rgba(100,116,139,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+                <polygon points="${areaPts}" fill="${lineColor}" fill-opacity="0.08"/>
+                <polyline points="${pts}" stroke="${lineColor}" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+                <circle cx="${xP(n-1).toFixed(1)}" cy="${yP(lastV).toFixed(1)}" r="3" fill="${lineColor}"/>
+                ${yLabels}${xLabels}
+            </svg>`;
+        }
+
         function makeSparkline(symbol) {
             const closes = _sparklineData[symbol];
             if (!closes || closes.length < 2) return '<span style="color:#334155;font-size:0.65rem;">-</span>';
@@ -6934,7 +7505,16 @@
             let regimeData = null;
             const p1 = fetch('/trading/data/top_picks.json?t=' + Date.now()).then(r=>r.json()).then(d => { regimeData = d; }).catch(()=>{});
 
-            const p2 = fetch('/trading/data/conviction_picks.json').then(r=>r.json()).then(picks => {
+            // AI one-line insights for the top-3 (daily_setups_insights.json) — tolerant of absence
+            const insightsPromise = fetch('/trading/data/daily_setups_insights.json?t=' + Date.now())
+                .then(r => r.ok ? r.json() : null)
+                .then(d => (d && d.insights) ? d.insights : {})
+                .catch(() => ({}));
+
+            const p2 = Promise.all([
+                fetch('/trading/data/conviction_picks.json').then(r=>r.json()),
+                insightsPromise,
+            ]).then(([picks, insightMap]) => {
                 if (metaEl) metaEl.textContent = `${picks.length} signals · ${new Date().toLocaleDateString()}`;
                 const sPill = document.getElementById('intro-signals-pill');
                 if (sPill) { sPill.textContent = picks.length + ' signals today'; }
@@ -6995,6 +7575,13 @@
                         BLOCKED: `<span title="Blocked — fundamentals fail quality gate (score ${p.fund_score})" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);color:#F87171;border-radius:4px;padding:1px 5px;font-size:0.65rem;font-weight:700;">F✗</span>`,
                     };
                     const fundBadge = p.fund_tier ? (FUND_BADGE[p.fund_tier] || '') : '';
+                    const insightTxt = (i < 3 && insightMap) ? insightMap[p.symbol] : null;
+                    const insightRow = insightTxt
+                        ? `<div style="grid-column:1/-1;margin-top:2px;padding-top:8px;border-top:1px dashed rgba(148,163,184,0.15);font-size:0.72rem;color:#93C5FD;line-height:1.45;">
+                            <span title="One-line read from Claude Haiku (daily_setups_insights.json)" style="color:#A78BFA;font-weight:700;font-size:0.62rem;letter-spacing:0.04em;">AI</span>
+                            <span style="margin-left:6px;">${insightTxt}</span>
+                        </div>`
+                        : '';
 
                     return `<div style="display:grid;grid-template-columns:2rem 7rem 1fr 60px auto;align-items:center;gap:12px;padding:11px 14px;background:rgba(15,23,42,0.6);border-radius:8px;border:1px solid rgba(148,163,184,0.08);">
                         <div style="color:#475569;font-size:0.8rem;text-align:center;">${i+1}</div>
@@ -7016,6 +7603,7 @@
                                 <span style="color:#475569;font-size:0.7rem;">${days}d</span>
                             </div>
                         </div>
+                        ${insightRow}
                     </div>`;
                 }).join('');
             });
@@ -7995,11 +8583,143 @@
             // Description
             set('lk-description', s.desc || '');
 
+            // Analyst pick card
+            lookupShowAnalystPick(s.sym);
+
             // Smart Money
             lookupRenderSmartMoney(s.sym);
 
             // Load price chart
             loadLookupChart(s.sym);
+        }
+
+        // ── Analyst Panel ───────────────────────────────────────────────────────
+        let _analystData  = null;   // claude_top25.json
+        let _quantData    = null;   // quant_top25.json
+
+        function _fmtTs(iso) {
+            if (!iso) return '';
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' · ' + d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+        }
+
+        function _chipHtml(p, color, hoverColor, border) {
+            const sc = p.scanners ? p.scanners.split(',').length : 0;
+            return `<button onclick="lookupSelect('${p.symbol}')"
+                style="background:${color}18;border:1px solid ${border};color:${color};padding:3px 9px;border-radius:6px;cursor:pointer;font-size:0.72rem;font-family:inherit;display:inline-flex;align-items:center;gap:4px;"
+                onmouseover="this.style.background='${hoverColor}'" onmouseout="this.style.background='${color}18'">
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${p.symbol}</span>
+                <span style="color:#475569;font-size:0.62rem;">#${p.rank} ${sc}s</span>
+            </button>`;
+        }
+
+        async function loadAnalystPanel() {
+            const [claudeRes, quantRes] = await Promise.allSettled([
+                fetch('/trading/data/claude_top25.json'),
+                fetch('/trading/data/quant_top25.json'),
+            ]);
+
+            if (claudeRes.status === 'fulfilled' && claudeRes.value.ok)
+                _analystData = await claudeRes.value.json();
+            if (quantRes.status === 'fulfilled' && quantRes.value.ok)
+                _quantData = await quantRes.value.json();
+
+            // Regime badge (prefer Claude, fall back to Quant)
+            const regime = (_analystData || _quantData || {}).regime;
+            const regimeEl = document.getElementById('lk-an-regime');
+            if (regimeEl && regime) {
+                const rc = regime === 'BULL' ? '#10B981' : regime === 'BEAR' ? '#EF4444' : '#FBBF24';
+                regimeEl.textContent = regime;
+                regimeEl.style.cssText += `;color:${rc};background:${rc}22;border:1px solid ${rc}44;`;
+                regimeEl.style.display = '';
+            }
+
+            // Claude column
+            if (_analystData) {
+                const el = document.getElementById('lk-an-generated');
+                if (el) el.textContent = _fmtTs(_analystData.generated);
+                const su = document.getElementById('lk-an-summary');
+                if (su) su.textContent = _analystData.analysis_summary || '';
+                const pc = document.getElementById('lk-an-picks');
+                if (pc) pc.innerHTML = (_analystData.picks || []).map(p => _chipHtml(p,'#A78BFA','rgba(167,139,250,0.25)','rgba(167,139,250,0.3)')).join('');
+            } else {
+                const su = document.getElementById('lk-an-summary');
+                if (su) su.textContent = 'Unavailable (runs 8:30 PM Mon–Fri)';
+            }
+
+            // Quant column
+            if (_quantData) {
+                const el = document.getElementById('lk-an-quant-generated');
+                if (el) el.textContent = _fmtTs(_quantData.generated);
+                const su = document.getElementById('lk-an-quant-summary');
+                if (su) su.textContent = _quantData.analysis_summary || '';
+                const pc = document.getElementById('lk-an-quant-picks');
+                if (pc) pc.innerHTML = (_quantData.picks || []).map(p => _chipHtml(p,'#2DD4BF','rgba(20,184,166,0.2)','rgba(20,184,166,0.3)')).join('');
+            } else {
+                const su = document.getElementById('lk-an-quant-summary');
+                if (su) su.textContent = 'Unavailable (runs 8:35 PM Mon–Fri)';
+            }
+
+            // Consensus row
+            const claudeSyms = new Set((_analystData?.picks || []).map(p => p.symbol));
+            const quantSyms  = new Set((_quantData?.picks   || []).map(p => p.symbol));
+            const consensus  = [...claudeSyms].filter(s => quantSyms.has(s));
+            const countEl    = document.getElementById('lk-an-consensus-count');
+            const consEl     = document.getElementById('lk-an-consensus');
+            if (countEl) countEl.textContent = `${consensus.length} of 25`;
+            if (consEl) {
+                consEl.innerHTML = consensus.map(sym => {
+                    const cp = (_analystData?.picks || []).find(p => p.symbol === sym);
+                    const qp = (_quantData?.picks   || []).find(p => p.symbol === sym);
+                    return `<button onclick="lookupSelect('${sym}')"
+                        style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);color:#FBBF24;padding:3px 9px;border-radius:6px;cursor:pointer;font-size:0.72rem;font-family:inherit;display:inline-flex;align-items:center;gap:4px;"
+                        onmouseover="this.style.background='rgba(251,191,36,0.2)'" onmouseout="this.style.background='rgba(251,191,36,0.1)'">
+                        <span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${sym}</span>
+                        <span style="color:#92400e;font-size:0.62rem;">C#${cp?.rank||'?'} Q#${qp?.rank||'?'}</span>
+                    </button>`;
+                }).join('');
+            }
+        }
+
+        function lookupShowAnalystPick(sym) {
+            const card = document.getElementById('lk-analyst-pick');
+            if (!card) return;
+            const cp = (_analystData?.picks || []).find(p => p.symbol === sym);
+            const qp = (_quantData?.picks   || []).find(p => p.symbol === sym);
+            if (!cp && !qp) { card.style.display = 'none'; return; }
+
+            const both = cp && qp;
+            let html = '';
+
+            if (both) {
+                card.style.background = 'rgba(251,191,36,0.06)';
+                card.style.border = '1px solid rgba(251,191,36,0.25)';
+                html += `<div style="color:#FBBF24;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">✨ Consensus Pick</div>`;
+            } else {
+                card.style.background = cp ? 'rgba(167,139,250,0.06)' : 'rgba(20,184,166,0.05)';
+                card.style.border = cp ? '1px solid rgba(167,139,250,0.25)' : '1px solid rgba(20,184,166,0.2)';
+            }
+
+            if (cp) {
+                html += `<div style="display:flex;gap:8px;align-items:baseline;margin-bottom:4px;">
+                    <span style="color:#A78BFA;font-size:0.7rem;font-weight:700;text-transform:uppercase;">Claude Haiku</span>
+                    <span style="color:#64748b;font-size:0.7rem;">Rank #${cp.rank} of 25</span>
+                </div>
+                <p style="color:#94A3B8;font-size:0.78rem;line-height:1.5;margin:0 0 6px 0;">${cp.rationale}${cp.watch ? ' ⚠ ' + cp.watch : ''}</p>
+                <div style="color:#475569;font-size:0.68rem;margin-bottom:${qp ? '12px' : '0'};">Conv: ${cp.conviction_score != null ? Number(cp.conviction_score).toFixed(1) : '—'} · ${cp.scanners || '—'}</div>`;
+            }
+
+            if (qp) {
+                html += `<div style="display:flex;gap:8px;align-items:baseline;margin-bottom:4px;">
+                    <span style="color:#2DD4BF;font-size:0.7rem;font-weight:700;text-transform:uppercase;">Quant Formula</span>
+                    <span style="color:#64748b;font-size:0.7rem;">Rank #${qp.rank} of 25</span>
+                </div>
+                <p style="color:#94A3B8;font-size:0.78rem;line-height:1.5;margin:0 0 6px 0;">${qp.rationale || '—'}</p>
+                <div style="color:#475569;font-size:0.68rem;">QScore: ${qp.quant_score != null ? Number(qp.quant_score).toFixed(0) : '—'} · ${qp.scanners || '—'}</div>`;
+            }
+
+            card.innerHTML = html;
+            card.style.display = 'block';
         }
 
         // ── Lookup Smart Money Panel ────────────────────────────────────────────
@@ -9629,6 +10349,7 @@
         // ═══════════════════════════════════════════════════════
 
         let _fpData = null;
+        let _fpTracked = null;
 
         async function loadFlowPortfolio(force = false) {
             if (_fpData && !force) { fpRender(); return; }
@@ -9637,6 +10358,11 @@
                 const r = await fetch('data/flow_conviction_portfolio.json?t=' + Date.now());
                 if (!r.ok) throw new Error('not found');
                 _fpData = await r.json();
+                // Tracked paper book — optional; absent until the first tracker run deploys
+                try {
+                    const rt = await fetch('data/flow_conviction_tracked.json?t=' + Date.now());
+                    _fpTracked = rt.ok ? await rt.json() : null;
+                } catch(_) { _fpTracked = null; }
                 fpRender();
             } catch(e) {
                 document.getElementById('fp-meta').textContent = 'Failed to load flow_conviction_portfolio.json';
@@ -9644,12 +10370,160 @@
             }
         }
 
+        function flowTrackedHtml(t) {
+            const green = '#34d399', red = '#f87171', amber = '#fbbf24', slate = '#94a3b8', mute = '#64748b';
+            const header = `<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:2px 0 12px;">
+                <span style="font-size:0.82rem;font-weight:800;color:#e2e8f0;letter-spacing:0.02em;">Tracked Paper Book</span>
+                <span style="font-size:0.67rem;color:${mute};">$5,000 · 10 slots · −8% stop / 10-day time stop · marks to market daily</span>
+                <span style="flex:1;min-width:40px;height:1px;background:rgba(255,255,255,0.08);"></span>
+            </div>`;
+
+            if (!t) {
+                return header + `<div style="background:rgba(15,23,42,0.6);border:1px dashed rgba(255,255,255,0.1);border-radius:8px;padding:16px;margin-bottom:20px;color:${mute};font-size:0.78rem;">
+                    Not tracking yet — this book appears after the first <code style="color:${slate};">flow_conviction_tracker.py</code> run deploys.
+                </div>`;
+            }
+
+            const pnl   = t.pnl_pct || 0;
+            const pnlC  = v => v > 0 ? green : v < 0 ? red : slate;
+            const money = v => '$' + (v || 0).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            const pct   = v => (v >= 0 ? '+' : '') + (v || 0).toFixed(2) + '%';
+            const flowC = { INFLOW:'#4ade80', ACCUMULATING:'#22d3ee', NEUTRAL:'#94a3b8', DISTRIBUTING:'#f97316', OUTFLOW:'#ef4444' };
+            const flowBadge = l => `<span style="color:${flowC[l]||slate};font-weight:700;font-size:0.63rem;letter-spacing:0.04em;">${l||'—'}</span>`;
+
+            const card = (label, value, color, sub) => `
+                <div style="flex:1;min-width:104px;background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px 13px;">
+                    <div style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.07em;color:${mute};margin-bottom:5px;">${label}</div>
+                    <div style="font-size:1.02rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:${color};line-height:1.1;">${value}</div>
+                    ${sub ? `<div style="font-size:0.62rem;color:${mute};margin-top:3px;">${sub}</div>` : ''}
+                </div>`;
+
+            const trades = t.closed_trades || [];
+            const wins   = trades.filter(x => (x.pnl_pct||0) > 0).length;
+            const wr     = t.win_rate || 0;
+            const wrC    = t.closed_count > 0 ? (wr >= 55 ? green : wr >= 45 ? amber : red) : mute;
+            const avg    = t.avg_trade_pnl || 0;
+
+            let cards = `<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;">`;
+            cards += card('Value',     money(t.total_value), green, `start ${money(t.starting_capital)}`);
+            cards += card('Return',    pct(pnl), pnlC(pnl), t.start_date ? `since ${t.start_date}` : '');
+            cards += card('Win rate',  t.closed_count > 0 ? wr.toFixed(1) + '%' : '—', wrC, `${wins}W / ${trades.length - wins}L`);
+            cards += card('Avg trade', t.closed_count > 0 ? pct(avg) : '—', t.closed_count > 0 ? pnlC(avg) : mute, '');
+            cards += card('Positions', `${t.open_count || 0} / ${t.closed_count || 0}`, slate, 'open / closed');
+            cards += card('Cash',      '$' + (t.cash || 0).toFixed(0), (t.cash||0) > 0.5 ? amber : mute, '');
+            cards += `</div>`;
+
+            // Equity curve (mirrors the Rotation tab's SVG)
+            const eq = (() => {
+                const curve = t.equity_curve || [];
+                if (curve.length <= 1) {
+                    return `<div style="font-size:0.72rem;color:${mute};padding:4px 0 14px;">Equity curve builds after a few daily snapshots.</div>`;
+                }
+                const vals = curve.map(p => p.value), dates = curve.map(p => p.date);
+                const start = vals[0];
+                const retVals = vals.map(v => ((v - start) / start) * 100);
+                const minV = Math.min(-0.1, ...retVals), maxV = Math.max(0.1, ...retVals);
+                const range = maxV - minV || 1;
+                const W = 600, H = 70, pad = {t:10, b:18, l:34, r:8};
+                const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b, n = retVals.length;
+                const xP = i => pad.l + (n > 1 ? (i/(n-1))*cW : cW/2);
+                const yP = v => pad.t + (1 - (v - minV)/range)*cH;
+                const zeroY = yP(0);
+                const ptsArr = retVals.map((v,i) => `${xP(i).toFixed(1)},${yP(v).toFixed(1)}`).join(' ');
+                const lastV = retVals[n-1], lineColor = lastV >= 0 ? green : red;
+                const areaPts = `${xP(0).toFixed(1)},${zeroY.toFixed(1)} ${ptsArr} ${xP(n-1).toFixed(1)},${zeroY.toFixed(1)}`;
+                const yLabels = [minV, 0, maxV].map(v => `<text x="${pad.l-3}" y="${yP(v)+4}" text-anchor="end" fill="#475569" font-size="8">${v>=0?'+':''}${v.toFixed(1)}%</text>`).join('');
+                const xLabels = `<text x="${xP(0)}" y="${H-2}" text-anchor="start" fill="#475569" font-size="8">${dates[0].slice(5)}</text><text x="${xP(n-1)}" y="${H-2}" text-anchor="end" fill="#475569" font-size="8">${dates[n-1].slice(5)}</text>`;
+                return `<div style="margin-bottom:16px;"><svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;display:block;">
+                    <line x1="${pad.l}" y1="${zeroY.toFixed(1)}" x2="${W-pad.r}" y2="${zeroY.toFixed(1)}" stroke="rgba(100,116,139,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <polygon points="${areaPts}" fill="${lineColor}" fill-opacity="0.08"/>
+                    <polyline points="${ptsArr}" stroke="${lineColor}" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+                    <circle cx="${xP(n-1).toFixed(1)}" cy="${yP(lastV).toFixed(1)}" r="3" fill="${lineColor}"/>
+                    ${yLabels}${xLabels}
+                </svg></div>`;
+            })();
+
+            // Open positions
+            const positions = t.positions || [];
+            let posTable = `<div style="font-size:0.7rem;font-weight:700;color:${slate};text-transform:uppercase;letter-spacing:0.07em;margin:2px 0 7px;">Open Positions</div>`;
+            if (!positions.length) {
+                posTable += `<div style="font-size:0.75rem;color:${mute};padding:4px 0 14px;">No open positions.</div>`;
+            } else {
+                posTable += `<div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);margin-bottom:18px;">
+                <table style="width:100%;border-collapse:collapse;background:rgba(15,23,42,0.6);font-size:0.74rem;">
+                <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);color:${mute};font-size:0.63rem;text-transform:uppercase;letter-spacing:0.05em;">
+                  <th style="padding:7px 10px;text-align:left;width:26px;">#</th>
+                  <th style="padding:7px 10px;text-align:left;">Symbol</th>
+                  <th style="padding:7px 10px;text-align:left;">Flow</th>
+                  <th style="padding:7px 10px;text-align:left;">Entry</th>
+                  <th style="padding:7px 10px;text-align:right;">Entry $</th>
+                  <th style="padding:7px 10px;text-align:right;">Now $</th>
+                  <th style="padding:7px 10px;text-align:right;">P&amp;L</th>
+                  <th style="padding:7px 10px;text-align:right;">Stop</th>
+                  <th style="padding:7px 10px;text-align:center;">Days</th>
+                </tr></thead><tbody>`;
+                for (const p of positions) {
+                    const pv = p.pnl_pct || 0;
+                    posTable += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                        <td style="padding:7px 10px;color:#475569;font-family:'JetBrains Mono',monospace;">${p.flow_rank ?? '—'}</td>
+                        <td style="padding:7px 10px;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace;">${p.symbol}</td>
+                        <td style="padding:7px 10px;">${flowBadge(p.flow_label)}</td>
+                        <td style="padding:7px 10px;color:${mute};">${p.entry_date||'—'}</td>
+                        <td style="padding:7px 10px;text-align:right;color:${slate};">$${(p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 10px;text-align:right;color:${slate};">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 10px;text-align:right;font-weight:700;color:${pnlC(pv)};font-family:'JetBrains Mono',monospace;">${pct(pv)}</td>
+                        <td style="padding:7px 10px;text-align:right;color:${red};font-size:0.7rem;">$${(p.stop_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 10px;text-align:center;color:${slate};">${p.days_held||0}</td>
+                    </tr>`;
+                }
+                posTable += `</tbody></table></div>`;
+            }
+
+            // Closed trades
+            const closed = trades.slice().reverse().slice(0, 15);
+            let clTable = `<div style="font-size:0.7rem;font-weight:700;color:${slate};text-transform:uppercase;letter-spacing:0.07em;margin:2px 0 7px;">Closed Trades ${trades.length ? `<span style="color:${mute};font-weight:400;">(${trades.length})</span>` : ''}</div>`;
+            if (!closed.length) {
+                clTable += `<div style="font-size:0.75rem;color:${mute};padding:4px 0 18px;">No closed trades yet — exits log here as stops and time-stops trigger.</div>`;
+            } else {
+                clTable += `<div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);margin-bottom:22px;">
+                <table style="width:100%;border-collapse:collapse;background:rgba(15,23,42,0.6);font-size:0.74rem;">
+                <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);color:${mute};font-size:0.63rem;text-transform:uppercase;letter-spacing:0.05em;">
+                  <th style="padding:7px 10px;text-align:left;">Symbol</th>
+                  <th style="padding:7px 10px;text-align:left;">Held</th>
+                  <th style="padding:7px 10px;text-align:right;">Entry $</th>
+                  <th style="padding:7px 10px;text-align:right;">Exit $</th>
+                  <th style="padding:7px 10px;text-align:right;">P&amp;L</th>
+                  <th style="padding:7px 10px;text-align:right;">$ P&amp;L</th>
+                  <th style="padding:7px 10px;text-align:center;">Days</th>
+                  <th style="padding:7px 10px;text-align:left;">Reason</th>
+                </tr></thead><tbody>`;
+                for (const c of closed) {
+                    const cv = c.pnl_pct || 0, cd = c.pnl_dollars || 0;
+                    clTable += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                        <td style="padding:7px 10px;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace;">${c.symbol}</td>
+                        <td style="padding:7px 10px;color:${mute};font-size:0.68rem;">${c.entry_date||''} → ${c.exit_date||''}</td>
+                        <td style="padding:7px 10px;text-align:right;color:${slate};">$${(c.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 10px;text-align:right;color:${slate};">$${(c.exit_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 10px;text-align:right;font-weight:700;color:${pnlC(cv)};font-family:'JetBrains Mono',monospace;">${pct(cv)}</td>
+                        <td style="padding:7px 10px;text-align:right;color:${pnlC(cd)};">${cd >= 0 ? '+$' : '-$'}${Math.abs(cd).toFixed(2)}</td>
+                        <td style="padding:7px 10px;text-align:center;color:${slate};">${c.days_held||'—'}</td>
+                        <td style="padding:7px 10px;color:${mute};font-size:0.68rem;">${c.exit_reason||''}</td>
+                    </tr>`;
+                }
+                clTable += `</tbody></table></div>`;
+            }
+
+            return header + cards + eq + posTable + clTable;
+        }
+
         function fpRender() {
             const d = _fpData;
             document.getElementById('fp-meta').textContent =
                 `Generated ${d.generated_at} · flow date ${d.flow_date} · ${d.eligible_count}/${d.universe_size} eligible · ${d.excluded_count} excluded (OUTFLOW)`;
             document.getElementById('fp-stats').textContent =
-                `${d.portfolio_size} picks`;
+                _fpTracked
+                    ? `${_fpTracked.pnl_pct >= 0 ? '+' : ''}${(_fpTracked.pnl_pct || 0).toFixed(2)}% tracked · ${d.portfolio_size} picks`
+                    : `${d.portfolio_size} picks`;
 
             const flowColors = {
                 INFLOW:       { bg: 'rgba(74,222,128,0.12)',  border: 'rgba(74,222,128,0.4)',  text: '#4ade80'  },
@@ -9679,7 +10553,17 @@
             const rot = d.rotation_summary || {};
             const intoStr = (rot.inflow_sectors || []).concat(rot.accumulating_sectors || []).join(' · ') || '—';
             const outStr  = (rot.outflow_sectors || []).join(' · ') || '—';
-            let html = `
+            // ── Tracked paper book (realized performance) ──────────────────
+            let html = flowTrackedHtml(_fpTracked);
+
+            // ── Current target allocation (forward-looking flow ranker) ─────
+            html += `<div style="display:flex;align-items:center;gap:10px;margin:4px 0 14px;">
+                <span style="font-size:0.82rem;font-weight:800;color:#e2e8f0;letter-spacing:0.02em;">Current Target Allocation</span>
+                <span style="font-size:0.67rem;color:#64748b;">forward-looking flow ranker · rebuilt each run</span>
+                <span style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></span>
+            </div>`;
+
+            html += `
             <div style="background:rgba(30,41,59,0.5);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 18px;margin-bottom:20px;font-size:0.8rem;line-height:2;">
               <div><span style="color:#4ade80;font-weight:700;">↑ Buying (INFLOW / ACCUMULATING) &nbsp;</span><span style="color:#94a3b8;">${intoStr}</span></div>
               <div><span style="color:#ef4444;font-weight:700;">↓ Avoiding (OUTFLOW) &nbsp;</span><span style="color:#94a3b8;">${outStr}</span></div>
