@@ -805,12 +805,15 @@ function renderKPIs(s, data) {
   const withHud = data.filter(r => r.hud_gross_yield != null);
   const avgHudYield = withHud.length
     ? withHud.reduce((acc, r) => acc + r.hud_gross_yield, 0) / withHud.length : 0;
-  const top = data.filter(r => r.gross_yield != null).sort((a, b) => b.gross_yield - a.gross_yield)[0];
+  // Prefer actual gross_yield when present; fall back to HUD estimate so the
+  // Max-Yield KPI reflects real data instead of staying blank.
+  const yieldOf = r => r.gross_yield ?? r.hud_gross_yield;
+  const top = data.filter(r => yieldOf(r) != null).sort((a, b) => yieldOf(b) - yieldOf(a))[0];
 
   countUp(document.getElementById('kpiTotal'),    s.total_buildings,          700, v => Math.round(v).toLocaleString());
   countUp(document.getElementById('kpiMatched'),  s.scored_buildings,         700, v => Math.round(v).toLocaleString());
   countUp(document.getElementById('kpiAvgYield'), avgHudYield,                900, v => (v * 100).toFixed(1) + '%');
-  countUp(document.getElementById('kpiMaxYield'), top ? top.gross_yield : 0,  900, v => (v * 100).toFixed(1) + '%');
+  countUp(document.getElementById('kpiMaxYield'), top ? yieldOf(top) : 0,     900, v => (v * 100).toFixed(1) + '%');
 
   if (top) document.getElementById('kpiMaxAddr').textContent = top.address;
 }

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MA Multifamily Monthly — July 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117; --surface: #1a1d27; --surface2: #222538; --border: #2e3148;
+    --text: #e2e8f0; --text-muted: #8892a4; --accent: #6366f1; --accent-light: #818cf8;
+    --green: #22c55e; --amber: #f59e0b;
+  }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text);
+          font-size: 14px; line-height: 1.6; padding: 32px 16px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  header { border-bottom: 2px solid var(--accent); padding-bottom: 20px; margin-bottom: 28px; }
+  .masthead { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+  .masthead span { color: var(--accent-light); }
+  .issue-line { color: var(--text-muted); margin-top: 4px; font-size: 13px; }
+  .badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
+            padding: 2px 8px; font-size: 11px; color: var(--accent-light); margin-left: 8px; }
+  h2 { font-size: 16px; margin: 32px 0 12px; color: var(--accent-light); text-transform: uppercase;
+        letter-spacing: 1px; font-weight: 700; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .card .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .card .value { font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .card .sub { font-size: 11px; color: var(--text-muted); }
+  .featured { background: var(--surface); border: 1px solid var(--accent); border-radius: 8px;
+               padding: 18px 20px; margin-top: 8px; }
+  .featured .addr-big { font-size: 18px; font-weight: 700; }
+  .featured .score-big { float: right; font-size: 26px; font-weight: 800; color: var(--green); }
+  .featured p { margin-top: 8px; color: var(--text); }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; overflow: hidden; }
+  th { background: var(--surface2); text-align: left; padding: 8px 10px; font-size: 11px;
+        color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 8px 10px; border-top: 1px solid var(--border); vertical-align: middle; }
+  td.rank { color: var(--text-muted); width: 28px; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .addr { font-weight: 600; }
+  .city { font-size: 11px; color: var(--text-muted); }
+  .green { color: var(--green); }
+  .score { font-weight: 700; color: var(--accent-light); }
+  .bar { background: var(--surface2); border-radius: 3px; height: 8px; width: 100%; min-width: 120px; }
+  .bar-fill { background: var(--accent); border-radius: 3px; height: 8px; }
+  .note { background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0;
+           padding: 12px 16px; margin-bottom: 10px; }
+  .note-title { font-weight: 700; margin-bottom: 2px; }
+  .note p { color: var(--text-muted); font-size: 13px; }
+  footer { margin-top: 40px; border-top: 1px solid var(--border); padding-top: 16px;
+            font-size: 11px; color: var(--text-muted); }
+  footer p { margin-bottom: 8px; }
+  @media (max-width: 640px) { th:nth-child(7), td:nth-child(7), th:nth-child(9), td:nth-child(9) { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="masthead">MA Multifamily <span>Monthly</span></div>
+    <div class="issue-line">July 2026 · Issue generated July 10, 2026
+      <span class="badge">scoring v1.5.0</span>
+      <span class="badge">scored 2026-07-10</span>
+    </div>
+  </header>
+
+  <h2>Market Pulse</h2>
+  <div class="cards">
+    <div class="card"><div class="label">Buildings Scored</div>
+      <div class="value">339,856</div><div class="sub">all of Massachusetts</div></div>
+    <div class="card"><div class="label">Median Cap Rate</div>
+      <div class="value">3%</div><div class="sub">p90 6% · p99 11%</div></div>
+    <div class="card"><div class="label">Top Opportunity Score</div>
+      <div class="value">82.5</div><div class="sub">p99 34.5 · median 5.0</div></div>
+    <div class="card"><div class="label">Clean Valuations</div>
+      <div class="value">309,273</div><div class="sub">9.0% flagged for review</div></div>
+  </div>
+
+  <h2>Deal of the Month</h2>
+  <div class="featured">
+    <span class="score-big">82.5</span>
+    <div class="addr-big">27 -33 Broad Street — Hardwick, MA</div>
+    <p>A 4-unit building in Hardwick valued at $317,000 with an estimated $1,394/mo rent per unit (HUD FMR), producing roughly $2,471/mo in net operating income — a 14.8% cap rate. It last traded 2022-07-29 at $200,000 and carries a signal score 63 (ownership/valuation signals present).</p>
+  </div>
+
+  <h2>Top 10 Opportunities</h2>
+  <table>
+    <thead><tr><th></th><th>Property</th><th class="num">Units</th><th class="num">Value</th>
+      <th class="num">Rent/Unit</th><th class="num">Cap Rate</th><th class="num">Signal</th>
+      <th class="num">Score</th><th>Valuation</th></tr></thead>
+    <tbody>
+        <tr>
+          <td class="rank">1</td>
+          <td><div class="addr">27 -33 Broad Street</div><div class="city">Hardwick, MA 01031</div></td>
+          <td class="num">4</td>
+          <td class="num">$317,000</td>
+          <td class="num">$1,394/mo</td>
+          <td class="num green">14.8%</td>
+          <td class="num">63</td>
+          <td class="num score">82.5</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">2</td>
+          <td><div class="addr">16 Irving St</div><div class="city">Spencer, MA 01562</div></td>
+          <td class="num">—</td>
+          <td class="num">$189,300</td>
+          <td class="num">$1,394/mo</td>
+          <td class="num green">15.3%</td>
+          <td class="num">63</td>
+          <td class="num score">82.5</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">3</td>
+          <td><div class="addr">1368 Bridge St</div><div class="city">Yarmouth, MA 02664</div></td>
+          <td class="num">—</td>
+          <td class="num">$341,200</td>
+          <td class="num">$2,399/mo</td>
+          <td class="num green">15.7%</td>
+          <td class="num">63</td>
+          <td class="num score">81.5</td>
+          <td><span style="color:#f59e0b;border:1px solid #f59e0b;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Assessed</span></td>
+        </tr>
+        <tr>
+          <td class="rank">4</td>
+          <td><div class="addr">114  Portland St</div><div class="city">Haverhill, MA 01830</div></td>
+          <td class="num">6</td>
+          <td class="num">$635,700</td>
+          <td class="num">$2,484/mo</td>
+          <td class="num green">15.0%</td>
+          <td class="num">58</td>
+          <td class="num score">81.1</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">5</td>
+          <td><div class="addr">164 Bartlett Ave</div><div class="city">Pittsfield, MA 01201</div></td>
+          <td class="num">7</td>
+          <td class="num">$395,000</td>
+          <td class="num">$1,138/mo</td>
+          <td class="num green">15.1%</td>
+          <td class="num">58</td>
+          <td class="num score">80.8</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">6</td>
+          <td><div class="addr">33 -35 Hall St</div><div class="city">North Adams, MA 01247</div></td>
+          <td class="num">2</td>
+          <td class="num">$92,500</td>
+          <td class="num">$1,138/mo</td>
+          <td class="num green">14.9%</td>
+          <td class="num">58</td>
+          <td class="num score">80.8</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">7</td>
+          <td><div class="addr">41 Maple St</div><div class="city">Warren, MA 01083</div></td>
+          <td class="num">2</td>
+          <td class="num">$188,200</td>
+          <td class="num">$1,394/mo</td>
+          <td class="num green">14.5%</td>
+          <td class="num">63</td>
+          <td class="num score">80.7</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">8</td>
+          <td><div class="addr">198 Union St</div><div class="city">Pittsfield, MA 01201</div></td>
+          <td class="num">4</td>
+          <td class="num">$171,100</td>
+          <td class="num">$1,138/mo</td>
+          <td class="num green">14.9%</td>
+          <td class="num">58</td>
+          <td class="num score">80.4</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">9</td>
+          <td><div class="addr">82 Lyman St</div><div class="city">Pittsfield, MA 01201</div></td>
+          <td class="num">4</td>
+          <td class="num">$181,800</td>
+          <td class="num">$1,138/mo</td>
+          <td class="num green">14.8%</td>
+          <td class="num">58</td>
+          <td class="num score">80.0</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr>
+        <tr>
+          <td class="rank">10</td>
+          <td><div class="addr">78 1 2 3 Arlington Street</div><div class="city">Taunton, MA 02780</div></td>
+          <td class="num">—</td>
+          <td class="num">$389,000</td>
+          <td class="num">$1,899/mo</td>
+          <td class="num green">14.8%</td>
+          <td class="num">58</td>
+          <td class="num score">79.9</td>
+          <td><span style="color:#22c55e;border:1px solid #22c55e;padding:1px 6px;border-radius:3px;font-size:10px;white-space:nowrap;">Recent sale</span></td>
+        </tr></tbody>
+  </table>
+
+  <h2>Where the Deals Are</h2>
+  <table>
+    <thead><tr><th>Town</th><th class="num">In Top 100</th><th></th></tr></thead>
+    <tbody><tr><td>Pittsfield</td><td class="num">22</td><td><div class="bar"><div class="bar-fill" style="width:100%"></div></div></td></tr><tr><td>North Adams</td><td class="num">11</td><td><div class="bar"><div class="bar-fill" style="width:50%"></div></div></td></tr><tr><td>Ware</td><td class="num">8</td><td><div class="bar"><div class="bar-fill" style="width:36%"></div></div></td></tr><tr><td>Boston</td><td class="num">6</td><td><div class="bar"><div class="bar-fill" style="width:27%"></div></div></td></tr><tr><td>Fall River</td><td class="num">3</td><td><div class="bar"><div class="bar-fill" style="width:14%"></div></div></td></tr><tr><td>Holyoke</td><td class="num">3</td><td><div class="bar"><div class="bar-fill" style="width:14%"></div></div></td></tr><tr><td>Worcester</td><td class="num">3</td><td><div class="bar"><div class="bar-fill" style="width:14%"></div></div></td></tr><tr><td>Westfield</td><td class="num">2</td><td><div class="bar"><div class="bar-fill" style="width:9%"></div></div></td></tr></tbody>
+  </table>
+
+  <h2>What Changed This Month</h2>
+  <div class="note"><div class="note-title">Scoring engine v1.5.0</div><p>Five ownership/valuation signals now feed the signal score: corporate owner, ownership cluster, recent transfer, assessment gap (AVM), and vintage building. Buildings with strong signals rank meaningfully higher than in spring runs.</p></div><div class="note"><div class="note-title">Stale-sale cutoff tightened</div><p>Cap-rate valuations now require a sale from 2021 or later (was 2018). Older sales fall back to the automated valuation model, which removes most inflated cap rates caused by pre-COVID purchase prices.</p></div><div class="note"><div class="note-title">Valuation transparency</div><p>Every deal now carries a valuation source tag — recent sale, AVM, or assessed value — so you can see exactly what the cap rate denominator is built on.</p></div>
+
+  <footer>
+    <p><strong>Methodology.</strong> Opportunity scores combine estimated cap rate (HUD Fair Market Rent
+    income model against recent-sale, AVM, or assessed valuations), ownership and valuation signals, and
+    data-quality confidence. Rent estimates are conservative federal FMR baselines, not market comps.
+    Full leaderboard: <a href="../scored_opportunities.html" style="color:var(--accent-light)">jays.website/rental/scored_opportunities.html</a></p>
+    <p><strong>Disclaimer.</strong> Educational research content, not investment advice. Estimates are
+    derived from public records and may not reflect actual property condition, rents, or expenses.
+    Verify all figures independently before making investment decisions.</p>
+  </footer>
+</div>
+</body>
+</html>
