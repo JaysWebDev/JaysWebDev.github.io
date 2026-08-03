@@ -241,12 +241,11 @@
         }
         .hero-text { flex: 1; }
         .hero h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            opacity: 0.75;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.35;
             margin-bottom: 0.75rem;
-            text-transform: uppercase;
         }
         .hero p {
             font-size: 1.05rem;
@@ -299,32 +298,58 @@
     <div class="container">
 
         <header>
-            <img src="/logo-mark.svg" alt="Jays Web Development" style="width:72px;height:72px;margin-bottom:1rem;opacity:0.95;">
-            <div class="logo">Jays Web Development</div>
-            <div class="tagline">Building Intelligent Tools for Finance, Real Estate &amp; Business</div>
+            <img src="/logo-mark.svg" alt="Jeff Kirk Jr" style="width:72px;height:72px;margin-bottom:1rem;opacity:0.95;">
+            <div class="logo">Jeff Kirk Jr</div>
+            <div class="tagline">Production AI Systems &middot; Data Analytics &middot; Investment Operations</div>
         </header>
 
-        <nav class="site-nav">
-            <a href="/">Home</a>
-            <a href="/about/">About</a>
-            <a href="/trading/">Trading</a>
-            <a href="/rental/">Rental</a>
-            <a href="/business/">Business Intel</a>
-            <a href="/tools/">Tools</a>
-            <a href="/appdevelopment/">Apps</a>
-            <a href="/contact/">Contact</a>
-            <a href="/resume/" class="nav-resume">Resume →</a>
-        </nav>
+        <!-- shared site-nav v2 (canonical — keep identical across all pages) -->
+<style>
+nav.site-nav{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;margin:0 auto 1.5rem;padding:.6rem 1rem;max-width:1200px;background:rgba(10,13,22,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;z-index:50}
+nav.site-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.35rem .75rem;border-radius:7px;transition:background .15s,color .15s;letter-spacing:.01em;text-transform:none}
+nav.site-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+nav.site-nav a.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume:hover{background:rgba(255,255,255,.22)}
+nav.site-nav a.nav-brand{display:none;color:#fff;font-weight:700;font-size:.95rem;padding:.35rem .5rem}
+nav.site-nav .nav-burger{display:none;cursor:pointer;color:rgba(255,255,255,.85);padding:.3rem .5rem;border-radius:7px;margin-left:auto;line-height:0}
+nav.site-nav .nav-burger:hover{background:rgba(255,255,255,.12)}
+nav.site-nav input.nav-toggle{display:none}
+@media(max-width:768px){
+nav.site-nav a.nav-brand{display:block;width:auto}
+nav.site-nav .nav-burger{display:block}
+nav.site-nav a{display:none;width:100%}
+nav.site-nav a.nav-resume{display:none;margin-left:0}
+nav.site-nav input.nav-toggle:checked~a{display:block}
+nav.site-nav input.nav-toggle:checked~a.nav-brand{width:auto}
+nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:auto}
+}
+</style>
+<nav class="site-nav">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+    <a href="/" class="active">Home</a>
+    <a href="/about/">About</a>
+    <a href="/trading/">Trading</a>
+    <a href="/rental/">Rental</a>
+    <a href="/business/">Business Intel</a>
+    <a href="/tools/">Tools</a>
+    <a href="/appdevelopment/">Apps</a>
+    <a href="/architecture/">Architecture</a>
+    <a href="/contact/">Contact</a>
+    <a href="/resume/" class="nav-resume">Resume →</a>
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><svg class="lucide lucide-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 12h16" /> <path d="M4 18h16" /> <path d="M4 6h16" /> </svg></label>
+</nav>
 
         <div class="hero">
             <div class="hero-inner">
                 <img src="/headshot.jpg?v=1" alt="Jeff Jay Kirk Jr." class="hero-photo">
                 <div class="hero-text">
-                    <h2>I'm Jeff "Jay" Kirk Jr. — Investment Operations Professional Building Production AI Systems</h2>
+                    <h2>I'm Jeff "Jay" Kirk Jr. — I build production AI systems for capital markets and real estate.</h2>
                     <p>
                         11+ years in institutional investment operations (Man Group, State Street — $45B AUM portfolios), now building production AI systems.
                         I combine deep domain expertise in trade lifecycle, risk &amp; controls, and real estate with quantitative dashboards and data pipelines.
-                        Particularly interested in roles building AI-native tools for capital markets, real estate analytics, or technical operations at growth-stage fintech or proptech companies.
+                        Currently targeting roles in AI/fintech engineering, data analytics, and technical project management — anywhere deep finance domain knowledge and hands-on AI building create leverage.
                     </p>
                     <div class="hero-ctas">
                         <a href="/resume/" class="cta-btn">View Full Resume →</a>
@@ -340,7 +365,7 @@
             <div class="project-grid">
 
                 <div class="project-card" style="border-left-color: #9f7aea;">
-                    <h3>⚙️ Dev Tools &amp; AI Infrastructure</h3>
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-settings" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /> <circle cx="12" cy="12" r="3" /> </svg> Dev Tools &amp; AI Infrastructure</h3>
                     <div class="features">
                         <span class="feature-tag">AI Infrastructure</span>
                         <span class="feature-tag">Home Lab</span>
@@ -352,7 +377,7 @@
                 </div>
 
                 <div class="project-card">
-                    <h3>📈 Trading Intelligence Dashboard</h3>
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-trending-up" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /> </svg> Trading Intelligence Dashboard</h3>
                     <div class="features">
                         <span class="feature-tag">2,612-Symbol Universe</span>
                         <span class="feature-tag">10 AI Scanners</span>
@@ -360,11 +385,11 @@
                         <span class="feature-tag">Live Since 2025</span>
                     </div>
                     <p>Institutional-grade trading research platform monitoring a 2,612-symbol universe with 10 automated scanners, regime detection, EDGAR DCF valuations, conviction scoring, and daily Polygon.io price updates. Delivers high-conviction picks via Telegram alerts. Self-hosted with secure authentication.</p>
-                    <a href="/trading/" class="project-link">🔒 Secure Access →</a>
+                    <a href="/trading/" class="project-link"><svg style="vertical-align:-0.15em" class="lucide lucide-lock" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /> </svg> Secure Access →</a>
                 </div>
 
                 <div class="project-card" style="border-left-color: #c9940a;">
-                    <h3>🏘️ Rental Intelligence Engine</h3>
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-building-2" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /> </svg> Rental Intelligence Engine</h3>
                     <div class="features">
                         <span class="feature-tag">339,856 Buildings</span>
                         <span class="feature-tag">177,056 Scored</span>
@@ -376,7 +401,7 @@
                 </div>
 
                 <div class="project-card" style="border-left-color: #2dce7d;">
-                    <h3>🗺️ Business Intelligence Engine</h3>
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-map" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg> Business Intelligence Engine</h3>
                     <div class="features">
                         <span class="feature-tag">Curiosity Zones</span>
                         <span class="feature-tag">OSM · Sector Gap Analysis</span>
@@ -391,14 +416,16 @@
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2026 Jays Web Development. Building intelligent tools for finance, real estate &amp; business.</p>
-            <div class="contact-links">
-                <a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a>
-                <a href="/contact/">Contact</a>
-                <a href="/privacy/">Privacy Policy</a>
-            </div>
+        <!-- shared site-footer (canonical — keep identical across all pages) -->
+        <style>
+        .site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5}
+        .site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
+        .site-footer a:hover{color:#fff;text-decoration:underline}
+        .site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
+        </style>
+        <footer class="site-footer">
+            <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
+            <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
         </footer>
     </div>
 

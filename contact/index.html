@@ -175,17 +175,43 @@
 </head>
 <body>
 
-    <nav class="site-nav">
-        <a href="/">Home</a>
-        <a href="/about/">About</a>
-        <a href="/trading/">Trading</a>
-        <a href="/rental/">Rental</a>
-        <a href="/business/">Business Intel</a>
-        <a href="/tools/">Tools</a>
-        <a href="/appdevelopment/">Apps</a>
-        <a href="/contact/" class="active">Contact</a>
-        <a href="/resume/" class="nav-resume">Resume &rarr;</a>
-    </nav>
+    <!-- shared site-nav v2 (canonical — keep identical across all pages) -->
+<style>
+nav.site-nav{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;margin:0 auto 1.5rem;padding:.6rem 1rem;max-width:1200px;background:rgba(10,13,22,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;z-index:50}
+nav.site-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.35rem .75rem;border-radius:7px;transition:background .15s,color .15s;letter-spacing:.01em;text-transform:none}
+nav.site-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+nav.site-nav a.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume:hover{background:rgba(255,255,255,.22)}
+nav.site-nav a.nav-brand{display:none;color:#fff;font-weight:700;font-size:.95rem;padding:.35rem .5rem}
+nav.site-nav .nav-burger{display:none;cursor:pointer;color:rgba(255,255,255,.85);padding:.3rem .5rem;border-radius:7px;margin-left:auto;line-height:0}
+nav.site-nav .nav-burger:hover{background:rgba(255,255,255,.12)}
+nav.site-nav input.nav-toggle{display:none}
+@media(max-width:768px){
+nav.site-nav a.nav-brand{display:block;width:auto}
+nav.site-nav .nav-burger{display:block}
+nav.site-nav a{display:none;width:100%}
+nav.site-nav a.nav-resume{display:none;margin-left:0}
+nav.site-nav input.nav-toggle:checked~a{display:block}
+nav.site-nav input.nav-toggle:checked~a.nav-brand{width:auto}
+nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:auto}
+}
+</style>
+<nav class="site-nav">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/trading/">Trading</a>
+    <a href="/rental/">Rental</a>
+    <a href="/business/">Business Intel</a>
+    <a href="/tools/">Tools</a>
+    <a href="/appdevelopment/">Apps</a>
+    <a href="/architecture/">Architecture</a>
+    <a href="/contact/" class="active">Contact</a>
+    <a href="/resume/" class="nav-resume">Resume →</a>
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><svg class="lucide lucide-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 12h16" /> <path d="M4 18h16" /> <path d="M4 6h16" /> </svg></label>
+</nav>
 
     <div class="wordmark">Get In <span>Touch</span></div>
     <div class="subtitle">Jeff Kirk Jr. &mdash; Jay</div>
@@ -236,7 +262,18 @@
         </a>
     </div>
 
-    <footer>jays.website / contact</footer>
+    <!-- shared site-footer (canonical — keep identical across all pages) -->
+<style>
+footer.site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5;background:none;border:none}
+footer.site-footer p{margin:.2rem 0;color:rgba(255,255,255,.6)}
+footer.site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
+footer.site-footer a:hover{color:#fff;text-decoration:underline}
+footer.site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
+</style>
+<footer class="site-footer">
+    <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
+    <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
+</footer>
 
 </body>
 </html>

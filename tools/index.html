@@ -443,16 +443,43 @@
 <body>
 <div class="container">
 
-    <nav style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;padding:0.6rem 1rem;background:rgba(0,0,0,0.08);border-radius:10px;">
-        <a href="/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Home</a>
-        <a href="/about/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">About</a>
-        <a href="/trading/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Trading</a>
-        <a href="/rental/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Rental</a>
-        <a href="/business/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Business Intel</a>
-        <a href="/appdevelopment/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Apps</a>
-        <a href="/contact/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Contact</a>
-        <a href="/resume/" style="color:#475569;text-decoration:none;font-size:0.85rem;padding:0.3rem 0.7rem;border-radius:6px;margin-left:auto;" onmouseover="this.style.background='rgba(0,0,0,0.06)'" onmouseout="this.style.background=''">Resume →</a>
-    </nav>
+    <!-- shared site-nav v2 (canonical — keep identical across all pages) -->
+<style>
+nav.site-nav{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;margin:0 auto 1.5rem;padding:.6rem 1rem;max-width:1200px;background:rgba(10,13,22,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;z-index:50}
+nav.site-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.35rem .75rem;border-radius:7px;transition:background .15s,color .15s;letter-spacing:.01em;text-transform:none}
+nav.site-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+nav.site-nav a.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600}
+nav.site-nav a.nav-resume:hover{background:rgba(255,255,255,.22)}
+nav.site-nav a.nav-brand{display:none;color:#fff;font-weight:700;font-size:.95rem;padding:.35rem .5rem}
+nav.site-nav .nav-burger{display:none;cursor:pointer;color:rgba(255,255,255,.85);padding:.3rem .5rem;border-radius:7px;margin-left:auto;line-height:0}
+nav.site-nav .nav-burger:hover{background:rgba(255,255,255,.12)}
+nav.site-nav input.nav-toggle{display:none}
+@media(max-width:768px){
+nav.site-nav a.nav-brand{display:block;width:auto}
+nav.site-nav .nav-burger{display:block}
+nav.site-nav a{display:none;width:100%}
+nav.site-nav a.nav-resume{display:none;margin-left:0}
+nav.site-nav input.nav-toggle:checked~a{display:block}
+nav.site-nav input.nav-toggle:checked~a.nav-brand{width:auto}
+nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:auto}
+}
+</style>
+<nav class="site-nav">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/trading/">Trading</a>
+    <a href="/rental/">Rental</a>
+    <a href="/business/">Business Intel</a>
+    <a href="/tools/" class="active">Tools</a>
+    <a href="/appdevelopment/">Apps</a>
+    <a href="/architecture/">Architecture</a>
+    <a href="/contact/">Contact</a>
+    <a href="/resume/" class="nav-resume">Resume →</a>
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><svg class="lucide lucide-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 12h16" /> <path d="M4 18h16" /> <path d="M4 6h16" /> </svg></label>
+</nav>
 
     <header>
         <a href="/" class="back-link">Back to Portfolio</a>
@@ -472,7 +499,7 @@
                     <div class="stat-label">Categories</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-num">OS</div>
+                    <div class="stat-num">13</div>
                     <div class="stat-label">Open Source</div>
                 </div>
             </div>
@@ -482,12 +509,12 @@
     <div class="panel">
 
         <!-- ── SECTION 1: System Tools ── -->
-        <div class="section-label">🖥️ System Tools — install &amp; run locally on Ubuntu/Linux</div>
+        <div class="section-label"><svg style="vertical-align:-0.15em" class="lucide lucide-monitor" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg> System Tools — install &amp; run locally on Ubuntu/Linux</div>
         <div class="project-grid grid-2col">
 
             <div class="project-card" style="--accent: #718096;">
                 <div class="card-header">
-                    <div class="card-title">🩺 System Health Check</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-activity" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /> </svg> System Health Check</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">Machine-aware health snapshot — detects running services (nginx, Tailscale, Cloudflare, cron), checks CPU load, temps, disk usage, and network. Outputs clean ✓/⚠/✗ summary in under 3 seconds.</p>
@@ -506,7 +533,7 @@
 
             <div class="project-card" style="--accent: #4a5568;">
                 <div class="card-header">
-                    <div class="card-title">🔬 Ubuntu System Diagnostic</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-microscope" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 18h8" /> <path d="M3 22h18" /> <path d="M14 22a7 7 0 1 0 0-14h-1" /> <path d="M9 14h2" /> <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" /> <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" /> </svg> Ubuntu System Diagnostic</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">Comprehensive read-only system audit. Covers hardware, CPU/memory, disk health, network, open ports, security posture, recent journal errors, and pending package updates. Saves timestamped log to /tmp.</p>
@@ -525,7 +552,7 @@
 
             <div class="project-card" style="--accent: #ed8936;">
                 <div class="card-header">
-                    <div class="card-title">🛡️ Security Hardening Setup</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-shield" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> </svg> Security Hardening Setup</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">One-shot security baseline for Ubuntu. Auto-detects running services (nginx, Tailscale, OpenVPN, Gitea) before enabling UFW — no lockouts. Configures Fail2Ban with SSH brute-force protection. Supports --dry-run and --check-only flags.</p>
@@ -544,7 +571,7 @@
 
             <div class="project-card" style="--accent: #38a169;">
                 <div class="card-header">
-                    <div class="card-title">🧹 Cache Cleanup</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-paintbrush" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m14.622 17.897-10.68-2.913" /> <path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z" /> <path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15" /> </svg> Cache Cleanup</div>
                     <span class="badge badge-active">Active</span>
                 </div>
                 <p class="card-desc">Clears Python bytecode, pip/npm caches, snap browser caches, fontconfig, mesa shader cache, and user trash. Machine-aware — uses $HOME, not hardcoded paths. Supports --dry-run. Safe to run anytime or schedule via cron.</p>
@@ -563,7 +590,7 @@
 
             <div class="project-card" style="--accent: #667eea;">
                 <div class="card-header">
-                    <div class="card-title">🔍 Duplicate File Detector</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-copy" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg> Duplicate File Detector</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">Recursively scans a directory, groups files by MD5 hash, and reports duplicate groups with paths, sizes, and total wasted space. Configurable minimum file size. Outputs a detailed JSON report on request.</p>
@@ -582,7 +609,7 @@
 
             <div class="project-card" style="--accent: #805ad5;">
                 <div class="card-header">
-                    <div class="card-title">📁 Smart File Organizer</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-folder-open" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" /> </svg> Smart File Organizer</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">Categorizes files by extension (video, image, note, file), strips EXIF/metadata before moving using exiftool, and outputs a clean organized directory structure. Confirm prompt before any changes — no surprises.</p>
@@ -597,7 +624,7 @@
 
             <div class="project-card" style="--accent: #4299e1;">
                 <div class="card-header">
-                    <div class="card-title">📡 WiFi Network Scanner</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-wifi" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 20h.01" /> <path d="M2 8.82a15 15 0 0 1 20 0" /> <path d="M5 12.859a10 10 0 0 1 14 0" /> <path d="M8.5 16.429a5 5 0 0 1 7 0" /> </svg> WiFi Network Scanner</div>
                     <span class="badge badge-live">Live</span>
                 </div>
                 <p class="card-desc">Scans the local network to identify all connected devices by IP, MAC address, hostname, and manufacturer. Eliminates guesswork when servers change IP or new devices connect. Web UI included.</p>
@@ -612,7 +639,7 @@
 
             <div class="project-card" style="--accent: #48bb78;">
                 <div class="card-header">
-                    <div class="card-title">🔧 USB Recovery Toolkit</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-wrench" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /> </svg> USB Recovery Toolkit</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">Custom bootable USB to recover headless Linux servers with broken boot or network config. Auto-starts SSH, chroots into the broken install, reinstalls GRUB and fixes netplan — no monitor needed.</p>
@@ -628,12 +655,12 @@
         </div><!-- /system grid -->
 
         <!-- ── SECTION 2: Web Tools ── -->
-        <div class="section-label">🌐 Web Tools — browser extensions &amp; web platforms</div>
+        <div class="section-label"><svg style="vertical-align:-0.15em" class="lucide lucide-globe" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /> </svg> Web Tools — browser extensions &amp; web platforms</div>
         <div class="project-grid grid-2col">
 
             <div class="project-card" style="--accent: #38b2ac;">
                 <div class="card-header">
-                    <div class="card-title">🕷️ Web Intelligence Scraper</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-bug" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m8 2 1.88 1.88" /> <path d="M14.12 3.88 16 2" /> <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1" /> <path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6" /> <path d="M12 20v-9" /> <path d="M6.53 9C4.6 8.8 3 7.1 3 5" /> <path d="M6 13H2" /> <path d="M3 21c0-2.1 1.7-3.9 3.8-4" /> <path d="M20.97 5c0 2.1-1.6 3.8-3.5 4" /> <path d="M22 13h-4" /> <path d="M17.2 17c2.1.1 3.8 1.9 3.8 4" /> </svg> Web Intelligence Scraper</div>
                     <span class="badge badge-active">Active</span>
                 </div>
                 <p class="card-desc">Automated scraping and data cleaning pipelines feeding the trading, rental, and business dashboards. Collects SEC filings, permit records, business listings, and ownership data. Cleaners normalize addresses, phone numbers, and entity names for downstream analysis.</p>
@@ -648,7 +675,7 @@
 
             <div class="project-card" style="--accent: #667eea;">
                 <div class="card-header">
-                    <div class="card-title">🗒️ Web Note Extractor</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-file-text" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /> <path d="M14 2v4a2 2 0 0 0 2 2h4" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg> Web Note Extractor</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">Chrome extension that saves any webpage as clean text or PDF with one click. Strips ads, navigation, and boilerplate. Designed for research sessions where you need permanent offline copies of articles and documentation.</p>
@@ -663,7 +690,7 @@
 
             <div class="project-card" style="--accent: #e53e3e;">
                 <div class="card-header">
-                    <div class="card-title">🎬 Video Saver</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-video" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" /> <rect x="2" y="6" width="14" height="12" rx="2" /> </svg> Video Saver</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">Chrome extension that intercepts video streams (HLS/MP4/WebM) and saves them locally with one click. Background service worker monitors network requests; popup shows toggle and session stats.</p>
@@ -678,7 +705,7 @@
 
             <div class="project-card" style="--accent: #2dce7d;">
                 <div class="card-header">
-                    <div class="card-title">🕷️ Personal Scraper Lab</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-bug" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m8 2 1.88 1.88" /> <path d="M14.12 3.88 16 2" /> <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1" /> <path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6" /> <path d="M12 20v-9" /> <path d="M6.53 9C4.6 8.8 3 7.1 3 5" /> <path d="M6 13H2" /> <path d="M3 21c0-2.1 1.7-3.9 3.8-4" /> <path d="M20.97 5c0 2.1-1.6 3.8-3.5 4" /> <path d="M22 13h-4" /> <path d="M17.2 17c2.1.1 3.8 1.9 3.8 4" /> </svg> Personal Scraper Lab</div>
                     <span class="badge badge-active">Active</span>
                 </div>
                 <p class="card-desc">Modular web scraping and data cleaning lab. Cleaners for addresses, phone numbers, emails, business names, and URLs. Jupyter notebooks with real output. Built as a live reference for production pipelines.</p>
@@ -693,7 +720,7 @@
 
             <div class="project-card" style="--accent: #d69e2e;">
                 <div class="card-header">
-                    <div class="card-title">🎥 VidGen</div>
+                    <div class="card-title"><svg style="vertical-align:-0.15em" class="lucide lucide-clapperboard" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" /> <path d="m6.2 5.3 3.1 3.9" /> <path d="m12.4 3.4 3.1 4" /> <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" /> </svg> VidGen</div>
                     <span class="badge badge-complete">Complete</span>
                 </div>
                 <p class="card-desc">AI video generation and marketing automation platform. Text-to-video, image-to-video, and virtual character generation in one Flask app. Includes job manager, marketing agent, and multi-platform distribution.</p>
@@ -716,16 +743,18 @@
 
     </div><!-- /panel -->
 
-    <footer>
-        <p>&copy; 2026 Jays Web Development. Building the future of financial technology.</p>
-        <div class="contact-links">
-            <a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a>
-            <a href="/appdevelopment/">App Development</a>
-            <a href="mailto:jeffkirkjr@gmail.com">Contact</a>
-            <a href="/privacy/">Privacy Policy</a>
-        </div>
-    </footer>
+    <!-- shared site-footer (canonical — keep identical across all pages) -->
+<style>
+footer.site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5;background:none;border:none}
+footer.site-footer p{margin:.2rem 0;color:rgba(255,255,255,.6)}
+footer.site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
+footer.site-footer a:hover{color:#fff;text-decoration:underline}
+footer.site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
+</style>
+<footer class="site-footer">
+    <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
+    <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
+</footer>
 
 </div>
 
