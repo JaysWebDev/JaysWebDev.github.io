@@ -2089,6 +2089,18 @@
                                 <!-- Analyst pick (shown when symbol is in today's top 25 from either engine) -->
                                 <div id="lk-analyst-pick" style="display:none;border-radius:8px;padding:14px;margin-bottom:12px;"></div>
 
+                                <!-- Ask the Analyst (on-demand Claude read for any symbol) -->
+                                <div id="lk-ask-analyst" style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.22);border-radius:8px;padding:14px;margin-bottom:12px;">
+                                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+                                        <div style="color:#A78BFA;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">🤖 Ask the Analyst</div>
+                                        <button id="lk-ask-btn" onclick="askAnalyst()"
+                                            style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);color:#C4B5FD;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:0.72rem;font-family:inherit;font-weight:600;"
+                                            onmouseover="this.style.background='rgba(167,139,250,0.28)'" onmouseout="this.style.background='rgba(167,139,250,0.15)'">Analyze</button>
+                                    </div>
+                                    <div id="lk-ask-hint" style="color:#64748b;font-size:0.72rem;margin-top:8px;">Claude Haiku reads this symbol's technicals, RS, fundamentals &amp; regime on demand.</div>
+                                    <div id="lk-ask-content" style="display:none;margin-top:10px;"></div>
+                                </div>
+
                                 <!-- Description -->
                                 <div style="background:rgba(30,41,59,0.4);border:1px solid rgba(59,130,246,0.1);border-radius:8px;padding:14px;">
                                     <div style="color:#64748b;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">About</div>
@@ -8586,6 +8598,10 @@
             // Analyst pick card
             lookupShowAnalystPick(s.sym);
 
+            // Ask the Analyst — stash record, reset panel for the new symbol
+            _lkLastRecord = s;
+            askAnalystReset();
+
             // Smart Money
             lookupRenderSmartMoney(s.sym);
 
@@ -8720,6 +8736,71 @@
 
             card.innerHTML = html;
             card.style.display = 'block';
+        }
+
+        // ── Ask the Analyst (on-demand Claude read, EPIC-LLM-001) ───────────────
+        let _lkLastRecord = null;
+
+        function askAnalystReset() {
+            const btn = document.getElementById('lk-ask-btn');
+            const hint = document.getElementById('lk-ask-hint');
+            const content = document.getElementById('lk-ask-content');
+            if (btn) { btn.disabled = false; btn.textContent = 'Analyze'; }
+            if (hint) hint.style.display = 'block';
+            if (content) { content.style.display = 'none'; content.innerHTML = ''; }
+        }
+
+        async function askAnalyst() {
+            const rec = _lkLastRecord;
+            if (!rec || !rec.sym) return;
+            const btn = document.getElementById('lk-ask-btn');
+            const hint = document.getElementById('lk-ask-hint');
+            const content = document.getElementById('lk-ask-content');
+            if (btn) { btn.disabled = true; btn.textContent = 'Analyzing…'; }
+            if (hint) hint.style.display = 'none';
+            if (content) {
+                content.style.display = 'block';
+                content.innerHTML = '<div style="color:#64748b;font-size:0.75rem;">Claude Haiku is reading ' + rec.sym + '…</div>';
+            }
+            try {
+                const res = await fetch('/trading/api/analyst/' + encodeURIComponent(rec.sym), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ record: rec }),
+                });
+                if (res.status === 401) { window.location.href = '/login?next=/trading/dashboard.html'; return; }
+                const data = await res.json();
+                if (!res.ok || data.error) throw new Error(data.error || ('HTTP ' + res.status));
+                askAnalystRender(data);
+            } catch (e) {
+                if (content) content.innerHTML = '<div style="color:#f87171;font-size:0.75rem;">Analyst unavailable: ' + e.message + '</div>';
+                if (btn) { btn.disabled = false; btn.textContent = 'Retry'; }
+            }
+        }
+
+        function askAnalystRender(d) {
+            const content = document.getElementById('lk-ask-content');
+            const btn = document.getElementById('lk-ask-btn');
+            if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; }
+            if (!content) return;
+            const bullets = (arr, col) => (Array.isArray(arr) && arr.length)
+                ? arr.map(x => `<li style="margin:2px 0;">${x}</li>`).join('')
+                : `<li style="margin:2px 0;color:#475569;">—</li>`;
+            const ts = d.generated ? new Date(d.generated).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) : '';
+            content.innerHTML = `
+                <p style="color:#CBD5E1;font-size:0.82rem;line-height:1.55;margin:0 0 10px 0;">${d.read || '—'}</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div>
+                        <div style="color:#10B981;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;">Bull</div>
+                        <ul style="margin:0;padding-left:16px;color:#94A3B8;font-size:0.76rem;line-height:1.45;">${bullets(d.bull)}</ul>
+                    </div>
+                    <div>
+                        <div style="color:#F87171;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;">Bear</div>
+                        <ul style="margin:0;padding-left:16px;color:#94A3B8;font-size:0.76rem;line-height:1.45;">${bullets(d.bear)}</ul>
+                    </div>
+                </div>
+                ${d.regime_note ? `<div style="margin-top:10px;padding-top:8px;border-top:1px dashed rgba(148,163,184,0.15);color:#93C5FD;font-size:0.74rem;line-height:1.45;"><span style="color:#64748b;">Regime:</span> ${d.regime_note}</div>` : ''}
+                <div style="margin-top:8px;color:#475569;font-size:0.64rem;">${d.model || 'Claude Haiku'}${ts ? ' · ' + ts : ''} · on-demand</div>`;
         }
 
         // ── Lookup Smart Money Panel ────────────────────────────────────────────
