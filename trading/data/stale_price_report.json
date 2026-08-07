@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-08-05 07:00:03",
+  "timestamp": "2026-08-06 07:00:03",
   "summary": {
-    "total_flagged": 2,
-    "high_risk": 2,
-    "medium_risk": 0,
+    "total_flagged": 4,
+    "high_risk": 3,
+    "medium_risk": 1,
     "low_risk": 0,
-    "penny_stocks": 0,
+    "penny_stocks": 1,
     "stale_prices": 0,
-    "no_data": 2,
-    "tracking_pending": 3,
+    "no_data": 3,
+    "tracking_pending": 2,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
@@ -27,8 +27,8 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-08-05 07:00",
-      "consecutive_failures": 6,
+      "analysis_date": "2026-08-06 07:00",
+      "consecutive_failures": 7,
       "first_flagged": "2026-07-29"
     },
     {
@@ -45,29 +45,75 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-08-05 07:00",
-      "consecutive_failures": 6,
+      "analysis_date": "2026-08-06 07:00",
+      "consecutive_failures": 7,
       "first_flagged": "2026-07-29"
+    },
+    {
+      "symbol": "TMHC",
+      "price": 72.45,
+      "consecutive_days": 0,
+      "avg_volume": 9193009.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-07-23, expected: 2026-08-05)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-07-23",
+      "analysis_date": "2026-08-06 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-07-31"
+    },
+    {
+      "symbol": "INO",
+      "price": 0.677,
+      "consecutive_days": 0,
+      "avg_volume": 7071890.0,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.68 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-08-05",
+      "analysis_date": "2026-08-06 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-07-27"
     }
   ],
   "recommendations": [
     {
       "action": "REMOVE_NO_DATA",
-      "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
+      "description": "Remove 3 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
         "NFBK",
-        "CCRN"
+        "CCRN",
+        "TMHC"
       ],
       "priority": "HIGH"
     },
     {
       "action": "IMMEDIATE_REVIEW",
-      "description": "Review 2 high-risk securities (likely delisted or worthless)",
+      "description": "Review 3 high-risk securities (likely delisted or worthless)",
       "symbols": [
         "NFBK",
-        "CCRN"
+        "CCRN",
+        "TMHC"
       ],
       "priority": "HIGH"
+    },
+    {
+      "action": "PENNY_STOCK_REVIEW",
+      "description": "Review 1 securities under $1.00",
+      "symbols": [
+        "INO"
+      ],
+      "priority": "MEDIUM"
     }
   ]
 }
