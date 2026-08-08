@@ -1,36 +1,18 @@
 {
-  "timestamp": "2026-08-06 07:00:03",
+  "timestamp": "2026-08-07 07:00:03",
   "summary": {
-    "total_flagged": 4,
-    "high_risk": 3,
+    "total_flagged": 5,
+    "high_risk": 4,
     "medium_risk": 1,
     "low_risk": 0,
     "penny_stocks": 1,
     "stale_prices": 0,
-    "no_data": 3,
-    "tracking_pending": 2,
+    "no_data": 4,
+    "tracking_pending": 3,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
-    {
-      "symbol": "NFBK",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-08-06 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-07-29"
-    },
     {
       "symbol": "CCRN",
       "price": 0.0,
@@ -45,65 +27,103 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-08-06 07:00",
-      "consecutive_failures": 7,
+      "analysis_date": "2026-08-07 07:00",
+      "consecutive_failures": 8,
       "first_flagged": "2026-07-29"
     },
     {
-      "symbol": "TMHC",
-      "price": 72.45,
+      "symbol": "NFBK",
+      "price": 0.0,
       "consecutive_days": 0,
-      "avg_volume": 9193009.0,
+      "avg_volume": 0.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-07-23, expected: 2026-08-05)"
+        "No recent data from Yahoo Finance (possibly delisted)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "2026-07-23",
-      "analysis_date": "2026-08-06 07:00",
-      "consecutive_failures": 5,
+      "last_date": "N/A",
+      "analysis_date": "2026-08-07 07:00",
+      "consecutive_failures": 8,
+      "first_flagged": "2026-07-29"
+    },
+    {
+      "symbol": "TMHC",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-08-07 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-07-31"
     },
     {
-      "symbol": "INO",
-      "price": 0.677,
+      "symbol": "AVNS",
+      "price": 24.99,
       "consecutive_days": 0,
-      "avg_volume": 7071890.0,
+      "avg_volume": 2075760.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-07-24, expected: 2026-08-06)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-07-24",
+      "analysis_date": "2026-08-07 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-03"
+    },
+    {
+      "symbol": "INO",
+      "price": 0.6738,
+      "consecutive_days": 0,
+      "avg_volume": 7017944.9,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.68 < $1.00)"
+        "Penny stock ($0.67 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-08-05",
-      "analysis_date": "2026-08-06 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-08-06",
+      "analysis_date": "2026-08-07 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-07-27"
     }
   ],
   "recommendations": [
     {
       "action": "REMOVE_NO_DATA",
-      "description": "Remove 3 securities with no Yahoo Finance data (likely delisted)",
+      "description": "Remove 4 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "NFBK",
         "CCRN",
-        "TMHC"
+        "NFBK",
+        "TMHC",
+        "AVNS"
       ],
       "priority": "HIGH"
     },
     {
       "action": "IMMEDIATE_REVIEW",
-      "description": "Review 3 high-risk securities (likely delisted or worthless)",
+      "description": "Review 4 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "NFBK",
         "CCRN",
-        "TMHC"
+        "NFBK",
+        "TMHC",
+        "AVNS"
       ],
       "priority": "HIGH"
     },

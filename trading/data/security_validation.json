@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-08-06 07:00:03",
-  "total_validated": 4,
+  "timestamp": "2026-08-07 07:00:03",
+  "total_validated": 5,
   "summary": {
+    "MONITOR": 2,
     "ACTIVE": 2,
-    "MONITOR": 1,
     "PENNY_STOCK": 1
   },
   "results": [
-    {
-      "symbol": "NFBK",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 15.31,
-      "volume": 442297.7,
-      "validation_date": "2026-08-06 07:00",
-      "data_source": "Database"
-    },
     {
       "symbol": "CCRN",
       "status": "MONITOR",
       "reason": "Stale price (3 days) but appears active",
       "last_price": 13.25,
       "volume": 825868.6,
-      "validation_date": "2026-08-06 07:00",
+      "validation_date": "2026-08-07 07:00",
       "data_source": "Heuristic"
+    },
+    {
+      "symbol": "NFBK",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 15.31,
+      "volume": 442297.7,
+      "validation_date": "2026-08-07 07:00",
+      "data_source": "Database"
     },
     {
       "symbol": "TMHC",
@@ -31,16 +31,25 @@
       "reason": "Normal trading activity",
       "last_price": 72.45,
       "volume": 2889235.2,
-      "validation_date": "2026-08-06 07:00",
+      "validation_date": "2026-08-07 07:00",
       "data_source": "Database"
+    },
+    {
+      "symbol": "AVNS",
+      "status": "MONITOR",
+      "reason": "Stale price (3 days) but appears active",
+      "last_price": 24.99,
+      "volume": 673778.6,
+      "validation_date": "2026-08-07 07:00",
+      "data_source": "Heuristic"
     },
     {
       "symbol": "INO",
       "status": "PENNY_STOCK",
-      "reason": "Price $0.68 below $1.00 threshold",
-      "last_price": 0.677,
-      "volume": 7071890.0,
-      "validation_date": "2026-08-06 07:00",
+      "reason": "Price $0.67 below $1.00 threshold",
+      "last_price": 0.6738,
+      "volume": 7017944.9,
+      "validation_date": "2026-08-07 07:00",
       "data_source": "Price Analysis"
     }
   ]
