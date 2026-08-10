@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-02 05:30:04",
+  "last_updated": "2026-08-09 05:30:03",
   "removals": [
     {
       "symbol": "CRCW",
@@ -6957,6 +6957,96 @@
       "last_price": 9.42,
       "failure_count": 6,
       "first_flagged": "2026-07-24",
+      "removed_by": "auto_remove_stale.py (weekly)"
+    },
+    {
+      "symbol": "AVNS",
+      "date": "2026-08-09",
+      "reason": "Data stopped updating (last: 2026-07-24, expected: 2026-08-06)",
+      "failure_count": 5,
+      "first_flagged": "2026-08-03",
+      "status": "STALE",
+      "last_price": 24.99,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "CCRN",
+      "date": "2026-08-09",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "failure_count": 8,
+      "first_flagged": "2026-07-29",
+      "status": "DELISTED",
+      "last_price": 13.25,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "INO",
+      "date": "2026-08-09",
+      "reason": "Penny stock ($0.67 < $1.00)",
+      "failure_count": 6,
+      "first_flagged": "2026-07-27",
+      "status": "PENNY_STOCK",
+      "last_price": 0.6738,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "NFBK",
+      "date": "2026-08-09",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "failure_count": 8,
+      "first_flagged": "2026-07-29",
+      "status": "DELISTED",
+      "last_price": 15.31,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "TMHC",
+      "date": "2026-08-09",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "failure_count": 6,
+      "first_flagged": "2026-07-31",
+      "status": "DELISTED",
+      "last_price": 72.45,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "CCRN",
+      "date": "2026-08-09",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "status": "DELISTED",
+      "last_price": 0.0,
+      "failure_count": 8,
+      "first_flagged": "2026-07-29",
+      "removed_by": "auto_remove_stale.py (weekly)"
+    },
+    {
+      "symbol": "NFBK",
+      "date": "2026-08-09",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "status": "DELISTED",
+      "last_price": 0.0,
+      "failure_count": 8,
+      "first_flagged": "2026-07-29",
+      "removed_by": "auto_remove_stale.py (weekly)"
+    },
+    {
+      "symbol": "TMHC",
+      "date": "2026-08-09",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "status": "DELISTED",
+      "last_price": 0.0,
+      "failure_count": 6,
+      "first_flagged": "2026-07-31",
+      "removed_by": "auto_remove_stale.py (weekly)"
+    },
+    {
+      "symbol": "AVNS",
+      "date": "2026-08-09",
+      "reason": "Data stopped updating (last: 2026-07-24, expected: 2026-08-06)",
+      "status": "DELISTED",
+      "last_price": 24.99,
+      "failure_count": 5,
+      "first_flagged": "2026-08-03",
       "removed_by": "auto_remove_stale.py (weekly)"
     }
   ]

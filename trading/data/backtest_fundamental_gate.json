@@ -1,0 +1,134 @@
+{
+  "generated": "2026-08-09T20:02:38.950947",
+  "task": "TASK-PORT2-05",
+  "method": {
+    "signal": "Enhanced scanner, score>=90 (held constant)",
+    "exits": "3% stop / 5% target / 20d timeout",
+    "window": "2026-02-14..2026-07-09",
+    "gate": "fundamental_filter.FundamentalFilter (point-in-time: latest fundamentals dated <= signal_date)",
+    "sma200_applied": false,
+    "caveats": [
+      "Single scanner (database_enhanced) and a single bull-regime window \u2014 suggestive, not definitive.",
+      "Fundamentals have no history before 2026-02-14, so this is the only lookahead-free window available.",
+      "Signals with no point-in-time fundamentals are UNKNOWN (gate passes them); see *_known arms for gate-eligible-only."
+    ]
+  },
+  "coverage": {
+    "total_signals": 1159,
+    "unique_symbols": 560,
+    "with_fundamentals": 1051,
+    "unknown_no_fundamentals": 108,
+    "blocked_count": 558
+  },
+  "arms": {
+    "all_ungated": {
+      "n": 1159,
+      "win_rate": 42.6,
+      "ev": 0.414,
+      "target_hits": 494,
+      "stop_hits": 664,
+      "timeouts": 1,
+      "avg_max_gain": 5.42,
+      "avg_max_loss": -4.94
+    },
+    "gate_pass": {
+      "n": 601,
+      "win_rate": 39.4,
+      "ev": 0.164,
+      "target_hits": 237,
+      "stop_hits": 363,
+      "timeouts": 1,
+      "avg_max_gain": 4.67,
+      "avg_max_loss": -4.57
+    },
+    "gate_blocked": {
+      "n": 558,
+      "win_rate": 46.1,
+      "ev": 0.685,
+      "target_hits": 257,
+      "stop_hits": 301,
+      "timeouts": 0,
+      "avg_max_gain": 6.23,
+      "avg_max_loss": -5.34
+    },
+    "gate_pass_known_only": {
+      "n": 493,
+      "win_rate": 40.2,
+      "ev": 0.224,
+      "target_hits": 198,
+      "stop_hits": 294,
+      "timeouts": 1,
+      "avg_max_gain": 4.74,
+      "avg_max_loss": -4.38
+    },
+    "gate_blocked_known_only": {
+      "n": 558,
+      "win_rate": 46.1,
+      "ev": 0.685,
+      "target_hits": 257,
+      "stop_hits": 301,
+      "timeouts": 0,
+      "avg_max_gain": 6.23,
+      "avg_max_loss": -5.34
+    }
+  },
+  "by_tier": {
+    "BLOCKED": {
+      "n": 558,
+      "win_rate": 46.1,
+      "ev": 0.685,
+      "target_hits": 257,
+      "stop_hits": 301,
+      "timeouts": 0,
+      "avg_max_gain": 6.23,
+      "avg_max_loss": -5.34
+    },
+    "NEUTRAL": {
+      "n": 185,
+      "win_rate": 35.1,
+      "ev": -0.189,
+      "target_hits": 65,
+      "stop_hits": 120,
+      "timeouts": 0,
+      "avg_max_gain": 4.29,
+      "avg_max_loss": -4.32
+    },
+    "QUALITY": {
+      "n": 171,
+      "win_rate": 43.9,
+      "ev": 0.54,
+      "target_hits": 75,
+      "stop_hits": 95,
+      "timeouts": 1,
+      "avg_max_gain": 4.88,
+      "avg_max_loss": -4.74
+    },
+    "UNKNOWN": {
+      "n": 108,
+      "win_rate": 36.1,
+      "ev": -0.111,
+      "target_hits": 39,
+      "stop_hits": 69,
+      "timeouts": 0,
+      "avg_max_gain": 4.37,
+      "avg_max_loss": -5.44
+    },
+    "WEAK": {
+      "n": 137,
+      "win_rate": 42.3,
+      "ev": 0.387,
+      "target_hits": 58,
+      "stop_hits": 79,
+      "timeouts": 0,
+      "avg_max_gain": 5.17,
+      "avg_max_loss": -4.01
+    }
+  },
+  "lift": {
+    "pass_vs_all_wr": -3.2,
+    "pass_vs_blocked_wr": -6.7,
+    "pass_vs_all_ev": -0.2,
+    "known_pass_vs_blocked_wr": -5.9,
+    "claimed_range_pp": "+5 to +10"
+  }
+}
