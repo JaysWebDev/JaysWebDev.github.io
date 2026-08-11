@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Architecture — How It's Built | jays.website</title>
-    <meta name="description" content="The architecture behind jays.website: Python data pipelines, SQLite, 13 trading scanners, MassGIS parcel analytics, self-hosted plus Oracle Cloud infrastructure — real production systems, no demos.">
+    <title>Business Intelligence — How It's Built | jays.website</title>
+    <meta name="description" content="Deep dive into the business intelligence engine: OpenStreetMap data across Massachusetts, sector-gap and curiosity-zone analysis, and a directory-factory pattern that turns the pipeline into live products.">
     <meta name="author" content="Jeff Kirk Jr.">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="canonical" href="https://jays.website/architecture/">
+    <link rel="canonical" href="https://jays.website/architecture/business/">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jays.website/architecture/">
-    <meta property="og:title" content="Architecture — How It's Built | jays.website">
-    <meta property="og:description" content="Data pipelines, scanners, scoring engines, and the infrastructure that runs them — the engineering behind every system on this site.">
+    <meta property="og:url" content="https://jays.website/architecture/business/">
+    <meta property="og:title" content="Business Intelligence — How It's Built | jays.website">
+    <meta property="og:description" content="From map data to market gaps to a live directory product: the engineering tour of the business intelligence system.">
     <meta property="og:site_name" content="jays.website">
     <meta property="og:image" content="https://jays.website/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,8 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem 0; position: relative; z-index: 1; }
         .page-head { padding: 2.5rem 0 2rem; }
         .crumb { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.7rem; }
+        .crumb a { color: var(--dim); text-decoration: none; }
+        .crumb a:hover { color: var(--muted); }
         h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
         h1 .accent { color: var(--accent); }
         .lede { color: var(--muted); max-width: 640px; margin-top: 0.8rem; font-size: 1.02rem; line-height: 1.7; }
@@ -47,8 +49,6 @@
         .sys { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.8rem; margin-bottom: 1.2rem; }
         .sys h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
         .sys .sys-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
-        .sys.trading .sys-tag { color: var(--green); }
-        .sys.rental .sys-tag { color: var(--gold); }
         .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
         .col h3 { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
         .col p, .col li { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
@@ -58,14 +58,6 @@
         .metrics { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
         .metric .m-num { font-family: var(--mono); font-size: 1.25rem; font-weight: 600; color: var(--text); }
         .metric .m-lbl { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-top: 0.15rem; }
-
-        .sys a.deep { display: inline-block; margin-top: 1.15rem; font-family: var(--mono); font-size: 0.78rem; color: var(--accent); text-decoration: none; }
-        .sys a.deep:hover { text-decoration: underline; }
-        .sys.trading a.deep { color: var(--green); }
-        .sys.rental a.deep { color: var(--gold); }
-
-        .stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
-        .stack span { font-family: var(--mono); font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.7rem; color: var(--muted); }
 
         .cta { margin: 2.6rem 0 0.5rem; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.8rem;
             display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
@@ -119,169 +111,101 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
 </nav>
 
     <div class="page-head">
-        <div class="crumb">// jays.website / architecture</div>
-        <h1>How It's <span class="accent">Built</span></h1>
-        <p class="lede">Every system on this site is production software running against real data on real infrastructure — no demos, no mockups. This page is the engineering tour: where the data comes from, how it's processed, and what keeps it running unattended.</p>
+        <div class="crumb">// jays.website / <a href="/architecture/">architecture</a> / business</div>
+        <h1>Business Intelligence, <span class="accent">Under the Hood</span></h1>
+        <p class="lede">Map data in, market gaps out. Nearly 10,000 Massachusetts businesses organized into 274 zones, analyzed for what's there — and more importantly, what's systematically missing. Then the proof: the same pipeline productized into a live directory business.</p>
     </div>
 
-    <div class="section-label">The Big Picture</div>
+    <div class="section-label">The Pipeline</div>
     <div class="flow">
-        <span class="node">Linux data plant</span><span class="arrow">→</span>
-        <span class="node">nightly Python pipelines</span><span class="arrow">→</span>
-        <span class="node">SQLite core DB</span><span class="arrow">→</span>
-        <span class="node">scanners &amp; scoring</span><span class="arrow">→</span>
-        <span class="node">static HTML / JSON build</span><span class="arrow">→</span>
-        <span class="node">rsync deploy</span><span class="arrow">→</span>
-        <span class="node">Oracle Cloud · nginx</span><span class="arrow">→</span>
-        <span class="node">Cloudflare edge</span>
+        <span class="node">OpenStreetMap extract</span><span class="arrow">→</span>
+        <span class="node">geocode + zone rollup</span><span class="arrow">→</span>
+        <span class="node">sector-gap analysis</span><span class="arrow">→</span>
+        <span class="node">curiosity zones</span><span class="arrow">→</span>
+        <span class="node">zone explorer</span><span class="arrow">→</span>
+        <span class="node">directory factory</span>
     </div>
-    <p class="flow-note">~80 scheduled jobs orchestrate everything. No CMS, no frontend framework — hand-built static pages fed by Python pipelines, rebuilt and redeployed automatically every market day.</p>
+    <p class="flow-note">The analysis answers "where are services missing?" — the directory factory turns that answer into products.</p>
 
-    <div class="section-label">The Systems</div>
-
-    <div class="sys trading">
-        <h2>Trading Intelligence</h2>
-        <div class="sys-tag">Signals · Valuation · Regime · Delivery</div>
-        <div class="cols">
-            <div class="col">
-                <h3>Data In</h3>
-                <ul>
-                    <li>Polygon.io grouped daily bars for a 2,612-symbol universe, loaded nightly into a central SQLite database</li>
-                    <li>SEC EDGAR fundamentals for DCF valuation</li>
-                    <li>Institutional 13F holdings for accumulation signals</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Processing</h3>
-                <ul>
-                    <li>13 automated scanners at market close — breakout, range compression, institutional, RSI staircase, ATR momentum, confluence, and more</li>
-                    <li>Market-regime gate (breadth + trend) suppresses signals in hostile tape</li>
-                    <li>Conviction scoring weights each scanner by its measured historical hit rate</li>
-                    <li>Claude-based analyst ranks a top-25 nightly; automated weekly newsletter</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Out</h3>
-                <ul>
-                    <li>Live dashboard, per-scanner HTML reports, JSON APIs — all static, all auto-deployed</li>
-                    <li>Telegram alerts for high-conviction setups</li>
-                    <li>Public paper portfolio tracking every pick's outcome</li>
-                </ul>
-            </div>
-        </div>
-        <div class="metrics">
-            <div class="metric"><div class="m-num">2,612</div><div class="m-lbl">Symbols</div></div>
-            <div class="metric"><div class="m-num">13</div><div class="m-lbl">Scanners</div></div>
-            <div class="metric"><div class="m-num">100k+</div><div class="m-lbl">Signals tracked</div></div>
-            <div class="metric"><div class="m-num">Daily</div><div class="m-lbl">Auto-deploy</div></div>
-        </div>
-        <a class="deep" href="/architecture/trading/">Full build notes: Trading →</a>
-    </div>
-
-    <div class="sys rental">
-        <h2>Rental Intelligence</h2>
-        <div class="sys-tag">Parcels · Scoring · Ownership Graph</div>
-        <div class="cols">
-            <div class="col">
-                <h3>Data In</h3>
-                <ul>
-                    <li>MassGIS statewide parcel data — every one of 339,856 multifamily buildings in Massachusetts</li>
-                    <li>HUD Fair Market Rents (FY2025) by bedroom count and county</li>
-                    <li>Town assessor records: units, year built, assessed value</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Processing</h3>
-                <ul>
-                    <li>Composite 0–100 deal score: yield proxy vs. HUD benchmarks, distress and ownership signals, data-quality confidence</li>
-                    <li>Ownership resolution maps 30,000+ unique owners — portfolio holders, absentee and institutional-scale owners flagged</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Out</h3>
-                <ul>
-                    <li>County opportunity rankings and top-scored buildings</li>
-                    <li>Interactive statewide map, filterable to street level</li>
-                    <li>Free to explore — Pro tier (alerts, CSV export, cap-rate calculator) in the works</li>
-                </ul>
-            </div>
-        </div>
-        <div class="metrics">
-            <div class="metric"><div class="m-num">339,856</div><div class="m-lbl">Buildings</div></div>
-            <div class="metric"><div class="m-num">177k</div><div class="m-lbl">Scored</div></div>
-            <div class="metric"><div class="m-num">30k+</div><div class="m-lbl">Owners mapped</div></div>
-            <div class="metric"><div class="m-num">14</div><div class="m-lbl">Counties</div></div>
-        </div>
-        <a class="deep" href="/architecture/rental/">Full build notes: Rental →</a>
-    </div>
-
+    <div class="section-label">Analysis Engine</div>
     <div class="sys">
-        <h2>Business Intelligence</h2>
-        <div class="sys-tag">Spatial · Sector Gaps · Productization</div>
+        <h2>Finding what isn't there</h2>
+        <div class="sys-tag">Density · Diversity · Gaps</div>
         <div class="cols">
             <div class="col">
-                <h3>Data In</h3>
+                <h3>Data in</h3>
                 <ul>
                     <li>OpenStreetMap business data across Massachusetts ZIP codes, towns, and counties</li>
+                    <li>Coordinate-bounds filtering rejects mis-geocoded records before they reach the map — a real bug class this pipeline hit and fixed</li>
+                    <li>Zone definitions roll businesses up to 274 comparable areas</li>
                 </ul>
             </div>
             <div class="col">
                 <h3>Processing</h3>
                 <ul>
-                    <li>Industry density, diversity, and sector-gap analysis per zone</li>
-                    <li>"Curiosity zones": areas where services are systematically missing relative to comparable zones</li>
+                    <li>Per-zone industry density and diversity metrics establish what "normal" looks like for a zone of that size and type</li>
+                    <li>Sector-gap analysis compares each zone against its peers to find missing industries</li>
+                    <li>A curiosity score ranks zones where services are systematically absent relative to comparable zones — each with its top missing industries</li>
                 </ul>
             </div>
             <div class="col">
                 <h3>Out</h3>
                 <ul>
-                    <li>Zone explorer, sector breakdowns, town-level drill-down</li>
-                    <li>Proof of productization: a live niche directory built from the same pipeline — 1,445 companies across 20 city pages</li>
+                    <li>Zone explorer with sector breakdowns and town-level drill-down</li>
+                    <li>Interactive spatial view of the full dataset</li>
+                    <li>A ranked answer to "where would a new service business face the least competition?"</li>
                 </ul>
             </div>
         </div>
-        <a class="deep" href="/architecture/business/">Full build notes: Business Intel →</a>
+        <div class="metrics">
+            <div class="metric"><div class="m-num">9,862</div><div class="m-lbl">Businesses</div></div>
+            <div class="metric"><div class="m-num">274</div><div class="m-lbl">Zones</div></div>
+            <div class="metric"><div class="m-num">14</div><div class="m-lbl">Counties</div></div>
+        </div>
     </div>
 
-    <div class="section-label">Infrastructure &amp; Practices</div>
+    <div class="section-label">Productization</div>
     <div class="sys">
+        <h2>The directory factory</h2>
+        <div class="sys-tag">Analysis → Product</div>
         <div class="cols">
             <div class="col">
-                <h3>Where it runs</h3>
+                <h3>The proof</h3>
                 <ul>
-                    <li>Self-hosted Linux workstation as the data plant — pipelines, database, scanners</li>
-                    <li>Oracle Cloud VM serves the site statically via nginx, behind Cloudflare's edge</li>
-                    <li>Tailscale private mesh connects every machine; services run under systemd</li>
+                    <li>The Powerwash Directory — a live niche directory for exterior-cleaning companies, built from this pipeline's playbook</li>
+                    <li>1,445 companies across 20 city pages, each with structured service data</li>
+                    <li>Runs on a modern stack: Next.js frontend, hosted Postgres, deployed at the edge</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Engineering choices</h3>
+                <h3>The factory pattern</h3>
                 <ul>
-                    <li>SQLite as the core store — zero-ops, fast, right-sized for the workload</li>
-                    <li>Static-first delivery: pages are pre-built, so the site stays fast and cheap</li>
-                    <li>~80 cron jobs with logging, log rotation, and a backed-up crontab</li>
+                    <li>All vertical-specific content — brand, copy, services, FAQs — lives in a single config file</li>
+                    <li>Launching a new vertical means cloning the template, editing one config, and pointing it at a fresh database</li>
+                    <li>Each vertical gets its own isolated database, so directories never share failure modes</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Operating principles</h3>
+                <h3>Why it matters</h3>
                 <ul>
-                    <li>Measure outcomes before adding features — every scanner's accuracy is tracked against real results</li>
-                    <li>Regime gating: don't emit signals the market context doesn't support</li>
-                    <li>Dry-run flags on anything destructive; secrets live in env files, never in code</li>
+                    <li>The intelligence layer picks the market; the factory ships the product — the same loop, repeatable per vertical</li>
+                    <li>Directory sites are static-fast and cheap to run, matching the rest of the suite's economics</li>
+                    <li>The gap analysis above is the targeting system for which vertical and which cities come next</li>
                 </ul>
             </div>
         </div>
-        <div class="section-label" style="margin:1.6rem 0 0.9rem">Stack</div>
-        <div class="stack">
-            <span>Python</span><span>SQLite</span><span>pandas</span><span>Flask</span><span>nginx</span><span>Cloudflare</span><span>Oracle Cloud</span><span>Tailscale</span><span>systemd</span><span>Polygon.io</span><span>SEC EDGAR</span><span>MassGIS</span><span>HUD FMR</span><span>OpenStreetMap</span><span>Telegram API</span><span>Claude API</span>
+        <div class="metrics">
+            <div class="metric"><div class="m-num">1,445</div><div class="m-lbl">Companies listed</div></div>
+            <div class="metric"><div class="m-num">20</div><div class="m-lbl">City pages</div></div>
+            <div class="metric"><div class="m-num">1</div><div class="m-lbl">Config per vertical</div></div>
         </div>
     </div>
 
     <div class="cta">
-        <p>Built and operated by one person. Want the longer story, or the person behind it?</p>
+        <p>Explore the zones live, or step back to the full systems tour.</p>
         <div class="cta-btns">
-            <a href="/resume/" class="primary">Resume →</a>
-            <a href="/contact/" class="secondary">Get in touch</a>
+            <a href="/business/" class="primary">Business Intel →</a>
+            <a href="/architecture/" class="secondary">← All architecture</a>
         </div>
     </div>
 

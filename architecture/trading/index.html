@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Architecture — How It's Built | jays.website</title>
-    <meta name="description" content="The architecture behind jays.website: Python data pipelines, SQLite, 13 trading scanners, MassGIS parcel analytics, self-hosted plus Oracle Cloud infrastructure — real production systems, no demos.">
+    <title>Trading Intelligence — How It's Built | jays.website</title>
+    <meta name="description" content="Deep dive into the trading intelligence pipeline: Polygon.io nightly bars, 13 versioned scanners, market-regime gating, measured conviction scoring, DCF valuation, and fully automated static delivery.">
     <meta name="author" content="Jeff Kirk Jr.">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="canonical" href="https://jays.website/architecture/">
+    <link rel="canonical" href="https://jays.website/architecture/trading/">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jays.website/architecture/">
-    <meta property="og:title" content="Architecture — How It's Built | jays.website">
-    <meta property="og:description" content="Data pipelines, scanners, scoring engines, and the infrastructure that runs them — the engineering behind every system on this site.">
+    <meta property="og:url" content="https://jays.website/architecture/trading/">
+    <meta property="og:title" content="Trading Intelligence — How It's Built | jays.website">
+    <meta property="og:description" content="From nightly market data to conviction-scored signals: the full engineering tour of the trading system.">
     <meta property="og:site_name" content="jays.website">
     <meta property="og:image" content="https://jays.website/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,10 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem 0; position: relative; z-index: 1; }
         .page-head { padding: 2.5rem 0 2rem; }
         .crumb { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.7rem; }
+        .crumb a { color: var(--dim); text-decoration: none; }
+        .crumb a:hover { color: var(--muted); }
         h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
-        h1 .accent { color: var(--accent); }
+        h1 .accent { color: var(--green); }
         .lede { color: var(--muted); max-width: 640px; margin-top: 0.8rem; font-size: 1.02rem; line-height: 1.7; }
 
         .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 2rem 0 0.5rem;
@@ -46,9 +48,7 @@
         .section-label::after { content:''; flex:1; height:1px; background: var(--border); }
         .sys { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.8rem; margin-bottom: 1.2rem; }
         .sys h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .sys .sys-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
-        .sys.trading .sys-tag { color: var(--green); }
-        .sys.rental .sys-tag { color: var(--gold); }
+        .sys .sys-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
         .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
         .col h3 { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
         .col p, .col li { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
@@ -58,14 +58,6 @@
         .metrics { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
         .metric .m-num { font-family: var(--mono); font-size: 1.25rem; font-weight: 600; color: var(--text); }
         .metric .m-lbl { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-top: 0.15rem; }
-
-        .sys a.deep { display: inline-block; margin-top: 1.15rem; font-family: var(--mono); font-size: 0.78rem; color: var(--accent); text-decoration: none; }
-        .sys a.deep:hover { text-decoration: underline; }
-        .sys.trading a.deep { color: var(--green); }
-        .sys.rental a.deep { color: var(--gold); }
-
-        .stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
-        .stack span { font-family: var(--mono); font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.7rem; color: var(--muted); }
 
         .cta { margin: 2.6rem 0 0.5rem; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.8rem;
             display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
@@ -119,53 +111,82 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
 </nav>
 
     <div class="page-head">
-        <div class="crumb">// jays.website / architecture</div>
-        <h1>How It's <span class="accent">Built</span></h1>
-        <p class="lede">Every system on this site is production software running against real data on real infrastructure — no demos, no mockups. This page is the engineering tour: where the data comes from, how it's processed, and what keeps it running unattended.</p>
+        <div class="crumb">// jays.website / <a href="/architecture/">architecture</a> / trading</div>
+        <h1>Trading Intelligence, <span class="accent">Under the Hood</span></h1>
+        <p class="lede">A 2,612-symbol market-scanning system that runs itself: nightly data loads, thirteen versioned scanners, a market-regime gate, and a conviction score calibrated against the measured accuracy of over 100,000 historical signals. Everything below runs unattended, every market day.</p>
     </div>
 
-    <div class="section-label">The Big Picture</div>
+    <div class="section-label">The Pipeline</div>
     <div class="flow">
-        <span class="node">Linux data plant</span><span class="arrow">→</span>
-        <span class="node">nightly Python pipelines</span><span class="arrow">→</span>
+        <span class="node">Polygon.io nightly bars</span><span class="arrow">→</span>
         <span class="node">SQLite core DB</span><span class="arrow">→</span>
-        <span class="node">scanners &amp; scoring</span><span class="arrow">→</span>
-        <span class="node">static HTML / JSON build</span><span class="arrow">→</span>
-        <span class="node">rsync deploy</span><span class="arrow">→</span>
-        <span class="node">Oracle Cloud · nginx</span><span class="arrow">→</span>
-        <span class="node">Cloudflare edge</span>
+        <span class="node">13 scanners at close</span><span class="arrow">→</span>
+        <span class="node">regime gate</span><span class="arrow">→</span>
+        <span class="node">conviction scoring</span><span class="arrow">→</span>
+        <span class="node">static HTML / JSON</span><span class="arrow">→</span>
+        <span class="node">auto-deploy + alerts</span>
     </div>
-    <p class="flow-note">~80 scheduled jobs orchestrate everything. No CMS, no frontend framework — hand-built static pages fed by Python pipelines, rebuilt and redeployed automatically every market day.</p>
+    <p class="flow-note">Every stage is a scheduled job with logging and a backed-up crontab. No servers to babysit — the output is static files.</p>
 
-    <div class="section-label">The Systems</div>
-
-    <div class="sys trading">
-        <h2>Trading Intelligence</h2>
-        <div class="sys-tag">Signals · Valuation · Regime · Delivery</div>
+    <div class="section-label">Data Layer</div>
+    <div class="sys">
+        <h2>Getting the market into a database</h2>
+        <div class="sys-tag">Prices · Fundamentals · Institutions</div>
         <div class="cols">
             <div class="col">
-                <h3>Data In</h3>
+                <h3>Price history</h3>
                 <ul>
-                    <li>Polygon.io grouped daily bars for a 2,612-symbol universe, loaded nightly into a central SQLite database</li>
-                    <li>SEC EDGAR fundamentals for DCF valuation</li>
-                    <li>Institutional 13F holdings for accumulation signals</li>
+                    <li>Polygon.io grouped daily bars for the full 2,612-symbol universe, pulled overnight after each session</li>
+                    <li>Loaded into a single central SQLite database — the one source of truth every scanner reads from</li>
+                    <li>Stale-price detection flags symbols whose data stops updating, so dead tickers can't pollute signals</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Processing</h3>
+                <h3>Fundamentals</h3>
                 <ul>
-                    <li>13 automated scanners at market close — breakout, range compression, institutional, RSI staircase, ATR momentum, confluence, and more</li>
-                    <li>Market-regime gate (breadth + trend) suppresses signals in hostile tape</li>
-                    <li>Conviction scoring weights each scanner by its measured historical hit rate</li>
-                    <li>Claude-based analyst ranks a top-25 nightly; automated weekly newsletter</li>
+                    <li>SEC EDGAR filings feed a discounted-cash-flow valuation model per company</li>
+                    <li>DCF output is capped in the composite score so one optimistic model can't dominate a signal</li>
+                    <li>Exchange and sector metadata maintained per symbol for universe hygiene</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Out</h3>
+                <h3>Institutional flow</h3>
                 <ul>
-                    <li>Live dashboard, per-scanner HTML reports, JSON APIs — all static, all auto-deployed</li>
-                    <li>Telegram alerts for high-conviction setups</li>
-                    <li>Public paper portfolio tracking every pick's outcome</li>
+                    <li>Quarterly 13F holdings track what large funds are accumulating</li>
+                    <li>Quarter-over-quarter position changes distinguish new positions from noise</li>
+                    <li>On-balance volume and relative-strength residuals approximate "smart money" between filings</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-label">Signal Engine</div>
+    <div class="sys">
+        <h2>Thirteen scanners, one referee</h2>
+        <div class="sys-tag">Scan · Gate · Weigh</div>
+        <div class="cols">
+            <div class="col">
+                <h3>The scanners</h3>
+                <ul>
+                    <li>Breakout, range compression, RSI staircase, ATR momentum, institutional accumulation, confluence, and more — each versioned so accuracy is measured per version, not blended across rewrites</li>
+                    <li>Volatility-compression detection looks for coiled setups before the move, not after</li>
+                    <li>Cross-scanner enrichment: a signal confirmed by multiple independent scanners outranks any single-scanner hit</li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>The regime gate</h3>
+                <ul>
+                    <li>A daily market-regime model (breadth plus trend) classifies the tape before any signal ships</li>
+                    <li>In hostile regimes, signal output is suppressed — the best trade in a bad market is often none</li>
+                    <li>Market breadth is tracked as a dual view so a rally on narrow leadership reads differently than a broad one</li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Conviction scoring</h3>
+                <ul>
+                    <li>Every signal ever emitted is tracked against what the stock actually did next</li>
+                    <li>Each scanner's weight in the final conviction score comes from its measured historical hit rate — over 100,000 signals scored to date</li>
+                    <li>Weights get recalibrated as the evidence accumulates; underperforming scanners lose influence automatically</li>
                 </ul>
             </div>
         </div>
@@ -173,115 +194,71 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
             <div class="metric"><div class="m-num">2,612</div><div class="m-lbl">Symbols</div></div>
             <div class="metric"><div class="m-num">13</div><div class="m-lbl">Scanners</div></div>
             <div class="metric"><div class="m-num">100k+</div><div class="m-lbl">Signals tracked</div></div>
-            <div class="metric"><div class="m-num">Daily</div><div class="m-lbl">Auto-deploy</div></div>
+            <div class="metric"><div class="m-num">Nightly</div><div class="m-lbl">Recalibration data</div></div>
         </div>
-        <a class="deep" href="/architecture/trading/">Full build notes: Trading →</a>
     </div>
 
-    <div class="sys rental">
-        <h2>Rental Intelligence</h2>
-        <div class="sys-tag">Parcels · Scoring · Ownership Graph</div>
-        <div class="cols">
-            <div class="col">
-                <h3>Data In</h3>
-                <ul>
-                    <li>MassGIS statewide parcel data — every one of 339,856 multifamily buildings in Massachusetts</li>
-                    <li>HUD Fair Market Rents (FY2025) by bedroom count and county</li>
-                    <li>Town assessor records: units, year built, assessed value</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Processing</h3>
-                <ul>
-                    <li>Composite 0–100 deal score: yield proxy vs. HUD benchmarks, distress and ownership signals, data-quality confidence</li>
-                    <li>Ownership resolution maps 30,000+ unique owners — portfolio holders, absentee and institutional-scale owners flagged</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Out</h3>
-                <ul>
-                    <li>County opportunity rankings and top-scored buildings</li>
-                    <li>Interactive statewide map, filterable to street level</li>
-                    <li>Free to explore — Pro tier (alerts, CSV export, cap-rate calculator) in the works</li>
-                </ul>
-            </div>
-        </div>
-        <div class="metrics">
-            <div class="metric"><div class="m-num">339,856</div><div class="m-lbl">Buildings</div></div>
-            <div class="metric"><div class="m-num">177k</div><div class="m-lbl">Scored</div></div>
-            <div class="metric"><div class="m-num">30k+</div><div class="m-lbl">Owners mapped</div></div>
-            <div class="metric"><div class="m-num">14</div><div class="m-lbl">Counties</div></div>
-        </div>
-        <a class="deep" href="/architecture/rental/">Full build notes: Rental →</a>
-    </div>
-
+    <div class="section-label">Accountability</div>
     <div class="sys">
-        <h2>Business Intelligence</h2>
-        <div class="sys-tag">Spatial · Sector Gaps · Productization</div>
+        <h2>Every pick gets marked to market</h2>
+        <div class="sys-tag">Paper Portfolio · Stops · Public Record</div>
         <div class="cols">
             <div class="col">
-                <h3>Data In</h3>
+                <h3>Paper portfolio</h3>
                 <ul>
-                    <li>OpenStreetMap business data across Massachusetts ZIP codes, towns, and counties</li>
+                    <li>Top conviction picks enter a public paper portfolio automatically — no cherry-picking after the fact</li>
+                    <li>Positions carry hard stop-losses and time-stops, so every entry resolves to a real, closed outcome</li>
+                    <li>A parallel crypto signal track runs the same discipline on a separate universe</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Processing</h3>
+                <h3>Lessons the data taught</h3>
                 <ul>
-                    <li>Industry density, diversity, and sector-gap analysis per zone</li>
-                    <li>"Curiosity zones": areas where services are systematically missing relative to comparable zones</li>
+                    <li>Stacked signals beat single signals — confluence is the edge, not any one indicator</li>
+                    <li>Backtests need a full market cycle; results measured only in a bear tape mislead</li>
+                    <li>Decay products (VIX ETPs) punished momentum logic — now excluded by design</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Out</h3>
+                <h3>AI in the loop</h3>
                 <ul>
-                    <li>Zone explorer, sector breakdowns, town-level drill-down</li>
-                    <li>Proof of productization: a live niche directory built from the same pipeline — 1,445 companies across 20 city pages</li>
+                    <li>A Claude-based analyst reviews the nightly top signals and writes a ranked top-25 with reasoning</li>
+                    <li>A weekly newsletter is generated automatically from the same pipeline</li>
+                    <li>AI ranks and explains — the scoring math stays deterministic and measurable</li>
                 </ul>
             </div>
         </div>
-        <a class="deep" href="/architecture/business/">Full build notes: Business Intel →</a>
     </div>
 
-    <div class="section-label">Infrastructure &amp; Practices</div>
+    <div class="section-label">Delivery</div>
     <div class="sys">
+        <h2>Static-first, alert-driven</h2>
+        <div class="sys-tag">Dashboard · JSON · Telegram</div>
         <div class="cols">
             <div class="col">
-                <h3>Where it runs</h3>
+                <h3>Outputs</h3>
                 <ul>
-                    <li>Self-hosted Linux workstation as the data plant — pipelines, database, scanners</li>
-                    <li>Oracle Cloud VM serves the site statically via nginx, behind Cloudflare's edge</li>
-                    <li>Tailscale private mesh connects every machine; services run under systemd</li>
+                    <li>A live dashboard, per-scanner HTML reports, and JSON data files — all pre-built static assets</li>
+                    <li>Nightly deploy job commits fresh data and pushes it to the edge automatically</li>
+                    <li>Telegram alerts fire for high-conviction setups the moment scoring completes</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Engineering choices</h3>
+                <h3>Why static</h3>
                 <ul>
-                    <li>SQLite as the core store — zero-ops, fast, right-sized for the workload</li>
-                    <li>Static-first delivery: pages are pre-built, so the site stays fast and cheap</li>
-                    <li>~80 cron jobs with logging, log rotation, and a backed-up crontab</li>
+                    <li>No app server in the read path — the site can't go down because a process crashed</li>
+                    <li>Hosting cost stays near zero regardless of traffic</li>
+                    <li>Every day's output is a git commit: the entire history of the system's opinions is versioned</li>
                 </ul>
             </div>
-            <div class="col">
-                <h3>Operating principles</h3>
-                <ul>
-                    <li>Measure outcomes before adding features — every scanner's accuracy is tracked against real results</li>
-                    <li>Regime gating: don't emit signals the market context doesn't support</li>
-                    <li>Dry-run flags on anything destructive; secrets live in env files, never in code</li>
-                </ul>
-            </div>
-        </div>
-        <div class="section-label" style="margin:1.6rem 0 0.9rem">Stack</div>
-        <div class="stack">
-            <span>Python</span><span>SQLite</span><span>pandas</span><span>Flask</span><span>nginx</span><span>Cloudflare</span><span>Oracle Cloud</span><span>Tailscale</span><span>systemd</span><span>Polygon.io</span><span>SEC EDGAR</span><span>MassGIS</span><span>HUD FMR</span><span>OpenStreetMap</span><span>Telegram API</span><span>Claude API</span>
         </div>
     </div>
 
     <div class="cta">
-        <p>Built and operated by one person. Want the longer story, or the person behind it?</p>
+        <p>See the output live, or step back to the full systems tour.</p>
         <div class="cta-btns">
-            <a href="/resume/" class="primary">Resume →</a>
-            <a href="/contact/" class="secondary">Get in touch</a>
+            <a href="/trading/" class="primary">Trading Dashboard →</a>
+            <a href="/architecture/" class="secondary">← All architecture</a>
         </div>
     </div>
 

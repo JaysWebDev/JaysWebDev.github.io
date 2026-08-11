@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Architecture — How It's Built | jays.website</title>
-    <meta name="description" content="The architecture behind jays.website: Python data pipelines, SQLite, 13 trading scanners, MassGIS parcel analytics, self-hosted plus Oracle Cloud infrastructure — real production systems, no demos.">
+    <title>Rental Intelligence — How It's Built | jays.website</title>
+    <meta name="description" content="Deep dive into the rental intelligence engine: MassGIS statewide parcels, PostgreSQL/PostGIS, a 0–100 composite deal score benchmarked to HUD rents, and an ownership graph of 30,000+ landlords.">
     <meta name="author" content="Jeff Kirk Jr.">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="canonical" href="https://jays.website/architecture/">
+    <link rel="canonical" href="https://jays.website/architecture/rental/">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jays.website/architecture/">
-    <meta property="og:title" content="Architecture — How It's Built | jays.website">
-    <meta property="og:description" content="Data pipelines, scanners, scoring engines, and the infrastructure that runs them — the engineering behind every system on this site.">
+    <meta property="og:url" content="https://jays.website/architecture/rental/">
+    <meta property="og:title" content="Rental Intelligence — How It's Built | jays.website">
+    <meta property="og:description" content="From 339,856 parcels to a ranked shortlist: the full engineering tour of the rental decision engine.">
     <meta property="og:site_name" content="jays.website">
     <meta property="og:image" content="https://jays.website/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,10 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem 0; position: relative; z-index: 1; }
         .page-head { padding: 2.5rem 0 2rem; }
         .crumb { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.7rem; }
+        .crumb a { color: var(--dim); text-decoration: none; }
+        .crumb a:hover { color: var(--muted); }
         h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
-        h1 .accent { color: var(--accent); }
+        h1 .accent { color: var(--gold); }
         .lede { color: var(--muted); max-width: 640px; margin-top: 0.8rem; font-size: 1.02rem; line-height: 1.7; }
 
         .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 2rem 0 0.5rem;
@@ -46,9 +48,7 @@
         .section-label::after { content:''; flex:1; height:1px; background: var(--border); }
         .sys { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.8rem; margin-bottom: 1.2rem; }
         .sys h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .sys .sys-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
-        .sys.trading .sys-tag { color: var(--green); }
-        .sys.rental .sys-tag { color: var(--gold); }
+        .sys .sys-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
         .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
         .col h3 { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
         .col p, .col li { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
@@ -58,14 +58,6 @@
         .metrics { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
         .metric .m-num { font-family: var(--mono); font-size: 1.25rem; font-weight: 600; color: var(--text); }
         .metric .m-lbl { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-top: 0.15rem; }
-
-        .sys a.deep { display: inline-block; margin-top: 1.15rem; font-family: var(--mono); font-size: 0.78rem; color: var(--accent); text-decoration: none; }
-        .sys a.deep:hover { text-decoration: underline; }
-        .sys.trading a.deep { color: var(--green); }
-        .sys.rental a.deep { color: var(--gold); }
-
-        .stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
-        .stack span { font-family: var(--mono); font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.7rem; color: var(--muted); }
 
         .cta { margin: 2.6rem 0 0.5rem; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.8rem;
             display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
@@ -119,90 +111,82 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
 </nav>
 
     <div class="page-head">
-        <div class="crumb">// jays.website / architecture</div>
-        <h1>How It's <span class="accent">Built</span></h1>
-        <p class="lede">Every system on this site is production software running against real data on real infrastructure — no demos, no mockups. This page is the engineering tour: where the data comes from, how it's processed, and what keeps it running unattended.</p>
+        <div class="crumb">// jays.website / <a href="/architecture/">architecture</a> / rental</div>
+        <h1>Rental Intelligence, <span class="accent">Under the Hood</span></h1>
+        <p class="lede">Every multifamily building in Massachusetts — 339,856 of them — assembled into one spatial database, scored 0–100 against real rent benchmarks, and connected to an ownership graph of 30,000+ landlords. Not a listings site: a decision engine that turns a state's worth of parcels into a shortlist.</p>
     </div>
 
-    <div class="section-label">The Big Picture</div>
+    <div class="section-label">The Pipeline</div>
     <div class="flow">
-        <span class="node">Linux data plant</span><span class="arrow">→</span>
-        <span class="node">nightly Python pipelines</span><span class="arrow">→</span>
-        <span class="node">SQLite core DB</span><span class="arrow">→</span>
-        <span class="node">scanners &amp; scoring</span><span class="arrow">→</span>
-        <span class="node">static HTML / JSON build</span><span class="arrow">→</span>
-        <span class="node">rsync deploy</span><span class="arrow">→</span>
-        <span class="node">Oracle Cloud · nginx</span><span class="arrow">→</span>
-        <span class="node">Cloudflare edge</span>
+        <span class="node">MassGIS parcels</span><span class="arrow">→</span>
+        <span class="node">assessor + HUD FMR join</span><span class="arrow">→</span>
+        <span class="node">PostgreSQL / PostGIS</span><span class="arrow">→</span>
+        <span class="node">composite deal score</span><span class="arrow">→</span>
+        <span class="node">ownership graph</span><span class="arrow">→</span>
+        <span class="node">static export</span><span class="arrow">→</span>
+        <span class="node">county rankings + map</span>
     </div>
-    <p class="flow-note">~80 scheduled jobs orchestrate everything. No CMS, no frontend framework — hand-built static pages fed by Python pipelines, rebuilt and redeployed automatically every market day.</p>
+    <p class="flow-note">A daily refresh re-scores the dataset and auto-commits the exported data — the site updates itself.</p>
 
-    <div class="section-label">The Systems</div>
-
-    <div class="sys trading">
-        <h2>Trading Intelligence</h2>
-        <div class="sys-tag">Signals · Valuation · Regime · Delivery</div>
+    <div class="section-label">Data Assembly</div>
+    <div class="sys">
+        <h2>A state's worth of buildings in one schema</h2>
+        <div class="sys-tag">Parcels · Assessments · Benchmarks</div>
         <div class="cols">
             <div class="col">
-                <h3>Data In</h3>
+                <h3>Sources</h3>
                 <ul>
-                    <li>Polygon.io grouped daily bars for a 2,612-symbol universe, loaded nightly into a central SQLite database</li>
-                    <li>SEC EDGAR fundamentals for DCF valuation</li>
-                    <li>Institutional 13F holdings for accumulation signals</li>
+                    <li>MassGIS statewide parcel data — the authoritative geometry and use-code layer for all 14 counties</li>
+                    <li>Town assessor records: unit counts, year built, assessed value per building</li>
+                    <li>HUD Fair Market Rents by county and bedroom count as the rent benchmark</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Processing</h3>
+                <h3>Storage</h3>
                 <ul>
-                    <li>13 automated scanners at market close — breakout, range compression, institutional, RSI staircase, ATR momentum, confluence, and more</li>
-                    <li>Market-regime gate (breadth + trend) suppresses signals in hostile tape</li>
-                    <li>Conviction scoring weights each scanner by its measured historical hit rate</li>
-                    <li>Claude-based analyst ranks a top-25 nightly; automated weekly newsletter</li>
+                    <li>PostgreSQL with PostGIS — spatial joins, county rollups, and geometry queries in one engine</li>
+                    <li>Analytics tables keyed per building so scoring, comps, and ownership all resolve to the same record</li>
+                    <li>Persistent data lives on dedicated storage, backed up separately from the code</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Out</h3>
+                <h3>Hygiene</h3>
                 <ul>
-                    <li>Live dashboard, per-scanner HTML reports, JSON APIs — all static, all auto-deployed</li>
-                    <li>Telegram alerts for high-conviction setups</li>
-                    <li>Public paper portfolio tracking every pick's outcome</li>
+                    <li>Every score carries a data-quality confidence component — thin assessor data can't masquerade as a strong signal</li>
+                    <li>Coordinate-bounds filtering keeps bad geocodes out of the map layer</li>
+                    <li>Schema keys are enforced consistently across services after early mismatches proved how silently joins can rot</li>
                 </ul>
             </div>
         </div>
-        <div class="metrics">
-            <div class="metric"><div class="m-num">2,612</div><div class="m-lbl">Symbols</div></div>
-            <div class="metric"><div class="m-num">13</div><div class="m-lbl">Scanners</div></div>
-            <div class="metric"><div class="m-num">100k+</div><div class="m-lbl">Signals tracked</div></div>
-            <div class="metric"><div class="m-num">Daily</div><div class="m-lbl">Auto-deploy</div></div>
-        </div>
-        <a class="deep" href="/architecture/trading/">Full build notes: Trading →</a>
     </div>
 
-    <div class="sys rental">
-        <h2>Rental Intelligence</h2>
-        <div class="sys-tag">Parcels · Scoring · Ownership Graph</div>
+    <div class="section-label">Scoring Engine</div>
+    <div class="sys">
+        <h2>From 339,856 buildings to a shortlist</h2>
+        <div class="sys-tag">Yield · Distress · Ownership · Confidence</div>
         <div class="cols">
             <div class="col">
-                <h3>Data In</h3>
+                <h3>The composite score</h3>
                 <ul>
-                    <li>MassGIS statewide parcel data — every one of 339,856 multifamily buildings in Massachusetts</li>
-                    <li>HUD Fair Market Rents (FY2025) by bedroom count and county</li>
-                    <li>Town assessor records: units, year built, assessed value</li>
+                    <li>A 0–100 deal score per building: estimated yield against the HUD benchmark, distress indicators, ownership signals, and data confidence</li>
+                    <li>A rent-estimation pipeline seeds per-building rent figures where no listing data exists</li>
+                    <li>Two-layer ranking separates "good building" from "good opportunity right now"</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Processing</h3>
+                <h3>Ownership graph</h3>
                 <ul>
-                    <li>Composite 0–100 deal score: yield proxy vs. HUD benchmarks, distress and ownership signals, data-quality confidence</li>
-                    <li>Ownership resolution maps 30,000+ unique owners — portfolio holders, absentee and institutional-scale owners flagged</li>
+                    <li>Owner-name resolution collapses 339k parcel records into 30,000+ distinct owners</li>
+                    <li>Portfolio holders, absentee owners, and institutional-scale landlords are flagged — who owns a building is itself a signal</li>
+                    <li>Comparable-sales service benchmarks each candidate against nearby transactions</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Out</h3>
+                <h3>Human in the loop</h3>
                 <ul>
-                    <li>County opportunity rankings and top-scored buildings</li>
-                    <li>Interactive statewide map, filterable to street level</li>
-                    <li>Free to explore — Pro tier (alerts, CSV export, cap-rate calculator) in the works</li>
+                    <li>The engine produces a shortlist, not a verdict — final judgment stays human</li>
+                    <li>A review-labeling loop feeds real accept/reject decisions back toward the ranking weights</li>
+                    <li>Deal-flow candidates route through a chat-based approval gate before anything is acted on</li>
                 </ul>
             </div>
         </div>
@@ -212,76 +196,37 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
             <div class="metric"><div class="m-num">30k+</div><div class="m-lbl">Owners mapped</div></div>
             <div class="metric"><div class="m-num">14</div><div class="m-lbl">Counties</div></div>
         </div>
-        <a class="deep" href="/architecture/rental/">Full build notes: Rental →</a>
     </div>
 
+    <div class="section-label">Delivery</div>
     <div class="sys">
-        <h2>Business Intelligence</h2>
-        <div class="sys-tag">Spatial · Sector Gaps · Productization</div>
+        <h2>Heavy database, light site</h2>
+        <div class="sys-tag">Static Export · Daily Refresh</div>
         <div class="cols">
             <div class="col">
-                <h3>Data In</h3>
+                <h3>Outputs</h3>
                 <ul>
-                    <li>OpenStreetMap business data across Massachusetts ZIP codes, towns, and counties</li>
+                    <li>County opportunity rankings, top-scored buildings, and an interactive statewide map filterable to street level</li>
+                    <li>The site reads pre-exported static data — the database never sits in the request path</li>
+                    <li>Free to explore; a Pro tier (alerts, CSV export, cap-rate calculator) is in the works</li>
                 </ul>
             </div>
             <div class="col">
-                <h3>Processing</h3>
+                <h3>Automation</h3>
                 <ul>
-                    <li>Industry density, diversity, and sector-gap analysis per zone</li>
-                    <li>"Curiosity zones": areas where services are systematically missing relative to comparable zones</li>
+                    <li>A daily scheduled refresh re-scores the dataset and commits the updated export automatically</li>
+                    <li>Exports are versioned in git, so every day's rankings are reproducible</li>
+                    <li>The same pipeline pattern — heavy compute at home, static delivery at the edge — as the trading system</li>
                 </ul>
             </div>
-            <div class="col">
-                <h3>Out</h3>
-                <ul>
-                    <li>Zone explorer, sector breakdowns, town-level drill-down</li>
-                    <li>Proof of productization: a live niche directory built from the same pipeline — 1,445 companies across 20 city pages</li>
-                </ul>
-            </div>
-        </div>
-        <a class="deep" href="/architecture/business/">Full build notes: Business Intel →</a>
-    </div>
-
-    <div class="section-label">Infrastructure &amp; Practices</div>
-    <div class="sys">
-        <div class="cols">
-            <div class="col">
-                <h3>Where it runs</h3>
-                <ul>
-                    <li>Self-hosted Linux workstation as the data plant — pipelines, database, scanners</li>
-                    <li>Oracle Cloud VM serves the site statically via nginx, behind Cloudflare's edge</li>
-                    <li>Tailscale private mesh connects every machine; services run under systemd</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Engineering choices</h3>
-                <ul>
-                    <li>SQLite as the core store — zero-ops, fast, right-sized for the workload</li>
-                    <li>Static-first delivery: pages are pre-built, so the site stays fast and cheap</li>
-                    <li>~80 cron jobs with logging, log rotation, and a backed-up crontab</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Operating principles</h3>
-                <ul>
-                    <li>Measure outcomes before adding features — every scanner's accuracy is tracked against real results</li>
-                    <li>Regime gating: don't emit signals the market context doesn't support</li>
-                    <li>Dry-run flags on anything destructive; secrets live in env files, never in code</li>
-                </ul>
-            </div>
-        </div>
-        <div class="section-label" style="margin:1.6rem 0 0.9rem">Stack</div>
-        <div class="stack">
-            <span>Python</span><span>SQLite</span><span>pandas</span><span>Flask</span><span>nginx</span><span>Cloudflare</span><span>Oracle Cloud</span><span>Tailscale</span><span>systemd</span><span>Polygon.io</span><span>SEC EDGAR</span><span>MassGIS</span><span>HUD FMR</span><span>OpenStreetMap</span><span>Telegram API</span><span>Claude API</span>
         </div>
     </div>
 
     <div class="cta">
-        <p>Built and operated by one person. Want the longer story, or the person behind it?</p>
+        <p>Explore the rankings live, or step back to the full systems tour.</p>
         <div class="cta-btns">
-            <a href="/resume/" class="primary">Resume →</a>
-            <a href="/contact/" class="secondary">Get in touch</a>
+            <a href="/rental/" class="primary">Rental Engine →</a>
+            <a href="/architecture/" class="secondary">← All architecture</a>
         </div>
     </div>
 
