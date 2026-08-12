@@ -3574,6 +3574,15 @@
                             <div id="cp-content">
                                 <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
                             </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#A78BFA;margin:0;font-size:0.95rem;">🧪 ATR-Stop Variant — Same Picks · 2×ATR(14) Stop (−5% … −12%) · 10d Time Stop</h3>
+                                    <div id="cp-atr-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test vs the flat −8% stop above · started 2026-08-11</div>
+                                </div>
+                            </div>
+                            <div id="cp-atr-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
                         </div>
 
                         <!-- ── QUANT PORTFOLIO ────────────────────────────── -->
@@ -3587,6 +3596,15 @@
                             </div>
                             <div id="qp-content">
                                 <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#2DD4BF;margin:0;font-size:0.95rem;">🧪 ATR-Stop Variant — Same Picks · 2×ATR(14) Stop (−5% … −12%) · 10d Time Stop</h3>
+                                    <div id="qp-atr-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test vs the flat −8% stop above · started 2026-08-11</div>
+                                </div>
+                            </div>
+                            <div id="qp-atr-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
                             </div>
                         </div>
 
@@ -5615,10 +5633,11 @@
                     const pc  = pct >= 0 ? '#10B981' : pct > -4 ? '#F59E0B' : '#EF4444';
                     const stopDist = p.stop_price && p.current_price
                         ? ((p.stop_price - p.current_price) / p.current_price * 100).toFixed(1) : '—';
-                    const roomPct = Math.max(0, Math.min(100, 100 - (Math.abs(Math.min(pct,0)) / 8 * 100)));
+                    const stopW = p.stop_pct || 8;  // ATR variants carry per-position stop width
+                    const roomPct = Math.max(0, Math.min(100, 100 - (Math.abs(Math.min(pct,0)) / stopW * 100)));
                     const barClr  = roomPct >= 60 ? '#10B981' : roomPct >= 30 ? '#F59E0B' : '#EF4444';
-                    const scoreVal = cfg.scoreField === 'claude_rank'
-                        ? (p.claude_rank != null ? `#${p.claude_rank}` : '—')
+                    const scoreVal = (cfg.scoreField === 'claude_rank' || cfg.scoreField === 'rank')
+                        ? (p[cfg.scoreField] != null ? `#${p[cfg.scoreField]}` : '—')
                         : (p[cfg.scoreField] != null ? Math.round(p[cfg.scoreField]) : '—');
                     const scanners = (p.scanners||'').split(',').map(s=>s.trim()).filter(Boolean);
                     const scanBadges = scanners.slice(0,3).map(s => {
@@ -5688,8 +5707,8 @@
                     </div>
                 </div>
                 <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
-                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span></div>
-                    ${equityCurveSVG(data.equity_curve) || '<span style="color:#64748b;font-size:0.72rem;">Accumulating history — appears after a few daily snapshots.</span>'}
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span>${data.spy_curve && data.spy_curve.length > 1 ? ' <span style="color:#FBBF24;font-weight:400;text-transform:none;font-size:0.68rem;">· dashed = SPY</span>' : ''}</div>
+                    ${equityCurveSVG(data.equity_curve, data.spy_curve) || '<span style="color:#64748b;font-size:0.72rem;">Accumulating history — appears after a few daily snapshots.</span>'}
                 </div>
                 <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
                     <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Open Positions</div>
@@ -5743,6 +5762,17 @@
                     document.getElementById('cp-content').innerHTML =
                         '<div style="text-align:center;padding:40px;color:#64748b;">Portfolio data unavailable — runs nightly at 8:32 PM.</div>';
                 });
+            fetch('/trading/data/claude_portfolio_atr.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => {
+                    _renderAnalystPortfolio(d, 'cp-atr-content', 'cp-atr-meta', {
+                        color: '#A78BFA', scoreField: 'rank', scoreLabel: 'Rank'
+                    });
+                })
+                .catch(() => {
+                    document.getElementById('cp-atr-content').innerHTML =
+                        '<div style="text-align:center;padding:30px;color:#64748b;">ATR variant data unavailable — runs nightly at 8:40 PM.</div>';
+                });
         }
 
         function loadQuantPortfolio(force = false) {
@@ -5758,6 +5788,17 @@
                 .catch(() => {
                     document.getElementById('qp-content').innerHTML =
                         '<div style="text-align:center;padding:40px;color:#64748b;">Portfolio data unavailable — runs nightly at 8:35 PM.</div>';
+                });
+            fetch('/trading/data/quant_portfolio_atr.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => {
+                    _renderAnalystPortfolio(d, 'qp-atr-content', 'qp-atr-meta', {
+                        color: '#2DD4BF', scoreField: 'rank', scoreLabel: 'Rank'
+                    });
+                })
+                .catch(() => {
+                    document.getElementById('qp-atr-content').innerHTML =
+                        '<div style="text-align:center;padding:30px;color:#64748b;">ATR variant data unavailable — runs nightly at 8:40 PM.</div>';
                 });
         }
 
@@ -7276,16 +7317,27 @@
         // ── Sparklines ─────────────────────────────────────────────────────────
         let _sparklineData = {};
 
-        function equityCurveSVG(curve) {
+        function equityCurveSVG(curve, bench) {
             // curve: [{date:'YYYY-MM-DD', value:N}, ...] → % return line chart vs first point.
+            // bench (optional): same shape — drawn as a dashed amber benchmark line (e.g. SPY),
+            // normalized to its own first point and aligned to curve dates.
             // Returns '' when there aren't enough points to draw a line.
             if (!curve || curve.length < 2) return '';
             const vals = curve.map(p => p.value);
             const dates = curve.map(p => p.date);
             const start = vals[0];
             const retVals = vals.map(v => ((v - start) / start) * 100);
-            const minV = Math.min(-0.1, ...retVals);
-            const maxV = Math.max(0.1, ...retVals);
+            let bRet = null;
+            if (bench && bench.length > 1) {
+                const bStart = bench[0].value;
+                const bMap = {};
+                bench.forEach(p => { bMap[p.date] = ((p.value - bStart) / bStart) * 100; });
+                bRet = dates.map(d => (d in bMap) ? bMap[d] : null);
+                if (bRet.filter(v => v !== null).length < 2) bRet = null;
+            }
+            const bVals = bRet ? bRet.filter(v => v !== null) : [];
+            const minV = Math.min(-0.1, ...retVals, ...bVals);
+            const maxV = Math.max(0.1, ...retVals, ...bVals);
             const range = maxV - minV || 1;
             const W = 600, H = 70;
             const pad = {t:10, b:18, l:34, r:8};
@@ -7304,9 +7356,21 @@
             const xLabels = `
                 <text x="${xP(0)}" y="${H-2}" text-anchor="start" fill="#475569" font-size="8">${dates[0].slice(5)}</text>
                 <text x="${xP(n-1)}" y="${H-2}" text-anchor="end" fill="#475569" font-size="8">${dates[n-1].slice(5)}</text>`;
+            let benchSvg = '';
+            if (bRet) {
+                const bPts = bRet.map((v,i) => v === null ? null : `${xP(i).toFixed(1)},${yP(v).toFixed(1)}`)
+                    .filter(Boolean).join(' ');
+                let lastIdx = bRet.length - 1;
+                while (lastIdx >= 0 && bRet[lastIdx] === null) lastIdx--;
+                const bLast = bRet[lastIdx];
+                benchSvg = `
+                <polyline points="${bPts}" stroke="#FBBF24" stroke-width="1.2" fill="none" stroke-dasharray="4,3" stroke-linejoin="round" opacity="0.85"/>
+                <text x="${(xP(lastIdx)-4).toFixed(1)}" y="${(yP(bLast)-4).toFixed(1)}" text-anchor="end" fill="#FBBF24" font-size="8" opacity="0.9">SPY ${bLast>=0?'+':''}${bLast.toFixed(1)}%</text>`;
+            }
             return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;display:block;">
                 <line x1="${pad.l}" y1="${zeroY.toFixed(1)}" x2="${W-pad.r}" y2="${zeroY.toFixed(1)}" stroke="rgba(100,116,139,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
                 <polygon points="${areaPts}" fill="${lineColor}" fill-opacity="0.08"/>
+                ${benchSvg}
                 <polyline points="${pts}" stroke="${lineColor}" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
                 <circle cx="${xP(n-1).toFixed(1)}" cy="${yP(lastV).toFixed(1)}" r="3" fill="${lineColor}"/>
                 ${yLabels}${xLabels}

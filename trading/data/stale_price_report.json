@@ -1,17 +1,53 @@
 {
-  "timestamp": "2026-08-11 07:00:02",
+  "timestamp": "2026-08-12 07:00:03",
   "summary": {
-    "total_flagged": 0,
-    "high_risk": 0,
+    "total_flagged": 1,
+    "high_risk": 1,
     "medium_risk": 0,
     "low_risk": 0,
     "penny_stocks": 0,
     "stale_prices": 0,
-    "no_data": 0,
+    "no_data": 1,
     "tracking_pending": 5,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
-  "securities": [],
-  "recommendations": []
+  "securities": [
+    {
+      "symbol": "LPRO",
+      "price": 3.14,
+      "consecutive_days": 0,
+      "avg_volume": 1018704.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-07-29, expected: 2026-08-11)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-07-29",
+      "analysis_date": "2026-08-12 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-07-23"
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "REMOVE_NO_DATA",
+      "description": "Remove 1 securities with no Yahoo Finance data (likely delisted)",
+      "symbols": [
+        "LPRO"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "action": "IMMEDIATE_REVIEW",
+      "description": "Review 1 high-risk securities (likely delisted or worthless)",
+      "symbols": [
+        "LPRO"
+      ],
+      "priority": "HIGH"
+    }
+  ]
 }

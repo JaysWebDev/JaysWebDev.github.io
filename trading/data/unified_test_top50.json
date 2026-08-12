@@ -1,7 +1,7 @@
 {
   "type": "unified_test",
-  "generated": "2026-08-11 16:15:02",
-  "score_date": "2026-08-11",
+  "generated": "2026-08-12 16:15:02",
+  "score_date": "2026-08-12",
   "scanner_counts": {
     "database_enhanced": 40,
     "setup_vcb": 0,
@@ -10,72 +10,32 @@
     "v3_compression": 50,
     "institutional": 40,
     "etf": 85,
-    "under50": 969
+    "under50": 972
   },
   "picks": [
     {
       "rank": 1,
-      "symbol": "CGON",
-      "test_score": 150.0,
+      "symbol": "VLO",
+      "test_score": 145.0,
       "source_count": 1,
       "sources": "enhanced",
       "component_scores": {
-        "enhanced": 150,
+        "enhanced": 145,
         "v3": 0,
         "institutional": 0,
         "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 GAP UP \u2022 MOMENTUM \u2022 STRONG CLOSE",
-      "close": 76.56,
-      "entry": 76.56,
-      "stop": 74.2632,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 GAP UP \u2022 STRONG CLOSE",
+      "close": 323.92,
+      "entry": 323.92,
+      "stop": 314.2024,
       "days_on_list": 1
     },
     {
       "rank": 2,
-      "symbol": "PRAX",
-      "test_score": 150.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 150,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 GAP UP \u2022 HOT MOMENTUM \u2022 HIGH CLOSE",
-      "close": 366.96,
-      "entry": 366.96,
-      "stop": 355.9512,
-      "days_on_list": 1
-    },
-    {
-      "rank": 3,
-      "symbol": "IXUS",
-      "test_score": 147.5,
-      "source_count": 3,
-      "sources": "enhanced,etf,v3",
-      "component_scores": {
-        "enhanced": 135,
-        "v3": 100,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 115,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 3x+ VOL \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE | [v3] NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID | [etf] Above SMA20 | Above EMA20 | RSI:62.5 | Strong Volume | High RelVol | Price OK | ",
-      "close": 96.93,
-      "entry": 96.93,
-      "stop": 94.02210000000001,
-      "days_on_list": 1
-    },
-    {
-      "rank": 4,
-      "symbol": "XPRO",
+      "symbol": "EPC",
       "test_score": 144.2,
       "source_count": 3,
       "sources": "enhanced,under50,v3",
@@ -87,214 +47,94 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 GAP UP \u2022 MOMENTUM \u2022 STRONG CLOSE | [v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [under50] Strong Uptrend | Above EMA20 | Range:4.0% | RSI:64.2 | Good Volume | Price OK | ",
-      "close": 17.85,
-      "entry": 17.85,
-      "stop": 17.314500000000002,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 GAP UP \u2022 STRONG CLOSE | [v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [under50] Strong Uptrend | Above EMA20 | Range:3.6% | RSI:56.0 | Good Volume | Price OK | ",
+      "close": 28.61,
+      "entry": 28.61,
+      "stop": 27.7517,
       "days_on_list": 1
     },
     {
-      "rank": 5,
-      "symbol": "REPL",
-      "test_score": 142.3,
+      "rank": 3,
+      "symbol": "LB",
+      "test_score": 137.6,
+      "source_count": 2,
+      "sources": "enhanced,institutional",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 GAP UP \u2022 MOMENTUM | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 83.91,
+      "entry": 83.91,
+      "stop": 81.39269999999999,
+      "days_on_list": 1
+    },
+    {
+      "rank": 4,
+      "symbol": "APA",
+      "test_score": 136.5,
       "source_count": 3,
       "sources": "enhanced,under50,v3",
       "component_scores": {
-        "enhanced": 125,
+        "enhanced": 110,
         "v3": 100,
         "institutional": 0,
         "setup": 0,
         "etf": 0,
         "under50": 110
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 BIG GAP \u2022 MOMENTUM | [v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [under50] Strong Uptrend | Above EMA20 | Range:13.5% | RSI:59.7 | Good Volume | Price OK |",
-      "close": 13.67,
-      "entry": 13.67,
-      "stop": 13.2599,
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 MOMENTUM | [v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [under50] Strong Uptrend | Above EMA20 | RSI:65.1 | Good Volume | Price OK | BB Breakout |",
+      "close": 40.62,
+      "entry": 40.62,
+      "stop": 39.401399999999995,
+      "days_on_list": 2
+    },
+    {
+      "rank": 5,
+      "symbol": "XNCR",
+      "test_score": 133.8,
+      "source_count": 2,
+      "sources": "enhanced,under50",
+      "component_scores": {
+        "enhanced": 125,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 110
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 SHORT TREND \u2022 NEW HIGH \u2022 MOMENTUM | [under50] Strong Uptrend | Above EMA20 | Range:3.8% | RSI:66.2 | Good Volume | Price OK | ",
+      "close": 22.1,
+      "entry": 22.1,
+      "stop": 21.437,
       "days_on_list": 1
     },
     {
       "rank": 6,
-      "symbol": "ACAD",
-      "test_score": 140.0,
-      "source_count": 3,
-      "sources": "institutional,under50,v3",
+      "symbol": "COP",
+      "test_score": 133.0,
+      "source_count": 1,
+      "sources": "enhanced",
       "component_scores": {
-        "enhanced": 0,
-        "v3": 100,
-        "institutional": 120,
+        "enhanced": 133,
+        "v3": 0,
+        "institutional": 0,
         "setup": 0,
         "etf": 0,
-        "under50": 110
+        "under50": 0
       },
-      "signals": "[v3] NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Good Volume | Above Avg Vol | Price OK | BB Break",
-      "close": 29.39,
-      "entry": 29.39,
-      "stop": 27.46,
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 GAP UP \u2022 STRONG CLOSE",
+      "close": 125.92,
+      "entry": 125.92,
+      "stop": 122.1424,
       "days_on_list": 1
     },
     {
       "rank": 7,
-      "symbol": "EGHT",
-      "test_score": 140.0,
-      "source_count": 3,
-      "sources": "institutional,under50,v3",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 100,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:5.4% | RSI:63.2 | Good Volume | Price OK | ",
-      "close": 2.24,
-      "entry": 2.24,
-      "stop": 1.88,
-      "days_on_list": 1
-    },
-    {
-      "rank": 8,
-      "symbol": "IBEX",
-      "test_score": 140.0,
-      "source_count": 3,
-      "sources": "institutional,under50,v3",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 100,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | RSI:60.0 | Good Volume | Price OK | BB Breakout |",
-      "close": 37.01,
-      "entry": 37.01,
-      "stop": 34.31,
-      "days_on_list": 2
-    },
-    {
-      "rank": 9,
-      "symbol": "XLB",
-      "test_score": 139.7,
-      "source_count": 2,
-      "sources": "enhanced,etf",
-      "component_scores": {
-        "enhanced": 135,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 110,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [etf] Uptrend | Above EMA20 | RSI:67.3 | Strong Volume | Price OK | Near 52W High | BB",
-      "close": 53.18,
-      "entry": 53.18,
-      "stop": 51.5846,
-      "days_on_list": 1
-    },
-    {
-      "rank": 10,
-      "symbol": "IVV",
-      "test_score": 136.8,
-      "source_count": 2,
-      "sources": "enhanced,etf",
-      "component_scores": {
-        "enhanced": 130,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 110,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE | [etf] Uptrend | Above EMA20 | RSI:67.0 | Strong Volume | Price OK | Near 52W High | BB",
-      "close": 776.74,
-      "entry": 776.74,
-      "stop": 753.4378,
-      "days_on_list": 1
-    },
-    {
-      "rank": 11,
-      "symbol": "HMN",
-      "test_score": 135.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 135,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 BB SQUEEZE \u2022 GAP UP \u2022 STRONG CLOS",
-      "close": 52.84,
-      "entry": 52.84,
-      "stop": 51.2548,
-      "days_on_list": 1
-    },
-    {
-      "rank": 12,
-      "symbol": "BZH",
-      "test_score": 133.8,
-      "source_count": 2,
-      "sources": "enhanced,under50",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[enhanced] NR3 \u2022 2x+ VOL \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 BB SQUEEZE | [under50] Strong Uptrend | Above EMA20 | RSI:52.1 | Good Volume | High RelVol | High Volum",
-      "close": 33.06,
-      "entry": 33.06,
-      "stop": 32.068200000000004,
-      "days_on_list": 2
-    },
-    {
-      "rank": 13,
-      "symbol": "AMN",
-      "test_score": 133.8,
-      "source_count": 2,
-      "sources": "enhanced,under50",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 MOMENTUM | [under50] Strong Uptrend | Above EMA20 | Range:6.0% | RSI:59.0 | Good Volume | Price OK | ",
-      "close": 36.6,
-      "entry": 36.6,
-      "stop": 35.502,
-      "days_on_list": 2
-    },
-    {
-      "rank": 14,
-      "symbol": "TRUP",
-      "test_score": 133.8,
-      "source_count": 2,
-      "sources": "enhanced,under50",
-      "component_scores": {
-        "enhanced": 125,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[enhanced] 3x+ VOL \u2022 KELTNER BO \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BIG GAP \u2022 HOT MOMENTUM | [under50] Strong Uptrend | Above EMA20 | Range:9.4% | RSI:61.4 | Good Volume | High RelVol",
-      "close": 29.06,
-      "entry": 29.06,
-      "stop": 28.1882,
-      "days_on_list": 1
-    },
-    {
-      "rank": 15,
       "symbol": "IOVA",
       "test_score": 132.6,
       "source_count": 2,
@@ -307,55 +147,15 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 HOT MOMENTUM | [under50] Strong Uptrend | Above EMA20 | Range:7.0% | RSI:61.4 | Good Volume | Price OK | ",
-      "close": 6.4,
-      "entry": 6.4,
-      "stop": 6.208,
-      "days_on_list": 2
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 HOT MOMENTUM | [under50] Strong Uptrend | Above EMA20 | Range:5.3% | RSI:67.3 | Good Volume | Price OK | ",
+      "close": 6.49,
+      "entry": 6.49,
+      "stop": 6.2953,
+      "days_on_list": 3
     },
     {
-      "rank": 16,
-      "symbol": "FA",
-      "test_score": 131.5,
-      "source_count": 2,
-      "sources": "enhanced,under50",
-      "component_scores": {
-        "enhanced": 121,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[enhanced] NR3 \u2022 1.5x VOL \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 HOT MOMENTUM | [under50] Strong Uptrend | Above EMA20 | Range:4.0% | RSI:61.3 | Good Volume | Price OK | ",
-      "close": 23.59,
-      "entry": 23.59,
-      "stop": 22.8823,
-      "days_on_list": 2
-    },
-    {
-      "rank": 17,
-      "symbol": "DXPE",
-      "test_score": 131.3,
-      "source_count": 2,
-      "sources": "enhanced,institutional",
-      "component_scores": {
-        "enhanced": 113,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 HOT MOMENTUM | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
-      "close": 192.65,
-      "entry": 192.65,
-      "stop": 186.8705,
-      "days_on_list": 1
-    },
-    {
-      "rank": 18,
-      "symbol": "GRNY",
+      "rank": 8,
+      "symbol": "SSRM",
       "test_score": 130.9,
       "source_count": 2,
       "sources": "enhanced,under50",
@@ -367,55 +167,15 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE | [under50] Strong Uptrend | Above EMA20 | RSI:56.5 | Good Volume | Price OK | BB Breakout |",
-      "close": 27.93,
-      "entry": 27.93,
-      "stop": 27.0921,
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 GAP UP \u2022 HOT MOMENTUM \u2022 STRONG CLOSE | [under50] Above SMA20 | Above EMA20 | RSI:63.7 | Good Volume | Price OK | BB Breakout | Ne",
+      "close": 31.97,
+      "entry": 31.97,
+      "stop": 31.0109,
       "days_on_list": 1
     },
     {
-      "rank": 19,
-      "symbol": "HOPE",
-      "test_score": 130.9,
-      "source_count": 2,
-      "sources": "enhanced,under50",
-      "component_scores": {
-        "enhanced": 120,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 BB SQUEEZE \u2022 HIGH CLOSE | [under50] Strong Uptrend | Above EMA20 | RSI:57.8 | Good Volume | Price OK | BB Breakout |",
-      "close": 14.0,
-      "entry": 14.0,
-      "stop": 13.58,
-      "days_on_list": 1
-    },
-    {
-      "rank": 20,
-      "symbol": "RHI",
-      "test_score": 130.9,
-      "source_count": 2,
-      "sources": "enhanced,under50",
-      "component_scores": {
-        "enhanced": 120,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 MOMENTUM \u2022 STRONG CLOSE | [under50] Strong Uptrend | Above EMA20 | RSI:53.7 | Good Volume | Price OK | BB Breakout |",
-      "close": 42.68,
-      "entry": 42.68,
-      "stop": 41.3996,
-      "days_on_list": 1
-    },
-    {
-      "rank": 21,
-      "symbol": "XLI",
+      "rank": 9,
+      "symbol": "IWM",
       "test_score": 130.9,
       "source_count": 2,
       "sources": "enhanced,etf",
@@ -427,15 +187,15 @@
         "etf": 110,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE | [etf] Uptrend | Above EMA20 | RSI:62.7 | Strong Volume | Price OK | Near 52W High | BB",
-      "close": 184.6,
-      "entry": 184.6,
-      "stop": 179.06199999999998,
-      "days_on_list": 2
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE | [etf] Uptrend | Above EMA20 | RSI:60.3 | Strong Volume | Price OK | Near 52W High | BB",
+      "close": 300.99,
+      "entry": 300.99,
+      "stop": 291.9603,
+      "days_on_list": 1
     },
     {
-      "rank": 22,
-      "symbol": "RAPP",
+      "rank": 10,
+      "symbol": "NOV",
       "test_score": 130.9,
       "source_count": 2,
       "sources": "enhanced,under50",
@@ -447,55 +207,35 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 GAP UP \u2022 HOT MOMENTUM | [under50] Strong Uptrend | Above EMA20 | Range:4.0% | RSI:63.5 | Good Volume | Price OK | ",
-      "close": 46.98,
-      "entry": 46.98,
-      "stop": 45.5706,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 STRONG CLOSE | [under50] Strong Uptrend | Above EMA20 | RSI:55.8 | Good Volume | Price OK | BB Breakout |",
+      "close": 21.02,
+      "entry": 21.02,
+      "stop": 20.3894,
       "days_on_list": 1
     },
     {
-      "rank": 23,
-      "symbol": "AMPL",
-      "test_score": 130.6,
+      "rank": 11,
+      "symbol": "CRGY",
+      "test_score": 130.9,
       "source_count": 2,
-      "sources": "institutional,under50",
+      "sources": "enhanced,under50",
       "component_scores": {
-        "enhanced": 0,
+        "enhanced": 120,
         "v3": 0,
-        "institutional": 120,
+        "institutional": 0,
         "setup": 0,
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:9.8% | Good Volume | Price OK | BB Breakout",
-      "close": 12.19,
-      "entry": 12.19,
-      "stop": 0,
-      "days_on_list": 2
-    },
-    {
-      "rank": 24,
-      "symbol": "APA",
-      "test_score": 130.6,
-      "source_count": 2,
-      "sources": "institutional,under50",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:7.2% | RSI:67.9 | Good Volume | Price OK | ",
-      "close": 41.02,
-      "entry": 41.02,
-      "stop": 0,
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 GAP UP \u2022 MOMENTUM | [under50] Strong Uptrend | Above EMA20 | RSI:63.1 | Good Volume | Price OK | BB Breakout |",
+      "close": 12.42,
+      "entry": 12.42,
+      "stop": 12.0474,
       "days_on_list": 1
     },
     {
-      "rank": 25,
-      "symbol": "AURA",
+      "rank": 12,
+      "symbol": "ACHV",
       "test_score": 130.6,
       "source_count": 2,
       "sources": "institutional,under50",
@@ -507,34 +247,54 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:5.3% | RSI:66.0 | Good Volume | Price OK | ",
-      "close": 7.7,
-      "entry": 7.7,
-      "stop": 0,
-      "days_on_list": 2
-    },
-    {
-      "rank": 26,
-      "symbol": "AVNT",
-      "test_score": 130.6,
-      "source_count": 2,
-      "sources": "institutional,under50",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:3.1% | Good Volume | Price OK | BB Breakout",
-      "close": 45.65,
-      "entry": 45.65,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:6.2% | RSI:67.6 | Good Volume | Above Avg V",
+      "close": 6.77,
+      "entry": 6.77,
       "stop": 0,
       "days_on_list": 1
     },
     {
-      "rank": 27,
+      "rank": 13,
+      "symbol": "AMCR",
+      "test_score": 130.6,
+      "source_count": 2,
+      "sources": "institutional,under50",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 110
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | RSI:67.7 | Good Volume | Above Avg Vol | Price OK",
+      "close": 47.4,
+      "entry": 47.4,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 14,
+      "symbol": "AORT",
+      "test_score": 130.6,
+      "source_count": 2,
+      "sources": "institutional,under50",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 110
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:8.5% | RSI:67.2 | Good Volume | Price OK | ",
+      "close": 28.39,
+      "entry": 28.39,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 15,
       "symbol": "CGEM",
       "test_score": 130.6,
       "source_count": 2,
@@ -547,14 +307,14 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:5.7% | RSI:52.0 | Good Volume | Price OK | ",
-      "close": 18.28,
-      "entry": 18.28,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:8.1% | RSI:65.0 | Good Volume | Price OK | ",
+      "close": 19.63,
+      "entry": 19.63,
       "stop": 0,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
-      "rank": 28,
+      "rank": 16,
       "symbol": "CRSR",
       "test_score": 130.6,
       "source_count": 2,
@@ -567,14 +327,34 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:10.1% | Good Volume | Price OK | BB Breakou",
-      "close": 13.71,
-      "entry": 13.71,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:8.9% | RSI:62.0 | Good Volume | Above Avg V",
+      "close": 12.83,
+      "entry": 12.83,
+      "stop": 0,
+      "days_on_list": 2
+    },
+    {
+      "rank": 17,
+      "symbol": "CWCO",
+      "test_score": 130.6,
+      "source_count": 2,
+      "sources": "institutional,under50",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 110
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:8.3% | Good Volume | Above Avg Vol | Price ",
+      "close": 32.32,
+      "entry": 32.32,
       "stop": 0,
       "days_on_list": 1
     },
     {
-      "rank": 29,
+      "rank": 18,
       "symbol": "CXW",
       "test_score": 130.6,
       "source_count": 2,
@@ -587,54 +367,34 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:5.8% | RSI:57.6 | Good Volume | Price OK | ",
-      "close": 33.0,
-      "entry": 33.0,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:5.2% | RSI:62.6 | Good Volume | Price OK | ",
+      "close": 33.92,
+      "entry": 33.92,
+      "stop": 0,
+      "days_on_list": 2
+    },
+    {
+      "rank": 19,
+      "symbol": "EMBC",
+      "test_score": 130.6,
+      "source_count": 2,
+      "sources": "institutional,under50",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 110
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:6.0% | Good Volume | Above Avg Vol | Price ",
+      "close": 4.88,
+      "entry": 4.88,
       "stop": 0,
       "days_on_list": 1
     },
     {
-      "rank": 30,
-      "symbol": "DNOW",
-      "test_score": 130.6,
-      "source_count": 2,
-      "sources": "institutional,under50",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:3.9% | Good Volume | Above Avg Vol | Price ",
-      "close": 16.65,
-      "entry": 16.65,
-      "stop": 0,
-      "days_on_list": 2
-    },
-    {
-      "rank": 31,
-      "symbol": "EWTX",
-      "test_score": 130.6,
-      "source_count": 2,
-      "sources": "institutional,under50",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:5.3% | RSI:62.7 | Good Volume | Above Avg V",
-      "close": 44.58,
-      "entry": 44.58,
-      "stop": 0,
-      "days_on_list": 2
-    },
-    {
-      "rank": 32,
+      "rank": 20,
       "symbol": "FOXF",
       "test_score": 130.6,
       "source_count": 2,
@@ -647,15 +407,15 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:7.4% | RSI:66.9 | Good Volume | Above Avg V",
-      "close": 21.03,
-      "entry": 21.03,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:3.3% | RSI:67.7 | Good Volume | Price OK | ",
+      "close": 21.54,
+      "entry": 21.54,
       "stop": 0,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
-      "rank": 33,
-      "symbol": "GEN",
+      "rank": 21,
+      "symbol": "GCMG",
       "test_score": 130.6,
       "source_count": 2,
       "sources": "institutional,under50",
@@ -667,15 +427,15 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:3.8% | Good Volume | Price OK | BB Breakout",
-      "close": 29.29,
-      "entry": 29.29,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:6.7% | Good Volume | Above Avg Vol | Price ",
+      "close": 13.98,
+      "entry": 13.98,
       "stop": 0,
       "days_on_list": 1
     },
     {
-      "rank": 34,
-      "symbol": "GLBE",
+      "rank": 22,
+      "symbol": "GEO",
       "test_score": 130.6,
       "source_count": 2,
       "sources": "institutional,under50",
@@ -687,15 +447,15 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:3.1% | Good Volume | Above Avg Vol | Price ",
-      "close": 41.15,
-      "entry": 41.15,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:7.4% | RSI:53.5 | Good Volume | Price OK | ",
+      "close": 31.75,
+      "entry": 31.75,
       "stop": 0,
       "days_on_list": 1
     },
     {
-      "rank": 35,
-      "symbol": "GTLB",
+      "rank": 23,
+      "symbol": "GIC",
       "test_score": 130.6,
       "source_count": 2,
       "sources": "institutional,under50",
@@ -707,54 +467,14 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:6.2% | Good Volume | Price OK | BB Breakout",
-      "close": 40.73,
-      "entry": 40.73,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:3.6% | Good Volume | Price OK | BB Breakout",
+      "close": 39.35,
+      "entry": 39.35,
       "stop": 0,
-      "days_on_list": 1
+      "days_on_list": 3
     },
     {
-      "rank": 36,
-      "symbol": "GTN",
-      "test_score": 130.6,
-      "source_count": 2,
-      "sources": "institutional,under50",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:9.8% | RSI:66.9 | Good Volume | Price OK | ",
-      "close": 4.98,
-      "entry": 4.98,
-      "stop": 0,
-      "days_on_list": 1
-    },
-    {
-      "rank": 37,
-      "symbol": "HACK",
-      "test_score": 130.6,
-      "source_count": 2,
-      "sources": "etf,institutional",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 110,
-        "under50": 0
-      },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [etf] Uptrend | Above EMA20 | RSI:71.4 | Strong Volume | Price OK | Near 52W High | BB",
-      "close": 119.19,
-      "entry": 119.19,
-      "stop": 0,
-      "days_on_list": 1
-    },
-    {
-      "rank": 38,
+      "rank": 24,
       "symbol": "HNST",
       "test_score": 130.6,
       "source_count": 2,
@@ -767,15 +487,15 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:8.0% | Good Volume | Above Avg Vol | Price ",
-      "close": 5.23,
-      "entry": 5.23,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:3.5% | Good Volume | Price OK | BB Breakout",
+      "close": 5.21,
+      "entry": 5.21,
       "stop": 0,
-      "days_on_list": 1
+      "days_on_list": 2
     },
     {
-      "rank": 39,
-      "symbol": "HRTG",
+      "rank": 25,
+      "symbol": "LFST",
       "test_score": 130.6,
       "source_count": 2,
       "sources": "institutional,under50",
@@ -787,15 +507,55 @@
         "etf": 0,
         "under50": 110
       },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | RSI:70.0 | Good Volume | Price OK | BB Breakout |",
-      "close": 32.71,
-      "entry": 32.71,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:5.0% | RSI:56.4 | Good Volume | Above Avg V",
+      "close": 11.5,
+      "entry": 11.5,
       "stop": 0,
-      "days_on_list": 2
+      "days_on_list": 1
     },
     {
-      "rank": 40,
-      "symbol": "APGE",
+      "rank": 26,
+      "symbol": "LRMR",
+      "test_score": 130.6,
+      "source_count": 2,
+      "sources": "institutional,under50",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 110
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:8.5% | RSI:59.8 | Good Volume | Price OK | ",
+      "close": 4.31,
+      "entry": 4.31,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 27,
+      "symbol": "MATV",
+      "test_score": 130.6,
+      "source_count": 2,
+      "sources": "institutional,under50",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 110
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Range:4.8% | Good Volume | Above Avg Vol | Price ",
+      "close": 12.8,
+      "entry": 12.8,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 28,
+      "symbol": "BAC",
       "test_score": 130.0,
       "source_count": 1,
       "sources": "enhanced",
@@ -808,54 +568,14 @@
         "under50": 0
       },
       "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
-      "close": 134.65,
-      "entry": 134.65,
-      "stop": 130.6105,
+      "close": 64.0,
+      "entry": 64.0,
+      "stop": 62.08,
       "days_on_list": 1
     },
     {
-      "rank": 41,
-      "symbol": "SPY",
-      "test_score": 130.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 130,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
-      "close": 773.03,
-      "entry": 773.03,
-      "stop": 749.8390999999999,
-      "days_on_list": 1
-    },
-    {
-      "rank": 42,
-      "symbol": "JPM",
-      "test_score": 130.0,
-      "source_count": 1,
-      "sources": "enhanced",
-      "component_scores": {
-        "enhanced": 130,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE \u2022 HIGH CLOSE",
-      "close": 359.79,
-      "entry": 359.79,
-      "stop": 348.9963,
-      "days_on_list": 1
-    },
-    {
-      "rank": 43,
-      "symbol": "DNTH",
+      "rank": 29,
+      "symbol": "IESC",
       "test_score": 130.0,
       "source_count": 1,
       "sources": "enhanced",
@@ -868,74 +588,14 @@
         "under50": 0
       },
       "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEAR 52WH \u2022 GAP UP \u2022 STRONG CLOSE",
-      "close": 111.8,
-      "entry": 111.8,
-      "stop": 108.446,
+      "close": 780.0,
+      "entry": 780.0,
+      "stop": 756.6,
       "days_on_list": 1
     },
     {
-      "rank": 44,
-      "symbol": "VTI",
-      "test_score": 129.7,
-      "source_count": 2,
-      "sources": "enhanced,v3",
-      "component_scores": {
-        "enhanced": 128,
-        "v3": 100,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 0
-      },
-      "signals": "[enhanced] NR3 \u2022 1.5x VOL \u2022 KELTNER BO \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE | [v3] NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID",
-      "close": 381.63,
-      "entry": 381.63,
-      "stop": 370.18109999999996,
-      "days_on_list": 1
-    },
-    {
-      "rank": 45,
-      "symbol": "DC",
-      "test_score": 128.4,
-      "source_count": 2,
-      "sources": "institutional,under50",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 0,
-        "institutional": 120,
-        "setup": 0,
-        "etf": 0,
-        "under50": 105
-      },
-      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Above SMA20 | Above EMA20 | Range:5.4% | Good Volume | Above Avg Vol | Price OK ",
-      "close": 6.13,
-      "entry": 6.13,
-      "stop": 0,
-      "days_on_list": 2
-    },
-    {
-      "rank": 46,
-      "symbol": "SBCF",
-      "test_score": 127.9,
-      "source_count": 2,
-      "sources": "enhanced,under50",
-      "component_scores": {
-        "enhanced": 115,
-        "v3": 0,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 0,
-        "under50": 110
-      },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 BB SQUEEZE \u2022 STRONG CLOSE | [under50] Strong Uptrend | Above EMA20 | RSI:62.9 | Good Volume | Price OK | BB Breakout |",
-      "close": 34.82,
-      "entry": 34.82,
-      "stop": 33.7754,
-      "days_on_list": 1
-    },
-    {
-      "rank": 47,
-      "symbol": "GIC",
+      "rank": 30,
+      "symbol": "AVNT",
       "test_score": 126.2,
       "source_count": 2,
       "sources": "institutional,under50",
@@ -948,34 +608,14 @@
         "under50": 100
       },
       "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Good Volume | Price OK | BB Breakout | Near 52W H",
-      "close": 39.8,
-      "entry": 39.8,
+      "close": 45.47,
+      "entry": 45.47,
       "stop": 0,
       "days_on_list": 2
     },
     {
-      "rank": 48,
-      "symbol": "EWU",
-      "test_score": 125.9,
-      "source_count": 2,
-      "sources": "etf,v3",
-      "component_scores": {
-        "enhanced": 0,
-        "v3": 100,
-        "institutional": 0,
-        "setup": 0,
-        "etf": 125,
-        "under50": 0
-      },
-      "signals": "[v3] NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID | [etf] Uptrend | Above EMA20 | RSI:70.8 | Strong Volume | High RelVol | Price OK | Near",
-      "close": 48.49,
-      "entry": 48.49,
-      "stop": 47.47,
-      "days_on_list": 1
-    },
-    {
-      "rank": 49,
-      "symbol": "IJH",
+      "rank": 31,
+      "symbol": "IJR",
       "test_score": 125.0,
       "source_count": 2,
       "sources": "enhanced,etf",
@@ -987,30 +627,390 @@
         "etf": 110,
         "under50": 0
       },
-      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE | [etf] Uptrend | Above EMA20 | RSI:62.9 | Strong Volume | Price OK | Near 52W High | BB",
-      "close": 77.54,
-      "entry": 77.54,
-      "stop": 75.2138,
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 SHORT TREND \u2022 NEW HIGH \u2022 BB SQUEEZE | [etf] Uptrend | Above EMA20 | RSI:58.5 | Strong Volume | Price OK | Near 52W High | BB",
+      "close": 148.41,
+      "entry": 148.41,
+      "stop": 143.9577,
       "days_on_list": 1
     },
     {
-      "rank": 50,
-      "symbol": "ALNT",
-      "test_score": 125.0,
+      "rank": 32,
+      "symbol": "DXPE",
+      "test_score": 124.5,
       "source_count": 2,
-      "sources": "institutional,v3",
+      "sources": "enhanced,v3",
+      "component_scores": {
+        "enhanced": 118,
+        "v3": 100,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 MOMENTUM | [v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID",
+      "close": 195.0,
+      "entry": 195.0,
+      "stop": 189.15,
+      "days_on_list": 2
+    },
+    {
+      "rank": 33,
+      "symbol": "AI",
+      "test_score": 121.9,
+      "source_count": 2,
+      "sources": "institutional,under50",
       "component_scores": {
         "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 90
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Above SMA20 | Above EMA20 | Range:4.2% | Good Volume | Price OK | BB Breakout | ",
+      "close": 10.63,
+      "entry": 10.63,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 34,
+      "symbol": "ANGO",
+      "test_score": 121.9,
+      "source_count": 2,
+      "sources": "institutional,under50",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 90
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N | [under50] Strong Uptrend | Above EMA20 | Good Volume | Price OK | BB Breakout | Near 52W H",
+      "close": 15.75,
+      "entry": 15.75,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 35,
+      "symbol": "MTRN",
+      "test_score": 121.8,
+      "source_count": 2,
+      "sources": "enhanced,v3",
+      "component_scores": {
+        "enhanced": 113,
         "v3": 100,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 HOT MOMENTUM | [v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID",
+      "close": 280.8,
+      "entry": 280.8,
+      "stop": 272.376,
+      "days_on_list": 1
+    },
+    {
+      "rank": 36,
+      "symbol": "ACA",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
+      "close": 144.91,
+      "entry": 144.91,
+      "stop": 140.5627,
+      "days_on_list": 1
+    },
+    {
+      "rank": 37,
+      "symbol": "APD",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
+      "close": 309.31,
+      "entry": 309.31,
+      "stop": 300.03069999999997,
+      "days_on_list": 1
+    },
+    {
+      "rank": 38,
+      "symbol": "TDW",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER BO \u2022 SHORT TREND \u2022 NEAR 52WH \u2022 STRONG CLOSE",
+      "close": 91.2,
+      "entry": 91.2,
+      "stop": 88.464,
+      "days_on_list": 1
+    },
+    {
+      "rank": 39,
+      "symbol": "USB",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
+      "close": 64.29,
+      "entry": 64.29,
+      "stop": 62.36130000000001,
+      "days_on_list": 1
+    },
+    {
+      "rank": 40,
+      "symbol": "HWC",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
+      "close": 78.22,
+      "entry": 78.22,
+      "stop": 75.8734,
+      "days_on_list": 1
+    },
+    {
+      "rank": 41,
+      "symbol": "FBK",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "enhanced",
+      "component_scores": {
+        "enhanced": 120,
+        "v3": 0,
+        "institutional": 0,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[enhanced] NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
+      "close": 61.4,
+      "entry": 61.4,
+      "stop": 59.558,
+      "days_on_list": 1
+    },
+    {
+      "rank": 42,
+      "symbol": "ABNB",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
         "institutional": 120,
         "setup": 0,
         "etf": 0,
         "under50": 0
       },
-      "signals": "[v3] NR7 TIGHT \u2022 NORMAL VOL \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 GAP \u2022 LIQUID | [institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
-      "close": 113.03,
-      "entry": 113.03,
-      "stop": 100.18,
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 184.98,
+      "entry": 184.98,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 43,
+      "symbol": "ALG",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 169.74,
+      "entry": 169.74,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 44,
+      "symbol": "APO",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 140.28,
+      "entry": 140.28,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 45,
+      "symbol": "ARES",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 143.11,
+      "entry": 143.11,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 46,
+      "symbol": "ATRO",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 74.91,
+      "entry": 74.91,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 47,
+      "symbol": "AXON",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 636.31,
+      "entry": 636.31,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 48,
+      "symbol": "BMRN",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 69.55,
+      "entry": 69.55,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 49,
+      "symbol": "BX",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 147.17,
+      "entry": 147.17,
+      "stop": 0,
+      "days_on_list": 1
+    },
+    {
+      "rank": 50,
+      "symbol": "CAKE",
+      "test_score": 120.0,
+      "source_count": 1,
+      "sources": "institutional",
+      "component_scores": {
+        "enhanced": 0,
+        "v3": 0,
+        "institutional": 120,
+        "setup": 0,
+        "etf": 0,
+        "under50": 0
+      },
+      "signals": "[institutional] OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 N",
+      "close": 113.06,
+      "entry": 113.06,
+      "stop": 0,
       "days_on_list": 1
     }
   ]
