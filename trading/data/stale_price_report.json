@@ -1,53 +1,99 @@
 {
-  "timestamp": "2026-08-12 07:00:03",
+  "timestamp": "2026-08-13 07:00:03",
   "summary": {
-    "total_flagged": 1,
-    "high_risk": 1,
-    "medium_risk": 0,
+    "total_flagged": 3,
+    "high_risk": 2,
+    "medium_risk": 1,
     "low_risk": 0,
-    "penny_stocks": 0,
+    "penny_stocks": 1,
     "stale_prices": 0,
-    "no_data": 1,
-    "tracking_pending": 5,
+    "no_data": 2,
+    "tracking_pending": 3,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
       "symbol": "LPRO",
-      "price": 3.14,
+      "price": 0.0,
       "consecutive_days": 0,
-      "avg_volume": 1018704.0,
+      "avg_volume": 0.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-07-29, expected: 2026-08-11)"
+        "No recent data from Yahoo Finance (possibly delisted)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "2026-07-29",
-      "analysis_date": "2026-08-12 07:00",
-      "consecutive_failures": 5,
+      "last_date": "N/A",
+      "analysis_date": "2026-08-13 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-07-23"
+    },
+    {
+      "symbol": "SKYT",
+      "price": 32.46,
+      "consecutive_days": 0,
+      "avg_volume": 2243844.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-07-30, expected: 2026-08-12)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-07-30",
+      "analysis_date": "2026-08-13 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-07"
+    },
+    {
+      "symbol": "AKBA",
+      "price": 0.8932,
+      "consecutive_days": 0,
+      "avg_volume": 5995278.9,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.89 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-08-12",
+      "analysis_date": "2026-08-13 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-06-05"
     }
   ],
   "recommendations": [
     {
       "action": "REMOVE_NO_DATA",
-      "description": "Remove 1 securities with no Yahoo Finance data (likely delisted)",
+      "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "LPRO"
+        "LPRO",
+        "SKYT"
       ],
       "priority": "HIGH"
     },
     {
       "action": "IMMEDIATE_REVIEW",
-      "description": "Review 1 high-risk securities (likely delisted or worthless)",
+      "description": "Review 2 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "LPRO"
+        "LPRO",
+        "SKYT"
       ],
       "priority": "HIGH"
+    },
+    {
+      "action": "PENNY_STOCK_REVIEW",
+      "description": "Review 1 securities under $1.00",
+      "symbols": [
+        "AKBA"
+      ],
+      "priority": "MEDIUM"
     }
   ]
 }
