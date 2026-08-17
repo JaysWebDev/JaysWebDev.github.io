@@ -1,11 +1,11 @@
-# Conviction Weekly — August 09, 2026
+# Conviction Weekly — August 16, 2026
 
-**Market regime: BULL.** Bull — breadth confirms the uptrend; full signal flow. Breadth: 26% of the quality universe in Stage 2 uptrends, 68% above their 200-day average.
+**Market regime: BULL.** Bull — breadth confirms the uptrend; full signal flow. Breadth: 28% of the quality universe in Stage 2 uptrends, 70% above their 200-day average.
 
 ## Track Record — measured, not promised
 
-- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **+0.59%** · 10 open · 5 closed, 0% wins
-- **Multi-scanner signals** (3+ scanners agreeing — Jun 4 2026 cohort study, n=69): **60.9%** positive after 5 trading days, avg **+0.71%**
+- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **+1.76%** · 10 open · 5 closed, 0% wins
+- **Multi-scanner signals** (3+ scanners agreeing — Jun 4 2026 cohort study, n=68): **60.3%** positive after 5 trading days, avg **+0.71%**
 
 *All figures auto-computed from the live system at publish time. Past performance does not guarantee future results.*
 
@@ -13,24 +13,24 @@
 
 | # | Symbol | Price | Composite | Conviction | Scanners/Days | RSI | RS | Stop |
 |---|--------|-------|-----------|------------|---------------|-----|-----|------|
-| 1 | **ONB** ✓ | $26.67 | 80.4 | 483 | 8× / 5d | 49 | 58 | $25.62 |
-| 2 | **ANET** ✓ | $192.32 | 79.6 | 431 | 7× / 4d | 67 | 73 | $171.09 |
-| 3 | **EXEL** | $52.20 | 78.8 | 404 | 9× / 4d | 39 | 47 | $48.33 |
-| 4 | **NVDA** ✓ | $218.99 | 78.5 | 403 | 5× / 3d | 63 | 60 | $203.37 |
-| 5 | **FAST** ✓ | $49.99 | 77.5 | 444 | 6× / 4d | 78 | 66 | $48.49 |
-| 6 | **FTNT** ✓ | $160.11 | 77.4 | 418 | 6× / 4d | 48 | 76 | $145.79 |
-| 7 | **DLTR** ✓ | $129.68 | 74.7 | 456 | 7× / 4d | 56 | 63 | $122.13 |
-| 8 | **RF** | $31.39 | 74.3 | 427 | 6× / 5d | 47 | 60 | $30.24 |
-| 9 | **ALL** ✓ | $275.11 | 73.9 | 399 | 5× / 5d | 74 | 79 | $261.73 |
-| 10 | **DAL** ✓ | $91.98 | 73.8 | 484 | 7× / 4d | 66 | 76 | $86.69 |
+| 1 | **ASML** ✓ | $1847.90 | 82.4 | 444 | 4× / 4d | 57 | 68 | $1688.94 |
+| 2 | **FTNT** ✓ | $165.44 | 77.8 | 421 | 5× / 4d | 66 | 73 | $150.58 |
+| 3 | **STT** ✓ | $189.85 | 77.5 | 503 | 8× / 5d | 58 | 66 | $181.27 |
+| 4 | **VLO** ✓ | $330.21 | 77.5 | 492 | 7× / 4d | 74 | 90 | $320.30 |
+| 5 | **V** | $365.45 | 76.8 | 403 | 5× / 4d | 61 | 54 | $349.65 |
+| 6 | **TER** ✓ | $410.52 | 76.3 | 398 | 4× / 4d | 65 | 84 | $347.62 |
+| 7 | **LLY** ✓ | $1209.00 | 74.8 | 410 | 6× / 5d | 52 | 67 | $1123.83 |
+| 8 | **NBIS** ✓ | $259.20 | 74.4 | 436 | 4× / 2d | 64 | 95 | $251.42 |
+| 9 | **PNC** ✓ | $255.20 | 74.3 | 442 | 6× / 4d | 60 | 56 | $247.76 |
+| 10 | **VLY** | $15.02 | 74.3 | 428 | 6× / 5d | 67 | 50 | $14.49 |
 
 ✓ = full Stage 2 uptrend (price > SMA50 > SMA150 > SMA200). Composite blends conviction (65%) with fundamental quality (35%). Stops are ATR-based algorithmic levels.
 
 ## Why the Top 3
 
-1. **ONB** — ONB is showing a volume climax base and momentum rebound pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 8 scanners over 5 days. Monthly return history: +2.5% avg over 31 months (61% consistency). Fundamentals: Banking — fundamentally strong; growing revenue at 80% YoY; with 34% profit margin; trading at 11.6× earnings.
-2. **ANET** — ANET is showing a momentum rebound and ATR coil-to-expansion pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 7 scanners over 4 days. Monthly return history: +4.0% avg over 31 months (68% consistency). Fundamentals: Communications — fundamentally strong; growing revenue at 33% YoY; with 38% profit margin; richly valued at 58.8× earnings.
-3. **EXEL** — EXEL is showing a pullback-to-support and multi-timeframe trend pattern, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 9 scanners over 4 days. Monthly return history: +3.4% avg over 31 months (68% consistency). Fundamentals: Biotechnology — fundamentally strong; with 35% profit margin; trading at 16.0× earnings.
+1. **ASML** — ASML is showing an ATR coil-to-expansion and RSI staircase pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 4 scanners over 4 days. Fundamentals: Semiconductors — fundamentally strong; with 29% profit margin; richly valued at 57.5× earnings.
+2. **FTNT** — FTNT is showing a pullback-to-support and ATR coil-to-expansion pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 5 scanners over 4 days. Fundamentals: Technology — fundamentally strong; growing revenue at 19% YoY; with 28% profit margin; richly valued at 56.8× earnings.
+3. **STT** — STT is showing a momentum rebound and ATR coil-to-expansion pattern, in a Stage 2 uptrend, confirmed by 8 scanners over 5 days. Fundamentals: Financial Services — fundamentally strong; growing revenue at 181% YoY; with 21% profit margin; trading at 15.1× earnings.
 
 ---
 
