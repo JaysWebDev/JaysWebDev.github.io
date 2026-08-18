@@ -1,47 +1,18 @@
 {
-  "timestamp": "2026-08-14 07:00:03",
-  "total_validated": 4,
+  "timestamp": "2026-08-17 07:00:01",
+  "total_validated": 1,
   "summary": {
-    "ACTIVE": 1,
-    "MONITOR": 1,
-    "PENNY_STOCK": 2
+    "ACTIVE": 1
   },
   "results": [
     {
-      "symbol": "SKYT",
+      "symbol": "TOI",
       "status": "ACTIVE",
       "reason": "Normal trading activity",
-      "last_price": 32.46,
-      "volume": 946041.2,
-      "validation_date": "2026-08-14 07:00",
+      "last_price": 5.13,
+      "volume": 1415995.0,
+      "validation_date": "2026-08-17 07:00",
       "data_source": "Database"
-    },
-    {
-      "symbol": "LPRO",
-      "status": "MONITOR",
-      "reason": "Stale price (5 days) but appears active",
-      "last_price": 3.14,
-      "volume": 1712441.6,
-      "validation_date": "2026-08-14 07:00",
-      "data_source": "Heuristic"
-    },
-    {
-      "symbol": "INO",
-      "status": "PENNY_STOCK",
-      "reason": "Price $0.67 below $1.00 threshold",
-      "last_price": 0.6738,
-      "volume": 7017944.9,
-      "validation_date": "2026-08-14 07:00",
-      "data_source": "Price Analysis"
-    },
-    {
-      "symbol": "AKBA",
-      "status": "PENNY_STOCK",
-      "reason": "Price $0.87 below $1.00 threshold",
-      "last_price": 0.8696,
-      "volume": 6092846.6,
-      "validation_date": "2026-08-14 07:00",
-      "data_source": "Price Analysis"
     }
   ]
 }

@@ -1,118 +1,53 @@
 {
-  "timestamp": "2026-08-14 07:00:03",
+  "timestamp": "2026-08-17 07:00:01",
   "summary": {
-    "total_flagged": 4,
-    "high_risk": 2,
-    "medium_risk": 2,
+    "total_flagged": 1,
+    "high_risk": 1,
+    "medium_risk": 0,
     "low_risk": 0,
-    "penny_stocks": 2,
+    "penny_stocks": 0,
     "stale_prices": 0,
-    "no_data": 2,
-    "tracking_pending": 3,
+    "no_data": 1,
+    "tracking_pending": 4,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
-      "symbol": "SKYT",
-      "price": 0.0,
+      "symbol": "TOI",
+      "price": 5.13,
       "consecutive_days": 0,
-      "avg_volume": 0.0,
+      "avg_volume": 1265539.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
+        "Data stopped updating (last: 2026-08-03, expected: 2026-08-14)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-08-14 07:00",
-      "consecutive_failures": 6,
-      "first_flagged": "2026-08-07"
-    },
-    {
-      "symbol": "LPRO",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-08-14 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-07-23"
-    },
-    {
-      "symbol": "INO",
-      "price": 0.6738,
-      "consecutive_days": 0,
-      "avg_volume": 5668769.2,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.67 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-08-06",
-      "analysis_date": "2026-08-14 07:00",
+      "last_date": "2026-08-03",
+      "analysis_date": "2026-08-17 07:00",
       "consecutive_failures": 5,
-      "first_flagged": "2026-08-10"
-    },
-    {
-      "symbol": "AKBA",
-      "price": 0.8696,
-      "consecutive_days": 0,
-      "avg_volume": 6092846.6,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.87 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-08-13",
-      "analysis_date": "2026-08-14 07:00",
-      "consecutive_failures": 6,
-      "first_flagged": "2026-06-05"
+      "first_flagged": "2026-08-11"
     }
   ],
   "recommendations": [
     {
       "action": "REMOVE_NO_DATA",
-      "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
+      "description": "Remove 1 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "SKYT",
-        "LPRO"
+        "TOI"
       ],
       "priority": "HIGH"
     },
     {
       "action": "IMMEDIATE_REVIEW",
-      "description": "Review 2 high-risk securities (likely delisted or worthless)",
+      "description": "Review 1 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "SKYT",
-        "LPRO"
+        "TOI"
       ],
       "priority": "HIGH"
-    },
-    {
-      "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 2 securities under $1.00",
-      "symbols": [
-        "INO",
-        "AKBA"
-      ],
-      "priority": "MEDIUM"
     }
   ]
 }

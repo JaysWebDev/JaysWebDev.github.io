@@ -687,6 +687,7 @@
                         <button class="tab-button" data-group="trading" style="display:none;color:#fbbf24;" onclick="showTab(event,'capital-flow')">💰 Capital Flow</button>
                         <button class="tab-button" data-group="trading" style="display:none;color:#a78bfa;" onclick="showTab(event,'rsi-momentum')">📊 RSI Momentum</button>
                         <button class="tab-button" data-group="trading" style="display:none;color:#4ade80;" onclick="showTab(event,'atr')">📈 ATR</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#2dd4bf;" onclick="showTab(event,'weekly-rs');loadWeeklyRs()">🏅 Weekly RS</button>
                         <button class="tab-button" data-group="trading" style="display:none;color:#f472b6;" onclick="showTab(event,'ai-analyst');loadAiAnalyst()">🤖 AI Analyst</button>
                         <!-- Securities group (hidden initially) -->
                         <button class="tab-button" data-group="securities" style="display:none" onclick="showTab(event,'lookup')">🔎 Lookup</button>
@@ -3331,6 +3332,53 @@
                             <div id="lt25-method" style="color:#334155;font-size:0.65rem;font-family:'JetBrains Mono',monospace;text-align:right;margin-top:-16px;"></div>
                         </div><!-- /lt-top25 -->
 
+                        <!-- ── Weekly RS (outperforming SPY) ─────────────────── -->
+                        <div id="weekly-rs" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+                                <div>
+                                    <h3 style="color:#2dd4bf;margin:0;font-size:1.1rem;">🏅 Weekly RS — Beating the S&amp;P 500</h3>
+                                    <div id="wrs-meta" style="color:#64748b;font-size:0.72rem;margin-top:3px;">Loading…</div>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <span id="wrs-spy-badge" style="display:none;font-size:0.72rem;padding:3px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;background:rgba(45,212,191,0.12);border:1px solid rgba(45,212,191,0.35);color:#2dd4bf;"></span>
+                                    <span id="wrs-universe-badge" style="color:#475569;font-size:0.65rem;font-family:'JetBrains Mono',monospace;"></span>
+                                </div>
+                            </div>
+
+                            <!-- Rotation strip (entrants / dropouts vs previous run) -->
+                            <div id="wrs-rotation" style="background:rgba(30,41,59,0.4);border:1px solid rgba(51,65,85,0.6);border-radius:10px;padding:12px 16px;margin-bottom:20px;display:none;">
+                                <div style="color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:7px;">Rotation <span id="wrs-rotation-vs" style="text-transform:none;letter-spacing:0;color:#475569;"></span></div>
+                                <div id="wrs-rotation-chips" style="display:flex;flex-wrap:wrap;gap:6px;font-family:'JetBrains Mono',monospace;"></div>
+                            </div>
+
+                            <!-- Outperformers table -->
+                            <div style="background:rgba(30,41,59,0.4);border-radius:10px;border:1px solid rgba(51,65,85,0.6);overflow:hidden;margin-bottom:24px;">
+                                <div style="overflow-x:auto;">
+                                    <table id="wrs-main-table" style="width:100%;border-collapse:collapse;font-size:0.77rem;">
+                                        <thead>
+                                            <tr style="background:rgba(15,23,42,0.7);border-bottom:1px solid rgba(51,65,85,0.8);">
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;width:56px;">#</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Symbol</th>
+                                                <th style="padding:8px 10px;text-align:left;color:#64748b;font-size:0.63rem;text-transform:uppercase;">Sector</th>
+                                                <th class="sortable" data-col="close" onclick="wrsSetSort('close')" style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;cursor:pointer;user-select:none;">Close</th>
+                                                <th class="sortable" data-col="ret_5d" onclick="wrsSetSort('ret_5d')" style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;cursor:pointer;user-select:none;" title="Trailing 5-session return — click to sort">5D</th>
+                                                <th class="sortable" data-col="excess_5d" onclick="wrsSetSort('excess_5d')" style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;cursor:pointer;user-select:none;" title="5D return minus SPY over the same window — click to sort">vs SPY</th>
+                                                <th class="sortable" data-col="rsi_14" onclick="wrsSetSort('rsi_14')" style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;cursor:pointer;user-select:none;">RSI</th>
+                                                <th class="sortable" data-col="relative_volume" onclick="wrsSetSort('relative_volume')" style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;cursor:pointer;user-select:none;" title="Relative volume vs 20-day average — click to sort">RVol</th>
+                                                <th class="sortable" data-col="rs_composite" onclick="wrsSetSort('rs_composite')" style="padding:8px 10px;text-align:right;color:#64748b;font-size:0.63rem;text-transform:uppercase;cursor:pointer;user-select:none;" title="Long-term RS composite percentile (1m/3m/6m/12m) — click to sort">RS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="wrs-tbody">
+                                            <tr><td colspan="9" style="padding:30px;text-align:center;color:#475569;font-size:0.8rem;">Loading…</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Methodology footnote -->
+                            <div id="wrs-method" style="color:#334155;font-size:0.65rem;font-family:'JetBrains Mono',monospace;text-align:right;margin-top:-16px;"></div>
+                        </div><!-- /weekly-rs -->
+
                         <div id="capital-flow" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
                                 <div>
@@ -4351,6 +4399,7 @@
                     { icon: '💰', label: 'Capital Flow',   tab: 'capital-flow',  desc: 'Money flow and volume surge detection across the universe', color: '#fbbf24' },
                     { icon: '📊', label: 'RSI Momentum',   tab: 'rsi-momentum',  desc: 'RSI staircase and momentum rebound patterns with win-rate backtest', color: '#a78bfa' },
                     { icon: '📈', label: 'ATR',             tab: 'atr',           desc: 'ATR z-score compression and expansion entry signals', color: '#4ade80' },
+                    { icon: '🏅', label: 'Weekly RS',      tab: 'weekly-rs',     desc: 'Stocks outperforming the S&P 500 over the trailing 5 sessions — ranked by excess return', color: '#2dd4bf', extraClick: 'loadWeeklyRs()' },
                     { icon: '🤖', label: 'AI Analyst',     tab: 'ai-analyst',    desc: 'Claude Haiku ranks the top 25 picks nightly from all scanner data', color: '#f472b6', extraClick: 'loadAiAnalyst()' },
                 ]
             },
@@ -4715,6 +4764,8 @@
                 setTimeout(() => loadATR(), 100);
             } else if (tabName === 'ai-analyst') {
                 setTimeout(() => loadAiAnalyst(), 100);
+            } else if (tabName === 'weekly-rs') {
+                setTimeout(() => loadWeeklyRs(), 100);
             } else if (tabName === 'lt-top25') {
                 setTimeout(() => loadLtTop25(), 100);
             } else if (tabName === 'capital-flow') {
@@ -4954,6 +5005,121 @@
                 if (tbody) tbody.innerHTML = `<tr><td colspan="12" style="padding:30px;text-align:center;color:#475569;font-size:0.8rem;">${e.message}</td></tr>`;
                 if (meta) meta.textContent = e.message;
                 _ltTop25Loaded = false;
+            }
+        }
+
+        let _weeklyRsLoaded = false;
+        let _wrsData = null;
+        let _wrsSort = { col: 'excess_5d', dir: 'desc' };   // default = server order (excess vs SPY, desc)
+
+        function wrsSetSort(col) {
+            if (_wrsSort.col === col) _wrsSort.dir = _wrsSort.dir === 'desc' ? 'asc' : 'desc';
+            else _wrsSort = { col, dir: 'desc' };
+            document.querySelectorAll('#wrs-main-table th.sortable').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+                if (th.dataset.col === col) th.classList.add(_wrsSort.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+            });
+            wrsRender();
+        }
+
+        function wrsRender() {
+            const d = _wrsData;
+            const tbody = document.getElementById('wrs-tbody');
+            if (!d || !tbody) return;
+            const rot = d.rotation || {};
+            // Rank-move / NEW badges only make sense in the default excess-RS ordering.
+            const isDefault = _wrsSort.col === 'excess_5d' && _wrsSort.dir === 'desc';
+            const { col, dir } = _wrsSort;
+
+            const pct = (v, plus) => v == null ? '<span style="color:#334155;">—</span>'
+                : `<span style="color:${v >= 0 ? '#22c55e' : '#ef4444'};">${v >= 0 && plus ? '+' : ''}${v.toFixed(1)}%</span>`;
+
+            const picks = [...(d.picks || [])].sort((a, b) => {
+                const va = a[col] ?? (dir === 'desc' ? -Infinity : Infinity);
+                const vb = b[col] ?? (dir === 'desc' ? -Infinity : Infinity);
+                return dir === 'desc' ? vb - va : va - vb;
+            });
+
+            let rows = '';
+            picks.forEach((p, i) => {
+                const pos = i + 1;
+                let move = '';
+                if (isDefault) {
+                    if (p.prev_rank) {
+                        const delta = p.prev_rank - p.rank;
+                        if (delta) move = `<span style="font-size:0.6rem;color:${delta > 0 ? '#22c55e' : '#ef4444'};margin-left:4px;">${delta > 0 ? '▲' : '▼'}${Math.abs(delta)}</span>`;
+                    } else if (rot.previous_run) {
+                        move = `<span style="font-size:0.55rem;color:#2dd4bf;border:1px solid rgba(45,212,191,0.4);border-radius:3px;padding:0 3px;margin-left:4px;">NEW</span>`;
+                    }
+                }
+                const rankColor = pos <= 5 ? '#2dd4bf' : pos <= 10 ? '#5eead4' : '#94a3b8';
+                const rsiColor = p.rsi_14 == null ? '#334155' : p.rsi_14 >= 70 ? '#f59e0b' : '#94a3b8';
+                const rvol = p.relative_volume == null ? '<span style="color:#334155;">—</span>'
+                    : `<span style="color:${p.relative_volume >= 1.5 ? '#22c55e' : '#94a3b8'};">${p.relative_volume.toFixed(1)}×</span>`;
+                const rsComp = p.rs_composite == null ? '<span style="color:#334155;">—</span>'
+                    : `<span style="color:#94a3b8;">${p.rs_composite.toFixed(0)}</span>`;
+                rows += `<tr style="border-bottom:1px solid rgba(51,65,85,0.4);">
+                    <td style="padding:8px 10px;color:${rankColor};font-weight:600;font-family:'JetBrains Mono',monospace;white-space:nowrap;">${pos}${move}</td>
+                    <td style="padding:8px 10px;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace;">${p.symbol}</td>
+                    <td style="padding:8px 10px;color:#64748b;font-size:0.7rem;">${p.sector || ''}</td>
+                    <td style="padding:8px 10px;text-align:right;color:#94a3b8;font-family:'JetBrains Mono',monospace;">$${p.close.toFixed(2)}</td>
+                    <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${pct(p.ret_5d, true)}</td>
+                    <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:600;">${pct(p.excess_5d, true)}</td>
+                    <td style="padding:8px 10px;text-align:right;color:${rsiColor};font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${p.rsi_14 == null ? '—' : p.rsi_14.toFixed(0)}</td>
+                    <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${rvol}</td>
+                    <td style="padding:8px 10px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.72rem;">${rsComp}</td>
+                </tr>`;
+            });
+            tbody.innerHTML = rows || '<tr><td colspan="9" style="padding:20px;text-align:center;color:#475569;">No stocks beat SPY this week.</td></tr>';
+        }
+
+        async function loadWeeklyRs() {
+            if (_weeklyRsLoaded) return;
+            _weeklyRsLoaded = true;
+            const tbody = document.getElementById('wrs-tbody');
+            const meta  = document.getElementById('wrs-meta');
+            try {
+                const r = await fetch('data/weekly_rs.json?t=' + Date.now());
+                if (!r.ok) throw new Error('Not available yet — scanner runs after the daily data update');
+                const d = await r.json();
+
+                const spy = d.spy_ret_5d;
+                if (meta) meta.textContent = `Prices ${d.prev_date} → ${d.as_of_date} (${d.lookback_sessions} sessions) · `
+                    + `${d.num_outperformers}/${d.universe_size} stocks beat SPY (${d.breadth_pct}%) · generated ${new Date(d.generated_at).toLocaleString()}`;
+
+                const sb = document.getElementById('wrs-spy-badge');
+                if (sb && spy != null) { sb.textContent = `SPY ${spy >= 0 ? '+' : ''}${spy.toFixed(2)}%`; sb.style.display = 'inline-block'; }
+                const ub = document.getElementById('wrs-universe-badge');
+                if (ub && d.universe_size) ub.textContent = d.universe_size.toLocaleString() + ' screened';
+
+                // Rotation strip
+                const rot = d.rotation || {};
+                if ((rot.entered && rot.entered.length) || (rot.dropped && rot.dropped.length)) {
+                    const vs = document.getElementById('wrs-rotation-vs');
+                    if (vs && rot.previous_run) vs.textContent = '· vs ' + rot.previous_run;
+                    let chips = '';
+                    (rot.entered || []).forEach(s => {
+                        chips += `<span style="font-size:0.68rem;padding:2px 8px;border-radius:4px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.35);color:#22c55e;">▲ ${s}</span>`;
+                    });
+                    (rot.dropped || []).forEach(s => {
+                        chips += `<span style="font-size:0.68rem;padding:2px 8px;border-radius:4px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);color:#ef4444;">▼ ${s}</span>`;
+                    });
+                    const chipBox = document.getElementById('wrs-rotation-chips');
+                    if (chipBox) chipBox.innerHTML = chips;
+                    const box = document.getElementById('wrs-rotation');
+                    if (box) box.style.display = 'block';
+                }
+
+                _wrsData = d;
+                wrsRender();
+
+                const mf = document.getElementById('wrs-method');
+                if (mf && d.methodology) mf.textContent = d.methodology;
+
+            } catch (e) {
+                if (tbody) tbody.innerHTML = `<tr><td colspan="9" style="padding:30px;text-align:center;color:#475569;font-size:0.8rem;">${e.message}</td></tr>`;
+                if (meta) meta.textContent = e.message;
+                _weeklyRsLoaded = false;
             }
         }
 
