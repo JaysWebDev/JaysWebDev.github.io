@@ -7799,10 +7799,13 @@
                     const days    = p.days_on_report || 0;
                     const scanners= (p.scanners || '').split(',').map(s => s.trim()).filter(Boolean);
                     const signals = (p.signals || '').split('•').slice(0, 3).map(s => s.trim()).filter(Boolean).join(' · ');
-                    const confBadge = p.conf_score >= 8
-                        ? `<span style="color:#A78BFA;font-size:0.68rem;font-weight:600;">C${Number(p.conf_score).toFixed(1)}</span>`
-                        : p.conf_score >= 6
-                        ? `<span style="color:#64748b;font-size:0.68rem;">C${Number(p.conf_score).toFixed(1)}</span>` : '';
+                    const _cs = p.conf_score;
+                    const confBadge = (_cs == null) ? ''
+                        : _cs >= 8
+                        ? `<span title="Strong confluence (SuperTrend + RSI + SMA200)" style="color:#A78BFA;font-size:0.68rem;font-weight:600;">C${Number(_cs).toFixed(1)}</span>`
+                        : _cs >= 6
+                        ? `<span title="Moderate confluence" style="color:#64748b;font-size:0.68rem;">C${Number(_cs).toFixed(1)}</span>`
+                        : `<span title="Low confluence — normal for momentum/timing scanners, but a caution for breakout/compression signals" style="color:#F59E0B;font-size:0.68rem;font-weight:600;">C${Number(_cs).toFixed(1)} ⚠</span>`;
                     const scannerBadges = scanners.map(s => {
                         const col = _SETUP_SC_COLORS[s] || '#64748b';
                         const lbl = _SETUP_SC_LABEL[s] || s;

@@ -1,51 +1,71 @@
 {
-  "timestamp": "2026-08-17 07:00:01",
+  "timestamp": "2026-08-18 07:00:02",
   "summary": {
-    "total_flagged": 1,
-    "high_risk": 1,
+    "total_flagged": 2,
+    "high_risk": 2,
     "medium_risk": 0,
     "low_risk": 0,
     "penny_stocks": 0,
     "stale_prices": 0,
-    "no_data": 1,
-    "tracking_pending": 4,
+    "no_data": 2,
+    "tracking_pending": 3,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
       "symbol": "TOI",
-      "price": 5.13,
+      "price": 0.0,
       "consecutive_days": 0,
-      "avg_volume": 1265539.0,
+      "avg_volume": 0.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-03, expected: 2026-08-14)"
+        "No recent data from Yahoo Finance (possibly delisted)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "2026-08-03",
-      "analysis_date": "2026-08-17 07:00",
-      "consecutive_failures": 5,
+      "last_date": "N/A",
+      "analysis_date": "2026-08-18 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-08-11"
+    },
+    {
+      "symbol": "EA",
+      "price": 209.7,
+      "consecutive_days": 0,
+      "avg_volume": 48713698.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-08-04, expected: 2026-08-17)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-08-04",
+      "analysis_date": "2026-08-18 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-12"
     }
   ],
   "recommendations": [
     {
       "action": "REMOVE_NO_DATA",
-      "description": "Remove 1 securities with no Yahoo Finance data (likely delisted)",
+      "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "TOI"
+        "TOI",
+        "EA"
       ],
       "priority": "HIGH"
     },
     {
       "action": "IMMEDIATE_REVIEW",
-      "description": "Review 1 high-risk securities (likely delisted or worthless)",
+      "description": "Review 2 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "TOI"
+        "TOI",
+        "EA"
       ],
       "priority": "HIGH"
     }
