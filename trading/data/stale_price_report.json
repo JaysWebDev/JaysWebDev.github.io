@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-18 07:00:02",
+  "timestamp": "2026-08-19 07:00:03",
   "summary": {
     "total_flagged": 2,
     "high_risk": 2,
@@ -14,6 +14,24 @@
   },
   "securities": [
     {
+      "symbol": "EA",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-08-19 07:00",
+      "consecutive_failures": 6,
+      "first_flagged": "2026-08-12"
+    },
+    {
       "symbol": "TOI",
       "price": 0.0,
       "consecutive_days": 0,
@@ -27,27 +45,9 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-08-18 07:00",
-      "consecutive_failures": 6,
+      "analysis_date": "2026-08-19 07:00",
+      "consecutive_failures": 7,
       "first_flagged": "2026-08-11"
-    },
-    {
-      "symbol": "EA",
-      "price": 209.7,
-      "consecutive_days": 0,
-      "avg_volume": 48713698.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "Data stopped updating (last: 2026-08-04, expected: 2026-08-17)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "2026-08-04",
-      "analysis_date": "2026-08-18 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-08-12"
     }
   ],
   "recommendations": [
@@ -55,8 +55,8 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "TOI",
-        "EA"
+        "EA",
+        "TOI"
       ],
       "priority": "HIGH"
     },
@@ -64,8 +64,8 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 2 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "TOI",
-        "EA"
+        "EA",
+        "TOI"
       ],
       "priority": "HIGH"
     }
