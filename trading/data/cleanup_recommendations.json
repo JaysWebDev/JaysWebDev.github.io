@@ -1,17 +1,18 @@
 {
-  "timestamp": "2026-08-20 07:00:03",
+  "timestamp": "2026-08-21 07:00:03",
   "analysis_summary": {
     "total_securities": 847,
-    "stale_securities": 3,
-    "validated_securities": 3
+    "stale_securities": 5,
+    "validated_securities": 5
   },
   "cleanup_actions": [
     {
       "priority": "MEDIUM",
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 1 securities under $1.00",
+      "description": "Review 2 securities under $1.00",
       "affected_symbols": [
-        "LESL"
+        "LESL",
+        "AKBA"
       ],
       "estimated_cleanup_time": "45 minutes",
       "recommendation": "Consider removing from watchlist if consistently under $1.00"
@@ -59,8 +60,8 @@
   ],
   "risk_assessment": {
     "overall_risk": "LOW",
-    "stale_percentage": 0.35,
-    "data_quality_score": 94,
+    "stale_percentage": 0.59,
+    "data_quality_score": 90,
     "recommendations_urgency": "LOW"
   }
 }

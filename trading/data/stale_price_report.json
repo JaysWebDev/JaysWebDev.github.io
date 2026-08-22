@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-08-20 07:00:03",
+  "timestamp": "2026-08-21 07:00:03",
   "summary": {
-    "total_flagged": 3,
+    "total_flagged": 5,
     "high_risk": 2,
-    "medium_risk": 1,
-    "low_risk": 0,
-    "penny_stocks": 1,
-    "stale_prices": 0,
+    "medium_risk": 2,
+    "low_risk": 1,
+    "penny_stocks": 2,
+    "stale_prices": 1,
     "no_data": 2,
-    "tracking_pending": 2,
+    "tracking_pending": 0,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
@@ -27,8 +27,8 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-08-20 07:00",
-      "consecutive_failures": 8,
+      "analysis_date": "2026-08-21 07:00",
+      "consecutive_failures": 9,
       "first_flagged": "2026-08-11"
     },
     {
@@ -45,27 +45,63 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-08-20 07:00",
-      "consecutive_failures": 7,
+      "analysis_date": "2026-08-21 07:00",
+      "consecutive_failures": 8,
       "first_flagged": "2026-08-12"
     },
     {
       "symbol": "LESL",
-      "price": 0.6527,
+      "price": 0.6097,
       "consecutive_days": 0,
-      "avg_volume": 2616014.1,
+      "avg_volume": 2587948.7,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.65 < $1.00)"
+        "Penny stock ($0.61 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-08-19",
-      "analysis_date": "2026-08-20 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-08-20",
+      "analysis_date": "2026-08-21 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-03-03"
+    },
+    {
+      "symbol": "AKBA",
+      "price": 0.8696,
+      "consecutive_days": 0,
+      "avg_volume": 6373165.4,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.87 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-08-13",
+      "analysis_date": "2026-08-21 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-17"
+    },
+    {
+      "symbol": "LXFR",
+      "price": 17.12,
+      "consecutive_days": 5,
+      "avg_volume": 191771.7,
+      "zero_volume_days": 0,
+      "risk_level": "LOW",
+      "reasons": [
+        "5 consecutive days same price"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": true,
+      "is_no_data": false,
+      "last_date": "2026-08-20",
+      "analysis_date": "2026-08-21 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-17"
     }
   ],
   "recommendations": [
@@ -89,11 +125,20 @@
     },
     {
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 1 securities under $1.00",
+      "description": "Review 2 securities under $1.00",
       "symbols": [
-        "LESL"
+        "LESL",
+        "AKBA"
       ],
       "priority": "MEDIUM"
+    },
+    {
+      "action": "STALE_PRICE_MONITOR",
+      "description": "Monitor 1 securities with unchanged prices",
+      "symbols": [
+        "LXFR"
+      ],
+      "priority": "LOW"
     }
   ]
 }
