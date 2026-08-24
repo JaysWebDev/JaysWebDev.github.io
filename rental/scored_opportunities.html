@@ -1062,6 +1062,8 @@
         oc_count: b.signals.owner_building_count,
         lh: !!b.signals.long_hold,
         vb: !!b.signals.vintage_building,
+        ap: !!b.signals.active_permit,
+        ap_info: b.signals.active_permit_info || null,
       };
     }
     // Fallback inference for data without signals field
@@ -1072,12 +1074,12 @@
     var cutoff = new Date(); cutoff.setMonth(cutoff.getMonth() - 18);
     var rt = !!(lsd && lsd >= cutoff && sp >= 1000);
     var sig = parseInt(b.signal_score) || 0;
-    var raw = Math.round(sig / 100 * 80);
+    var raw = Math.round(sig / 100 * 95);
     var knownRaw = (rt ? 10 : 0) + (co ? 10 : 0);
     var remaining = raw - knownRaw;
     var ag = remaining >= 25;
     var oc = (remaining - (ag ? 25 : 0)) >= 20;
-    return { co: co, rt: rt, ag: ag, ag_pct: null, oc: oc, oc_count: null, lh: false, vb: false };
+    return { co: co, rt: rt, ag: ag, ag_pct: null, oc: oc, oc_count: null, lh: false, vb: false, ap: false, ap_info: null };
   }
 
   function briefTier(opp) {
@@ -1104,6 +1106,7 @@
     if (signals.co) sigs.push('LLC / corporate ownership structure');
     if (signals.lh) sigs.push('held 15+ years — deep equity, potential motivated seller');
     if (signals.vb) sigs.push('pre-1900 New England construction');
+    if (signals.ap) sigs.push('recent major building permit' + (signals.ap_info && signals.ap_info.valuation ? ' ($' + Math.round(signals.ap_info.valuation).toLocaleString() + ')' : '') + ' — active capital investment');
     if (signals.rt) sigs.push('recently transacted at market price');
 
     var n = sigs.length;
@@ -1221,6 +1224,13 @@
         desc: 'LLC / Corp / Trust ownership — active management structure' },
       { name: 'Pre-1900 Build',  on: signals.vb,
         desc: 'Pre-1900 New England construction — classic multifamily stock, typically solid brick or timber frame' },
+      { name: 'Active Permit',   on: signals.ap,
+        desc: signals.ap && signals.ap_info
+          ? 'Recent ' + (signals.ap_info.worktype || 'building permit')
+            + (signals.ap_info.valuation ? ' ($' + Math.round(signals.ap_info.valuation).toLocaleString() + ')' : '')
+            + (signals.ap_info.issued_date ? ', issued ' + signals.ap_info.issued_date : '')
+            + ' — active capital investment / repositioning'
+          : 'Recent major building permit (renovation / addition / new construction) — active capital investment' },
       { name: 'Recent Transfer', on: signals.rt,
         desc: 'Sold within 18 months at market price — confirms current valuation anchor' },
     ];
