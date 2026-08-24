@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-22T07:01:22.892915+00:00",
-  "scoring_version": "1.6.0",
+  "generated_at": "2026-08-23T07:13:08.145353+00:00",
+  "scoring_version": "1.7.0",
   "git_commit": "a551f0e",
   "building_count": 339856,
   "scored_count": 339856,
@@ -9,23 +9,23 @@
   "cap_rate_suspect_const": 0.35,
   "opportunity_score_distribution": {
     "min": 0.0,
-    "max": 87.88,
-    "avg": 5.31,
+    "max": 82.48,
+    "avg": 4.77,
     "p50": 0.0,
-    "p75": 5.99,
-    "p90": 17.1,
-    "p95": 22.5,
-    "p99": 36.45
+    "p75": 6.19,
+    "p90": 14.8,
+    "p95": 19.31,
+    "p99": 33.39
   },
   "opportunity_score_distribution_clean": {
     "min": 0.0,
-    "max": 87.88,
-    "avg": 5.83,
-    "p50": 2.7,
-    "p75": 8.55,
-    "p90": 18.03,
-    "p95": 22.5,
-    "p99": 37.08
+    "max": 82.48,
+    "avg": 5.24,
+    "p50": 2.25,
+    "p75": 7.2,
+    "p90": 16.65,
+    "p95": 20.27,
+    "p99": 34.4
   },
   "cap_rate_distribution": {
     "min": -2.42,
@@ -43,5 +43,5 @@
     "clean_count": 309273,
     "sentinel_threshold_usd": 75000
   },
-  "signal_score_note": "signals active: corporate_owner, recent_transfer, long_hold (15yr+), assessment_gap, ownership_cluster, vintage_building; active_permit removed in v1.6.0 (staging_parcels is ingest staging, not permit data \u2014 pending a real permit source)"
+  "signal_score_note": "signals active: corporate_owner, recent_transfer, long_hold (15yr+), assessment_gap, ownership_cluster, vintage_building, active_permit (restored v1.7.0 \u2014 recent major building permits from Analyze Boston open data, >=$10k, <=24mo; Boston only for now)"
 }

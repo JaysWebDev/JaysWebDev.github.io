@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-16 05:30:03",
+  "last_updated": "2026-08-23 05:30:03",
   "removals": [
     {
       "symbol": "CRCW",
@@ -7097,6 +7097,66 @@
       "last_price": 0.0,
       "failure_count": 7,
       "first_flagged": "2026-07-23",
+      "removed_by": "auto_remove_stale.py (weekly)"
+    },
+    {
+      "symbol": "EA",
+      "date": "2026-08-23",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "failure_count": 8,
+      "first_flagged": "2026-08-12",
+      "status": "DELISTED",
+      "last_price": 209.7,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "LESL",
+      "date": "2026-08-23",
+      "reason": "Penny stock ($0.61 < $1.00)",
+      "failure_count": 6,
+      "first_flagged": "2026-03-03",
+      "status": "PENNY_STOCK",
+      "last_price": 0.6097,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "LXFR",
+      "date": "2026-08-23",
+      "reason": "5 consecutive days same price",
+      "failure_count": 5,
+      "first_flagged": "2026-08-17",
+      "status": "STALE_PRICE",
+      "last_price": 17.12,
+      "watchlist": "DB:active=0"
+    },
+    {
+      "symbol": "TOI",
+      "date": "2026-08-23",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "status": "DELISTED",
+      "last_price": 0.0,
+      "failure_count": 9,
+      "first_flagged": "2026-08-11",
+      "removed_by": "auto_remove_stale.py (weekly)"
+    },
+    {
+      "symbol": "EA",
+      "date": "2026-08-23",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)",
+      "status": "DELISTED",
+      "last_price": 0.0,
+      "failure_count": 8,
+      "first_flagged": "2026-08-12",
+      "removed_by": "auto_remove_stale.py (weekly)"
+    },
+    {
+      "symbol": "LXFR",
+      "date": "2026-08-23",
+      "reason": "5 consecutive days same price",
+      "status": "STALE",
+      "last_price": 17.12,
+      "failure_count": 5,
+      "first_flagged": "2026-08-17",
       "removed_by": "auto_remove_stale.py (weekly)"
     }
   ]

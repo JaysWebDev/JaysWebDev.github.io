@@ -1,10 +1,10 @@
-# Conviction Weekly — August 16, 2026
+# Conviction Weekly — August 23, 2026
 
-**Market regime: BULL.** Bull — breadth confirms the uptrend; full signal flow. Breadth: 28% of the quality universe in Stage 2 uptrends, 70% above their 200-day average.
+**Market regime: BULL.** Bull — breadth confirms the uptrend; full signal flow. Breadth: 22% of the quality universe in Stage 2 uptrends, 68% above their 200-day average.
 
 ## Track Record — measured, not promised
 
-- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **+1.76%** · 10 open · 5 closed, 0% wins
+- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-0.56%** · 10 open · 6 closed, 0% wins
 - **Multi-scanner signals** (3+ scanners agreeing — Jun 4 2026 cohort study, n=68): **60.3%** positive after 5 trading days, avg **+0.71%**
 
 *All figures auto-computed from the live system at publish time. Past performance does not guarantee future results.*
@@ -13,24 +13,24 @@
 
 | # | Symbol | Price | Composite | Conviction | Scanners/Days | RSI | RS | Stop |
 |---|--------|-------|-----------|------------|---------------|-----|-----|------|
-| 1 | **ASML** ✓ | $1847.90 | 82.4 | 444 | 4× / 4d | 57 | 68 | $1688.94 |
-| 2 | **FTNT** ✓ | $165.44 | 77.8 | 421 | 5× / 4d | 66 | 73 | $150.58 |
-| 3 | **STT** ✓ | $189.85 | 77.5 | 503 | 8× / 5d | 58 | 66 | $181.27 |
-| 4 | **VLO** ✓ | $330.21 | 77.5 | 492 | 7× / 4d | 74 | 90 | $320.30 |
-| 5 | **V** | $365.45 | 76.8 | 403 | 5× / 4d | 61 | 54 | $349.65 |
-| 6 | **TER** ✓ | $410.52 | 76.3 | 398 | 4× / 4d | 65 | 84 | $347.62 |
-| 7 | **LLY** ✓ | $1209.00 | 74.8 | 410 | 6× / 5d | 52 | 67 | $1123.83 |
-| 8 | **NBIS** ✓ | $259.20 | 74.4 | 436 | 4× / 2d | 64 | 95 | $251.42 |
-| 9 | **PNC** ✓ | $255.20 | 74.3 | 442 | 6× / 4d | 60 | 56 | $247.76 |
-| 10 | **VLY** | $15.02 | 74.3 | 428 | 6× / 5d | 67 | 50 | $14.49 |
+| 1 | **EOG** ✓ | $152.19 | 84.8 | 515 | 7× / 4d | 54 | 69 | $144.11 |
+| 2 | **APA** ✓ | $44.39 | 77.6 | 470 | 6× / 5d | 74 | 87 | $41.17 |
+| 3 | **OSCR** ✓ | $31.57 | 76.0 | 464 | 7× / 5d | 51 | 82 | $27.81 |
+| 4 | **JNJ** ✓ | $267.37 | 75.8 | 444 | 7× / 4d | 65 | 68 | $256.38 |
+| 5 | **ANET** ✓ | $183.75 | 75.2 | 390 | 5× / 4d | 52 | 74 | $163.53 |
+| 6 | **BMY** ✓ | $65.47 | 74.5 | 460 | 5× / 4d | 51 | 68 | $61.78 |
+| 7 | **CSX** ✓ | $50.97 | 73.2 | 444 | 6× / 4d | 56 | 64 | $49.26 |
+| 8 | **MTCH** ✓ | $40.35 | 72.7 | 446 | 6× / 5d | 54 | 66 | $37.51 |
+| 9 | **PAYX** | $122.91 | 72.5 | 387 | 5× / 4d | 63 | 72 | $116.43 |
+| 10 | **CDE** | $21.11 | 71.0 | 399 | 5× / 5d | 76 | 67 | $18.71 |
 
 ✓ = full Stage 2 uptrend (price > SMA50 > SMA150 > SMA200). Composite blends conviction (65%) with fundamental quality (35%). Stops are ATR-based algorithmic levels.
 
 ## Why the Top 3
 
-1. **ASML** — ASML is showing an ATR coil-to-expansion and RSI staircase pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 4 scanners over 4 days. Fundamentals: Semiconductors — fundamentally strong; with 29% profit margin; richly valued at 57.5× earnings.
-2. **FTNT** — FTNT is showing a pullback-to-support and ATR coil-to-expansion pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 5 scanners over 4 days. Fundamentals: Technology — fundamentally strong; growing revenue at 19% YoY; with 28% profit margin; richly valued at 56.8× earnings.
-3. **STT** — STT is showing a momentum rebound and ATR coil-to-expansion pattern, in a Stage 2 uptrend, confirmed by 8 scanners over 5 days. Fundamentals: Financial Services — fundamentally strong; growing revenue at 181% YoY; with 21% profit margin; trading at 15.1× earnings.
+1. **EOG** — EOG is showing an accumulation and momentum rebound pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 7 scanners over 4 days. Monthly return history: +1.4% avg over 33 months (58% consistency). Fundamentals: Energy — fundamentally strong; growing revenue at 19% YoY; with 25% profit margin; trading at 10.8× earnings.
+2. **APA** — APA is showing an ATR coil-to-expansion and RSI staircase pattern, in a Stage 2 uptrend, with top-13% relative strength (RS 87), exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 6 scanners over 5 days. Fundamentals: Energy — fundamentally strong; revenue declining 12% YoY; with 19% profit margin; trading at 8.4× earnings.
+3. **OSCR** — OSCR is showing a pullback-to-support and ATR coil-to-expansion pattern, in a Stage 2 uptrend, with top-18% relative strength (RS 82), confirmed by 7 scanners over 5 days. Fundamentals: Insurance — fundamentally strong; growing revenue at 43% YoY; trading at 16.8× earnings.
 
 ---
 
