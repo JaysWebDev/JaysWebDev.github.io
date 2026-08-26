@@ -710,6 +710,7 @@
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'lt-top25');loadLtTop25()">🏆 LT Top 25</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#A78BFA;" onclick="showTab(event,'claude-portfolio');loadClaudePortfolio()">🤖 Claude</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#2DD4BF;" onclick="showTab(event,'quant-portfolio');loadQuantPortfolio()">📐 Quant</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#f59e0b;" onclick="showTab(event,'inst13f-portfolio');load13FPortfolios()">🏦 13F Books</button>
                         <!-- Operations group (hidden initially) -->
                         <!-- Crypto group -->
                         <button class="tab-button" data-group="crypto" style="display:none;color:#F7931A;" onclick="showTab(event,'crypto-signals');loadCryptoSignals()">₿ Signals</button>
@@ -3631,6 +3632,24 @@
                             <div id="cp-atr-content">
                                 <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
                             </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#A78BFA;margin:0;font-size:0.95rem;">🎯 OHLC Intraday-Fill Variant — Same Picks · Honest Gap/Stop Fills · −8% Stop · 10d</h3>
+                                    <div id="cp-ohlc-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test: realistic OHLC stop fills vs close-only · started 2026-08-21</div>
+                                </div>
+                            </div>
+                            <div id="cp-ohlc-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#A78BFA;margin:0;font-size:0.95rem;">🚦 Over-Extension Filter Variant — Skip Entry RSI ≥ 65 · −8% Stop · 10d</h3>
+                                    <div id="cp-filt-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test: declines overextended entries · started 2026-08-23</div>
+                                </div>
+                            </div>
+                            <div id="cp-filt-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
                         </div>
 
                         <!-- ── QUANT PORTFOLIO ────────────────────────────── -->
@@ -3652,6 +3671,51 @@
                                 </div>
                             </div>
                             <div id="qp-atr-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#2DD4BF;margin:0;font-size:0.95rem;">🎯 OHLC Intraday-Fill Variant — Same Picks · Honest Gap/Stop Fills · −8% Stop · 10d</h3>
+                                    <div id="qp-ohlc-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test: realistic OHLC stop fills vs close-only · started 2026-08-21</div>
+                                </div>
+                            </div>
+                            <div id="qp-ohlc-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#2DD4BF;margin:0;font-size:0.95rem;">🚦 Over-Extension Filter Variant — Skip Entry RSI ≥ 65 · −8% Stop · 10d</h3>
+                                    <div id="qp-filt-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test: declines overextended entries · started 2026-08-23</div>
+                                </div>
+                            </div>
+                            <div id="qp-filt-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
+                        </div>
+
+                        <!-- ── 13F SMART-MONEY BOOKS ──────────────────────── -->
+                        <div id="inst13f-portfolio" class="tab-panel">
+                            <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
+                                <div style="color:#f59e0b;font-weight:600;font-size:0.9rem;margin-bottom:4px;">🏦 Hedge-Fund 13F Books — an independent signal (what funds hold, not our scanners)</div>
+                                <div style="color:#94a3b8;font-size:0.76rem;line-height:1.5;">Both books hold concentrated hedge funds' positions ($5,000 · 10 slots equal-weight · quarterly rebalance · no stop). <strong style="color:#cbd5e1;">Consensus</strong> = what the most funds already hold (crowded). <strong style="color:#cbd5e1;">New-Money</strong> = high-conviction positions they just opened (early). Running side by side to test whether <em>early beats crowded</em>. Note: 13Fs lag 45–135 days — slow books, not signals.</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#f59e0b;margin:0;font-size:1.0rem;">🏛️ Consensus — Most-Held by Concentrated Funds</h3>
+                                    <div id="inst-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                                <button onclick="load13FPortfolios(true)" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:5px;padding:5px 10px;color:#f59e0b;font-size:0.72rem;cursor:pointer;">↺ Refresh</button>
+                            </div>
+                            <div id="inst-content">
+                                <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#f59e0b;margin:0;font-size:1.0rem;">🌱 New-Money — High-Conviction Fresh Initiations</h3>
+                                    <div id="smart-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                            </div>
+                            <div id="smart-content">
                                 <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
                             </div>
                         </div>
@@ -5939,6 +6003,19 @@
                     document.getElementById('cp-atr-content').innerHTML =
                         '<div style="text-align:center;padding:30px;color:#64748b;">ATR variant data unavailable — runs nightly at 8:40 PM.</div>';
                 });
+            _loadVariant('claude_portfolio_ohlc.json', 'cp-ohlc-content', '#A78BFA', 'runs nightly at 8:42 PM');
+            _loadVariant('claude_portfolio_filtered.json', 'cp-filt-content', '#A78BFA', 'runs nightly at 8:44 PM');
+        }
+
+        // Generic loader for the scanner-variant books (same schema as the main analyst books).
+        function _loadVariant(file, contentId, color, when) {
+            fetch('/trading/data/' + file + '?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => _renderAnalystPortfolio(d, contentId, null, { color, scoreField: 'rank', scoreLabel: 'Rank' }))
+                .catch(() => {
+                    document.getElementById(contentId).innerHTML =
+                        '<div style="text-align:center;padding:30px;color:#64748b;">Variant data unavailable — ' + when + '.</div>';
+                });
         }
 
         function loadQuantPortfolio(force = false) {
@@ -5965,6 +6042,139 @@
                 .catch(() => {
                     document.getElementById('qp-atr-content').innerHTML =
                         '<div style="text-align:center;padding:30px;color:#64748b;">ATR variant data unavailable — runs nightly at 8:40 PM.</div>';
+                });
+            _loadVariant('quant_portfolio_ohlc.json', 'qp-ohlc-content', '#2DD4BF', 'runs nightly at 8:42 PM');
+            _loadVariant('quant_portfolio_filtered.json', 'qp-filt-content', '#2DD4BF', 'runs nightly at 8:44 PM');
+        }
+
+        // ── 13F Smart-Money Books (fund-holdings signal, quarterly rebalance) ───
+        function _render13FPortfolio(data, contentId, metaId, cfg) {
+            const C = cfg.color;
+            const metaEl = document.getElementById(metaId);
+            if (metaEl) metaEl.textContent =
+                `13F quarter: ${data.holdings_quarter||'—'} · Started: ${data.start_date||'—'} · Updated: ${(data.generated||'').slice(0,16).replace('T',' ')}`;
+
+            const pnl = data.pnl_pct || 0;
+            const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
+            const positions = data.positions || [];
+            const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
+            const isNew = (cfg.kind === 'newmoney');
+
+            const posRows = positions.length === 0
+                ? `<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">No open positions.</td></tr>`
+                : positions.map(p => {
+                    const pct = p.pnl_pct || 0;
+                    const pc  = pct >= 0 ? '#10B981' : pct > -6 ? '#F59E0B' : '#EF4444';
+                    const funds = isNew ? (p.init_funds ?? '—') : (p.funds ?? '—');
+                    const conv  = isNew ? (p.max_conv != null ? p.max_conv.toFixed(1)+'%' : '—')
+                                        : (p.sum_pct  != null ? p.sum_pct.toFixed(1)+'%' : '—');
+                    const cap   = p.market_cap_b != null ? '$'+p.market_cap_b+'B' : '—';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;text-align:center;color:${C};font-weight:700;">${funds}</td>
+                        <td style="padding:7px 8px;text-align:right;color:#94A3B8;">${conv}</td>
+                        ${isNew ? `<td style="padding:7px 8px;text-align:right;color:#64748b;">${cap}</td>` : ''}
+                    </tr>`;
+                }).join('');
+
+            const closedRows = closed.length === 0
+                ? `<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">No rotations yet — holdings change only when a new 13F quarter loads.</td></tr>`
+                : closed.map(t => {
+                    const pct = t.pnl_pct || 0, dol = t.pnl_dollars || 0;
+                    const pc  = pct >= 0 ? '#10B981' : '#EF4444';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${t.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.entry_date}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.exit_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.exit_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;text-align:right;color:${pc};">${dol>=0?'+$':'-$'}${Math.abs(dol).toFixed(2)}</td>
+                        <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_reason||''}</td>
+                    </tr>`;
+                }).join('');
+
+            const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
+            const fundsLabel = isNew ? 'Funds Opened' : 'Funds Holding';
+            const convLabel  = isNew ? 'Max Conv' : 'Sum Wt';
+            document.getElementById(contentId).innerHTML = `
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
+                    <div style="background:${C}14;border-radius:9px;padding:13px;text-align:center;border:1px solid ${C}44;">
+                        <div style="font-size:1.5rem;font-weight:700;color:${C};font-family:'JetBrains Mono',monospace;">$${(data.total_value||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Value</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${pnlColor};font-family:'JetBrains Mono',monospace;">${pnl>=0?'+':''}${pnl.toFixed(2)}%</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Total Return</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">${data.open_count||0} / ${data.closed_count||0}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Held / Rotated</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${C};font-family:'JetBrains Mono',monospace;">${data.holdings_quarter||'—'}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">13F Quarter</div>
+                    </div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span>${data.spy_curve && data.spy_curve.length > 1 ? ' <span style="color:#FBBF24;font-weight:400;text-transform:none;font-size:0.68rem;">· dashed = SPY</span>' : ''}</div>
+                    ${equityCurveSVG(data.equity_curve, data.spy_curve) || '<span style="color:#64748b;font-size:0.72rem;">Accumulating history — appears after a few daily snapshots.</span>'}
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Holdings</div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${C}33;">
+                            <th style="${thStyle}text-align:left;">Symbol</th>
+                            <th style="${thStyle}text-align:left;">In Date</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Current</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:center;">${fundsLabel}</th>
+                            <th style="${thStyle}text-align:right;">${convLabel}</th>
+                            ${isNew ? `<th style="${thStyle}text-align:right;">Mkt Cap</th>` : ''}
+                        </tr></thead>
+                        <tbody>${posRows}</tbody>
+                    </table></div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Rotations (last 20)</div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${C}33;">
+                            <th style="${thStyle}text-align:left;">Symbol</th>
+                            <th style="${thStyle}text-align:left;">In</th>
+                            <th style="${thStyle}text-align:left;">Out</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Exit</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L $</th>
+                            <th style="${thStyle}text-align:left;">Reason</th>
+                        </tr></thead>
+                        <tbody>${closedRows}</tbody>
+                    </table></div>
+                </div>`;
+        }
+
+        let _inst13fLoaded = false;
+        function load13FPortfolios(force = false) {
+            if (_inst13fLoaded && !force) return;
+            _inst13fLoaded = true;
+            fetch('/trading/data/institutional_portfolio.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => _render13FPortfolio(d, 'inst-content', 'inst-meta', { color: '#f59e0b', kind: 'consensus' }))
+                .catch(() => {
+                    document.getElementById('inst-content').innerHTML =
+                        '<div style="text-align:center;padding:40px;color:#64748b;">Consensus book unavailable — runs nightly at 8:46 PM.</div>';
+                });
+            fetch('/trading/data/smart_money_portfolio.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => _render13FPortfolio(d, 'smart-content', 'smart-meta', { color: '#f59e0b', kind: 'newmoney' }))
+                .catch(() => {
+                    document.getElementById('smart-content').innerHTML =
+                        '<div style="text-align:center;padding:30px;color:#64748b;">New-Money book unavailable — runs nightly at 8:48 PM.</div>';
                 });
         }
 
