@@ -3650,6 +3650,15 @@
                             <div id="cp-filt-content">
                                 <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
                             </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#A78BFA;margin:0;font-size:0.95rem;">🛡️ Risk-Overlay Variant — Same Picks · ATR Trailing Stop + Signal Exit · No Time Stop</h3>
+                                    <div id="cp-risk-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test: hold winners (trail) + cut losers fast (signal) · started 2026-08-26</div>
+                                </div>
+                            </div>
+                            <div id="cp-risk-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
                         </div>
 
                         <!-- ── QUANT PORTFOLIO ────────────────────────────── -->
@@ -3689,6 +3698,15 @@
                                 </div>
                             </div>
                             <div id="qp-filt-content">
+                                <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px;border-top:1px solid rgba(148,163,184,0.12);padding-top:18px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#2DD4BF;margin:0;font-size:0.95rem;">🛡️ Risk-Overlay Variant — Same Picks · ATR Trailing Stop + Signal Exit · No Time Stop</h3>
+                                    <div id="qp-risk-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;">A/B test: hold winners (trail) + cut losers fast (signal) · started 2026-08-26</div>
+                                </div>
+                            </div>
+                            <div id="qp-risk-content">
                                 <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
                             </div>
                         </div>
@@ -6005,6 +6023,7 @@
                 });
             _loadVariant('claude_portfolio_ohlc.json', 'cp-ohlc-content', '#A78BFA', 'runs nightly at 8:42 PM');
             _loadVariant('claude_portfolio_filtered.json', 'cp-filt-content', '#A78BFA', 'runs nightly at 8:44 PM');
+            _loadVariant('claude_portfolio_risk.json', 'cp-risk-content', '#A78BFA', 'runs nightly at 8:50 PM');
         }
 
         // Generic loader for the scanner-variant books (same schema as the main analyst books).
@@ -6045,6 +6064,7 @@
                 });
             _loadVariant('quant_portfolio_ohlc.json', 'qp-ohlc-content', '#2DD4BF', 'runs nightly at 8:42 PM');
             _loadVariant('quant_portfolio_filtered.json', 'qp-filt-content', '#2DD4BF', 'runs nightly at 8:44 PM');
+            _loadVariant('quant_portfolio_risk.json', 'qp-risk-content', '#2DD4BF', 'runs nightly at 8:50 PM');
         }
 
         // ── 13F Smart-Money Books (fund-holdings signal, quarterly rebalance) ───
