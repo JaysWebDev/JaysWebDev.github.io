@@ -1,49 +1,23 @@
 {
-  "generated": "2026-08-26T20:40:01.730189",
+  "generated": "2026-08-27T20:40:01.769984",
   "strategy": "Quant Analyst picks + ATR-scaled stop (2xATR14, -5%..-12%)",
   "start_date": "2026-08-11",
   "starting_capital": 5000.0,
-  "total_value": 4775.38,
+  "total_value": 4755.14,
   "cash": 0.0,
-  "pnl_pct": -4.49,
+  "pnl_pct": -4.9,
   "open_count": 10,
   "closed_count": 10,
   "win_rate": 30.0,
   "avg_trade_pnl": -3.7,
   "positions": [
     {
-      "symbol": "BMY",
-      "entry_date": "2026-08-19",
-      "entry_price": 67.61,
-      "current_price": 67.92,
-      "pnl_pct": 0.46,
-      "days_held": 4,
-      "stop_price": 63.93,
-      "stop_pct": 5.4,
-      "rank": 3,
-      "conviction_score": 457.3,
-      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
-    },
-    {
-      "symbol": "APA",
-      "entry_date": "2026-08-25",
-      "entry_price": 41.35,
-      "current_price": 41.35,
-      "pnl_pct": 0.0,
-      "days_held": 0,
-      "stop_price": 38.06,
-      "stop_pct": 7.9,
-      "rank": 1,
-      "conviction_score": 469.3,
-      "scanners": "institutional,under50,confluence,atr_momentum,rsi_staircase,v3_compression"
-    },
-    {
       "symbol": "STT",
       "entry_date": "2026-08-25",
       "entry_price": 192.95,
-      "current_price": 192.95,
-      "pnl_pct": 0.0,
-      "days_held": 0,
+      "current_price": 193.62,
+      "pnl_pct": 0.35,
+      "days_held": 1,
       "stop_price": 183.3,
       "stop_pct": 5.0,
       "rank": 3,
@@ -51,38 +25,12 @@
       "scanners": "confluence,atr_momentum,setup_vcb,setup_accum,momentum_rebound,rsi_staircase"
     },
     {
-      "symbol": "CCEP",
-      "entry_date": "2026-08-25",
-      "entry_price": 109.85,
-      "current_price": 109.85,
-      "pnl_pct": 0.0,
-      "days_held": 0,
-      "stop_price": 104.36,
-      "stop_pct": 5.0,
-      "rank": 4,
-      "conviction_score": 496.0,
-      "scanners": "setup_vcb,confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,v3_compression,setup_accum,unified"
-    },
-    {
-      "symbol": "MTCH",
-      "entry_date": "2026-08-25",
-      "entry_price": 42.18,
-      "current_price": 42.18,
-      "pnl_pct": 0.0,
-      "days_held": 0,
-      "stop_price": 39.9,
-      "stop_pct": 5.4,
-      "rank": 5,
-      "conviction_score": 395.7,
-      "scanners": "under50,confluence,atr_momentum,rsi_staircase,database_enhanced"
-    },
-    {
       "symbol": "NWSA",
       "entry_date": "2026-08-25",
       "entry_price": 30.92,
-      "current_price": 30.92,
-      "pnl_pct": 0.0,
-      "days_held": 0,
+      "current_price": 30.96,
+      "pnl_pct": 0.13,
+      "days_held": 1,
       "stop_price": 29.37,
       "stop_pct": 5.0,
       "rank": 7,
@@ -90,25 +38,51 @@
       "scanners": "under50,setup_vcb,confluence,atr_momentum,rsi_staircase,v3_compression"
     },
     {
-      "symbol": "DLTR",
+      "symbol": "BMY",
+      "entry_date": "2026-08-19",
+      "entry_price": 67.61,
+      "current_price": 67.57,
+      "pnl_pct": -0.06,
+      "days_held": 5,
+      "stop_price": 63.93,
+      "stop_pct": 5.4,
+      "rank": 3,
+      "conviction_score": 457.3,
+      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
+    },
+    {
+      "symbol": "MTCH",
       "entry_date": "2026-08-25",
-      "entry_price": 134.48,
-      "current_price": 134.48,
-      "pnl_pct": 0.0,
-      "days_held": 0,
-      "stop_price": 127.41,
-      "stop_pct": 5.3,
-      "rank": 8,
-      "conviction_score": 476.9,
-      "scanners": "setup_pullback,confluence,atr_momentum,setup_vcb,momentum_rebound,database_enhanced,v3_compression,rsi_staircase,institutional"
+      "entry_price": 42.18,
+      "current_price": 42.07,
+      "pnl_pct": -0.26,
+      "days_held": 1,
+      "stop_price": 39.9,
+      "stop_pct": 5.4,
+      "rank": 5,
+      "conviction_score": 395.7,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,database_enhanced"
+    },
+    {
+      "symbol": "APA",
+      "entry_date": "2026-08-25",
+      "entry_price": 41.35,
+      "current_price": 41.19,
+      "pnl_pct": -0.39,
+      "days_held": 1,
+      "stop_price": 38.06,
+      "stop_pct": 7.9,
+      "rank": 1,
+      "conviction_score": 469.3,
+      "scanners": "institutional,under50,confluence,atr_momentum,rsi_staircase,v3_compression"
     },
     {
       "symbol": "CDE",
       "entry_date": "2026-08-25",
       "entry_price": 21.59,
-      "current_price": 21.59,
-      "pnl_pct": 0.0,
-      "days_held": 0,
+      "current_price": 21.44,
+      "pnl_pct": -0.69,
+      "days_held": 1,
       "stop_price": 19.21,
       "stop_pct": 11.0,
       "rank": 9,
@@ -116,30 +90,56 @@
       "scanners": "institutional,under50,confluence,atr_momentum,rsi_staircase"
     },
     {
-      "symbol": "EOG",
-      "entry_date": "2026-08-20",
-      "entry_price": 152.19,
-      "current_price": 146.83,
-      "pnl_pct": -3.52,
-      "days_held": 3,
-      "stop_price": 144.11,
+      "symbol": "CCEP",
+      "entry_date": "2026-08-25",
+      "entry_price": 109.85,
+      "current_price": 108.99,
+      "pnl_pct": -0.78,
+      "days_held": 1,
+      "stop_price": 104.36,
+      "stop_pct": 5.0,
+      "rank": 4,
+      "conviction_score": 496.0,
+      "scanners": "setup_vcb,confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,v3_compression,setup_accum,unified"
+    },
+    {
+      "symbol": "DLTR",
+      "entry_date": "2026-08-25",
+      "entry_price": 134.48,
+      "current_price": 132.18,
+      "pnl_pct": -1.71,
+      "days_held": 1,
+      "stop_price": 127.41,
       "stop_pct": 5.3,
-      "rank": 2,
-      "conviction_score": 514.8,
-      "scanners": "setup_accum,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,confluence,unified"
+      "rank": 8,
+      "conviction_score": 476.9,
+      "scanners": "setup_pullback,confluence,atr_momentum,setup_vcb,momentum_rebound,database_enhanced,v3_compression,rsi_staircase,institutional"
     },
     {
       "symbol": "OSCR",
       "entry_date": "2026-08-14",
       "entry_price": 32.76,
-      "current_price": 30.93,
-      "pnl_pct": -5.59,
-      "days_held": 7,
+      "current_price": 31.24,
+      "pnl_pct": -4.64,
+      "days_held": 8,
       "stop_price": 28.83,
       "stop_pct": 12.0,
       "rank": 1,
       "conviction_score": 507.7,
       "scanners": "under50,setup_pullback,atr_momentum,rsi_staircase,v3_compression,confluence"
+    },
+    {
+      "symbol": "EOG",
+      "entry_date": "2026-08-20",
+      "entry_price": 152.19,
+      "current_price": 144.84,
+      "pnl_pct": -4.83,
+      "days_held": 4,
+      "stop_price": 144.11,
+      "stop_pct": 5.3,
+      "rank": 2,
+      "conviction_score": 514.8,
+      "scanners": "setup_accum,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,confluence,unified"
     }
   ],
   "closed_trades": [
@@ -358,6 +358,10 @@
     {
       "date": "2026-08-25",
       "value": 4775.38
+    },
+    {
+      "date": "2026-08-26",
+      "value": 4755.14
     }
   ],
   "spy_curve": [
@@ -404,6 +408,10 @@
     {
       "date": "2026-08-25",
       "value": 4969.83
+    },
+    {
+      "date": "2026-08-26",
+      "value": 4970.93
     }
   ]
 }

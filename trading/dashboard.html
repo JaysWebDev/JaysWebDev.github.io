@@ -708,9 +708,12 @@
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">🔄 Rotation Engine</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#22d3ee;" onclick="showTab(event,'flow-portfolio');loadFlowPortfolio()">🌊 Flow Portfolio</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'lt-top25');loadLtTop25()">🏆 LT Top 25</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#e879f9;" onclick="showTab(event,'scoreboard-portfolio');loadScoreboard()">🏁 Scoreboard</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#A78BFA;" onclick="showTab(event,'claude-portfolio');loadClaudePortfolio()">🤖 Claude</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#2DD4BF;" onclick="showTab(event,'quant-portfolio');loadQuantPortfolio()">📐 Quant</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#f59e0b;" onclick="showTab(event,'inst13f-portfolio');load13FPortfolios()">🏦 13F Books</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'factor-portfolio');loadFactorPortfolio()">📊 Factor</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'etf-portfolio');loadEtfPortfolio()">📦 ETF Trend</button>
                         <!-- Operations group (hidden initially) -->
                         <!-- Crypto group -->
                         <button class="tab-button" data-group="crypto" style="display:none;color:#F7931A;" onclick="showTab(event,'crypto-signals');loadCryptoSignals()">₿ Signals</button>
@@ -3611,6 +3614,22 @@
                         </div><!-- /rotation -->
 
                         <!-- 🌊 FLOW CONVICTION PORTFOLIO TAB -->
+                        <!-- ── SCOREBOARD (all books ranked) ──────────────── -->
+                        <div id="scoreboard-portfolio" class="tab-panel">
+                            <div style="background:rgba(232,121,249,0.06);border:1px solid rgba(232,121,249,0.2);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
+                                <div style="color:#e879f9;font-weight:600;font-size:0.9rem;margin-bottom:4px;">🏁 Strategy Scoreboard — every model portfolio, ranked by alpha vs SPY</div>
+                                <div style="color:#94a3b8;font-size:0.76rem;line-height:1.5;">All paper books on one screen, sorted by <strong style="color:#cbd5e1;">alpha</strong> (return minus SPY over each book's own window). Four independent signal families: <span style="color:#818cf8;">Scanner</span> (control + variants), <span style="color:#f59e0b;">13F</span> hedge-fund, <span style="color:#38bdf8;">Factor</span> QVM, <span style="color:#34d399;">ETF</span> trend. Most curves are only days old — read directionally until a few weeks accrue.</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                                <div><h3 style="color:#e879f9;margin:0;font-size:1.0rem;">🏁 All Books — Ranked by Alpha vs SPY</h3>
+                                    <div id="scoreboard-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div></div>
+                                <button onclick="loadScoreboard(true)" style="background:rgba(232,121,249,0.1);border:1px solid rgba(232,121,249,0.3);border-radius:5px;padding:5px 10px;color:#e879f9;font-size:0.72rem;cursor:pointer;">↺ Refresh</button>
+                            </div>
+                            <div id="scoreboard-content">
+                                <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
+                            </div>
+                        </div>
+
                         <!-- ── CLAUDE PORTFOLIO ──────────────────────────── -->
                         <div id="claude-portfolio" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
@@ -3735,6 +3754,42 @@
                             </div>
                             <div id="smart-content">
                                 <div style="text-align:center;padding:30px;color:#64748b;">Loading…</div>
+                            </div>
+                        </div>
+
+                        <!-- ── FACTOR INDEX-PLUS ──────────────────────────── -->
+                        <div id="factor-portfolio" class="tab-panel">
+                            <div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
+                                <div style="color:#38bdf8;font-weight:600;font-size:0.9rem;margin-bottom:4px;">📊 Factor Index-Plus — a third independent signal (fundamentals, not scanners or 13F)</div>
+                                <div style="color:#94a3b8;font-size:0.76rem;line-height:1.5;">Systematic <strong style="color:#cbd5e1;">quality + value + momentum</strong> composite from the fundamentals scores — $5,000 · 20 slots equal-weight · monthly rebalance · no stop. Aims to beat SPY by a modest, durable margin via documented factor premia, exploiting the account's structural time edge. Currently tilts to cheap, trending cyclicals (energy/metals/insurance) — a real factor-timing artifact, not a bug.</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#38bdf8;margin:0;font-size:1.0rem;">📊 QVM Composite — Top 20</h3>
+                                    <div id="factor-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                                <button onclick="loadFactorPortfolio(true)" style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:5px;padding:5px 10px;color:#38bdf8;font-size:0.72rem;cursor:pointer;">↺ Refresh</button>
+                            </div>
+                            <div id="factor-content">
+                                <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
+                            </div>
+                        </div>
+
+                        <!-- ── ETF FUND-OF-FUNDS ──────────────────────────── -->
+                        <div id="etf-portfolio" class="tab-panel">
+                            <div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
+                                <div style="color:#34d399;font-weight:600;font-size:0.9rem;margin-bottom:4px;">📦 ETF Fund-of-Funds — trend-following rotation (funds only, no single stocks)</div>
+                                <div style="color:#94a3b8;font-size:0.76rem;line-height:1.5;">Holds only ETFs in a confirmed uptrend — <strong style="color:#cbd5e1;">above both the 50 &amp; 200-day SMA</strong> — ranked by 3-month momentum, top 10 equal-weight · $5,000 · monthly rebalance · no stop. <strong style="color:#cbd5e1;">Defensive by design:</strong> an ETF that breaks its averages is dropped, and when fewer than 10 are trending the book holds cash for the empty slots.</div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#34d399;margin:0;font-size:1.0rem;">📦 Trend Leaders — Top 10 ETFs</h3>
+                                    <div id="etf-meta" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                                <button onclick="loadEtfPortfolio(true)" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);border-radius:5px;padding:5px 10px;color:#34d399;font-size:0.72rem;cursor:pointer;">↺ Refresh</button>
+                            </div>
+                            <div id="etf-content">
+                                <div style="text-align:center;padding:40px;color:#64748b;">Loading…</div>
                             </div>
                         </div>
 
@@ -6196,6 +6251,342 @@
                     document.getElementById('smart-content').innerHTML =
                         '<div style="text-align:center;padding:30px;color:#64748b;">New-Money book unavailable — runs nightly at 8:48 PM.</div>';
                 });
+        }
+
+        // ── Factor Index-Plus (QVM composite, monthly rebalance) ───────────────
+        let _factorLoaded = false;
+        function loadFactorPortfolio(force = false) {
+            if (_factorLoaded && !force) return;
+            _factorLoaded = true;
+            fetch('/trading/data/factor_portfolio.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => _renderFactorPortfolio(d))
+                .catch(() => {
+                    document.getElementById('factor-content').innerHTML =
+                        '<div style="text-align:center;padding:40px;color:#64748b;">Factor book unavailable — runs nightly at 8:52 PM.</div>';
+                });
+        }
+
+        // ── ETF Fund-of-Funds (trend rotation, monthly rebalance) ──────────────
+        let _etfLoaded = false;
+        function loadEtfPortfolio(force = false) {
+            if (_etfLoaded && !force) return;
+            _etfLoaded = true;
+            fetch('/trading/data/etf_portfolio.json?_=' + Date.now())
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+                .then(d => _renderEtfPortfolio(d))
+                .catch(() => {
+                    document.getElementById('etf-content').innerHTML =
+                        '<div style="text-align:center;padding:40px;color:#64748b;">ETF book unavailable — runs nightly at 8:54 PM.</div>';
+                });
+        }
+
+        function _renderEtfPortfolio(data) {
+            const C = '#34d399';
+            const metaEl = document.getElementById('etf-meta');
+            if (metaEl) metaEl.textContent =
+                `Rebalance month: ${data.holdings_month||'—'} · Started: ${data.start_date||'—'} · Updated: ${(data.generated||'').slice(0,16).replace('T',' ')}`;
+            const pnl = data.pnl_pct || 0;
+            const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
+            const cashPct = data.cash_pct != null ? data.cash_pct : 0;
+            const positions = data.positions || [];
+            const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
+            const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
+
+            const posRows = positions.length === 0
+                ? `<tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b;">No ETFs trending — fully in cash (defensive).</td></tr>`
+                : positions.map(p => {
+                    const pct = p.pnl_pct || 0;
+                    const pc  = pct >= 0 ? '#10B981' : pct > -6 ? '#F59E0B' : '#EF4444';
+                    const mom = p.mom_entry != null ? (p.mom_entry>=0?'+':'')+p.mom_entry.toFixed(1)+'%' : '—';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${p.name||''}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;text-align:right;color:${C};">${mom}</td>
+                    </tr>`;
+                }).join('');
+
+            const closedRows = closed.length === 0
+                ? `<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">No rotations yet — holdings change only at the monthly rebalance.</td></tr>`
+                : closed.map(t => {
+                    const pct = t.pnl_pct || 0, dol = t.pnl_dollars || 0;
+                    const pc  = pct >= 0 ? '#10B981' : '#EF4444';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${t.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.entry_date}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.exit_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.exit_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;text-align:right;color:${pc};">${dol>=0?'+$':'-$'}${Math.abs(dol).toFixed(2)}</td>
+                        <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_reason||''}</td>
+                    </tr>`;
+                }).join('');
+
+            document.getElementById('etf-content').innerHTML = `
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
+                    <div style="background:${C}14;border-radius:9px;padding:13px;text-align:center;border:1px solid ${C}44;">
+                        <div style="font-size:1.5rem;font-weight:700;color:${C};font-family:'JetBrains Mono',monospace;">$${(data.total_value||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Value</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${pnlColor};font-family:'JetBrains Mono',monospace;">${pnl>=0?'+':''}${pnl.toFixed(2)}%</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Total Return</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">${data.open_count||0}/10 · ${cashPct.toFixed(0)}%</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Filled · Cash</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${C};font-family:'JetBrains Mono',monospace;">${data.holdings_month||'—'}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Rebalance Month</div>
+                    </div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span>${data.spy_curve && data.spy_curve.length > 1 ? ' <span style="color:#FBBF24;font-weight:400;text-transform:none;font-size:0.68rem;">· dashed = SPY</span>' : ''}</div>
+                    ${equityCurveSVG(data.equity_curve, data.spy_curve) || '<span style="color:#64748b;font-size:0.72rem;">Accumulating history — appears after a few daily snapshots.</span>'}
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Holdings <span style="color:#475569;font-weight:400;text-transform:none;">· ranked by 3-mo momentum at entry</span></div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${C}33;">
+                            <th style="${thStyle}text-align:left;">ETF</th>
+                            <th style="${thStyle}text-align:left;">Fund</th>
+                            <th style="${thStyle}text-align:left;">In Date</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Current</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:right;">Mom@In</th>
+                        </tr></thead>
+                        <tbody>${posRows}</tbody>
+                    </table></div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Rotations (last 20)</div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${C}33;">
+                            <th style="${thStyle}text-align:left;">ETF</th>
+                            <th style="${thStyle}text-align:left;">In</th>
+                            <th style="${thStyle}text-align:left;">Out</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Exit</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L $</th>
+                            <th style="${thStyle}text-align:left;">Reason</th>
+                        </tr></thead>
+                        <tbody>${closedRows}</tbody>
+                    </table></div>
+                </div>`;
+        }
+
+        // ── Scoreboard — all books ranked by alpha vs SPY ──────────────────────
+        const _SCOREBOARD_BOOKS = [
+            { file:'claude_portfolio.json',          name:'Claude · control',    fam:'Scanner' },
+            { file:'claude_portfolio_atr.json',      name:'Claude · ATR stop',   fam:'Scanner' },
+            { file:'claude_portfolio_ohlc.json',     name:'Claude · OHLC fill',  fam:'Scanner' },
+            { file:'claude_portfolio_filtered.json', name:'Claude · RSI filter', fam:'Scanner' },
+            { file:'claude_portfolio_risk.json',     name:'Claude · risk overlay', fam:'Scanner' },
+            { file:'quant_analyst_portfolio.json',   name:'Quant · control',     fam:'Scanner' },
+            { file:'quant_portfolio_atr.json',       name:'Quant · ATR stop',    fam:'Scanner' },
+            { file:'quant_portfolio_ohlc.json',      name:'Quant · OHLC fill',   fam:'Scanner' },
+            { file:'quant_portfolio_filtered.json',  name:'Quant · RSI filter',  fam:'Scanner' },
+            { file:'quant_portfolio_risk.json',      name:'Quant · risk overlay', fam:'Scanner' },
+            { file:'institutional_portfolio.json',   name:'13F · consensus',     fam:'13F' },
+            { file:'smart_money_portfolio.json',     name:'13F · new-money',     fam:'13F' },
+            { file:'factor_portfolio.json',          name:'Factor · QVM',        fam:'Factor' },
+            { file:'etf_portfolio.json',             name:'ETF · trend',         fam:'ETF' },
+        ];
+        const _FAM_COLOR = { Scanner:'#818cf8', '13F':'#f59e0b', Factor:'#38bdf8', ETF:'#34d399' };
+
+        let _scoreboardLoaded = false;
+        function loadScoreboard(force = false) {
+            if (_scoreboardLoaded && !force) return;
+            _scoreboardLoaded = true;
+            Promise.all(_SCOREBOARD_BOOKS.map(b =>
+                fetch('/trading/data/' + b.file + '?_=' + Date.now())
+                    .then(r => r.ok ? r.json() : null).catch(() => null)
+                    .then(d => Object.assign({}, b, { data: d }))
+            )).then(_renderScoreboard);
+        }
+
+        function _renderScoreboard(books) {
+            const rows = [];
+            for (const b of books) {
+                const d = b.data;
+                if (!d) continue;
+                const ret = d.pnl_pct || 0;
+                let spyRet = null, alpha = null;
+                const sc = d.spy_curve;
+                if (sc && sc.length > 1 && sc[0].value) {
+                    spyRet = (sc[sc.length - 1].value - sc[0].value) / sc[0].value * 100;
+                    alpha = ret - spyRet;
+                }
+                rows.push({
+                    name: b.name, fam: b.fam, ret, spyRet, alpha,
+                    wr: d.closed_count > 0 ? d.win_rate : null,
+                    open: d.open_count || 0, closed: d.closed_count || 0,
+                    days: (d.equity_curve || []).length, start: d.start_date || '—',
+                });
+            }
+            // sort: books with alpha first (desc), then the rest by return
+            rows.sort((a, b) => {
+                if (a.alpha == null && b.alpha == null) return b.ret - a.ret;
+                if (a.alpha == null) return 1;
+                if (b.alpha == null) return -1;
+                return b.alpha - a.alpha;
+            });
+
+            const meta = document.getElementById('scoreboard-meta');
+            if (meta) meta.textContent = `${rows.length} books · updated ${new Date().toISOString().slice(0,16).replace('T',' ')}`;
+
+            const th = `padding:8px 10px;color:#64748b;font-size:0.66rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
+            const body = rows.length === 0
+                ? `<tr><td colspan="8" style="padding:24px;text-align:center;color:#64748b;">No book data yet.</td></tr>`
+                : rows.map((r, i) => {
+                    const fc = _FAM_COLOR[r.fam] || '#94a3b8';
+                    const retC = r.ret >= 0 ? '#10B981' : '#EF4444';
+                    const alC  = r.alpha == null ? '#64748b' : r.alpha >= 0 ? '#10B981' : '#EF4444';
+                    const alTxt = r.alpha == null ? '—' : (r.alpha >= 0 ? '+' : '') + r.alpha.toFixed(2);
+                    const spyTxt = r.spyRet == null ? '—' : (r.spyRet >= 0 ? '+' : '') + r.spyRet.toFixed(2) + '%';
+                    const wrTxt = r.wr == null ? '—' : r.wr.toFixed(0) + '%';
+                    const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : i === 2 ? '🥉 ' : '';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:8px 10px;color:#475569;text-align:right;">${i + 1}</td>
+                        <td style="padding:8px 10px;font-weight:600;color:#e2e8f0;">${medal}${r.name}</td>
+                        <td style="padding:8px 10px;"><span style="background:${fc}1a;border:1px solid ${fc}44;color:${fc};border-radius:4px;padding:1px 7px;font-size:0.62rem;">${r.fam}</span></td>
+                        <td style="padding:8px 10px;text-align:right;font-weight:700;font-family:'JetBrains Mono',monospace;color:${retC};">${r.ret >= 0 ? '+' : ''}${r.ret.toFixed(2)}%</td>
+                        <td style="padding:8px 10px;text-align:right;color:#94A3B8;font-family:'JetBrains Mono',monospace;">${spyTxt}</td>
+                        <td style="padding:8px 10px;text-align:right;font-weight:700;font-family:'JetBrains Mono',monospace;color:${alC};">${alTxt}</td>
+                        <td style="padding:8px 10px;text-align:center;color:#94A3B8;">${wrTxt}</td>
+                        <td style="padding:8px 10px;text-align:center;color:#64748b;font-size:0.72rem;">${r.open}o/${r.closed}c · ${r.days}d</td>
+                    </tr>`;
+                }).join('');
+
+            document.getElementById('scoreboard-content').innerHTML = `
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:8px 4px;border:1px solid rgba(148,163,184,0.08);overflow-x:auto;">
+                    <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                        <thead><tr style="border-bottom:1px solid rgba(232,121,249,0.25);">
+                            <th style="${th}text-align:right;">#</th>
+                            <th style="${th}text-align:left;">Book</th>
+                            <th style="${th}text-align:left;">Family</th>
+                            <th style="${th}text-align:right;">Return</th>
+                            <th style="${th}text-align:right;">SPY</th>
+                            <th style="${th}text-align:right;">Alpha</th>
+                            <th style="${th}text-align:center;">Win</th>
+                            <th style="${th}text-align:center;">Open/Closed · Days</th>
+                        </tr></thead>
+                        <tbody>${body}</tbody>
+                    </table>
+                </div>
+                <div style="color:#475569;font-size:0.68rem;margin-top:8px;">Alpha = book return − SPY over the same window. Win rate n/a for the rotation books (13F/Factor/ETF rebalance, not stop-based). Curves are young — directional only.</div>`;
+        }
+
+        function _renderFactorPortfolio(data) {
+            const C = '#38bdf8';
+            const metaEl = document.getElementById('factor-meta');
+            if (metaEl) metaEl.textContent =
+                `Rebalance month: ${data.holdings_month||'—'} · Started: ${data.start_date||'—'} · Updated: ${(data.generated||'').slice(0,16).replace('T',' ')}`;
+            const pnl = data.pnl_pct || 0;
+            const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
+            const positions = data.positions || [];
+            const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
+            const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
+
+            const posRows = positions.length === 0
+                ? `<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No open positions.</td></tr>`
+                : positions.map(p => {
+                    const pct = p.pnl_pct || 0;
+                    const pc  = pct >= 0 ? '#10B981' : pct > -6 ? '#F59E0B' : '#EF4444';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${p.quality!=null?Math.round(p.quality):'—'}</td>
+                        <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${p.value!=null?Math.round(p.value):'—'}</td>
+                        <td style="padding:7px 8px;text-align:center;color:${C};font-weight:700;">${p.composite!=null?Math.round(p.composite):'—'}</td>
+                        <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${p.sector||''}</td>
+                    </tr>`;
+                }).join('');
+
+            const closedRows = closed.length === 0
+                ? `<tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b;">No rotations yet — holdings change only at the monthly rebalance.</td></tr>`
+                : closed.map(t => {
+                    const pct = t.pnl_pct || 0, dol = t.pnl_dollars || 0;
+                    const pc  = pct >= 0 ? '#10B981' : '#EF4444';
+                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                        <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${t.symbol}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.entry_date}</td>
+                        <td style="padding:7px 8px;color:#64748b;">${t.exit_date}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(t.exit_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
+                        <td style="padding:7px 8px;text-align:right;color:${pc};">${dol>=0?'+$':'-$'}${Math.abs(dol).toFixed(2)}</td>
+                        <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_reason||''}</td>
+                    </tr>`;
+                }).join('');
+
+            document.getElementById('factor-content').innerHTML = `
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
+                    <div style="background:${C}14;border-radius:9px;padding:13px;text-align:center;border:1px solid ${C}44;">
+                        <div style="font-size:1.5rem;font-weight:700;color:${C};font-family:'JetBrains Mono',monospace;">$${(data.total_value||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Value</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${pnlColor};font-family:'JetBrains Mono',monospace;">${pnl>=0?'+':''}${pnl.toFixed(2)}%</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Total Return</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">${data.open_count||0} / ${data.closed_count||0}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Held / Rotated</div>
+                    </div>
+                    <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                        <div style="font-size:1.5rem;font-weight:700;color:${C};font-family:'JetBrains Mono',monospace;">${data.holdings_month||'—'}</div>
+                        <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Rebalance Month</div>
+                    </div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span>${data.spy_curve && data.spy_curve.length > 1 ? ' <span style="color:#FBBF24;font-weight:400;text-transform:none;font-size:0.68rem;">· dashed = SPY</span>' : ''}</div>
+                    ${equityCurveSVG(data.equity_curve, data.spy_curve) || '<span style="color:#64748b;font-size:0.72rem;">Accumulating history — appears after a few daily snapshots.</span>'}
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Holdings <span style="color:#475569;font-weight:400;text-transform:none;">· Q = quality · V = value · Comp = composite (0–100)</span></div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${C}33;">
+                            <th style="${thStyle}text-align:left;">Symbol</th>
+                            <th style="${thStyle}text-align:left;">In Date</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Current</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:center;">Q</th>
+                            <th style="${thStyle}text-align:center;">V</th>
+                            <th style="${thStyle}text-align:center;">Comp</th>
+                            <th style="${thStyle}text-align:left;">Sector</th>
+                        </tr></thead>
+                        <tbody>${posRows}</tbody>
+                    </table></div>
+                </div>
+                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Rotations (last 20)</div>
+                    <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                        <thead><tr style="border-bottom:1px solid ${C}33;">
+                            <th style="${thStyle}text-align:left;">Symbol</th>
+                            <th style="${thStyle}text-align:left;">In</th>
+                            <th style="${thStyle}text-align:left;">Out</th>
+                            <th style="${thStyle}text-align:right;">Entry</th>
+                            <th style="${thStyle}text-align:right;">Exit</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L %</th>
+                            <th style="${thStyle}text-align:right;">P&amp;L $</th>
+                            <th style="${thStyle}text-align:left;">Reason</th>
+                        </tr></thead>
+                        <tbody>${closedRows}</tbody>
+                    </table></div>
+                </div>`;
         }
 
         // ══════════════════════════════════════════════════════════════════════
