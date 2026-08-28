@@ -535,6 +535,10 @@ function buildPopup(b) {
         </div>`;
 }
 
+// Single shared canvas renderer — draws all circle markers to one <canvas>
+// instead of one SVG node each. Essential at 300k+ points (memory + speed).
+const markerCanvas = L.canvas({ padding: 0.5 });
+
 function renderMarkers(data) {
     if (markerLayer) { map.removeLayer(markerLayer); markerLayer = null; }
 
@@ -547,17 +551,22 @@ function renderMarkers(data) {
         chunkDelay: 10,
     });
 
+    let shown = 0;
     data.forEach(b => {
         if (b.lat == null || b.lng == null) return;
         if (b.lat < 41 || b.lat > 43 || b.lng < -73.5 || b.lng > -69.5) return;
         const col = sectorColor(b.sector);
+        // Lazy popup: pass a function so the HTML is built only when opened,
+        // not eagerly for every one of ~334k markers on each render.
         L.circleMarker([b.lat, b.lng], {
+            renderer: markerCanvas,
             radius: 5, color: col, fillColor: col, fillOpacity: 0.75, weight: 1
-        }).bindPopup(buildPopup(b), { maxWidth: 260 }).addTo(markerLayer);
+        }).bindPopup(() => buildPopup(b), { maxWidth: 260 }).addTo(markerLayer);
+        shown++;
     });
 
     markerLayer.addTo(map);
-    document.getElementById('stat-shown').textContent = data.length.toLocaleString();
+    document.getElementById('stat-shown').textContent = shown.toLocaleString();
 }
 
 function updateSectorTable(data) {
@@ -579,13 +588,19 @@ function updateSectorTable(data) {
 }
 
 function fitAll() {
-    const valid = allBusinesses.filter(b => b.lat != null && b.lng != null
-        && b.lat > 41 && b.lat < 43 && b.lng > -73.5 && b.lng < -69.5);
-    if (valid.length) map.fitBounds(
-        [[Math.min(...valid.map(b => b.lat)), Math.min(...valid.map(b => b.lng))],
-         [Math.max(...valid.map(b => b.lat)), Math.max(...valid.map(b => b.lng))]],
-        { padding: [40, 40], maxZoom: 12 }
-    );
+    // Single-pass min/max — Math.min(...arr) spreads the array as call args and
+    // overflows the stack past ~100k points (RangeError), so the map never fit.
+    let minLat = Infinity, minLng = Infinity, maxLat = -Infinity, maxLng = -Infinity, n = 0;
+    for (const b of allBusinesses) {
+        if (b.lat == null || b.lng == null) continue;
+        if (b.lat <= 41 || b.lat >= 43 || b.lng <= -73.5 || b.lng >= -69.5) continue;
+        if (b.lat < minLat) minLat = b.lat;
+        if (b.lat > maxLat) maxLat = b.lat;
+        if (b.lng < minLng) minLng = b.lng;
+        if (b.lng > maxLng) maxLng = b.lng;
+        n++;
+    }
+    if (n) map.fitBounds([[minLat, minLng], [maxLat, maxLng]], { padding: [40, 40], maxZoom: 12 });
 }
 
 function applyFilters() {
@@ -606,7 +621,13 @@ function applyFilters() {
 
 document.getElementById('filter-state').addEventListener('change', applyFilters);
 document.getElementById('filter-sector').addEventListener('change', applyFilters);
-document.getElementById('filter-name').addEventListener('input', applyFilters);
+// Debounce the name search: each apply rebuilds the marker layer (~334k), so
+// firing on every keystroke froze the page. Wait for a 350ms typing pause.
+let nameDebounce = null;
+document.getElementById('filter-name').addEventListener('input', () => {
+    clearTimeout(nameDebounce);
+    nameDebounce = setTimeout(applyFilters, 350);
+});
 document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('filter-state').value  = '';
     document.getElementById('filter-sector').value = '';
