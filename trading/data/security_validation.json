@@ -1,28 +1,28 @@
 {
-  "timestamp": "2026-08-21 07:00:03",
-  "total_validated": 5,
+  "timestamp": "2026-08-28 07:00:03",
+  "total_validated": 3,
   "summary": {
-    "ACTIVE": 2,
-    "PENNY_STOCK": 2,
-    "MONITOR": 1
+    "MONITOR": 1,
+    "ACTIVE": 1,
+    "PENNY_STOCK": 1
   },
   "results": [
     {
-      "symbol": "TOI",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 5.13,
-      "volume": 1415995.0,
-      "validation_date": "2026-08-21 07:00",
-      "data_source": "Database"
+      "symbol": "TALK",
+      "status": "MONITOR",
+      "reason": "Stale price (3 days) but appears active",
+      "last_price": 5.25,
+      "volume": 2157813.9,
+      "validation_date": "2026-08-28 07:00",
+      "data_source": "Heuristic"
     },
     {
-      "symbol": "EA",
+      "symbol": "AVB",
       "status": "ACTIVE",
       "reason": "Normal trading activity",
-      "last_price": 209.7,
-      "volume": 7902323.7,
-      "validation_date": "2026-08-21 07:00",
+      "last_price": 184.06,
+      "volume": 1190019.1,
+      "validation_date": "2026-08-28 07:00",
       "data_source": "Database"
     },
     {
@@ -31,26 +31,8 @@
       "reason": "Price $0.61 below $1.00 threshold",
       "last_price": 0.6097,
       "volume": 2587948.7,
-      "validation_date": "2026-08-21 07:00",
+      "validation_date": "2026-08-28 07:00",
       "data_source": "Price Analysis"
-    },
-    {
-      "symbol": "AKBA",
-      "status": "PENNY_STOCK",
-      "reason": "Price $0.87 below $1.00 threshold",
-      "last_price": 0.8696,
-      "volume": 6092846.6,
-      "validation_date": "2026-08-21 07:00",
-      "data_source": "Price Analysis"
-    },
-    {
-      "symbol": "LXFR",
-      "status": "MONITOR",
-      "reason": "Stale price (5 days) but appears active",
-      "last_price": 17.12,
-      "volume": 191771.7,
-      "validation_date": "2026-08-21 07:00",
-      "data_source": "Heuristic"
     }
   ]
 }

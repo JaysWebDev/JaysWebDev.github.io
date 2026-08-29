@@ -1,11 +1,11 @@
 {
-  "generated": "2026-08-27T20:44:01.674762",
+  "generated": "2026-08-28T20:44:01.179106",
   "strategy": "Claude Haiku picks + over-extension filter (skip entry RSI>=65)",
   "start_date": "2026-08-20",
   "starting_capital": 5000.0,
-  "total_value": 5045.0,
+  "total_value": 4999.55,
   "cash": -0.0,
-  "pnl_pct": 0.9,
+  "pnl_pct": -0.01,
   "open_count": 10,
   "closed_count": 0,
   "win_rate": 0.0,
@@ -16,9 +16,9 @@
       "symbol": "ANET",
       "entry_date": "2026-08-20",
       "entry_price": 183.75,
-      "current_price": 202.25,
-      "pnl_pct": 10.07,
-      "days_held": 4,
+      "current_price": 201.09,
+      "pnl_pct": 9.44,
+      "days_held": 5,
       "stop_price": 169.05,
       "entry_rsi": 52.1,
       "rank": 14,
@@ -26,12 +26,38 @@
       "scanners": "v3_compression,confluence,atr_momentum,rsi_staircase,setup_pullback"
     },
     {
+      "symbol": "PAYX",
+      "entry_date": "2026-08-20",
+      "entry_price": 122.91,
+      "current_price": 126.48,
+      "pnl_pct": 2.9,
+      "days_held": 5,
+      "stop_price": 113.08,
+      "entry_rsi": 63.4,
+      "rank": 13,
+      "conviction_score": 387.1,
+      "scanners": "setup_pullback,setup_accum,confluence,atr_momentum,rsi_staircase"
+    },
+    {
+      "symbol": "BEN",
+      "entry_date": "2026-08-20",
+      "entry_price": 33.97,
+      "current_price": 34.82,
+      "pnl_pct": 2.5,
+      "days_held": 5,
+      "stop_price": 31.25,
+      "entry_rsi": 51.0,
+      "rank": 8,
+      "conviction_score": 459.0,
+      "scanners": "under50,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase"
+    },
+    {
       "symbol": "MTCH",
       "entry_date": "2026-08-20",
       "entry_price": 40.35,
-      "current_price": 42.07,
-      "pnl_pct": 4.26,
-      "days_held": 4,
+      "current_price": 41.22,
+      "pnl_pct": 2.16,
+      "days_held": 5,
       "stop_price": 37.12,
       "entry_rsi": 53.6,
       "rank": 4,
@@ -42,9 +68,9 @@
       "symbol": "HPQ",
       "entry_date": "2026-08-20",
       "entry_price": 29.47,
-      "current_price": 30.52,
-      "pnl_pct": 3.56,
-      "days_held": 4,
+      "current_price": 29.63,
+      "pnl_pct": 0.54,
+      "days_held": 5,
       "stop_price": 27.11,
       "entry_rsi": 60.5,
       "rank": 5,
@@ -52,38 +78,12 @@
       "scanners": "under50,setup_pullback,confluence,atr_momentum,momentum_rebound,rsi_staircase"
     },
     {
-      "symbol": "BEN",
-      "entry_date": "2026-08-20",
-      "entry_price": 33.97,
-      "current_price": 35.01,
-      "pnl_pct": 3.06,
-      "days_held": 4,
-      "stop_price": 31.25,
-      "entry_rsi": 51.0,
-      "rank": 8,
-      "conviction_score": 459.0,
-      "scanners": "under50,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase"
-    },
-    {
-      "symbol": "PAYX",
-      "entry_date": "2026-08-20",
-      "entry_price": 122.91,
-      "current_price": 124.88,
-      "pnl_pct": 1.6,
-      "days_held": 4,
-      "stop_price": 113.08,
-      "entry_rsi": 63.4,
-      "rank": 13,
-      "conviction_score": 387.1,
-      "scanners": "setup_pullback,setup_accum,confluence,atr_momentum,rsi_staircase"
-    },
-    {
       "symbol": "OKE",
       "entry_date": "2026-08-20",
       "entry_price": 94.6,
-      "current_price": 94.9,
-      "pnl_pct": 0.32,
-      "days_held": 4,
+      "current_price": 94.72,
+      "pnl_pct": 0.13,
+      "days_held": 5,
       "stop_price": 87.03,
       "entry_rsi": 60.0,
       "rank": 15,
@@ -91,25 +91,12 @@
       "scanners": "confluence,atr_momentum,rsi_staircase,database_enhanced,v3_compression,institutional,setup_accum"
     },
     {
-      "symbol": "OSCR",
-      "entry_date": "2026-08-20",
-      "entry_price": 31.57,
-      "current_price": 31.24,
-      "pnl_pct": -1.05,
-      "days_held": 4,
-      "stop_price": 29.04,
-      "entry_rsi": 51.2,
-      "rank": 3,
-      "conviction_score": 464.3,
-      "scanners": "under50,setup_pullback,confluence,atr_momentum,setup_accum,database_enhanced,momentum_rebound"
-    },
-    {
       "symbol": "CVX",
       "entry_date": "2026-08-20",
       "entry_price": 205.77,
-      "current_price": 200.21,
-      "pnl_pct": -2.7,
-      "days_held": 4,
+      "current_price": 199.77,
+      "pnl_pct": -2.92,
+      "days_held": 5,
       "stop_price": 189.31,
       "entry_rsi": 62.7,
       "rank": 10,
@@ -117,30 +104,43 @@
       "scanners": "confluence,atr_momentum,rsi_staircase,setup_vcb,database_enhanced,v3_compression"
     },
     {
-      "symbol": "EOG",
+      "symbol": "OSCR",
       "entry_date": "2026-08-20",
-      "entry_price": 152.19,
-      "current_price": 144.84,
-      "pnl_pct": -4.83,
-      "days_held": 4,
-      "stop_price": 140.01,
-      "entry_rsi": 54.5,
-      "rank": 1,
-      "conviction_score": 514.8,
-      "scanners": "setup_accum,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,confluence,unified"
+      "entry_price": 31.57,
+      "current_price": 30.05,
+      "pnl_pct": -4.81,
+      "days_held": 5,
+      "stop_price": 29.04,
+      "entry_rsi": 51.2,
+      "rank": 3,
+      "conviction_score": 464.3,
+      "scanners": "under50,setup_pullback,confluence,atr_momentum,setup_accum,database_enhanced,momentum_rebound"
     },
     {
       "symbol": "FANG",
       "entry_date": "2026-08-20",
       "entry_price": 211.02,
-      "current_price": 199.84,
-      "pnl_pct": -5.3,
-      "days_held": 4,
+      "current_price": 200.52,
+      "pnl_pct": -4.98,
+      "days_held": 5,
       "stop_price": 194.14,
       "entry_rsi": 57.7,
       "rank": 16,
       "conviction_score": 386.8,
       "scanners": "atr_momentum,rsi_staircase,confluence,institutional"
+    },
+    {
+      "symbol": "EOG",
+      "entry_date": "2026-08-20",
+      "entry_price": 152.19,
+      "current_price": 144.5,
+      "pnl_pct": -5.05,
+      "days_held": 5,
+      "stop_price": 140.01,
+      "entry_rsi": 54.5,
+      "rank": 1,
+      "conviction_score": 514.8,
+      "scanners": "setup_accum,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,confluence,unified"
     }
   ],
   "closed_trades": [],
@@ -164,6 +164,10 @@
     {
       "date": "2026-08-26",
       "value": 5045.0
+    },
+    {
+      "date": "2026-08-27",
+      "value": 4999.55
     }
   ],
   "spy_curve": [
@@ -186,6 +190,10 @@
     {
       "date": "2026-08-26",
       "value": 5022.82
+    },
+    {
+      "date": "2026-08-27",
+      "value": 5055.73
     }
   ]
 }

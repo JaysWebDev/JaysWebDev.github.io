@@ -1,17 +1,99 @@
 {
-  "timestamp": "2026-08-27 07:00:02",
+  "timestamp": "2026-08-28 07:00:03",
   "summary": {
-    "total_flagged": 0,
-    "high_risk": 0,
-    "medium_risk": 0,
+    "total_flagged": 3,
+    "high_risk": 2,
+    "medium_risk": 1,
     "low_risk": 0,
-    "penny_stocks": 0,
+    "penny_stocks": 1,
     "stale_prices": 0,
-    "no_data": 0,
-    "tracking_pending": 5,
+    "no_data": 2,
+    "tracking_pending": 2,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
-  "securities": [],
-  "recommendations": []
+  "securities": [
+    {
+      "symbol": "TALK",
+      "price": 5.25,
+      "consecutive_days": 0,
+      "avg_volume": 2409426.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-08-14, expected: 2026-08-27)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-08-14",
+      "analysis_date": "2026-08-28 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-24"
+    },
+    {
+      "symbol": "AVB",
+      "price": 184.06,
+      "consecutive_days": 0,
+      "avg_volume": 2484388.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-08-14, expected: 2026-08-27)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-08-14",
+      "analysis_date": "2026-08-28 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-24"
+    },
+    {
+      "symbol": "LESL",
+      "price": 0.6097,
+      "consecutive_days": 0,
+      "avg_volume": 1375009.2,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.61 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-08-20",
+      "analysis_date": "2026-08-28 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-08-24"
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "REMOVE_NO_DATA",
+      "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
+      "symbols": [
+        "TALK",
+        "AVB"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "action": "IMMEDIATE_REVIEW",
+      "description": "Review 2 high-risk securities (likely delisted or worthless)",
+      "symbols": [
+        "TALK",
+        "AVB"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "action": "PENNY_STOCK_REVIEW",
+      "description": "Review 1 securities under $1.00",
+      "symbols": [
+        "LESL"
+      ],
+      "priority": "MEDIUM"
+    }
+  ]
 }
