@@ -1,71 +1,53 @@
 {
-  "timestamp": "2026-08-28 07:00:03",
+  "timestamp": "2026-08-31 07:00:03",
   "summary": {
-    "total_flagged": 3,
+    "total_flagged": 2,
     "high_risk": 2,
-    "medium_risk": 1,
+    "medium_risk": 0,
     "low_risk": 0,
-    "penny_stocks": 1,
+    "penny_stocks": 0,
     "stale_prices": 0,
     "no_data": 2,
-    "tracking_pending": 2,
+    "tracking_pending": 0,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
-      "symbol": "TALK",
-      "price": 5.25,
+      "symbol": "ISSC",
+      "price": 24.78,
       "consecutive_days": 0,
-      "avg_volume": 2409426.0,
+      "avg_volume": 437931.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-14, expected: 2026-08-27)"
+        "Data stopped updating (last: 2026-08-17, expected: 2026-08-28)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "2026-08-14",
-      "analysis_date": "2026-08-28 07:00",
+      "last_date": "2026-08-17",
+      "analysis_date": "2026-08-31 07:00",
       "consecutive_failures": 5,
-      "first_flagged": "2026-08-24"
+      "first_flagged": "2026-08-25"
     },
     {
-      "symbol": "AVB",
-      "price": 184.06,
+      "symbol": "EQR",
+      "price": 63.66,
       "consecutive_days": 0,
-      "avg_volume": 2484388.0,
+      "avg_volume": 17443419.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-14, expected: 2026-08-27)"
+        "Data stopped updating (last: 2026-08-17, expected: 2026-08-28)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "2026-08-14",
-      "analysis_date": "2026-08-28 07:00",
+      "last_date": "2026-08-17",
+      "analysis_date": "2026-08-31 07:00",
       "consecutive_failures": 5,
-      "first_flagged": "2026-08-24"
-    },
-    {
-      "symbol": "LESL",
-      "price": 0.6097,
-      "consecutive_days": 0,
-      "avg_volume": 1375009.2,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.61 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-08-20",
-      "analysis_date": "2026-08-28 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-08-24"
+      "first_flagged": "2026-08-25"
     }
   ],
   "recommendations": [
@@ -73,8 +55,8 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "TALK",
-        "AVB"
+        "ISSC",
+        "EQR"
       ],
       "priority": "HIGH"
     },
@@ -82,18 +64,10 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 2 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "TALK",
-        "AVB"
+        "ISSC",
+        "EQR"
       ],
       "priority": "HIGH"
-    },
-    {
-      "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 1 securities under $1.00",
-      "symbols": [
-        "LESL"
-      ],
-      "priority": "MEDIUM"
     }
   ]
 }

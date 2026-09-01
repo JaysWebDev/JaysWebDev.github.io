@@ -1,38 +1,27 @@
 {
-  "timestamp": "2026-08-28 07:00:03",
-  "total_validated": 3,
+  "timestamp": "2026-08-31 07:00:03",
+  "total_validated": 2,
   "summary": {
-    "MONITOR": 1,
-    "ACTIVE": 1,
-    "PENNY_STOCK": 1
+    "ACTIVE": 2
   },
   "results": [
     {
-      "symbol": "TALK",
-      "status": "MONITOR",
-      "reason": "Stale price (3 days) but appears active",
-      "last_price": 5.25,
-      "volume": 2157813.9,
-      "validation_date": "2026-08-28 07:00",
-      "data_source": "Heuristic"
-    },
-    {
-      "symbol": "AVB",
+      "symbol": "ISSC",
       "status": "ACTIVE",
       "reason": "Normal trading activity",
-      "last_price": 184.06,
-      "volume": 1190019.1,
-      "validation_date": "2026-08-28 07:00",
+      "last_price": 24.78,
+      "volume": 305188.2,
+      "validation_date": "2026-08-31 07:00",
       "data_source": "Database"
     },
     {
-      "symbol": "LESL",
-      "status": "PENNY_STOCK",
-      "reason": "Price $0.61 below $1.00 threshold",
-      "last_price": 0.6097,
-      "volume": 2587948.7,
-      "validation_date": "2026-08-28 07:00",
-      "data_source": "Price Analysis"
+      "symbol": "EQR",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 63.66,
+      "volume": 4876097.8,
+      "validation_date": "2026-08-31 07:00",
+      "data_source": "Database"
     }
   ]
 }

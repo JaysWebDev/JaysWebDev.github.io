@@ -6416,6 +6416,26 @@
             )).then(_renderScoreboard);
         }
 
+        // annualised risk stats from a daily equity curve [{date,value}]
+        function _curveStats(curve) {
+            if (!curve || curve.length < 5) return { vol: null, sharpe: null, maxdd: null };
+            const rets = [];
+            for (let i = 1; i < curve.length; i++) {
+                const p = curve[i - 1].value, c = curve[i].value;
+                if (p) rets.push(c / p - 1);
+            }
+            if (rets.length < 4) return { vol: null, sharpe: null, maxdd: null };
+            const mean = rets.reduce((a, b) => a + b, 0) / rets.length;
+            const sd = Math.sqrt(rets.reduce((a, b) => a + (b - mean) * (b - mean), 0) / rets.length);
+            let peak = curve[0].value, mdd = 0;
+            for (const pt of curve) { peak = Math.max(peak, pt.value); mdd = Math.min(mdd, pt.value / peak - 1); }
+            return {
+                vol: sd * Math.sqrt(252) * 100,
+                sharpe: sd ? (mean * Math.sqrt(252)) / sd : null,
+                maxdd: mdd * 100,
+            };
+        }
+
         function _renderScoreboard(books) {
             const rows = [];
             for (const b of books) {
@@ -6428,8 +6448,10 @@
                     spyRet = (sc[sc.length - 1].value - sc[0].value) / sc[0].value * 100;
                     alpha = ret - spyRet;
                 }
+                const st = _curveStats(d.equity_curve);
                 rows.push({
                     name: b.name, fam: b.fam, ret, spyRet, alpha,
+                    vol: st.vol, sharpe: st.sharpe, maxdd: st.maxdd,
                     wr: d.closed_count > 0 ? d.win_rate : null,
                     open: d.open_count || 0, closed: d.closed_count || 0,
                     days: (d.equity_curve || []).length, start: d.start_date || '—',
@@ -6447,23 +6469,31 @@
             if (meta) meta.textContent = `${rows.length} books · updated ${new Date().toISOString().slice(0,16).replace('T',' ')}`;
 
             const th = `padding:8px 10px;color:#64748b;font-size:0.66rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
+            const mono = `font-family:'JetBrains Mono',monospace;`;
             const body = rows.length === 0
-                ? `<tr><td colspan="8" style="padding:24px;text-align:center;color:#64748b;">No book data yet.</td></tr>`
+                ? `<tr><td colspan="11" style="padding:24px;text-align:center;color:#64748b;">No book data yet.</td></tr>`
                 : rows.map((r, i) => {
                     const fc = _FAM_COLOR[r.fam] || '#94a3b8';
                     const retC = r.ret >= 0 ? '#10B981' : '#EF4444';
                     const alC  = r.alpha == null ? '#64748b' : r.alpha >= 0 ? '#10B981' : '#EF4444';
                     const alTxt = r.alpha == null ? '—' : (r.alpha >= 0 ? '+' : '') + r.alpha.toFixed(2);
                     const spyTxt = r.spyRet == null ? '—' : (r.spyRet >= 0 ? '+' : '') + r.spyRet.toFixed(2) + '%';
+                    const shC = r.sharpe == null ? '#64748b' : r.sharpe >= 1 ? '#10B981' : r.sharpe >= 0 ? '#F59E0B' : '#EF4444';
+                    const shTxt = r.sharpe == null ? '—' : r.sharpe.toFixed(2);
+                    const volTxt = r.vol == null ? '—' : r.vol.toFixed(0) + '%';
+                    const ddTxt = r.maxdd == null ? '—' : r.maxdd.toFixed(1) + '%';
                     const wrTxt = r.wr == null ? '—' : r.wr.toFixed(0) + '%';
                     const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : i === 2 ? '🥉 ' : '';
                     return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
                         <td style="padding:8px 10px;color:#475569;text-align:right;">${i + 1}</td>
                         <td style="padding:8px 10px;font-weight:600;color:#e2e8f0;">${medal}${r.name}</td>
                         <td style="padding:8px 10px;"><span style="background:${fc}1a;border:1px solid ${fc}44;color:${fc};border-radius:4px;padding:1px 7px;font-size:0.62rem;">${r.fam}</span></td>
-                        <td style="padding:8px 10px;text-align:right;font-weight:700;font-family:'JetBrains Mono',monospace;color:${retC};">${r.ret >= 0 ? '+' : ''}${r.ret.toFixed(2)}%</td>
-                        <td style="padding:8px 10px;text-align:right;color:#94A3B8;font-family:'JetBrains Mono',monospace;">${spyTxt}</td>
-                        <td style="padding:8px 10px;text-align:right;font-weight:700;font-family:'JetBrains Mono',monospace;color:${alC};">${alTxt}</td>
+                        <td style="padding:8px 10px;text-align:right;font-weight:700;${mono}color:${retC};">${r.ret >= 0 ? '+' : ''}${r.ret.toFixed(2)}%</td>
+                        <td style="padding:8px 10px;text-align:right;color:#94A3B8;${mono}">${spyTxt}</td>
+                        <td style="padding:8px 10px;text-align:right;font-weight:700;${mono}color:${alC};">${alTxt}</td>
+                        <td style="padding:8px 10px;text-align:right;font-weight:700;${mono}color:${shC};">${shTxt}</td>
+                        <td style="padding:8px 10px;text-align:right;color:#94A3B8;${mono}">${volTxt}</td>
+                        <td style="padding:8px 10px;text-align:right;color:#EF9A9A;${mono}">${ddTxt}</td>
                         <td style="padding:8px 10px;text-align:center;color:#94A3B8;">${wrTxt}</td>
                         <td style="padding:8px 10px;text-align:center;color:#64748b;font-size:0.72rem;">${r.open}o/${r.closed}c · ${r.days}d</td>
                     </tr>`;
@@ -6479,13 +6509,16 @@
                             <th style="${th}text-align:right;">Return</th>
                             <th style="${th}text-align:right;">SPY</th>
                             <th style="${th}text-align:right;">Alpha</th>
+                            <th style="${th}text-align:right;">Sharpe</th>
+                            <th style="${th}text-align:right;">Vol</th>
+                            <th style="${th}text-align:right;">MaxDD</th>
                             <th style="${th}text-align:center;">Win</th>
-                            <th style="${th}text-align:center;">Open/Closed · Days</th>
+                            <th style="${th}text-align:center;">O/C · Days</th>
                         </tr></thead>
                         <tbody>${body}</tbody>
                     </table>
                 </div>
-                <div style="color:#475569;font-size:0.68rem;margin-top:8px;">Alpha = book return − SPY over the same window. Win rate n/a for the rotation books (13F/Factor/ETF rebalance, not stop-based). Curves are young — directional only.</div>`;
+                <div style="color:#475569;font-size:0.68rem;margin-top:8px;">Alpha = book return − SPY over the same window. Sharpe/Vol annualised from the daily equity curve (rf=0); MaxDD = worst peak-to-trough. Win rate n/a for rotation books. <b>Curves are young</b> — risk stats need weeks of points to mean much; directional only.</div>`;
         }
 
         function _renderFactorPortfolio(data) {

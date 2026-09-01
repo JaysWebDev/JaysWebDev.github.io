@@ -1,36 +1,23 @@
 {
-  "generated": "2026-08-28T20:40:01.734098",
+  "generated": "2026-08-31T20:40:01.774304",
   "strategy": "Quant Analyst picks + ATR-scaled stop (2xATR14, -5%..-12%)",
   "start_date": "2026-08-11",
   "starting_capital": 5000.0,
-  "total_value": 4729.44,
+  "total_value": 4704.5,
   "cash": 0.0,
-  "pnl_pct": -5.41,
+  "pnl_pct": -5.91,
   "open_count": 10,
-  "closed_count": 11,
-  "win_rate": 27.3,
-  "avg_trade_pnl": -3.87,
+  "closed_count": 13,
+  "win_rate": 23.1,
+  "avg_trade_pnl": -4.26,
   "positions": [
-    {
-      "symbol": "CDE",
-      "entry_date": "2026-08-25",
-      "entry_price": 21.59,
-      "current_price": 22.21,
-      "pnl_pct": 2.87,
-      "days_held": 2,
-      "stop_price": 19.21,
-      "stop_pct": 11.0,
-      "rank": 9,
-      "conviction_score": 442.8,
-      "scanners": "institutional,under50,confluence,atr_momentum,rsi_staircase"
-    },
     {
       "symbol": "APA",
       "entry_date": "2026-08-25",
       "entry_price": 41.35,
-      "current_price": 42.38,
-      "pnl_pct": 2.49,
-      "days_held": 2,
+      "current_price": 42.54,
+      "pnl_pct": 2.88,
+      "days_held": 3,
       "stop_price": 38.06,
       "stop_pct": 7.9,
       "rank": 1,
@@ -38,25 +25,12 @@
       "scanners": "institutional,under50,confluence,atr_momentum,rsi_staircase,v3_compression"
     },
     {
-      "symbol": "NWSA",
-      "entry_date": "2026-08-25",
-      "entry_price": 30.92,
-      "current_price": 31.19,
-      "pnl_pct": 0.87,
-      "days_held": 2,
-      "stop_price": 29.37,
-      "stop_pct": 5.0,
-      "rank": 7,
-      "conviction_score": 448.4,
-      "scanners": "under50,setup_vcb,confluence,atr_momentum,rsi_staircase,v3_compression"
-    },
-    {
       "symbol": "STT",
       "entry_date": "2026-08-25",
       "entry_price": 192.95,
-      "current_price": 193.37,
-      "pnl_pct": 0.22,
-      "days_held": 2,
+      "current_price": 193.33,
+      "pnl_pct": 0.2,
+      "days_held": 3,
       "stop_price": 183.3,
       "stop_pct": 5.0,
       "rank": 3,
@@ -64,51 +38,51 @@
       "scanners": "confluence,atr_momentum,setup_vcb,setup_accum,momentum_rebound,rsi_staircase"
     },
     {
-      "symbol": "ANET",
-      "entry_date": "2026-08-27",
-      "entry_price": 201.09,
-      "current_price": 201.09,
+      "symbol": "NWSA",
+      "entry_date": "2026-08-25",
+      "entry_price": 30.92,
+      "current_price": 30.97,
+      "pnl_pct": 0.16,
+      "days_held": 3,
+      "stop_price": 29.37,
+      "stop_pct": 5.0,
+      "rank": 7,
+      "conviction_score": 448.4,
+      "scanners": "under50,setup_vcb,confluence,atr_momentum,rsi_staircase,v3_compression"
+    },
+    {
+      "symbol": "OSCR",
+      "entry_date": "2026-08-28",
+      "entry_price": 30.47,
+      "current_price": 30.47,
       "pnl_pct": 0.0,
       "days_held": 0,
-      "stop_price": 185.13,
-      "stop_pct": 7.9,
-      "rank": 3,
-      "conviction_score": 425.2,
-      "scanners": "confluence,atr_momentum,momentum_rebound,setup_pullback,rsi_staircase"
+      "stop_price": 26.83,
+      "stop_pct": 11.9,
+      "rank": 2,
+      "conviction_score": 442.3,
+      "scanners": "under50,setup_pullback,confluence,setup_accum,atr_momentum,rsi_staircase"
     },
     {
-      "symbol": "BMY",
-      "entry_date": "2026-08-19",
-      "entry_price": 67.61,
-      "current_price": 66.95,
-      "pnl_pct": -0.98,
-      "days_held": 6,
-      "stop_price": 63.93,
-      "stop_pct": 5.4,
+      "symbol": "ZETA",
+      "entry_date": "2026-08-28",
+      "entry_price": 30.54,
+      "current_price": 30.54,
+      "pnl_pct": 0.0,
+      "days_held": 0,
+      "stop_price": 27.76,
+      "stop_pct": 9.1,
       "rank": 3,
-      "conviction_score": 457.3,
-      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
-    },
-    {
-      "symbol": "MTCH",
-      "entry_date": "2026-08-25",
-      "entry_price": 42.18,
-      "current_price": 41.22,
-      "pnl_pct": -2.28,
-      "days_held": 2,
-      "stop_price": 39.9,
-      "stop_pct": 5.4,
-      "rank": 5,
-      "conviction_score": 395.7,
-      "scanners": "under50,confluence,atr_momentum,rsi_staircase,database_enhanced"
+      "conviction_score": 498.3,
+      "scanners": "under50,setup_pullback,confluence,atr_momentum,rsi_staircase,database_enhanced"
     },
     {
       "symbol": "CCEP",
       "entry_date": "2026-08-25",
       "entry_price": 109.85,
-      "current_price": 107.32,
-      "pnl_pct": -2.3,
-      "days_held": 2,
+      "current_price": 109.1,
+      "pnl_pct": -0.68,
+      "days_held": 3,
       "stop_price": 104.36,
       "stop_pct": 5.0,
       "rank": 4,
@@ -116,30 +90,56 @@
       "scanners": "setup_vcb,confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,v3_compression,setup_accum,unified"
     },
     {
-      "symbol": "EOG",
-      "entry_date": "2026-08-20",
-      "entry_price": 152.19,
-      "current_price": 144.5,
-      "pnl_pct": -5.05,
-      "days_held": 5,
-      "stop_price": 144.11,
-      "stop_pct": 5.3,
-      "rank": 2,
-      "conviction_score": 514.8,
-      "scanners": "setup_accum,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,confluence,unified"
+      "symbol": "MTCH",
+      "entry_date": "2026-08-25",
+      "entry_price": 42.18,
+      "current_price": 41.58,
+      "pnl_pct": -1.42,
+      "days_held": 3,
+      "stop_price": 39.9,
+      "stop_pct": 5.4,
+      "rank": 5,
+      "conviction_score": 395.7,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,database_enhanced"
     },
     {
-      "symbol": "OSCR",
-      "entry_date": "2026-08-14",
-      "entry_price": 32.76,
-      "current_price": 30.05,
-      "pnl_pct": -8.27,
-      "days_held": 9,
-      "stop_price": 28.83,
-      "stop_pct": 12.0,
-      "rank": 1,
-      "conviction_score": 507.7,
-      "scanners": "under50,setup_pullback,atr_momentum,rsi_staircase,v3_compression,confluence"
+      "symbol": "BMY",
+      "entry_date": "2026-08-19",
+      "entry_price": 67.61,
+      "current_price": 66.58,
+      "pnl_pct": -1.52,
+      "days_held": 7,
+      "stop_price": 63.93,
+      "stop_pct": 5.4,
+      "rank": 3,
+      "conviction_score": 457.3,
+      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
+    },
+    {
+      "symbol": "CDE",
+      "entry_date": "2026-08-25",
+      "entry_price": 21.59,
+      "current_price": 21.13,
+      "pnl_pct": -2.13,
+      "days_held": 3,
+      "stop_price": 19.21,
+      "stop_pct": 11.0,
+      "rank": 9,
+      "conviction_score": 442.8,
+      "scanners": "institutional,under50,confluence,atr_momentum,rsi_staircase"
+    },
+    {
+      "symbol": "ANET",
+      "entry_date": "2026-08-27",
+      "entry_price": 201.09,
+      "current_price": 195.38,
+      "pnl_pct": -2.84,
+      "days_held": 1,
+      "stop_price": 185.13,
+      "stop_pct": 7.9,
+      "rank": 3,
+      "conviction_score": 425.2,
+      "scanners": "confluence,atr_momentum,momentum_rebound,setup_pullback,rsi_staircase"
     }
   ],
   "closed_trades": [
@@ -329,6 +329,40 @@
       "stop_pct": 5.3,
       "conviction_score": 476.9,
       "scanners": "setup_pullback,confluence,atr_momentum,setup_vcb,momentum_rebound,database_enhanced,v3_compression,rsi_staircase,institutional"
+    },
+    {
+      "symbol": "OSCR",
+      "entry_date": "2026-08-14",
+      "exit_date": "2026-08-28",
+      "entry_price": 32.76,
+      "exit_price": 30.47,
+      "shares": 14.1536,
+      "allocation": 463.67,
+      "pnl_pct": -6.99,
+      "pnl_dollars": -32.41,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "rank": 1,
+      "stop_pct": 12.0,
+      "conviction_score": 507.7,
+      "scanners": "under50,setup_pullback,atr_momentum,rsi_staircase,v3_compression,confluence"
+    },
+    {
+      "symbol": "EOG",
+      "entry_date": "2026-08-20",
+      "exit_date": "2026-08-28",
+      "entry_price": 152.19,
+      "exit_price": 143.35,
+      "shares": 2.932,
+      "allocation": 446.22,
+      "pnl_pct": -5.81,
+      "pnl_dollars": -25.92,
+      "days_held": 6,
+      "exit_reason": "STOP -5.3% (ATR)",
+      "rank": 2,
+      "stop_pct": 5.3,
+      "conviction_score": 514.8,
+      "scanners": "setup_accum,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,confluence,unified"
     }
   ],
   "equity_curve": [
@@ -383,6 +417,10 @@
     {
       "date": "2026-08-27",
       "value": 4729.44
+    },
+    {
+      "date": "2026-08-28",
+      "value": 4704.5
     }
   ],
   "spy_curve": [
@@ -437,6 +475,10 @@
     {
       "date": "2026-08-27",
       "value": 5003.5
+    },
+    {
+      "date": "2026-08-28",
+      "value": 4992.15
     }
   ]
 }
