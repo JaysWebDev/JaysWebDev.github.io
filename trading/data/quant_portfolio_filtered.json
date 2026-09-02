@@ -1,24 +1,24 @@
 {
-  "generated": "2026-08-31T20:44:01.332679",
+  "generated": "2026-09-01T20:44:01.541180",
   "strategy": "Quant Analyst picks + over-extension filter (skip entry RSI>=65)",
   "start_date": "2026-08-20",
   "starting_capital": 5000.0,
-  "total_value": 5050.2,
-  "cash": 0.0,
-  "pnl_pct": 1.0,
+  "total_value": 4936.2,
+  "cash": -0.0,
+  "pnl_pct": -1.28,
   "open_count": 10,
-  "closed_count": 0,
+  "closed_count": 1,
   "win_rate": 0.0,
-  "avg_trade_pnl": 0.0,
+  "avg_trade_pnl": -26.11,
   "rsi_max": 65.0,
   "positions": [
     {
       "symbol": "GEN",
       "entry_date": "2026-08-20",
       "entry_price": 28.175,
-      "current_price": 31.02,
-      "pnl_pct": 10.1,
-      "days_held": 6,
+      "current_price": 31.0,
+      "pnl_pct": 10.03,
+      "days_held": 7,
       "stop_price": 25.92,
       "entry_rsi": 55.0,
       "rank": 12,
@@ -29,9 +29,9 @@
       "symbol": "ANET",
       "entry_date": "2026-08-20",
       "entry_price": 183.75,
-      "current_price": 195.38,
-      "pnl_pct": 6.33,
-      "days_held": 6,
+      "current_price": 195.69,
+      "pnl_pct": 6.5,
+      "days_held": 7,
       "stop_price": 169.05,
       "entry_rsi": 52.1,
       "rank": 15,
@@ -39,12 +39,25 @@
       "scanners": "v3_compression,confluence,atr_momentum,rsi_staircase,setup_pullback"
     },
     {
+      "symbol": "BMY",
+      "entry_date": "2026-08-20",
+      "entry_price": 65.47,
+      "current_price": 66.81,
+      "pnl_pct": 2.05,
+      "days_held": 7,
+      "stop_price": 60.23,
+      "entry_rsi": 50.6,
+      "rank": 10,
+      "conviction_score": 459.8,
+      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
+    },
+    {
       "symbol": "HPQ",
       "entry_date": "2026-08-20",
       "entry_price": 29.47,
-      "current_price": 30.52,
-      "pnl_pct": 3.56,
-      "days_held": 6,
+      "current_price": 30.02,
+      "pnl_pct": 1.87,
+      "days_held": 7,
       "stop_price": 27.11,
       "entry_rsi": 60.5,
       "rank": 9,
@@ -52,12 +65,25 @@
       "scanners": "under50,setup_pullback,confluence,atr_momentum,momentum_rebound,rsi_staircase"
     },
     {
+      "symbol": "OKE",
+      "entry_date": "2026-08-20",
+      "entry_price": 94.6,
+      "current_price": 96.01,
+      "pnl_pct": 1.49,
+      "days_held": 7,
+      "stop_price": 87.03,
+      "entry_rsi": 60.0,
+      "rank": 14,
+      "conviction_score": 438.0,
+      "scanners": "confluence,atr_momentum,rsi_staircase,database_enhanced,v3_compression,institutional,setup_accum"
+    },
+    {
       "symbol": "MTCH",
       "entry_date": "2026-08-20",
       "entry_price": 40.35,
-      "current_price": 41.58,
-      "pnl_pct": 3.05,
-      "days_held": 6,
+      "current_price": 40.65,
+      "pnl_pct": 0.74,
+      "days_held": 7,
       "stop_price": 37.12,
       "entry_rsi": 53.6,
       "rank": 3,
@@ -68,9 +94,9 @@
       "symbol": "BEN",
       "entry_date": "2026-08-20",
       "entry_price": 33.97,
-      "current_price": 34.65,
-      "pnl_pct": 2.0,
-      "days_held": 6,
+      "current_price": 34.15,
+      "pnl_pct": 0.53,
+      "days_held": 7,
       "stop_price": 31.25,
       "entry_rsi": 51.0,
       "rank": 8,
@@ -78,51 +104,25 @@
       "scanners": "under50,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase"
     },
     {
-      "symbol": "BMY",
-      "entry_date": "2026-08-20",
-      "entry_price": 65.47,
-      "current_price": 66.58,
-      "pnl_pct": 1.7,
-      "days_held": 6,
-      "stop_price": 60.23,
-      "entry_rsi": 50.6,
-      "rank": 10,
-      "conviction_score": 459.8,
-      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
-    },
-    {
-      "symbol": "OKE",
-      "entry_date": "2026-08-20",
-      "entry_price": 94.6,
-      "current_price": 94.76,
-      "pnl_pct": 0.17,
-      "days_held": 6,
-      "stop_price": 87.03,
-      "entry_rsi": 60.0,
-      "rank": 14,
-      "conviction_score": 438.0,
-      "scanners": "confluence,atr_momentum,rsi_staircase,database_enhanced,v3_compression,institutional,setup_accum"
-    },
-    {
-      "symbol": "OSCR",
-      "entry_date": "2026-08-20",
-      "entry_price": 31.57,
-      "current_price": 30.47,
-      "pnl_pct": -3.48,
-      "days_held": 6,
-      "stop_price": 29.04,
-      "entry_rsi": 51.2,
-      "rank": 4,
-      "conviction_score": 464.3,
-      "scanners": "under50,setup_pullback,confluence,atr_momentum,setup_accum,database_enhanced,momentum_rebound"
+      "symbol": "APA",
+      "entry_date": "2026-08-31",
+      "entry_price": 43.15,
+      "current_price": 43.15,
+      "pnl_pct": 0.0,
+      "days_held": 0,
+      "stop_price": 39.7,
+      "entry_rsi": 62.4,
+      "rank": 1,
+      "conviction_score": 462.2,
+      "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression"
     },
     {
       "symbol": "EOG",
       "entry_date": "2026-08-20",
       "entry_price": 152.19,
-      "current_price": 143.35,
-      "pnl_pct": -5.81,
-      "days_held": 6,
+      "current_price": 144.96,
+      "pnl_pct": -4.75,
+      "days_held": 7,
       "stop_price": 140.01,
       "entry_rsi": 54.5,
       "rank": 2,
@@ -130,20 +130,38 @@
       "scanners": "setup_accum,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,confluence,unified"
     },
     {
+      "symbol": "OSCR",
+      "entry_date": "2026-08-20",
+      "entry_price": 31.57,
+      "current_price": 29.96,
+      "pnl_pct": -5.1,
+      "days_held": 7,
+      "stop_price": 29.04,
+      "entry_rsi": 51.2,
+      "rank": 4,
+      "conviction_score": 464.3,
+      "scanners": "under50,setup_pullback,confluence,atr_momentum,setup_accum,database_enhanced,momentum_rebound"
+    }
+  ],
+  "closed_trades": [
+    {
       "symbol": "PCG",
       "entry_date": "2026-08-20",
+      "exit_date": "2026-08-31",
       "entry_price": 17.96,
-      "current_price": 16.6,
-      "pnl_pct": -7.57,
-      "days_held": 6,
-      "stop_price": 16.52,
+      "exit_price": 13.27,
+      "shares": 27.8396,
+      "allocation": 500.0,
+      "pnl_pct": -26.11,
+      "pnl_dollars": -130.57,
+      "days_held": 7,
+      "exit_reason": "STOP -8%",
       "entry_rsi": 58.7,
       "rank": 7,
       "conviction_score": 470.4,
       "scanners": "under50,setup_pullback,setup_accum,confluence,atr_momentum,rsi_staircase,database_enhanced"
     }
   ],
-  "closed_trades": [],
   "equity_curve": [
     {
       "date": "2026-08-20",
@@ -172,6 +190,10 @@
     {
       "date": "2026-08-28",
       "value": 5050.2
+    },
+    {
+      "date": "2026-08-31",
+      "value": 4936.2
     }
   ],
   "spy_curve": [
@@ -202,6 +224,10 @@
     {
       "date": "2026-08-28",
       "value": 5044.26
+    },
+    {
+      "date": "2026-08-31",
+      "value": 5029.18
     }
   ]
 }

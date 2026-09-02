@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-31 07:00:03",
+  "timestamp": "2026-09-01 07:00:02",
   "summary": {
     "total_flagged": 2,
     "high_risk": 2,
@@ -8,45 +8,45 @@
     "penny_stocks": 0,
     "stale_prices": 0,
     "no_data": 2,
-    "tracking_pending": 0,
+    "tracking_pending": 2,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
       "symbol": "ISSC",
-      "price": 24.78,
+      "price": 0.0,
       "consecutive_days": 0,
-      "avg_volume": 437931.0,
+      "avg_volume": 0.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-17, expected: 2026-08-28)"
+        "No recent data from Yahoo Finance (possibly delisted)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "2026-08-17",
-      "analysis_date": "2026-08-31 07:00",
-      "consecutive_failures": 5,
+      "last_date": "N/A",
+      "analysis_date": "2026-09-01 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-08-25"
     },
     {
       "symbol": "EQR",
-      "price": 63.66,
+      "price": 0.0,
       "consecutive_days": 0,
-      "avg_volume": 17443419.0,
+      "avg_volume": 0.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-17, expected: 2026-08-28)"
+        "No recent data from Yahoo Finance (possibly delisted)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
-      "last_date": "2026-08-17",
-      "analysis_date": "2026-08-31 07:00",
-      "consecutive_failures": 5,
+      "last_date": "N/A",
+      "analysis_date": "2026-09-01 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-08-25"
     }
   ],

@@ -1,210 +1,210 @@
 {
-  "analysis_summary": "BULL regime with strong persistence across the list. Top tier anchored by multi-scanner confluence (5\u20139 scanners), stage2 confirmation, and rs_rank \u226560. Under $50 scanner (53.0% WR, +1.29% 5d) and ATR Momentum (52.5% WR, +0.32% 5d) are primary drivers. All picks scored across 5+ consecutive days, filtering for reliable trend setups.",
+  "analysis_summary": "BULL regime (47.0) supports aggressive stance. Market breadth weak (18.2% Stage 2, 48.2% above SMA50), so prioritize deep Stage 2 + strong rs_rank \u226570 confirms. ATR Momentum leading live edge (52.1% WR, +0.30% 5d; +0.74% 10d); Under $50 scanner underperforming vs backfill (52.8% 5d vs 55.4% backfill), but conviction_3plus showing exceptional 64.7% 10d WR \u2014 leverage multi-scanner stacks. Exclude PCG (rs_rank 9.8, not_above_sma50) and heavily downweight BLOCKED tier without stage2.",
   "picks": [
     {
       "rank": 1,
-      "symbol": "BMY",
-      "conviction_score": 505.2,
-      "scanners": "database_enhanced,v3_compression,confluence,atr_momentum,rsi_staircase,setup_vcb,setup_accum,setup_pullback,unified",
-      "rationale": "9-scanner conviction with stage2=true, rs_rank 61.6, fund_pass=true (QUALITY tier, 70.4 fund_score). RSI 56.8 in optimal momentum zone. 5/5 days persistence. Composite 79.4 blends technical strength with quality fundamentals.",
-      "watch": "None"
+      "symbol": "FTNT",
+      "conviction_score": 516.7,
+      "scanners": "setup_accum,confluence,momentum_rebound,rsi_staircase,atr_momentum,database_enhanced,setup_pullback,institutional",
+      "rationale": "8-scanner stack (highest count), conviction 516.7, rs_rank 82.2 (top tier), stage2=true, above_sma50=true, fund_pass=true (QUALITY), RSI 57.4 (ideal 50\u201375), ADX 25.5 (trend confirmation). Persistent 5/5 days. Multi-scanner consensus outperforming in BULL regime.",
+      "watch": "No clean_break flag; monitor entry timing closely given ADX just above 25 threshold."
     },
     {
       "rank": 2,
-      "symbol": "ZETA",
-      "conviction_score": 498.3,
-      "scanners": "under50,setup_pullback,confluence,atr_momentum,rsi_staircase,database_enhanced",
-      "rationale": "rs_rank 96.5 (top-quartile relative strength), clean_break=true, stage2=true, 6-scanner stack. Under $50 scanner adds +1.29% expected edge. RSI 63.3 clean momentum. Fund tier WEAK but fund_pass=true.",
-      "watch": "WEAK fundamentals (48.0 fund_score)\u2014monitor quality deterioration."
+      "symbol": "BMY",
+      "conviction_score": 515.5,
+      "scanners": "setup_vcb,confluence,atr_momentum,rsi_staircase,database_enhanced,setup_accum,setup_pullback,unified,momentum_rebound",
+      "rationale": "9-scanner stack (tied highest), conviction 515.5, stage2=true, clean_break=true (+1.5% EV/5d edge), RSI 63.6 (sweet spot), ADX 39.0 (strong trend), rs_rank 63.6 solid. fund_pass=true (QUALITY). 4/5 days on report.",
+      "watch": null
     },
     {
       "rank": 3,
-      "symbol": "KDP",
-      "conviction_score": 480.8,
-      "scanners": "under50,setup_pullback,setup_accum,confluence,unified,rsi_staircase,atr_momentum,v3_compression",
-      "rationale": "8-scanner convergence, stage2=true, clean_break=true, Under $50 active. RSI 69.4 near peak momentum. NEUTRAL fundamentals (53.6 fund_score). Strong technical persistence (5/5 days).",
-      "watch": "None"
+      "symbol": "APA",
+      "conviction_score": 462.2,
+      "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression",
+      "rationale": "Under $50 scanner (52.8% live WR, +1.26% 5d return) anchors; 5-scanner stack, rs_rank 83.8 (excellent), stage2=true, above_sma50=true, clean_break=true, fund_pass=true (QUALITY, 76.1), RSI 62.4. Persistent 5/5 days.",
+      "watch": null
     },
     {
       "rank": 4,
-      "symbol": "APA",
-      "conviction_score": 463.6,
-      "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression",
-      "rationale": "rs_rank 80.3, stage2=true, fund_pass=true (QUALITY, 76.1). Above SMA50, RSI 57.6 balanced momentum. Under $50 anchor (+1.29% edge). 5/5 days on report.",
-      "watch": "None"
+      "symbol": "GEN",
+      "conviction_score": 487.6,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,momentum_rebound,database_enhanced,institutional",
+      "rationale": "Under $50 + 7-scanner stack, conviction 487.6, rs_rank 78.9, clean_break=true, RSI 63.6 (ideal), above_sma50=true, fund_pass=true (QUALITY). Above-SMA50 only (stage2=false) but strong rs_rank and multi-scanner offset. Persistent 5/5.",
+      "watch": "Stage2=false; confirm price structure above SMA50 before entry."
     },
     {
       "rank": 5,
-      "symbol": "OSCR",
-      "conviction_score": 442.3,
-      "scanners": "under50,setup_pullback,confluence,setup_accum,atr_momentum,rsi_staircase",
-      "rationale": "rs_rank 69.1, stage2=true, fund_pass=true (QUALITY, 73.4), clean_break=true. RSI 61.8 optimal. 6-scanner stack with Under $50 edge. Composite 73.6 reflects strong technical+fundamentals blend.",
-      "watch": "None"
+      "symbol": "ZETA",
+      "conviction_score": 475.5,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,database_enhanced",
+      "rationale": "Under $50 anchor, rs_rank 96.4 (exceptional outperformance), stage2=true, above_sma50=true, clean_break=true, ADX 35.2 (strong), RSI 59.0, persistent 5/5. fund_pass=true but fund_tier=WEAK (48.0 score) \u2014 flag as tactical short-term play, not fundamental hold.",
+      "watch": "WEAK fundamental tier (48.0); treat as momentum trade, not core position. High rs_rank is primary edge."
     },
     {
       "rank": 6,
-      "symbol": "ADBE",
-      "conviction_score": 430.2,
-      "scanners": "v3_compression,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase,institutional",
-      "rationale": "Composite 79.7 (highest quality fundamentals, 94.5 fund_score). rs_rank 72.6, clean_break=true, RSI 60.8. 7-scanner conviction despite stage2=false; fund_tier QUALITY anchors setup.",
-      "watch": "Stage2=false\u2014price above SMA50 but not yet in primary uptrend; watch for stage2 confirmation."
+      "symbol": "KDP",
+      "conviction_score": 458.1,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,v3_compression",
+      "rationale": "Under $50 scanner + 5-scanner stack, stage2=true, above_sma50=true, clean_break=true, RSI 67.6 (upper-ideal range), ADX 26.7 (confirmed trend), persistent 5/5. fund_pass=true (NEUTRAL, 53.6). Standalone under50 beats overlap per historical data.",
+      "watch": "rs_rank 54.1 moderate; confirm rs_rank hasn't declined day-over-day before entry."
     },
     {
       "rank": 7,
-      "symbol": "MTCH",
-      "conviction_score": 417.3,
-      "scanners": "database_enhanced,under50,confluence,atr_momentum,rsi_staircase,setup_accum",
-      "rationale": "rs_rank 69.9, stage2=true, clean_break=true, fund_pass=true (QUALITY, 69.7). RSI 78.0 elevated but not extended; 6-scanner stack with Under $50 active. 5/5 days persistence.",
-      "watch": "RSI near 80\u2014watch for overbought pullback before entry."
+      "symbol": "DOCU",
+      "conviction_score": 476.7,
+      "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase",
+      "rationale": "6-scanner stack, conviction 476.7, rs_rank 84.3 (top tier), clean_break=true, above_sma50=true, RSI 63.9, ADX 28.0 (confirmed), fund_pass=true (QUALITY, 68.2), persistent 5/5. Stage2=false offset by exceptional rs_rank and clean break.",
+      "watch": "Stage2=false; price not yet in upper-range consolidation but clean break + rs_rank 84 are strong indicators."
     },
     {
       "rank": 8,
-      "symbol": "DOCU",
-      "conviction_score": 425.0,
-      "scanners": "setup_pullback,confluence,atr_momentum,institutional,momentum_rebound",
-      "rationale": "rs_rank 81.1, clean_break=true, fund_pass=true (QUALITY, 68.2). RSI 59.5 solid momentum. Stage2=false but above SMA50 with strong relative performance. 5/5 days on report.",
-      "watch": "Stage2=false\u2014requires SMA200 confirmation for Stage 2 entry; strong rs_rank (81.1) compensates."
+      "symbol": "TECH",
+      "conviction_score": 483.2,
+      "scanners": "setup_vcb,setup_accum,confluence,atr_momentum,rsi_staircase,database_enhanced,setup_pullback,momentum_rebound",
+      "rationale": "8-scanner stack (deep conviction), stage2=true, above_sma50=true, ADX 57.6 (exceptional trend strength), RSI 55.4 (ideal), fund_pass=true (NEUTRAL), persistent 5/5. ADX at highest in dataset \u2014 very strong directional move. rs_rank 64.3 solid.",
+      "watch": "No clean_break; ADX 57.6 suggests potential overextension risk \u2014 but also confirms powerful trend."
     },
     {
       "rank": 9,
-      "symbol": "GFI",
-      "conviction_score": 408.7,
-      "scanners": "under50,confluence,atr_momentum,v3_compression,institutional",
-      "rationale": "Composite 77.9 with fund_pass=true (QUALITY, 96.1 fund_score\u2014top-tier fundamentals). rs_rank 72.3, clean_break=true, RSI 64.1. Under $50 active. Stage2=false offset by exceptional fund quality.",
-      "watch": "Stage2=false\u2014monitor price structure for SMA200 break."
+      "symbol": "PANW",
+      "conviction_score": 453.9,
+      "scanners": "setup_pullback,momentum_rebound,atr_momentum,confluence,rsi_staircase,v3_compression",
+      "rationale": "6-scanner stack, rs_rank 90.1 (exceptional), stage2=false but above_sma50=true, RSI 49.4 (near ideal), ADX 23.1, fund_pass=true (NEUTRAL). Above-SMA50 + rs_rank 90 + 6 scanners override stage2=false. Persistent 5/5.",
+      "watch": "Stage2=false, clean_break=false; wait for entry signal or price consolidation above SMA50 before commitment."
     },
     {
       "rank": 10,
-      "symbol": "NTAP",
-      "conviction_score": 403.6,
-      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase",
-      "rationale": "rs_rank 84.1 (strong outperformance), stage2=true, clean_break=true, fund_pass=true (QUALITY, 75.0). RSI 36.7 (oversold rebound setup)\u2014momentum_rebound scanner ideal. 4/5 days on report.",
-      "watch": "RSI 36.7 is deep oversold; entry timing critical\u2014confirm volume on bounce."
+      "symbol": "MTCH",
+      "conviction_score": 448.2,
+      "scanners": "under50,confluence,setup_accum,atr_momentum,rsi_staircase",
+      "rationale": "Under $50 anchor + 5-scanner stack, stage2=true, clean_break=true, RSI 70.2 (upper-ideal range, not extended), above_sma50=true, fund_pass=true (QUALITY, 69.7), persistent 5/5. rs_rank 66.3 solid.",
+      "watch": "RSI 70.2 approaching extended zone; confirm no reversal candle before entry."
     },
     {
       "rank": 11,
-      "symbol": "STT",
-      "conviction_score": 447.0,
-      "scanners": "confluence,atr_momentum,rsi_staircase,database_enhanced,setup_accum",
-      "rationale": "rs_rank 78.0, stage2=true, clean_break=true, fund_pass=true (QUALITY, 65.9). RSI 62.0 clean momentum. 5-scanner stack with strong persistence (5/5 days). Composite 71.5.",
-      "watch": "None"
+      "symbol": "ADBE",
+      "conviction_score": 424.4,
+      "scanners": "setup_accum,confluence,atr_momentum,rsi_staircase,institutional",
+      "rationale": "Highest composite_score (79.1) in dataset, 5-scanner stack, fund_pass=true (QUALITY, 94.5 \u2014 exceptional), clean_break=true, RSI 68.6, ADX 24.9, rs_rank 73.6. Stage2=false but fundamentals + clean_break + rs_rank 73.6 are very strong. Persistent 5/5.",
+      "watch": "Stage2=false; but fundamental tier QUALITY (94.5) + clean_break make this a high-quality entry despite structure."
     },
     {
       "rank": 12,
-      "symbol": "ADSK",
-      "conviction_score": 386.2,
-      "scanners": "v3_compression,confluence,atr_momentum,rsi_staircase,institutional",
-      "rationale": "rs_rank 64.2, fund_pass=true (QUALITY, 84.4). clean_break=true, RSI 53.0. Composite 71.4. Stage2=false but fund quality (84.4) and clean break compensate. 5/5 days persistence.",
-      "watch": "Stage2=false\u2014above SMA50 but not SMA200; watch for stage2 confirmation."
+      "symbol": "GFI",
+      "conviction_score": 385.2,
+      "scanners": "under50,confluence,atr_momentum,v3_compression,institutional",
+      "rationale": "Highest fundamental score in list (96.1, QUALITY), Under $50 anchor, 5-scanner stack, rs_rank 71.2, clean_break=true, RSI 68.2, ADX 36.7 (strong trend), above_sma50=true, persistent 5/5. Composite score 75.4 reflects quality bias.",
+      "watch": "Stage2=false; but fund_score 96.1 is exceptional \u2014 treat as quality accumulation despite technical stage."
     },
     {
       "rank": 13,
-      "symbol": "IAG",
-      "conviction_score": 402.3,
-      "scanners": "under50,confluence,atr_momentum,v3_compression",
-      "rationale": "rs_rank 79.2, clean_break=true, fund_pass=true (QUALITY, 89.7). RSI 62.9, composite 75.0. Under $50 anchor. Stage2=false but 4-scanner stack and top-tier fund quality (89.7) justify inclusion. 5/5 days.",
-      "watch": "Stage2=false\u2014strong relative performance (79.2 rs_rank) offsets; monitor price above SMA200."
+      "symbol": "HPQ",
+      "conviction_score": 451.5,
+      "scanners": "under50,confluence,atr_momentum,setup_pullback,momentum_rebound",
+      "rationale": "Under $50 anchor + 5-scanner stack, rs_rank 79.7, stage2=false but above_sma50=true, clean_break=false, RSI 54.4 (ideal), ADX 26.9, fund_pass=true (NEUTRAL), persistent 5/5.",
+      "watch": "Stage2=false, clean_break=false; confirm consolidation structure. Under $50 + multi-scanner + rs_rank 79.7 are primary edge."
     },
     {
       "rank": 14,
       "symbol": "CDE",
-      "conviction_score": 400.3,
-      "scanners": "under50,confluence,atr_momentum,v3_compression",
-      "rationale": "rs_rank 75.2, clean_break=true, fund_pass=true (QUALITY, 79.3). RSI 68.2, composite 71.1. Under $50 scanner active. Stage2=false but solid relative performance and fund fundamentals. 5/5 days.",
-      "watch": "Stage2=false\u2014watch for SMA200 breach."
+      "conviction_score": 418.2,
+      "scanners": "under50,confluence,v3_compression,atr_momentum",
+      "rationale": "Under $50 anchor, 4-scanner stack, rs_rank 72.6, clean_break=true, RSI 63.5, ADX 25.5, fund_pass=true (QUALITY, 79.3), above_sma50=true, persistent 5/5. Stage2=false but clean break + rs_rank offset.",
+      "watch": "Stage2=false; clean_break is primary confirmation signal."
     },
     {
       "rank": 15,
-      "symbol": "ADP",
-      "conviction_score": 376.9,
-      "scanners": "v3_compression,confluence,setup_accum,rsi_staircase",
-      "rationale": "rs_rank 75.1, fund_pass=true (QUALITY, 84.9), clean_break=true, RSI 65.0, ADX 40.2 (strong trend). Composite 70.5. 4-scanner stack with exceptional fund quality. Stage2=false but ADX confirms real trend.",
-      "watch": "Stage2=false\u2014ADX 40.2 confirms trend strength; monitor price structure."
+      "symbol": "GTLB",
+      "conviction_score": 425.2,
+      "scanners": "under50,confluence,atr_momentum,institutional",
+      "rationale": "Under $50 anchor, rs_rank 90.7 (exceptional), clean_break=true, RSI 63.9, ADX 33.7 (strong), above_sma50=true, fund_pass=true (NEUTRAL), persistent 5/5. 4-scanner stack; rs_rank 90.7 is standout.",
+      "watch": "Stage2=false; rs_rank 90.7 alone justifies inclusion \u2014 confirm structure on entry."
     },
     {
       "rank": 16,
-      "symbol": "HL",
-      "conviction_score": 379.8,
-      "scanners": "under50,confluence,atr_momentum,v3_compression",
-      "rationale": "rs_rank 75.7, clean_break=true, fund_pass=true (QUALITY, 74.6). RSI 66.3, composite 67.3. Under $50 anchor. Stage2=false but strong relative performance and fund quality justify pick. 5/5 days.",
-      "watch": "Stage2=false\u2014monitor price for SMA200 confirmation."
+      "symbol": "S",
+      "conviction_score": 490.9,
+      "scanners": "under50,setup_pullback,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced",
+      "rationale": "Under $50 anchor, 6-scanner stack, conviction 490.9 high, rs_rank 85.3 (top tier), stage2=true, above_sma50=true, RSI 48.4 (ideal), persistent 5/5. fund_tier=BLOCKED (50.0) \u2014 fundamental gate failed but technical setup exceptional. Tactical play only.",
+      "watch": "BLOCKED fundamental tier \u2014 do not hold long-term. Short-term momentum play on technical setup."
     },
     {
       "rank": 17,
-      "symbol": "BEN",
-      "conviction_score": 436.3,
-      "scanners": "database_enhanced,under50,confluence,momentum_rebound,rsi_staircase,setup_accum",
-      "rationale": "rs_rank 67.9, stage2=true, clean_break=true, fund_pass=true (NEUTRAL, 53.0). RSI 71.3 elevated but stage2 confirms trend. 6-scanner stack, Under $50 active. 5/5 days persistence.",
-      "watch": "RSI 71.3\u2014watch for pullback before entry; fund tier NEUTRAL (53.0), not premium quality."
+      "symbol": "IVZ",
+      "conviction_score": 450.0,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum,setup_vcb,unified,database_enhanced",
+      "rationale": "Under $50 anchor, 7-scanner stack, rs_rank 79.4, stage2=true, above_sma50=true, RSI 64.5, ADX 24.1, persistent 5/5. fund_tier=BLOCKED (43.6) but technical consensus strong. Tactical momentum trade.",
+      "watch": "BLOCKED fundamental tier \u2014 treat as short-term technical only, no core holding."
     },
     {
       "rank": 18,
-      "symbol": "NWSA",
-      "conviction_score": 434.6,
-      "scanners": "v3_compression,under50,confluence,atr_momentum,database_enhanced,institutional",
-      "rationale": "rs_rank 72.0, stage2=true, clean_break=true, RSI 82.3. 6-scanner convergence, Under $50 active, fund_pass=true (NEUTRAL). Composite 67.2. 5/5 days on report.",
-      "watch": "RSI 82.3 is extended/overbought\u2014high risk of pullback; consider scaling or waiting for dip."
+      "symbol": "NTAP",
+      "conviction_score": 407.4,
+      "scanners": "setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase",
+      "rationale": "5-scanner stack, rs_rank 79.8 (top tier), stage2=true, above_sma50=true, clean_break=true, fund_pass=true (QUALITY, 75.0), RSI 35.5 (oversold reversal edge per momentum_rebound +0.94% 10d), ADX 27.7. Persistent 4/5.",
+      "watch": "RSI 35.5 suggests oversold rebound; momentum_rebound scanner confirms +0.94% 10d edge \u2014 ideal entry for bounce play."
     },
     {
       "rank": 19,
-      "symbol": "GEN",
-      "conviction_score": 462.6,
-      "scanners": "under50,confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced",
-      "rationale": "rs_rank 78.7, clean_break=true, fund_pass=true (QUALITY, 67.3), RSI 61.5. 6-scanner stack, Under $50 anchor. Stage2=false but strong relative performance (78.7) and QUALITY fundamentals. 5/5 days.",
-      "watch": "Stage2=false\u2014price above SMA50 but not SMA200; watch for stage confirmation."
+      "symbol": "HL",
+      "conviction_score": 385.5,
+      "scanners": "under50,confluence,atr_momentum,v3_compression",
+      "rationale": "Under $50 anchor, rs_rank 73.1, clean_break=true, above_sma50=true, RSI 61.7, ADX 33.0 (strong), fund_pass=true (QUALITY, 74.6), persistent 5/5. Stage2=false but strong fundamentals + rs_rank + under50 offset.",
+      "watch": "Stage2=false; under50 + rs_rank 73.1 + QUALITY fundamentals primary drivers."
     },
     {
       "rank": 20,
-      "symbol": "OKTA",
-      "conviction_score": 387.9,
-      "scanners": "confluence,atr_momentum,rsi_staircase,database_enhanced,institutional",
-      "rationale": "rs_rank 92.9 (exceptional relative strength), stage2=true, clean_break=true, fund_pass=true (NEUTRAL, 58.7). RSI 58.8. 5-scanner stack. Only 3/5 days on report but rs_rank 92.9 justifies inclusion.",
-      "watch": "Only 3/5 days\u2014early signal, not yet confirmed by full persistence; validate setup before size."
+      "symbol": "ECL",
+      "conviction_score": 416.8,
+      "scanners": "institutional,setup_accum,confluence,rsi_staircase,setup_pullback,setup_vcb,momentum_rebound,atr_momentum",
+      "rationale": "8-scanner stack (deep conviction), stage2=true, above_sma50=true, clean_break=true, fund_pass=true (QUALITY, 66.8), RSI 48.3 (ideal oversold entry), persistent 4/5. Composite 68.5 solid. rs_rank 51.9 only moderate but scanner stack compensates.",
+      "watch": "rs_rank 51.9 moderate; confirm relative outperformance before entry \u2014 primary edge is multi-scanner consensus + clean_break."
     },
     {
       "rank": 21,
-      "symbol": "JPM",
-      "conviction_score": 446.7,
-      "scanners": "database_enhanced,setup_accum,setup_vcb,confluence,momentum_rebound,atr_momentum,unified,rsi_staircase",
-      "rationale": "8-scanner convergence, stage2=true, fund_pass=true (NEUTRAL, 64.9). RSI 46.9, composite 71.1. Momentum_rebound at RSI 46.9 (oversold entry). 4/5 days on report.",
-      "watch": "4/5 days\u2014not yet 5-day persistence; clean_break=false\u2014wait for clearer breakout confirmation."
+      "symbol": "ABNB",
+      "conviction_score": 390.6,
+      "scanners": "v3_compression,confluence,setup_pullback,atr_momentum,momentum_rebound",
+      "rationale": "5-scanner stack, rs_rank 88.5 (exceptional), stage2=true, above_sma50=true, ADX 42.6 (very strong trend), fund_pass=true (QUALITY, 85.9), RSI 48.1. Persistent 4/5. clean_break=false but trend strength + rs_rank offset.",
+      "watch": "Clean_break=false; ADX 42.6 very high suggests potential overextension \u2014 wait for pullback entry."
     },
     {
       "rank": 22,
-      "symbol": "CCEP",
-      "conviction_score": 445.5,
-      "scanners": "database_enhanced,v3_compression,setup_accum,confluence,unified,rsi_staircase,momentum_rebound,setup_vcb",
-      "rationale": "8-scanner stack, stage2=true, fund_pass=true (NEUTRAL, 62.0). RSI 60.6 solid momentum, composite 70.0. 5/5 days persistence. Strong technical confluence offset by NEUTRAL fundamentals.",
-      "watch": "Fund tier NEUTRAL (62.0)\u2014not premium quality; stack-booster play, not fundamental anchor."
+      "symbol": "MSFT",
+      "conviction_score": 382.1,
+      "scanners": "setup_pullback,confluence,momentum_rebound,rsi_staircase,unified,setup_accum",
+      "rationale": "6-scanner stack, fund_pass=true (QUALITY, 93.7 \u2014 exceptional), rs_rank 74.7, stage2=false but above_sma50=true, RSI 52.2 (ideal), ADX 36.9 (strong), persistent 4/5. Highest composite score (74.2) reflects quality bias.",
+      "watch": "Stage2=false, clean_break=false; but QUALITY fundamentals (93.7) + multi-scanner + rs_rank 74.7 override structural concerns. Hold for core position."
     },
     {
       "rank": 23,
-      "symbol": "TECH",
-      "conviction_score": 418.4,
-      "scanners": "setup_accum,confluence,momentum_rebound,atr_momentum,rsi_staircase,setup_vcb,database_enhanced,setup_pullback",
-      "rationale": "8-scanner stack, stage2=true, fund_pass=true (NEUTRAL, 59.4). ADX 57.9 (very strong trend), RSI 57.8. Composite 66.1. 4/5 days on report. ADX 57.9 confirms real trend strength.",
-      "watch": "4/5 days\u2014near persistence but not 5/5; ADX 57.9 is exceptional trend confirmation."
+      "symbol": "JNJ",
+      "conviction_score": 382.5,
+      "scanners": "setup_accum,confluence,atr_momentum,setup_pullback,database_enhanced",
+      "rationale": "5-scanner stack, stage2=true, above_sma50=true, clean_break=true, fund_pass=true (QUALITY, 79.1), RSI 57.4 (ideal), rs_rank 66.0, ADX 21.0, persistent 5/5. Defensive QUALITY play with multi-scanner confirmation.",
+      "watch": "ADX 21.0 below 25 (trend nascent); confirm momentum before aggressive entry."
     },
     {
       "rank": 24,
-      "symbol": "SMCI",
-      "conviction_score": 398.5,
-      "scanners": "under50,confluence,atr_momentum,rsi_staircase",
-      "rationale": "rs_rank 76.1, clean_break=true, RSI 63.2. Under $50 scanner active (+1.29% edge). Fund_pass=true (NEUTRAL, 58.2). 4-scanner stack. Stage2=false but under50 and strong relative performance justify inclusion. 5/5 days.",
-      "watch": "Stage2=false\u2014above SMA50 but not SMA200; 4-scanner stack is moderate, not high conviction."
+      "symbol": "IAG",
+      "conviction_score": 396.9,
+      "scanners": "under50,confluence,atr_momentum,v3_compression",
+      "rationale": "Under $50 anchor, rs_rank 76.9, clean_break=true, above_sma50=true, RSI 63.8, ADX 37.4 (strong), fund_pass=true (QUALITY, 89.7 \u2014 very high), composite 74.4. Persistent 5/5. Stage2=false but fundamentals + clean_break strong.",
+      "watch": "Stage2=false; QUALITY fundamentals (89.7) + clean_break + under50 compensate."
     },
     {
       "rank": 25,
-      "symbol": "GTLB",
-      "conviction_score": 384.5,
-      "scanners": "under50,confluence,atr_momentum,institutional",
-      "rationale": "rs_rank 89.6 (top-quartile relative strength), clean_break=true, fund_pass=true (NEUTRAL, 50.0). RSI 63.2. Under $50 active. Stage2=false offset by exceptional rs_rank (89.6). 5/5 days.",
-      "watch": "Stage2=false; 4-scanner stack is moderate; fund tier NEUTRAL (50.0) is at threshold."
+      "symbol": "VLTO",
+      "conviction_score": 392.5,
+      "scanners": "setup_pullback,confluence,momentum_rebound,setup_accum,rsi_staircase",
+      "rationale": "5-scanner stack, fund_pass=true (QUALITY, 77.8), rs_rank 68.8, above_sma50=true, RSI 52.7 (ideal), ADX 30.5 (strong), persistent 4/5. Composite 69.8 solid. Stage2=false but multi-scanner + QUALITY + rs_rank offset.",
+      "watch": "Stage2=false, clean_break=false; QUALITY fundamentals + multi-scanner consensus primary edge. Confirm pullback structure before entry."
     }
   ],
-  "generated": "2026-08-31T20:30:51.095768",
+  "generated": "2026-09-01T20:30:58.304507",
   "model": "claude-haiku-4-5-20251001",
   "regime": "BULL",
-  "input_tokens": 12969,
-  "output_tokens": 4295
+  "input_tokens": 12946,
+  "output_tokens": 4921
 }
