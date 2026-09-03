@@ -1,48 +1,61 @@
 {
-  "generated": "2026-09-01T21:02:01.427679",
+  "generated": "2026-09-02T21:02:01.679034",
   "strategy": "Sector momentum rotation \u2014 top 4 SPDR sectors (pos. mom), monthly",
-  "holdings_period": "2026-08",
+  "holdings_period": "2026-09",
   "start_date": "2026-08-27",
   "starting_capital": 5000.0,
-  "total_value": 4962.08,
+  "total_value": 4925.78,
   "cash": 0.0,
   "cash_pct": 0.0,
-  "pnl_pct": -0.76,
+  "pnl_pct": -1.48,
   "open_count": 4,
-  "closed_count": 0,
+  "closed_count": 1,
   "win_rate": 0.0,
-  "avg_trade_pnl": 0.0,
+  "avg_trade_pnl": -2.64,
   "positions": [
-    {
-      "symbol": "XLF",
-      "entry_date": "2026-08-27",
-      "entry_price": 57.88,
-      "current_price": 57.71,
-      "pnl_pct": -0.29
-    },
     {
       "symbol": "XLV",
       "entry_date": "2026-08-27",
       "entry_price": 171.58,
-      "current_price": 170.54,
-      "pnl_pct": -0.61
+      "current_price": 171.67,
+      "pnl_pct": 0.05
+    },
+    {
+      "symbol": "XLE",
+      "entry_date": "2026-09-01",
+      "entry_price": 64.77,
+      "current_price": 64.77,
+      "pnl_pct": 0.0
+    },
+    {
+      "symbol": "XLF",
+      "entry_date": "2026-08-27",
+      "entry_price": 57.88,
+      "current_price": 57.2,
+      "pnl_pct": -1.17
     },
     {
       "symbol": "XLB",
       "entry_date": "2026-08-27",
       "entry_price": 53.23,
-      "current_price": 52.69,
-      "pnl_pct": -1.01
-    },
+      "current_price": 52.07,
+      "pnl_pct": -2.18
+    }
+  ],
+  "closed_trades": [
     {
       "symbol": "XLK",
       "entry_date": "2026-08-27",
+      "exit_date": "2026-09-01",
       "entry_price": 188.61,
-      "current_price": 186.5,
-      "pnl_pct": -1.12
+      "exit_price": 183.64,
+      "shares": 6.6274,
+      "allocation": 1250.0,
+      "pnl_pct": -2.64,
+      "pnl_dollars": -32.94,
+      "exit_reason": "rotated out (2026-09)"
     }
   ],
-  "closed_trades": [],
   "equity_curve": [
     {
       "date": "2026-08-27",
@@ -55,6 +68,10 @@
     {
       "date": "2026-08-31",
       "value": 4962.08
+    },
+    {
+      "date": "2026-09-01",
+      "value": 4925.78
     }
   ],
   "spy_curve": [
@@ -69,6 +86,10 @@
     {
       "date": "2026-08-31",
       "value": 4973.74
+    },
+    {
+      "date": "2026-09-01",
+      "value": 4939.57
     }
   ]
 }
