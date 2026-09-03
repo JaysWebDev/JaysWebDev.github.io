@@ -421,6 +421,10 @@
             <div class="stat-chip-label">Total Businesses</div>
             <div class="stat-chip-value" id="stat-total">—</div>
         </div>
+        <div class="stat-chip">
+            <div class="stat-chip-label">Gov-Verified Active</div>
+            <div class="stat-chip-value" id="stat-active">—</div>
+        </div>
     </div>
 </header>
 
@@ -443,6 +447,13 @@
             <div class="filter-group">
                 <div class="filter-label">Search Business Name</div>
                 <input type="text" id="filter-name" placeholder="e.g. McDonald's, CVS…">
+            </div>
+
+            <div class="filter-group">
+                <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12px;color:var(--text-muted)">
+                    <input type="checkbox" id="filter-active" style="accent-color:var(--amber);cursor:pointer">
+                    Gov-verified active only
+                </label>
             </div>
 
             <button class="btn-reset" id="btn-reset">&#8635; Reset Filters</button>
@@ -532,7 +543,11 @@ function buildPopup(b) {
         <div class="popup-row">
             <span class="popup-key">ZIP</span>
             <span class="popup-val">${b.zip || '—'}</span>
-        </div>`;
+        </div>${b.active ? `
+        <div class="popup-row">
+            <span class="popup-key">Status</span>
+            <span class="popup-val" style="color:#4ade80">&#10003; Gov-verified active</span>
+        </div>` : ''}`;
 }
 
 // Single shared canvas renderer — draws all circle markers to one <canvas>
@@ -607,11 +622,13 @@ function applyFilters() {
     const stateQ  = document.getElementById('filter-state').value;
     const sectorQ = document.getElementById('filter-sector').value;
     const nameQ   = document.getElementById('filter-name').value.trim().toUpperCase();
+    const activeQ = document.getElementById('filter-active').checked;
 
     const filtered = allBusinesses.filter(b => {
         if (stateQ  && b.state !== stateQ) return false;
         if (sectorQ && (b.sector || 'Uncategorized') !== sectorQ) return false;
         if (nameQ   && !(b.name || '').toUpperCase().includes(nameQ)) return false;
+        if (activeQ && !b.active) return false;
         return true;
     });
 
@@ -621,6 +638,7 @@ function applyFilters() {
 
 document.getElementById('filter-state').addEventListener('change', applyFilters);
 document.getElementById('filter-sector').addEventListener('change', applyFilters);
+document.getElementById('filter-active').addEventListener('change', applyFilters);
 // Debounce the name search: each apply rebuilds the marker layer (~334k), so
 // firing on every keystroke froze the page. Wait for a 350ms typing pause.
 let nameDebounce = null;
@@ -632,6 +650,7 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('filter-state').value  = '';
     document.getElementById('filter-sector').value = '';
     document.getElementById('filter-name').value   = '';
+    document.getElementById('filter-active').checked = false;
     applyFilters();
     fitAll();
 });
@@ -641,6 +660,8 @@ fetch('data/businesses_geo.json')
     .then(data => {
         allBusinesses = data;
         document.getElementById('stat-total').textContent = data.length.toLocaleString();
+        document.getElementById('stat-active').textContent =
+            data.reduce((n, b) => n + (b.active ? 1 : 0), 0).toLocaleString();
 
         const states  = [...new Set(data.map(b => b.state).filter(Boolean))].sort();
         const sectors = [...new Set(data.map(b => b.sector).filter(Boolean))].sort();
