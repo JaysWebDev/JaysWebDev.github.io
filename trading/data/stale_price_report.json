@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-02 07:00:03",
+  "timestamp": "2026-09-03 07:00:02",
   "summary": {
     "total_flagged": 2,
     "high_risk": 2,
@@ -8,29 +8,11 @@
     "penny_stocks": 0,
     "stale_prices": 0,
     "no_data": 2,
-    "tracking_pending": 2,
+    "tracking_pending": 3,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
-    {
-      "symbol": "EQR",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-09-02 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-08-25"
-    },
     {
       "symbol": "ISSC",
       "price": 0.0,
@@ -45,8 +27,26 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-09-02 07:00",
-      "consecutive_failures": 7,
+      "analysis_date": "2026-09-03 07:00",
+      "consecutive_failures": 8,
+      "first_flagged": "2026-08-25"
+    },
+    {
+      "symbol": "EQR",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-09-03 07:00",
+      "consecutive_failures": 8,
       "first_flagged": "2026-08-25"
     }
   ],
@@ -55,8 +55,8 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "EQR",
-        "ISSC"
+        "ISSC",
+        "EQR"
       ],
       "priority": "HIGH"
     },
@@ -64,8 +64,8 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 2 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "EQR",
-        "ISSC"
+        "ISSC",
+        "EQR"
       ],
       "priority": "HIGH"
     }
