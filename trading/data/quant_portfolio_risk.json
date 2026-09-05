@@ -1,23 +1,49 @@
 {
-  "generated": "2026-09-03T20:50:01.694243",
+  "generated": "2026-09-04T20:50:01.465440",
   "strategy": "Quant Analyst picks + risk overlay (ATR trailing stop, signal exit, no time stop)",
   "start_date": "2026-08-25",
   "starting_capital": 5000.0,
-  "total_value": 4947.11,
+  "total_value": 5041.79,
   "cash": 0.0,
-  "pnl_pct": -1.06,
+  "pnl_pct": 0.84,
   "open_count": 10,
-  "closed_count": 7,
+  "closed_count": 8,
   "win_rate": 0.0,
-  "avg_trade_pnl": -3.1,
+  "avg_trade_pnl": -2.77,
   "positions": [
+    {
+      "symbol": "ZETA",
+      "entry_date": "2026-08-28",
+      "entry_price": 30.54,
+      "current_price": 32.68,
+      "pnl_pct": 7.01,
+      "days_held": 4,
+      "stop_price": 28.96,
+      "trail_pct": 11.4,
+      "high_water": 32.68,
+      "rank": 3,
+      "scanners": "under50,setup_pullback,confluence,atr_momentum,rsi_staircase,database_enhanced"
+    },
+    {
+      "symbol": "GEN",
+      "entry_date": "2026-08-25",
+      "entry_price": 29.31,
+      "current_price": 31.33,
+      "pnl_pct": 6.89,
+      "days_held": 7,
+      "stop_price": 28.53,
+      "trail_pct": 8.9,
+      "high_water": 31.33,
+      "rank": 9,
+      "scanners": "under50,confluence,momentum_rebound,atr_momentum,rsi_staircase"
+    },
     {
       "symbol": "APA",
       "entry_date": "2026-08-25",
       "entry_price": 41.35,
-      "current_price": 44.695,
-      "pnl_pct": 8.09,
-      "days_held": 6,
+      "current_price": 44.18,
+      "pnl_pct": 6.84,
+      "days_held": 7,
       "stop_price": 40.26,
       "trail_pct": 9.9,
       "high_water": 44.695,
@@ -25,28 +51,28 @@
       "scanners": "under50,confluence,atr_momentum,rsi_staircase,institutional,v3_compression"
     },
     {
-      "symbol": "GEN",
-      "entry_date": "2026-08-25",
-      "entry_price": 29.31,
-      "current_price": 30.65,
-      "pnl_pct": 4.57,
-      "days_held": 6,
-      "stop_price": 28.25,
-      "trail_pct": 8.9,
-      "high_water": 31.02,
-      "rank": 9,
-      "scanners": "under50,confluence,momentum_rebound,atr_momentum,rsi_staircase"
+      "symbol": "OSCR",
+      "entry_date": "2026-09-02",
+      "entry_price": 30.33,
+      "current_price": 32.24,
+      "pnl_pct": 6.3,
+      "days_held": 1,
+      "stop_price": 27.9,
+      "trail_pct": 14.5,
+      "high_water": 32.24,
+      "rank": 3,
+      "scanners": "under50,confluence,atr_momentum"
     },
     {
       "symbol": "KDP",
       "entry_date": "2026-08-25",
       "entry_price": 31.84,
-      "current_price": 32.59,
-      "pnl_pct": 2.36,
-      "days_held": 6,
-      "stop_price": 29.86,
+      "current_price": 32.88,
+      "pnl_pct": 3.27,
+      "days_held": 7,
+      "stop_price": 30.12,
       "trail_pct": 8.4,
-      "high_water": 32.59,
+      "high_water": 32.88,
       "rank": 10,
       "scanners": "under50,setup_pullback,setup_accum,rsi_staircase,setup_vcb,confluence"
     },
@@ -54,9 +80,9 @@
       "symbol": "MTCH",
       "entry_date": "2026-08-25",
       "entry_price": 42.18,
-      "current_price": 42.44,
-      "pnl_pct": 0.62,
-      "days_held": 6,
+      "current_price": 42.43,
+      "pnl_pct": 0.59,
+      "days_held": 7,
       "stop_price": 39.58,
       "trail_pct": 6.8,
       "high_water": 42.44,
@@ -64,51 +90,12 @@
       "scanners": "under50,atr_momentum,rsi_staircase,confluence,database_enhanced"
     },
     {
-      "symbol": "OSCR",
-      "entry_date": "2026-09-02",
-      "entry_price": 30.33,
-      "current_price": 30.33,
-      "pnl_pct": 0.0,
-      "days_held": 0,
-      "stop_price": 27.9,
-      "trail_pct": 14.5,
-      "high_water": 30.33,
-      "rank": 3,
-      "scanners": "under50,confluence,atr_momentum"
-    },
-    {
-      "symbol": "ZETA",
-      "entry_date": "2026-08-28",
-      "entry_price": 30.54,
-      "current_price": 30.44,
-      "pnl_pct": -0.33,
-      "days_held": 3,
-      "stop_price": 28.1,
-      "trail_pct": 11.4,
-      "high_water": 31.56,
-      "rank": 3,
-      "scanners": "under50,setup_pullback,confluence,atr_momentum,rsi_staircase,database_enhanced"
-    },
-    {
-      "symbol": "BMY",
-      "entry_date": "2026-08-25",
-      "entry_price": 67.92,
-      "current_price": 67.66,
-      "pnl_pct": -0.38,
-      "days_held": 6,
-      "stop_price": 64.03,
-      "trail_pct": 5.7,
-      "high_water": 67.92,
-      "rank": 5,
-      "scanners": "confluence,atr_momentum,rsi_staircase,setup_pullback,momentum_rebound,setup_vcb,database_enhanced,v3_compression"
-    },
-    {
       "symbol": "CDE",
       "entry_date": "2026-08-25",
       "entry_price": 21.59,
-      "current_price": 21.42,
-      "pnl_pct": -0.79,
-      "days_held": 6,
+      "current_price": 21.65,
+      "pnl_pct": 0.28,
+      "days_held": 7,
       "stop_price": 19.86,
       "trail_pct": 13.8,
       "high_water": 22.21,
@@ -116,30 +103,43 @@
       "scanners": "under50,confluence,atr_momentum,rsi_staircase,institutional"
     },
     {
-      "symbol": "DOCU",
-      "entry_date": "2026-08-31",
-      "entry_price": 66.27,
-      "current_price": 65.39,
-      "pnl_pct": -1.33,
-      "days_held": 2,
-      "stop_price": 60.97,
-      "trail_pct": 10.4,
-      "high_water": 66.27,
-      "rank": 6,
-      "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
+      "symbol": "BMY",
+      "entry_date": "2026-08-25",
+      "entry_price": 67.92,
+      "current_price": 68.09,
+      "pnl_pct": 0.25,
+      "days_held": 7,
+      "stop_price": 64.19,
+      "trail_pct": 5.7,
+      "high_water": 68.09,
+      "rank": 5,
+      "scanners": "confluence,atr_momentum,rsi_staircase,setup_pullback,momentum_rebound,setup_vcb,database_enhanced,v3_compression"
     },
     {
       "symbol": "STT",
       "entry_date": "2026-08-26",
       "entry_price": 193.62,
-      "current_price": 190.04,
-      "pnl_pct": -1.85,
-      "days_held": 5,
-      "stop_price": 183.82,
+      "current_price": 193.94,
+      "pnl_pct": 0.17,
+      "days_held": 6,
+      "stop_price": 184.13,
       "trail_pct": 5.1,
-      "high_water": 193.62,
+      "high_water": 193.94,
       "rank": 1,
       "scanners": "setup_vcb,confluence,atr_momentum,setup_accum,momentum_rebound,rsi_staircase,database_enhanced"
+    },
+    {
+      "symbol": "ABNB",
+      "entry_date": "2026-09-03",
+      "entry_price": 185.25,
+      "current_price": 185.25,
+      "pnl_pct": 0.0,
+      "days_held": 0,
+      "stop_price": 170.43,
+      "trail_pct": 6.7,
+      "high_water": 185.25,
+      "rank": 2,
+      "scanners": "setup_pullback,confluence,atr_momentum,momentum_rebound,database_enhanced,v3_compression"
     }
   ],
   "closed_trades": [
@@ -254,6 +254,22 @@
       "peak_pct": 0.0,
       "rank": 2,
       "scanners": "setup_accum,confluence,momentum_rebound,rsi_staircase,atr_momentum,database_enhanced,setup_pullback,institutional"
+    },
+    {
+      "symbol": "DOCU",
+      "entry_date": "2026-08-31",
+      "exit_date": "2026-09-03",
+      "entry_price": 66.27,
+      "exit_price": 65.97,
+      "shares": 7.3674,
+      "allocation": 488.24,
+      "pnl_pct": -0.45,
+      "pnl_dollars": -2.21,
+      "days_held": 2,
+      "exit_reason": "SIGNAL GONE",
+      "peak_pct": 0.0,
+      "rank": 6,
+      "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
     }
   ],
   "equity_curve": [
@@ -284,6 +300,10 @@
     {
       "date": "2026-09-02",
       "value": 4947.11
+    },
+    {
+      "date": "2026-09-03",
+      "value": 5041.79
     }
   ],
   "spy_curve": [
@@ -314,6 +334,10 @@
     {
       "date": "2026-09-02",
       "value": 4995.1
+    },
+    {
+      "date": "2026-09-03",
+      "value": 5047.39
     }
   ]
 }
