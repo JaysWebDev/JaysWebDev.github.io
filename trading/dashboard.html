@@ -4787,8 +4787,9 @@
             loadSectorGrid();
             loadWipSetups();
             loadUnifiedPerformance();
-            loadPositions();
-            loadPaperPortfolio();
+            // Warm the live-price map first so the auto-loaded position/paper tabs
+            // paint with intraday prices on first render (not stale EOD for up to 5 min).
+            loadIntradayPrices().then(() => { loadPositions(); loadPaperPortfolio(); });
             loadTrendRank();
             loadUnifiedTest();
             loadAdminData();
@@ -5357,11 +5358,52 @@
             }));
         }
 
+        // ── Intraday live-price layer (display-only; scanners stay EOD) ──────────
+        // Free IEX snapshot map {symbol: price}, refreshed every 15 min market hours
+        // by intraday_price_update.py. Fails open: no live price ⇒ EOD value untouched.
+        let _intradayPrices = {};
+        let _intradayGen = null;
+        function loadIntradayPrices() {
+            return fetch('/trading/data/intraday_prices.json?_=' + Date.now())
+                .then(r => r.ok ? r.json() : null)
+                .then(d => { if (d) { _intradayPrices = d.prices || {}; _intradayGen = d.generated || null; } })
+                .catch(() => {});
+        }
+        // Mutate a positions list in place: swap in the live price and recompute P&L
+        // from entry. opts.entryKey maps outlier books (e.g. lt_portfolio's added_price).
+        function applyIntradayPrices(list, opts) {
+            if (!Array.isArray(list)) return list;
+            opts = opts || {};
+            const entryK = opts.entryKey || 'entry_price';
+            for (const p of list) {
+                if (!p) continue;
+                const lp = _intradayPrices[p.symbol];
+                if (lp == null) continue;               // fail open — keep the EOD row
+                p.current_price = lp;
+                p._live = true;
+                const entry = p[entryK];
+                if (entry) {
+                    p.pnl_pct = (lp - entry) / entry * 100;
+                    if (typeof p.shares === 'number') p.pnl_dollar = (lp - entry) * p.shares;
+                }
+            }
+            return list;
+        }
+        // Small cyan marker appended to a row's price cell when it carries a live price.
+        function liveDot(p) {
+            return (p && p._live)
+                ? ' <span title="Live IEX price" style="color:#22d3ee;font-size:0.7em;vertical-align:middle;">●</span>'
+                : '';
+        }
+        loadIntradayPrices();                            // warm the map at page load
+        setInterval(loadIntradayPrices, 60000);          // keep it fresh in long sessions
+
         function loadPositions() {
             fetch('/trading/data/position_alerts.json')
                 .then(r => r.json())
                 .then(data => {
                     _posData = data;
+                    applyIntradayPrices(data.holdings);
 
                     // Summary cards
                     document.getElementById('pos-total').textContent = data.stats.total_active;
@@ -5548,7 +5590,7 @@
                 return `<tr style="border-bottom:1px solid rgba(148,163,184,0.08);">
                     <td style="padding:7px 6px;font-weight:bold;">${h.symbol}</td>
                     <td style="padding:7px 6px;text-align:right;">$${h.entry_price}</td>
-                    <td style="padding:7px 6px;text-align:right;">$${h.current_price}</td>
+                    <td style="padding:7px 6px;text-align:right;">$${h.current_price}${liveDot(h)}</td>
                     <td style="padding:7px 6px;text-align:right;color:${pnlColor};font-weight:bold;">${pnlSign}${h.pnl_pct.toFixed(2)}%</td>
                     <td style="padding:7px 6px;text-align:center;">${posLabel}</td>
                     <td style="padding:7px 6px;text-align:right;color:#64748b;">$${h.trim1_target}</td>
@@ -5595,6 +5637,7 @@
             fetch('/trading/data/paper_portfolio.json')
                 .then(r => r.json())
                 .then(pp => {
+                    applyIntradayPrices(pp.positions);
                     const gen = pp.generated ? pp.generated.slice(0,16).replace('T',' ') : '';
                     document.getElementById('pp-dates').textContent =
                         `Started: ${pp.start_date || '—'} · Updated: ${gen}`;
@@ -5654,7 +5697,7 @@
                                 <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
                                 <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
                                 <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
-                                <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}${liveDot(p)}</td>
                                 <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pnlColor};">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
                                 <td style="padding:7px 8px;min-width:90px;">
                                     <div style="text-align:right;font-size:0.72rem;color:#EF4444;">$${(p.stop_price||0).toFixed(2)} <span style="color:#475569;font-size:0.62rem;">${stopDist}%</span></div>
@@ -5927,6 +5970,7 @@
             const avgColor = avg >= 0 ? '#10B981' : '#EF4444';
 
             const positions = data.positions || [];
+            applyIntradayPrices(positions);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
 
             const posRows = positions.length === 0
@@ -5952,7 +5996,7 @@
                         <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
                         <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
                         <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
-                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}${liveDot(p)}</td>
                         <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
                         <td style="padding:7px 8px;min-width:90px;">
                             <div style="text-align:right;font-size:0.72rem;color:#EF4444;">$${(p.stop_price||0).toFixed(2)} <span style="color:#475569;font-size:0.62rem;">${stopDist}%</span></div>
@@ -6132,6 +6176,7 @@
             const pnl = data.pnl_pct || 0;
             const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
             const positions = data.positions || [];
+            applyIntradayPrices(positions);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
             const isNew = (cfg.kind === 'newmoney');
 
@@ -6148,7 +6193,7 @@
                         <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
                         <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
                         <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
-                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}${liveDot(p)}</td>
                         <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
                         <td style="padding:7px 8px;text-align:center;color:${C};font-weight:700;">${funds}</td>
                         <td style="padding:7px 8px;text-align:right;color:#94A3B8;">${conv}</td>
@@ -6290,6 +6335,7 @@
             const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
             const cashPct = data.cash_pct != null ? data.cash_pct : 0;
             const positions = data.positions || [];
+            applyIntradayPrices(positions);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
             const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
 
@@ -6304,7 +6350,7 @@
                         <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${p.name||''}</td>
                         <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
                         <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
-                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}${liveDot(p)}</td>
                         <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
                         <td style="padding:7px 8px;text-align:right;color:${C};">${mom}</td>
                     </tr>`;
@@ -6529,6 +6575,7 @@
             const pnl = data.pnl_pct || 0;
             const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
             const positions = data.positions || [];
+            applyIntradayPrices(positions);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
             const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
 
@@ -6541,7 +6588,7 @@
                         <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
                         <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
                         <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
-                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}</td>
+                        <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}${liveDot(p)}</td>
                         <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pc};">${pct>=0?'+':''}${pct.toFixed(2)}%</td>
                         <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${p.quality!=null?Math.round(p.quality):'—'}</td>
                         <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${p.value!=null?Math.round(p.value):'—'}</td>
@@ -7004,6 +7051,7 @@
             fetch('/trading/data/lt_portfolio.json')
                 .then(r => r.json())
                 .then(p => {
+                    applyIntradayPrices(p.stocks, { entryKey: 'added_price' });
                     const el = document.getElementById('port-generated');
                     if (el) { _dom.setTs('port-generated', p.generated); el.textContent += ` · ${p.score_date}`; }
 
@@ -8688,8 +8736,8 @@
 
         function refreshData() {
             loadDashboardData();
-            loadPositions();
-            loadPaperPortfolio();
+            // Pull a fresh live-price snapshot before re-rendering these two tabs.
+            loadIntradayPrices().then(() => { loadPositions(); loadPaperPortfolio(); });
 
             // Show feedback
             const btn = event.target;
@@ -11334,6 +11382,7 @@
                     const rt = await fetch('data/flow_conviction_tracked.json?t=' + Date.now());
                     _fpTracked = rt.ok ? await rt.json() : null;
                 } catch(_) { _fpTracked = null; }
+                if (_fpTracked) applyIntradayPrices(_fpTracked.positions);
                 fpRender();
             } catch(e) {
                 document.getElementById('fp-meta').textContent = 'Failed to load flow_conviction_portfolio.json';
@@ -11873,9 +11922,28 @@
             fetch('/trading/data/rotation_portfolio.json')
                 .then(r => r.json())
                 .then(d => {
+                    applyIntradayPrices(d.positions);
+                    // Live book valuation — rotation carries per-position shares, so we can
+                    // revalue the open book at intraday prices exactly. Cash already banks
+                    // realized P&L, so total_value = cash + Σ(shares·live_price). Only when at
+                    // least one open position priced live; otherwise the EOD figures stand.
+                    if (Array.isArray(d.positions) && d.starting_capital) {
+                        let mv = 0, anyLive = false;
+                        for (const p of d.positions) {
+                            if (typeof p.shares === 'number' && typeof p.current_price === 'number') mv += p.shares * p.current_price;
+                            if (p._live) anyLive = true;
+                        }
+                        if (anyLive) {
+                            d.total_value = (d.cash || 0) + mv;
+                            d.total_return_dollar = d.total_value - d.starting_capital;
+                            d.total_return_pct = d.total_return_dollar / d.starting_capital * 100;
+                            d._liveValued = true;
+                        }
+                    }
                     // Meta line
                     const meta = document.getElementById('rot-meta');
-                    if (meta) meta.textContent = `Generated ${d.generated || '—'} · as of ${d.as_of_date || '—'}`;
+                    if (meta) meta.textContent = `Generated ${d.generated || '—'} · as of ${d.as_of_date || '—'}`
+                        + (d._liveValued ? ' · book valued live (IEX)' : '');
 
                     // Rules badge
                     const rulesEl = document.getElementById('rot-rules');
@@ -12012,7 +12080,7 @@
                                     <td style="padding:8px 10px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#e2e8f0;">${p.symbol}</td>
                                     <td style="padding:8px 6px;">${scanBadge(p.scanner_type)}</td>
                                     <td style="padding:8px 6px;text-align:right;color:#94a3b8;font-family:'JetBrains Mono',monospace;">$${p.entry_price.toFixed(2)}</td>
-                                    <td style="padding:8px 6px;text-align:right;font-family:'JetBrains Mono',monospace;color:#e2e8f0;">$${p.current_price.toFixed(2)}</td>
+                                    <td style="padding:8px 6px;text-align:right;font-family:'JetBrains Mono',monospace;color:#e2e8f0;">$${p.current_price.toFixed(2)}${liveDot(p)}</td>
                                     <td style="padding:8px 6px;text-align:right;font-family:'JetBrains Mono',monospace;color:#ef4444;" title="-${stopDist}% from entry">$${p.stop_price.toFixed(2)}</td>
                                     <td style="padding:8px 6px;text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:${pnlColor(p.pnl_pct)};">${fmtPnl(p.pnl_pct)}</td>
                                     <td style="padding:8px 6px;text-align:right;font-family:'JetBrains Mono',monospace;color:${pnlColor(p.pnl_dollar)};">${fmtPnlDol(p.pnl_dollar)}</td>
