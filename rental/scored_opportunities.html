@@ -126,6 +126,35 @@
       transition: border-color 0.15s;
     }
     .filter-select:focus { border-color: var(--accent); }
+    .filter-input {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .filter-input:focus { border-color: var(--accent); }
+    .filter-input::placeholder { color: var(--text-muted); }
+    .corp-tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+      background: rgba(99,102,241,0.12);
+      color: var(--accent-light);
+      text-transform: uppercase;
+    }
+    .owner-cell { color: var(--text-muted); font-size: 12px; max-width: 180px; white-space: normal; }
+    .opp-owner { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .brief-owner { font-size: 12px; margin-top: 4px; }
     .slider-row { display: flex; align-items: center; gap: 10px; }
     input[type=range] {
       -webkit-appearance: none;
@@ -445,7 +474,8 @@
     @media (max-width: 640px) {
       nav { padding: 0 16px; }
       .page-wrap { padding: 20px 16px 48px; }
-      .nav-links { display: none; }
+      .nav-links { gap: 2px; }
+      .nav-links a { padding: 6px 10px; font-size: 12px; }
       .filter-bar { gap: 14px; }
       .filter-actions { margin-left: 0; width: 100%; }
       .cards-grid { grid-template-columns: 1fr; }
@@ -469,6 +499,7 @@
     <div class="brief-title-block">
       <div class="brief-address" id="brief-address"></div>
       <div class="brief-city" id="brief-city"></div>
+      <div class="brief-owner" id="brief-owner"></div>
     </div>
     <button class="brief-close" onclick="closeBrief()">&times;</button>
   </div>
@@ -550,6 +581,10 @@
   </div>
 
   <div class="filter-bar">
+    <div class="filter-group">
+      <label class="filter-label">Search</label>
+      <input type="text" class="filter-input" id="search-input" placeholder="Address or owner&hellip;" autocomplete="off">
+    </div>
     <div class="filter-group slider-group">
       <label class="filter-label">Min Opportunity Score</label>
       <div class="slider-row">
@@ -584,6 +619,7 @@
       </select>
     </div>
     <div class="filter-actions">
+      <button class="btn" onclick="exportCSV()">Export CSV</button>
       <button class="btn secondary" onclick="resetFilters()">Reset</button>
     </div>
   </div>
@@ -610,6 +646,7 @@
             <th onclick="sortTable('rank')" id="th-rank">Rank <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('address')" id="th-address">Address <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('city')" id="th-city">City <i class="sort-icon">&#9650;</i></th>
+            <th onclick="sortTable('owner_name')" id="th-owner_name">Owner <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('opportunity_score')" id="th-opportunity_score" class="sorted">Score <i class="sort-icon">&#9660;</i></th>
             <th onclick="sortTable('cap_rate')" id="th-cap_rate">Cap Rate <i class="sort-icon">&#9650;</i></th>
             <th onclick="sortTable('market_value')" id="th-market_value">Market Value <i class="sort-icon">&#9650;</i></th>
@@ -622,7 +659,7 @@
           </tr>
         </thead>
         <tbody id="table-body">
-          <tr><td colspan="12" class="no-data">Loading&hellip;</td></tr>
+          <tr><td colspan="13" class="no-data">Loading&hellip;</td></tr>
         </tbody>
       </table>
     </div>
@@ -699,6 +736,17 @@
     return '<span class="src-badge ' + src + '" title="Valuation source: ' + src + '">' + label + '</span>';
   }
 
+  function isCorpOwner(b) {
+    if (b.signals && typeof b.signals.corporate_owner !== 'undefined') return !!b.signals.corporate_owner;
+    return /\b(LLC|CORP|TRUST|INC|LP|LLP)\b/.test((b.owner_name || '').toUpperCase());
+  }
+
+  function ownerCellHTML(b) {
+    var name = b.owner_name || '—';
+    var badge = (b.owner_name && isCorpOwner(b)) ? '<span class="corp-tag" title="Corporate / LLC ownership">Corp</span>' : '';
+    return name + badge;
+  }
+
   function mvLabel(src) {
     if (src === 'sale')     return 'Last Sale Price';
     if (src === 'avm')      return 'AVM (Market Est.)';
@@ -724,6 +772,7 @@
       city:      document.getElementById('city-select').value,
       tier:      document.getElementById('tier-select').value,
       minCapRate: parseFloat(document.getElementById('caprate-select').value) || 0,
+      search:    (document.getElementById('search-input').value || '').trim().toLowerCase(),
     };
   }
 
@@ -734,6 +783,10 @@
       if (f.city && (b.city || '').toUpperCase() !== f.city.toUpperCase()) return false;
       if (f.tier && scoreTier(b.opportunity_score) !== f.tier) return false;
       if (f.minCapRate && (b.cap_rate == null || b.cap_rate < f.minCapRate)) return false;
+      if (f.search) {
+        var hay = ((b.address || '') + ' ' + (b.city || '') + ' ' + (b.owner_name || '')).toLowerCase();
+        if (hay.indexOf(f.search) === -1) return false;
+      }
       return true;
     });
   }
@@ -843,6 +896,7 @@
           + (loc ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:12px">' + loc + rentWarnHTML(b) + '</span>' : '')
           + '</div>'
         + (unitsStr ? '<div class="opp-county">' + unitsStr + '</div>' : '')
+        + (b.owner_name ? '<div class="opp-owner">' + ownerCellHTML(b) + '</div>' : '')
         + '</div>'
         + '<div>' + scoreBadgeHTML(b.opportunity_score) + '</div>'
         + '</div>'
@@ -870,7 +924,7 @@
 
     var tbody = document.getElementById('table-body');
     if (sorted.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="12" class="no-data">No buildings match the current filters.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="13" class="no-data">No buildings match the current filters.</td></tr>';
       return;
     }
 
@@ -879,6 +933,7 @@
         + '<td style="color:var(--text-muted);font-size:12px">#' + (b._rank || '') + '</td>'
         + '<td class="address-cell">' + (b.address || '\u2014') + '</td>'
         + '<td>' + (b.city || '\u2014') + rentWarnHTML(b) + '</td>'
+        + '<td class="owner-cell">' + ownerCellHTML(b) + '</td>'
         + '<td>' + scoreBadgeHTML(b.opportunity_score) + '</td>'
         + '<td>' + fmtPct(b.cap_rate) + '</td>'
         + '<td style="color:var(--text-muted)">' + fmtCurrency(b.market_value) + srcBadge(b) + '</td>'
@@ -911,6 +966,7 @@
   }
 
   function resetFilters() {
+    document.getElementById('search-input').value = '';
     document.getElementById('score-slider').value = 0;
     document.getElementById('score-val').textContent = '0';
     document.getElementById('city-select').value = '';
@@ -926,6 +982,44 @@
   document.getElementById('city-select').addEventListener('change', render);
   document.getElementById('tier-select').addEventListener('change', render);
   document.getElementById('caprate-select').addEventListener('change', render);
+  document.getElementById('search-input').addEventListener('input', render);
+
+  function exportCSV() {
+    var rows = sortBuildings(applyFilters(allBuildings));
+    if (!rows.length) { alert('No rows to export — clear or loosen the filters first.'); return; }
+    var cols = [
+      ['Rank',              function(b){ return b._rank; }],
+      ['Address',           function(b){ return b.address || ''; }],
+      ['City',              function(b){ return b.city || ''; }],
+      ['Owner',             function(b){ return b.owner_name || ''; }],
+      ['Corporate Owner',   function(b){ return b.owner_name ? (isCorpOwner(b) ? 'Y' : 'N') : ''; }],
+      ['Opportunity Score', function(b){ return b.opportunity_score != null ? b.opportunity_score.toFixed(1) : ''; }],
+      ['Signal Score',      function(b){ return b.signal_score != null ? b.signal_score : ''; }],
+      ['Cap Rate %',        function(b){ return b.cap_rate != null ? (b.cap_rate * 100).toFixed(1) : ''; }],
+      ['Market Value',      function(b){ return b.market_value != null ? Math.round(b.market_value) : ''; }],
+      ['Valuation Source',  function(b){ return b.valuation_source || ''; }],
+      ['Annual NOI',        function(b){ return b.noi != null ? Math.round(b.noi) : ''; }],
+      ['Monthly Rent',      function(b){ return b.rent_estimate != null ? Math.round(b.rent_estimate) : ''; }],
+      ['Monthly Cash Flow', function(b){ return b._cash_flow != null ? Math.round(b._cash_flow) : ''; }],
+      ['Units',             function(b){ return b.units != null ? b.units : ''; }],
+      ['Year Built',        function(b){ return b.year_built || ''; }],
+      ['Last Sale Date',    function(b){ return b.last_sale_date || ''; }],
+      ['Last Sale Price',   function(b){ return b.last_sale_price != null ? Math.round(b.last_sale_price) : ''; }],
+    ];
+    function esc(v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+    var lines = [cols.map(function(c){ return esc(c[0]); }).join(',')];
+    rows.forEach(function(b){ lines.push(cols.map(function(c){ return esc(c[1](b)); }).join(',')); });
+    var blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var stamp = (summaryMeta.generated_at ? new Date(summaryMeta.generated_at) : new Date()).toISOString().slice(0, 10);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'rental_opportunities_' + stamp + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
   function renderDistribution() {
     var scores = allBuildings.map(function(b) { return b.opportunity_score; });
@@ -1045,7 +1139,7 @@
       cardsGrid.style.display = '';
       errBanner.style.display = 'block';
       errBanner.textContent = 'Failed to load scoring data: ' + err.message + '. Ensure web/data/scoring_summary.json exists.';
-      document.getElementById('table-body').innerHTML = '<tr><td colspan="12" class="no-data">No data available.</td></tr>';
+      document.getElementById('table-body').innerHTML = '<tr><td colspan="13" class="no-data">No data available.</td></tr>';
     }
   }
 
@@ -1175,6 +1269,14 @@
     var loc = [b.city ? b.city.charAt(0) + b.city.slice(1).toLowerCase() : null, b.state].filter(Boolean);
     var ustr = (b.units != null && b.units > 0) ? ' · ' + b.units + ' units' : '';
     document.getElementById('brief-city').textContent = loc.join(', ') + ustr;
+
+    var ownerEl = document.getElementById('brief-owner');
+    if (b.owner_name) {
+      ownerEl.innerHTML = '<span style="color:var(--text-muted)">Owner:</span> ' + b.owner_name
+        + (isCorpOwner(b) ? '<span class="corp-tag" title="Corporate / LLC ownership">Corp</span>' : '');
+    } else {
+      ownerEl.innerHTML = '';
+    }
 
     var tierEl = document.getElementById('brief-tier');
     tierEl.textContent = 'Tier ' + tier;
