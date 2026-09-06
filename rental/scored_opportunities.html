@@ -409,6 +409,23 @@
       transition: color 0.15s;
     }
     .brief-close:hover { color: var(--text); }
+    .brief-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .brief-nav {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text-muted); border-radius: 6px;
+      width: 30px; height: 30px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; line-height: 1;
+      transition: color 0.15s, opacity 0.15s;
+    }
+    .brief-nav:hover:not(:disabled) { color: var(--text); }
+    .brief-nav:disabled { opacity: 0.3; cursor: default; }
+    .brief-pos { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 40px; text-align: center; }
+    tbody tr:focus-visible, .opp-card:focus-visible, thead th:focus-visible,
+    .brief-nav:focus-visible, .brief-close:focus-visible {
+      outline: 2px solid var(--accent-light);
+      outline-offset: -2px;
+    }
     .brief-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 20px; }
     .brief-tier-row { display: flex; align-items: center; gap: 12px; }
     .brief-tier {
@@ -501,7 +518,12 @@
       <div class="brief-city" id="brief-city"></div>
       <div class="brief-owner" id="brief-owner"></div>
     </div>
-    <button class="brief-close" onclick="closeBrief()">&times;</button>
+    <div class="brief-actions">
+      <button class="brief-nav" id="brief-prev" onclick="briefStep(-1)" title="Previous deal (←)" aria-label="Previous deal">&#8249;</button>
+      <span class="brief-pos" id="brief-pos"></span>
+      <button class="brief-nav" id="brief-next" onclick="briefStep(1)" title="Next deal (→)" aria-label="Next deal">&#8250;</button>
+      <button class="brief-close" onclick="closeBrief()" title="Close (Esc)" aria-label="Close brief">&times;</button>
+    </div>
   </div>
   <div class="brief-body">
     <div class="brief-tier-row">
@@ -541,6 +563,7 @@
   </div>
 
   <div id="error-banner" class="error-banner"></div>
+  <div id="stale-note" class="info-note"></div>
   <div id="signal-note" class="info-note"></div>
 
   <div class="kpi-grid">
@@ -671,6 +694,8 @@
   let summaryMeta = {};
   let sortCol = 'opportunity_score';
   let sortDir = 'desc';
+  let currentView = [];   // filtered + sorted list currently shown (drives brief prev/next)
+  let briefIndex = -1;    // index into currentView of the open brief
 
   function scoreTier(score) {
     if (score >= 75) return 'green';
@@ -854,6 +879,20 @@
     var freshness = summaryMeta.generated_at ? 'Scored ' + fmtDate(summaryMeta.generated_at) : '';
     document.getElementById('last-updated').textContent = freshness;
 
+    // Staleness banner: the pipeline refreshes nightly, so >2 days means at
+    // least one nightly run was missed (e.g. a failed publish).
+    var staleEl = document.getElementById('stale-note');
+    if (summaryMeta.generated_at) {
+      var ageDays = (Date.now() - new Date(summaryMeta.generated_at).getTime()) / 86400000;
+      if (ageDays > 2) {
+        staleEl.textContent = '⚠️ Scoring data is ' + Math.floor(ageDays) + ' days old (last run '
+          + fmtDate(summaryMeta.generated_at) + '). The nightly refresh may not have run.';
+        staleEl.style.display = '';
+      } else {
+        staleEl.style.display = 'none';
+      }
+    }
+
     var noteEl = document.getElementById('signal-note');
     if (summaryMeta.signal_note) {
       noteEl.textContent = '⚠️ Signal scores: ' + summaryMeta.signal_note;
@@ -889,7 +928,7 @@
       var cf = b.rent_estimate != null && b.expense_estimate != null
         ? parseFloat(b.rent_estimate) - parseFloat(b.expense_estimate) : null;
       var cfColor = cf != null ? (cf >= 0 ? 'var(--green)' : 'var(--red)') : '';
-      return '<div class="opp-card" onclick="openBriefByRank(' + rank + ')" title="Click for deal brief">'
+      return '<div class="opp-card" tabindex="0" role="button" onclick="openBriefByRank(' + rank + ')" onkeydown="briefKey(event,' + rank + ')" title="Open deal brief">'
         + '<div class="opp-card-header">'
         + '<div>'
         + '<div class="opp-address">' + addr
@@ -929,7 +968,7 @@
     }
 
     tbody.innerHTML = sorted.map(function(b) {
-      return '<tr onclick="openBriefByRank(' + b._rank + ')" title="Click for deal brief">'
+      return '<tr tabindex="0" role="button" onclick="openBriefByRank(' + b._rank + ')" onkeydown="briefKey(event,' + b._rank + ')" title="Open deal brief">'
         + '<td style="color:var(--text-muted);font-size:12px">#' + (b._rank || '') + '</td>'
         + '<td class="address-cell">' + (b.address || '\u2014') + '</td>'
         + '<td>' + (b.city || '\u2014') + rentWarnHTML(b) + '</td>'
@@ -961,8 +1000,10 @@
 
   function render() {
     var filtered = applyFilters(allBuildings);
+    currentView = sortBuildings(filtered);
     renderCards(filtered);
     renderTable(filtered);
+    syncURL();
   }
 
   function resetFilters() {
@@ -983,6 +1024,45 @@
   document.getElementById('tier-select').addEventListener('change', render);
   document.getElementById('caprate-select').addEventListener('change', render);
   document.getElementById('search-input').addEventListener('input', render);
+
+  // ── Deep-linking: mirror filters (and the open brief) into the URL query so a
+  //    filtered view or a specific deal can be bookmarked / shared / survives reload.
+  function syncURL() {
+    var f = getFilters();
+    var p = new URLSearchParams();
+    if (f.search)     p.set('q', f.search);
+    if (f.minScore)   p.set('min', f.minScore);
+    if (f.city)       p.set('city', f.city);
+    if (f.tier)       p.set('tier', f.tier);
+    if (f.minCapRate) p.set('cap', f.minCapRate);
+    var open = document.getElementById('brief-panel').classList.contains('open');
+    if (open && briefIndex >= 0 && currentView[briefIndex]) p.set('rank', currentView[briefIndex]._rank);
+    var qs = p.toString();
+    history.replaceState(null, '', qs ? '?' + qs : location.pathname);
+  }
+
+  function applyURLFilters() {
+    var p = new URLSearchParams(location.search);
+    if (p.has('q'))    document.getElementById('search-input').value = p.get('q');
+    if (p.has('min'))  { var v = p.get('min'); document.getElementById('score-slider').value = v; document.getElementById('score-val').textContent = v; }
+    if (p.has('city')) document.getElementById('city-select').value = p.get('city');
+    if (p.has('tier')) document.getElementById('tier-select').value = p.get('tier');
+    if (p.has('cap'))  document.getElementById('caprate-select').value = p.get('cap');
+  }
+
+  // Keyboard activation for clickable rows / cards.
+  function briefKey(e, rank) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBriefByRank(rank); }
+  }
+
+  // Make sort headers keyboard-operable (they carry onclick sortTable()).
+  document.querySelectorAll('thead th').forEach(function(th) {
+    th.setAttribute('tabindex', '0');
+    th.setAttribute('role', 'button');
+    th.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); th.click(); }
+    });
+  });
 
   function exportCSV() {
     var rows = sortBuildings(applyFilters(allBuildings));
@@ -1131,9 +1211,14 @@
       cardsGrid.style.display = '';
 
       populateCities();
+      applyURLFilters();
+      // Capture ?rank before render() → syncURL() rewrites the query string.
+      var rankParam = new URLSearchParams(location.search).get('rank');
       renderKPIs();
       renderDistribution();
       render();
+
+      if (rankParam) openBriefByRank(parseInt(rankParam, 10));
     } catch(err) {
       cardsLoading.style.display = 'none';
       cardsGrid.style.display = '';
@@ -1253,8 +1338,32 @@
   }
 
   function openBriefByRank(rank) {
+    var idx = currentView.findIndex(function(x) { return x._rank === rank; });
+    if (idx !== -1) { openBriefAt(idx); return; }
+    // Rank not in the current filtered view (e.g. opened via ?rank= URL): show it
+    // without prev/next context.
     var b = allBuildings.find(function(x) { return x._rank === rank; });
-    if (b) openBrief(b);
+    if (b) { briefIndex = -1; openBrief(b); updateBriefNav(); }
+  }
+
+  function openBriefAt(idx) {
+    if (idx < 0 || idx >= currentView.length) return;
+    briefIndex = idx;
+    openBrief(currentView[idx]);
+    updateBriefNav();
+    document.getElementById('brief-panel').scrollTop = 0;
+  }
+
+  function briefStep(delta) { openBriefAt(briefIndex + delta); }
+
+  function updateBriefNav() {
+    var prev = document.getElementById('brief-prev');
+    var next = document.getElementById('brief-next');
+    var pos  = document.getElementById('brief-pos');
+    var known = briefIndex >= 0 && currentView.length > 0;
+    prev.disabled = !known || briefIndex <= 0;
+    next.disabled = !known || briefIndex >= currentView.length - 1;
+    pos.textContent = known ? (briefIndex + 1) + ' / ' + currentView.length : '';
   }
 
   function openBrief(b) {
@@ -1356,16 +1465,22 @@
     document.getElementById('brief-overlay').style.display = 'block';
     document.getElementById('brief-panel').classList.add('open');
     document.body.style.overflow = 'hidden';
+    syncURL();
   }
 
   function closeBrief() {
     document.getElementById('brief-overlay').style.display = 'none';
     document.getElementById('brief-panel').classList.remove('open');
     document.body.style.overflow = '';
+    briefIndex = -1;
+    syncURL();
   }
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeBrief();
+    if (e.key === 'Escape') { closeBrief(); return; }
+    if (!document.getElementById('brief-panel').classList.contains('open')) return;
+    if (e.key === 'ArrowRight')     { e.preventDefault(); briefStep(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); briefStep(-1); }
   });
 
   // ── End Brief Engine ───────────────────────────────────────────────────────
