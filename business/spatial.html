@@ -328,6 +328,8 @@
             color: var(--amber-hi);
         }
         .sector-table tbody tr:hover td { background: var(--surface-2); }
+        .sector-table tbody tr.sector-row { cursor: pointer; }
+        .sector-table tbody tr.sector-row:hover td:first-child { color: var(--amber-hi); }
 
         /* ============================================================
            MAP
@@ -399,6 +401,47 @@
         .popup-row:last-child { border-bottom: none; }
         .popup-key { color: #404c65; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
         .popup-val { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9aa5be; text-align: right; }
+        /* ============================================================
+           MOBILE — collapsible filter drawer
+        ============================================================ */
+        .mobile-filter-btn {
+            display: none;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0 1rem;
+            height: 100%;
+            background: transparent;
+            border: none;
+            border-right: 1px solid var(--border);
+            color: var(--amber-hi);
+            font-size: 0.66rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .panel-backdrop {
+            display: none;
+            position: fixed;
+            inset: var(--header-h) 0 0 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 1400;
+        }
+        @media (max-width: 768px) {
+            .mobile-filter-btn { display: flex; }
+            .header-badge { display: none; }
+            .header-stats .stat-chip:not(:first-child) { display: none; }
+            .panel {
+                position: fixed;
+                top: var(--header-h);
+                left: 0; bottom: 0;
+                z-index: 1500;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            }
+            .panel.open { transform: translateX(0); }
+            .panel-backdrop.show { display: block; }
+        }
     </style>
 </head>
 <body>
@@ -410,6 +453,9 @@
 </div>
 
 <header class="header">
+    <button class="mobile-filter-btn" id="mobile-filter-btn" aria-label="Toggle filters">
+        <span>&#9776;</span> Filters
+    </button>
     <a href="index.html" class="header-back">&#8592; Spatial Curiosity</a>
     <div class="header-title-block">
         <div class="header-title">Spatial Map</div>
@@ -435,9 +481,10 @@
     </div>
 </header>
 
+<div class="panel-backdrop" id="panel-backdrop"></div>
 <div class="layout">
 
-    <aside class="panel">
+    <aside class="panel" id="filter-panel">
         <div class="panel-section">
             <div class="panel-section-title">Filters</div>
 
@@ -565,32 +612,39 @@ function buildPopup(b) {
 const markerCanvas = L.canvas({ padding: 0.5 });
 
 function renderMarkers(data) {
-    if (markerLayer) { map.removeLayer(markerLayer); markerLayer = null; }
-
-    markerLayer = L.markerClusterGroup({
-        maxClusterRadius: 50,
-        disableClusteringAtZoom: 14,
-        spiderfyOnMaxZoom: false,
-        chunkedLoading: true,
-        chunkSize: 500,
-        chunkDelay: 10,
-    });
+    // Keep ONE cluster group on the map and swap its contents. Removing/recreating
+    // it mid-render raced with chunkedLoading's async adds (old chunks firing after
+    // the group left the map → getMinZoom on null).
+    if (!markerLayer) {
+        markerLayer = L.markerClusterGroup({
+            maxClusterRadius: 50,
+            disableClusteringAtZoom: 14,
+            spiderfyOnMaxZoom: false,
+            chunkedLoading: true,
+            chunkInterval: 200,
+            chunkDelay: 10,
+        });
+        map.addLayer(markerLayer);
+    } else {
+        markerLayer.clearLayers();
+    }
 
     let shown = 0;
+    const markers = [];
     data.forEach(b => {
         if (b.lat == null || b.lng == null) return;
         if (b.lat < 41 || b.lat > 43 || b.lng < -73.5 || b.lng > -69.5) return;
         const col = sectorColor(b.sector);
         // Lazy popup: pass a function so the HTML is built only when opened,
         // not eagerly for every one of ~334k markers on each render.
-        L.circleMarker([b.lat, b.lng], {
+        markers.push(L.circleMarker([b.lat, b.lng], {
             renderer: markerCanvas,
             radius: 5, color: col, fillColor: col, fillOpacity: 0.75, weight: 1
-        }).bindPopup(() => buildPopup(b), { maxWidth: 260 }).addTo(markerLayer);
+        }).bindPopup(() => buildPopup(b), { maxWidth: 260 }));
         shown++;
     });
 
-    markerLayer.addTo(map);
+    markerLayer.addLayers(markers);
     document.getElementById('stat-shown').textContent = shown.toLocaleString();
 }
 
@@ -606,7 +660,8 @@ function updateSectorTable(data) {
     tbody.innerHTML = sorted.map(([name, count]) => {
         const col = sectorColor(name);
         const disp = name.length > 20 ? name.slice(0, 20) + '…' : name;
-        return `<tr>
+        const safe = name.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+        return `<tr class="sector-row" data-sector="${safe}" title="${safe} — click to filter">
             <td><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${col};margin-right:6px;vertical-align:middle"></span>${disp}</td>
             <td>${count.toLocaleString()}</td></tr>`;
     }).join('');
@@ -664,6 +719,32 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     applyFilters();
     fitAll();
 });
+
+// Click a By-Sector row to filter the map to that sector (add the option first if
+// it's an implicit bucket like "Uncategorized" not present in the dropdown).
+document.getElementById('sector-tbody').addEventListener('click', (e) => {
+    const row = e.target.closest('.sector-row');
+    if (!row) return;
+    const name = row.dataset.sector;
+    const sel = document.getElementById('filter-sector');
+    if (![...sel.options].some(o => o.value === name)) {
+        const o = document.createElement('option'); o.value = name; o.textContent = name; sel.appendChild(o);
+    }
+    sel.value = name;
+    applyFilters();
+});
+
+// Mobile: toggle the filter drawer.
+(function () {
+    const panel = document.getElementById('filter-panel');
+    const backdrop = document.getElementById('panel-backdrop');
+    function closePanel() { panel.classList.remove('open'); backdrop.classList.remove('show'); }
+    document.getElementById('mobile-filter-btn').addEventListener('click', () => {
+        const open = panel.classList.toggle('open');
+        backdrop.classList.toggle('show', open);
+    });
+    backdrop.addEventListener('click', closePanel);
+})();
 
 fetch('data/businesses_geo.json')
     .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })

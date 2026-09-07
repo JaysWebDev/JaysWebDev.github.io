@@ -358,7 +358,9 @@
             color: var(--amber-hi);
             font-size: 0.7rem;
         }
-        .owner-table tbody tr:hover td { background: var(--surface2); cursor: default; }
+        .owner-table tbody tr:hover td { background: var(--surface2); }
+        .owner-table tbody tr.owner-row { cursor: pointer; }
+        .owner-table tbody tr.owner-row:hover td:first-child { color: var(--amber-hi); }
 
         /* ============================================================
            MAP
@@ -541,6 +543,53 @@
             animation: loadAnim 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.1s;
         }
         @keyframes loadAnim { to { width: 100%; } }
+
+        /* ============================================================
+           MOBILE — collapsible filter drawer
+        ============================================================ */
+        .mobile-filter-btn {
+            display: none;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0 1rem;
+            height: 100%;
+            background: transparent;
+            border: none;
+            border-right: 1px solid var(--border);
+            color: var(--amber-hi);
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.66rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .panel-backdrop {
+            display: none;
+            position: fixed;
+            inset: var(--header-h) 0 0 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 1400;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-filter-btn { display: flex; }
+            .header-title-block { padding: 0 0.9rem; }
+            .header-sub { display: none; }
+            .header-stats .stat-chip:not(:first-child) { display: none; }
+            .stat-chip { padding: 0 0.9rem; }
+
+            .panel {
+                position: fixed;
+                top: var(--header-h);
+                left: 0; bottom: 0;
+                z-index: 1500;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            }
+            .panel.open { transform: translateX(0); }
+            .panel-backdrop.show { display: block; }
+        }
     </style>
 </head>
 <body>
@@ -558,6 +607,9 @@
      HEADER
 ================================================================ -->
 <header class="header">
+    <button class="mobile-filter-btn" id="mobile-filter-btn" aria-label="Toggle filters">
+        <span>&#9776;</span> Filters
+    </button>
     <a href="index.html" class="header-back">
         <span>&#8592;</span> Overview
     </a>
@@ -576,6 +628,10 @@
             <div class="stat-chip-label">With Yield</div>
             <div class="stat-chip-value" id="stat-yield">—</div>
         </div>
+        <div class="stat-chip" id="stat-listed-chip" style="display:none">
+            <div class="stat-chip-label">Listed</div>
+            <div class="stat-chip-value" id="stat-listed">—</div>
+        </div>
         <div class="stat-chip">
             <div class="stat-chip-label">Total Portfolio</div>
             <div class="stat-chip-value" id="stat-total">—</div>
@@ -586,14 +642,23 @@
 <!-- ================================================================
      LAYOUT
 ================================================================ -->
+<div class="panel-backdrop" id="panel-backdrop"></div>
 <div class="layout">
 
     <!-- FILTER PANEL -->
-    <aside class="panel">
+    <aside class="panel" id="filter-panel">
 
         <!-- FILTERS -->
         <div class="panel-section">
             <div class="panel-section-title">Filters</div>
+
+            <div class="filter-group">
+                <div class="filter-label">Color Markers By</div>
+                <select id="color-mode">
+                    <option value="score">Opportunity Score</option>
+                    <option value="yield">Gross Yield</option>
+                </select>
+            </div>
 
             <div class="filter-group">
                 <div class="filter-label">County</div>
@@ -625,10 +690,28 @@
 
             <div class="filter-group">
                 <div class="filter-label">
+                    <span>Min Opportunity Score</span>
+                    <span class="filter-label-val" id="score-display">0</span>
+                </div>
+                <input type="range" id="score-slider" min="0" max="100" step="1" value="0">
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-label">
                     <span>Min Gross Yield</span>
                     <span class="filter-label-val" id="yield-display">0.0%</span>
                 </div>
                 <input type="range" id="yield-slider" min="0" max="25" step="1" value="0">
+            </div>
+
+            <div class="filter-group" id="listed-filter-group" style="display:none">
+                <label class="toggle-row">
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="listed-only">
+                        <span class="toggle-track"></span>
+                    </span>
+                    <span class="toggle-text">Listed for sale only</span>
+                </label>
             </div>
 
             <div class="filter-group">
@@ -656,25 +739,11 @@
 
         <!-- LEGEND -->
         <div class="panel-section">
-            <div class="panel-section-title">Yield Legend</div>
-            <div class="legend-row">
-                <div class="legend-dot" style="background:#22c55e"></div>
-                ≥ 15% &mdash; High yield
-            </div>
-            <div class="legend-row">
-                <div class="legend-dot" style="background:#84cc16"></div>
-                10–15% &mdash; Strong
-            </div>
-            <div class="legend-row">
-                <div class="legend-dot" style="background:#eab308"></div>
-                5–10% &mdash; Moderate
-            </div>
-            <div class="legend-row">
-                <div class="legend-dot" style="background:#ef4444"></div>
-                &lt; 5% &mdash; Low
-            </div>
+            <div class="panel-section-title" id="legend-title">Opportunity Legend</div>
+            <div id="legend-rows"></div>
             <div class="legend-row" style="margin-top:0.6rem; border-top:1px solid var(--border); padding-top:0.5rem; font-size:0.6rem; color:var(--muted); line-height:1.5">
-                339,856 buildings across 14 MA counties colored by HUD FMR estimated yield.<br>
+                339,856 buildings across 14 MA counties. A gold ring marks buildings
+                currently listed for sale.<br>
                 Clusters group markers at lower zoom levels.
             </div>
         </div>
@@ -712,6 +781,8 @@
 ================================================================ */
 let allBuildings = [];
 let markerLayer  = null;
+let colorMode    = 'score';   // 'score' | 'yield' — how markers + legend are colored
+let livePricesByAddr = {};    // ADDRESS(upper) -> live for-sale record (optional, from live_prices.json)
 
 /* ================================================================
    YIELD HELPERS
@@ -749,6 +820,48 @@ function fmt$(n) {
 function fmtY(y) {
     if (y == null) return '—';
     return (y * 100).toFixed(1) + '%';
+}
+
+// Marker color follows the active color mode so it always matches the legend.
+function markerColor(b) {
+    if (colorMode === 'yield') {
+        return yieldColor(b.gross_yield != null ? b.gross_yield : b.hud_gross_yield);
+    }
+    return b.opportunity_score != null ? scoreColor(b.opportunity_score) : '#2a3040';
+}
+
+// Live for-sale record for a building, matched by address (geo data has no id).
+function liveOfAddr(b) {
+    if (!b.address) return null;
+    return livePricesByAddr[b.address.trim().toUpperCase()] || null;
+}
+
+const LEGENDS = {
+    score: { title: 'Opportunity Legend', rows: [
+        ['#22c55e', '&ge; 50 &mdash; High'],
+        ['#84cc16', '35&ndash;49 &mdash; Strong'],
+        ['#eab308', '20&ndash;34 &mdash; Moderate'],
+        ['#ef4444', '&lt; 20 &mdash; Low'],
+        ['#2a3040', 'Not scored'],
+    ]},
+    yield: { title: 'Yield Legend', rows: [
+        ['#22c55e', '&ge; 15% &mdash; High yield'],
+        ['#84cc16', '10&ndash;15% &mdash; Strong'],
+        ['#eab308', '5&ndash;10% &mdash; Moderate'],
+        ['#ef4444', '&lt; 5% &mdash; Low'],
+    ]},
+};
+
+function renderLegend() {
+    const L = LEGENDS[colorMode];
+    document.getElementById('legend-title').textContent = L.title;
+    document.getElementById('legend-rows').innerHTML = L.rows.map(([c, t]) =>
+        `<div class="legend-row"><div class="legend-dot" style="background:${c}"></div>${t}</div>`
+    ).join('');
+}
+
+function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 /* ================================================================
@@ -814,6 +927,17 @@ function buildPopup(b) {
             <span class="popup-key">Opp. Score</span>
             <span class="popup-val" style="color:${b.opportunity_score >= 50 ? '#22c55e' : b.opportunity_score >= 35 ? '#84cc16' : b.opportunity_score >= 20 ? '#eab308' : '#ef4444'}">${b.opportunity_score.toFixed(1)}</span>
         </div>` : ''}
+        ${(() => {
+            const lv = liveOfAddr(b);
+            if (!lv) return '';
+            const px = lv.list_price ? fmt$(lv.list_price) : 'Listed';
+            const link = lv.url ? ` &middot; <a href="${esc(lv.url)}" target="_blank" rel="noopener" style="color:#f5b400">Zillow &rarr;</a>` : '';
+            return `<div class="popup-row"><span class="popup-key" style="color:#f5b400">For Sale</span><span class="popup-val" style="color:#f5b400">${px}${link}</span></div>`;
+        })()}
+        <div style="margin-top:9px">
+            <a href="scored_opportunities.html?q=${encodeURIComponent(b.address || '')}" target="_blank" rel="noopener"
+               style="color:#c9940a;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none">Open in leaderboard &rarr;</a>
+        </div>
     `;
 }
 
@@ -821,44 +945,52 @@ function buildPopup(b) {
    RENDER MARKERS — clustered, all buildings colored by HUD yield
 ================================================================ */
 function renderMarkers(data) {
-    if (markerLayer) {
-        map.removeLayer(markerLayer);
-        markerLayer = null;
+    // Keep ONE cluster group on the map for its lifetime and swap its contents.
+    // Removing/recreating the group mid-render raced with chunkedLoading's async
+    // adds (old chunks firing after the group left the map → getMinZoom on null).
+    if (!markerLayer) {
+        markerLayer = L.markerClusterGroup({
+            maxClusterRadius: 50,
+            disableClusteringAtZoom: 14,
+            spiderfyOnMaxZoom: false,
+            chunkedLoading: true,
+            chunkInterval: 200,
+            chunkDelay: 10,
+        });
+        map.addLayer(markerLayer);
+    } else {
+        markerLayer.clearLayers();
     }
 
-    markerLayer = L.markerClusterGroup({
-        maxClusterRadius: 50,
-        disableClusteringAtZoom: 14,
-        spiderfyOnMaxZoom: false,
-        chunkedLoading: true,
-        chunkSize: 500,
-        chunkDelay: 10,
-    });
-
     const withReal = data.filter(b => b.gross_yield != null);
+    let listedCount = 0;
+    const markers = [];
 
     data.forEach(b => {
         if (b.lat == null || b.lng == null) return;
-        const displayYield = b.gross_yield != null ? b.gross_yield : b.hud_gross_yield;
-        // Prefer opportunity_score for coloring when available (0-100 scale)
-        const col     = b.opportunity_score != null ? scoreColor(b.opportunity_score) : yieldColor(displayYield);
-        const hasReal = b.gross_yield != null || b.opportunity_score != null;
+        const col     = markerColor(b);
+        const hasReal = colorMode === 'yield' ? (b.gross_yield != null) : (b.opportunity_score != null);
+        const listed  = liveOfAddr(b);
+        if (listed) listedCount++;
 
-        L.circleMarker([b.lat, b.lng], {
-            radius:      hasReal ? 9 : 5,
-            color:       col,
-            fillColor:   col,
-            fillOpacity: hasReal ? 0.9 : 0.55,
-            weight:      hasReal ? 2 : 0.5,
-        })
-        .bindPopup(buildPopup(b), { maxWidth: 270 })
-        .addTo(markerLayer);
+        markers.push(
+            L.circleMarker([b.lat, b.lng], {
+                radius:      listed ? 10 : (hasReal ? 9 : 5),
+                color:       listed ? '#f5b400' : col,   // gold ring for on-market
+                fillColor:   col,
+                fillOpacity: hasReal ? 0.9 : 0.55,
+                weight:      listed ? 3 : (hasReal ? 2 : 0.5),
+            }).bindPopup(buildPopup(b), { maxWidth: 270 })
+        );
     });
 
-    markerLayer.addTo(map);
+    markerLayer.addLayers(markers);
 
     document.getElementById('stat-shown').textContent = data.length.toLocaleString();
     document.getElementById('stat-yield').textContent = withReal.length.toLocaleString();
+    if (Object.keys(livePricesByAddr).length) {
+        document.getElementById('stat-listed').textContent = listedCount.toLocaleString();
+    }
 }
 
 /* ================================================================
@@ -884,7 +1016,7 @@ function updateOwnerTable(data) {
 
     tbody.innerHTML = top10.map(([name, count]) => {
         const display = name.length > 23 ? name.slice(0, 23) + '…' : name;
-        return `<tr><td title="${name}">${display}</td><td>${count}</td></tr>`;
+        return `<tr class="owner-row" data-owner="${esc(name)}" title="${esc(name)} — click to filter"><td>${esc(display)}</td><td>${count}</td></tr>`;
     }).join('');
 }
 
@@ -930,7 +1062,9 @@ function fitToFiltered(buildings) {
 ================================================================ */
 function applyFilters() {
     const minYield = parseFloat(document.getElementById('yield-slider').value) / 100;
+    const minScore = parseFloat(document.getElementById('score-slider').value);
     const showAll  = document.getElementById('show-all').checked;
+    const listedOnly = document.getElementById('listed-only').checked;
     const ownerQ   = document.getElementById('owner-search').value.trim().toUpperCase();
     const typeQ    = document.getElementById('type-search').value.trim().toUpperCase();
     const countyQ  = document.getElementById('county-filter').value;
@@ -945,6 +1079,10 @@ function applyFilters() {
         if (ownerQ && !(b.owner_name || '').toUpperCase().includes(ownerQ)) return false;
         // Building type filter
         if (typeQ  && !(b.building_type || '').toUpperCase().includes(typeQ))  return false;
+        // Min opportunity score
+        if (minScore > 0 && (b.opportunity_score == null || b.opportunity_score < minScore)) return false;
+        // Listed for sale only
+        if (listedOnly && !liveOfAddr(b)) return false;
 
         // Use real yield if available, otherwise HUD estimate
         const effectiveYield = b.gross_yield != null ? b.gross_yield : b.hud_gross_yield;
@@ -969,6 +1107,39 @@ document.getElementById('yield-slider').addEventListener('input', function () {
     applyFilters();
 });
 
+document.getElementById('score-slider').addEventListener('input', function () {
+    document.getElementById('score-display').textContent = this.value;
+    applyFilters();
+});
+
+document.getElementById('color-mode').addEventListener('change', function () {
+    colorMode = this.value;
+    renderLegend();
+    applyFilters();
+});
+
+document.getElementById('listed-only').addEventListener('change', applyFilters);
+
+// Click an owner-concentration row to filter the map to that owner.
+document.getElementById('owner-tbody').addEventListener('click', function (e) {
+    const row = e.target.closest('.owner-row');
+    if (!row) return;
+    document.getElementById('owner-search').value = row.dataset.owner || '';
+    applyFilters();
+});
+
+// Mobile: toggle the filter drawer.
+(function () {
+    const panel = document.getElementById('filter-panel');
+    const backdrop = document.getElementById('panel-backdrop');
+    function closePanel() { panel.classList.remove('open'); backdrop.classList.remove('show'); }
+    document.getElementById('mobile-filter-btn').addEventListener('click', function () {
+        const open = panel.classList.toggle('open');
+        backdrop.classList.toggle('show', open);
+    });
+    backdrop.addEventListener('click', closePanel);
+})();
+
 document.getElementById('show-all').addEventListener('change', applyFilters);
 document.getElementById('owner-search').addEventListener('input', applyFilters);
 document.getElementById('type-search').addEventListener('input', applyFilters);
@@ -982,7 +1153,10 @@ document.getElementById('town-filter').addEventListener('change', applyFilters);
 document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('yield-slider').value    = 0;
     document.getElementById('yield-display').textContent = '0.0%';
+    document.getElementById('score-slider').value     = 0;
+    document.getElementById('score-display').textContent = '0';
     document.getElementById('show-all').checked       = true;
+    document.getElementById('listed-only').checked    = false;
     document.getElementById('owner-search').value     = '';
     document.getElementById('type-search').value      = '';
     document.getElementById('county-filter').value    = '';
@@ -994,6 +1168,26 @@ document.getElementById('btn-reset').addEventListener('click', () => {
 /* ================================================================
    DATA LOAD
 ================================================================ */
+renderLegend();
+
+// Optional live listing enrichment — absent until fetch_live_prices.py has run.
+fetch('data/live_prices.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(lp => {
+        if (!lp || !lp.prices) return;
+        Object.values(lp.prices).forEach(rec => {
+            if (rec.status === 'for_sale' && rec.address) {
+                livePricesByAddr[rec.address.trim().toUpperCase()] = rec;
+            }
+        });
+        if (Object.keys(livePricesByAddr).length) {
+            document.getElementById('listed-filter-group').style.display = '';
+            document.getElementById('stat-listed-chip').style.display = '';
+            if (allBuildings.length) applyFilters();   // re-render if buildings already loaded
+        }
+    })
+    .catch(() => {});
+
 fetch('data/buildings_geo.json')
     .then(r => {
         if (!r.ok) throw new Error('HTTP ' + r.status);
