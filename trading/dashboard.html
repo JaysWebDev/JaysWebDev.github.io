@@ -5389,6 +5389,30 @@
             }
             return list;
         }
+        // Revalue a whole book at intraday prices when its open positions carry share
+        // counts (total_value = cash + Σ shares·live_price; cash already banks realized P&L).
+        // Mutates total_value / pnl_pct / total_return_* in place and flags _liveValued.
+        // Fail-open: needs starting_capital + cash + EVERY open position carrying shares +
+        // ≥1 priced live — otherwise the EOD figures stand untouched (dormant until the book
+        // writers ship the shares field on their next run).
+        function applyLiveBookValue(data) {
+            if (!data || !Array.isArray(data.positions) || !data.starting_capital) return false;
+            let mv = 0, anyLive = false, allShares = true;
+            for (const p of data.positions) {
+                if (typeof p.shares === 'number') mv += p.shares * (p.current_price != null ? p.current_price : p.entry_price);
+                else allShares = false;
+                if (p._live) anyLive = true;
+            }
+            if (!anyLive || !allShares) return false;
+            const tv = (data.cash || 0) + mv;
+            const ret = (tv - data.starting_capital) / data.starting_capital * 100;
+            data.total_value = tv;
+            if ('pnl_pct' in data)             data.pnl_pct = ret;
+            if ('total_return_pct' in data)    data.total_return_pct = ret;
+            if ('total_return_dollar' in data) data.total_return_dollar = tv - data.starting_capital;
+            data._liveValued = true;
+            return true;
+        }
         // Small cyan marker appended to a row's price cell when it carries a live price.
         function liveDot(p) {
             return (p && p._live)
@@ -5638,6 +5662,7 @@
                 .then(r => r.json())
                 .then(pp => {
                     applyIntradayPrices(pp.positions);
+                    applyLiveBookValue(pp);
                     const gen = pp.generated ? pp.generated.slice(0,16).replace('T',' ') : '';
                     document.getElementById('pp-dates').textContent =
                         `Started: ${pp.start_date || '—'} · Updated: ${gen}`;
@@ -5971,6 +5996,7 @@
 
             const positions = data.positions || [];
             applyIntradayPrices(positions);
+            applyLiveBookValue(data);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
 
             const posRows = positions.length === 0
@@ -6177,6 +6203,7 @@
             const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
             const positions = data.positions || [];
             applyIntradayPrices(positions);
+            applyLiveBookValue(data);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
             const isNew = (cfg.kind === 'newmoney');
 
@@ -6336,6 +6363,7 @@
             const cashPct = data.cash_pct != null ? data.cash_pct : 0;
             const positions = data.positions || [];
             applyIntradayPrices(positions);
+            applyLiveBookValue(data);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
             const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
 
@@ -6576,6 +6604,7 @@
             const pnlColor = pnl >= 0 ? '#10B981' : '#EF4444';
             const positions = data.positions || [];
             applyIntradayPrices(positions);
+            applyLiveBookValue(data);
             const closed    = (data.closed_trades || []).slice().reverse().slice(0, 20);
             const thStyle = `padding:6px 8px;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
 
@@ -11382,7 +11411,7 @@
                     const rt = await fetch('data/flow_conviction_tracked.json?t=' + Date.now());
                     _fpTracked = rt.ok ? await rt.json() : null;
                 } catch(_) { _fpTracked = null; }
-                if (_fpTracked) applyIntradayPrices(_fpTracked.positions);
+                if (_fpTracked) { applyIntradayPrices(_fpTracked.positions); applyLiveBookValue(_fpTracked); }
                 fpRender();
             } catch(e) {
                 document.getElementById('fp-meta').textContent = 'Failed to load flow_conviction_portfolio.json';
@@ -11923,23 +11952,7 @@
                 .then(r => r.json())
                 .then(d => {
                     applyIntradayPrices(d.positions);
-                    // Live book valuation — rotation carries per-position shares, so we can
-                    // revalue the open book at intraday prices exactly. Cash already banks
-                    // realized P&L, so total_value = cash + Σ(shares·live_price). Only when at
-                    // least one open position priced live; otherwise the EOD figures stand.
-                    if (Array.isArray(d.positions) && d.starting_capital) {
-                        let mv = 0, anyLive = false;
-                        for (const p of d.positions) {
-                            if (typeof p.shares === 'number' && typeof p.current_price === 'number') mv += p.shares * p.current_price;
-                            if (p._live) anyLive = true;
-                        }
-                        if (anyLive) {
-                            d.total_value = (d.cash || 0) + mv;
-                            d.total_return_dollar = d.total_value - d.starting_capital;
-                            d.total_return_pct = d.total_return_dollar / d.starting_capital * 100;
-                            d._liveValued = true;
-                        }
-                    }
+                    applyLiveBookValue(d);   // revalue open book at intraday prices (carries shares)
                     // Meta line
                     const meta = document.getElementById('rot-meta');
                     if (meta) meta.textContent = `Generated ${d.generated || '—'} · as of ${d.as_of_date || '—'}`

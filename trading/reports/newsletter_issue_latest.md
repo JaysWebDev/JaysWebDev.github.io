@@ -1,10 +1,10 @@
-# Conviction Weekly — August 30, 2026
+# Conviction Weekly — September 06, 2026
 
-**Market regime: BULL.** Bull — breadth confirms the uptrend; full signal flow. Breadth: 22% of the quality universe in Stage 2 uptrends, 68% above their 200-day average.
+**Market regime: BULL.** Bull — breadth confirms the uptrend; full signal flow. Breadth: 19% of the quality universe in Stage 2 uptrends, 64% above their 200-day average.
 
 ## Track Record — measured, not promised
 
-- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-1.32%** · 10 open · 7 closed, 0% wins
+- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-0.52%** · 10 open · 8 closed, 0% wins
 - **Multi-scanner signals** (3+ scanners agreeing — Jun 4 2026 cohort study, n=68): **52.9%** positive after 5 trading days, avg **+0.18%**
 
 *All figures auto-computed from the live system at publish time. Past performance does not guarantee future results.*
@@ -13,24 +13,24 @@
 
 | # | Symbol | Price | Composite | Conviction | Scanners/Days | RSI | RS | Stop |
 |---|--------|-------|-----------|------------|---------------|-----|-----|------|
-| 1 | **EXEL** ✓ | $55.26 | 81.0 | 425 | 4× / 4d | 55 | 58 | $52.40 |
-| 2 | **BMY** ✓ | $67.57 | 80.8 | 518 | 9× / 4d | 59 | 63 | $65.54 |
-| 3 | **ANET** ✓ | $201.09 | 79.0 | 425 | 5× / 4d | 58 | 88 | $185.13 |
-| 4 | **ADBE** | $289.15 | 78.5 | 420 | 6× / 5d | 63 | 64 | $267.76 |
-| 5 | **JPM** ✓ | $354.22 | 75.7 | 489 | 8× / 4d | 45 | 61 | $343.95 |
-| 6 | **NEM** | $131.60 | 74.2 | 397 | 4× / 4d | 73 | 82 | $123.06 |
-| 7 | **NTAP** ✓ | $190.64 | 73.5 | 436 | 4× / 4d | 51 | 85 | $176.44 |
-| 8 | **CTAS** ✓ | $204.15 | 73.5 | 401 | 6× / 4d | 52 | 42 | $196.85 |
-| 9 | **STT** ✓ | $193.62 | 73.0 | 461 | 6× / 4d | 65 | 79 | $187.81 |
-| 10 | **EOG** ✓ | $144.50 | 72.8 | 404 | 5× / 4d | 66 | 48 | $137.71 |
+| 1 | **EXEL** ✓ | $59.13 | 82.4 | 437 | 4× / 4d | 78 | 76 | $56.08 |
+| 2 | **ABNB** ✓ | $183.26 | 81.1 | 471 | 6× / 4d | 52 | 90 | $177.76 |
+| 3 | **MSFT** | $510.12 | 79.5 | 432 | 6× / 4d | 59 | 69 | $489.17 |
+| 4 | **VRTX** | $557.96 | 77.4 | 425 | 6× / 4d | 76 | 89 | $532.77 |
+| 5 | **EOG** ✓ | $148.96 | 77.1 | 444 | 6× / 4d | 56 | 72 | $144.49 |
+| 6 | **NVDA** ✓ | $228.45 | 76.8 | 387 | 3× / 4d | 52 | 68 | $213.68 |
+| 7 | **APA** ✓ | $44.18 | 76.7 | 462 | 5× / 5d | 67 | 91 | $41.22 |
+| 8 | **HPQ** | $31.93 | 76.4 | 506 | 6× / 5d | 60 | 82 | $29.14 |
+| 9 | **BMY** ✓ | $68.09 | 76.4 | 478 | 7× / 4d | 69 | 75 | $65.09 |
+| 10 | **GFI** | $48.16 | 75.6 | 388 | 5× / 5d | 70 | 74 | $44.02 |
 
 ✓ = full Stage 2 uptrend (price > SMA50 > SMA150 > SMA200). Composite blends conviction (65%) with fundamental quality (35%). Stops are ATR-based algorithmic levels.
 
 ## Why the Top 3
 
-1. **EXEL** — EXEL is showing an ATR coil-to-expansion and accumulation pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 4 scanners over 4 days. Monthly return history: +3.6% avg over 31 months (71% consistency). Fundamentals: Biotechnology — fundamentally strong; with 35% profit margin; trading at 14.5× earnings.
-2. **BMY** — BMY is showing a pullback-to-support and volume climax base pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 9 scanners over 4 days. Fundamentals: Pharmaceuticals — fundamentally strong; with 19% profit margin; trading at 14.2× earnings.
-3. **ANET** — ANET is showing an ATR coil-to-expansion and momentum rebound pattern, in a Stage 2 uptrend, with top-13% relative strength (RS 88), exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 5 scanners over 4 days. Monthly return history: +4.2% avg over 31 months (68% consistency). Fundamentals: Communications — fundamentally strong; growing revenue at 33% YoY; with 38% profit margin; richly valued at 63.5× earnings.
+1. **EXEL** — EXEL is showing an accumulation and RSI staircase pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 4 scanners over 4 days. Monthly return history: +3.6% avg over 32 months (69% consistency). Fundamentals: Biotechnology — fundamentally strong; with 35% profit margin; trading at 14.5× earnings.
+2. **ABNB** — ABNB is showing a pullback-to-support and ATR coil-to-expansion pattern, in a Stage 2 uptrend, with top-10% relative strength (RS 90), confirmed by 6 scanners over 4 days. Monthly return history: +1.2% avg over 34 months (59% consistency). Fundamentals: Hotels, Restaurants & Leisure — fundamentally strong; growing revenue at 14% YoY; with 20% profit margin.
+3. **MSFT** — MSFT is showing an accumulation and pullback-to-support pattern, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 6 scanners over 4 days. Monthly return history: +0.9% avg over 34 months (56% consistency). Fundamentals: Technology — fundamentally strong; growing revenue at 18% YoY; with 40% profit margin; trading at 27.6× earnings.
 
 ---
 
