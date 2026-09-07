@@ -487,6 +487,23 @@
     .src-badge.assessed { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
     .src-badge.flagged  { background: var(--red-bg);   color: var(--red); }
     .stale-date { color: var(--amber); }
+    .live-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.3px;
+      padding: 1px 5px; border-radius: 3px; margin-left: 6px;
+      vertical-align: middle; text-transform: uppercase;
+      background: var(--green-bg); color: var(--green);
+    }
+    .brief-listing {
+      background: var(--green-bg);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 8px; padding: 12px 14px;
+      font-size: 12px; line-height: 1.6;
+    }
+    .brief-listing a { color: var(--green); font-weight: 600; text-decoration: none; }
+    .brief-listing a:hover { text-decoration: underline; }
+    .brief-listing .bl-price { font-size: 16px; font-weight: 700; color: var(--green); }
+    .brief-listing .bl-delta { font-weight: 600; }
 
     @media (max-width: 640px) {
       nav { padding: 0 16px; }
@@ -532,6 +549,10 @@
         <div class="brief-opp-score" id="brief-opp-score"></div>
         <div class="brief-opp-score" id="brief-score-label"></div>
       </div>
+    </div>
+    <div id="brief-listing-wrap" style="display:none">
+      <div class="brief-section-label">Live Listing</div>
+      <div class="brief-listing" id="brief-listing"></div>
     </div>
     <div>
       <div class="brief-section-label">Deal Thesis</div>
@@ -591,6 +612,11 @@
       <div class="kpi-label">Flagged / Excluded</div>
       <div class="kpi-value" id="kpi-flagged">&mdash;</div>
       <div class="kpi-sub" id="kpi-flagged-sub">poor valuation data</div>
+    </div>
+    <div class="kpi-card" id="kpi-listed-card" style="display:none">
+      <div class="kpi-label">Listed Now</div>
+      <div class="kpi-value green" id="kpi-listed">&mdash;</div>
+      <div class="kpi-sub" id="kpi-listed-sub">of top leads on-market</div>
     </div>
   </div>
 
@@ -696,6 +722,20 @@
   let sortDir = 'desc';
   let currentView = [];   // filtered + sorted list currently shown (drives brief prev/next)
   let briefIndex = -1;    // index into currentView of the open brief
+  let livePrices = {};    // building_id -> live listing record from data/live_prices.json (optional)
+
+  function liveOf(b) {
+    var r = livePrices[b.building_id] || livePrices[b.id];
+    return (r && r.status === 'for_sale') ? r : null;
+  }
+
+  function liveBadgeHTML(b) {
+    var r = liveOf(b);
+    if (!r) return '';
+    var px = r.list_price ? ' $' + Math.round(r.list_price / 1000) + 'K' : '';
+    return '<span class="live-badge" title="Currently listed for sale' +
+      (r.list_price ? ' at $' + Math.round(r.list_price).toLocaleString() : '') + '">Listed' + px + '</span>';
+  }
 
   function scoreTier(score) {
     if (score >= 75) return 'green';
@@ -870,6 +910,14 @@
     var highOpp = allBuildings.filter(function(b) { return b.opportunity_score >= 50; }).length;
     document.getElementById('kpi-high-conf').textContent = highOpp.toLocaleString();
 
+    // Live "Listed Now" KPI — only shown once live_prices.json has been generated.
+    if (Object.keys(livePrices).length) {
+      var listedNow = allBuildings.filter(liveOf).length;
+      document.getElementById('kpi-listed').textContent = listedNow.toLocaleString();
+      document.getElementById('kpi-listed-sub').textContent = 'of ' + allBuildings.length + ' top leads on-market';
+      document.getElementById('kpi-listed-card').style.display = '';
+    }
+
     if (summaryMeta.scoring_version) {
       var badge = document.getElementById('version-badge');
       badge.textContent = 'v' + summaryMeta.scoring_version;
@@ -931,7 +979,7 @@
       return '<div class="opp-card" tabindex="0" role="button" onclick="openBriefByRank(' + rank + ')" onkeydown="briefKey(event,' + rank + ')" title="Open deal brief">'
         + '<div class="opp-card-header">'
         + '<div>'
-        + '<div class="opp-address">' + addr
+        + '<div class="opp-address">' + addr + liveBadgeHTML(b)
           + (loc ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:12px">' + loc + rentWarnHTML(b) + '</span>' : '')
           + '</div>'
         + (unitsStr ? '<div class="opp-county">' + unitsStr + '</div>' : '')
@@ -970,7 +1018,7 @@
     tbody.innerHTML = sorted.map(function(b) {
       return '<tr tabindex="0" role="button" onclick="openBriefByRank(' + b._rank + ')" onkeydown="briefKey(event,' + b._rank + ')" title="Open deal brief">'
         + '<td style="color:var(--text-muted);font-size:12px">#' + (b._rank || '') + '</td>'
-        + '<td class="address-cell">' + (b.address || '\u2014') + '</td>'
+        + '<td class="address-cell">' + (b.address || '\u2014') + liveBadgeHTML(b) + '</td>'
         + '<td>' + (b.city || '\u2014') + rentWarnHTML(b) + '</td>'
         + '<td class="owner-cell">' + ownerCellHTML(b) + '</td>'
         + '<td>' + scoreBadgeHTML(b.opportunity_score) + '</td>'
@@ -1085,6 +1133,9 @@
       ['Year Built',        function(b){ return b.year_built || ''; }],
       ['Last Sale Date',    function(b){ return b.last_sale_date || ''; }],
       ['Last Sale Price',   function(b){ return b.last_sale_price != null ? Math.round(b.last_sale_price) : ''; }],
+      ['Listing Status',    function(b){ var r = livePrices[b.building_id] || livePrices[b.id]; return r ? r.status : ''; }],
+      ['List Price',        function(b){ var r = livePrices[b.building_id] || livePrices[b.id]; return (r && r.list_price) ? Math.round(r.list_price) : ''; }],
+      ['Listing URL',       function(b){ var r = livePrices[b.building_id] || livePrices[b.id]; return (r && r.url) || ''; }],
     ];
     function esc(v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
     var lines = [cols.map(function(c){ return esc(c[0]); }).join(',')];
@@ -1152,13 +1203,19 @@
     var cardsLoading = document.getElementById('cards-loading');
     var cardsGrid = document.getElementById('cards-grid');
     try {
-      var [summaryRes, metaRes] = await Promise.all([
+      var [summaryRes, metaRes, liveRes] = await Promise.all([
         fetch('data/scoring_summary.json'),
         fetch('data/run_metadata.json'),
+        fetch('data/live_prices.json').catch(function(){ return null; }),  // optional
       ]);
       if (!summaryRes.ok) throw new Error('HTTP ' + summaryRes.status + ': ' + summaryRes.statusText);
       var data = await summaryRes.json();
       var meta = metaRes.ok ? await metaRes.json() : null;
+
+      // Live listing enrichment is optional — absent until fetch_live_prices.py has run.
+      if (liveRes && liveRes.ok) {
+        try { livePrices = (await liveRes.json()).prices || {}; } catch(e) { livePrices = {}; }
+      }
 
       summaryMeta = {
         generated_at:    data.generated_at || null,
@@ -1385,6 +1442,34 @@
         + (isCorpOwner(b) ? '<span class="corp-tag" title="Corporate / LLC ownership">Corp</span>' : '');
     } else {
       ownerEl.innerHTML = '';
+    }
+
+    // Live listing block — actual on-market status vs our estimate.
+    var live = liveOf(b);
+    var listWrap = document.getElementById('brief-listing-wrap');
+    if (live) {
+      var lp = live.list_price;
+      var mv = parseFloat(b.market_value) || 0;
+      var deltaHTML = '';
+      if (lp && mv) {
+        var d = (lp - mv) / mv * 100;
+        var dColor = d <= 0 ? 'var(--green)' : 'var(--amber)';
+        deltaHTML = ' &middot; <span class="bl-delta" style="color:' + dColor + '">'
+          + (d >= 0 ? '+' : '') + d.toFixed(0) + '% vs our est. value</span>';
+      }
+      var bits = [];
+      if (lp) bits.push('<span class="bl-price">$' + Math.round(lp).toLocaleString() + '</span>' + deltaHTML);
+      if (live.days_on_market != null) bits.push(Math.round(live.days_on_market) + ' days on market');
+      if (live.beds != null || live.baths != null) {
+        bits.push([live.beds != null ? live.beds + ' bd' : null, live.baths != null ? live.baths + ' ba' : null].filter(Boolean).join(' / '));
+      }
+      var link = live.url ? '<div style="margin-top:6px"><a href="' + live.url + '" target="_blank" rel="noopener">View listing on Zillow &rarr;</a></div>' : '';
+      document.getElementById('brief-listing').innerHTML =
+        '<div style="font-weight:700;color:var(--green);margin-bottom:4px">&#9679; Currently for sale</div>'
+        + bits.join('<br>') + link;
+      listWrap.style.display = '';
+    } else {
+      listWrap.style.display = 'none';
     }
 
     var tierEl = document.getElementById('brief-tier');
