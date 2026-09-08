@@ -1,7 +1,7 @@
 {
-  "generated": "2026-09-04 16:43:01",
+  "generated": "2026-09-07 16:43:01",
   "db": {
-    "size_mb": 840.4,
+    "size_mb": 840.6,
     "path": "/media/j/Extreme SSD/Trading_Plans/Database/trading_central.db",
     "symbols": 2357,
     "last_price_date": "2026-09-03",
@@ -15,12 +15,12 @@
     },
     "table_counts": {
       "daily_prices": 1153786,
-      "scanner_results": 245350,
+      "scanner_results": 246306,
       "multi_day_scores": 49593,
       "multi_day_test_scores": 5249,
       "relative_strength": 173127,
       "risk_profiles": 215460,
-      "fundamentals": 67226
+      "fundamentals": 68055
     }
   },
   "cron_jobs": [
@@ -29,176 +29,176 @@
       "schedule": "7:00 AM Mon-Fri",
       "log_file": "stale_price_check.log",
       "days": "weekday",
-      "last_run": "2026-09-04 07:00",
-      "last_run_ts": 1788519603.3983572
+      "last_run": "2026-09-07 07:00",
+      "last_run_ts": 1788778802.6680822
     },
     {
       "name": "LT Portfolio Review",
       "schedule": "7:00 AM Monday",
       "log_file": "portfolio_weekly.log",
       "days": "monday",
-      "last_run": "2026-09-01 00:00",
-      "last_run_ts": 1788235202.5034943
+      "last_run": "2026-09-07 07:00",
+      "last_run_ts": 1788778804.736979
     },
     {
       "name": "Market Open Scan",
       "schedule": "9:30 AM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:07",
-      "last_run_ts": 1788552464.7569933
+      "last_run": "2026-09-07 16:00",
+      "last_run_ts": 1788811203.205407
     },
     {
       "name": "Report Sync (9:35)",
       "schedule": "9:35 AM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:26",
-      "last_run_ts": 1788553565.1961122
+      "last_run": "2026-09-07 16:26",
+      "last_run_ts": 1788812765.9862096
     },
     {
       "name": "Mid-Morning Scan",
       "schedule": "11:00 AM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:07",
-      "last_run_ts": 1788552464.7569933
+      "last_run": "2026-09-07 16:00",
+      "last_run_ts": 1788811203.205407
     },
     {
       "name": "Report Sync (11:05)",
       "schedule": "11:05 AM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:26",
-      "last_run_ts": 1788553565.1961122
+      "last_run": "2026-09-07 16:26",
+      "last_run_ts": 1788812765.9862096
     },
     {
       "name": "Lunch Scan",
       "schedule": "1:30 PM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:07",
-      "last_run_ts": 1788552464.7569933
+      "last_run": "2026-09-07 16:00",
+      "last_run_ts": 1788811203.205407
     },
     {
       "name": "Report Sync (1:35)",
       "schedule": "1:35 PM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:26",
-      "last_run_ts": 1788553565.1961122
+      "last_run": "2026-09-07 16:26",
+      "last_run_ts": 1788812765.9862096
     },
     {
       "name": "Market Close Scan",
       "schedule": "4:00 PM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:07",
-      "last_run_ts": 1788552464.7569933
+      "last_run": "2026-09-07 16:00",
+      "last_run_ts": 1788811203.205407
     },
     {
       "name": "Report Sync (4:05)",
       "schedule": "4:05 PM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:26",
-      "last_run_ts": 1788553565.1961122
+      "last_run": "2026-09-07 16:26",
+      "last_run_ts": 1788812765.9862096
     },
     {
       "name": "Trend Ranker",
       "schedule": "4:10 PM Mon-Fri",
       "log_file": "trend_ranker.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:10",
-      "last_run_ts": 1788552601.8643188
+      "last_run": "2026-09-07 16:10",
+      "last_run_ts": 1788811801.9668024
     },
     {
       "name": "Test Unified Scorer",
       "schedule": "4:15 PM Mon-Fri",
       "log_file": "unified_test.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:15",
-      "last_run_ts": 1788552901.6372313
+      "last_run": "2026-09-07 16:15",
+      "last_run_ts": 1788812102.0711026
     },
     {
       "name": "Cross-Scanner Report",
       "schedule": "4:20 PM Mon-Fri",
       "log_file": "cross_scanner.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:28",
-      "last_run_ts": 1788553681.695004
+      "last_run": "2026-09-07 16:28",
+      "last_run_ts": 1788812882.3753507
     },
     {
       "name": "Admin Data Generator",
       "schedule": "4:25 PM Mon-Fri",
       "log_file": "admin_data.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:43",
-      "last_run_ts": 1788554581.0803802
+      "last_run": "2026-09-07 16:43",
+      "last_run_ts": 1788813781.7775307
     },
     {
       "name": "Portfolio Constructor",
       "schedule": "4:30 PM Mon-Fri",
       "log_file": "portfolio_constructor.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:30",
-      "last_run_ts": 1788553803.331953
+      "last_run": "2026-09-07 16:30",
+      "last_run_ts": 1788813003.1155462
     },
     {
       "name": "Telegram Alerts",
       "schedule": "4:35 PM Mon-Fri",
       "log_file": "telegram_alerts.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:35",
-      "last_run_ts": 1788554117.0300796
+      "last_run": "2026-09-07 16:35",
+      "last_run_ts": 1788813316.8716917
     },
     {
       "name": "Security Data (Active)",
       "schedule": "5:00 PM Mon-Fri",
       "log_file": "security_data.log",
       "days": "weekday",
-      "last_run": "2026-09-03 17:52",
-      "last_run_ts": 1788472325.661469
+      "last_run": "2026-09-06 02:12",
+      "last_run_ts": 1788675135.574899
     },
     {
       "name": "Security Data (Full)",
       "schedule": "2:00 AM Sunday",
       "log_file": "security_data.log",
       "days": "sunday",
-      "last_run": "2026-09-03 17:52",
-      "last_run_ts": 1788472325.661469
+      "last_run": "2026-09-06 02:12",
+      "last_run_ts": 1788675135.574899
     },
     {
       "name": "Performance Tracker",
       "schedule": "7:00 PM Mon-Fri",
       "log_file": "performance_tracking.log",
       "days": "weekday",
-      "last_run": "2026-09-03 19:00",
-      "last_run_ts": 1788476412.4566455
+      "last_run": "2026-09-06 00:00",
+      "last_run_ts": 1788667201.15319
     },
     {
       "name": "Evening Analysis",
       "schedule": "8:00 PM Mon-Fri",
       "log_file": "intraday_automation.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:07",
-      "last_run_ts": 1788552464.7569933
+      "last_run": "2026-09-07 16:00",
+      "last_run_ts": 1788811203.205407
     },
     {
       "name": "Report Sync (8:05)",
       "schedule": "8:05 PM Mon-Fri",
       "log_file": "report_sync.log",
       "days": "weekday",
-      "last_run": "2026-09-04 16:26",
-      "last_run_ts": 1788553565.1961122
+      "last_run": "2026-09-07 16:26",
+      "last_run_ts": 1788812765.9862096
     },
     {
       "name": "DB Backup",
       "schedule": "10:00 PM Mon-Fri",
       "log_file": "db_backup.log",
       "days": "weekday",
-      "last_run": "2026-09-03 22:00",
-      "last_run_ts": 1788487241.8519177
+      "last_run": "2026-09-06 00:00",
+      "last_run_ts": 1788667200.964188
     },
     {
       "name": "Backup Retention (Daily)",
@@ -229,8 +229,8 @@
       "schedule": "3:00 AM Sunday",
       "log_file": "populate_sectors.log",
       "days": "sunday",
-      "last_run": "2026-08-31 00:00",
-      "last_run_ts": 1788148802.0281126
+      "last_run": "2026-09-07 00:00",
+      "last_run_ts": 1788753601.529341
     },
     {
       "name": "Monthly Backup Retention",
@@ -253,41 +253,41 @@
       "schedule": "6:00 AM Sunday",
       "log_file": "database_optimization.log",
       "days": "sunday",
-      "last_run": "2026-08-31 00:00",
-      "last_run_ts": 1788148802.0121124
+      "last_run": "2026-09-07 00:00",
+      "last_run_ts": 1788753601.5133407
     }
   ],
   "logs": {
     "intraday_automation": {
       "description": "Market scans & orchestrator",
       "lines": [
-        "2026-09-04 16:07:44,080 - INFO -   PP: IBRX    2026-07-02 \u2192 2026-07-10  -12.9%  [STOP -8%]  5d",
-        "2026-09-04 16:07:44,080 - INFO -   PP: BCRX    2026-07-02 \u2192 2026-07-31  -8.7%  [STOP -8%]  20d",
-        "2026-09-04 16:07:44,080 - INFO -   PP: BCRX    2026-07-02 \u2192 2026-07-31  -8.7%  [STOP -8%]  20d",
-        "2026-09-04 16:07:44,080 - INFO -   PP: LFST    2026-07-02 \u2192 2026-08-04  -9.0%  [STOP -8%]  22d",
-        "2026-09-04 16:07:44,080 - INFO -   PP: LFST    2026-07-02 \u2192 2026-08-04  -9.0%  [STOP -8%]  22d",
-        "2026-09-04 16:07:44,080 - INFO -   PP: OSCR    2026-07-31 \u2192 2026-08-06  -15.0%  [STOP -8%]  4d",
-        "2026-09-04 16:07:44,080 - INFO -   PP: OSCR    2026-07-31 \u2192 2026-08-06  -15.0%  [STOP -8%]  4d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: MTCH    2026-08-04 \u2192 2026-08-06  -11.2%  [STOP -8%]  2d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: MTCH    2026-08-04 \u2192 2026-08-06  -11.2%  [STOP -8%]  2d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: ALMS    2026-07-02 \u2192 2026-08-19  -9.5%  [STOP -8%]  33d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: ALMS    2026-07-02 \u2192 2026-08-19  -9.5%  [STOP -8%]  33d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: COMP    2026-08-06 \u2192 2026-08-24  -8.2%  [STOP -8%]  12d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: COMP    2026-08-06 \u2192 2026-08-24  -8.2%  [STOP -8%]  12d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: SIRI    2026-07-10 \u2192 2026-09-01  -9.2%  [STOP -8%]  37d",
-        "2026-09-04 16:07:44,081 - INFO -   PP: SIRI    2026-07-10 \u2192 2026-09-01  -9.2%  [STOP -8%]  37d",
-        "2026-09-04 16:07:44,081 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
-        "2026-09-04 16:07:44,081 - INFO - \ud83d\udcf1 Sending reports to Telegram...",
-        "2026-09-04 16:07:44,757 - INFO - \u2705 Telegram reports sent successfully",
-        "2026-09-04 16:07:44,757 - INFO - \u2705 Telegram reports sent successfully",
-        "2026-09-04 16:07:44,758 - INFO - \ud83c\udf89 Market close scan complete - Reports sent and private dashboard updated!",
-        "2026-09-04 16:07:44,758 - INFO - \ud83c\udf89 Market close scan complete - Reports sent and private dashboard updated!",
-        "2026-09-04 16:07:44,758 - INFO - \u2705 Market close scan completed",
-        "2026-09-04 16:07:44,758 - INFO - \u2705 Market close scan completed",
-        "2026-09-04 16:07:44,758 - INFO - \u2705 Market Close automation completed successfully",
-        "2026-09-04 16:07:44,758 - INFO - \u2705 Market Close automation completed successfully"
+        "  File \"/home/j/_DEV/trading-pipeline/polygon_data_update.py\", line 319, in daily_update",
+        "    last_in_db = self.get_last_trading_day()",
+        "                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/home/j/_DEV/trading-pipeline/polygon_data_update.py\", line 187, in get_last_trading_day",
+        "    result = conn.execute(\"SELECT MAX(date) FROM daily_prices\").fetchone()[0]",
+        "             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "sqlite3.OperationalError: no such table: daily_prices",
+        "2026-09-07 16:00:03,205 - ERROR - \u274c Database update failed: 2026-09-07 16:00:03,087 - INFO - Legacy positional args ignored (Polygon handles full universe): ['774', '7']",
+        "Traceback (most recent call last):",
+        "  File \"/home/j/_DEV/trading-pipeline/polygon_data_update.py\", line 485, in <module>",
+        "    main()",
+        "  File \"/home/j/_DEV/trading-pipeline/polygon_data_update.py\", line 474, in main",
+        "    results = updater.daily_update(trade_date=trade_date)",
+        "              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/home/j/_DEV/trading-pipeline/polygon_data_update.py\", line 319, in daily_update",
+        "    last_in_db = self.get_last_trading_day()",
+        "                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/home/j/_DEV/trading-pipeline/polygon_data_update.py\", line 187, in get_last_trading_day",
+        "    result = conn.execute(\"SELECT MAX(date) FROM daily_prices\").fetchone()[0]",
+        "             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "sqlite3.OperationalError: no such table: daily_prices",
+        "2026-09-07 16:00:03,205 - ERROR - \u274c Critical: Data update failed at market close",
+        "2026-09-07 16:00:03,205 - ERROR - \u274c Critical: Data update failed at market close",
+        "2026-09-07 16:00:03,206 - INFO - \u2705 Market Close automation completed successfully",
+        "2026-09-07 16:00:03,206 - INFO - \u2705 Market Close automation completed successfully"
       ],
-      "last_modified": "2026-09-04 16:07",
+      "last_modified": "2026-09-07 16:00",
       "exists": true
     },
     "trend_ranker": {
@@ -319,154 +319,118 @@
         "   19 CFFN      88 BUY      $   8.80       5.0%  5.0% off High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD Bull [scanner:197]",
         "   20 VXUS      90 BUY      $  87.97       0.7%  Near 52wk High \u00b7 Above MA \u00b7 EMA Uptrend \u00b7 MACD+ [scanner:193]"
       ],
-      "last_modified": "2026-09-04 16:10",
+      "last_modified": "2026-09-07 16:10",
       "exists": true
     },
     "unified_test": {
       "description": "10-scanner test scorer (4:15 PM)",
       "lines": [
-        "2026-09-03 16:15:02,309 [INFO]   # 9 AVTR    score=131  sources=2 (institutional,under50)",
-        "2026-09-03 16:15:02,309 [INFO]   #10 BORR    score=131  sources=2 (institutional,under50)",
-        "2026-09-03 16:15:02,310 [INFO] === db_scanner_unified_test.py complete ===",
-        "2026-09-04 16:15:01,416 [INFO] === db_scanner_unified_test.py starting ===",
-        "2026-09-04 16:15:01,418 [INFO] Using scan_date: 2026-09-04",
-        "2026-09-04 16:15:01,421 [INFO] Scanner results: {'database_enhanced': 40, 'v3_compression': 50, 'institutional': 40, 'etf': 85, 'under50': 891}",
-        "2026-09-04 16:15:01,422 [INFO] Filtered 7 inverse/leveraged ETF(s)",
-        "2026-09-04 16:15:01,422 [INFO] Unique symbols: 1026",
-        "2026-09-04 16:15:01,619 [INFO] under50-only in top 50: 0/15 cap",
-        "2026-09-04 16:15:01,619 [INFO] Top 50 symbols scored",
-        "2026-09-04 16:15:01,631 [INFO] Wrote 50 rows to multi_day_test_scores for 2026-09-04",
-        "2026-09-04 16:15:01,632 [INFO] JSON written: /home/j/github_deploy/trading/data/unified_test_top50.json (50 picks)",
-        "2026-09-04 16:15:01,637 [INFO] HTML written: /home/j/Desktop/Trading Scans/daily/test_unified/TEST_UNIFIED_20260904_1615.html",
-        "2026-09-04 16:15:01,637 [INFO] === Top 10 Test Unified ===",
-        "2026-09-04 16:15:01,637 [INFO]   # 1 MET     score=148  sources=2 (enhanced,institutional)",
-        "2026-09-04 16:15:01,637 [INFO]   # 2 PRCH    score=142  sources=3 (institutional,under50,v3)",
-        "2026-09-04 16:15:01,637 [INFO]   # 3 HG      score=140  sources=3 (institutional,under50,v3)",
-        "2026-09-04 16:15:01,637 [INFO]   # 4 TWO     score=140  sources=1 (enhanced)",
-        "2026-09-04 16:15:01,637 [INFO]   # 5 LAND    score=139  sources=3 (institutional,under50,v3)",
-        "2026-09-04 16:15:01,637 [INFO]   # 6 CNO     score=135  sources=2 (enhanced,institutional)",
-        "2026-09-04 16:15:01,637 [INFO]   # 7 BY      score=134  sources=2 (enhanced,under50)",
-        "2026-09-04 16:15:01,637 [INFO]   # 8 LTC     score=134  sources=2 (enhanced,under50)",
-        "2026-09-04 16:15:01,637 [INFO]   # 9 WTRG    score=131  sources=2 (enhanced,under50)",
-        "2026-09-04 16:15:01,637 [INFO]   #10 LNC     score=131  sources=2 (enhanced,under50)",
-        "2026-09-04 16:15:01,638 [INFO] === db_scanner_unified_test.py complete ==="
+        "2026-09-07 16:15:01,771 [INFO] === db_scanner_unified_test.py starting ===",
+        "2026-09-07 16:15:01,818 [INFO] Using scan_date: 2026-09-04",
+        "2026-09-07 16:15:01,824 [INFO] Scanner results: {'database_enhanced': 40, 'v3_compression': 50, 'institutional': 40, 'etf': 85, 'under50': 891}",
+        "2026-09-07 16:15:01,826 [INFO] Filtered 7 inverse/leveraged ETF(s)",
+        "2026-09-07 16:15:01,826 [INFO] Unique symbols: 1026",
+        "2026-09-07 16:15:02,044 [INFO] under50-only in top 50: 0/15 cap",
+        "2026-09-07 16:15:02,044 [INFO] Top 50 symbols scored",
+        "2026-09-07 16:15:02,062 [INFO] Wrote 50 rows to multi_day_test_scores for 2026-09-04",
+        "2026-09-07 16:15:02,068 [INFO] JSON written: /home/j/github_deploy/trading/data/unified_test_top50.json (50 picks)",
+        "2026-09-07 16:15:02,069 [INFO] HTML written: /home/j/Desktop/Trading Scans/daily/test_unified/TEST_UNIFIED_20260907_1615.html",
+        "2026-09-07 16:15:02,069 [INFO] === Top 10 Test Unified ===",
+        "2026-09-07 16:15:02,069 [INFO]   # 1 MET     score=148  sources=2 (enhanced,institutional)",
+        "2026-09-07 16:15:02,069 [INFO]   # 2 PRCH    score=142  sources=3 (institutional,under50,v3)",
+        "2026-09-07 16:15:02,069 [INFO]   # 3 HG      score=140  sources=3 (institutional,under50,v3)",
+        "2026-09-07 16:15:02,069 [INFO]   # 4 TWO     score=140  sources=1 (enhanced)",
+        "2026-09-07 16:15:02,069 [INFO]   # 5 LAND    score=139  sources=3 (institutional,under50,v3)",
+        "2026-09-07 16:15:02,069 [INFO]   # 6 CNO     score=135  sources=2 (enhanced,institutional)",
+        "2026-09-07 16:15:02,069 [INFO]   # 7 BY      score=134  sources=2 (enhanced,under50)",
+        "2026-09-07 16:15:02,069 [INFO]   # 8 LTC     score=134  sources=2 (enhanced,under50)",
+        "2026-09-07 16:15:02,069 [INFO]   # 9 WTRG    score=131  sources=2 (enhanced,under50)",
+        "2026-09-07 16:15:02,069 [INFO]   #10 LNC     score=131  sources=2 (enhanced,under50)",
+        "2026-09-07 16:15:02,072 [INFO] === db_scanner_unified_test.py complete ==="
       ],
-      "last_modified": "2026-09-04 16:15",
+      "last_modified": "2026-09-07 16:15",
       "exists": true
     },
     "cross_scanner": {
       "description": "Cross-scanner conviction (4:20 PM)",
       "lines": [
-        "2026-09-04 16:28:01,694 - INFO -   4 BMY         478   4/5     7     84           - database_enhanced,setup_accum,unified,confluence,rsi_staircase,atr_momentum,setup_vcb",
-        "2026-09-04 16:28:01,694 - INFO -   5 IVZ         475   5/5     8     88           - under50,setup_vcb,unified,confluence,rsi_staircase,atr_momentum,database_enhanced,setup_pullback",
-        "2026-09-04 16:28:01,694 - INFO -   5 IVZ         475   5/5     8     88           - under50,setup_vcb,unified,confluence,rsi_staircase,atr_momentum,database_enhanced,setup_pullback",
-        "2026-09-04 16:28:01,694 - INFO -   6 NOV         471   5/5     7     86           - database_enhanced,under50,confluence,momentum_rebound,atr_momentum,v3_compression,rsi_staircase",
-        "2026-09-04 16:28:01,694 - INFO -   6 NOV         471   5/5     7     86           - database_enhanced,under50,confluence,momentum_rebound,atr_momentum,v3_compression,rsi_staircase",
-        "2026-09-04 16:28:01,694 - INFO -   7 ABNB        471   4/5     6     73     $183.26 setup_pullback,confluence,atr_momentum,momentum_rebound,database_enhanced,v3_compression",
-        "2026-09-04 16:28:01,694 - INFO -   7 ABNB        471   4/5     6     73     $183.26 setup_pullback,confluence,atr_momentum,momentum_rebound,database_enhanced,v3_compression",
-        "2026-09-04 16:28:01,694 - INFO -   8 SNAP        464   5/5     6     72       $5.70 under50,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase",
-        "2026-09-04 16:28:01,694 - INFO -   8 SNAP        464   5/5     6     72       $5.70 under50,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase",
-        "2026-09-04 16:28:01,694 - INFO -   9 APA         462   5/5     5     72      $44.18 v3_compression,under50,confluence,atr_momentum,rsi_staircase",
-        "2026-09-04 16:28:01,694 - INFO -   9 APA         462   5/5     5     72      $44.18 v3_compression,under50,confluence,atr_momentum,rsi_staircase",
-        "2026-09-04 16:28:01,694 - INFO -  10 KDP         454   5/5     4     69      $32.88 under50,confluence,rsi_staircase,atr_momentum",
-        "2026-09-04 16:28:01,694 - INFO -  10 KDP         454   5/5     4     69      $32.88 under50,confluence,rsi_staircase,atr_momentum",
-        "2026-09-04 16:28:01,694 - INFO -  11 JPM         449   4/5     7     68     $362.06 setup_vcb,setup_accum,confluence,database_enhanced,momentum_rebound,atr_momentum,unified",
-        "2026-09-04 16:28:01,694 - INFO -  11 JPM         449   4/5     7     68     $362.06 setup_vcb,setup_accum,confluence,database_enhanced,momentum_rebound,atr_momentum,unified",
-        "2026-09-04 16:28:01,694 - INFO -  12 EOG         444   4/5     6     49     $148.96 confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,v3_compression",
-        "2026-09-04 16:28:01,694 - INFO -  12 EOG         444   4/5     6     49     $148.96 confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,v3_compression",
-        "2026-09-04 16:28:01,695 - INFO -  13 OKTA        442   5/5     7     68           - database_enhanced,institutional,confluence,rsi_staircase,momentum_rebound,setup_pullback,v3_compression",
-        "2026-09-04 16:28:01,695 - INFO -  13 OKTA        442   5/5     7     68           - database_enhanced,institutional,confluence,rsi_staircase,momentum_rebound,setup_pullback,v3_compression",
-        "2026-09-04 16:28:01,695 - INFO -  14 SCHW        441   4/5     5     66           - setup_pullback,confluence,momentum_rebound,rsi_staircase,atr_momentum",
-        "2026-09-04 16:28:01,695 - INFO -  14 SCHW        441   4/5     5     66           - setup_pullback,confluence,momentum_rebound,rsi_staircase,atr_momentum",
-        "2026-09-04 16:28:01,695 - INFO -  15 MET         440   5/5     6     64      $99.23 database_enhanced,confluence,rsi_staircase,atr_momentum,setup_vcb,institutional",
-        "2026-09-04 16:28:01,695 - INFO -  15 MET         440   5/5     6     64      $99.23 database_enhanced,confluence,rsi_staircase,atr_momentum,setup_vcb,institutional",
-        "2026-09-04 16:28:01,695 - INFO - Done.",
-        "2026-09-04 16:28:01,695 - INFO - Done."
+        "2026-09-07 16:28:02,375 - INFO -   4 CAH         505   4/5     6     72           - setup_pullback,confluence,atr_momentum,setup_accum,momentum_rebound,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -   5 ELV         492   4/5     7     77     $414.78 setup_vcb,momentum_rebound,atr_momentum,setup_accum,rsi_staircase,confluence,institutional",
+        "2026-09-07 16:28:02,375 - INFO -   5 ELV         492   4/5     7     77     $414.78 setup_vcb,momentum_rebound,atr_momentum,setup_accum,rsi_staircase,confluence,institutional",
+        "2026-09-07 16:28:02,375 - INFO -   6 JPM         486   4/5     8     70     $362.06 setup_vcb,setup_accum,confluence,database_enhanced,momentum_rebound,atr_momentum,unified,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -   6 JPM         486   4/5     8     70     $362.06 setup_vcb,setup_accum,confluence,database_enhanced,momentum_rebound,atr_momentum,unified,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -   7 DELL        485   4/5     5     57     $492.20 confluence,momentum_rebound,database_enhanced,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -   7 DELL        485   4/5     5     57     $492.20 confluence,momentum_rebound,database_enhanced,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -   8 BMY         478   4/5     7     84           - database_enhanced,setup_accum,unified,confluence,rsi_staircase,atr_momentum,setup_vcb",
+        "2026-09-07 16:28:02,375 - INFO -   8 BMY         478   4/5     7     84           - database_enhanced,setup_accum,unified,confluence,rsi_staircase,atr_momentum,setup_vcb",
+        "2026-09-07 16:28:02,375 - INFO -   9 ZETA        472   5/5     6     82           - database_enhanced,under50,confluence,setup_pullback,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -   9 ZETA        472   5/5     6     82           - database_enhanced,under50,confluence,setup_pullback,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  10 NOV         472   5/5     7     87           - database_enhanced,under50,confluence,momentum_rebound,atr_momentum,v3_compression,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  10 NOV         472   5/5     7     87           - database_enhanced,under50,confluence,momentum_rebound,atr_momentum,v3_compression,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  11 AVTR        466   5/5     7     80      $15.19 v3_compression,under50,confluence,setup_pullback,institutional,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  11 AVTR        466   5/5     7     80      $15.19 v3_compression,under50,confluence,setup_pullback,institutional,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  12 SNAP        465   5/5     6     73       $5.70 under50,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  12 SNAP        465   5/5     6     73       $5.70 under50,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  13 APA         464   5/5     5     74      $44.18 v3_compression,under50,confluence,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  13 APA         464   5/5     5     74      $44.18 v3_compression,under50,confluence,atr_momentum,rsi_staircase",
+        "2026-09-07 16:28:02,375 - INFO -  14 SCHW        457   4/5     5     72     $110.38 setup_pullback,confluence,momentum_rebound,rsi_staircase,atr_momentum",
+        "2026-09-07 16:28:02,375 - INFO -  14 SCHW        457   4/5     5     72     $110.38 setup_pullback,confluence,momentum_rebound,rsi_staircase,atr_momentum",
+        "2026-09-07 16:28:02,375 - INFO -  15 GH          455   4/5     7     70     $161.04 setup_pullback,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase,setup_vcb",
+        "2026-09-07 16:28:02,375 - INFO -  15 GH          455   4/5     7     70     $161.04 setup_pullback,confluence,momentum_rebound,atr_momentum,setup_accum,rsi_staircase,setup_vcb",
+        "2026-09-07 16:28:02,376 - INFO - Done.",
+        "2026-09-07 16:28:02,376 - INFO - Done."
       ],
-      "last_modified": "2026-09-04 16:28",
+      "last_modified": "2026-09-07 16:28",
       "exists": true
     },
     "report_sync": {
       "description": "Report sync \u2192 GitHub Pages",
       "lines": [
-        "2026-09-04 16:26:01,658 - INFO -   Setup Scanner: SETUP_SCAN_2026-09-03.html -> setups_latest.html (30.3KB)",
-        "2026-09-04 16:26:01,658 - INFO -   Unified Multi-Day: UNIFIED_SCAN_2026-09-03.html -> unified_latest.html (35.9KB)",
-        "2026-09-04 16:26:01,658 - INFO -   Unified Multi-Day: UNIFIED_SCAN_2026-09-03.html -> unified_latest.html (35.9KB)",
-        "2026-09-04 16:26:01,715 - INFO -   ATR Momentum: ATR_MOMENTUM_2026-09-02.html -> atr_momentum_latest.html (119.4KB)",
-        "2026-09-04 16:26:01,715 - INFO -   ATR Momentum: ATR_MOMENTUM_2026-09-02.html -> atr_momentum_latest.html (119.4KB)",
-        "2026-09-04 16:26:01,718 - INFO -   Momentum Rebound: MOMENTUM_REBOUND_2026-09-02.html -> momentum_rebound_latest.html (34.1KB)",
-        "2026-09-04 16:26:01,718 - INFO -   Momentum Rebound: MOMENTUM_REBOUND_2026-09-02.html -> momentum_rebound_latest.html (34.1KB)",
-        "2026-09-04 16:26:01,722 - INFO -   RSI Staircase: RSI_STAIRCASE_2026-09-02.html -> rsi_staircase_latest.html (70.0KB)",
-        "2026-09-04 16:26:01,722 - INFO -   RSI Staircase: RSI_STAIRCASE_2026-09-02.html -> rsi_staircase_latest.html (70.0KB)",
-        "2026-09-04 16:26:01,723 - INFO -   Confluence: CONFLUENCE_SCAN_2026-09-03.html -> confluence_latest.html (724.4KB)",
-        "2026-09-04 16:26:01,723 - INFO -   Confluence: CONFLUENCE_SCAN_2026-09-03.html -> confluence_latest.html (724.4KB)",
-        "2026-09-04 16:26:01,724 - INFO - Synced 12 reports to github_deploy",
-        "2026-09-04 16:26:01,724 - INFO - Synced 12 reports to github_deploy",
-        "2026-09-04 16:26:02,407 - INFO - API data files updated",
-        "2026-09-04 16:26:02,407 - INFO - API data files updated",
-        "2026-09-04 16:26:02,415 - INFO - Top picks updated (15 picks, regime=BULL \u2014 database_enhanced: 5, institutional: 5, v3_compression: 5)",
-        "2026-09-04 16:26:02,415 - INFO - Top picks updated (15 picks, regime=BULL \u2014 database_enhanced: 5, institutional: 5, v3_compression: 5)",
-        "2026-09-04 16:26:05,196 - INFO - Oracle sync complete",
-        "2026-09-04 16:26:05,196 - INFO - Oracle sync complete",
-        "2026-09-04 16:26:05,196 - INFO - ==================================================",
-        "2026-09-04 16:26:05,196 - INFO - ==================================================",
-        "2026-09-04 16:26:05,196 - INFO - PIPELINE COMPLETE",
-        "2026-09-04 16:26:05,196 - INFO - PIPELINE COMPLETE",
-        "2026-09-04 16:26:05,196 - INFO - ==================================================",
-        "2026-09-04 16:26:05,196 - INFO - =================================================="
+        "2026-09-07 16:26:01,266 - INFO -   Setup Scanner: SETUP_SCAN_2026-09-03.html -> setups_latest.html (30.3KB)",
+        "2026-09-07 16:26:01,267 - INFO -   Unified Multi-Day: UNIFIED_SCAN_2026-09-03.html -> unified_latest.html (35.9KB)",
+        "2026-09-07 16:26:01,267 - INFO -   Unified Multi-Day: UNIFIED_SCAN_2026-09-03.html -> unified_latest.html (35.9KB)",
+        "2026-09-07 16:26:02,338 - INFO -   ATR Momentum: ATR_MOMENTUM_2026-09-03.html -> atr_momentum_latest.html (159.7KB)",
+        "2026-09-07 16:26:02,338 - INFO -   ATR Momentum: ATR_MOMENTUM_2026-09-03.html -> atr_momentum_latest.html (159.7KB)",
+        "2026-09-07 16:26:02,339 - INFO -   Momentum Rebound: MOMENTUM_REBOUND_2026-09-03.html -> momentum_rebound_latest.html (36.4KB)",
+        "2026-09-07 16:26:02,339 - INFO -   Momentum Rebound: MOMENTUM_REBOUND_2026-09-03.html -> momentum_rebound_latest.html (36.4KB)",
+        "2026-09-07 16:26:02,340 - INFO -   RSI Staircase: RSI_STAIRCASE_2026-09-03.html -> rsi_staircase_latest.html (111.4KB)",
+        "2026-09-07 16:26:02,340 - INFO -   RSI Staircase: RSI_STAIRCASE_2026-09-03.html -> rsi_staircase_latest.html (111.4KB)",
+        "2026-09-07 16:26:02,343 - INFO -   Confluence: CONFLUENCE_SCAN_2026-09-03.html -> confluence_latest.html (724.4KB)",
+        "2026-09-07 16:26:02,343 - INFO -   Confluence: CONFLUENCE_SCAN_2026-09-03.html -> confluence_latest.html (724.4KB)",
+        "2026-09-07 16:26:02,343 - INFO - Synced 12 reports to github_deploy",
+        "2026-09-07 16:26:02,343 - INFO - Synced 12 reports to github_deploy",
+        "2026-09-07 16:26:03,093 - INFO - API data files updated",
+        "2026-09-07 16:26:03,093 - INFO - API data files updated",
+        "2026-09-07 16:26:03,113 - INFO - Top picks updated (15 picks, regime=BULL \u2014 database_enhanced: 5, institutional: 5, v3_compression: 5)",
+        "2026-09-07 16:26:03,113 - INFO - Top picks updated (15 picks, regime=BULL \u2014 database_enhanced: 5, institutional: 5, v3_compression: 5)",
+        "2026-09-07 16:26:05,986 - INFO - Oracle sync complete",
+        "2026-09-07 16:26:05,986 - INFO - Oracle sync complete",
+        "2026-09-07 16:26:05,986 - INFO - ==================================================",
+        "2026-09-07 16:26:05,986 - INFO - ==================================================",
+        "2026-09-07 16:26:05,986 - INFO - PIPELINE COMPLETE",
+        "2026-09-07 16:26:05,986 - INFO - PIPELINE COMPLETE",
+        "2026-09-07 16:26:05,986 - INFO - ==================================================",
+        "2026-09-07 16:26:05,986 - INFO - =================================================="
       ],
-      "last_modified": "2026-09-04 16:26",
+      "last_modified": "2026-09-07 16:26",
       "exists": true
     },
     "performance_tracking": {
       "description": "Signal performance tracker",
-      "lines": [
-        "\ud83c\udfaf Overall Win Rate: 41.6%",
-        "\ud83d\udcb0 Average Return: 0.3%",
-        "\u23f3 Signals Still Open: 151250",
-        "\ud83d\udd0d Recommendations:",
-        "  \ud83c\udfaf Best performing score range: 50-59 (45.6% win rate)",
-        "  \ud83d\udcc5 Best day for signals: Monday (43.6% win rate)",
-        "  \ud83d\udcca Overall performance: 41.6% win rate, 0.3% avg return",
-        "2026-09-03 19:00:02,651 - INFO - No conviction signals (scanner_count>=3) for 2026-09-03",
-        "2026-09-03 19:00:05,613 - INFO - Processing 702945 price rows for open signals...",
-        "2026-09-03 19:00:07,851 - INFO - Updated 62340 signals \u2014 676 closed, 61664 open",
-        "2026-09-03 19:00:09,164 - INFO - Signal timing analysis completed",
-        "2026-09-03 19:00:10,188 - INFO - Signal timing analysis completed",
-        "2026-09-03 19:00:11,238 - INFO - Signal timing analysis completed",
-        "2026-09-03 19:00:12,437 - INFO - Signal timing analysis completed",
-        "2026-09-03 19:00:12,458 - INFO - Analysis report saved: /media/j/Extreme SSD/Trading_Plans/Reports/signal_analysis_20260903.json",
-        "\ud83d\udcca Signal Performance Analysis",
-        "==================================================",
-        "\ud83d\udcc8 Total Signals Tracked: 184877",
-        "\ud83c\udfaf Overall Win Rate: 44.3%",
-        "\ud83d\udcb0 Average Return: 0.7%",
-        "\u23f3 Signals Still Open: 152983",
-        "\ud83d\udd0d Recommendations:",
-        "  \ud83c\udfaf Best performing score range: 50-59 (48.7% win rate)",
-        "  \ud83d\udcc5 Best day for signals: Monday (46.4% win rate)",
-        "  \ud83d\udcca Overall performance: 44.3% win rate, 0.7% avg return"
-      ],
-      "last_modified": "2026-09-03 19:00",
+      "lines": [],
+      "last_modified": "2026-09-06 00:00",
       "exists": true
     },
     "stale_price_check": {
       "description": "Stale price & security validation",
       "lines": [
-        "\u23f0 RECOMMENDED MAINTENANCE SCHEDULE",
-        "----------------------------------------",
-        "DAILY       : Run stale price detection (5 minutes)",
-        "WEEKLY      : Review flagged securities (30 minutes)",
-        "MONTHLY     : Database optimization and cleanup (2 hours)",
-        "QUARTERLY   : Comprehensive data quality audit (4 hours)",
-        "\u2705 Cleanup recommendations saved to: /home/j/github_deploy/trading/data/cleanup_recommendations.json",
         "\ud83d\udd27 DATABASE CLEANUP RECOMMENDATIONS",
         "============================================================",
         "\ud83d\udcc8 DATA QUALITY ASSESSMENT",
         "----------------------------------------",
         "Overall Risk Level: LOW",
-        "Stale Price Percentage: 0.24%",
-        "Data Quality Score: 96/100",
+        "Stale Price Percentage: 0.47%",
+        "Data Quality Score: 92/100",
         "\ud83c\udfaf PRIORITY ACTIONS",
         "----------------------------------------",
         "\ud83d\udfe1 MEDIUM PRIORITY:",
@@ -479,94 +443,58 @@
         "QUARTERLY   : Comprehensive data quality audit (4 hours)",
         "\u2705 Cleanup recommendations saved to: /home/j/github_deploy/trading/data/cleanup_recommendations.json"
       ],
-      "last_modified": "2026-09-04 07:00",
+      "last_modified": "2026-09-07 07:00",
       "exists": true
     },
     "db_backup": {
       "description": "Daily DB backup (10 PM)",
-      "lines": [
-        "2026-08-31 22:00:46 [db-backup] SSD backup OK: /media/j/Extreme SSD/Server/backups/trading_central_Monday.db (827M, integrity=ok)",
-        "2026-08-31 22:00:54 [db-backup] failover refreshed: /home/j/db_failover/trading_central.db",
-        "0|0|0",
-        "2026-08-31 22:00:54 [db-backup] wal_checkpoint: 836380632 -> 0 bytes",
-        "2026-09-01 22:00:32 [db-backup] SSD backup OK: /media/j/Extreme SSD/Server/backups/trading_central_Tuesday.db (831M, integrity=ok)",
-        "2026-09-01 22:00:36 [db-backup] failover refreshed: /home/j/db_failover/trading_central.db",
-        "0|0|0",
-        "2026-09-01 22:00:36 [db-backup] wal_checkpoint: 29054272 -> 0 bytes",
-        "2026-09-02 22:00:30 [db-backup] SSD backup OK: /media/j/Extreme SSD/Server/backups/trading_central_Wednesday.db (834M, integrity=ok)",
-        "2026-09-02 22:00:39 [db-backup] failover refreshed: /home/j/db_failover/trading_central.db",
-        "0|0|0",
-        "2026-09-02 22:00:39 [db-backup] wal_checkpoint: 29400352 -> 0 bytes",
-        "2026-09-03 22:00:37 [db-backup] SSD backup OK: /media/j/Extreme SSD/Server/backups/trading_central_Thursday.db (838M, integrity=ok)",
-        "2026-09-03 22:00:41 [db-backup] failover refreshed: /home/j/db_failover/trading_central.db",
-        "0|0|0",
-        "2026-09-03 22:00:41 [db-backup] wal_checkpoint: 31373832 -> 0 bytes"
-      ],
-      "last_modified": "2026-09-03 22:00",
+      "lines": [],
+      "last_modified": "2026-09-06 00:00",
       "exists": true
     },
     "telegram_alerts": {
       "description": "High-conviction Telegram alerts (4:35 PM)",
       "lines": [
-        "2026-08-31 16:35:17,543 - INFO - Alert sent to Telegram successfully",
-        "2026-09-01 16:35:01,285 - INFO - Checked 20 picks \u2014 13 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-01 16:35:01,285 - INFO - Checked 20 picks \u2014 13 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-01 16:35:01,286 - INFO - Sending alert: 13 conviction pick(s)",
-        "2026-09-01 16:35:01,286 - INFO - Sending alert: 13 conviction pick(s)",
-        "2026-09-01 16:35:16,925 - INFO - Alert sent to Telegram successfully",
-        "2026-09-01 16:35:16,925 - INFO - Alert sent to Telegram successfully",
-        "2026-09-02 16:35:01,337 - INFO - Checked 20 picks \u2014 16 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-02 16:35:01,337 - INFO - Checked 20 picks \u2014 16 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-02 16:35:01,338 - INFO - Sending alert: 16 conviction pick(s)",
-        "2026-09-02 16:35:01,338 - INFO - Sending alert: 16 conviction pick(s)",
-        "2026-09-02 16:35:17,074 - INFO - Alert sent to Telegram successfully",
-        "2026-09-02 16:35:17,074 - INFO - Alert sent to Telegram successfully",
-        "2026-09-03 16:35:01,943 - INFO - Checked 20 picks \u2014 17 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-03 16:35:01,943 - INFO - Checked 20 picks \u2014 17 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-03 16:35:01,944 - INFO - Sending alert: 17 conviction pick(s)",
-        "2026-09-03 16:35:01,944 - INFO - Sending alert: 17 conviction pick(s)",
-        "2026-09-03 16:35:17,542 - INFO - Alert sent to Telegram successfully",
-        "2026-09-03 16:35:17,542 - INFO - Alert sent to Telegram successfully",
-        "2026-09-04 16:35:01,414 - INFO - Checked 20 picks \u2014 6 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-04 16:35:01,414 - INFO - Checked 20 picks \u2014 6 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
-        "2026-09-04 16:35:01,414 - INFO - Sending alert: 6 conviction pick(s)",
-        "2026-09-04 16:35:01,414 - INFO - Sending alert: 6 conviction pick(s)",
-        "2026-09-04 16:35:17,030 - INFO - Alert sent to Telegram successfully",
-        "2026-09-04 16:35:17,030 - INFO - Alert sent to Telegram successfully"
+        "2026-09-07 16:35:01,290 - INFO - Checked 20 picks \u2014 6 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
+        "2026-09-07 16:35:01,290 - INFO - Checked 20 picks \u2014 6 meet conviction threshold (score\u2265100, scanners\u22652, days\u22652)",
+        "2026-09-07 16:35:01,291 - INFO - Sending alert: 6 conviction pick(s)",
+        "2026-09-07 16:35:01,291 - INFO - Sending alert: 6 conviction pick(s)",
+        "2026-09-07 16:35:16,872 - INFO - Alert sent to Telegram successfully",
+        "2026-09-07 16:35:16,872 - INFO - Alert sent to Telegram successfully"
       ],
-      "last_modified": "2026-09-04 16:35",
+      "last_modified": "2026-09-07 16:35",
       "exists": true
     },
     "security_data": {
       "description": "Security profile generator (5 PM daily / 2 AM Sunday)",
       "lines": [
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1700/2224 (1700 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1750/2224 (1750 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1750/2224 (1750 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1800/2224 (1800 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1800/2224 (1800 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1850/2224 (1850 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1850/2224 (1850 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1900/2224 (1900 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,680 - INFO -   Progress: 1900/2224 (1900 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 1950/2224 (1950 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 1950/2224 (1950 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2000/2224 (2000 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2000/2224 (2000 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2050/2224 (2050 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2050/2224 (2050 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2100/2224 (2100 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2100/2224 (2100 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2150/2224 (2150 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2150/2224 (2150 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2200/2224 (2200 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:04,681 - INFO -   Progress: 2200/2224 (2200 ok, 0 err) \u2014 3122s elapsed",
-        "2026-09-03 17:52:05,662 - INFO - Written: /home/j/github_deploy/trading/data/security_lookup.json (2874 symbols)",
-        "2026-09-03 17:52:05,662 - INFO - Written: /home/j/github_deploy/trading/data/security_lookup.json (2874 symbols)",
-        "2026-09-03 17:52:05,662 - INFO - === Done: 2224 updated, 0 errors, 3123s total ===",
-        "2026-09-03 17:52:05,662 - INFO - === Done: 2224 updated, 0 errors, 3123s total ==="
+        "2026-09-06 02:12:05,999 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZEUS\"}}}",
+        "2026-09-06 02:12:10,445 - ERROR - $ZIMV: possibly delisted; no price data found  (period=1y) (Yahoo error = \"No data found, symbol may be delisted\")",
+        "2026-09-06 02:12:10,445 - ERROR - $ZIMV: possibly delisted; no price data found  (period=1y) (Yahoo error = \"No data found, symbol may be delisted\")",
+        "2026-09-06 02:12:10,593 - ERROR - $ZIMV: possibly delisted; no price data found  (period=5d) (Yahoo error = \"No data found, symbol may be delisted\")",
+        "2026-09-06 02:12:10,593 - ERROR - $ZIMV: possibly delisted; no price data found  (period=5d) (Yahoo error = \"No data found, symbol may be delisted\")",
+        "2026-09-06 02:12:10,810 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:10,810 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,074 - ERROR - $ZIMV: possibly delisted; no price data found  (period=5d) (Yahoo error = \"No data found, symbol may be delisted\")",
+        "2026-09-06 02:12:11,074 - ERROR - $ZIMV: possibly delisted; no price data found  (period=5d) (Yahoo error = \"No data found, symbol may be delisted\")",
+        "2026-09-06 02:12:11,262 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,262 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,445 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,445 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,781 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,781 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,952 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:11,952 - ERROR - HTTP Error 404: {\"quoteSummary\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for symbol: ZIMV\"}}}",
+        "2026-09-06 02:12:14,830 - INFO -   Progress: 50/133 (50 ok, 0 err) \u2014 731s elapsed",
+        "2026-09-06 02:12:14,830 - INFO -   Progress: 50/133 (50 ok, 0 err) \u2014 731s elapsed",
+        "2026-09-06 02:12:14,830 - INFO -   Progress: 100/133 (100 ok, 0 err) \u2014 731s elapsed",
+        "2026-09-06 02:12:14,830 - INFO -   Progress: 100/133 (100 ok, 0 err) \u2014 731s elapsed",
+        "2026-09-06 02:12:15,575 - INFO - Written: /home/j/github_deploy/trading/data/security_lookup.json (2874 symbols)",
+        "2026-09-06 02:12:15,575 - INFO - Written: /home/j/github_deploy/trading/data/security_lookup.json (2874 symbols)",
+        "2026-09-06 02:12:15,575 - INFO - === Done: 133 updated, 0 errors, 732s total ===",
+        "2026-09-06 02:12:15,575 - INFO - === Done: 133 updated, 0 errors, 732s total ==="
       ],
-      "last_modified": "2026-09-03 17:52",
+      "last_modified": "2026-09-06 02:12",
       "exists": true
     }
   },
@@ -1111,8 +1039,8 @@
       "last_run": "2026-09-04 16:00"
     },
     "v3": {
-      "candidates": 15,
-      "last_run": "2026-09-04 16:00"
+      "candidates": 20,
+      "last_run": "2026-09-07 09:32"
     },
     "etf": {
       "candidates": 85,
@@ -1131,16 +1059,16 @@
       "last_run": "2026-09-04 16:07"
     },
     "atr_momentum": {
-      "candidates": 517,
-      "last_run": "2026-09-02"
+      "candidates": 591,
+      "last_run": "2026-09-03"
     },
     "momentum_rebound": {
       "candidates": 174,
       "last_run": "2026-09-03"
     },
     "rsi_staircase": {
-      "candidates": 227,
-      "last_run": "2026-09-02"
+      "candidates": 365,
+      "last_run": "2026-09-03"
     }
   },
   "telegram": {
@@ -1326,7 +1254,7 @@
     "db_path": "/media/j/Extreme SSD/Trading_Plans/Database/trading_central.db",
     "deploy_path": "/home/j/github_deploy/",
     "live_site": "https://jays.website/trading/",
-    "cron_jobs_total": 107,
+    "cron_jobs_total": 95,
     "active_scanners": 11,
     "active_python_files": 54
   }

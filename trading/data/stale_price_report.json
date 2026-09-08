@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-09-04 07:00:03",
+  "timestamp": "2026-09-07 07:00:02",
   "summary": {
-    "total_flagged": 2,
-    "high_risk": 2,
+    "total_flagged": 4,
+    "high_risk": 4,
     "medium_risk": 0,
     "low_risk": 0,
     "penny_stocks": 0,
     "stale_prices": 0,
-    "no_data": 2,
-    "tracking_pending": 3,
+    "no_data": 4,
+    "tracking_pending": 1,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
@@ -27,8 +27,8 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-09-04 07:00",
-      "consecutive_failures": 9,
+      "analysis_date": "2026-09-07 07:00",
+      "consecutive_failures": 10,
       "first_flagged": "2026-08-25"
     },
     {
@@ -45,27 +45,67 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-09-04 07:00",
-      "consecutive_failures": 9,
+      "analysis_date": "2026-09-07 07:00",
+      "consecutive_failures": 10,
       "first_flagged": "2026-08-25"
+    },
+    {
+      "symbol": "RMAX",
+      "price": 12.36,
+      "consecutive_days": 0,
+      "avg_volume": 2570100.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-08-24, expected: 2026-09-04)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-08-24",
+      "analysis_date": "2026-09-07 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-09-01"
+    },
+    {
+      "symbol": "TWO",
+      "price": 12.18,
+      "consecutive_days": 0,
+      "avg_volume": 19390318.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "Data stopped updating (last: 2026-08-24, expected: 2026-09-04)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "2026-08-24",
+      "analysis_date": "2026-09-07 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-09-01"
     }
   ],
   "recommendations": [
     {
       "action": "REMOVE_NO_DATA",
-      "description": "Remove 2 securities with no Yahoo Finance data (likely delisted)",
+      "description": "Remove 4 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
         "ISSC",
-        "EQR"
+        "EQR",
+        "RMAX",
+        "TWO"
       ],
       "priority": "HIGH"
     },
     {
       "action": "IMMEDIATE_REVIEW",
-      "description": "Review 2 high-risk securities (likely delisted or worthless)",
+      "description": "Review 4 high-risk securities (likely delisted or worthless)",
       "symbols": [
         "ISSC",
-        "EQR"
+        "EQR",
+        "RMAX",
+        "TWO"
       ],
       "priority": "HIGH"
     }
