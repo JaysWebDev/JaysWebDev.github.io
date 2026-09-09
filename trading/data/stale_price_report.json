@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-07 07:00:02",
+  "timestamp": "2026-09-08 07:00:02",
   "summary": {
     "total_flagged": 4,
     "high_risk": 4,
@@ -14,24 +14,6 @@
   },
   "securities": [
     {
-      "symbol": "ISSC",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-09-07 07:00",
-      "consecutive_failures": 10,
-      "first_flagged": "2026-08-25"
-    },
-    {
       "symbol": "EQR",
       "price": 0.0,
       "consecutive_days": 0,
@@ -45,44 +27,62 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-09-07 07:00",
-      "consecutive_failures": 10,
+      "analysis_date": "2026-09-08 07:00",
+      "consecutive_failures": 11,
+      "first_flagged": "2026-08-25"
+    },
+    {
+      "symbol": "ISSC",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-09-08 07:00",
+      "consecutive_failures": 11,
       "first_flagged": "2026-08-25"
     },
     {
       "symbol": "RMAX",
       "price": 12.36,
       "consecutive_days": 0,
-      "avg_volume": 2570100.0,
+      "avg_volume": 1493382.5,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-24, expected: 2026-09-04)"
+        "Data stopped updating (last: 2026-08-24, expected: 2026-09-03)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "2026-08-24",
-      "analysis_date": "2026-09-07 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-09-08 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-09-01"
     },
     {
       "symbol": "TWO",
       "price": 12.18,
       "consecutive_days": 0,
-      "avg_volume": 19390318.0,
+      "avg_volume": 11494845.5,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-24, expected: 2026-09-04)"
+        "Data stopped updating (last: 2026-08-24, expected: 2026-09-03)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "2026-08-24",
-      "analysis_date": "2026-09-07 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-09-08 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-09-01"
     }
   ],
@@ -91,8 +91,8 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 4 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
-        "ISSC",
         "EQR",
+        "ISSC",
         "RMAX",
         "TWO"
       ],
@@ -102,8 +102,8 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 4 high-risk securities (likely delisted or worthless)",
       "symbols": [
-        "ISSC",
         "EQR",
+        "ISSC",
         "RMAX",
         "TWO"
       ],
