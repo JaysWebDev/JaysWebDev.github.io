@@ -765,8 +765,18 @@ fetch('data/businesses_geo.json')
 
         document.getElementById('stat-sectors').textContent = sectors.length.toLocaleString();
 
+        // Deep-link: ?sector=<name> pre-applies a sector filter (e.g. from the
+        // Sectors page). Add the option if it's an implicit bucket not in the list.
+        const wantSector = new URLSearchParams(location.search).get('sector');
+        if (wantSector) {
+            if (![...sectorEl.options].some(o => o.value === wantSector)) {
+                const o = document.createElement('option'); o.value = wantSector; o.textContent = wantSector; sectorEl.appendChild(o);
+            }
+            sectorEl.value = wantSector;
+        }
+
         applyFilters();
-        fitAll();
+        if (!wantSector) fitAll();
 
         const overlay = document.getElementById('load-overlay');
         overlay.classList.add('fade-out');

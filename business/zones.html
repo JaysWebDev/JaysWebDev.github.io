@@ -553,6 +553,17 @@ td {
   .opp-grid  { grid-template-columns: repeat(2, 1fr); }
   .filters-bar { grid-template-columns: 1fr; }
 }
+@media (max-width: 560px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .header-meta { display: none; }
+}
+
+/* Engine nav — identical across all business engine pages; wraps on mobile. */
+.engine-nav { background: rgba(6,8,16,.96); border-bottom: 1px solid rgba(201,148,10,.18); position: relative; z-index: 40; }
+.engine-nav-inner { max-width: 1400px; margin: 0 auto; padding: .5rem var(--gutter); display: flex; gap: .25rem; flex-wrap: wrap; align-items: center; }
+.engine-nav a { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; text-decoration: none; padding: .35rem .7rem; border-radius: 4px; transition: color .15s, background .15s; white-space: nowrap; }
+.engine-nav a:hover { color: var(--amber-hi); background: rgba(245,158,11,.1); }
+.engine-nav a.active { color: var(--amber-hi); background: rgba(245,158,11,.16); }
 </style>
 </head>
 <body>
@@ -579,6 +590,16 @@ td {
     </div>
   </div>
 </header>
+
+<nav class="engine-nav">
+  <div class="engine-nav-inner">
+    <a href="index.html">Home</a>
+    <a href="zones.html" class="active">Zones</a>
+    <a href="sectors.html">Sectors</a>
+    <a href="spatial.html">Spatial</a>
+    <a href="explore.html">Explore</a>
+  </div>
+</nav>
 
 <main>
 <div class="container">
@@ -633,6 +654,7 @@ td {
         <div class="filter-label">Search Zone</div>
         <input type="text" id="filterName" placeholder="Zone name…">
       </div>
+      <button class="reset-btn" id="exportBtn">Export CSV</button>
       <button class="reset-btn" id="resetBtn">Reset</button>
     </div>
   </section>
@@ -698,6 +720,43 @@ let sortDir = -1;
 let page    = 1;
 const PAGE_SIZE = 50;
 let chart = null;
+
+const esc = s => String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+// Export the current filtered zones (all rows, current sort) as CSV.
+function exportZonesCSV() {
+  if (!filteredZones.length) return;
+  const cols = [
+    ['Zone', z => z.zone_name || z.zone_id || ''],
+    ['State', z => z.state || ''],
+    ['Type', z => z.zone_type || ''],
+    ['Businesses', z => z.total_business_count || 0],
+    ['Density', z => z.density_score ?? ''],
+    ['Diversity', z => z.diversity_score ?? ''],
+    ['Gap', z => z.industry_gap_score ?? ''],
+    ['Mismatch', z => z.diversity_mismatch_score ?? ''],
+    ['Curiosity Score', z => z.curiosity_score ?? ''],
+  ];
+  const numCols = ['total_business_count','density_score','diversity_score',
+                   'industry_gap_score','diversity_mismatch_score','curiosity_score'];
+  const sorted = [...filteredZones].sort((a, b) => {
+    let av = a[sortCol], bv = b[sortCol];
+    if (numCols.includes(sortCol)) { av = parseFloat(av || 0); bv = parseFloat(bv || 0); }
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === 'string') return av.localeCompare(bv) * sortDir;
+    return (av - bv) * sortDir;
+  });
+  const cell = v => { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; };
+  const rows = [cols.map(c => c[0]).join(',')];
+  sorted.forEach(z => rows.push(cols.map(c => cell(c[1](z))).join(',')));
+  const url = URL.createObjectURL(new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'curiosity_zones.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 // ── Helpers ────────────────────────────────────────────────
 const fmtDensity = v => {
@@ -797,9 +856,9 @@ function renderTopCards(zones) {
     return `
     <div class="opp-card">
       <div class="opp-rank">#${i + 1} ZONE</div>
-      <div class="opp-name">${z.zone_name || z.zone_id}</div>
+      <div class="opp-name">${esc(z.zone_name || z.zone_id)}</div>
       <div class="opp-badges">
-        ${z.state ? `<span class="state-badge">${z.state}</span>` : ''}
+        ${z.state ? `<span class="state-badge">${esc(z.state)}</span>` : ''}
         <span class="type-chip ${typeClass}">${typeClass.toUpperCase()}</span>
       </div>
       <div class="opp-score" style="color:${col}">${score.toFixed(3)}</div>
@@ -817,7 +876,7 @@ function renderTopCards(zones) {
           <div class="signal-bar"><div class="signal-fill" style="width:${mPct}%;background:${col}"></div></div>
         </div>
       </div>
-      ${topMissing ? `<div class="missing-tag">MISSING: ${topMissing.industry_group}</div>` : ''}
+      ${topMissing ? `<div class="missing-tag">MISSING: ${esc(topMissing.industry_group)}</div>` : ''}
       <div class="opp-meta">${(z.total_business_count || 0).toLocaleString()} businesses</div>
     </div>`;
   }).join('');
@@ -858,8 +917,8 @@ function renderTable(zones) {
     const score = parseFloat(z.curiosity_score || 0).toFixed(3);
     const typeClass = z.zone_type || 'zip';
     return `<tr>
-      <td style="color:var(--text-bright);font-weight:500">${z.zone_name || z.zone_id}</td>
-      <td style="color:var(--text-dim)">${z.state || '—'}</td>
+      <td style="color:var(--text-bright);font-weight:500">${esc(z.zone_name || z.zone_id)}</td>
+      <td style="color:var(--text-dim)">${esc(z.state || '—')}</td>
       <td><span class="type-chip ${typeClass}">${typeClass.toUpperCase()}</span></td>
       <td>${(z.total_business_count || 0).toLocaleString()}</td>
       <td style="color:var(--text-dim)">${fmtDensity(z.density_score)}</td>
@@ -966,6 +1025,7 @@ document.getElementById('filterScore').addEventListener('input', function () {
 document.getElementById('filterType').addEventListener('change',  applyFilters);
 document.getElementById('filterState').addEventListener('input',  applyFilters);
 document.getElementById('filterName').addEventListener('input',   applyFilters);
+document.getElementById('exportBtn').addEventListener('click', exportZonesCSV);
 
 document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('filterType').value  = '';

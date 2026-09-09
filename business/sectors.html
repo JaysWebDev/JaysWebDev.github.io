@@ -219,6 +219,9 @@ header {
 .bar-table { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
 
 .bar-row { display: flex; flex-direction: column; gap: 4px; }
+.bar-row.clickable { cursor: pointer; padding: 4px 6px; margin: 0 -6px; border-radius: 3px; transition: background .15s; }
+.bar-row.clickable:hover { background: rgba(245,158,11,.07); }
+.bar-row.clickable:hover .bar-name { color: var(--amber-hi); }
 
 .bar-row-header {
   display: flex;
@@ -311,6 +314,18 @@ header {
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .two-col  { grid-template-columns: 1fr; }
 }
+@media (max-width: 560px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .header-meta { display: none; }
+}
+
+/* Engine nav — identical across all business engine pages; wraps on mobile
+   (links never hidden, unlike the old per-page navs). */
+.engine-nav { background: rgba(6,8,16,.96); border-bottom: 1px solid rgba(201,148,10,.18); position: relative; z-index: 40; }
+.engine-nav-inner { max-width: 1400px; margin: 0 auto; padding: .5rem var(--gutter); display: flex; gap: .25rem; flex-wrap: wrap; align-items: center; }
+.engine-nav a { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; text-decoration: none; padding: .35rem .7rem; border-radius: 4px; transition: color .15s, background .15s; white-space: nowrap; }
+.engine-nav a:hover { color: var(--amber-hi); background: rgba(245,158,11,.1); }
+.engine-nav a.active { color: var(--amber-hi); background: rgba(245,158,11,.16); }
 </style>
 </head>
 <body>
@@ -335,6 +350,16 @@ header {
     </div>
   </div>
 </header>
+
+<nav class="engine-nav">
+  <div class="engine-nav-inner">
+    <a href="index.html">Home</a>
+    <a href="zones.html">Zones</a>
+    <a href="sectors.html" class="active">Sectors</a>
+    <a href="spatial.html">Spatial</a>
+    <a href="explore.html">Explore</a>
+  </div>
+</nav>
 
 <main>
 <div class="container">
@@ -393,6 +418,9 @@ header {
 </main>
 
 <script>
+const esc = s => String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
 function countUp(el, target, duration, fmt) {
   const start = performance.now();
   const tick = now => {
@@ -451,9 +479,9 @@ function renderSectorTable(sectors, total) {
     const pct = total > 0 ? (s.count / total * 100).toFixed(1) : '0.0';
     const barW = maxCount > 0 ? (s.count / maxCount * 100).toFixed(1) : '0';
     return `
-    <div class="bar-row">
+    <div class="bar-row clickable" data-sector="${esc(s.sector)}" title="View ${esc(s.sector)} on the map →">
       <div class="bar-row-header">
-        <span class="bar-name">${s.sector}</span>
+        <span class="bar-name">${esc(s.sector)}</span>
         <div class="bar-stats">
           <span class="bar-count">${s.count.toLocaleString()}</span>
           <span class="bar-pct">${pct}%</span>
@@ -462,6 +490,11 @@ function renderSectorTable(sectors, total) {
       <div class="bar-track"><div class="bar-fill" style="width:${barW}%"></div></div>
     </div>`;
   }).join('');
+
+  document.getElementById('sectorTable').addEventListener('click', e => {
+    const row = e.target.closest('.bar-row.clickable');
+    if (row) location.href = 'spatial.html?sector=' + encodeURIComponent(row.dataset.sector);
+  });
 }
 
 function renderGroupTable(groups, total) {
@@ -478,7 +511,7 @@ function renderGroupTable(groups, total) {
     return `
     <div class="bar-row">
       <div class="bar-row-header">
-        <span class="bar-name">${g.group}</span>
+        <span class="bar-name">${esc(g.group)}</span>
         <div class="bar-stats">
           <span class="bar-count" style="color:var(--green)">${g.count.toLocaleString()}</span>
           <span class="bar-pct">${pct}%</span>

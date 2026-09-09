@@ -422,12 +422,17 @@
 
     @media (max-width: 640px) {
       .filter-inner { gap: 0.5rem; }
-      .filter-select { min-width: 160px; font-size: 0.7rem; }
-      nav a { display: none; }
-      nav a.active { display: block; }
+      .filter-select { min-width: 140px; font-size: 0.7rem; }
       .result-town { font-size: 2rem; }
       .industry-grid { grid-template-columns: 1fr; }
     }
+
+    /* Engine nav — identical across all business engine pages; wraps on mobile. */
+    .engine-nav { background: rgba(10,12,16,.96); border-bottom: 1px solid rgba(245,158,11,.18); position: relative; z-index: 40; }
+    .engine-nav-inner { max-width: 1400px; margin: 0 auto; padding: .5rem 2rem; display: flex; gap: .25rem; flex-wrap: wrap; align-items: center; }
+    .engine-nav a { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; text-decoration: none; padding: .35rem .7rem; border-radius: 4px; transition: color .15s, background .15s; white-space: nowrap; }
+    .engine-nav a:hover { color: var(--amber-lt); background: rgba(245,158,11,.1); }
+    .engine-nav a.active { color: var(--amber-lt); background: rgba(245,158,11,.16); }
   </style>
 </head>
 <body>
@@ -438,15 +443,18 @@
 <header>
   <div class="header-inner">
     <a class="wordmark" href="index.html">SPATIAL <span>CURIOSITY</span></a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="zones.html">Zones</a>
-      <a href="sectors.html">Sectors</a>
-      <a href="spatial.html">Spatial</a>
-      <a href="explore.html" class="active">Explore</a>
-    </nav>
   </div>
 </header>
+
+<nav class="engine-nav">
+  <div class="engine-nav-inner">
+    <a href="index.html">Home</a>
+    <a href="zones.html">Zones</a>
+    <a href="sectors.html">Sectors</a>
+    <a href="spatial.html">Spatial</a>
+    <a href="explore.html" class="active">Explore</a>
+  </div>
+</nav>
 
 <div class="filter-bar">
   <div class="filter-inner">
@@ -459,6 +467,11 @@
     <select id="sel-industry" class="filter-select" disabled>
       <option value="">— All Industries —</option>
     </select>
+    <div class="filter-divider"></div>
+    <span class="filter-label">Search</span>
+    <input type="text" id="sel-search" class="filter-select" placeholder="Business name…"
+           style="min-width:170px;background-image:none;padding-right:.75rem" disabled>
+    <button id="btn-export" class="btn-clear" disabled>Export CSV</button>
     <button id="btn-clear" class="btn-clear">Clear</button>
   </div>
 </div>
@@ -499,12 +512,17 @@
 
   const selTown     = document.getElementById('sel-town');
   const selIndustry = document.getElementById('sel-industry');
+  const selSearch   = document.getElementById('sel-search');
   const btnClear    = document.getElementById('btn-clear');
+  const btnExport   = document.getElementById('btn-export');
   const emptyState  = document.getElementById('empty-state');
   const resultHdr   = document.getElementById('result-header');
   const resultTown  = document.getElementById('result-town-name');
   const resultChips = document.getElementById('result-chips');
   const grid        = document.getElementById('industry-grid');
+
+  const esc = s => String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
   function formatTownKey(key) {
     const [city, state] = key.split('|');
@@ -546,22 +564,29 @@
     selIndustry.disabled = false;
   }
 
-  function renderGrid(townKey, filterIndustry) {
+  // Build the filtered {ind, bizList} entries for the current town + industry +
+  // name-search state. Shared by the grid renderer and the CSV export.
+  function currentEntries(townKey, filterIndustry, nameQuery) {
     const townData = DATA.by_town[townKey] || {};
-
-    // Sort industries by count desc
+    const q = (nameQuery || '').trim().toLowerCase();
     let entries = Object.entries(townData)
       .map(([ind, bizList]) => ({ ind, bizList }))
       .sort((a, b) => b.bizList.length - a.bizList.length);
-
-    if (filterIndustry) {
-      entries = entries.filter(e => e.ind === filterIndustry);
+    if (filterIndustry) entries = entries.filter(e => e.ind === filterIndustry);
+    if (q) {
+      entries = entries
+        .map(e => ({ ind: e.ind, bizList: e.bizList.filter(b => (b.name || '').toLowerCase().includes(q)) }))
+        .filter(e => e.bizList.length);
     }
+    return entries;
+  }
 
+  function renderGrid(townKey, filterIndustry, nameQuery) {
+    const entries = currentEntries(townKey, filterIndustry, nameQuery);
     grid.innerHTML = '';
 
     if (entries.length === 0) {
-      grid.innerHTML = `<div class="no-match">No businesses found${filterIndustry ? ' for ' + filterIndustry : ''} in this town.</div>`;
+      grid.innerHTML = `<div class="no-match">No businesses found${filterIndustry ? ' for ' + esc(filterIndustry) : ''}${nameQuery ? ' matching “' + esc(nameQuery) + '”' : ''} in this town.</div>`;
       return;
     }
 
@@ -570,7 +595,7 @@
       card.className = 'ind-card';
       card.innerHTML = `
         <div class="ind-card-header">
-          <span class="ind-name">${ind}</span>
+          <span class="ind-name">${esc(ind)}</span>
           <span class="ind-right">
             <span class="ind-count">${bizList.length}</span>
             <span class="ind-chevron">▼</span>
@@ -580,8 +605,8 @@
           <div class="ind-list">
             ${bizList.map(b => `
               <div class="biz-row">
-                <span class="biz-name">${b.name}</span>
-                <span class="biz-cat">${b.category || ''}</span>
+                <span class="biz-name">${esc(b.name)}</span>
+                <span class="biz-cat">${esc(b.category || '')}</span>
               </div>`).join('')}
           </div>
         </div>`;
@@ -591,6 +616,27 @@
       });
       grid.appendChild(card);
     });
+  }
+
+  function exportCSV() {
+    const townKey = selTown.value;
+    if (!townKey) return;
+    const entries = currentEntries(townKey, selIndustry.value, selSearch.value);
+    const rows = [['Town', 'Industry', 'Business', 'Category']];
+    const town = formatTownKey(townKey);
+    entries.forEach(({ ind, bizList }) => bizList.forEach(b =>
+      rows.push([town, ind, b.name || '', b.category || ''])));
+    if (rows.length === 1) return;
+    const csv = rows.map(r => r.map(v => {
+      v = String(v == null ? '' : v);
+      return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+    }).join(',')).join('\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'businesses_' + town.replace(/[^a-z0-9]+/gi, '_').toLowerCase() + '.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   function renderResultHeader(townKey) {
@@ -622,6 +668,9 @@
     selTown.value = '';
     selIndustry.innerHTML = '<option value="">— All Industries —</option>';
     selIndustry.disabled = true;
+    selSearch.value = '';
+    selSearch.disabled = true;
+    btnExport.disabled = true;
     resultHdr.classList.remove('visible');
     grid.innerHTML = '';
     emptyState.style.display = '';
@@ -631,25 +680,36 @@
     const key = selTown.value;
     if (!key) { clearAll(); return; }
     populateIndustryDropdown(key);
+    selSearch.value = '';
+    selSearch.disabled = false;
+    btnExport.disabled = false;
     renderResultHeader(key);
-    renderGrid(key, '');
+    renderGrid(key, '', '');
   });
 
   selIndustry.addEventListener('change', () => {
     const key = selTown.value;
     if (!key) return;
-    renderGrid(key, selIndustry.value);
+    renderGrid(key, selIndustry.value, selSearch.value);
   });
 
+  selSearch.addEventListener('input', () => {
+    const key = selTown.value;
+    if (!key) return;
+    renderGrid(key, selIndustry.value, selSearch.value);
+  });
+
+  btnExport.addEventListener('click', exportCSV);
   btnClear.addEventListener('click', clearAll);
 
   // Load data
   fetch('data/drill_down.json')
-    .then(r => r.json())
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(init)
     .catch(err => {
       console.error('Failed to load drill_down.json', err);
-      document.getElementById('loader').classList.add('hidden');
+      document.getElementById('loader').innerHTML =
+        '<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.8rem;color:#f87171;text-align:center;padding:1.5rem;line-height:1.7">Failed to load data.<br>Run generate_reports.py to build data/drill_down.json.</div>';
     });
 </script>
 </body>
