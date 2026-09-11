@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-09 07:00:01",
+  "timestamp": "2026-09-10 07:00:02",
   "summary": {
     "total_flagged": 5,
     "high_risk": 5,
@@ -8,11 +8,47 @@
     "penny_stocks": 0,
     "stale_prices": 0,
     "no_data": 5,
-    "tracking_pending": 0,
+    "tracking_pending": 1,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
+    {
+      "symbol": "RMAX",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-09-10 07:00",
+      "consecutive_failures": 8,
+      "first_flagged": "2026-09-01"
+    },
+    {
+      "symbol": "TWO",
+      "price": 0.0,
+      "consecutive_days": 0,
+      "avg_volume": 0.0,
+      "zero_volume_days": 0,
+      "risk_level": "HIGH",
+      "reasons": [
+        "No recent data from Yahoo Finance (possibly delisted)"
+      ],
+      "is_penny_stock": false,
+      "is_stale_price": false,
+      "is_no_data": true,
+      "last_date": "N/A",
+      "analysis_date": "2026-09-10 07:00",
+      "consecutive_failures": 8,
+      "first_flagged": "2026-09-01"
+    },
     {
       "symbol": "EQR",
       "price": 0.0,
@@ -27,8 +63,8 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-09-09 07:00",
-      "consecutive_failures": 12,
+      "analysis_date": "2026-09-10 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-08-25"
     },
     {
@@ -45,63 +81,27 @@
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "N/A",
-      "analysis_date": "2026-09-09 07:00",
-      "consecutive_failures": 12,
+      "analysis_date": "2026-09-10 07:00",
+      "consecutive_failures": 13,
       "first_flagged": "2026-08-25"
-    },
-    {
-      "symbol": "RMAX",
-      "price": 12.36,
-      "consecutive_days": 0,
-      "avg_volume": 2570100.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "Data stopped updating (last: 2026-08-24, expected: 2026-09-08)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "2026-08-24",
-      "analysis_date": "2026-09-09 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-09-01"
     },
     {
       "symbol": "LEG",
       "price": 9.2,
       "consecutive_days": 0,
-      "avg_volume": 6044148.0,
+      "avg_volume": 8174634.0,
       "zero_volume_days": 0,
       "risk_level": "HIGH",
       "reasons": [
-        "Data stopped updating (last: 2026-08-26, expected: 2026-09-08)"
+        "Data stopped updating (last: 2026-08-26, expected: 2026-09-09)"
       ],
       "is_penny_stock": false,
       "is_stale_price": false,
       "is_no_data": true,
       "last_date": "2026-08-26",
-      "analysis_date": "2026-09-09 07:00",
-      "consecutive_failures": 5,
+      "analysis_date": "2026-09-10 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-09-03"
-    },
-    {
-      "symbol": "TWO",
-      "price": 12.18,
-      "consecutive_days": 0,
-      "avg_volume": 19390318.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "Data stopped updating (last: 2026-08-24, expected: 2026-09-08)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "2026-08-24",
-      "analysis_date": "2026-09-09 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-09-01"
     }
   ],
   "recommendations": [
@@ -109,11 +109,11 @@
       "action": "REMOVE_NO_DATA",
       "description": "Remove 5 securities with no Yahoo Finance data (likely delisted)",
       "symbols": [
+        "RMAX",
+        "TWO",
         "EQR",
         "ISSC",
-        "RMAX",
-        "LEG",
-        "TWO"
+        "LEG"
       ],
       "priority": "HIGH"
     },
@@ -121,11 +121,11 @@
       "action": "IMMEDIATE_REVIEW",
       "description": "Review 5 high-risk securities (likely delisted or worthless)",
       "symbols": [
+        "RMAX",
+        "TWO",
         "EQR",
         "ISSC",
-        "RMAX",
-        "LEG",
-        "TWO"
+        "LEG"
       ],
       "priority": "HIGH"
     }
