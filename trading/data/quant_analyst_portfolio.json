@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-10T20:35:01.562538",
+  "generated": "2026-09-11T20:35:01.384689",
   "strategy": "Quant Analyst (deterministic multi-factor re-ranking)",
   "start_date": "2026-07-21",
   "starting_capital": 5000.0,
-  "total_value": 4574.35,
+  "total_value": 4585.85,
   "cash": 1273.46,
-  "pnl_pct": -8.51,
+  "pnl_pct": -8.28,
   "open_count": 7,
   "closed_count": 37,
   "win_rate": 35.1,
@@ -16,9 +16,9 @@
       "symbol": "APA",
       "entry_date": "2026-08-31",
       "entry_price": 43.15,
-      "current_price": 44.84,
-      "pnl_pct": 3.92,
-      "days_held": 5,
+      "current_price": 44.53,
+      "pnl_pct": 3.2,
+      "days_held": 6,
       "stop_price": 40.56,
       "quant_score": 1372.72,
       "conviction_score": 462.2,
@@ -30,9 +30,9 @@
       "symbol": "HPQ",
       "entry_date": "2026-09-03",
       "entry_price": 31.93,
-      "current_price": 32.39,
-      "pnl_pct": 1.44,
-      "days_held": 2,
+      "current_price": 32.73,
+      "pnl_pct": 2.51,
+      "days_held": 3,
       "stop_price": 30.01,
       "quant_score": 795.41,
       "conviction_score": 506.3,
@@ -40,13 +40,27 @@
       "rank": 4
     },
     {
+      "shares": 7.5449,
+      "symbol": "DOCU",
+      "entry_date": "2026-08-31",
+      "entry_price": 66.27,
+      "current_price": 65.8,
+      "pnl_pct": -0.71,
+      "days_held": 6,
+      "stop_price": 62.29,
+      "quant_score": 1226.21,
+      "conviction_score": 476.7,
+      "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase",
+      "rank": 6
+    },
+    {
       "shares": 2.4111,
       "symbol": "STT",
       "entry_date": "2026-08-26",
       "entry_price": 193.62,
-      "current_price": 191.89,
-      "pnl_pct": -0.89,
-      "days_held": 8,
+      "current_price": 191.3,
+      "pnl_pct": -1.2,
+      "days_held": 9,
       "stop_price": 182.0,
       "quant_score": 1494.92,
       "conviction_score": 504.1,
@@ -58,9 +72,9 @@
       "symbol": "MTCH",
       "entry_date": "2026-09-03",
       "entry_price": 42.43,
-      "current_price": 41.43,
-      "pnl_pct": -2.36,
-      "days_held": 2,
+      "current_price": 41.82,
+      "pnl_pct": -1.44,
+      "days_held": 3,
       "stop_price": 39.88,
       "quant_score": 813.46,
       "conviction_score": 416.9,
@@ -68,46 +82,32 @@
       "rank": 3
     },
     {
-      "shares": 11.127,
-      "symbol": "KDP",
-      "entry_date": "2026-09-03",
-      "entry_price": 32.88,
-      "current_price": 32.08,
-      "pnl_pct": -2.43,
-      "days_held": 2,
-      "stop_price": 30.91,
-      "quant_score": 770.81,
-      "conviction_score": 454.3,
-      "scanners": "under50,confluence,rsi_staircase,atr_momentum",
-      "rank": 6
-    },
-    {
-      "shares": 7.5449,
-      "symbol": "DOCU",
-      "entry_date": "2026-08-31",
-      "entry_price": 66.27,
-      "current_price": 64.45,
-      "pnl_pct": -2.75,
-      "days_held": 5,
-      "stop_price": 62.29,
-      "quant_score": 1226.21,
-      "conviction_score": 476.7,
-      "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase",
-      "rank": 6
-    },
-    {
       "shares": 16.129,
       "symbol": "GEN",
       "entry_date": "2026-08-31",
       "entry_price": 31.0,
-      "current_price": 29.76,
-      "pnl_pct": -4.0,
-      "days_held": 5,
+      "current_price": 29.965,
+      "pnl_pct": -3.34,
+      "days_held": 6,
       "stop_price": 29.14,
       "quant_score": 1259.27,
       "conviction_score": 487.6,
       "scanners": "under50,confluence,atr_momentum,rsi_staircase,momentum_rebound,database_enhanced,institutional",
       "rank": 4
+    },
+    {
+      "shares": 11.127,
+      "symbol": "KDP",
+      "entry_date": "2026-09-03",
+      "entry_price": 32.88,
+      "current_price": 31.46,
+      "pnl_pct": -4.32,
+      "days_held": 3,
+      "stop_price": 30.91,
+      "quant_score": 770.81,
+      "conviction_score": 454.3,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum",
+      "rank": 6
     }
   ],
   "closed_trades": [
@@ -838,6 +838,10 @@
     {
       "date": "2026-09-09",
       "value": 4574.35
+    },
+    {
+      "date": "2026-09-10",
+      "value": 4585.85
     }
   ],
   "spy_curve": [
@@ -980,6 +984,10 @@
     {
       "date": "2026-09-09",
       "value": 5094.35
+    },
+    {
+      "date": "2026-09-10",
+      "value": 5063.81
     }
   ]
 }
