@@ -548,6 +548,7 @@
       <div>
         <div class="brief-opp-score" id="brief-opp-score"></div>
         <div class="brief-opp-score" id="brief-score-label"></div>
+        <div class="brief-opp-score" id="brief-seller-score"></div>
       </div>
     </div>
     <div id="brief-listing-wrap" style="display:none">
@@ -1477,6 +1478,13 @@
     tierEl.className = 'brief-tier tier-' + tier;
     document.getElementById('brief-opp-score').textContent = 'Opportunity ' + opp.toFixed(1) + ' / 100';
     document.getElementById('brief-score-label').textContent = 'Signal ' + (b.signal_score || 0) + ' / 100';
+    var sellerEl = document.getElementById('brief-seller-score');
+    if (b.seller_propensity != null) {
+      var spPct = b.seller_propensity_prob != null ? ' · ~' + Math.round(b.seller_propensity_prob * 100) + '% likely to sell / 24mo' : '';
+      sellerEl.innerHTML = 'Seller Propensity <strong style="color:var(--text)">' + b.seller_propensity + '</strong> / 100' + spPct;
+    } else {
+      sellerEl.textContent = '';
+    }
 
     document.getElementById('brief-thesis').textContent = buildThesis(b, signals);
 
