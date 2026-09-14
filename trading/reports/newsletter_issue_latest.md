@@ -1,10 +1,10 @@
-# Conviction Weekly — September 06, 2026
+# Conviction Weekly — September 13, 2026
 
-**Market regime: BULL.** Bull — breadth confirms the uptrend; full signal flow. Breadth: 19% of the quality universe in Stage 2 uptrends, 64% above their 200-day average.
+**Market regime: NEUTRAL.** Neutral — mixed breadth; only high-confluence setups pass the gate. Breadth: 14% of the quality universe in Stage 2 uptrends, 56% above their 200-day average.
 
 ## Track Record — measured, not promised
 
-- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-0.52%** · 10 open · 8 closed, 0% wins
+- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-1.80%** · 10 open · 9 closed, 0% wins
 - **Multi-scanner signals** (3+ scanners agreeing — Jun 4 2026 cohort study, n=68): **52.9%** positive after 5 trading days, avg **+0.18%**
 
 *All figures auto-computed from the live system at publish time. Past performance does not guarantee future results.*
@@ -13,24 +13,24 @@
 
 | # | Symbol | Price | Composite | Conviction | Scanners/Days | RSI | RS | Stop |
 |---|--------|-------|-----------|------------|---------------|-----|-----|------|
-| 1 | **EXEL** ✓ | $59.13 | 82.4 | 437 | 4× / 4d | 78 | 76 | $56.08 |
-| 2 | **ABNB** ✓ | $183.26 | 81.1 | 471 | 6× / 4d | 52 | 90 | $177.76 |
-| 3 | **MSFT** | $510.12 | 79.5 | 432 | 6× / 4d | 59 | 69 | $489.17 |
-| 4 | **VRTX** | $557.96 | 77.4 | 425 | 6× / 4d | 76 | 89 | $532.77 |
-| 5 | **EOG** ✓ | $148.96 | 77.1 | 444 | 6× / 4d | 56 | 72 | $144.49 |
-| 6 | **NVDA** ✓ | $228.45 | 76.8 | 387 | 3× / 4d | 52 | 68 | $213.68 |
-| 7 | **APA** ✓ | $44.18 | 76.7 | 462 | 5× / 5d | 67 | 91 | $41.22 |
-| 8 | **HPQ** | $31.93 | 76.4 | 506 | 6× / 5d | 60 | 82 | $29.14 |
-| 9 | **BMY** ✓ | $68.09 | 76.4 | 478 | 7× / 4d | 69 | 75 | $65.09 |
-| 10 | **GFI** | $48.16 | 75.6 | 388 | 5× / 5d | 70 | 74 | $44.02 |
+| 1 | **APA** ✓ | $44.53 | 77.9 | 473 | 6× / 5d | 55 | 53 | $41.59 |
+| 2 | **TSM** ✓ | $428.03 | 76.8 | 391 | 7× / 3d | 60 | 37 | $406.59 |
+| 3 | **GFI** | $45.68 | 75.8 | 389 | 5× / 5d | 55 | 40 | $41.86 |
+| 4 | **NVDA** ✓ | $218.36 | 75.6 | 376 | 5× / 3d | 50 | 45 | $203.22 |
+| 5 | **HPQ** ✓ | $32.73 | 74.1 | 486 | 8× / 5d | 63 | 54 | $29.66 |
+| 6 | **MU** ✓ | $977.41 | 73.3 | 360 | 5× / 3d | 56 | 39 | $884.37 |
+| 7 | **EOG** ✓ | $147.01 | 72.4 | 400 | 5× / 3d | 46 | 42 | $142.60 |
+| 8 | **NEM** | $128.71 | 72.1 | 377 | 5× / 3d | 51 | 46 | $124.85 |
+| 9 | **SMCI** ✓ | $37.38 | 71.6 | 450 | 7× / 5d | 52 | 22 | $32.93 |
+| 10 | **OSCR** ✓ | $32.58 | 71.1 | 419 | 4× / 5d | 51 | 60 | $28.87 |
 
 ✓ = full Stage 2 uptrend (price > SMA50 > SMA150 > SMA200). Composite blends conviction (65%) with fundamental quality (35%). Stops are ATR-based algorithmic levels.
 
 ## Why the Top 3
 
-1. **EXEL** — EXEL is showing an accumulation and RSI staircase pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 4 scanners over 4 days. Monthly return history: +3.6% avg over 32 months (69% consistency). Fundamentals: Biotechnology — fundamentally strong; with 35% profit margin; trading at 14.5× earnings.
-2. **ABNB** — ABNB is showing a pullback-to-support and ATR coil-to-expansion pattern, in a Stage 2 uptrend, with top-10% relative strength (RS 90), confirmed by 6 scanners over 4 days. Monthly return history: +1.2% avg over 34 months (59% consistency). Fundamentals: Hotels, Restaurants & Leisure — fundamentally strong; growing revenue at 14% YoY; with 20% profit margin.
-3. **MSFT** — MSFT is showing an accumulation and pullback-to-support pattern, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 6 scanners over 4 days. Monthly return history: +0.9% avg over 34 months (56% consistency). Fundamentals: Technology — fundamentally strong; growing revenue at 18% YoY; with 40% profit margin; trading at 27.6× earnings.
+1. **APA** — APA is showing a range compression and ATR coil-to-expansion pattern, in a Stage 2 uptrend, confirmed by 6 scanners over 5 days. Fundamentals: Energy — fundamentally strong; revenue declining 12% YoY; with 19% profit margin; trading at 9.3× earnings.
+2. **TSM** — TSM is showing an accumulation and momentum rebound pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 7 scanners over 3 days. Monthly return history: +3.2% avg over 10 months (80% consistency). Fundamentals: Semiconductors — fundamentally strong; growing revenue at 31% YoY; with 51% profit margin; trading at 28.0× earnings.
+3. **GFI** — GFI is showing an ATR coil-to-expansion and RSI staircase pattern, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 5 scanners over 5 days. Monthly return history: +4.1% avg over 32 months (59% consistency). Fundamentals: Metals & Mining — fundamentally strong; growing revenue at 135% YoY; with 29% profit margin; trading at 12.0× earnings.
 
 ---
 

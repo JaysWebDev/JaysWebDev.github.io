@@ -714,6 +714,7 @@
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#f59e0b;" onclick="showTab(event,'inst13f-portfolio');load13FPortfolios()">🏦 13F Books</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'factor-portfolio');loadFactorPortfolio()">📊 Factor</button>
                         <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'etf-portfolio');loadEtfPortfolio()">📦 ETF Trend</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#f472b6;" onclick="showTab(event,'edge-v2-portfolio');loadEdgeV2Portfolio()">🧠 Edge v2</button>
                         <!-- Operations group (hidden initially) -->
                         <!-- Crypto group -->
                         <button class="tab-button" data-group="crypto" style="display:none;color:#F7931A;" onclick="showTab(event,'crypto-signals');loadCryptoSignals()">₿ Signals</button>
@@ -3510,6 +3511,96 @@
                             </div>
                         </div><!-- /paper-portfolio -->
 
+                        <div id="edge-v2-portfolio" class="tab-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                                <div>
+                                    <h3 style="color:#f472b6;margin:0;font-size:1.05rem;">🧠 Edge v2 — Learned-Edge Entries · −12% / 30-Day Exit · $5,000</h3>
+                                    <div id="ev2-dates" style="color:#64748b;font-size:0.7rem;margin-top:3px;"></div>
+                                </div>
+                                <div style="font-size:0.66rem;color:#64748b;text-align:right;line-height:1.6;">Ranks signals by 6-mo forward-return edge<br>not the (inverted) conviction score</div>
+                            </div>
+
+                            <!-- Summary cards -->
+                            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;">
+                                <div style="background:rgba(244,114,182,0.08);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(244,114,182,0.25);">
+                                    <div id="ev2-value" style="font-size:1.5rem;font-weight:700;color:#f472b6;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Value</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="ev2-return" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Total Return</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="ev2-win-rate" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Win Rate</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="ev2-avg-trade" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Avg Trade</div>
+                                </div>
+                                <div style="background:rgba(30,41,59,0.6);border-radius:9px;padding:13px;text-align:center;border:1px solid rgba(148,163,184,0.1);">
+                                    <div id="ev2-positions" style="font-size:1.5rem;font-weight:700;color:#CBD5E1;font-family:'JetBrains Mono',monospace;">—</div>
+                                    <div style="font-size:0.68rem;color:#64748b;margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;">Open / Closed</div>
+                                </div>
+                            </div>
+
+                            <!-- Equity curve -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Equity Curve <span style="color:#475569;font-weight:400;text-transform:none;">· % vs start · daily close</span></div>
+                                <div id="ev2-equity-chart" style="color:#64748b;font-size:0.72rem;">Loading…</div>
+                            </div>
+
+                            <!-- Open Positions -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Open Positions</div>
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                        <thead>
+                                            <tr style="border-bottom:1px solid rgba(244,114,182,0.2);">
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Symbol</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">In Date</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Entry</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Current</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L %</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Stop</th>
+                                                <th style="padding:6px 8px;text-align:center;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Days</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Edge</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Scanner</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ev2-holdings-body">
+                                            <tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Loading...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Closed Trade History -->
+                            <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;margin-top:12px;border:1px solid rgba(148,163,184,0.08);">
+                                <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Closed Trades</div>
+                                <div style="overflow-x:auto;">
+                                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                                        <thead>
+                                            <tr style="border-bottom:1px solid rgba(148,163,184,0.12);">
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Symbol</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">In</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Out</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Entry</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Exit</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L %</th>
+                                                <th style="padding:6px 8px;text-align:right;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">P&amp;L $</th>
+                                                <th style="padding:6px 8px;text-align:center;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Days</th>
+                                                <th style="padding:6px 8px;text-align:left;color:#64748b;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ev2-closed-body">
+                                            <tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No closed trades yet.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!-- /edge-v2-portfolio -->
+
                         <div id="rotation" class="tab-panel">
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
                                 <div>
@@ -5764,6 +5855,119 @@
                 .catch(err => {
                     console.error('Paper portfolio load error:', err);
                     document.getElementById('pp-holdings-body').innerHTML =
+                        '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Portfolio data unavailable.</td></tr>';
+                });
+        }
+
+        function loadEdgeV2Portfolio() {
+            fetch('/trading/data/conviction_v2_portfolio.json')
+                .then(r => r.json())
+                .then(pp => {
+                    applyIntradayPrices(pp.positions);
+                    applyLiveBookValue(pp);
+                    const gen = pp.generated ? pp.generated.slice(0,16).replace('T',' ') : '';
+                    const reg = pp.regime_now || '—';
+                    const regColor = reg === 'RISK_ON' ? '#10B981' : '#EF4444';
+                    document.getElementById('ev2-dates').innerHTML =
+                        `Started: ${pp.start_date || '—'} · Updated: ${gen} · Regime: <span style="color:${regColor};font-weight:700;">${reg}</span>`;
+
+                    document.getElementById('ev2-value').textContent =
+                        '$' + (pp.total_value || 0).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+                    const retEl = document.getElementById('ev2-return');
+                    const pnl = pp.pnl_pct || 0;
+                    retEl.textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%';
+                    retEl.style.color = pnl >= 0 ? '#10B981' : '#EF4444';
+
+                    const wrEl = document.getElementById('ev2-win-rate');
+                    const wr = pp.win_rate || 0;
+                    wrEl.textContent = pp.closed_count > 0 ? wr.toFixed(1) + '%' : '—';
+                    wrEl.style.color = wr >= 55 ? '#10B981' : wr >= 45 ? '#F59E0B' : pp.closed_count > 0 ? '#EF4444' : '#CBD5E1';
+
+                    const avgEl = document.getElementById('ev2-avg-trade');
+                    const avg = pp.avg_trade_pnl || 0;
+                    avgEl.textContent = pp.closed_count > 0 ? (avg >= 0 ? '+' : '') + avg.toFixed(2) + '%' : '—';
+                    avgEl.style.color = avg >= 0 ? '#10B981' : '#EF4444';
+
+                    document.getElementById('ev2-positions').textContent =
+                        `${pp.open_count || 0} / ${pp.closed_count || 0}`;
+
+                    const chart = document.getElementById('ev2-equity-chart');
+                    if (chart) {
+                        const svg = equityCurveSVG(pp.equity_curve);
+                        chart.innerHTML = svg ||
+                            '<span style="color:#64748b;">Accumulating history — the curve appears after a few daily snapshots.</span>';
+                    }
+
+                    const tbody = document.getElementById('ev2-holdings-body');
+                    const positions = pp.positions || [];
+                    if (positions.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No open positions.</td></tr>';
+                    } else {
+                        tbody.innerHTML = positions.map(p => {
+                            const pct = p.pnl_pct || 0;
+                            const pnlColor = pct >= 0 ? '#10B981' : pct > -6 ? '#F59E0B' : '#EF4444';
+                            const stopDist = p.stop_price && p.current_price
+                                ? ((p.stop_price - p.current_price) / p.current_price * 100).toFixed(1)
+                                : '—';
+                            // room to stop: 100% = at entry, 0% = at stop (uses the position's actual stop distance)
+                            const span = (p.entry_price || 0) - (p.stop_price || 0);
+                            const roomPct = span > 0
+                                ? Math.max(0, Math.min(100, ((p.current_price || p.entry_price) - p.stop_price) / span * 100))
+                                : 100;
+                            const barClr = roomPct >= 60 ? '#10B981' : roomPct >= 30 ? '#F59E0B' : '#EF4444';
+                            const sc = p.scanner || '';
+                            const c = _SETUP_SC_COLORS[sc] || '#818cf8';
+                            const lbl = _SETUP_SC_LABEL[sc] || sc;
+                            const scanBadge = sc
+                                ? `<span style="display:inline-block;background:${c}1a;border:1px solid ${c}33;border-radius:3px;padding:1px 5px;font-size:0.58rem;color:${c};">${lbl}</span>`
+                                : '';
+                            const edge = p.pred_edge || 0;
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${p.symbol}</td>
+                                <td style="padding:7px 8px;color:#64748b;">${p.entry_date}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(p.entry_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(p.current_price||p.entry_price||0).toFixed(2)}${liveDot(p)}</td>
+                                <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pnlColor};">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
+                                <td style="padding:7px 8px;min-width:90px;">
+                                    <div style="text-align:right;font-size:0.72rem;color:#EF4444;">$${(p.stop_price||0).toFixed(2)} <span style="color:#475569;font-size:0.62rem;">${stopDist}%</span></div>
+                                    <div style="margin-top:3px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;">
+                                        <div style="width:${roomPct}%;height:100%;background:${barClr};border-radius:2px;transition:width 0.6s;"></div>
+                                    </div>
+                                </td>
+                                <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${p.days_held||1}</td>
+                                <td style="padding:7px 8px;text-align:right;font-weight:700;color:#f472b6;">${edge >= 0 ? '+' : ''}${edge.toFixed(2)}</td>
+                                <td style="padding:7px 8px;">${scanBadge}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+
+                    const ctbody = document.getElementById('ev2-closed-body');
+                    const closed = (pp.closed_trades || []).slice().reverse().slice(0, 20);
+                    if (closed.length === 0) {
+                        ctbody.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">No closed trades yet.</td></tr>';
+                    } else {
+                        ctbody.innerHTML = closed.map(t => {
+                            const pct = t.pnl_pct || 0;
+                            const dol = t.pnl_dollars || 0;
+                            const pnlColor = pct >= 0 ? '#10B981' : '#EF4444';
+                            return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                                <td style="padding:7px 8px;font-weight:700;color:#e2e8f0;">${t.symbol}</td>
+                                <td style="padding:7px 8px;color:#64748b;">${t.entry_date}</td>
+                                <td style="padding:7px 8px;color:#64748b;">${t.exit_date}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(t.entry_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;">$${(t.exit_price||0).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:right;font-weight:700;color:${pnlColor};">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
+                                <td style="padding:7px 8px;text-align:right;color:${pnlColor};">${dol >= 0 ? '+$' : '-$'}${Math.abs(dol).toFixed(2)}</td>
+                                <td style="padding:7px 8px;text-align:center;color:#94A3B8;">${t.days_held||'—'}</td>
+                                <td style="padding:7px 8px;color:#64748b;font-size:0.72rem;">${t.exit_reason||''}</td>
+                            </tr>`;
+                        }).join('');
+                    }
+                })
+                .catch(err => {
+                    console.error('Edge v2 portfolio load error:', err);
+                    document.getElementById('ev2-holdings-body').innerHTML =
                         '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Portfolio data unavailable.</td></tr>';
                 });
         }
