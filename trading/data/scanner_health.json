@@ -1,0 +1,222 @@
+{
+ "generated": "2026-09-14T20:37:41",
+ "window_days": 45,
+ "as_of": "2026-08-12",
+ "current_regime": "BULL",
+ "alerts": [
+  {
+   "scanner": "setup_accum",
+   "baseline_edge": 0.128,
+   "baseline_n": 3109,
+   "recent_edge": -0.525,
+   "recent_n": 1607,
+   "bull_edge": -0.363,
+   "delta": -0.653,
+   "status": "DECAY"
+  },
+  {
+   "scanner": "setup_pullback",
+   "baseline_edge": 0.658,
+   "baseline_n": 5818,
+   "recent_edge": -0.358,
+   "recent_n": 4206,
+   "bull_edge": -0.124,
+   "delta": -1.015,
+   "status": "DECAY"
+  }
+ ],
+ "watch": [
+  {
+   "scanner": "institutional",
+   "baseline_edge": 2.215,
+   "baseline_n": 3186,
+   "recent_edge": -0.468,
+   "recent_n": 1256,
+   "bull_edge": 1.586,
+   "delta": -2.683,
+   "status": "CHOP"
+  },
+  {
+   "scanner": "rsi_staircase",
+   "baseline_edge": 0.874,
+   "baseline_n": 12991,
+   "recent_edge": -0.271,
+   "recent_n": 10682,
+   "bull_edge": 0.188,
+   "delta": -1.145,
+   "status": "CHOP"
+  },
+  {
+   "scanner": "confluence",
+   "baseline_edge": 0.791,
+   "baseline_n": 50179,
+   "recent_edge": -0.183,
+   "recent_n": 29356,
+   "bull_edge": 0.513,
+   "delta": -0.974,
+   "status": "CHOP"
+  },
+  {
+   "scanner": "atr_momentum",
+   "baseline_edge": 1.014,
+   "baseline_n": 22103,
+   "recent_edge": 0.293,
+   "recent_n": 18949,
+   "bull_edge": 0.401,
+   "delta": -0.721,
+   "status": "YELLOW"
+  },
+  {
+   "scanner": "v3_compression",
+   "baseline_edge": 2.259,
+   "baseline_n": 4066,
+   "recent_edge": 0.686,
+   "recent_n": 1554,
+   "bull_edge": 1.485,
+   "delta": -1.573,
+   "status": "YELLOW"
+  }
+ ],
+ "scanners": [
+  {
+   "scanner": "conviction_3plus",
+   "baseline_edge": 2.292,
+   "baseline_n": 68,
+   "recent_edge": null,
+   "recent_n": 0,
+   "bull_edge": 2.292,
+   "delta": null,
+   "status": "THIN"
+  },
+  {
+   "scanner": "database_enhanced",
+   "baseline_edge": -1.785,
+   "baseline_n": 8524,
+   "recent_edge": -1.76,
+   "recent_n": 1263,
+   "bull_edge": -1.828,
+   "delta": 0.025,
+   "status": "DEAD"
+  },
+  {
+   "scanner": "setup_vcb",
+   "baseline_edge": -0.338,
+   "baseline_n": 6885,
+   "recent_edge": -1.074,
+   "recent_n": 2333,
+   "bull_edge": -0.837,
+   "delta": -0.736,
+   "status": "DEAD"
+  },
+  {
+   "scanner": "unified",
+   "baseline_edge": -0.001,
+   "baseline_n": 1680,
+   "recent_edge": -0.687,
+   "recent_n": 611,
+   "bull_edge": 0.342,
+   "delta": -0.686,
+   "status": "DEAD"
+  },
+  {
+   "scanner": "setup_accum",
+   "baseline_edge": 0.128,
+   "baseline_n": 3109,
+   "recent_edge": -0.525,
+   "recent_n": 1607,
+   "bull_edge": -0.363,
+   "delta": -0.653,
+   "status": "DECAY"
+  },
+  {
+   "scanner": "institutional",
+   "baseline_edge": 2.215,
+   "baseline_n": 3186,
+   "recent_edge": -0.468,
+   "recent_n": 1256,
+   "bull_edge": 1.586,
+   "delta": -2.683,
+   "status": "CHOP"
+  },
+  {
+   "scanner": "setup_pullback",
+   "baseline_edge": 0.658,
+   "baseline_n": 5818,
+   "recent_edge": -0.358,
+   "recent_n": 4206,
+   "bull_edge": -0.124,
+   "delta": -1.015,
+   "status": "DECAY"
+  },
+  {
+   "scanner": "rsi_staircase",
+   "baseline_edge": 0.874,
+   "baseline_n": 12991,
+   "recent_edge": -0.271,
+   "recent_n": 10682,
+   "bull_edge": 0.188,
+   "delta": -1.145,
+   "status": "CHOP"
+  },
+  {
+   "scanner": "confluence",
+   "baseline_edge": 0.791,
+   "baseline_n": 50179,
+   "recent_edge": -0.183,
+   "recent_n": 29356,
+   "bull_edge": 0.513,
+   "delta": -0.974,
+   "status": "CHOP"
+  },
+  {
+   "scanner": "atr_momentum",
+   "baseline_edge": 1.014,
+   "baseline_n": 22103,
+   "recent_edge": 0.293,
+   "recent_n": 18949,
+   "bull_edge": 0.401,
+   "delta": -0.721,
+   "status": "YELLOW"
+  },
+  {
+   "scanner": "v3_compression",
+   "baseline_edge": 2.259,
+   "baseline_n": 4066,
+   "recent_edge": 0.686,
+   "recent_n": 1554,
+   "bull_edge": 1.485,
+   "delta": -1.573,
+   "status": "YELLOW"
+  },
+  {
+   "scanner": "momentum_rebound",
+   "baseline_edge": 1.217,
+   "baseline_n": 4726,
+   "recent_edge": 1.024,
+   "recent_n": 4524,
+   "bull_edge": 0.658,
+   "delta": -0.193,
+   "status": "GREEN"
+  },
+  {
+   "scanner": "etf",
+   "baseline_edge": 1.273,
+   "baseline_n": 3221,
+   "recent_edge": 1.299,
+   "recent_n": 2665,
+   "bull_edge": 1.056,
+   "delta": 0.026,
+   "status": "GREEN"
+  },
+  {
+   "scanner": "under50",
+   "baseline_edge": 3.786,
+   "baseline_n": 59601,
+   "recent_edge": 2.349,
+   "recent_n": 31446,
+   "bull_edge": 3.639,
+   "delta": -1.437,
+   "status": "GREEN"
+  }
+ ]
+}

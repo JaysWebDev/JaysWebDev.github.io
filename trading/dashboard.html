@@ -614,6 +614,8 @@
             <span id="header-username">👤 Trader</span>
             <span>|</span>
             <span id="current-time"></span>
+            <a class="logout-btn" href="http://100.117.181.63:5055/" target="_blank" rel="noopener"
+               title="Private Command Center — Tailscale only, not public">⌘ Command Center</a>
             <button class="logout-btn" onclick="logout()">🔓 Logout</button>
         </div>
     </div>
@@ -2503,6 +2505,14 @@
                                         </table>
                                     </div>
                                     <div id="adm-scanners-today" style="margin-top:8px;font-size:0.75rem;color:#64748b;"></div>
+                                </div>
+
+                                <!-- Scanner Edge Health -->
+                                <div style="margin-bottom:24px;">
+                                    <h5 style="color:#94A3B8;margin:0 0 10px 0;font-size:0.8rem;text-transform:uppercase;">Scanner Edge Health <span id="adm-health-meta" style="color:#64748b;font-weight:normal;text-transform:none;"></span></h5>
+                                    <div id="adm-health-body" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:8px;">
+                                        <div style="color:#64748b;font-size:0.75rem;">Loading…</div>
+                                    </div>
                                 </div>
 
                                 <!-- 2. Cron Job Status -->
@@ -4884,6 +4894,7 @@
             loadTrendRank();
             loadUnifiedTest();
             loadAdminData();
+            loadScannerHealth();
             loadLTPortfolio();
             loadMarketPerformance();
             loadScannerAccuracy();
@@ -7462,6 +7473,33 @@
         let _adminLogData = {};
         let _adminActiveLog = null;
 
+        function loadScannerHealth() {
+            fetch('/trading/data/scanner_health.json?_=' + Date.now())
+                .then(r => r.ok ? r.json() : null)
+                .then(d => {
+                    if (!d) return;
+                    const meta = document.getElementById('adm-health-meta');
+                    if (meta) meta.textContent = `· regime ${d.current_regime || '?'} · ${(d.alerts||[]).length} decay · as of ${d.as_of}`;
+                    const body = document.getElementById('adm-health-body');
+                    if (!body) return;
+                    const cfg = { GREEN:{c:'#10B981',i:'🟢'}, YELLOW:{c:'#FBBF24',i:'🟡'}, CHOP:{c:'#38bdf8',i:'🌊'}, DECAY:{c:'#EF4444',i:'🔴'}, DEAD:{c:'#64748b',i:'⚫'}, THIN:{c:'#475569',i:'·'} };
+                    const rank = { DECAY:0, YELLOW:1, CHOP:2, GREEN:3, THIN:4, DEAD:5 };
+                    const rows = (d.scanners || []).slice().sort((a,b) => (rank[a.status]??9) - (rank[b.status]??9));
+                    const f = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(2);
+                    body.innerHTML = rows.map(s => {
+                        const k = cfg[s.status] || cfg.THIN;
+                        return `<div style="background:rgba(30,41,59,0.6);border:1px solid ${k.c}33;border-left:3px solid ${k.c};border-radius:6px;padding:8px 10px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <span style="color:#e2e8f0;font-weight:600;font-size:0.8rem;">${k.i} ${s.scanner}</span>
+                                <span style="color:${k.c};font-size:0.6rem;font-weight:700;text-transform:uppercase;">${s.status}</span>
+                            </div>
+                            <div style="color:#64748b;font-size:0.66rem;margin-top:3px;">recent <span style="color:#cbd5e1;">${f(s.recent_edge)}%</span> · bull <span style="color:#cbd5e1;">${f(s.bull_edge)}%</span> · base ${f(s.baseline_edge)}%</div>
+                        </div>`;
+                    }).join('');
+                })
+                .catch(() => {});
+        }
+
         function loadAdminData() {
             fetch('/trading/data/admin_data.json')
                 .then(r => r.json())
@@ -7513,8 +7551,9 @@
                     }
 
                     // ── Cron Jobs ──
-                    const today = new Date().toISOString().slice(0, 10);
-                    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+                    // local date (en-CA = YYYY-MM-DD) — last_run is stored local, so UTC here false-reddened evening runs
+                    const today = new Date().toLocaleDateString('en-CA');
+                    const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-CA');
                     const cronCount = document.getElementById('adm-cron-count');
                     if (cronCount) cronCount.textContent = `(${(ad.cron_jobs||[]).length} jobs)`;
                     const cronBody = document.getElementById('adm-cron-body');

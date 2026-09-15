@@ -1,15 +1,25 @@
 {
-  "last_run": "2026-09-11",
+  "last_run": "2026-09-14",
   "failure_counts": {
-    "HLX": {
+    "APGE": {
       "count": 1,
+      "first_flagged": "2026-09-14",
+      "reason": "Data stopped updating (last: 2026-09-02, expected: 2026-09-11)"
+    },
+    "HLX": {
+      "count": 2,
       "first_flagged": "2026-09-11",
-      "reason": "Data stopped updating (last: 2026-09-01, expected: 2026-09-10)"
+      "reason": "Data stopped updating (last: 2026-09-01, expected: 2026-09-11)"
     },
     "CRNX": {
-      "count": 2,
+      "count": 3,
       "first_flagged": "2026-09-10",
-      "reason": "Data stopped updating (last: 2026-08-31, expected: 2026-09-10)"
+      "reason": "Data stopped updating (last: 2026-08-31, expected: 2026-09-11)"
+    },
+    "SLP": {
+      "count": 1,
+      "first_flagged": "2026-09-14",
+      "reason": "5 consecutive days same price"
     },
     "PAYO": {
       "count": 0,

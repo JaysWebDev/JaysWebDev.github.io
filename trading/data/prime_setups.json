@@ -1,44 +1,44 @@
 {
-  "generated": "2026-09-11 16:33:01",
-  "scan_date": "2026-09-11",
+  "generated": "2026-09-14 16:33:02",
+  "scan_date": "2026-09-14",
   "regime": "NEUTRAL",
   "alert_mode": "SELECTIVE",
   "stats": {
-    "total_scanned": 897,
-    "rs_passed": 59,
-    "stage2_passed": 6,
+    "total_scanned": 915,
+    "rs_passed": 64,
+    "stage2_passed": 8,
     "prime_count": 0,
-    "strong_count": 4
+    "strong_count": 3
   },
   "prime": [],
   "strong": [
     {
+      "symbol": "HZO",
+      "score": 130,
+      "close": 52.21,
+      "rs_rank": 70.5,
+      "stop": 50.64,
+      "target": 54.82,
+      "scanners": "database_enhanced",
+      "signals": "NR3 \u2022 KELTNER BO \u2022 TREND ALIGN \u2022 NEW HIGH \u2022 BB SQUEEZE",
+      "m_consistency": 53.1,
+      "m_avg_ret": 2.32,
+      "m_months": 32,
+      "high_consistency": false
+    },
+    {
       "symbol": "APPS",
-      "score": 120,
-      "close": 11.8,
-      "rs_rank": 95.1,
-      "stop": null,
-      "target": null,
-      "scanners": "under50",
-      "signals": "Strong Uptrend | Above EMA20 | Range:9.2% | RSI:55.0 | Good Volume | Price OK | Near 52W High | Vola",
+      "score": 110,
+      "close": 11.81,
+      "rs_rank": 87.1,
+      "stop": 11.46,
+      "target": 12.4,
+      "scanners": "database_enhanced,under50",
+      "signals": "NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 HOT MOMENTUM",
       "m_consistency": 56.7,
       "m_avg_ret": 5.45,
       "m_months": 30,
       "high_consistency": false
-    },
-    {
-      "symbol": "PACS",
-      "score": 110,
-      "close": 44.85,
-      "rs_rank": 76.5,
-      "stop": 43.5,
-      "target": 47.09,
-      "scanners": "database_enhanced,under50",
-      "signals": "NR3 \u2022 KELTNER NEAR \u2022 TREND ALIGN \u2022 STRONG LEVEL \u2022 BB SQUEEZE",
-      "m_consistency": 62.1,
-      "m_avg_ret": 1.09,
-      "m_months": 29,
-      "high_consistency": true
     },
     {
       "symbol": "APGE",
@@ -51,20 +51,6 @@
       "signals": "NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID",
       "m_consistency": 53.1,
       "m_avg_ret": 7.0,
-      "m_months": 32,
-      "high_consistency": false
-    },
-    {
-      "symbol": "CRSR",
-      "score": 100,
-      "close": 12.57,
-      "rs_rank": 80.6,
-      "stop": null,
-      "target": null,
-      "scanners": "under50",
-      "signals": "Strong Uptrend | Above EMA20 | Range:4.4% | RSI:64.5 | Good Volume | Price OK | Near 52W High",
-      "m_consistency": 50.0,
-      "m_avg_ret": 2.08,
       "m_months": 32,
       "high_consistency": false
     }
