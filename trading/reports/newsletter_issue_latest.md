@@ -1,10 +1,10 @@
-# Conviction Weekly — September 13, 2026
+# Conviction Weekly — September 14, 2026
 
-**Market regime: NEUTRAL.** Neutral — mixed breadth; only high-confluence setups pass the gate. Breadth: 14% of the quality universe in Stage 2 uptrends, 56% above their 200-day average.
+**Market regime: NEUTRAL.** Neutral — mixed breadth; only high-confluence setups pass the gate. Breadth: 17% of the quality universe in Stage 2 uptrends, 58% above their 200-day average.
 
 ## Track Record — measured, not promised
 
-- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-1.80%** · 10 open · 9 closed, 0% wins
+- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-1.62%** · 10 open · 9 closed, 0% wins
 - **Multi-scanner signals** (3+ scanners agreeing — Jun 4 2026 cohort study, n=68): **52.9%** positive after 5 trading days, avg **+0.18%**
 
 *All figures auto-computed from the live system at publish time. Past performance does not guarantee future results.*
@@ -13,24 +13,24 @@
 
 | # | Symbol | Price | Composite | Conviction | Scanners/Days | RSI | RS | Stop |
 |---|--------|-------|-----------|------------|---------------|-----|-----|------|
-| 1 | **APA** ✓ | $44.53 | 77.9 | 473 | 6× / 5d | 55 | 53 | $41.59 |
-| 2 | **TSM** ✓ | $428.03 | 76.8 | 391 | 7× / 3d | 60 | 37 | $406.59 |
-| 3 | **GFI** | $45.68 | 75.8 | 389 | 5× / 5d | 55 | 40 | $41.86 |
-| 4 | **NVDA** ✓ | $218.36 | 75.6 | 376 | 5× / 3d | 50 | 45 | $203.22 |
-| 5 | **HPQ** ✓ | $32.73 | 74.1 | 486 | 8× / 5d | 63 | 54 | $29.66 |
-| 6 | **MU** ✓ | $977.41 | 73.3 | 360 | 5× / 3d | 56 | 39 | $884.37 |
-| 7 | **EOG** ✓ | $147.01 | 72.4 | 400 | 5× / 3d | 46 | 42 | $142.60 |
-| 8 | **NEM** | $128.71 | 72.1 | 377 | 5× / 3d | 51 | 46 | $124.85 |
-| 9 | **SMCI** ✓ | $37.38 | 71.6 | 450 | 7× / 5d | 52 | 22 | $32.93 |
-| 10 | **OSCR** ✓ | $32.58 | 71.1 | 419 | 4× / 5d | 51 | 60 | $28.87 |
+| 1 | **APA** ✓ | $44.73 | 83.9 | 529 | 6× / 5d | 52 | 54 | $41.89 |
+| 2 | **OXY** | $61.46 | 73.7 | 416 | 6× / 5d | 50 | 34 | $59.62 |
+| 3 | **GFI** | $45.10 | 73.5 | 368 | 5× / 5d | 49 | 38 | $41.40 |
+| 4 | **VLO** ✓ | $390.42 | 72.4 | 445 | 5× / 5d | 82 | 59 | $369.06 |
+| 5 | **SM** | $38.10 | 71.4 | 428 | 5× / 5d | 53 | 33 | $35.58 |
+| 6 | **OSCR** ✓ | $32.77 | 71.1 | 419 | 7× / 5d | 56 | 59 | $29.14 |
+| 7 | **HPQ** ✓ | $35.48 | 70.9 | 457 | 9× / 5d | 74 | 54 | $32.05 |
+| 8 | **AES** | $14.79 | 68.8 | 435 | 7× / 5d | 54 | 40 | $14.70 |
+| 9 | **SMCI** ✓ | $40.10 | 68.8 | 424 | 7× / 5d | 59 | 25 | $35.67 |
+| 10 | **T** | $26.06 | 68.7 | 421 | 6× / 5d | 61 | 36 | $24.98 |
 
 ✓ = full Stage 2 uptrend (price > SMA50 > SMA150 > SMA200). Composite blends conviction (65%) with fundamental quality (35%). Stops are ATR-based algorithmic levels.
 
 ## Why the Top 3
 
 1. **APA** — APA is showing a range compression and ATR coil-to-expansion pattern, in a Stage 2 uptrend, confirmed by 6 scanners over 5 days. Fundamentals: Energy — fundamentally strong; revenue declining 12% YoY; with 19% profit margin; trading at 9.3× earnings.
-2. **TSM** — TSM is showing an accumulation and momentum rebound pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 7 scanners over 3 days. Monthly return history: +3.2% avg over 10 months (80% consistency). Fundamentals: Semiconductors — fundamentally strong; growing revenue at 31% YoY; with 51% profit margin; trading at 28.0× earnings.
-3. **GFI** — GFI is showing an ATR coil-to-expansion and RSI staircase pattern, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 5 scanners over 5 days. Monthly return history: +4.1% avg over 32 months (59% consistency). Fundamentals: Metals & Mining — fundamentally strong; growing revenue at 135% YoY; with 29% profit margin; trading at 12.0× earnings.
+2. **OXY** — OXY is showing a momentum rebound and ATR coil-to-expansion pattern, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 6 scanners over 5 days. Monthly return history: +2.3% avg over 6 months (67% consistency). Fundamentals: Energy — fundamentally strong; with 33% profit margin; trading at 8.5× earnings.
+3. **GFI** — GFI is showing an ATR coil-to-expansion and RSI staircase pattern, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 5 scanners over 5 days. Monthly return history: +4.0% avg over 32 months (59% consistency). Fundamentals: Metals & Mining — fundamentally strong; growing revenue at 135% YoY; with 29% profit margin; trading at 12.0× earnings.
 
 ---
 

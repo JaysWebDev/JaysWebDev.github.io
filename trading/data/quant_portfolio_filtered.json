@@ -1,25 +1,39 @@
 {
-  "generated": "2026-09-14T20:44:01.846255",
+  "generated": "2026-09-15T21:08:54.899738",
   "strategy": "Quant Analyst picks + over-extension filter (skip entry RSI>=65)",
   "start_date": "2026-08-20",
   "starting_capital": 5000.0,
-  "total_value": 5007.49,
-  "cash": 112.33,
-  "pnl_pct": 0.15,
+  "total_value": 4967.96,
+  "cash": 67.32,
+  "pnl_pct": -0.64,
   "open_count": 10,
-  "closed_count": 11,
-  "win_rate": 63.6,
-  "avg_trade_pnl": -0.33,
+  "closed_count": 12,
+  "win_rate": 58.3,
+  "avg_trade_pnl": -1.05,
   "rsi_max": 65.0,
   "positions": [
+    {
+      "shares": 2.9339,
+      "symbol": "OKTA",
+      "entry_date": "2026-09-03",
+      "entry_price": 170.42,
+      "current_price": 186.45,
+      "pnl_pct": 9.41,
+      "days_held": 6,
+      "stop_price": 156.79,
+      "entry_rsi": 62.3,
+      "rank": 14,
+      "conviction_score": 441.5,
+      "scanners": "database_enhanced,institutional,confluence,rsi_staircase,momentum_rebound,setup_pullback,v3_compression"
+    },
     {
       "shares": 15.6593,
       "symbol": "HPQ",
       "entry_date": "2026-09-03",
       "entry_price": 31.93,
-      "current_price": 35.48,
-      "pnl_pct": 11.12,
-      "days_held": 5,
+      "current_price": 34.02,
+      "pnl_pct": 6.55,
+      "days_held": 6,
       "stop_price": 29.38,
       "entry_rsi": 59.7,
       "rank": 4,
@@ -31,9 +45,9 @@
       "symbol": "APA",
       "entry_date": "2026-08-31",
       "entry_price": 43.15,
-      "current_price": 44.73,
-      "pnl_pct": 3.66,
-      "days_held": 8,
+      "current_price": 45.03,
+      "pnl_pct": 4.36,
+      "days_held": 9,
       "stop_price": 39.7,
       "entry_rsi": 62.4,
       "rank": 1,
@@ -41,41 +55,13 @@
       "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression"
     },
     {
-      "shares": 12.8436,
-      "symbol": "SMCI",
-      "entry_date": "2026-09-09",
-      "entry_price": 38.93,
-      "current_price": 40.1,
-      "pnl_pct": 3.01,
-      "days_held": 2,
-      "stop_price": 35.82,
-      "entry_rsi": 54.7,
-      "rank": 2,
-      "conviction_score": 518.4,
-      "scanners": "under50,confluence,momentum_rebound,atr_momentum,rsi_staircase,setup_pullback,setup_vcb"
-    },
-    {
-      "shares": 3.4256,
-      "symbol": "EOG",
-      "entry_date": "2026-09-03",
-      "entry_price": 145.96,
-      "current_price": 147.36,
-      "pnl_pct": 0.96,
-      "days_held": 5,
-      "stop_price": 134.28,
-      "entry_rsi": 55.8,
-      "rank": 12,
-      "conviction_score": 443.7,
-      "scanners": "confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,v3_compression"
-    },
-    {
       "shares": 1.2055,
       "symbol": "ELV",
       "entry_date": "2026-09-03",
       "entry_price": 414.78,
-      "current_price": 418.72,
-      "pnl_pct": 0.95,
-      "days_held": 5,
+      "current_price": 424.24,
+      "pnl_pct": 2.28,
+      "days_held": 6,
       "stop_price": 381.6,
       "entry_rsi": 60.9,
       "rank": 15,
@@ -83,13 +69,41 @@
       "scanners": "setup_vcb,momentum_rebound,atr_momentum,setup_accum,rsi_staircase,confluence,institutional"
     },
     {
+      "shares": 3.4256,
+      "symbol": "EOG",
+      "entry_date": "2026-09-03",
+      "entry_price": 145.96,
+      "current_price": 148.54,
+      "pnl_pct": 1.77,
+      "days_held": 6,
+      "stop_price": 134.28,
+      "entry_rsi": 55.8,
+      "rank": 12,
+      "conviction_score": 443.7,
+      "scanners": "confluence,momentum_rebound,atr_momentum,rsi_staircase,database_enhanced,v3_compression"
+    },
+    {
+      "shares": 14.7885,
+      "symbol": "OSCR",
+      "entry_date": "2026-09-14",
+      "entry_price": 33.81,
+      "current_price": 33.81,
+      "pnl_pct": 0.0,
+      "days_held": 0,
+      "stop_price": 31.11,
+      "entry_rsi": 60.1,
+      "rank": 2,
+      "conviction_score": 413.5,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,setup_vcb,momentum_rebound,database_enhanced,institutional"
+    },
+    {
       "shares": 2.5781,
       "symbol": "STT",
       "entry_date": "2026-09-03",
       "entry_price": 193.94,
-      "current_price": 193.4,
-      "pnl_pct": -0.28,
-      "days_held": 5,
+      "current_price": 188.16,
+      "pnl_pct": -2.98,
+      "days_held": 6,
       "stop_price": 178.42,
       "entry_rsi": 53.3,
       "rank": 11,
@@ -97,41 +111,13 @@
       "scanners": "database_enhanced,setup_accum,confluence,atr_momentum,momentum_rebound"
     },
     {
-      "shares": 23.2666,
-      "symbol": "NOV",
-      "entry_date": "2026-09-03",
-      "entry_price": 21.49,
-      "current_price": 21.1,
-      "pnl_pct": -1.81,
-      "days_held": 5,
-      "stop_price": 19.77,
-      "entry_rsi": 53.7,
-      "rank": 7,
-      "conviction_score": 470.9,
-      "scanners": "database_enhanced,under50,confluence,momentum_rebound,atr_momentum,v3_compression,rsi_staircase"
-    },
-    {
-      "shares": 2.9339,
-      "symbol": "OKTA",
-      "entry_date": "2026-09-03",
-      "entry_price": 170.42,
-      "current_price": 166.5,
-      "pnl_pct": -2.3,
-      "days_held": 5,
-      "stop_price": 156.79,
-      "entry_rsi": 62.3,
-      "rank": 14,
-      "conviction_score": 441.5,
-      "scanners": "database_enhanced,institutional,confluence,rsi_staircase,momentum_rebound,setup_pullback,v3_compression"
-    },
-    {
       "shares": 15.2068,
       "symbol": "KDP",
       "entry_date": "2026-09-03",
       "entry_price": 32.88,
-      "current_price": 31.39,
-      "pnl_pct": -4.53,
-      "days_held": 5,
+      "current_price": 31.58,
+      "pnl_pct": -3.95,
+      "days_held": 6,
       "stop_price": 30.25,
       "entry_rsi": 61.3,
       "rank": 6,
@@ -139,18 +125,32 @@
       "scanners": "under50,confluence,rsi_staircase,atr_momentum"
     },
     {
-      "shares": 6.2438,
-      "symbol": "FTI",
+      "shares": 23.2666,
+      "symbol": "NOV",
       "entry_date": "2026-09-03",
-      "entry_price": 80.08,
-      "current_price": 76.34,
-      "pnl_pct": -4.67,
-      "days_held": 5,
-      "stop_price": 73.67,
-      "entry_rsi": 55.7,
-      "rank": 10,
-      "conviction_score": 434.4,
-      "scanners": "confluence,momentum_rebound,atr_momentum,database_enhanced,v3_compression,rsi_staircase"
+      "entry_price": 21.49,
+      "current_price": 20.54,
+      "pnl_pct": -4.42,
+      "days_held": 6,
+      "stop_price": 19.77,
+      "entry_rsi": 53.7,
+      "rank": 7,
+      "conviction_score": 470.9,
+      "scanners": "database_enhanced,under50,confluence,momentum_rebound,atr_momentum,v3_compression,rsi_staircase"
+    },
+    {
+      "shares": 12.8436,
+      "symbol": "SMCI",
+      "entry_date": "2026-09-09",
+      "entry_price": 38.93,
+      "current_price": 36.74,
+      "pnl_pct": -5.63,
+      "days_held": 3,
+      "stop_price": 35.82,
+      "entry_rsi": 54.7,
+      "rank": 2,
+      "conviction_score": 518.4,
+      "scanners": "under50,confluence,momentum_rebound,atr_momentum,rsi_staircase,setup_pullback,setup_vcb"
     }
   ],
   "closed_trades": [
@@ -340,6 +340,23 @@
       "rank": 2,
       "conviction_score": 470.7,
       "scanners": "setup_pullback,confluence,atr_momentum,momentum_rebound,database_enhanced,v3_compression"
+    },
+    {
+      "symbol": "FTI",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-14",
+      "entry_price": 80.08,
+      "exit_price": 72.87,
+      "shares": 6.2438,
+      "allocation": 500.0,
+      "pnl_pct": -9.0,
+      "pnl_dollars": -45.01,
+      "days_held": 6,
+      "exit_reason": "STOP -8%",
+      "entry_rsi": 55.7,
+      "rank": 10,
+      "conviction_score": 434.4,
+      "scanners": "confluence,momentum_rebound,atr_momentum,database_enhanced,v3_compression,rsi_staircase"
     }
   ],
   "equity_curve": [
@@ -402,6 +419,10 @@
     {
       "date": "2026-09-11",
       "value": 5007.49
+    },
+    {
+      "date": "2026-09-14",
+      "value": 4967.96
     }
   ],
   "spy_curve": [
@@ -468,6 +489,10 @@
     {
       "date": "2026-09-11",
       "value": 5011.08
+    },
+    {
+      "date": "2026-09-14",
+      "value": 4988.72
     }
   ]
 }
