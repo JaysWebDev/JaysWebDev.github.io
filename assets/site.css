@@ -7,16 +7,20 @@
    ========================================================================== */
 
 :root {
-  /* Brand palette */
-  --brand-1: #5b46b0;          /* deepened purple — AA on white */
-  --brand-2: #6b46c1;
-  --brand-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Brand palette — deep navy/slate base with a single warm accent.
+     Distinctive + professional (capital-markets feel); avoids the
+     purple-gradient / cyan-on-dark "AI-generated" tells. */
+  --brand-1: #1e2b45;
+  --brand-2: #0f172a;
+  --brand-grad: linear-gradient(165deg, #101a30 0%, #1b2843 55%, #0f172a 100%);
+  --accent: #d8a13a;           /* restrained gold — links, active states, accents */
+  --accent-strong: #b9821f;    /* AA gold on white for text */
 
-  /* Project accents (used for card left-borders / buttons) */
-  --accent-trading: #4c51bf;
-  --accent-rental:  #b07d08;
-  --accent-business:#178f52;
-  --accent-tools:   #6b46c1;
+  /* Project category accents (thin top-bar per card) */
+  --accent-trading: #3b6fd4;
+  --accent-rental:  #c08a1e;
+  --accent-business:#1f9d63;
+  --accent-tools:   #7c74e8;
 
   /* Neutrals */
   --ink:      #1f2733;         /* body text on light — ~13:1 on white */
@@ -86,7 +90,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, label:focus-visible 
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   white-space: nowrap;
 }
-.btn-primary { background: var(--surface); color: #4a2f93; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+.btn-primary { background: var(--accent); color: #1a1305; box-shadow: 0 4px 15px rgba(0,0,0,0.25); }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.22); }
 .btn-secondary { background: transparent; color: var(--on-dark); border-color: rgba(255,255,255,0.55); }
 .btn-secondary:hover { background: rgba(255,255,255,0.14); }
@@ -161,7 +165,7 @@ nav.site-nav input.nav-toggle { position: absolute; opacity: 0; pointer-events: 
 .panel h2.section-sub { font-size: var(--fs-lg); color: var(--ink-soft); margin-top: var(--sp-4); }
 
 .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: var(--sp-6); }
-.project-card { background: var(--surface); border-radius: 15px; padding: var(--sp-6); box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; border-left: 5px solid var(--brand-1); display: flex; flex-direction: column; }
+.project-card { background: var(--surface); border-radius: 15px; padding: var(--sp-6); box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; border-top: 3px solid var(--card-accent, var(--brand-1)); display: flex; flex-direction: column; }
 .project-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
 .project-card h3 { color: var(--ink); font-size: var(--fs-lg); margin-bottom: var(--sp-4); display: flex; align-items: center; gap: 0.5rem; }
 
@@ -169,12 +173,13 @@ nav.site-nav input.nav-toggle { position: absolute; opacity: 0; pointer-events: 
 .card-block { margin-bottom: var(--sp-3); }
 .card-block .label { display: block; font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-mute); margin-bottom: 0.15rem; }
 .card-block p { color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.6; }
-.card-todo { color: #9a6b00; background: #fff7e6; border: 1px dashed #e0a800; border-radius: 6px; padding: 0.15rem 0.5rem; font-size: var(--fs-xs); font-weight: 600; }
+.card-todo { color: #6f4e00; background: #fff7e6; border: 1px dashed #c98f00; border-radius: 6px; padding: 0.15rem 0.5rem; font-size: var(--fs-xs); font-weight: 700; }
 
 .features { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: var(--sp-2) 0 var(--sp-4); }
 .feature-tag { background: var(--surface-2); color: var(--ink-soft); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: var(--fs-xs); border: 1px solid var(--line); }
 
-.project-link { display: inline-block; margin-top: auto; align-self: flex-start; background: var(--brand-grad); color: #fff; padding: 0.7rem 1.6rem; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: var(--fs-sm); transition: transform 0.2s ease; }
+.project-link { display: inline-block; margin-top: auto; align-self: flex-start; background: var(--card-accent, var(--brand-1)); color: #fff; padding: 0.7rem 1.6rem; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: var(--fs-sm); transition: transform 0.2s ease, filter 0.2s ease; }
+.project-link:hover { filter: brightness(1.08); }
 .project-link:hover { transform: scale(1.04); }
 
 /* --- Header (logo lockup) ---------------------------------------------- */
