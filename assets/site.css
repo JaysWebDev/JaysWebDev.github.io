@@ -155,7 +155,9 @@ nav.site-nav input.nav-toggle { position: absolute; opacity: 0; pointer-events: 
 .hero-inner { display: flex; align-items: flex-start; gap: var(--sp-6); }
 .hero-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid rgba(255,255,255,0.35); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 .hero-text { flex: 1; }
-.hero h1 { font-size: var(--fs-xl); font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; margin-bottom: var(--sp-3); }
+.hero h1 { font-size: var(--fs-xl); font-weight: 700; letter-spacing: -0.01em; line-height: 1.35; margin-bottom: var(--sp-3); }
+.section-title { font-size: var(--fs-xl); font-weight: 700; color: var(--on-dark); margin: var(--sp-8) 0 var(--sp-5); letter-spacing: -0.01em; }
+.section-title.section-sub { font-size: var(--fs-lg); color: var(--on-dark-soft); margin-top: var(--sp-8); }
 .hero p { font-size: var(--fs-md); line-height: 1.7; color: var(--on-dark-soft); max-width: 780px; margin-bottom: var(--sp-5); }
 .hero-ctas { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
 
