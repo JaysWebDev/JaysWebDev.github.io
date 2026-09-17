@@ -703,51 +703,51 @@
                         <!-- Intro group -->
                         <button class="tab-button active" data-group="intro" onclick="showTab(event,'overview')">Overview</button>
                         <!-- Trading group (hidden initially) -->
-                        <button class="tab-button" data-group="trading" style="display:none" onclick="showTab(event,'setups')">🎯 Today's Setups</button>
-                        <button class="tab-button" data-group="trading" style="display:none" onclick="showTab(event,'trends')">🔥 Trends</button>
-                        <button class="tab-button" data-group="trading" style="display:none;color:#818cf8;" onclick="showTab(event,'screener')">📉 Signal Explorer</button>
-                        <button class="tab-button" data-group="trading" style="display:none;color:#fbbf24;" onclick="showTab(event,'capital-flow')">💰 Capital Flow</button>
-                        <button class="tab-button" data-group="trading" style="display:none;color:#a78bfa;" onclick="showTab(event,'rsi-momentum')">📊 RSI Momentum</button>
-                        <button class="tab-button" data-group="trading" style="display:none;color:#4ade80;" onclick="showTab(event,'atr')">📈 ATR</button>
-                        <button class="tab-button" data-group="trading" style="display:none;color:#2dd4bf;" onclick="showTab(event,'weekly-rs');loadWeeklyRs()">🏅 Weekly RS</button>
-                        <button class="tab-button" data-group="trading" style="display:none;color:#f472b6;" onclick="showTab(event,'ai-analyst');loadAiAnalyst()">🤖 AI Analyst</button>
+                        <button class="tab-button" data-group="trading" style="display:none" onclick="showTab(event,'setups')">Today's Setups</button>
+                        <button class="tab-button" data-group="trading" style="display:none" onclick="showTab(event,'trends')">Trends</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#818cf8;" onclick="showTab(event,'screener')">Signal Explorer</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#fbbf24;" onclick="showTab(event,'capital-flow')">Capital Flow</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#a78bfa;" onclick="showTab(event,'rsi-momentum')">RSI Momentum</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#4ade80;" onclick="showTab(event,'atr')">ATR</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#2dd4bf;" onclick="showTab(event,'weekly-rs');loadWeeklyRs()">Weekly RS</button>
+                        <button class="tab-button" data-group="trading" style="display:none;color:#f472b6;" onclick="showTab(event,'ai-analyst');loadAiAnalyst()">AI Analyst</button>
                         <!-- Securities group (hidden initially) -->
-                        <button class="tab-button" data-group="securities" style="display:none" onclick="showTab(event,'lookup')">🔎 Lookup</button>
-                        <button class="tab-button" data-group="securities" style="display:none;color:#00d4aa;" onclick="showTab(event,'mktcaps')">📊 Market Caps</button>
-                        <button class="tab-button" data-group="securities" style="display:none;color:#58a6ff;" onclick="showTab(event,'edgar')">🏦 EDGAR Analysis</button>
-                        <button class="tab-button" data-group="securities" style="display:none;color:#58a6ff;" onclick="showTab(event,'dcf-results');loadDcfResults()">📋 DCF</button>
+                        <button class="tab-button" data-group="securities" style="display:none" onclick="showTab(event,'lookup')">Lookup</button>
+                        <button class="tab-button" data-group="securities" style="display:none;color:#00d4aa;" onclick="showTab(event,'mktcaps')">Market Caps</button>
+                        <button class="tab-button" data-group="securities" style="display:none;color:#58a6ff;" onclick="showTab(event,'edgar')">EDGAR Analysis</button>
+                        <button class="tab-button" data-group="securities" style="display:none;color:#58a6ff;" onclick="showTab(event,'dcf-results');loadDcfResults()">DCF</button>
                         <!-- Research group (hidden initially) -->
-                        <button class="tab-button" data-group="research" style="display:none" onclick="showTab(event,'research')">🔬 Scanner Accuracy</button>
-                        <button class="tab-button" data-group="research" style="display:none;color:#f59e0b;" onclick="showTab(event,'alpha-gen')">⚡ Alpha vs Market</button>
-                        <button class="tab-button" data-group="research" style="display:none" onclick="showTab(event,'confluence')">🔀 Confluence</button>
-                        <button class="tab-button" data-group="research" style="display:none;color:#f59e0b;" onclick="showTab(event,'funds');loadFunds()">🏛️ Smart Money</button>
+                        <button class="tab-button" data-group="research" style="display:none" onclick="showTab(event,'research')">Scanner Accuracy</button>
+                        <button class="tab-button" data-group="research" style="display:none;color:#f59e0b;" onclick="showTab(event,'alpha-gen')">Alpha vs Market</button>
+                        <button class="tab-button" data-group="research" style="display:none" onclick="showTab(event,'confluence')">Confluence</button>
+                        <button class="tab-button" data-group="research" style="display:none;color:#f59e0b;" onclick="showTab(event,'funds');loadFunds()">Smart Money</button>
                         <!-- Simulation group (hidden initially) -->
-                        <button class="tab-button" data-group="simulation" style="display:none" onclick="showTab(event,'backtest')">🧪 Backtest</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#FBBF24;" onclick="showTab(event,'paper-portfolio')">📄 Paper Portfolio</button>
+                        <button class="tab-button" data-group="simulation" style="display:none" onclick="showTab(event,'backtest')">Backtest</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#FBBF24;" onclick="showTab(event,'paper-portfolio')">Paper Portfolio</button>
                         <!-- Portfolio group (hidden initially) -->
-                        <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'positions')">💼 Position Manager</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'portfolio')">📦 LT Portfolio</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">🔄 Rotation Engine</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#22d3ee;" onclick="showTab(event,'flow-portfolio');loadFlowPortfolio()">🌊 Flow Portfolio</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'lt-top25');loadLtTop25()">🏆 LT Top 25</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#e879f9;" onclick="showTab(event,'scoreboard-portfolio');loadScoreboard()">🏁 Scoreboard</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#A78BFA;" onclick="showTab(event,'claude-portfolio');loadClaudePortfolio()">🤖 Claude</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#2DD4BF;" onclick="showTab(event,'quant-portfolio');loadQuantPortfolio()">📐 Quant</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#f59e0b;" onclick="showTab(event,'inst13f-portfolio');load13FPortfolios()">🏦 13F Books</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'factor-portfolio');loadFactorPortfolio()">📊 Factor</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'etf-portfolio');loadEtfPortfolio()">📦 ETF Trend</button>
-                        <button class="tab-button" data-group="portfolio" style="display:none;color:#f472b6;" onclick="showTab(event,'edge-v2-portfolio');loadEdgeV2Portfolio()">🧠 Edge v2</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'positions')">Position Manager</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none" onclick="showTab(event,'portfolio')">LT Portfolio</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'rotation')">Rotation Engine</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#22d3ee;" onclick="showTab(event,'flow-portfolio');loadFlowPortfolio()">Flow Portfolio</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'lt-top25');loadLtTop25()">LT Top 25</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#e879f9;" onclick="showTab(event,'scoreboard-portfolio');loadScoreboard()">Scoreboard</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#A78BFA;" onclick="showTab(event,'claude-portfolio');loadClaudePortfolio()">Claude</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#2DD4BF;" onclick="showTab(event,'quant-portfolio');loadQuantPortfolio()">Quant</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#f59e0b;" onclick="showTab(event,'inst13f-portfolio');load13FPortfolios()">13F Books</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#38bdf8;" onclick="showTab(event,'factor-portfolio');loadFactorPortfolio()">Factor</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#34d399;" onclick="showTab(event,'etf-portfolio');loadEtfPortfolio()">ETF Trend</button>
+                        <button class="tab-button" data-group="portfolio" style="display:none;color:#f472b6;" onclick="showTab(event,'edge-v2-portfolio');loadEdgeV2Portfolio()">Edge v2</button>
                         <!-- Operations group (hidden initially) -->
                         <!-- Crypto group -->
                         <button class="tab-button" data-group="crypto" style="display:none;color:#F7931A;" onclick="showTab(event,'crypto-signals');loadCryptoSignals()">₿ Signals</button>
-                        <button class="tab-button" data-group="crypto" style="display:none;color:#FBBF24;" onclick="showTab(event,'crypto-portfolio');loadCryptoPaperPortfolio()">📄 Paper Trade</button>
-                        <button class="tab-button" data-group="operations" style="display:none" onclick="showTab(event,'admin')">⚙️ System Admin</button>
-                        <button class="tab-button" data-group="operations" style="display:none;color:#34d399;" onclick="showTab(event,'watchlist-tab');loadWatchlist()">📋 Watchlists</button>
-                        <button class="tab-button" data-group="operations" style="display:none;color:#a78bfa;" onclick="showTab(event,'system-tools');stLoadTools()">🛠️ Tools</button>
+                        <button class="tab-button" data-group="crypto" style="display:none;color:#FBBF24;" onclick="showTab(event,'crypto-portfolio');loadCryptoPaperPortfolio()">Paper Trade</button>
+                        <button class="tab-button" data-group="operations" style="display:none" onclick="showTab(event,'admin')">System Admin</button>
+                        <button class="tab-button" data-group="operations" style="display:none;color:#34d399;" onclick="showTab(event,'watchlist-tab');loadWatchlist()">Watchlists</button>
+                        <button class="tab-button" data-group="operations" style="display:none;color:#a78bfa;" onclick="showTab(event,'system-tools');stLoadTools()">Tools</button>
                         <!-- Reports group (hidden initially) -->
-                        <button class="tab-button" data-group="reports" style="display:none" onclick="showTab(event,'reports')">📄 Scanner Reports</button>
-                        <button class="tab-button" data-group="reports" style="display:none" onclick="showTab(event,'weekly-pub')">📰 Weekly Publication</button>
-                        <button class="tab-button" data-group="reports" style="display:none;color:#a78bfa;" onclick="showTab(event,'pub-archive')">📚 Pub Archive</button>
+                        <button class="tab-button" data-group="reports" style="display:none" onclick="showTab(event,'reports')">Scanner Reports</button>
+                        <button class="tab-button" data-group="reports" style="display:none" onclick="showTab(event,'weekly-pub')">Weekly Publication</button>
+                        <button class="tab-button" data-group="reports" style="display:none;color:#a78bfa;" onclick="showTab(event,'pub-archive')">Pub Archive</button>
                     </div>
 
                     <div class="tab-content">
