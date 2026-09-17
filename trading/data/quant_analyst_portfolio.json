@@ -1,24 +1,24 @@
 {
-  "generated": "2026-09-15T21:08:54.051968",
+  "generated": "2026-09-16T20:35:02.110751",
   "strategy": "Quant Analyst (deterministic multi-factor re-ranking)",
   "start_date": "2026-07-21",
   "starting_capital": 5000.0,
-  "total_value": 4687.1,
-  "cash": 1739.76,
-  "pnl_pct": -6.26,
-  "open_count": 6,
-  "closed_count": 38,
-  "win_rate": 34.2,
-  "avg_trade_pnl": -2.15,
+  "total_value": 4738.14,
+  "cash": 3334.94,
+  "pnl_pct": -5.24,
+  "open_count": 3,
+  "closed_count": 41,
+  "win_rate": 39.0,
+  "avg_trade_pnl": -1.53,
   "positions": [
     {
       "shares": 15.6593,
       "symbol": "HPQ",
       "entry_date": "2026-09-03",
       "entry_price": 31.93,
-      "current_price": 34.02,
-      "pnl_pct": 6.55,
-      "days_held": 6,
+      "current_price": 33.82,
+      "pnl_pct": 5.92,
+      "days_held": 7,
       "stop_price": 30.01,
       "quant_score": 795.41,
       "conviction_score": 506.3,
@@ -26,41 +26,13 @@
       "rank": 4
     },
     {
-      "shares": 7.5449,
-      "symbol": "DOCU",
-      "entry_date": "2026-08-31",
-      "entry_price": 66.27,
-      "current_price": 69.76,
-      "pnl_pct": 5.27,
-      "days_held": 9,
-      "stop_price": 62.29,
-      "quant_score": 1226.21,
-      "conviction_score": 476.7,
-      "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase",
-      "rank": 6
-    },
-    {
-      "shares": 11.5875,
-      "symbol": "APA",
-      "entry_date": "2026-08-31",
-      "entry_price": 43.15,
-      "current_price": 45.03,
-      "pnl_pct": 4.36,
-      "days_held": 9,
-      "stop_price": 40.56,
-      "quant_score": 1372.72,
-      "conviction_score": 462.2,
-      "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression",
-      "rank": 1
-    },
-    {
       "shares": 11.7841,
       "symbol": "MTCH",
       "entry_date": "2026-09-03",
       "entry_price": 42.43,
-      "current_price": 43.15,
-      "pnl_pct": 1.7,
-      "days_held": 6,
+      "current_price": 44.4,
+      "pnl_pct": 4.64,
+      "days_held": 7,
       "stop_price": 39.88,
       "quant_score": 813.46,
       "conviction_score": 416.9,
@@ -68,27 +40,13 @@
       "rank": 3
     },
     {
-      "shares": 16.129,
-      "symbol": "GEN",
-      "entry_date": "2026-08-31",
-      "entry_price": 31.0,
-      "current_price": 31.41,
-      "pnl_pct": 1.32,
-      "days_held": 9,
-      "stop_price": 29.14,
-      "quant_score": 1259.27,
-      "conviction_score": 487.6,
-      "scanners": "under50,confluence,atr_momentum,rsi_staircase,momentum_rebound,database_enhanced,institutional",
-      "rank": 4
-    },
-    {
       "shares": 11.127,
       "symbol": "KDP",
       "entry_date": "2026-09-03",
       "entry_price": 32.88,
-      "current_price": 31.58,
-      "pnl_pct": -3.95,
-      "days_held": 6,
+      "current_price": 31.49,
+      "pnl_pct": -4.23,
+      "days_held": 7,
       "stop_price": 30.91,
       "quant_score": 770.81,
       "conviction_score": 454.3,
@@ -694,6 +652,54 @@
       "quant_score": 1494.92,
       "conviction_score": 504.1,
       "scanners": "setup_vcb,confluence,atr_momentum,setup_accum,momentum_rebound,rsi_staircase,database_enhanced"
+    },
+    {
+      "symbol": "APA",
+      "entry_date": "2026-08-31",
+      "exit_date": "2026-09-15",
+      "entry_price": 43.15,
+      "exit_price": 47.41,
+      "shares": 11.5875,
+      "allocation": 500.0,
+      "pnl_pct": 9.87,
+      "pnl_dollars": 49.36,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "quant_score": 1372.72,
+      "conviction_score": 462.2,
+      "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression"
+    },
+    {
+      "symbol": "GEN",
+      "entry_date": "2026-08-31",
+      "exit_date": "2026-09-15",
+      "entry_price": 31.0,
+      "exit_price": 31.23,
+      "shares": 16.129,
+      "allocation": 500.0,
+      "pnl_pct": 0.74,
+      "pnl_dollars": 3.71,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "quant_score": 1259.27,
+      "conviction_score": 487.6,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,momentum_rebound,database_enhanced,institutional"
+    },
+    {
+      "symbol": "DOCU",
+      "entry_date": "2026-08-31",
+      "exit_date": "2026-09-15",
+      "entry_price": 66.27,
+      "exit_price": 71.85,
+      "shares": 7.5449,
+      "allocation": 500.0,
+      "pnl_pct": 8.42,
+      "pnl_dollars": 42.1,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "quant_score": 1226.21,
+      "conviction_score": 476.7,
+      "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
     }
   ],
   "equity_curve": [
@@ -852,6 +858,10 @@
     {
       "date": "2026-09-14",
       "value": 4687.1
+    },
+    {
+      "date": "2026-09-15",
+      "value": 4738.14
     }
   ],
   "spy_curve": [
@@ -1010,6 +1020,10 @@
     {
       "date": "2026-09-14",
       "value": 5084.19
+    },
+    {
+      "date": "2026-09-15",
+      "value": 5060.87
     }
   ]
 }

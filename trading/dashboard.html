@@ -6692,28 +6692,35 @@
         }
 
         // ── Scoreboard — all books ranked by alpha vs SPY ──────────────────────
+        // tier: Proven (real edge + real sample) → Forward (live edge/risk tests) →
+        // Structural (low-turnover factor/13F/ETF) → Quant (open-source strategies) →
+        // R&D (finished experiments that lost to SPY — kept as controls, demoted).
         const _SCOREBOARD_BOOKS = [
-            { file:'claude_portfolio.json',          name:'Claude · control',    fam:'Scanner' },
-            { file:'claude_portfolio_atr.json',      name:'Claude · ATR stop',   fam:'Scanner' },
-            { file:'claude_portfolio_ohlc.json',     name:'Claude · OHLC fill',  fam:'Scanner' },
-            { file:'claude_portfolio_filtered.json', name:'Claude · RSI filter', fam:'Scanner' },
-            { file:'claude_portfolio_risk.json',     name:'Claude · risk overlay', fam:'Scanner' },
-            { file:'quant_analyst_portfolio.json',   name:'Quant · control',     fam:'Scanner' },
-            { file:'quant_portfolio_atr.json',       name:'Quant · ATR stop',    fam:'Scanner' },
-            { file:'quant_portfolio_ohlc.json',      name:'Quant · OHLC fill',   fam:'Scanner' },
-            { file:'quant_portfolio_filtered.json',  name:'Quant · RSI filter',  fam:'Scanner' },
-            { file:'quant_portfolio_risk.json',      name:'Quant · risk overlay', fam:'Scanner' },
-            { file:'institutional_portfolio.json',   name:'13F · consensus',     fam:'13F' },
-            { file:'smart_money_portfolio.json',     name:'13F · new-money',     fam:'13F' },
-            { file:'factor_portfolio.json',          name:'Factor · QVM',        fam:'Factor' },
-            { file:'etf_portfolio.json',             name:'ETF · trend',         fam:'ETF' },
-            { file:'dual_momentum_portfolio.json',   name:'Dual momentum (GEM)', fam:'Quant' },
-            { file:'low_vol_portfolio.json',         name:'Low-volatility',      fam:'Quant' },
-            { file:'sector_rotation_portfolio.json', name:'Sector rotation',     fam:'Quant' },
-            { file:'combined_edge_portfolio.json',   name:'Combined Edge',       fam:'Edge' },
-            { file:'flagship_portfolio.json',        name:'Flagship · confluence', fam:'Flagship' },
+            { file:'rotation_portfolio.json',        name:'Rotation · short-term', fam:'Rotation', tier:'Proven' },
+            { file:'combined_edge_portfolio.json',   name:'Combined Edge',       fam:'Edge',     tier:'Forward' },
+            { file:'flagship_portfolio.json',        name:'Flagship · confluence', fam:'Flagship', tier:'Forward' },
+            { file:'conviction_v2_portfolio.json',   name:'Conviction v2 · edge A/B', fam:'Edge', tier:'Forward' },
+            { file:'institutional_portfolio.json',   name:'13F · consensus',     fam:'13F',      tier:'Structural' },
+            { file:'smart_money_portfolio.json',     name:'13F · new-money',     fam:'13F',      tier:'Structural' },
+            { file:'factor_portfolio.json',          name:'Factor · QVM',        fam:'Factor',   tier:'Structural' },
+            { file:'etf_portfolio.json',             name:'ETF · trend',         fam:'ETF',      tier:'Structural' },
+            { file:'dual_momentum_portfolio.json',   name:'Dual momentum (GEM)', fam:'Quant',    tier:'Quant' },
+            { file:'low_vol_portfolio.json',         name:'Low-volatility',      fam:'Quant',    tier:'Quant' },
+            { file:'sector_rotation_portfolio.json', name:'Sector rotation',     fam:'Quant',    tier:'Quant' },
+            { file:'claude_portfolio.json',          name:'Claude · control',    fam:'Scanner',  tier:'R&D' },
+            { file:'claude_portfolio_atr.json',      name:'Claude · ATR stop',   fam:'Scanner',  tier:'R&D' },
+            { file:'claude_portfolio_ohlc.json',     name:'Claude · OHLC fill',  fam:'Scanner',  tier:'R&D' },
+            { file:'claude_portfolio_filtered.json', name:'Claude · RSI filter', fam:'Scanner',  tier:'R&D' },
+            { file:'claude_portfolio_risk.json',     name:'Claude · risk overlay', fam:'Scanner', tier:'R&D' },
+            { file:'quant_analyst_portfolio.json',   name:'Quant · control',     fam:'Scanner',  tier:'R&D' },
+            { file:'quant_portfolio_atr.json',       name:'Quant · ATR stop',    fam:'Scanner',  tier:'R&D' },
+            { file:'quant_portfolio_ohlc.json',      name:'Quant · OHLC fill',   fam:'Scanner',  tier:'R&D' },
+            { file:'quant_portfolio_filtered.json',  name:'Quant · RSI filter',  fam:'Scanner',  tier:'R&D' },
+            { file:'quant_portfolio_risk.json',      name:'Quant · risk overlay', fam:'Scanner', tier:'R&D' },
         ];
-        const _FAM_COLOR = { Scanner:'#818cf8', '13F':'#f59e0b', Factor:'#38bdf8', ETF:'#34d399', Quant:'#e879f9', Edge:'#f97316', Flagship:'#22d3ee' };
+        const _TIER_ORDER = ['Proven', 'Forward', 'Structural', 'Quant', 'R&D'];
+        const _TIER_LABEL = { Proven:'🏆 Proven', Forward:'🌱 Forward tests', Structural:'🏗️ Structural', Quant:'📐 Quant strategies', 'R&D':'💀 R&D / retired (lost to SPY — controls)' };
+        const _FAM_COLOR = { Scanner:'#818cf8', '13F':'#f59e0b', Factor:'#38bdf8', ETF:'#34d399', Quant:'#e879f9', Edge:'#f97316', Flagship:'#22d3ee', Rotation:'#a3e635' };
 
         let _scoreboardLoaded = false;
         function loadScoreboard(force = false) {
@@ -6760,15 +6767,17 @@
                 }
                 const st = _curveStats(d.equity_curve);
                 rows.push({
-                    name: b.name, fam: b.fam, ret, spyRet, alpha,
+                    name: b.name, fam: b.fam, tier: b.tier || 'R&D', ret, spyRet, alpha,
                     vol: st.vol, sharpe: st.sharpe, maxdd: st.maxdd,
                     wr: d.closed_count > 0 ? d.win_rate : null,
                     open: d.open_count || 0, closed: d.closed_count || 0,
                     days: (d.equity_curve || []).length, start: d.start_date || '—',
                 });
             }
-            // sort: books with alpha first (desc), then the rest by return
+            // group by tier (Proven → … → R&D), then by alpha (desc, nulls last) within tier
             rows.sort((a, b) => {
+                const ta = _TIER_ORDER.indexOf(a.tier), tb = _TIER_ORDER.indexOf(b.tier);
+                if (ta !== tb) return ta - tb;
                 if (a.alpha == null && b.alpha == null) return b.ret - a.ret;
                 if (a.alpha == null) return 1;
                 if (b.alpha == null) return -1;
@@ -6780,6 +6789,7 @@
 
             const th = `padding:8px 10px;color:#64748b;font-size:0.66rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;`;
             const mono = `font-family:'JetBrains Mono',monospace;`;
+            let _lastTier = null;
             const body = rows.length === 0
                 ? `<tr><td colspan="11" style="padding:24px;text-align:center;color:#64748b;">No book data yet.</td></tr>`
                 : rows.map((r, i) => {
@@ -6793,10 +6803,16 @@
                     const volTxt = r.vol == null ? '—' : r.vol.toFixed(0) + '%';
                     const ddTxt = r.maxdd == null ? '—' : r.maxdd.toFixed(1) + '%';
                     const wrTxt = r.wr == null ? '—' : r.wr.toFixed(0) + '%';
-                    const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : i === 2 ? '🥉 ' : '';
-                    return `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);">
+                    let header = '';
+                    if (r.tier !== _lastTier) {
+                        _lastTier = r.tier;
+                        const dim = r.tier === 'R&D' ? 'opacity:0.65;' : '';
+                        header = `<tr><td colspan="11" style="padding:14px 10px 4px;color:#cbd5e1;font-size:0.72rem;font-weight:700;letter-spacing:0.04em;${dim}">${_TIER_LABEL[r.tier] || r.tier}</td></tr>`;
+                    }
+                    const rowDim = r.tier === 'R&D' ? 'opacity:0.5;' : '';
+                    return header + `<tr style="border-bottom:1px solid rgba(148,163,184,0.06);${rowDim}">
                         <td style="padding:8px 10px;color:#475569;text-align:right;">${i + 1}</td>
-                        <td style="padding:8px 10px;font-weight:600;color:#e2e8f0;">${medal}${r.name}</td>
+                        <td style="padding:8px 10px;font-weight:600;color:#e2e8f0;">${r.name}</td>
                         <td style="padding:8px 10px;"><span style="background:${fc}1a;border:1px solid ${fc}44;color:${fc};border-radius:4px;padding:1px 7px;font-size:0.62rem;">${r.fam}</span></td>
                         <td style="padding:8px 10px;text-align:right;font-weight:700;${mono}color:${retC};">${r.ret >= 0 ? '+' : ''}${r.ret.toFixed(2)}%</td>
                         <td style="padding:8px 10px;text-align:right;color:#94A3B8;${mono}">${spyTxt}</td>

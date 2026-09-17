@@ -1,33 +1,38 @@
 {
-  "last_run": "2026-09-15",
+  "last_run": "2026-09-16",
   "failure_counts": {
+    "CRNX": {
+      "count": 5,
+      "first_flagged": "2026-09-10",
+      "reason": "No recent data from Yahoo Finance (possibly delisted)"
+    },
     "APGE": {
-      "count": 2,
+      "count": 3,
       "first_flagged": "2026-09-14",
-      "reason": "Data stopped updating (last: 2026-09-02, expected: 2026-09-14)"
+      "reason": "Data stopped updating (last: 2026-09-02, expected: 2026-09-15)"
     },
     "HLX": {
-      "count": 3,
-      "first_flagged": "2026-09-11",
-      "reason": "Data stopped updating (last: 2026-09-01, expected: 2026-09-14)"
-    },
-    "CRNX": {
       "count": 4,
-      "first_flagged": "2026-09-10",
-      "reason": "Data stopped updating (last: 2026-08-31, expected: 2026-09-14)"
+      "first_flagged": "2026-09-11",
+      "reason": "Data stopped updating (last: 2026-09-01, expected: 2026-09-15)"
     },
     "NMRA": {
-      "count": 1,
+      "count": 2,
       "first_flagged": "2026-06-16",
-      "reason": "Penny stock ($1.00 < $1.00)"
+      "reason": "Penny stock ($0.83 < $1.00)"
     },
     "EU": {
-      "count": 1,
+      "count": 2,
       "first_flagged": "2026-09-15",
       "reason": "Penny stock ($0.93 < $1.00)"
     },
+    "OCGN": {
+      "count": 1,
+      "first_flagged": "2026-09-16",
+      "reason": "Penny stock ($0.99 < $1.00)"
+    },
     "SLP": {
-      "count": 2,
+      "count": 3,
       "first_flagged": "2026-09-14",
       "reason": "5 consecutive days same price"
     },
