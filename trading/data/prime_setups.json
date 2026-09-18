@@ -1,56 +1,58 @@
 {
-  "generated": "2026-09-16 16:33:01",
-  "scan_date": "2026-09-16",
+  "generated": "2026-09-17 16:33:01",
+  "scan_date": "2026-09-17",
   "regime": "NEUTRAL",
   "alert_mode": "SELECTIVE",
   "stats": {
-    "total_scanned": 929,
-    "rs_passed": 63,
-    "stage2_passed": 9,
+    "total_scanned": 960,
+    "rs_passed": 54,
+    "stage2_passed": 8,
     "prime_count": 0,
-    "strong_count": 5
+    "strong_count": 4
   },
   "prime": [],
   "strong": [
     {
-      "symbol": "APPS",
+      "symbol": "ECPG",
       "score": 120,
-      "close": 11.38,
-      "rs_rank": 79.4,
+      "close": 99.76,
+      "rs_rank": 70.6,
       "stop": null,
       "target": null,
-      "scanners": "under50",
-      "signals": "Strong Uptrend | Above EMA20 | Range:6.5% | RSI:55.0 | Good Volume | Price OK | Near 52W High | Vola"
-    },
-    {
-      "symbol": "FSLY",
-      "score": 120,
-      "close": 24.3,
-      "rs_rank": 85.2,
-      "stop": null,
-      "target": null,
-      "scanners": "under50",
-      "signals": "Strong Uptrend | Above EMA20 | Range:7.3% | RSI:55.5 | Good Volume | Price OK | Near 52W High | Vola"
+      "scanners": "institutional",
+      "signals": "OBV RISING \u2022 EMA BULLISH \u2022 STRONG ACCUM \u2022 STEADY VOL \u2022 ACTIVE \u2022 FULL SUPPORT \u2022 NEAR 20D HIGH \u2022 UPPER",
+      "m_consistency": 53.1,
+      "m_avg_ret": 2.96,
+      "m_months": 32,
+      "high_consistency": false
     },
     {
       "symbol": "QMCO",
       "score": 120,
-      "close": 23.26,
-      "rs_rank": 88.4,
+      "close": 23.83,
+      "rs_rank": 76.0,
       "stop": null,
       "target": null,
       "scanners": "under50",
-      "signals": "Strong Uptrend | Above EMA20 | Range:6.3% | RSI:53.8 | Good Volume | Price OK | Near 52W High | Vola"
+      "signals": "Strong Uptrend | Above EMA20 | Range:6.2% | RSI:52.8 | Good Volume | Price OK | Near 52W High | Vola",
+      "m_consistency": 44.4,
+      "m_avg_ret": 2.04,
+      "m_months": 9,
+      "high_consistency": false
     },
     {
-      "symbol": "PRAA",
+      "symbol": "FSLY",
       "score": 110,
-      "close": 19.29,
-      "rs_rank": 72.3,
+      "close": 23.54,
+      "rs_rank": 82.5,
       "stop": null,
       "target": null,
       "scanners": "under50",
-      "signals": "Strong Uptrend | Above EMA20 | Range:3.2% | Good Volume | Price OK | BB Breakout | Near 52W High"
+      "signals": "Above SMA20 | Above EMA20 | Range:7.3% | RSI:51.0 | Good Volume | Price OK | Near 52W High | Volatil",
+      "m_consistency": 39.4,
+      "m_avg_ret": 0.08,
+      "m_months": 33,
+      "high_consistency": false
     },
     {
       "symbol": "APGE",
@@ -60,7 +62,11 @@
       "stop": 134.85,
       "target": 135.4,
       "scanners": "v3_compression",
-      "signals": "NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID"
+      "signals": "NR7 TIGHT \u2022 VOLUME SPIKE \u2022 BULL TREND \u2022 UPPER RANGE \u2022 NEAR HIGHS \u2022 LIQUID",
+      "m_consistency": 53.1,
+      "m_avg_ret": 7.0,
+      "m_months": 32,
+      "high_consistency": false
     }
   ]
 }

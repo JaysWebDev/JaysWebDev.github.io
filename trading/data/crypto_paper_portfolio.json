@@ -1,14 +1,14 @@
 {
-  "generated": "2026-09-16T20:02:02.046466",
+  "generated": "2026-09-17T20:02:01.790941",
   "start_date": "2026-07-07",
   "starting_capital": 1000.0,
-  "total_value": 1179.44,
-  "cash": 21.28,
-  "pnl_pct": 17.94,
-  "open_count": 3,
-  "closed_count": 9,
-  "win_rate": 11.1,
-  "avg_trade_pnl": 1.19,
+  "total_value": 1195.66,
+  "cash": 412.0,
+  "pnl_pct": 19.57,
+  "open_count": 2,
+  "closed_count": 10,
+  "win_rate": 20.0,
+  "avg_trade_pnl": 2.91,
   "positions": [
     {
       "label": "ETH",
@@ -16,27 +16,13 @@
       "ticker": "X:ETHUSD",
       "entry_date": "2026-07-17 20:02",
       "entry_price": 1840.56,
-      "current_price": 2416.59,
+      "current_price": 2445.24,
       "units": 0.1811043,
       "allocation": 333.33,
-      "pnl_pct": 31.3,
+      "pnl_pct": 32.85,
       "stop_price": 1748.53,
-      "conviction": 57,
-      "signal": "WATCH"
-    },
-    {
-      "label": "BTC",
-      "name": "Bitcoin",
-      "ticker": "X:BTCUSD",
-      "entry_date": "2026-08-17 20:02",
-      "entry_price": 64471.7,
-      "current_price": 76146.9,
-      "units": 0.00511763,
-      "allocation": 329.94,
-      "pnl_pct": 18.11,
-      "stop_price": 61248.11,
-      "conviction": 50,
-      "signal": "WATCH"
+      "conviction": 78,
+      "signal": "BUY"
     },
     {
       "label": "SOL",
@@ -44,13 +30,13 @@
       "ticker": "X:SOLUSD",
       "entry_date": "2026-09-11 00:02",
       "entry_price": 99.29,
-      "current_price": 98.54,
+      "current_price": 101.52,
       "units": 3.35716923,
       "allocation": 333.33,
-      "pnl_pct": -0.76,
+      "pnl_pct": 2.25,
       "stop_price": 94.33,
-      "conviction": 50,
-      "signal": "WATCH"
+      "conviction": 95,
+      "signal": "BUY"
     }
   ],
   "closed_trades": [
@@ -179,6 +165,20 @@
       "pnl_dollars": 85.48,
       "exit_reason": "SIGNAL\u2192AVOID",
       "conviction": 88
+    },
+    {
+      "label": "BTC",
+      "name": "Bitcoin",
+      "entry_date": "2026-08-17 20:02",
+      "exit_date": "2026-09-17 20:02",
+      "entry_price": 64471.7,
+      "exit_price": 76346.6,
+      "units": 0.00511763,
+      "allocation": 329.94,
+      "pnl_pct": 18.42,
+      "pnl_dollars": 60.77,
+      "exit_reason": "SIGNAL\u2192AVOID",
+      "conviction": 50
     }
   ],
   "equity_curve": [
@@ -457,6 +457,10 @@
     {
       "date": "2026-09-16",
       "value": 1179.44
+    },
+    {
+      "date": "2026-09-17",
+      "value": 1195.66
     }
   ],
   "spy_curve": [
@@ -659,6 +663,10 @@
     {
       "date": "2026-09-15",
       "value": 1012.95
+    },
+    {
+      "date": "2026-09-16",
+      "value": 1008.48
     }
   ]
 }

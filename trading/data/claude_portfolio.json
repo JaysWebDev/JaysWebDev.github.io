@@ -1,67 +1,28 @@
 {
-  "generated": "2026-09-16T20:32:02.446549",
+  "generated": "2026-09-17T20:32:02.959036",
   "strategy": "Claude Haiku analyst picks (nightly AI ranking)",
   "start_date": "2026-07-22",
   "starting_capital": 5000.0,
-  "total_value": 4548.96,
-  "cash": 2481.18,
-  "pnl_pct": -9.02,
-  "open_count": 4,
-  "closed_count": 38,
-  "win_rate": 36.8,
-  "avg_trade_pnl": -2.87,
+  "total_value": 4489.23,
+  "cash": 3977.18,
+  "pnl_pct": -10.22,
+  "open_count": 1,
+  "closed_count": 41,
+  "win_rate": 39.0,
+  "avg_trade_pnl": -2.64,
   "positions": [
-    {
-      "shares": 11.2867,
-      "symbol": "APA",
-      "entry_date": "2026-09-01",
-      "entry_price": 44.3,
-      "current_price": 47.41,
-      "pnl_pct": 7.02,
-      "days_held": 9,
-      "stop_price": 41.64,
-      "claude_rank": 5,
-      "conviction_score": 459.9,
-      "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression"
-    },
     {
       "shares": 15.6593,
       "symbol": "HPQ",
       "entry_date": "2026-09-03",
       "entry_price": 31.93,
-      "current_price": 33.82,
-      "pnl_pct": 5.92,
-      "days_held": 7,
+      "current_price": 32.7,
+      "pnl_pct": 2.41,
+      "days_held": 8,
       "stop_price": 30.01,
       "claude_rank": 1,
       "conviction_score": 506.3,
       "scanners": "under50,setup_pullback,confluence,atr_momentum,momentum_rebound,rsi_staircase"
-    },
-    {
-      "shares": 16.6556,
-      "symbol": "GEN",
-      "entry_date": "2026-09-01",
-      "entry_price": 30.02,
-      "current_price": 31.23,
-      "pnl_pct": 4.03,
-      "days_held": 9,
-      "stop_price": 28.22,
-      "claude_rank": 2,
-      "conviction_score": 488.9,
-      "scanners": "under50,confluence,momentum_rebound,atr_momentum,rsi_staircase,+2 others"
-    },
-    {
-      "shares": 15.5583,
-      "symbol": "ZETA",
-      "entry_date": "2026-09-01",
-      "entry_price": 31.56,
-      "current_price": 31.04,
-      "pnl_pct": -1.65,
-      "days_held": 9,
-      "stop_price": 29.67,
-      "claude_rank": 6,
-      "conviction_score": 436.3,
-      "scanners": "under50,confluence,atr_momentum,rsi_staircase,database_enhanced"
     }
   ],
   "closed_trades": [
@@ -672,6 +633,54 @@
       "claude_rank": 4,
       "conviction_score": 434.4,
       "scanners": "confluence,momentum_rebound,atr_momentum,database_enhanced,v3_compression,rsi_staircase"
+    },
+    {
+      "symbol": "GEN",
+      "entry_date": "2026-09-01",
+      "exit_date": "2026-09-16",
+      "entry_price": 30.02,
+      "exit_price": 30.65,
+      "shares": 16.6556,
+      "allocation": 500.0,
+      "pnl_pct": 2.1,
+      "pnl_dollars": 10.49,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "claude_rank": 2,
+      "conviction_score": 488.9,
+      "scanners": "under50,confluence,momentum_rebound,atr_momentum,rsi_staircase,+2 others"
+    },
+    {
+      "symbol": "APA",
+      "entry_date": "2026-09-01",
+      "exit_date": "2026-09-16",
+      "entry_price": 44.3,
+      "exit_price": 44.79,
+      "shares": 11.2867,
+      "allocation": 500.0,
+      "pnl_pct": 1.11,
+      "pnl_dollars": 5.53,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "claude_rank": 5,
+      "conviction_score": 459.9,
+      "scanners": "under50,confluence,atr_momentum,setup_pullback,v3_compression"
+    },
+    {
+      "symbol": "ZETA",
+      "entry_date": "2026-09-01",
+      "exit_date": "2026-09-16",
+      "entry_price": 31.56,
+      "exit_price": 30.85,
+      "shares": 15.5583,
+      "allocation": 491.02,
+      "pnl_pct": -2.25,
+      "pnl_dollars": -11.05,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "claude_rank": 6,
+      "conviction_score": 436.3,
+      "scanners": "under50,confluence,atr_momentum,rsi_staircase,database_enhanced"
     }
   ],
   "equity_curve": [
@@ -830,6 +839,10 @@
     {
       "date": "2026-09-15",
       "value": 4548.96
+    },
+    {
+      "date": "2026-09-16",
+      "value": 4489.23
     }
   ],
   "spy_curve": [
@@ -988,6 +1001,10 @@
     {
       "date": "2026-09-15",
       "value": 5066.76
+    },
+    {
+      "date": "2026-09-16",
+      "value": 5044.42
     }
   ]
 }

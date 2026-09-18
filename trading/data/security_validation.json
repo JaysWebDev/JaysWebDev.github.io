@@ -1,8 +1,9 @@
 {
-  "timestamp": "2026-09-16 07:00:03",
-  "total_validated": 1,
+  "timestamp": "2026-09-17 07:00:03",
+  "total_validated": 2,
   "summary": {
-    "MONITOR": 1
+    "MONITOR": 1,
+    "ACTIVE": 1
   },
   "results": [
     {
@@ -11,8 +12,17 @@
       "reason": "Stale price (3 days) but appears active",
       "last_price": 84.95,
       "volume": 3015899.4,
-      "validation_date": "2026-09-16 07:00",
+      "validation_date": "2026-09-17 07:00",
       "data_source": "Heuristic"
+    },
+    {
+      "symbol": "HLX",
+      "status": "ACTIVE",
+      "reason": "Normal trading activity",
+      "last_price": 10.6,
+      "volume": 1635377.3,
+      "validation_date": "2026-09-17 07:00",
+      "data_source": "Database"
     }
   ]
 }
