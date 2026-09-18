@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="/assets/site.css">
 <style>
 :root {
   --bg:           #060810;
@@ -571,17 +572,6 @@ function renderChart(sectors) {
 loadData();
 </script>
 
-<!-- shared site-footer (canonical — keep identical across all pages) -->
-<style>
-footer.site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5;background:none;border:none}
-footer.site-footer p{margin:.2rem 0;color:rgba(255,255,255,.6)}
-footer.site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
-footer.site-footer a:hover{color:#fff;text-decoration:underline}
-footer.site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
-</style>
-<footer class="site-footer">
-    <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
-    <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
-</footer>
+{% include site-footer.html %}
 </body>
 </html>
