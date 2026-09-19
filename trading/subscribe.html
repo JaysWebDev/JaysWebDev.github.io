@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momentum Rotation Weekly — a model that beat the S&P, in your inbox</title>
+<meta name="description" content="A systematic momentum-rotation model that has outpaced the S&P 500 over 5 months — its live positions and a market read, free every week.">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0b1120;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#38bdf8;font-weight:700}
+  h1{font-size:clamp(28px,6vw,44px);line-height:1.1;font-weight:800;color:#f8fafc;margin:14px 0 0;letter-spacing:-.02em}
+  h2{font-size:20px;color:#f1f5f9;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-size:17px;color:#94a3b8;margin:16px 0 0;max-width:560px}
+  header{padding:64px 0 40px;border-bottom:1px solid #1e293b}
+  /* signature: the number */
+  .stat{display:flex;align-items:baseline;gap:14px;margin:30px 0 6px;flex-wrap:wrap}
+  .stat .big{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:clamp(44px,11vw,72px);font-weight:800;color:#22c55e;line-height:1}
+  .stat .cap{font-size:13px;color:#64748b;text-transform:uppercase;letter-spacing:.08em}
+  .vs{font-size:14px;color:#94a3b8;margin-top:2px}
+  .vs b{color:#cbd5e1}
+  section{padding:40px 0;border-bottom:1px solid #1e293b}
+  .card{background:#111a2e;border:1px solid #1e293b;border-radius:12px;padding:22px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.grid{grid-template-columns:1fr}}
+  .tier .t{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+  .tier ul{list-style:none;margin:12px 0 0;font-size:14px;color:#cbd5e1}
+  .tier li{padding:5px 0 5px 22px;position:relative}
+  .tier li:before{content:"→";position:absolute;left:0;color:#38bdf8}
+  form{display:flex;gap:8px;margin:18px 0 0;flex-wrap:wrap}
+  input[type=email]{flex:1;min-width:200px;padding:14px 16px;border-radius:9px;border:1px solid #334155;background:#0b1120;color:#f8fafc;font-size:15px}
+  input[type=email]:focus{outline:none;border-color:#38bdf8}
+  button{padding:14px 26px;border-radius:9px;border:none;background:#22c55e;color:#052e16;font-weight:800;font-size:15px;cursor:pointer;transition:filter .15s}
+  button:hover{filter:brightness(1.08)}
+  #msg{font-size:14px;margin-top:12px;min-height:20px}
+  .meta{font-size:12px;color:#94a3b8;margin-top:10px}
+  a{color:#38bdf8;text-decoration:none}
+  a:hover{text-decoration:underline}
+  footer{padding:32px 0 56px;font-size:12px;color:#94a3b8}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Momentum Rotation Weekly</div>
+    <h1>A model that beat the market — in your inbox, every week.</h1>
+    <p class="sub">A systematic momentum-rotation strategy, running live on paper. Each week you get its actual positions and a plain-English market read — no hindsight, no hype.</p>
+    <div class="stat">
+      <span class="big" id="ret">+14%</span>
+      <span class="cap">total return<br>since inception</span>
+    </div>
+    <div class="vs" id="vs">vs S&amp;P 500 <b>+12.5%</b> over the same span — <b>+1.6% alpha</b> · <span id="trades">60</span> closed trades</div>
+    <form onsubmit="return sub(event)">
+      <input id="email" type="email" required placeholder="you@email.com" autocomplete="email">
+      <button type="submit">Get it free</button>
+    </form>
+    <div id="msg"></div>
+    <div class="meta">Free weekly issue. No spam. Unsubscribe anytime.</div>
+  </div>
+</header>
+
+<section><div class="wrap">
+  <h2>What you get</h2>
+  <p class="sub" style="margin-bottom:20px;font-size:15px;">Two tiers — the model itself is always free.</p>
+  <div class="grid">
+    <div class="card tier"><div class="t" style="color:#22c55e;">Free</div>
+      <ul><li>The rotation model's live positions this week</li><li>Market regime read (bull / neutral / bear)</li><li>The running track record vs the S&amp;P</li></ul>
+    </div>
+    <div class="card tier"><div class="t" style="color:#f472b6;">Paid</div>
+      <ul><li>The full scanner watchlist — every setup the system flags</li><li>The thesis behind each pick</li><li>Data-derived edge scores per signal</li></ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Why trust it</h2>
+  <p class="sub" style="font-size:15px;">Every number is auto-computed from the live system at publish time — not a curated backtest. The model rotates a 5-slot book through the highest-momentum setups (5-day holds, −3.5% stops) and its record is measured against the S&amp;P over the identical window. Losing stretches are shown, not hidden.</p>
+  <p style="margin-top:16px;"><a href="/trading/reports/newsletter_issue_latest.html">Read this week's issue →</a></p>
+</div></section>
+
+<section><div class="wrap" style="text-align:center;">
+  <h2>Start getting it</h2>
+  <form onsubmit="return sub(event)" style="justify-content:center;">
+    <input id="email2" type="email" required placeholder="you@email.com" autocomplete="email">
+    <button type="submit">Get it free</button>
+  </form>
+  <div id="msg2"></div>
+</div></section>
+
+<footer><div class="wrap">
+  Informational only — not investment advice. Paper-traded results; past performance does not guarantee future results. Generated automatically from a live quantitative system.
+</div></footer>
+
+<script>
+async function post(email){
+  const r = await fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,source:'newsletter-landing'})});
+  return r.json();
+}
+function sub(e){
+  e.preventDefault();
+  const inp = e.target.querySelector('input');
+  const box = e.target.parentElement.querySelector('[id^=msg]');
+  post(inp.value).then(d=>{
+    if(d.ok){ box.style.color='#22c55e'; box.textContent="✓ You're in — the next issue is on its way."; e.target.style.display='none'; }
+    else { box.style.color='#f87171'; box.textContent='Please enter a valid email.'; }
+  }).catch(()=>{ box.style.color='#f87171'; box.textContent='Something went wrong — try again.'; });
+  return false;
+}
+// keep all headline numbers live from the rotation book
+fetch('/trading/data/rotation_portfolio.json?_='+Date.now()).then(r=>r.json()).then(d=>{
+  const ret = d.total_return_pct;
+  if(ret!=null){
+    document.getElementById('ret').textContent = (ret>=0?'+':'')+ret.toFixed(1)+'%';
+    document.getElementById('ret').style.color = ret >= 0 ? '#22c55e' : '#f87171';
+  }
+  if(d.total_trades) document.getElementById('trades').textContent = d.total_trades;
+  // Compute SPY return and alpha from curves
+  const spy = d.spy_curve;
+  const eq  = d.equity_curve;
+  if(spy && spy.length >= 2){
+    const spyRet = ((spy[spy.length-1].value - spy[0].value) / spy[0].value * 100).toFixed(1);
+    const alpha  = ret != null ? (ret - parseFloat(spyRet)).toFixed(1) : null;
+    const vsEl   = document.getElementById('vs');
+    if(vsEl && alpha != null){
+      const sign = alpha >= 0 ? '+' : '';
+      vsEl.innerHTML = `vs S&amp;P 500 <b>${spyRet>=0?'+':''}${spyRet}%</b> over the same span — <b>${sign}${alpha}% alpha</b> · <span id="trades">${d.total_trades||''}</span> closed trades`;
+    }
+  }
+}).catch(()=>{});
+</script>
+</body>
+</html>
