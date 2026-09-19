@@ -3628,6 +3628,55 @@
                                     </table>
                                 </div>
                             </div>
+
+                            <!-- ── Edge Model panel ── -->
+                            <div style="margin-top:24px;">
+                                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;flex-wrap:wrap;gap:6px;">
+                                    <div style="font-size:0.78rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;">Signal Edge Model</div>
+                                    <div id="ev2-edge-meta" style="font-size:0.65rem;color:#475569;"></div>
+                                </div>
+
+                                <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:12px;margin-bottom:12px;">
+                                    <!-- Cell edge heatmap -->
+                                    <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:14px;border:1px solid rgba(148,163,184,0.08);overflow-x:auto;">
+                                        <div style="font-size:0.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Scanner × Score Band → avg fwd return</div>
+                                        <div id="ev2-cell-edges" style="color:#64748b;font-size:0.72rem;">Loading…</div>
+                                    </div>
+                                    <!-- Tag edges -->
+                                    <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:14px;border:1px solid rgba(148,163,184,0.08);">
+                                        <div style="font-size:0.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Signal Tag Edges · top &amp; bottom</div>
+                                        <div id="ev2-tag-edges" style="color:#64748b;font-size:0.72rem;">Loading…</div>
+                                    </div>
+                                </div>
+
+                                <!-- Today's candidates -->
+                                <div style="background:rgba(30,41,59,0.5);border-radius:10px;padding:16px;border:1px solid rgba(148,163,184,0.08);">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px;">
+                                        <div style="font-size:0.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Today's Edge Candidates <span style="color:#f472b6;font-weight:700;">·</span> top 30 after liquidity + $5 floor + diversification</div>
+                                        <div id="ev2-cand-meta" style="font-size:0.65rem;color:#475569;"></div>
+                                    </div>
+                                    <div style="overflow-x:auto;">
+                                        <table style="width:100%;border-collapse:collapse;font-size:0.76rem;">
+                                            <thead>
+                                                <tr style="border-bottom:1px solid rgba(244,114,182,0.2);">
+                                                    <th style="padding:5px 8px;text-align:center;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">#</th>
+                                                    <th style="padding:5px 8px;text-align:left;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Symbol</th>
+                                                    <th style="padding:5px 8px;text-align:right;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Edge</th>
+                                                    <th style="padding:5px 8px;text-align:right;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">vs Base</th>
+                                                    <th style="padding:5px 8px;text-align:left;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Scanner</th>
+                                                    <th style="padding:5px 8px;text-align:center;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Score</th>
+                                                    <th style="padding:5px 8px;text-align:right;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Price</th>
+                                                    <th style="padding:5px 8px;text-align:right;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Vol $M</th>
+                                                    <th style="padding:5px 8px;text-align:center;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ev2-cand-body">
+                                                <tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Loading…</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div><!-- /edge-model-panel -->
                         </div><!-- /edge-v2-portfolio -->
 
                         <div id="rotation" class="tab-panel">
@@ -6000,6 +6049,121 @@
                     document.getElementById('ev2-holdings-body').innerHTML =
                         '<tr><td colspan="9" style="padding:20px;text-align:center;color:#64748b;">Portfolio data unavailable.</td></tr>';
                 });
+
+            // Load edge model data in parallel
+            Promise.all([
+                fetch('/trading/data/signal_edge.json?_=' + Date.now()).then(r => r.ok ? r.json() : null),
+                fetch('/trading/data/today_edge_candidates.json?_=' + Date.now()).then(r => r.ok ? r.json() : null),
+                fetch('/trading/data/conviction_v2_portfolio.json?_=' + Date.now()).then(r => r.ok ? r.json() : null)
+            ]).then(([se, cands, pp]) => {
+                if (!se && !cands) return;
+                const heldSymbols = new Set((pp?.positions || []).map(p => p.symbol));
+
+                if (se) {
+                    const gen = se.generated ? se.generated.slice(0,10) : '';
+                    document.getElementById('ev2-edge-meta').textContent =
+                        `${se.n_labeled?.toLocaleString() || '?'} labeled signals · ${se.date_range?.[0]} – ${se.date_range?.[1]} · base ${se.base_edge > 0 ? '+' : ''}${se.base_edge?.toFixed(2)}%/trade`;
+                    _renderCellEdge(se.cell_edge || {}, document.getElementById('ev2-cell-edges'));
+                    _renderTagEdge(se.tag_edge || {}, se.base_edge || 0, document.getElementById('ev2-tag-edges'));
+                }
+
+                if (cands) {
+                    const regime = cands.regime || '—';
+                    const regC = regime === 'RISK_ON' ? '#10B981' : '#EF4444';
+                    document.getElementById('ev2-cand-meta').innerHTML =
+                        `${cands.scan_date || '—'} · regime: <span style="color:${regC};font-weight:700;">${regime}</span> · ${cands.candidates?.length || 0} candidates`;
+                    _renderCandidates(cands.candidates || [], heldSymbols, se?.base_edge || 1.24,
+                                      document.getElementById('ev2-cand-body'));
+                }
+            }).catch(err => console.warn('Edge model load:', err));
+        }
+
+        function _edgeBg(v) {
+            if (v >= 5)  return 'rgba(16,185,129,0.55)';
+            if (v >= 3)  return 'rgba(16,185,129,0.35)';
+            if (v >= 1)  return 'rgba(16,185,129,0.18)';
+            if (v >= 0)  return 'rgba(16,185,129,0.07)';
+            if (v >= -1) return 'rgba(239,68,68,0.14)';
+            if (v >= -2) return 'rgba(239,68,68,0.28)';
+            return 'rgba(239,68,68,0.48)';
+        }
+        function _edgeTextColor(v) {
+            return Math.abs(v) >= 2 ? '#e2e8f0' : '#94a3b8';
+        }
+
+        function _renderCellEdge(cellEdge, el) {
+            const bands = ['lo','50','60','70','80','90+'];
+            const scanners = [...new Set(Object.keys(cellEdge).map(k => k.split('|')[0]))]
+                .sort((a, b) => {
+                    const maxA = Math.max(...bands.map(bd => cellEdge[`${a}|${bd}`] ?? -99));
+                    const maxB = Math.max(...bands.map(bd => cellEdge[`${b}|${bd}`] ?? -99));
+                    return maxB - maxA;
+                });
+            const thStyle = 'padding:4px 7px;text-align:center;color:#64748b;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;';
+            const header = `<tr><th style="${thStyle};text-align:left;">Scanner</th>${bands.map(b =>
+                `<th style="${thStyle}">${b}</th>`).join('')}</tr>`;
+            const rows = scanners.map(sc => {
+                const c = _SETUP_SC_COLORS[sc] || '#818cf8';
+                const lbl = _SETUP_SC_LABEL[sc] || sc;
+                const cells = bands.map(bd => {
+                    const v = cellEdge[`${sc}|${bd}`];
+                    if (v == null) return `<td style="padding:4px 7px;text-align:center;color:#374151;font-size:0.6rem;">—</td>`;
+                    return `<td style="padding:4px 7px;text-align:center;border-radius:3px;background:${_edgeBg(v)};color:${_edgeTextColor(v)};font-size:0.62rem;font-weight:600;white-space:nowrap;">${v>0?'+':''}${v.toFixed(1)}</td>`;
+                }).join('');
+                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.04);">
+                    <td style="padding:4px 8px;white-space:nowrap;"><span style="color:${c};font-size:0.65rem;">${lbl}</span></td>${cells}</tr>`;
+            }).join('');
+            el.innerHTML = `<table style="width:100%;border-collapse:separate;border-spacing:2px;"><thead>${header}</thead><tbody>${rows}</tbody></table>`;
+        }
+
+        function _renderTagEdge(tagEdge, base, el) {
+            const sorted = Object.entries(tagEdge).sort((a,b) => b[1] - a[1]);
+            const top = sorted.filter(([,v]) => v > 0).slice(0, 10);
+            const bot = sorted.filter(([,v]) => v < 0).slice(-8).reverse();
+            const maxAbs = Math.max(...[...top,...bot].map(([,v]) => Math.abs(v)), 1);
+            const row = ([tag, v]) => {
+                const pct = Math.abs(v) / maxAbs * 100;
+                const bg = v > 0 ? 'rgba(16,185,129,0.5)' : 'rgba(239,68,68,0.5)';
+                const col = v > 0 ? '#10B981' : '#EF4444';
+                return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <div style="width:115px;font-size:0.62rem;color:#94a3b8;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${tag}">${tag}</div>
+                    <div style="flex:1;height:12px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden;">
+                        <div style="width:${pct.toFixed(1)}%;height:100%;background:${bg};border-radius:2px;"></div>
+                    </div>
+                    <div style="width:42px;font-size:0.62rem;font-weight:700;color:${col};text-align:right;flex-shrink:0;">${v>0?'+':''}${v.toFixed(2)}</div>
+                </div>`;
+            };
+            el.innerHTML = top.map(row).join('') +
+                `<div style="margin:8px 0 6px;border-top:1px solid rgba(148,163,184,0.1);padding-top:6px;font-size:0.6rem;color:#475569;text-transform:uppercase;letter-spacing:0.04em;">Negative edge tags</div>` +
+                bot.map(row).join('');
+        }
+
+        function _renderCandidates(cands, held, base, el) {
+            if (!cands.length) { el.innerHTML = '<tr><td colspan="9" style="padding:16px;text-align:center;color:#64748b;">No candidates for today\'s scan date.</td></tr>'; return; }
+            el.innerHTML = cands.map((c, i) => {
+                const e = c.pred_edge || 0;
+                const diff = e - base;
+                const eColor = e >= 4 ? '#10B981' : e >= 2 ? '#a3e635' : e >= 0 ? '#F59E0B' : '#EF4444';
+                const dColor = diff >= 3 ? '#10B981' : diff >= 1 ? '#a3e635' : diff >= 0 ? '#F59E0B' : '#EF4444';
+                const sc = c.scanner || '';
+                const scC = _SETUP_SC_COLORS[sc] || '#818cf8';
+                const scL = _SETUP_SC_LABEL[sc] || sc;
+                const inBook = held.has(c.symbol);
+                const statusHtml = inBook
+                    ? `<span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.35);border-radius:3px;padding:1px 5px;font-size:0.58rem;color:#10B981;">In Book</span>`
+                    : `<span style="color:#374151;font-size:0.58rem;">—</span>`;
+                return `<tr style="border-bottom:1px solid rgba(148,163,184,0.05);">
+                    <td style="padding:5px 8px;text-align:center;color:#475569;font-size:0.68rem;">${i+1}</td>
+                    <td style="padding:5px 8px;font-weight:700;color:#e2e8f0;">${c.symbol}</td>
+                    <td style="padding:5px 8px;text-align:right;font-weight:700;color:${eColor};">${e>0?'+':''}${e.toFixed(3)}</td>
+                    <td style="padding:5px 8px;text-align:right;color:${dColor};font-size:0.7rem;">${diff>0?'+':''}${diff.toFixed(2)}</td>
+                    <td style="padding:5px 8px;"><span style="display:inline-block;background:${scC}1a;border:1px solid ${scC}33;border-radius:3px;padding:1px 5px;font-size:0.58rem;color:${scC};">${scL}</span></td>
+                    <td style="padding:5px 8px;text-align:center;color:#94a3b8;font-size:0.68rem;">${c.score}</td>
+                    <td style="padding:5px 8px;text-align:right;color:#cbd5e1;">$${(c.price||0).toFixed(2)}</td>
+                    <td style="padding:5px 8px;text-align:right;color:#64748b;font-size:0.7rem;">${(c.dvol_m||0).toFixed(1)}</td>
+                    <td style="padding:5px 8px;text-align:center;">${statusHtml}</td>
+                </tr>`;
+            }).join('');
         }
 
         // ══════════════════════════════════════════════════════════════════════
