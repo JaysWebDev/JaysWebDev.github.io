@@ -1,46 +1,27 @@
 {
-  "timestamp": "2026-09-18 07:00:03",
-  "total_validated": 4,
+  "timestamp": "2026-09-21 07:00:03",
+  "total_validated": 2,
   "summary": {
-    "ACTIVE": 2,
-    "MONITOR": 2
+    "PENNY_STOCK": 2
   },
   "results": [
     {
-      "symbol": "HLX",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 10.6,
-      "volume": 1635377.3,
-      "validation_date": "2026-09-18 07:00",
-      "data_source": "Database"
+      "symbol": "NMRA",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.73 below $1.00 threshold",
+      "last_price": 0.73,
+      "volume": 1687347.2,
+      "validation_date": "2026-09-21 07:00",
+      "data_source": "Price Analysis"
     },
     {
-      "symbol": "CRNX",
-      "status": "MONITOR",
-      "reason": "Stale price (3 days) but appears active",
-      "last_price": 84.95,
-      "volume": 3015899.4,
-      "validation_date": "2026-09-18 07:00",
-      "data_source": "Heuristic"
-    },
-    {
-      "symbol": "APGE",
-      "status": "ACTIVE",
-      "reason": "Normal trading activity",
-      "last_price": 135.07,
-      "volume": 1544452.8,
-      "validation_date": "2026-09-18 07:00",
-      "data_source": "Database"
-    },
-    {
-      "symbol": "SLP",
-      "status": "MONITOR",
-      "reason": "Stale price (5 days) but appears active",
-      "last_price": 18.44,
-      "volume": 176643.6,
-      "validation_date": "2026-09-18 07:00",
-      "data_source": "Heuristic"
+      "symbol": "EU",
+      "status": "PENNY_STOCK",
+      "reason": "Price $0.90 below $1.00 threshold",
+      "last_price": 0.8962,
+      "volume": 11895247.1,
+      "validation_date": "2026-09-21 07:00",
+      "data_source": "Price Analysis"
     }
   ]
 }

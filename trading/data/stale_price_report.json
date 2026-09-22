@@ -1,119 +1,64 @@
 {
-  "timestamp": "2026-09-18 07:00:03",
+  "timestamp": "2026-09-21 07:00:03",
   "summary": {
-    "total_flagged": 4,
-    "high_risk": 3,
-    "medium_risk": 0,
-    "low_risk": 1,
-    "penny_stocks": 0,
-    "stale_prices": 1,
-    "no_data": 3,
-    "tracking_pending": 2,
+    "total_flagged": 2,
+    "high_risk": 0,
+    "medium_risk": 2,
+    "low_risk": 0,
+    "penny_stocks": 2,
+    "stale_prices": 0,
+    "no_data": 0,
+    "tracking_pending": 0,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
   "securities": [
     {
-      "symbol": "HLX",
-      "price": 0.0,
+      "symbol": "NMRA",
+      "price": 0.73,
       "consecutive_days": 0,
-      "avg_volume": 0.0,
+      "avg_volume": 1687347.2,
       "zero_volume_days": 0,
-      "risk_level": "HIGH",
+      "risk_level": "MEDIUM",
       "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
+        "Penny stock ($0.73 < $1.00)"
       ],
-      "is_penny_stock": false,
+      "is_penny_stock": true,
       "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-09-18 07:00",
-      "consecutive_failures": 6,
-      "first_flagged": "2026-09-11"
-    },
-    {
-      "symbol": "CRNX",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-09-18 07:00",
-      "consecutive_failures": 7,
-      "first_flagged": "2026-09-10"
-    },
-    {
-      "symbol": "APGE",
-      "price": 0.0,
-      "consecutive_days": 0,
-      "avg_volume": 0.0,
-      "zero_volume_days": 0,
-      "risk_level": "HIGH",
-      "reasons": [
-        "No recent data from Yahoo Finance (possibly delisted)"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": false,
-      "is_no_data": true,
-      "last_date": "N/A",
-      "analysis_date": "2026-09-18 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-09-14"
-    },
-    {
-      "symbol": "SLP",
-      "price": 18.44,
-      "consecutive_days": 5,
-      "avg_volume": 176643.6,
-      "zero_volume_days": 0,
-      "risk_level": "LOW",
-      "reasons": [
-        "5 consecutive days same price"
-      ],
-      "is_penny_stock": false,
-      "is_stale_price": true,
       "is_no_data": false,
-      "last_date": "2026-09-17",
-      "analysis_date": "2026-09-18 07:00",
+      "last_date": "2026-09-18",
+      "analysis_date": "2026-09-21 07:00",
       "consecutive_failures": 5,
-      "first_flagged": "2026-09-14"
+      "first_flagged": "2026-06-16"
+    },
+    {
+      "symbol": "EU",
+      "price": 0.8962,
+      "consecutive_days": 0,
+      "avg_volume": 11895247.1,
+      "zero_volume_days": 0,
+      "risk_level": "MEDIUM",
+      "reasons": [
+        "Penny stock ($0.90 < $1.00)"
+      ],
+      "is_penny_stock": true,
+      "is_stale_price": false,
+      "is_no_data": false,
+      "last_date": "2026-09-18",
+      "analysis_date": "2026-09-21 07:00",
+      "consecutive_failures": 5,
+      "first_flagged": "2026-09-15"
     }
   ],
   "recommendations": [
     {
-      "action": "REMOVE_NO_DATA",
-      "description": "Remove 3 securities with no Yahoo Finance data (likely delisted)",
+      "action": "PENNY_STOCK_REVIEW",
+      "description": "Review 2 securities under $1.00",
       "symbols": [
-        "HLX",
-        "CRNX",
-        "APGE"
+        "NMRA",
+        "EU"
       ],
-      "priority": "HIGH"
-    },
-    {
-      "action": "IMMEDIATE_REVIEW",
-      "description": "Review 3 high-risk securities (likely delisted or worthless)",
-      "symbols": [
-        "HLX",
-        "CRNX",
-        "APGE"
-      ],
-      "priority": "HIGH"
-    },
-    {
-      "action": "STALE_PRICE_MONITOR",
-      "description": "Monitor 1 securities with unchanged prices",
-      "symbols": [
-        "SLP"
-      ],
-      "priority": "LOW"
+      "priority": "MEDIUM"
     }
   ]
 }

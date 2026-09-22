@@ -1,59 +1,16 @@
 {
-  "generated": "2026-09-18T17:06:02.544666",
+  "generated": "2026-09-21T20:35:01.263029",
   "strategy": "Quant Analyst (deterministic multi-factor re-ranking)",
   "start_date": "2026-07-21",
   "starting_capital": 5000.0,
-  "total_value": 4743.2,
-  "cash": 3334.94,
-  "pnl_pct": -5.14,
-  "open_count": 3,
-  "closed_count": 41,
-  "win_rate": 39.0,
-  "avg_trade_pnl": -1.53,
-  "positions": [
-    {
-      "shares": 15.6593,
-      "symbol": "HPQ",
-      "entry_date": "2026-09-03",
-      "entry_price": 31.93,
-      "current_price": 34.66,
-      "pnl_pct": 8.55,
-      "days_held": 9,
-      "stop_price": 30.01,
-      "quant_score": 795.41,
-      "conviction_score": 506.3,
-      "scanners": "under50,setup_pullback,confluence,atr_momentum,momentum_rebound,rsi_staircase",
-      "rank": 4
-    },
-    {
-      "shares": 11.7841,
-      "symbol": "MTCH",
-      "entry_date": "2026-09-03",
-      "entry_price": 42.43,
-      "current_price": 43.77,
-      "pnl_pct": 3.16,
-      "days_held": 9,
-      "stop_price": 39.88,
-      "quant_score": 813.46,
-      "conviction_score": 416.9,
-      "scanners": "under50,setup_accum,confluence,atr_momentum,institutional",
-      "rank": 3
-    },
-    {
-      "shares": 11.127,
-      "symbol": "KDP",
-      "entry_date": "2026-09-03",
-      "entry_price": 32.88,
-      "current_price": 31.43,
-      "pnl_pct": -4.41,
-      "days_held": 9,
-      "stop_price": 30.91,
-      "quant_score": 770.81,
-      "conviction_score": 454.3,
-      "scanners": "under50,confluence,rsi_staircase,atr_momentum",
-      "rank": 6
-    }
-  ],
+  "total_value": 4727.18,
+  "cash": 4727.18,
+  "pnl_pct": -5.46,
+  "open_count": 0,
+  "closed_count": 44,
+  "win_rate": 40.9,
+  "avg_trade_pnl": -1.34,
+  "positions": [],
   "closed_trades": [
     {
       "symbol": "SGHC",
@@ -700,6 +657,54 @@
       "quant_score": 1226.21,
       "conviction_score": 476.7,
       "scanners": "institutional,setup_pullback,confluence,momentum_rebound,atr_momentum,rsi_staircase"
+    },
+    {
+      "symbol": "MTCH",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-18",
+      "entry_price": 42.43,
+      "exit_price": 43.2,
+      "shares": 11.7841,
+      "allocation": 500.0,
+      "pnl_pct": 1.81,
+      "pnl_dollars": 9.07,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "quant_score": 813.46,
+      "conviction_score": 416.9,
+      "scanners": "under50,setup_accum,confluence,atr_momentum,institutional"
+    },
+    {
+      "symbol": "HPQ",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-18",
+      "entry_price": 31.93,
+      "exit_price": 34.4,
+      "shares": 15.6593,
+      "allocation": 500.0,
+      "pnl_pct": 7.74,
+      "pnl_dollars": 38.68,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "quant_score": 795.41,
+      "conviction_score": 506.3,
+      "scanners": "under50,setup_pullback,confluence,atr_momentum,momentum_rebound,rsi_staircase"
+    },
+    {
+      "symbol": "KDP",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-18",
+      "entry_price": 32.88,
+      "exit_price": 30.96,
+      "shares": 11.127,
+      "allocation": 365.86,
+      "pnl_pct": -5.84,
+      "pnl_dollars": -21.37,
+      "days_held": 10,
+      "exit_reason": "TIME 10d",
+      "quant_score": 770.81,
+      "conviction_score": 454.3,
+      "scanners": "under50,confluence,rsi_staircase,atr_momentum"
     }
   ],
   "equity_curve": [
@@ -870,6 +875,10 @@
     {
       "date": "2026-09-17",
       "value": 4743.2
+    },
+    {
+      "date": "2026-09-18",
+      "value": 4727.18
     }
   ],
   "spy_curve": [
@@ -1040,6 +1049,10 @@
     {
       "date": "2026-09-17",
       "value": 5095.69
+    },
+    {
+      "date": "2026-09-18",
+      "value": 5089.61
     }
   ]
 }
