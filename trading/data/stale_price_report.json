@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-09-21 07:00:03",
+  "timestamp": "2026-09-22 07:00:02",
   "summary": {
-    "total_flagged": 2,
+    "total_flagged": 1,
     "high_risk": 0,
-    "medium_risk": 2,
+    "medium_risk": 1,
     "low_risk": 0,
-    "penny_stocks": 2,
+    "penny_stocks": 1,
     "stale_prices": 0,
     "no_data": 0,
     "tracking_pending": 0,
@@ -15,48 +15,29 @@
   "securities": [
     {
       "symbol": "NMRA",
-      "price": 0.73,
+      "price": 0.6918,
       "consecutive_days": 0,
-      "avg_volume": 1687347.2,
+      "avg_volume": 1800007.5,
       "zero_volume_days": 0,
       "risk_level": "MEDIUM",
       "reasons": [
-        "Penny stock ($0.73 < $1.00)"
+        "Penny stock ($0.69 < $1.00)"
       ],
       "is_penny_stock": true,
       "is_stale_price": false,
       "is_no_data": false,
-      "last_date": "2026-09-18",
-      "analysis_date": "2026-09-21 07:00",
-      "consecutive_failures": 5,
+      "last_date": "2026-09-21",
+      "analysis_date": "2026-09-22 07:00",
+      "consecutive_failures": 6,
       "first_flagged": "2026-06-16"
-    },
-    {
-      "symbol": "EU",
-      "price": 0.8962,
-      "consecutive_days": 0,
-      "avg_volume": 11895247.1,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.90 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-09-18",
-      "analysis_date": "2026-09-21 07:00",
-      "consecutive_failures": 5,
-      "first_flagged": "2026-09-15"
     }
   ],
   "recommendations": [
     {
       "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 2 securities under $1.00",
+      "description": "Review 1 securities under $1.00",
       "symbols": [
-        "NMRA",
-        "EU"
+        "NMRA"
       ],
       "priority": "MEDIUM"
     }
