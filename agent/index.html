@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +9,12 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>ClaudBot Dashboard</title>
+    <title>ClaudBot — AI Agent Infrastructure | jays.website</title>
+    <meta name="description" content="ClaudBot: a Telegram-based AI agent with autonomous task scheduling and a self-hosted admin dashboard. Project by Jeff Kirk Jr.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/site.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -213,6 +217,8 @@
     </style>
 </head>
 <body>
+
+{% include site-nav.html active="" %}
 
 <div class="header">
     <h1>ClaudBot Dashboard</h1>
@@ -486,5 +492,7 @@
     load();
     setInterval(load, 60000);
 </script>
+
+{% include site-footer.html %}
 </body>
 </html>

@@ -1,8 +1,8 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
-         crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dev Tools — System & Web Utilities | jays.website</title>
@@ -26,6 +26,7 @@
     <meta name="twitter:image" content="https://jays.website/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/site.css">
     <style>
         :root {
             --accent-a: #ed8936;
@@ -443,44 +444,7 @@
 <body>
 <div class="container">
 
-    <!-- shared site-nav v2 (canonical — keep identical across all pages) -->
-<style>
-nav.site-nav{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;margin:0 auto 1.5rem;padding:.6rem 1rem;max-width:1200px;background:rgba(10,13,22,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;z-index:50}
-nav.site-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.35rem .75rem;border-radius:7px;transition:background .15s,color .15s;letter-spacing:.01em;text-transform:none}
-nav.site-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
-nav.site-nav a.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
-nav.site-nav a.nav-resume{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600}
-nav.site-nav a.nav-resume:hover{background:rgba(255,255,255,.22)}
-nav.site-nav a.nav-brand{display:none;color:#fff;font-weight:700;font-size:.95rem;padding:.35rem .5rem}
-nav.site-nav .nav-burger{display:none;cursor:pointer;color:rgba(255,255,255,.85);padding:.3rem .5rem;border-radius:7px;margin-left:auto;line-height:0}
-nav.site-nav .nav-burger:hover{background:rgba(255,255,255,.12)}
-nav.site-nav input.nav-toggle{display:none}
-@media(max-width:768px){
-nav.site-nav a.nav-brand{display:block;width:auto}
-nav.site-nav .nav-burger{display:block}
-nav.site-nav a{display:none;width:100%}
-nav.site-nav a.nav-resume{display:none;margin-left:0}
-nav.site-nav input.nav-toggle:checked~a{display:block}
-nav.site-nav input.nav-toggle:checked~a.nav-brand{width:auto}
-nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:auto}
-}
-</style>
-<nav class="site-nav">
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
-    <a href="/" class="nav-brand">Jeff Kirk Jr</a>
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/trading/">Trading</a>
-    <a href="/rental/">Rental</a>
-    <a href="/business/">Business Intel</a>
-    <a href="/tools/" class="active">Tools</a>
-    <a href="/appdevelopment/">Apps</a>
-    <a href="/architecture/">Architecture</a>
-    <a href="/contact/">Contact</a>
-    <a href="/resume/" class="nav-resume">Resume →</a>
-    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><svg class="lucide lucide-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 12h16" /> <path d="M4 18h16" /> <path d="M4 6h16" /> </svg></label>
-</nav>
-
+{% include site-nav.html active="tools" %}
     <header>
         <a href="/" class="back-link">Back to Portfolio</a>
         <div class="header-inner">
@@ -526,7 +490,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">bash</span><span class="tag">Ubuntu</span><span class="tag">memory</span><span class="tag">disk</span><span class="tag">temp</span><span class="tag">services</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/health-check" class="btn btn-primary" style="--accent:#718096;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/health-check" class="btn btn-primary" style="--accent:#718096;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Jun 2026</span>
                 </div>
             </div>
@@ -545,7 +509,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">bash</span><span class="tag">Ubuntu</span><span class="tag">read-only</span><span class="tag">disk health</span><span class="tag">security</span><span class="tag">logs</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/diagnostics" class="btn btn-primary" style="--accent:#4a5568;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/diagnostics" class="btn btn-primary" style="--accent:#4a5568;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Jun 2026</span>
                 </div>
             </div>
@@ -564,7 +528,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">UFW</span><span class="tag">Fail2Ban</span><span class="tag">AppArmor</span><span class="tag">ClamAV</span><span class="tag">bash</span><span class="tag">Ubuntu</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/security-setup" class="btn btn-primary" style="--accent:#ed8936;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/security-setup" class="btn btn-primary" style="--accent:#ed8936;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Jun 2026</span>
                 </div>
             </div>
@@ -583,7 +547,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">bash</span><span class="tag">Ubuntu</span><span class="tag">cron-ready</span><span class="tag">pip</span><span class="tag">npm</span><span class="tag">browser cache</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/automated-cleanup" class="btn btn-primary" style="--accent:#38a169;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/automated-cleanup" class="btn btn-primary" style="--accent:#38a169;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Jun 2026</span>
                 </div>
             </div>
@@ -602,7 +566,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">Python</span><span class="tag">MD5 hash</span><span class="tag">recursive scan</span><span class="tag">CLI</span><span class="tag">JSON output</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/duplicate-detector" class="btn btn-primary" style="--accent:#667eea;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/duplicate-detector" class="btn btn-primary" style="--accent:#667eea;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Jan 2026</span>
                 </div>
             </div>
@@ -617,7 +581,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">Python</span><span class="tag">exiftool</span><span class="tag">metadata strip</span><span class="tag">CLI</span><span class="tag">categories</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/file-organizer" class="btn btn-primary" style="--accent:#805ad5;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/file-organizer" class="btn btn-primary" style="--accent:#805ad5;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Jan 2026</span>
                 </div>
             </div>
@@ -647,7 +611,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">Alpine Linux</span><span class="tag">GRUB Repair</span><span class="tag">Boot Recovery</span><span class="tag">SSH Auto-start</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/usb-recovery" class="btn btn-primary" style="--accent:#48bb78;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/system/usb-recovery" class="btn btn-primary" style="--accent:#48bb78;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Mar 2026</span>
                 </div>
             </div>
@@ -683,7 +647,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">Chrome Extension</span><span class="tag">Manifest V3</span><span class="tag">text export</span><span class="tag">PDF export</span><span class="tag">one-click</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/web-note-extractor" class="btn btn-primary" style="--accent:#667eea;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/web-note-extractor" class="btn btn-primary" style="--accent:#667eea;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Jan 2026</span>
                 </div>
             </div>
@@ -698,7 +662,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">Chrome Extension</span><span class="tag">Manifest V3</span><span class="tag">service worker</span><span class="tag">HLS/MP4/WebM</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/video-saver" class="btn btn-primary" style="--accent:#e53e3e;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/dev-tools/tree/main/app-development/video-saver" class="btn btn-primary" style="--accent:#e53e3e;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Feb 2026</span>
                 </div>
             </div>
@@ -713,7 +677,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">Python</span><span class="tag">BeautifulSoup</span><span class="tag">geocoding</span><span class="tag">data cleaning</span><span class="tag">Jupyter</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/personal-scraper-lab" class="btn btn-primary" style="--accent:#2dce7d;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/personal-scraper-lab" class="btn btn-primary" style="--accent:#2dce7d;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">Mar 2026</span>
                 </div>
             </div>
@@ -728,7 +692,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
                     <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">text-to-video</span><span class="tag">image-to-video</span><span class="tag">marketing agent</span>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/JaysWebDev/VidGen" class="btn btn-primary" style="--accent:#d69e2e;" target="_blank">View on GitHub →</a>
+                    <a href="https://github.com/JaysWebDev/VidGen" class="btn btn-primary" style="--accent:#d69e2e;" target="_blank" rel="noopener">View on GitHub →</a>
                     <span class="card-meta">May 2026</span>
                 </div>
             </div>
@@ -743,19 +707,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
 
     </div><!-- /panel -->
 
-    <!-- shared site-footer (canonical — keep identical across all pages) -->
-<style>
-footer.site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5;background:none;border:none}
-footer.site-footer p{margin:.2rem 0;color:rgba(255,255,255,.6)}
-footer.site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
-footer.site-footer a:hover{color:#fff;text-decoration:underline}
-footer.site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
-</style>
-<footer class="site-footer">
-    <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
-    <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
-</footer>
-
+{% include site-footer.html %}
 </div>
 
 <script>

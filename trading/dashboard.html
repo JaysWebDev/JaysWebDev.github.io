@@ -4147,7 +4147,7 @@
                                 </div>
                                 <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
                                     <span id="weekly-pub-meta" style="color:#475569;font-size:0.72rem;"></span>
-                                    <a href="/trading/reports/weekly_pub_latest.html" target="_blank" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:5px 12px;border-radius:6px;font-size:0.75rem;text-decoration:none;white-space:nowrap;">📄 Full Report →</a>
+                                    <a href="/trading/reports/weekly_pub_latest.html" target="_blank" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60A5FA;padding:5px 12px;border-radius:6px;font-size:0.75rem;text-decoration:none;white-space:nowrap;" rel="noopener">📄 Full Report →</a>
                                 </div>
                             </div>
                             <div id="weekly-pub-header" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;"></div>
@@ -12741,7 +12741,7 @@
                                 </div>
                             </div>
                             <a href="/trading/reports/quarterly_report_${d.quarter || 'latest'}.html" target="_blank"
-                               style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.35);color:#FBBF24;padding:8px 18px;border-radius:8px;font-size:0.82rem;text-decoration:none;white-space:nowrap;font-weight:600;">
+                               style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.35);color:#FBBF24;padding:8px 18px;border-radius:8px;font-size:0.82rem;text-decoration:none;white-space:nowrap;font-weight:600;" rel="noopener">
                                 ⭐ Open Report →
                             </a>
                         </div>`;
@@ -12778,7 +12778,7 @@
                                 </div>
                             </div>
                             <a href="/trading/reports/weekly_pub_latest.html" target="_blank"
-                               style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);color:#a78bfa;padding:8px 18px;border-radius:8px;font-size:0.82rem;text-decoration:none;white-space:nowrap;font-weight:600;">
+                               style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);color:#a78bfa;padding:8px 18px;border-radius:8px;font-size:0.82rem;text-decoration:none;white-space:nowrap;font-weight:600;" rel="noopener">
                                 📄 Open Report →
                             </a>
                         </div>`;
@@ -12809,7 +12809,7 @@
                             ${e.picks ? `<div style="font-size:0.75rem;color:#64748b;">${e.picks} picks</div>` : ''}
                         </div>
                         <a href="${e.url}" target="_blank"
-                           style="font-size:0.75rem;color:#60A5FA;text-decoration:none;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);padding:4px 12px;border-radius:5px;white-space:nowrap;">
+                           style="font-size:0.75rem;color:#60A5FA;text-decoration:none;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);padding:4px 12px;border-radius:5px;white-space:nowrap;" rel="noopener">
                             View →
                         </a>
                     </div>`;
@@ -13523,7 +13523,7 @@
                     actions += `<button class="st-btn st-btn-curl" onclick="stCopyCurl('${t.id}',this)" title="${t.curl_cmd}">📋 Copy curl</button>`;
                 }
                 if (t.repo_url) {
-                    actions += `<a class="st-btn st-btn-repo" href="${t.repo_url}" target="_blank">↗ GitHub</a>`;
+                    actions += `<a class="st-btn st-btn-repo" href="${t.repo_url}" target="_blank" rel="noopener">↗ GitHub</a>`;
                 }
                 return `
                 <div class="st-card" id="st-card-${t.id}">

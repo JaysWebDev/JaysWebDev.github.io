@@ -1,11 +1,11 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493426366115346"
-       crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MA Multifamily Intelligence — Find Deals Before Everyone Else</title>
+  <title>MA Multifamily Intelligence — Find Deals Before Everyone Else | jays.website</title>
   <meta name="description" content="339,856 Massachusetts multifamily buildings scored by cap rate, yield, and ownership signals. County rankings, owner intelligence, and deal scoring across all 14 MA counties.">
   <meta name="author" content="Jeff Kirk Jr.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/site.css">
   <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -62,37 +63,6 @@ body::before {
 }
 
 /* ── NAV ──────────────────────────────────────────────── */
-nav.site-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  background: rgba(6,8,16,0.94);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(10px);
-  padding: 0.55rem 1.5rem;
-  display: flex;
-  gap: 0.2rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-nav.site-nav a {
-  color: rgba(255,255,255,0.55);
-  text-decoration: none;
-  padding: 0.3rem 0.75rem;
-  border-radius: 5px;
-  font-size: 0.83rem;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-}
-nav.site-nav a:hover { background: rgba(255,255,255,0.07); color: white; }
-nav.site-nav a.active { color: var(--amber-hi); }
-nav.site-nav a.nav-resume {
-  margin-left: auto;
-  background: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.75);
-  border: 1px solid rgba(255,255,255,0.12);
-}
-nav.site-nav a.nav-resume:hover { background: rgba(255,255,255,0.13); color: white; }
 
 /* ── LAYOUT ───────────────────────────────────────────── */
 .container {
@@ -555,7 +525,6 @@ footer {
   .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
   .features-grid { grid-template-columns: 1fr; }
   .explore-grid { grid-template-columns: 1fr; }
-  nav.site-nav a.nav-resume { margin-left: 0; }
   .capture-form { flex-direction: column; border-radius: 4px; }
   .capture-form input[type="email"] { border-bottom: 1px solid var(--border-hi); }
   .capture-form button { width: 100%; }
@@ -564,44 +533,7 @@ footer {
 </head>
 <body>
 
-<!-- shared site-nav v2 (canonical — keep identical across all pages) -->
-<style>
-nav.site-nav{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;margin:0 auto 1.5rem;padding:.6rem 1rem;max-width:1200px;background:rgba(10,13,22,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;z-index:50}
-nav.site-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.35rem .75rem;border-radius:7px;transition:background .15s,color .15s;letter-spacing:.01em;text-transform:none}
-nav.site-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
-nav.site-nav a.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
-nav.site-nav a.nav-resume{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600}
-nav.site-nav a.nav-resume:hover{background:rgba(255,255,255,.22)}
-nav.site-nav a.nav-brand{display:none;color:#fff;font-weight:700;font-size:.95rem;padding:.35rem .5rem}
-nav.site-nav .nav-burger{display:none;cursor:pointer;color:rgba(255,255,255,.85);padding:.3rem .5rem;border-radius:7px;margin-left:auto;line-height:0}
-nav.site-nav .nav-burger:hover{background:rgba(255,255,255,.12)}
-nav.site-nav input.nav-toggle{display:none}
-@media(max-width:768px){
-nav.site-nav a.nav-brand{display:block;width:auto}
-nav.site-nav .nav-burger{display:block}
-nav.site-nav a{display:none;width:100%}
-nav.site-nav a.nav-resume{display:none;margin-left:0}
-nav.site-nav input.nav-toggle:checked~a{display:block}
-nav.site-nav input.nav-toggle:checked~a.nav-brand{width:auto}
-nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:auto}
-}
-</style>
-<nav class="site-nav">
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
-    <a href="/" class="nav-brand">Jeff Kirk Jr</a>
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/trading/">Trading</a>
-    <a href="/rental/" class="active">Rental</a>
-    <a href="/business/">Business Intel</a>
-    <a href="/tools/">Tools</a>
-    <a href="/appdevelopment/">Apps</a>
-    <a href="/architecture/">Architecture</a>
-    <a href="/contact/">Contact</a>
-    <a href="/resume/" class="nav-resume">Resume →</a>
-    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><svg class="lucide lucide-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 12h16" /> <path d="M4 18h16" /> <path d="M4 6h16" /> </svg></label>
-</nav>
-
+{% include site-nav.html active="rental" %}
 <!-- ── HERO ──────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-eyebrow">Massachusetts Multifamily Intelligence</div>
@@ -824,7 +756,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
         <div class="explore-card-title">Spatial Intelligence</div>
         <div class="explore-card-desc">Interactive map of all 339k buildings colored by yield</div>
       </a>
-      <a class="explore-card" href="https://github.com/JaysWebDev/landlord-app" target="_blank">
+      <a class="explore-card" href="https://github.com/JaysWebDev/landlord-app" target="_blank" rel="noopener">
         <div class="explore-card-label">Open Source</div>
         <div class="explore-card-title">Landlord App</div>
         <div class="explore-card-desc">Property management platform built on top of this dataset</div>
@@ -833,20 +765,7 @@ nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:au
   </div>
 </section>
 
-<!-- shared site-footer (canonical — keep identical across all pages) -->
-<style>
-footer.site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5;background:none;border:none}
-footer.site-footer p{margin:.2rem 0;color:rgba(255,255,255,.6)}
-footer.site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
-footer.site-footer a:hover{color:#fff;text-decoration:underline}
-footer.site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
-</style>
-<footer class="site-footer">
-    <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
-    <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
-    <div class="sf-note">Data: MassGIS + HUD FMR FY2025 &nbsp;&middot;&nbsp; Updated Jun 2026</div>
-</footer>
-
+{% include site-footer.html %}
 <script>
 function handleForm(formId, successId) {
   const form = document.getElementById(formId);

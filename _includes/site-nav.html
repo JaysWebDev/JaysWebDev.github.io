@@ -1,0 +1,24 @@
+<!-- Shared top navigation. Include with an "active" param set to one of:
+     home | trading | rental | business | tools | apps | architecture | about | contact -->
+<nav class="site-nav" aria-label="Primary navigation">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" tabindex="-1">
+  <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+  <a href="/"{% if include.active == "home" %} class="active" aria-current="page"{% endif %}>Home</a>
+  <div class="nav-group">
+    <span class="nav-group-label" tabindex="0" role="button" aria-haspopup="true">Projects
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </span>
+    <div class="nav-group-menu">
+      <a href="/trading/"{% if include.active == "trading" %} class="active" aria-current="page"{% endif %}>Trading Intelligence</a>
+      <a href="/rental/"{% if include.active == "rental" %} class="active" aria-current="page"{% endif %}>Rental Intelligence</a>
+      <a href="/business/"{% if include.active == "business" %} class="active" aria-current="page"{% endif %}>Business Intelligence</a>
+      <a href="/tools/"{% if include.active == "tools" %} class="active" aria-current="page"{% endif %}>Dev Tools</a>
+      <a href="/appdevelopment/"{% if include.active == "apps" %} class="active" aria-current="page"{% endif %}>Apps</a>
+      <a href="/architecture/"{% if include.active == "architecture" %} class="active" aria-current="page"{% endif %}>Architecture</a>
+    </div>
+  </div>
+  <a href="/about/"{% if include.active == "about" %} class="active" aria-current="page"{% endif %}>About</a>
+  <a href="/contact/"{% if include.active == "contact" %} class="active" aria-current="page"{% endif %}>Contact</a>
+  <a href="/resume/" class="nav-resume">Resume →</a>
+  <label for="nav-toggle" class="nav-burger" aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg></label>
+</nav>

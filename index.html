@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +14,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="/manifest.json">
     <link rel="canonical" href="https://jays.website/">
+    <link rel="stylesheet" href="/assets/site.css">
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jays.website/">
@@ -40,7 +43,7 @@
         { "@type": "CollegeOrUniversity", "name": "Bridgewater State University" }
       ],
       "worksFor": { "@type": "Organization", "name": "Jays Web Development" },
-      "description": "Investment operations professional with 11+ years at Man Group and State Street, now building production AI systems for trading, rental research, and business intelligence.",
+      "description": "Investment operations professional with 11+ years at Man Group and State Street, now building self-hosted AI and data systems for trading, rental research, and business intelligence.",
       "knowsAbout": ["Investment Operations", "AI Engineering", "Quantitative Analysis", "Real Estate Analytics", "Full-Stack Development"],
       "sameAs": [
         "https://www.linkedin.com/in/jeffkirkjr/",
@@ -54,382 +57,115 @@
       "url": "https://jays.website"
     }]
     </script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        header {
-            text-align: center;
-            padding: 4rem 0;
-            color: white;
-        }
-        
-        .logo {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-        
-        .projects {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-top: 2rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .projects h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #4a5568;
-        }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-left: 5px solid #667eea;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .project-card h3 {
-            color: #2d3748;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .project-card p {
-            color: #718096;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        
-        .project-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease;
-        }
-        
-        .project-link:hover {
-            transform: scale(1.05);
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .feature-tag {
-            background: #e2e8f0;
-            color: #4a5568;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 3rem 0;
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .contact-links {
-            margin-top: 1rem;
-        }
-        
-        .contact-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-        
-        .contact-links a:hover {
-            opacity: 1;
-        }
-        
-        nav.site-nav {
-            background: rgba(0,0,0,0.25);
-            border-radius: 12px;
-            padding: 0.75rem 1.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            gap: 0.25rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        nav.site-nav a {
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            padding: 0.35rem 0.9rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background 0.2s, color 0.2s;
-        }
-        nav.site-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
-        nav.site-nav a.nav-resume {
-            margin-left: auto;
-            background: rgba(255,255,255,0.15);
-            color: white;
-        }
-        nav.site-nav a.nav-resume:hover { background: rgba(255,255,255,0.25); }
-
-        .hero {
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 16px;
-            padding: 2.5rem 3rem;
-            margin-bottom: 2rem;
-            color: white;
-        }
-        .hero-inner {
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-        }
-        .hero-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-            border: 3px solid rgba(255,255,255,0.3);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        .hero-text { flex: 1; }
-        .hero h2 {
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            line-height: 1.35;
-            margin-bottom: 0.75rem;
-        }
-        .hero p {
-            font-size: 1.05rem;
-            line-height: 1.75;
-            opacity: 0.92;
-            max-width: 780px;
-            margin-bottom: 1.75rem;
-        }
-        .hero-ctas {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .cta-btn {
-            display: inline-block;
-            background: white;
-            color: #553c9a;
-            padding: 0.8rem 1.8rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            white-space: nowrap;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
-        .cta-btn.secondary {
-            background: transparent;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: none;
-        }
-        .cta-btn.secondary:hover { background: rgba(255,255,255,0.12); }
-
-        @media (max-width: 768px) {
-            .container { padding: 1rem; }
-            .logo { font-size: 2rem; }
-            .tagline { font-size: 1.2rem; }
-            .projects { padding: 2rem 1rem; }
-            .project-grid { grid-template-columns: 1fr; }
-            .hero { padding: 1.75rem; }
-            .hero-inner { flex-direction: column; align-items: center; text-align: center; }
-            .hero-photo { width: 100px; height: 100px; }
-            nav.site-nav a.nav-resume { margin-left: 0; }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
 
-        <header>
-            <img src="/logo-mark.svg" alt="Jeff Kirk Jr" style="width:72px;height:72px;margin-bottom:1rem;opacity:0.95;">
+        <header class="site-head">
+            <img src="/logo-mark.svg" alt="Jeff Kirk Jr logo" style="width:72px;height:72px;margin-bottom:1rem;opacity:0.95;">
             <div class="logo">Jeff Kirk Jr</div>
-            <div class="tagline">Production AI Systems &middot; Data Analytics &middot; Investment Operations</div>
+            <div class="tagline">Self-hosted AI &amp; Data Systems &middot; Data Analytics &middot; Investment Operations</div>
         </header>
 
-        <!-- shared site-nav v2 (canonical — keep identical across all pages) -->
-<style>
-nav.site-nav{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;margin:0 auto 1.5rem;padding:.6rem 1rem;max-width:1200px;background:rgba(10,13,22,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;z-index:50}
-nav.site-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.35rem .75rem;border-radius:7px;transition:background .15s,color .15s;letter-spacing:.01em;text-transform:none}
-nav.site-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
-nav.site-nav a.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
-nav.site-nav a.nav-resume{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600}
-nav.site-nav a.nav-resume:hover{background:rgba(255,255,255,.22)}
-nav.site-nav a.nav-brand{display:none;color:#fff;font-weight:700;font-size:.95rem;padding:.35rem .5rem}
-nav.site-nav .nav-burger{display:none;cursor:pointer;color:rgba(255,255,255,.85);padding:.3rem .5rem;border-radius:7px;margin-left:auto;line-height:0}
-nav.site-nav .nav-burger:hover{background:rgba(255,255,255,.12)}
-nav.site-nav input.nav-toggle{display:none}
-@media(max-width:768px){
-nav.site-nav a.nav-brand{display:block;width:auto}
-nav.site-nav .nav-burger{display:block}
-nav.site-nav a{display:none;width:100%}
-nav.site-nav a.nav-resume{display:none;margin-left:0}
-nav.site-nav input.nav-toggle:checked~a{display:block}
-nav.site-nav input.nav-toggle:checked~a.nav-brand{width:auto}
-nav.site-nav input.nav-toggle:checked~a.nav-resume{display:inline-block;width:auto}
-}
-</style>
-<nav class="site-nav">
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
-    <a href="/" class="nav-brand">Jeff Kirk Jr</a>
-    <a href="/" class="active">Home</a>
-    <a href="/about/">About</a>
-    <a href="/trading/">Trading</a>
-    <a href="/rental/">Rental</a>
-    <a href="/business/">Business Intel</a>
-    <a href="/tools/">Tools</a>
-    <a href="/appdevelopment/">Apps</a>
-    <a href="/architecture/">Architecture</a>
-    <a href="/contact/">Contact</a>
-    <a href="/resume/" class="nav-resume">Resume →</a>
-    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><svg class="lucide lucide-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 12h16" /> <path d="M4 18h16" /> <path d="M4 6h16" /> </svg></label>
-</nav>
+        {% include site-nav.html active="home" %}
 
         <div class="hero">
             <div class="hero-inner">
-                <img src="/headshot.jpg?v=1" alt="Jeff Jay Kirk Jr." class="hero-photo">
+                <img src="/headshot.jpg?v=1" alt="Portrait of Jeff &quot;Jay&quot; Kirk Jr." class="hero-photo">
                 <div class="hero-text">
-                    <h2>I'm Jeff "Jay" Kirk Jr. — I build production AI systems for capital markets and real estate.</h2>
+                    <h1>I'm Jeff "Jay" Kirk Jr. — I build self-hosted AI systems for capital markets and real estate.</h1>
                     <p>
-                        11+ years in institutional investment operations (Man Group, State Street — $45B AUM portfolios), now building production AI systems.
+                        11+ years in institutional investment operations (Man Group, State Street), where I supported post-trade operations for portfolios up to $45B AUM — now building self-hosted data &amp; AI systems that run daily on live market and property data.
                         I combine deep domain expertise in trade lifecycle, risk &amp; controls, and real estate with quantitative dashboards and data pipelines.
                         Currently targeting roles in AI/fintech engineering, data analytics, and technical project management — anywhere deep finance domain knowledge and hands-on AI building create leverage.
                     </p>
                     <div class="hero-ctas">
-                        <a href="/resume/" class="cta-btn">View Full Resume →</a>
-                        <a href="mailto:jeffkirkjr@gmail.com" class="cta-btn secondary">Get in Touch →</a>
+                        <a href="/resume/" class="btn btn-primary">View Full Resume →</a>
+                        <a href="mailto:jeffkirkjr@gmail.com" class="btn btn-secondary">Get in Touch →</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <section class="projects">
-            <h2>Featured Projects</h2>
+        <section>
+            <h2 class="section-title">Featured Projects</h2>
 
             <div class="project-grid">
 
-                <div class="project-card" style="border-left-color: #9f7aea;">
-                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-settings" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /> <circle cx="12" cy="12" r="3" /> </svg> Dev Tools &amp; AI Infrastructure</h3>
-                    <div class="features">
-                        <span class="feature-tag">AI Infrastructure</span>
-                        <span class="feature-tag">Home Lab</span>
-                        <span class="feature-tag">Open Source</span>
-                        <span class="feature-tag">Self-Hosted</span>
-                    </div>
-                    <p>Open-source developer utilities and self-hosted AI infrastructure. Tools include WiFi scanner, USB recovery toolkit, system diagnostics, duplicate detector, and web scraping utilities — all with one-liner installs. Home lab runs local AI agent workflows and memory systems across Tailscale-networked machines.</p>
-                    <a href="/appdevelopment/" class="project-link" style="background: linear-gradient(135deg, #9f7aea 0%, #6b46c1 100%);">Explore →</a>
-                </div>
-
-                <div class="project-card">
-                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-trending-up" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /> </svg> Trading Intelligence Dashboard</h3>
-                    <div class="features">
-                        <span class="feature-tag">2,612-Symbol Universe</span>
-                        <span class="feature-tag">10 AI Scanners</span>
-                        <span class="feature-tag">DCF Valuations</span>
-                        <span class="feature-tag">Live Since 2025</span>
-                    </div>
-                    <p>Institutional-grade trading research platform monitoring a 2,612-symbol universe with 10 automated scanners, regime detection, EDGAR DCF valuations, conviction scoring, and daily Polygon.io price updates. Delivers high-conviction picks via Telegram alerts. Self-hosted with secure authentication.</p>
-                    <a href="/trading/" class="project-link"><svg style="vertical-align:-0.15em" class="lucide lucide-lock" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /> </svg> Secure Access →</a>
-                </div>
-
-                <div class="project-card" style="border-left-color: #c9940a;">
-                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-building-2" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /> </svg> Rental Intelligence Engine</h3>
+                <!-- 1. Rental Intelligence Engine -->
+                <div class="project-card" style="--card-accent: var(--accent-rental);">
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-building-2" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /> </svg> Rental Intelligence Engine</h3>
                     <div class="features">
                         <span class="feature-tag">339,856 Buildings</span>
                         <span class="feature-tag">177,056 Scored</span>
                         <span class="feature-tag">Statewide MA</span>
                         <span class="feature-tag">Interactive Map</span>
                     </div>
-                    <p>Statewide multifamily acquisition research platform covering all 339,856 multifamily buildings across Massachusetts. Analyzes properties by cap rate, NOI, and ownership signals. Identifies portfolio owners and acquisition targets using MassGIS parcel data and HUD Fair Market Rent benchmarks.</p>
+                    <div class="card-block"><span class="label">Problem</span><p>Finding multifamily acquisition targets across an entire state means manually cross-referencing parcel records, rents, and ownership — slow and easy to miss opportunities.</p></div>
+                    <div class="card-block"><span class="label">What I built</span><p>A statewide multifamily acquisition research platform covering all 339,856 multifamily buildings across Massachusetts. It analyzes properties by cap rate, NOI, and ownership signals, and identifies portfolio owners and acquisition targets.</p></div>
+                    <div class="card-block"><span class="label">Tech stack</span><p>MassGIS parcel data, HUD Fair Market Rent benchmarks, Python data pipeline, interactive web map.</p></div>
+                    <div class="card-block"><span class="label">Outcome</span><p>177,056 properties scored statewide — cap rate, NOI, and ownership signals surfaced for any Massachusetts submarket in seconds.</p></div>
                     <a href="/rental/" class="project-link" style="background: linear-gradient(135deg, #c9940a 0%, #92660a 100%);">Explore →</a>
                 </div>
 
-                <div class="project-card" style="border-left-color: #2dce7d;">
-                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-map" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg> Business Intelligence Engine</h3>
+                <!-- 2. Trading Intelligence Dashboard -->
+                <div class="project-card" style="--card-accent: var(--accent-trading);">
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-trending-up" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /> </svg> Trading Intelligence Dashboard</h3>
                     <div class="features">
-                        <span class="feature-tag">Curiosity Zones</span>
-                        <span class="feature-tag">OSM · Sector Gap Analysis</span>
+                        <span class="feature-tag">2,612-Symbol Universe</span>
+                        <span class="feature-tag">10 AI Scanners</span>
+                        <span class="feature-tag">DCF Valuations</span>
+                        <span class="feature-tag">Live Since 2025</span>
+                    </div>
+                    <div class="card-block"><span class="label">Problem</span><p>Scanning thousands of symbols every day for high-conviction setups is impossible to do manually and consistently.</p></div>
+                    <div class="card-block"><span class="label">What I built</span><p>A self-hosted trading-research platform that scans a 2,612-symbol universe daily with 10 automated scanners, regime detection, EDGAR DCF valuations, conviction scoring, and daily Polygon.io price updates. Delivers high-conviction picks via Telegram alerts, behind secure authentication.</p></div>
+                    <div class="card-block"><span class="label">Tech stack</span><p>Python, Polygon.io &amp; Finnhub APIs, SEC EDGAR filings, SQLite, cron-scheduled pipeline, Telegram alerts, authenticated web dashboard.</p></div>
+                    <div class="card-block"><span class="label">Outcome</span><p>10 scanners run daily across 2,612 symbols, delivering high-conviction picks to Telegram with a live track record on the dashboard.</p></div>
+                    <a href="/trading/" class="project-link"><svg style="vertical-align:-0.15em" class="lucide lucide-lock" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /> </svg> Secure Access →</a>
+                </div>
+
+                <!-- 3. Business Intelligence Engine -->
+                <div class="project-card" style="--card-accent: var(--accent-business);">
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-map" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg> Business Intelligence Engine</h3>
+                    <div class="features">
+                        <span class="feature-tag">Underserved-market finder</span>
+                        <span class="feature-tag">Sector-gap analysis · OpenStreetMap</span>
                         <span class="feature-tag">Missing Services</span>
                         <span class="feature-tag">ZIP · Town · County</span>
                     </div>
-                    <p>Spatial analysis engine that surfaces geographic areas with economic imbalances, underserved sectors, and unrealized business potential. Analyzes industry density, diversity, and sector gaps across Massachusetts ZIP codes, towns, and counties.</p>
+                    <div class="card-block"><span class="label">Problem</span><p>Spotting where a local market is underserved — which areas lack a given business type — usually requires piecing together scattered economic and location data.</p></div>
+                    <div class="card-block"><span class="label">What I built</span><p>Spatial analysis engine that surfaces geographic areas with economic imbalances, underserved sectors, and unrealized business potential. Analyzes industry density, diversity, and sector gaps across Massachusetts ZIP codes, towns, and counties.</p></div>
+                    <div class="card-block"><span class="label">Tech stack</span><p>OpenStreetMap (OSM) place data, spatial/geographic analysis, Python, interactive map interface.</p></div>
+                    <div class="card-block"><span class="label">Outcome</span><p>Sector density and coverage gaps mapped across every Massachusetts ZIP code, town, and county — underserved markets surfaced via interactive map.</p></div>
                     <a href="/business/" class="project-link" style="background: linear-gradient(135deg, #2dce7d 0%, #1a9a5a 100%);">Explore →</a>
                 </div>
-
 
             </div>
         </section>
 
-        <!-- shared site-footer (canonical — keep identical across all pages) -->
-        <style>
-        .site-footer{max-width:1200px;margin:2.5rem auto 0;padding:1.25rem 1rem 2rem;text-align:center;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);position:relative;z-index:5}
-        .site-footer a{color:rgba(255,255,255,.78);text-decoration:none;margin:0 .55rem}
-        .site-footer a:hover{color:#fff;text-decoration:underline}
-        .site-footer .sf-note{margin-top:.45rem;font-size:.78rem;color:rgba(255,255,255,.4)}
-        </style>
-        <footer class="site-footer">
-            <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
-            <p><a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>
-        </footer>
+        <section>
+            <h2 class="section-title section-sub">Other Projects</h2>
+            <div class="project-grid">
+
+                <!-- Dev Tools & AI Infrastructure -->
+                <div class="project-card" style="--card-accent: var(--accent-tools);">
+                    <h3><svg style="vertical-align:-0.15em" class="lucide lucide-settings" xmlns="http://www.w3.org/2000/svg" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /> <circle cx="12" cy="12" r="3" /> </svg> Dev Tools &amp; AI Infrastructure</h3>
+                    <div class="features">
+                        <span class="feature-tag">AI Infrastructure</span>
+                        <span class="feature-tag">Home Lab</span>
+                        <span class="feature-tag">Open Source</span>
+                        <span class="feature-tag">Self-Hosted</span>
+                    </div>
+                    <div class="card-block"><span class="label">What I built</span><p>Open-source developer utilities and self-hosted AI infrastructure. Tools include WiFi scanner, USB recovery toolkit, system diagnostics, duplicate detector, and web scraping utilities — all with one-liner installs. Home lab runs local AI agent workflows and memory systems across networked machines.</p></div>
+                    <div class="card-block"><span class="label">Tech stack</span><p>Python, Bash, self-hosted Linux services, local AI agent workflows.</p></div>
+                    <a href="/appdevelopment/" class="project-link" style="background: linear-gradient(135deg, #9f7aea 0%, #6b46c1 100%);">Explore →</a>
+                </div>
+
+            </div>
+        </section>
+
+        {% include site-footer.html %}
     </div>
-
-
 
 </body>
 </html>
