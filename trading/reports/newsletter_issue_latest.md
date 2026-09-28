@@ -1,10 +1,10 @@
-# Conviction Weekly — September 20, 2026
+# Conviction Weekly — September 27, 2026
 
-**Market regime: NEUTRAL.** Neutral — mixed breadth; only high-confluence setups pass the gate. Breadth: 15% of the quality universe in Stage 2 uptrends, 54% above their 200-day average.
+**Market regime: NEUTRAL.** Neutral — mixed breadth; only high-confluence setups pass the gate. Breadth: 13% of the quality universe in Stage 2 uptrends, 48% above their 200-day average.
 
 ## Track Record — measured, not promised
 
-- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-2.36%** · 10 open · 10 closed, 0% wins
+- **Model portfolio** (live since 2026-07-04, $5,000 across 10 equal slots): **-5.29%** · 10 open · 12 closed, 0% wins
 - **Multi-scanner signals** (3+ scanners agreeing — Jun 4 2026 cohort study, n=68): **52.9%** positive after 5 trading days, avg **+0.18%**
 
 *All figures auto-computed from the live system at publish time. Past performance does not guarantee future results.*
@@ -13,24 +13,24 @@
 
 | # | Symbol | Price | Composite | Conviction | Scanners/Days | RSI | RS | Stop |
 |---|--------|-------|-----------|------------|---------------|-----|-----|------|
-| 1 | **APA** ✓ | $45.46 | 69.8 | 398 | 7× / 5d | 62 | 57 | $42.29 |
-| 2 | **EOG** ✓ | $145.47 | 66.7 | 348 | 6× / 4d | 52 | 53 | $137.50 |
-| 3 | **TRV** ✓ | $379.49 | 66.6 | 364 | 7× / 4d | 63 | 56 | $366.74 |
-| 4 | **HPQ** ✓ | $34.66 | 64.0 | 393 | 6× / 5d | 67 | 55 | $31.26 |
-| 5 | **A** | $156.34 | 63.8 | 347 | 7× / 5d | 48 | 54 | $147.78 |
-| 6 | **DXCM** ✓ | $87.93 | 63.7 | 312 | 5× / 4d | 46 | 60 | $83.03 |
-| 7 | **SM** | $36.97 | 63.2 | 352 | 6× / 5d | 51 | 55 | $33.94 |
-| 8 | **OSCR** ✓ | $31.98 | 63.0 | 345 | 7× / 5d | 60 | 59 | $28.33 |
-| 9 | **PM** ✓ | $190.48 | 62.5 | 347 | 6× / 4d | 50 | 42 | $181.35 |
-| 10 | **TECH** ✓ | $72.41 | 61.8 | 353 | 9× / 4d | 48 | 62 | $72.07 |
+| 1 | **EXEL** ✓ | $57.95 | 75.8 | 377 | 6× / 5d | 45 | 82 | $56.21 |
+| 2 | **APA** ✓ | $43.68 | 75.5 | 451 | 9× / 5d | 48 | 86 | $40.39 |
+| 3 | **FTNT** ✓ | $178.67 | 73.6 | 382 | 6× / 5d | 80 | 94 | $165.43 |
+| 4 | **PLTR** | $191.79 | 72.2 | 349 | 5× / 4d | 61 | 89 | $180.38 |
+| 5 | **SMCI** ✓ | $41.51 | 70.6 | 440 | 9× / 5d | 59 | 86 | $36.75 |
+| 6 | **A** | $172.84 | 70.3 | 407 | 7× / 4d | 77 | 91 | $163.19 |
+| 7 | **MSFT** | $497.93 | 69.1 | 335 | 6× / 5d | 42 | 79 | $477.54 |
+| 8 | **FAST** ✓ | $50.73 | 68.6 | 362 | 7× / 4d | 66 | 71 | $49.32 |
+| 9 | **NTAP** ✓ | $197.24 | 68.2 | 385 | 7× / 4d | 61 | 90 | $181.40 |
+| 10 | **NEM** ✓ | $121.30 | 67.8 | 338 | 5× / 4d | 35 | 54 | $112.85 |
 
 ✓ = full Stage 2 uptrend (price > SMA50 > SMA150 > SMA200). Composite blends conviction (65%) with fundamental quality (35%). Stops are ATR-based algorithmic levels.
 
 ## Why the Top 3
 
-1. **APA** — APA is showing a multi-timeframe trend and ATR coil-to-expansion pattern, in a Stage 2 uptrend, confirmed by 7 scanners over 5 days. Fundamentals: Energy — fundamentally strong; revenue declining 12% YoY; with 19% profit margin; trading at 9.4× earnings.
-2. **EOG** — EOG is showing an accumulation and ATR coil-to-expansion pattern, in a Stage 2 uptrend, confirmed by 6 scanners over 4 days. Fundamentals: Energy — fundamentally strong; growing revenue at 19% YoY; with 25% profit margin; trading at 11.4× earnings.
-3. **TRV** — TRV is showing an enhanced breakout and volume climax base pattern, in a Stage 2 uptrend, exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 7 scanners over 4 days. Monthly return history: +2.8% avg over 34 months (65% consistency). Fundamentals: Insurance — fundamentally strong; with 17% profit margin; trading at 9.4× earnings.
+1. **EXEL** — EXEL is showing an enhanced breakout and RSI staircase pattern, in a Stage 2 uptrend, with top-18% relative strength (RS 82), confirmed by 6 scanners over 5 days. Monthly return history: +3.5% avg over 32 months (69% consistency). Fundamentals: Biotechnology — fundamentally strong; with 35% profit margin; trading at 16.5× earnings.
+2. **APA** — APA is showing an enhanced breakout and range compression pattern, in a Stage 2 uptrend, with top-14% relative strength (RS 86), confirmed by 9 scanners over 5 days. Fundamentals: Energy — fundamentally strong; revenue declining 12% YoY; with 19% profit margin; trading at 8.9× earnings.
+3. **FTNT** — FTNT is showing a pullback-to-support and ATR coil-to-expansion pattern, in a Stage 2 uptrend, with top-7% relative strength (RS 94), exhibiting a clean breakout (no recent VCB/Pullback overlap), confirmed by 6 scanners over 5 days. Monthly return history: +3.9% avg over 32 months (62% consistency). Fundamentals: Technology — fundamentally strong; growing revenue at 19% YoY; with 28% profit margin; richly valued at 59.6× earnings.
 
 ---
 
