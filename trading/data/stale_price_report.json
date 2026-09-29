@@ -1,45 +1,17 @@
 {
-  "timestamp": "2026-09-25 07:00:03",
+  "timestamp": "2026-09-28 07:00:02",
   "summary": {
-    "total_flagged": 1,
+    "total_flagged": 0,
     "high_risk": 0,
-    "medium_risk": 1,
+    "medium_risk": 0,
     "low_risk": 0,
-    "penny_stocks": 1,
+    "penny_stocks": 0,
     "stale_prices": 0,
     "no_data": 0,
-    "tracking_pending": 0,
+    "tracking_pending": 1,
     "penny_stock_threshold": 1.0,
     "failures_required": 5
   },
-  "securities": [
-    {
-      "symbol": "NMRA",
-      "price": 0.7031,
-      "consecutive_days": 0,
-      "avg_volume": 2238886.4,
-      "zero_volume_days": 0,
-      "risk_level": "MEDIUM",
-      "reasons": [
-        "Penny stock ($0.70 < $1.00)"
-      ],
-      "is_penny_stock": true,
-      "is_stale_price": false,
-      "is_no_data": false,
-      "last_date": "2026-09-24",
-      "analysis_date": "2026-09-25 07:00",
-      "consecutive_failures": 9,
-      "first_flagged": "2026-06-16"
-    }
-  ],
-  "recommendations": [
-    {
-      "action": "PENNY_STOCK_REVIEW",
-      "description": "Review 1 securities under $1.00",
-      "symbols": [
-        "NMRA"
-      ],
-      "priority": "MEDIUM"
-    }
-  ]
+  "securities": [],
+  "recommendations": []
 }
