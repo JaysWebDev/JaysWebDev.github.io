@@ -1,24 +1,24 @@
 {
-  "generated": "2026-09-30T20:50:01.990304",
+  "generated": "2026-10-01T20:50:01.181115",
   "strategy": "Claude Haiku picks + risk overlay (ATR trailing stop, signal exit, no time stop)",
   "start_date": "2026-08-25",
   "starting_capital": 5000.0,
-  "total_value": 4610.35,
+  "total_value": 4603.77,
   "cash": 0.0,
-  "pnl_pct": -7.79,
+  "pnl_pct": -7.92,
   "open_count": 10,
-  "closed_count": 40,
-  "win_rate": 2.5,
-  "avg_trade_pnl": -2.75,
+  "closed_count": 41,
+  "win_rate": 2.4,
+  "avg_trade_pnl": -2.73,
   "positions": [
     {
       "shares": 13.3761,
       "symbol": "SMCI",
       "entry_date": "2026-09-10",
       "entry_price": 37.38,
-      "current_price": 41.02,
-      "pnl_pct": 9.74,
-      "days_held": 13,
+      "current_price": 41.07,
+      "pnl_pct": 9.87,
+      "days_held": 14,
       "stop_price": 36.83,
       "trail_pct": 14.9,
       "high_water": 43.26,
@@ -30,9 +30,9 @@
       "symbol": "PLTR",
       "entry_date": "2026-09-16",
       "entry_price": 174.34,
-      "current_price": 186.97,
-      "pnl_pct": 7.24,
-      "days_held": 9,
+      "current_price": 187.05,
+      "pnl_pct": 7.29,
+      "days_held": 10,
       "stop_price": 172.48,
       "trail_pct": 10.4,
       "high_water": 192.59,
@@ -44,9 +44,9 @@
       "symbol": "DOCU",
       "entry_date": "2026-08-28",
       "entry_price": 64.0,
-      "current_price": 66.98,
-      "pnl_pct": 4.66,
-      "days_held": 20,
+      "current_price": 67.15,
+      "pnl_pct": 4.92,
+      "days_held": 21,
       "stop_price": 64.28,
       "trail_pct": 10.5,
       "high_water": 71.85,
@@ -54,13 +54,27 @@
       "scanners": "setup_pullback,confluence,atr_momentum,institutional,momentum_rebound"
     },
     {
+      "shares": 1.7216,
+      "symbol": "NTAP",
+      "entry_date": "2026-09-25",
+      "entry_price": 201.145,
+      "current_price": 210.08,
+      "pnl_pct": 4.44,
+      "days_held": 3,
+      "stop_price": 190.02,
+      "trail_pct": 9.6,
+      "high_water": 210.08,
+      "rank": 2,
+      "scanners": "setup_accum,rsi_staircase,atr_momentum,setup_vcb,database_enhanced,confluence"
+    },
+    {
       "shares": 2.9894,
       "symbol": "A",
       "entry_date": "2026-09-22",
       "entry_price": 167.26,
-      "current_price": 175.03,
-      "pnl_pct": 4.65,
-      "days_held": 5,
+      "current_price": 172.31,
+      "pnl_pct": 3.02,
+      "days_held": 6,
       "stop_price": 163.56,
       "trail_pct": 6.7,
       "high_water": 175.21,
@@ -68,27 +82,27 @@
       "scanners": "atr_momentum,rsi_staircase,confluence,v3_compression,institutional"
     },
     {
-      "shares": 1.7216,
-      "symbol": "NTAP",
-      "entry_date": "2026-09-25",
-      "entry_price": 201.145,
-      "current_price": 209.18,
-      "pnl_pct": 3.99,
-      "days_held": 2,
-      "stop_price": 189.2,
-      "trail_pct": 9.6,
-      "high_water": 209.18,
+      "shares": 2.8693,
+      "symbol": "FTNT",
+      "entry_date": "2026-09-22",
+      "entry_price": 174.26,
+      "current_price": 178.76,
+      "pnl_pct": 2.58,
+      "days_held": 6,
+      "stop_price": 161.04,
+      "trail_pct": 9.9,
+      "high_water": 178.76,
       "rank": 2,
-      "scanners": "setup_accum,rsi_staircase,atr_momentum,setup_vcb,database_enhanced,confluence"
+      "scanners": "atr_momentum,confluence,institutional,v3_compression,database_enhanced"
     },
     {
       "shares": 1.055,
       "symbol": "TSM",
       "entry_date": "2026-09-23",
       "entry_price": 446.57,
-      "current_price": 456.94,
-      "pnl_pct": 2.32,
-      "days_held": 4,
+      "current_price": 456.19,
+      "pnl_pct": 2.15,
+      "days_held": 5,
       "stop_price": 430.07,
       "trail_pct": 5.9,
       "high_water": 456.94,
@@ -96,27 +110,13 @@
       "scanners": "setup_vcb,setup_accum,confluence,rsi_staircase,atr_momentum,database_enhanced"
     },
     {
-      "shares": 2.8693,
-      "symbol": "FTNT",
-      "entry_date": "2026-09-22",
-      "entry_price": 174.26,
-      "current_price": 175.96,
-      "pnl_pct": 0.98,
-      "days_held": 5,
-      "stop_price": 161.03,
-      "trail_pct": 9.9,
-      "high_water": 178.74,
-      "rank": 2,
-      "scanners": "atr_momentum,confluence,institutional,v3_compression,database_enhanced"
-    },
-    {
       "shares": 6.9128,
       "symbol": "TECH",
       "entry_date": "2026-09-16",
       "entry_price": 72.33,
-      "current_price": 72.38,
-      "pnl_pct": 0.07,
-      "days_held": 9,
+      "current_price": 72.47,
+      "pnl_pct": 0.19,
+      "days_held": 10,
       "stop_price": 68.98,
       "trail_pct": 5.0,
       "high_water": 72.61,
@@ -124,32 +124,32 @@
       "scanners": "setup_pullback,setup_accum,confluence,momentum_rebound,atr_momentum,setup_vcb,database_enhanced,unified,rsi_staircase"
     },
     {
+      "shares": 2.15,
+      "symbol": "NVDA",
+      "entry_date": "2026-09-30",
+      "entry_price": 228.38,
+      "current_price": 228.38,
+      "pnl_pct": 0.0,
+      "days_held": 0,
+      "stop_price": 210.11,
+      "trail_pct": 5.8,
+      "high_water": 228.38,
+      "rank": 2,
+      "scanners": "setup_accum,confluence,database_enhanced,rsi_staircase,institutional,unified"
+    },
+    {
       "shares": 8.3324,
       "symbol": "EXEL",
       "entry_date": "2026-09-29",
       "entry_price": 58.65,
-      "current_price": 58.65,
-      "pnl_pct": 0.0,
-      "days_held": 0,
-      "stop_price": 53.96,
+      "current_price": 58.41,
+      "pnl_pct": -0.41,
+      "days_held": 1,
+      "stop_price": 54.56,
       "trail_pct": 7.0,
       "high_water": 58.65,
       "rank": 2,
       "scanners": "setup_vcb,setup_accum,confluence,momentum_rebound,atr_momentum,database_enhanced,v3_compression,unified,rsi_staircase"
-    },
-    {
-      "shares": 11.8203,
-      "symbol": "APA",
-      "entry_date": "2026-09-22",
-      "entry_price": 42.3,
-      "current_price": 42.19,
-      "pnl_pct": -0.26,
-      "days_held": 5,
-      "stop_price": 39.63,
-      "trail_pct": 9.3,
-      "high_water": 43.7,
-      "rank": 5,
-      "scanners": "under50,atr_momentum,confluence,v3_compression,rsi_staircase,database_enhanced"
     }
   ],
   "closed_trades": [
@@ -792,6 +792,22 @@
       "peak_pct": 1.2,
       "rank": 5,
       "scanners": "confluence,atr_momentum,institutional,rsi_staircase,database_enhanced"
+    },
+    {
+      "symbol": "APA",
+      "entry_date": "2026-09-22",
+      "exit_date": "2026-09-30",
+      "entry_price": 42.3,
+      "exit_price": 41.54,
+      "shares": 11.8203,
+      "allocation": 500.0,
+      "pnl_pct": -1.8,
+      "pnl_dollars": -8.98,
+      "days_held": 5,
+      "exit_reason": "SIGNAL GONE",
+      "peak_pct": 3.31,
+      "rank": 5,
+      "scanners": "under50,atr_momentum,confluence,v3_compression,rsi_staircase,database_enhanced"
     }
   ],
   "equity_curve": [
@@ -890,6 +906,10 @@
     {
       "date": "2026-09-29",
       "value": 4610.35
+    },
+    {
+      "date": "2026-09-30",
+      "value": 4603.77
     }
   ],
   "spy_curve": [
@@ -992,6 +1012,10 @@
     {
       "date": "2026-09-29",
       "value": 4988.84
+    },
+    {
+      "date": "2026-09-30",
+      "value": 4978.59
     }
   ]
 }
