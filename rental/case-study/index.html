@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Intelligence — Case Study | Jeff Kirk Jr.</title>
+    <meta name="description" content="How I built a statewide multifamily acquisition engine: 305,476 Massachusetts buildings in one spatial database, a 0–100 deal score benchmarked to HUD rents, and an ownership graph of 30,251 landlords. Problem, architecture, key decisions, and outcomes.">
+    <meta name="author" content="Jeff Kirk Jr.">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://jays.website/rental/case-study/">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jays.website/rental/case-study/">
+    <meta property="og:title" content="Rental Intelligence — Case Study | Jeff Kirk Jr.">
+    <meta property="og:description" content="A statewide multifamily acquisition engine: 305,476 buildings, a 0–100 deal score benchmarked to HUD rents, and an ownership graph — the full engineering story.">
+    <meta property="og:site_name" content="jays.website">
+    <meta property="og:image" content="https://jays.website/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rental Intelligence — Case Study | Jeff Kirk Jr.">
+    <meta name="twitter:description" content="A statewide multifamily acquisition engine: 305,476 buildings scored 0–100 against HUD rents, with an ownership graph.">
+    <meta name="twitter:image" content="https://jays.website/og-image.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="stylesheet" href="/assets/case-study.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Rental Intelligence — Case Study",
+      "author": { "@type": "Person", "name": "Jeffrey Kirk Jr.", "url": "https://jays.website" },
+      "about": "Statewide multifamily acquisition-research engine",
+      "url": "https://jays.website/rental/case-study/"
+    }
+    </script>
+</head>
+<body class="cs" style="--cs-accent:#d8a13a;">
+<a href="#cs-main" class="cs-skip">Skip to content</a>
+<div class="container">
+
+<!-- Shared top navigation -->
+<nav class="site-nav" aria-label="Primary navigation">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" tabindex="-1">
+  <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+  <a href="/">Home</a>
+  <div class="nav-group">
+    <span class="nav-group-label" tabindex="0" role="button" aria-haspopup="true">Projects
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </span>
+    <div class="nav-group-menu">
+      <a href="/trading/">Trading Intelligence</a>
+      <a href="/rental/">Rental Intelligence</a>
+      <a href="/business/">Business Intelligence</a>
+      <a href="/tools/">Dev Tools</a>
+      <a href="/appdevelopment/">Apps</a>
+      <a href="/architecture/">Architecture</a>
+    </div>
+  </div>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/resume/" class="nav-resume">Resume →</a>
+  <label for="nav-toggle" class="nav-burger" aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg></label>
+</nav>
+
+<main id="cs-main">
+  <header class="cs-head">
+    <div class="cs-crumb">// <a href="/">jays.website</a> / <a href="/rental/">rental</a> / case study</div>
+    <h1>Rental Intelligence <span class="accent">— a state as a shortlist</span></h1>
+    <p class="cs-lede">
+      Every multifamily building in Massachusetts assembled into one spatial database, scored 0–100 against real
+      HUD rent benchmarks, and connected to an ownership graph of thirty thousand landlords. Not a listings site —
+      a decision engine that turns a state's worth of parcels into a ranked set of acquisition targets.
+    </p>
+    <div class="cs-chips" aria-label="Headline metrics">
+      <span class="cs-chip"><b>305,476</b> buildings</span>
+      <span class="cs-chip"><b>$290B</b> assessed value</span>
+      <span class="cs-chip"><b>14</b> counties</span>
+      <span class="cs-chip"><b>30,251</b> owners mapped</span>
+    </div>
+  </header>
+
+  <!-- PROBLEM -->
+  <section class="cs-section">
+    <div class="cs-label">The problem</div>
+    <h2>The targets are public — and impossible to see</h2>
+    <p>
+      Everything you need to find a good multifamily acquisition is technically public: parcel geometry, assessed values,
+      unit counts, owner names, market rents. It's just scattered across town assessor databases, a statewide GIS layer,
+      and federal rent tables that no one thinks to join together. So the work becomes manual cross-referencing, one town at a time —
+      slow, inconsistent, and blind to the owner-level patterns that actually signal a deal.
+    </p>
+    <p>
+      I wanted to collapse that into a single question: <b>across the entire state, which buildings are the best
+      opportunities right now, and who owns them?</b>
+    </p>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="cs-section">
+    <div class="cs-label">Approach</div>
+    <h2>One spatial database, one deal score, one ownership graph</h2>
+    <p>
+      Join the authoritative sources into a single spatial schema, score every building on the same 0–100 scale, and resolve
+      hundreds of thousands of parcel records down to the actual people and entities that own them. The score blends
+      estimated yield against the HUD benchmark with distress and ownership signals — and, critically, a
+      <b>data-confidence component</b> so a building with thin assessor data can't masquerade as a strong signal. The engine
+      produces a shortlist, not a verdict; the final call stays human.
+    </p>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="cs-section">
+    <div class="cs-label">Architecture</div>
+    <h2>From 305,476 parcels to a ranked map</h2>
+    <p>A heavy database does the thinking at home; the public site is just the static export of its conclusions:</p>
+    <figure class="cs-diagram">
+      <svg viewBox="0 0 960 440" role="img" aria-labelledby="diag-title diag-desc" font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+        <title id="diag-title">Rental intelligence pipeline architecture</title>
+        <desc id="diag-desc">Four tiers. Ingest: MassGIS statewide parcels, town assessor records, and HUD Fair Market Rents feed a PostgreSQL/PostGIS spatial database. Compute: a 0–100 composite deal score and an owner-name-resolution graph read the database. Deliver: results become county opportunity rankings, an interactive statewide map, and a daily static JSON export committed to git.</desc>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#5c657a"/>
+          </marker>
+        </defs>
+        <text x="12" y="18" fill="#5c657a" font-size="11" letter-spacing="2">INGEST</text>
+        <text x="12" y="138" fill="#5c657a" font-size="11" letter-spacing="2">STORE</text>
+        <text x="12" y="238" fill="#5c657a" font-size="11" letter-spacing="2">COMPUTE</text>
+        <text x="12" y="358" fill="#5c657a" font-size="11" letter-spacing="2">DELIVER</text>
+
+        <!-- Tier 1 -->
+        <rect x="120" y="26" width="200" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="220" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">MassGIS parcels</text>
+        <text x="220" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">statewide geometry</text>
+        <rect x="380" y="26" width="200" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="480" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">Assessor records</text>
+        <text x="480" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">units · value · year</text>
+        <rect x="640" y="26" width="200" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="740" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">HUD Fair Market</text>
+        <text x="740" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">rent benchmarks</text>
+        <line x1="220" y1="82" x2="420" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="480" y1="82" x2="480" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="740" y1="82" x2="540" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 2 -->
+        <rect x="300" y="112" width="360" height="52" rx="9" fill="#2a2213" stroke="#d8a13a"/>
+        <text x="480" y="143" fill="#fff" font-size="14" text-anchor="middle">PostgreSQL + PostGIS — one spatial schema</text>
+        <line x1="480" y1="164" x2="480" y2="196" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 3 -->
+        <rect x="190" y="198" width="230" height="60" rx="9" fill="#141b2b" stroke="#d8a13a"/>
+        <text x="305" y="222" fill="#e6e9f0" font-size="13" text-anchor="middle">composite 0–100</text>
+        <text x="305" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">deal score</text>
+        <rect x="540" y="198" width="230" height="60" rx="9" fill="#141b2b" stroke="#00e5a0"/>
+        <text x="655" y="222" fill="#e6e9f0" font-size="13" text-anchor="middle">ownership graph</text>
+        <text x="655" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">name resolution</text>
+        <line x1="420" y1="228" x2="540" y2="228" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="420" y1="164" x2="320" y2="196" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- bus to delivery -->
+        <line x1="480" y1="258" x2="480" y2="285" stroke="#5c657a"/>
+        <line x1="210" y1="285" x2="750" y2="285" stroke="#5c657a"/>
+        <line x1="210" y1="285" x2="210" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="480" y1="285" x2="480" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="750" y1="285" x2="750" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 4 -->
+        <rect x="120" y="302" width="180" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="210" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">County rankings</text>
+        <text x="210" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">top opportunities</text>
+        <rect x="390" y="302" width="180" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="480" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Interactive map</text>
+        <text x="480" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">statewide, street-level</text>
+        <rect x="660" y="302" width="180" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="750" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Static JSON export</text>
+        <text x="750" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">daily auto-commit</text>
+      </svg>
+      <figcaption>Heavy DB at home → static export at the edge. A daily refresh re-scores and auto-commits the data.</figcaption>
+    </figure>
+    <p style="margin-top:1.2rem;">
+      The subsystem-level tour — data hygiene, the scoring components, the ownership resolution — is on the
+      <a href="/architecture/rental/">rental architecture deep-dive</a>.
+    </p>
+  </section>
+
+  <!-- KEY DECISIONS -->
+  <section class="cs-section">
+    <div class="cs-label">Key technical decisions</div>
+    <h2>What I chose, and what it cost</h2>
+    <div class="cs-grid">
+      <div class="cs-decision">
+        <h3>Heavy database, light site</h3>
+        <p>PostgreSQL/PostGIS does every spatial join and rollup; the public site reads only a pre-exported static dataset. The database never sits in the request path.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Rankings are as fresh as the last daily export, not live — accepted in exchange for a site that's fast, cheap, and can't be knocked over by traffic.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Confidence is part of the score</h3>
+        <p>Each building's 0–100 score carries a data-quality component, so a sparse assessor record can't produce a confident ranking.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Some genuinely good buildings with thin data rank lower than they deserve — a deliberate bias toward not crying wolf.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Two-layer ranking</h3>
+        <p>The engine separates "good building" from "good opportunity right now," so quality and timing don't get blended into one muddy number.</p>
+        <span class="tradeoff"><b>Tradeoff</b> More scoring logic to maintain, but the shortlist answers the question an investor actually asks.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Resolve owners, not parcels</h3>
+        <p>Owner-name resolution collapses parcel records into distinct owners, surfacing portfolio holders and absentee landlords — because who owns a building is itself a signal.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Name resolution is fuzzy and imperfect; it's treated as a strong hint, never ground truth.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Shortlist, not verdict</h3>
+        <p>The system ranks; a human decides. A review-labeling loop feeds real accept/reject calls back toward the weights.</p>
+        <span class="tradeoff"><b>Tradeoff</b> It won't make the decision for you — by design, because the cost of a wrong acquisition dwarfs the convenience.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Enforce schema keys everywhere</h3>
+        <p>Early mismatched keys silently broke joins across services. Keys are now enforced consistently — a hard lesson in how quietly a spatial join can rot.</p>
+        <span class="tradeoff"><b>Tradeoff</b> More rigid contracts between services, which is exactly the point.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="cs-section">
+    <div class="cs-label">Outcomes</div>
+    <h2>A whole state, queryable in seconds</h2>
+    <div class="cs-metrics">
+      <div class="cs-metric"><div class="m-num">305,476</div><div class="m-lbl">buildings in the database</div><div class="m-src">src: investment_summary.json</div></div>
+      <div class="cs-metric"><div class="m-num">$289.7B</div><div class="m-lbl">aggregate assessed value</div><div class="m-src">src: investment_summary.json</div></div>
+      <div class="cs-metric"><div class="m-num">30,251</div><div class="m-lbl">owners resolved</div><div class="m-src">src: ownership graph</div></div>
+      <div class="cs-metric"><div class="m-num">14</div><div class="m-lbl">counties covered</div><div class="m-src">src: county_breakdown</div></div>
+    </div>
+    <ul class="cs-list" style="margin-top:1.4rem;">
+      <li><b>Statewide, in one place.</b> Every MA county — from Middlesex (59,521 buildings) to Nantucket — scored on the same scale and queryable from one map.</li>
+      <li><b>14,982 live opportunities.</b> Buildings currently surfaced with an active opportunity score, re-ranked on every daily refresh.</li>
+      <li><b>Owner-level intelligence.</b> Portfolio holders and absentee landlords are flagged, turning a parcel list into a set of people to actually call.</li>
+      <li><b>Self-updating.</b> A scheduled daily refresh re-scores the dataset and commits the export — every day's rankings are reproducible from git.</li>
+    </ul>
+    <div class="cs-panel" style="margin-top:1.3rem;">
+      <p style="margin:0; color:var(--cs-muted); font-size:0.9rem;">
+        <b style="color:var(--cs-gold);">Honest note on counts:</b> earlier pages cited 339,856 buildings and "177k scored." The live pipeline export now
+        reports 305,476 buildings and 14,982 carrying an active opportunity score — so I've switched to those and flagged the
+        difference. The gap looks definitional (all buildings stored vs. those passing the opportunity threshold); it's worth pinning down.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHAT'S NEXT -->
+  <section class="cs-section">
+    <div class="cs-label">What I'd do next</div>
+    <h2>The honest backlog</h2>
+    <ul class="cs-list">
+      <li><b>Nail down the "scored" definition.</b> The 305k-stored vs 15k-scored gap should be one documented number with a clear threshold — ambiguity in a headline metric is a credibility leak.</li>
+      <li><b>Close the feedback loop.</b> The accept/reject review labels exist; wiring them back into the scoring weights as a real learning signal is the next lever.</li>
+      <li><b>Rent estimation where listings are thin.</b> HUD FMR is a floor, not a market rent; a per-building rent model would sharpen yield estimates in hot submarkets.</li>
+      <li><b>Ship the Pro tier.</b> Alerts, CSV export, and a cap-rate calculator are scoped — the natural first paid surface on top of a free explorer.</li>
+    </ul>
+  </section>
+
+  <div class="cs-cta">
+    <p>Explore the rankings live, or read the deeper engineering tour.</p>
+    <div class="cs-cta-btns">
+      <a href="/rental/" class="cs-btn primary">Live rental engine →</a>
+      <a href="/architecture/rental/" class="cs-btn secondary">Architecture deep-dive →</a>
+      <a href="/" class="cs-btn secondary">← All projects</a>
+    </div>
+  </div>
+</main>
+
+<!-- Shared site footer -->
+<footer class="site-footer">
+  <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
+  <p>
+    <a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a>
+    <a href="/contact/">Contact</a>
+    <a href="/privacy/">Privacy</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

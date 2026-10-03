@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelligence — Case Study | Jeff Kirk Jr.</title>
+    <meta name="description" content="How I built a spatial market-gap engine: 334,638 Massachusetts businesses from OpenStreetMap, rolled into 885 ZIP zones, analyzed for which services are systematically missing — then productized into live niche directories. Problem, architecture, decisions, outcomes.">
+    <meta name="author" content="Jeff Kirk Jr.">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://jays.website/business/case-study/">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jays.website/business/case-study/">
+    <meta property="og:title" content="Business Intelligence — Case Study | Jeff Kirk Jr.">
+    <meta property="og:description" content="A spatial market-gap engine over 334,638 MA businesses that finds what's systematically missing — then productizes the answer into live directories.">
+    <meta property="og:site_name" content="jays.website">
+    <meta property="og:image" content="https://jays.website/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Business Intelligence — Case Study | Jeff Kirk Jr.">
+    <meta name="twitter:description" content="A spatial market-gap engine over 334,638 MA businesses that finds what's systematically missing — then productizes it.">
+    <meta name="twitter:image" content="https://jays.website/og-image.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="stylesheet" href="/assets/case-study.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Business Intelligence — Case Study",
+      "author": { "@type": "Person", "name": "Jeffrey Kirk Jr.", "url": "https://jays.website" },
+      "about": "Spatial market-gap analysis engine and directory-factory pattern",
+      "url": "https://jays.website/business/case-study/"
+    }
+    </script>
+</head>
+<body class="cs" style="--cs-accent:#2dce7d;">
+<a href="#cs-main" class="cs-skip">Skip to content</a>
+<div class="container">
+
+<!-- Shared top navigation -->
+<nav class="site-nav" aria-label="Primary navigation">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" tabindex="-1">
+  <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+  <a href="/">Home</a>
+  <div class="nav-group">
+    <span class="nav-group-label" tabindex="0" role="button" aria-haspopup="true">Projects
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </span>
+    <div class="nav-group-menu">
+      <a href="/trading/">Trading Intelligence</a>
+      <a href="/rental/">Rental Intelligence</a>
+      <a href="/business/">Business Intelligence</a>
+      <a href="/tools/">Dev Tools</a>
+      <a href="/appdevelopment/">Apps</a>
+      <a href="/architecture/">Architecture</a>
+    </div>
+  </div>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/resume/" class="nav-resume">Resume →</a>
+  <label for="nav-toggle" class="nav-burger" aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg></label>
+</nav>
+
+<main id="cs-main">
+  <header class="cs-head">
+    <div class="cs-crumb">// <a href="/">jays.website</a> / <a href="/business/">business</a> / case study</div>
+    <h1>Business Intelligence <span class="accent">— finding what isn't there</span></h1>
+    <p class="cs-lede">
+      Hundreds of thousands of Massachusetts businesses pulled from OpenStreetMap, rolled into comparable zones, and analyzed
+      not for what's present but for what's <i>systematically missing</i> — the underserved markets. Then the proof that the
+      analysis is actionable: the same pipeline productized into live niche directories.
+    </p>
+    <div class="cs-chips" aria-label="Headline metrics">
+      <span class="cs-chip"><b>334,638</b> businesses</span>
+      <span class="cs-chip"><b>885</b> ZIP zones</span>
+      <span class="cs-chip"><b>28</b> counties</span>
+      <span class="cs-chip"><b>OSM</b>-sourced</span>
+    </div>
+  </header>
+
+  <!-- PROBLEM -->
+  <section class="cs-section">
+    <div class="cs-label">The problem</div>
+    <h2>Opportunity is an absence, and absences are hard to see</h2>
+    <p>
+      It's easy to count the businesses in a town. It's much harder to answer the question that actually matters to someone
+      deciding where to open: <b>what's missing here that thrives in comparable places?</b> That's not a number you can look
+      up — it only exists by comparing a place against its peers, across many sectors at once. Do it by eye and you'll miss it;
+      do it manually across a whole state and you'll never finish.
+    </p>
+    <p>
+      I wanted a system that treats a <i>gap</i> as a first-class signal — ranking the places where a given service is
+      conspicuously under-represented relative to similar places.
+    </p>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="cs-section">
+    <div class="cs-label">Approach</div>
+    <h2>Measure every zone against its peers</h2>
+    <p>
+      Pull the full business map, roll it up into comparable zones, and establish what "normal" density and diversity look
+      like for a zone of a given size and type. Then compare each zone against that peer baseline to surface the sectors it's
+      <b>missing</b>, and rank zones by a curiosity score — how systematically under-served they are. The last step is the one
+      that proves it's real: feed the winning markets into a <b>directory factory</b> that spins the analysis into a live product.
+    </p>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="cs-section">
+    <div class="cs-label">Architecture</div>
+    <h2>From map data to market gaps to a product</h2>
+    <p>The analysis answers "where are services missing?"; the directory factory turns that answer into revenue:</p>
+    <figure class="cs-diagram">
+      <svg viewBox="0 0 960 440" role="img" aria-labelledby="diag-title diag-desc" font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+        <title id="diag-title">Business intelligence pipeline architecture</title>
+        <desc id="diag-desc">Four tiers. Ingest: OpenStreetMap business points of interest and ZIP/town/county zone definitions feed a PostgreSQL database that geocodes and rolls records up by zone. Compute: per-zone density and diversity metrics, peer-relative sector-gap analysis, and curiosity scoring run in sequence. Deliver: a zone explorer, an interactive spatial map, and a directory factory that productizes selected markets into live niche directories.</desc>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#5c657a"/>
+          </marker>
+        </defs>
+        <text x="12" y="18" fill="#5c657a" font-size="11" letter-spacing="2">INGEST</text>
+        <text x="12" y="138" fill="#5c657a" font-size="11" letter-spacing="2">STORE</text>
+        <text x="12" y="238" fill="#5c657a" font-size="11" letter-spacing="2">COMPUTE</text>
+        <text x="12" y="358" fill="#5c657a" font-size="11" letter-spacing="2">DELIVER</text>
+
+        <!-- Tier 1 -->
+        <rect x="200" y="26" width="220" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="310" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">OpenStreetMap</text>
+        <text x="310" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">MA business POIs</text>
+        <rect x="540" y="26" width="220" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="650" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">Zone definitions</text>
+        <text x="650" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">ZIP · town · county</text>
+        <line x1="340" y1="82" x2="440" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="620" y1="82" x2="520" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 2 -->
+        <rect x="300" y="112" width="360" height="52" rx="9" fill="#13241c" stroke="#2dce7d"/>
+        <text x="480" y="143" fill="#fff" font-size="14" text-anchor="middle">PostgreSQL — geocode + zone rollup</text>
+        <line x1="480" y1="164" x2="480" y2="196" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 3 -->
+        <rect x="70" y="198" width="210" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="175" y="222" fill="#e6e9f0" font-size="12.5" text-anchor="middle">density + diversity</text>
+        <text x="175" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">per-zone baseline</text>
+        <rect x="375" y="198" width="210" height="60" rx="9" fill="#141b2b" stroke="#ffb800"/>
+        <text x="480" y="222" fill="#e6e9f0" font-size="12.5" text-anchor="middle">sector-gap analysis</text>
+        <text x="480" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">vs. peer zones</text>
+        <rect x="680" y="198" width="210" height="60" rx="9" fill="#141b2b" stroke="#2dce7d"/>
+        <text x="785" y="222" fill="#e6e9f0" font-size="12.5" text-anchor="middle">curiosity scoring</text>
+        <text x="785" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">rank the absences</text>
+        <line x1="280" y1="228" x2="375" y2="228" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="585" y1="228" x2="680" y2="228" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="420" y1="164" x2="200" y2="196" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- bus to delivery -->
+        <line x1="785" y1="258" x2="785" y2="285" stroke="#5c657a"/>
+        <line x1="210" y1="285" x2="785" y2="285" stroke="#5c657a"/>
+        <line x1="210" y1="285" x2="210" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="480" y1="285" x2="480" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="750" y1="285" x2="750" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 4 -->
+        <rect x="120" y="302" width="180" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="210" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Zone explorer</text>
+        <text x="210" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">sector drill-down</text>
+        <rect x="390" y="302" width="180" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="480" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Interactive map</text>
+        <text x="480" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">full dataset</text>
+        <rect x="660" y="302" width="180" height="60" rx="9" fill="#141b2b" stroke="#2dce7d"/>
+        <text x="750" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Directory factory</text>
+        <text x="750" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">→ live products</text>
+      </svg>
+      <figcaption>The intelligence layer picks the market; the directory factory ships the product — the same loop, per vertical.</figcaption>
+    </figure>
+    <p style="margin-top:1.2rem;">
+      The full subsystem tour — the density/diversity metrics, the curiosity score, the factory config pattern — is on the
+      <a href="/architecture/business/">business architecture deep-dive</a>.
+    </p>
+  </section>
+
+  <!-- KEY DECISIONS -->
+  <section class="cs-section">
+    <div class="cs-label">Key technical decisions</div>
+    <h2>What I chose, and what it cost</h2>
+    <div class="cs-grid">
+      <div class="cs-decision">
+        <h3>Gaps are peer-relative, not absolute</h3>
+        <p>A zone's missing sectors are measured against comparable zones of similar size and type — not against a flat statewide average that would flag every rural town as "missing everything."</p>
+        <span class="tradeoff"><b>Tradeoff</b> Choosing the peer set is a modeling decision that shapes every result, so it has to be defensible, not convenient.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Filter bad geocodes at the door</h3>
+        <p>Coordinate-bounds filtering rejects mis-geocoded records before they reach the map or the stats — a real bug class this pipeline hit and fixed.</p>
+        <span class="tradeoff"><b>Tradeoff</b> A few legitimate edge-of-state records get dropped; cleaner aggregates are worth it.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>A directory factory, not a directory</h3>
+        <p>Every vertical-specific detail — brand, copy, services, FAQs — lives in a single config file. Launching a new vertical is: clone template, edit one config, point at a fresh database.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Up-front abstraction cost, repaid the second (and every subsequent) directory.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Isolated database per vertical</h3>
+        <p>Each directory gets its own database, so one vertical's data problem can never take down another.</p>
+        <span class="tradeoff"><b>Tradeoff</b> More databases to operate, in exchange for blast-radius isolation.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Analysis targets the product</h3>
+        <p>The curiosity ranking isn't an academic output — it's the targeting system for which vertical and which cities the factory builds next.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Ties research priorities to commercial ones; the upside is that the analysis has to earn its keep.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Static-fast delivery</h3>
+        <p>Directory sites and the explorer are static and cheap to run, matching the economics of the rest of the suite.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Content freshness is batch, not live — fine for directory data that changes slowly.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="cs-section">
+    <div class="cs-label">Outcomes</div>
+    <h2>From a statewide map to a shipped product</h2>
+    <div class="cs-metrics">
+      <div class="cs-metric"><div class="m-num">334,638</div><div class="m-lbl">businesses mapped</div><div class="m-src">src: summary.json</div></div>
+      <div class="cs-metric"><div class="m-num">885</div><div class="m-lbl">ZIP-level zones</div><div class="m-src">src: spatial_summary.json</div></div>
+      <div class="cs-metric"><div class="m-num">10</div><div class="m-lbl">sectors classified</div><div class="m-src">src: summary.json</div></div>
+      <div class="cs-metric"><div class="m-num">28</div><div class="m-lbl">counties</div><div class="m-src">src: spatial_summary.json</div></div>
+    </div>
+    <ul class="cs-list" style="margin-top:1.4rem;">
+      <li><b>Every business, classified.</b> 334,638 places (333,486 in MA) sorted into ten sectors — Professional (51,905), Food &amp; Drink (47,370), Retail (38,335), Healthcare (32,674), and more.</li>
+      <li><b>Three zoom levels.</b> Rolled up to 885 ZIP zones, 1,028 towns, and 28 counties, so a gap can be read at whatever altitude the decision needs.</li>
+      <li><b>Gaps ranked, not just shown.</b> Each zone carries a curiosity score and its top missing industries — a ranked answer to "where would a new service face the least competition?"</li>
+      <li><b>Proven in market.</b> The pipeline's playbook shipped as the Powerwash Directory — a live niche directory (1,445 companies across 20 city pages) built on Next.js + hosted Postgres.</li>
+    </ul>
+    <div class="cs-panel" style="margin-top:1.3rem;">
+      <p style="margin:0; color:var(--cs-muted); font-size:0.9rem;">
+        <b style="color:var(--cs-gold);">Honest note on counts:</b> the architecture deep-dive still cites an early sample (≈9,862 businesses / 274 zones).
+        The current data export covers 334,638 businesses across 885 ZIP / 1,028 town / 28 county zones — I've used those here and
+        flagged the deep-dive page for update. The Powerwash Directory counts are as reported by that project and worth re-verifying at merge.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHAT'S NEXT -->
+  <section class="cs-section">
+    <div class="cs-label">What I'd do next</div>
+    <h2>The honest backlog</h2>
+    <ul class="cs-list">
+      <li><b>Automate vertical selection.</b> The curiosity ranking should directly nominate the next directory vertical and its launch cities, instead of a human reading the map.</li>
+      <li><b>Enrich the gap signal.</b> Business presence alone is one dimension; layering demographics and spending power would separate "under-served" from "can't-support-it."</li>
+      <li><b>Refresh cadence.</b> OSM data drifts; a scheduled re-extract would keep the gaps current the way the trading and rental pipelines already self-update.</li>
+      <li><b>Reconcile the deep-dive numbers.</b> Update the architecture page off the live export so the whole site tells one consistent story.</li>
+    </ul>
+  </section>
+
+  <div class="cs-cta">
+    <p>Explore the zones live, or read the deeper engineering tour.</p>
+    <div class="cs-cta-btns">
+      <a href="/business/" class="cs-btn primary">Live business intel →</a>
+      <a href="/architecture/business/" class="cs-btn secondary">Architecture deep-dive →</a>
+      <a href="/" class="cs-btn secondary">← All projects</a>
+    </div>
+  </div>
+</main>
+
+<!-- Shared site footer -->
+<footer class="site-footer">
+  <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
+  <p>
+    <a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a>
+    <a href="/contact/">Contact</a>
+    <a href="/privacy/">Privacy</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

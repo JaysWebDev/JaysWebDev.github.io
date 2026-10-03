@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Intelligence — Case Study | Jeff Kirk Jr.</title>
+    <meta name="description" content="How I built a self-hosted trading-research platform: a ~2,350-symbol nightly pipeline, 12 versioned scanners, a market-regime gate, conviction scoring, and fully static delivery on 124 scheduled jobs. Problem, architecture, key decisions, and outcomes.">
+    <meta name="author" content="Jeff Kirk Jr.">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://jays.website/trading/case-study/">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jays.website/trading/case-study/">
+    <meta property="og:title" content="Trading Intelligence — Case Study | Jeff Kirk Jr.">
+    <meta property="og:description" content="A self-hosted trading-research platform: nightly data loads, 12 versioned scanners, a regime gate, conviction scoring, and static-first delivery — the full engineering story.">
+    <meta property="og:site_name" content="jays.website">
+    <meta property="og:image" content="https://jays.website/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Trading Intelligence — Case Study | Jeff Kirk Jr.">
+    <meta name="twitter:description" content="A self-hosted trading-research platform: nightly data loads, 12 scanners, a regime gate, conviction scoring, and static-first delivery.">
+    <meta name="twitter:image" content="https://jays.website/og-image.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="stylesheet" href="/assets/case-study.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Trading Intelligence — Case Study",
+      "author": { "@type": "Person", "name": "Jeffrey Kirk Jr.", "url": "https://jays.website" },
+      "about": "Self-hosted quantitative trading-research platform",
+      "url": "https://jays.website/trading/case-study/"
+    }
+    </script>
+</head>
+<body class="cs" style="--cs-accent:#4f7cff;">
+<a href="#cs-main" class="cs-skip">Skip to content</a>
+<div class="container">
+
+<!-- Shared top navigation -->
+<nav class="site-nav" aria-label="Primary navigation">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" tabindex="-1">
+  <a href="/" class="nav-brand">Jeff Kirk Jr</a>
+  <a href="/">Home</a>
+  <div class="nav-group">
+    <span class="nav-group-label" tabindex="0" role="button" aria-haspopup="true">Projects
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </span>
+    <div class="nav-group-menu">
+      <a href="/trading/">Trading Intelligence</a>
+      <a href="/rental/">Rental Intelligence</a>
+      <a href="/business/">Business Intelligence</a>
+      <a href="/tools/">Dev Tools</a>
+      <a href="/appdevelopment/">Apps</a>
+      <a href="/architecture/">Architecture</a>
+    </div>
+  </div>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/resume/" class="nav-resume">Resume →</a>
+  <label for="nav-toggle" class="nav-burger" aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg></label>
+</nav>
+
+<main id="cs-main">
+  <header class="cs-head">
+    <div class="cs-crumb">// <a href="/">jays.website</a> / <a href="/trading/">trading</a> / case study</div>
+    <h1>Trading Intelligence <span class="accent">— a scanner that runs itself</span></h1>
+    <p class="cs-lede">
+      A self-hosted quantitative research platform that pulls the whole US equity/ETF market into a database every night,
+      runs twelve independent scanners over it, gates the results against the market regime, and scores what survives —
+      then ships everything as static files. No server to babysit; the output is a git commit.
+    </p>
+    <div class="cs-chips" aria-label="Headline metrics">
+      <span class="cs-chip"><b>~2,350</b> symbols nightly</span>
+      <span class="cs-chip"><b>12</b> versioned scanners</span>
+      <span class="cs-chip"><b>124</b> scheduled jobs</span>
+      <span class="cs-chip"><b>~1.2M</b> daily bars stored</span>
+    </div>
+  </header>
+
+  <!-- PROBLEM -->
+  <section class="cs-section">
+    <div class="cs-label">The problem</div>
+    <h2>Consistency is impossible to do by hand</h2>
+    <p>
+      Scanning thousands of symbols every single day for a handful of high-conviction setups is exactly the kind of work
+      a human does well for a week and then stops doing. Attention drifts, the universe changes, and — worst of all —
+      there's no honest record of whether the picks were any good. I wanted a system that would do the scan the same way
+      every day, keep score on itself, and suppress its own output when the market made its signals untrustworthy.
+    </p>
+    <p>
+      The constraints were self-imposed and deliberate: run it on hardware I already own, spend nothing on hosting,
+      and make every day's opinion auditable after the fact.
+    </p>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="cs-section">
+    <div class="cs-label">Approach</div>
+    <h2>One database, many scanners, one referee</h2>
+    <p>
+      Rather than one clever model, the design is a pipeline of simple, measurable stages. A single SQLite database is the
+      one source of truth. Each scanner is an independent, <b>versioned</b> strategy that reads from it — so a scanner's
+      measured accuracy belongs to a specific version, not a blurred average across rewrites. A market-regime model acts as
+      a referee that can veto output wholesale. Conviction scoring then weighs what's left. Everything downstream is a
+      pre-built static file, which is what makes the whole thing cheap and crash-proof.
+    </p>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="cs-section">
+    <div class="cs-label">Architecture</div>
+    <h2>From nightly bars to a conviction-scored pick</h2>
+    <p>Four tiers run end to end, unattended, every market day — each stage a scheduled job with its own logging:</p>
+    <figure class="cs-diagram">
+      <svg viewBox="0 0 960 440" role="img" aria-labelledby="diag-title diag-desc" font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+        <title id="diag-title">Trading intelligence pipeline architecture</title>
+        <desc id="diag-desc">Four tiers. Ingest: Polygon.io nightly bars, SEC EDGAR filings for DCF, and 13F institutional holdings feed a central SQLite database. Compute: twelve versioned scanners read the database, their output passes through a market-regime gate, then a conviction-scoring layer. Deliver: results become static HTML and JSON on GitHub Pages, Telegram alerts, public paper portfolios, and a Claude-written top-25 plus weekly newsletter.</desc>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#5c657a"/>
+          </marker>
+        </defs>
+        <!-- tier labels -->
+        <text x="12" y="18" fill="#5c657a" font-size="11" letter-spacing="2">INGEST</text>
+        <text x="12" y="138" fill="#5c657a" font-size="11" letter-spacing="2">STORE</text>
+        <text x="12" y="238" fill="#5c657a" font-size="11" letter-spacing="2">COMPUTE</text>
+        <text x="12" y="358" fill="#5c657a" font-size="11" letter-spacing="2">DELIVER</text>
+
+        <!-- Tier 1: ingest -->
+        <g>
+          <rect x="120" y="26" width="200" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+          <text x="220" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">Polygon.io</text>
+          <text x="220" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">nightly grouped bars</text>
+
+          <rect x="380" y="26" width="200" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+          <text x="480" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">SEC EDGAR</text>
+          <text x="480" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">filings → DCF model</text>
+
+          <rect x="640" y="26" width="200" height="56" rx="9" fill="#141b2b" stroke="#2a3650"/>
+          <text x="740" y="50" fill="#e6e9f0" font-size="13" text-anchor="middle">13F holdings</text>
+          <text x="740" y="68" fill="#9aa3b7" font-size="11" text-anchor="middle">institutional flow</text>
+        </g>
+        <line x1="220" y1="82" x2="420" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="480" y1="82" x2="480" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="740" y1="82" x2="540" y2="110" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 2: store -->
+        <rect x="300" y="112" width="360" height="52" rx="9" fill="#172138" stroke="#4f7cff"/>
+        <text x="480" y="143" fill="#fff" font-size="14" text-anchor="middle">SQLite central DB — one source of truth</text>
+        <line x1="480" y1="164" x2="480" y2="196" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 3: compute -->
+        <rect x="120" y="198" width="180" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="210" y="222" fill="#e6e9f0" font-size="13" text-anchor="middle">12 versioned</text>
+        <text x="210" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">scanners</text>
+
+        <rect x="390" y="198" width="180" height="60" rx="9" fill="#141b2b" stroke="#ffb800"/>
+        <text x="480" y="222" fill="#e6e9f0" font-size="13" text-anchor="middle">regime gate</text>
+        <text x="480" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">veto in bad tapes</text>
+
+        <rect x="660" y="198" width="180" height="60" rx="9" fill="#141b2b" stroke="#00e5a0"/>
+        <text x="750" y="222" fill="#e6e9f0" font-size="13" text-anchor="middle">conviction</text>
+        <text x="750" y="240" fill="#9aa3b7" font-size="11" text-anchor="middle">scoring</text>
+
+        <line x1="300" y1="228" x2="390" y2="228" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="570" y1="228" x2="660" y2="228" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="750" y1="258" x2="750" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <!-- DB feeds scanners -->
+        <line x1="360" y1="164" x2="230" y2="196" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- conviction fans out to all delivery outputs via a distribution bus -->
+        <line x1="750" y1="258" x2="750" y2="285" stroke="#5c657a"/>
+        <line x1="204" y1="285" x2="756" y2="285" stroke="#5c657a"/>
+        <line x1="204" y1="285" x2="204" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="388" y1="285" x2="388" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="572" y1="285" x2="572" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+        <line x1="756" y1="285" x2="756" y2="300" stroke="#5c657a" marker-end="url(#arr)"/>
+
+        <!-- Tier 4: deliver -->
+        <rect x="120" y="302" width="168" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="204" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Static HTML + JSON</text>
+        <text x="204" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">→ GitHub Pages</text>
+
+        <rect x="304" y="302" width="168" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="388" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Telegram alerts</text>
+        <text x="388" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">high-conviction only</text>
+
+        <rect x="488" y="302" width="168" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="572" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Paper portfolios</text>
+        <text x="572" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">marked to market</text>
+
+        <rect x="672" y="302" width="168" height="60" rx="9" fill="#141b2b" stroke="#2a3650"/>
+        <text x="756" y="326" fill="#e6e9f0" font-size="12" text-anchor="middle">Claude top-25</text>
+        <text x="756" y="344" fill="#9aa3b7" font-size="11" text-anchor="middle">+ weekly newsletter</text>
+      </svg>
+      <figcaption>Nightly pipeline: ingest → store → compute → deliver. Every arrow is a scheduled, logged job.</figcaption>
+    </figure>
+    <p style="margin-top:1.2rem;">
+      Want the subsystem-by-subsystem tour — the data hygiene, the scanner families, how breadth feeds the regime model?
+      That lives on the <a href="/architecture/trading/">trading architecture deep-dive</a>.
+    </p>
+  </section>
+
+  <!-- KEY DECISIONS -->
+  <section class="cs-section">
+    <div class="cs-label">Key technical decisions</div>
+    <h2>What I chose, and what it cost</h2>
+    <div class="cs-grid">
+      <div class="cs-decision">
+        <h3>Static-first delivery</h3>
+        <p>No application server sits in the read path. Every output is a pre-built HTML/JSON file committed to git and served from the edge.</p>
+        <span class="tradeoff"><b>Tradeoff</b> The site can't crash and costs ~nothing, but data is end-of-day — there's no live intraday interactivity in the public view.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>A regime gate that says "no"</h3>
+        <p>A daily breadth-and-trend model classifies the tape. In hostile regimes the pipeline suppresses signal output entirely.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Fewer signals, and some real bear-market bounces get skipped — accepted, because the alternative is confidently shipping fair-weather noise.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Versioned scanners, measured honestly</h3>
+        <p>Accuracy is tracked per scanner <i>version</i>. Rewrites start a new track record instead of inheriting an old one.</p>
+        <span class="tradeoff"><b>Tradeoff</b> It takes longer to trust a new scanner, but the numbers never flatter a strategy that was quietly rewritten.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Confluence over cleverness</h3>
+        <p>A signal confirmed by several independent scanners outranks any single-scanner hit. The edge is in the stack, not one indicator.</p>
+        <span class="tradeoff"><b>Tradeoff</b> The highest-conviction list is short by design — breadth of coverage is traded for precision.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>Validate over a full cycle</h3>
+        <p>A hard-won lesson: edges measured only in a correction reversed in the following bull. Backtests now have to survive a full market cycle before they change a weight.</p>
+        <span class="tradeoff"><b>Tradeoff</b> Promising short-window results sit on the bench longer before they're allowed to influence capital.</span>
+      </div>
+      <div class="cs-decision">
+        <h3>AI ranks; math decides</h3>
+        <p>A Claude analyst writes the nightly ranked top-25 with reasoning, but the conviction score itself stays deterministic and reproducible.</p>
+        <span class="tradeoff"><b>Tradeoff</b> The narrative layer can't be blindly trusted — it's explicitly kept out of the scoring that drives paper-trade entries.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="cs-section">
+    <div class="cs-label">Outcomes</div>
+    <h2>What it actually does, every day</h2>
+    <div class="cs-metrics">
+      <div class="cs-metric"><div class="m-num">~2,350</div><div class="m-lbl">symbols pulled nightly</div><div class="m-src">src: daily_prices (DB)</div></div>
+      <div class="cs-metric"><div class="m-num">12</div><div class="m-lbl">active scanners</div><div class="m-src">src: scanners.json</div></div>
+      <div class="cs-metric"><div class="m-num">124</div><div class="m-lbl">scheduled cron jobs</div><div class="m-src">src: crontab</div></div>
+      <div class="cs-metric"><div class="m-num">~1.2M</div><div class="m-lbl">daily bars in store</div><div class="m-src">src: DB (~900&nbsp;MB)</div></div>
+    </div>
+    <ul class="cs-list" style="margin-top:1.4rem;">
+      <li><b>Runs unattended.</b> The full ingest → score → deliver cycle completes on schedule after each close with no manual step.</li>
+      <li><b>Keeps score in public.</b> Top-conviction picks enter paper portfolios automatically, carry hard stop- and time-losses, and resolve to real closed outcomes — no post-hoc cherry-picking.</li>
+      <li><b>Alerts only when it matters.</b> Telegram fires for high-conviction setups the moment scoring finishes; everything else stays on the dashboard.</li>
+      <li><b>Versioned opinions.</b> Every day's output is a git commit, so the entire history of what the system believed is reconstructable.</li>
+    </ul>
+    <div class="cs-panel" style="margin-top:1.3rem;">
+      <p style="margin:0; color:var(--cs-muted); font-size:0.9rem;">
+        <b style="color:var(--cs-gold);">Honest note on "signals tracked":</b> earlier versions of this site cited 100k–264k tracked signals.
+        The current longitudinal signal-to-outcome store is far thinner than that (hundreds of backtested records), so I've dropped the
+        big number rather than repeat one I can't reproduce from the database today. Rebuilding that store properly is the first item below.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHAT'S NEXT -->
+  <section class="cs-section">
+    <div class="cs-label">What I'd do next</div>
+    <h2>The honest backlog</h2>
+    <ul class="cs-list">
+      <li><b>Rebuild the signal-tracking store.</b> The conviction weights deserve a complete, longitudinal record of every emitted signal and its forward outcome — not the partial backtest table that exists now. This is the highest-value gap.</li>
+      <li><b>Move the authenticated dashboard off localhost.</b> The public, static views are on the edge; the gated Flask app still runs locally pending migration to a free-tier Oracle A1.Flex instance.</li>
+      <li><b>Paper → small live fills.</b> A live A/B of exit rules (tight vs. wide stops) is running; once it resolves, graduate the best-performing book to small real positions under the same discipline.</li>
+      <li><b>Broaden the universe.</b> Today it's US equities and ETFs. A parallel crypto track already runs the same logic on a separate universe — the template for adding more.</li>
+    </ul>
+  </section>
+
+  <div class="cs-cta">
+    <p>See it live, or read the deeper engineering tour.</p>
+    <div class="cs-cta-btns">
+      <a href="/trading/" class="cs-btn primary">Live dashboard →</a>
+      <a href="/architecture/trading/" class="cs-btn secondary">Architecture deep-dive →</a>
+      <a href="/" class="cs-btn secondary">← All projects</a>
+    </div>
+  </div>
+</main>
+
+<!-- Shared site footer -->
+<footer class="site-footer">
+  <p>&copy; 2026 Jeff Kirk Jr &mdash; Building intelligent tools for finance, real estate &amp; business.</p>
+  <p>
+    <a href="https://www.linkedin.com/in/jeffkirkjr/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/JaysWebDev" target="_blank" rel="noopener">GitHub</a>
+    <a href="/contact/">Contact</a>
+    <a href="/privacy/">Privacy</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
