@@ -180,9 +180,14 @@ nav.site-nav input.nav-toggle { position: absolute; opacity: 0; pointer-events: 
 .features { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: var(--sp-2) 0 var(--sp-4); }
 .feature-tag { background: var(--surface-2); color: var(--ink-soft); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: var(--fs-xs); border: 1px solid var(--line); }
 
-.project-link { display: inline-block; margin-top: auto; align-self: flex-start; background: var(--card-accent, var(--brand-1)); color: #fff; padding: 0.7rem 1.6rem; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: var(--fs-sm); transition: transform 0.2s ease, filter 0.2s ease; }
-.project-link:hover { filter: brightness(1.08); }
-.project-link:hover { transform: scale(1.04); }
+.project-link { display: inline-block; background: var(--card-accent, var(--brand-1)); color: #fff; padding: 0.7rem 1.6rem; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: var(--fs-sm); transition: transform 0.2s ease, filter 0.2s ease; }
+.project-link:hover { filter: brightness(1.08); transform: scale(1.04); }
+
+/* Row holding the primary action + a secondary "case study" link */
+.project-links { margin-top: auto; padding-top: var(--sp-3); display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; }
+.case-study-link { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--accent-strong); font-weight: 600; font-size: var(--fs-sm); text-decoration: none; }
+.case-study-link:hover { text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) { .project-link:hover { transform: none; } }
 
 /* --- Header (logo lockup) ---------------------------------------------- */
 header.site-head { text-align: center; padding: var(--sp-10) 0 var(--sp-6); color: var(--on-dark); }
