@@ -1,0 +1,185 @@
+/* ==========================================================================
+   jays.website — case-study design system
+   Shared by /trading/case-study/, /rental/case-study/, /business/case-study/.
+   Extends the dark "blueprint/terminal" language of the /architecture/ pages
+   but is fully self-contained: system fonts only (no external fetches), so
+   pages stay tracker-free and fast. Each page sets --accent via inline style.
+   ========================================================================== */
+
+:root {
+  --cs-bg:     #0a0d16;
+  --cs-panel:  #101623;
+  --cs-panel-2:#0d1220;
+  --cs-border: rgba(255,255,255,0.08);
+  --cs-border-hi: rgba(255,255,255,0.16);
+  --cs-text:   #e6e9f0;
+  --cs-muted:  #9aa3b7;
+  --cs-dim:    #5c657a;
+  --cs-accent: #4f7cff;          /* overridden per page */
+  --cs-green:  #00e5a0;
+  --cs-gold:   #ffb800;
+  --cs-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --cs-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* The shared site.css reset already runs; keep this additive. */
+body.cs {
+  font-family: var(--cs-sans);
+  background: var(--cs-bg);
+  color: var(--cs-text);
+  min-height: 100vh;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body.cs::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+body.cs .container { position: relative; z-index: 1; max-width: 1080px; }
+
+/* Nav sits on the dark bg — soften the shared nav's own panel slightly */
+body.cs nav.site-nav { background: rgba(10,13,22,0.92); }
+
+/* Accessible skip link */
+.cs-skip {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--cs-accent); color: #fff; padding: 0.6rem 1rem;
+  border-radius: 8px; z-index: 100; font-weight: 600;
+}
+.cs-skip:focus { left: 1rem; top: 1rem; }
+
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--cs-gold); outline-offset: 2px; border-radius: 4px;
+}
+
+/* --- Page head ---------------------------------------------------------- */
+.cs-head { padding: 2.5rem 0 1.5rem; }
+.cs-crumb {
+  font-family: var(--cs-mono); font-size: 0.75rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--cs-dim); margin-bottom: 0.9rem;
+}
+.cs-crumb a { color: var(--cs-dim); text-decoration: none; }
+.cs-crumb a:hover { color: var(--cs-muted); text-decoration: underline; }
+.cs-head h1 {
+  font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.08; color: #fff;
+}
+.cs-head h1 .accent { color: var(--cs-accent); }
+.cs-lede {
+  color: var(--cs-muted); max-width: 680px; margin-top: 1rem;
+  font-size: 1.08rem; line-height: 1.75;
+}
+
+/* Headline metric chips */
+.cs-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.6rem; }
+.cs-chip {
+  font-family: var(--cs-mono); font-size: 0.8rem; color: var(--cs-text);
+  background: var(--cs-panel); border: 1px solid var(--cs-border);
+  border-radius: 999px; padding: 0.4rem 0.9rem;
+}
+.cs-chip b { color: var(--cs-accent); font-weight: 600; }
+
+/* --- Section rhythm ----------------------------------------------------- */
+.cs-section { margin: 2.8rem 0; }
+.cs-label {
+  font-family: var(--cs-mono); font-size: 0.72rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cs-dim);
+  margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.7rem;
+}
+.cs-label::after { content: ''; flex: 1; height: 1px; background: var(--cs-border); }
+.cs-section h2 {
+  font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: #fff;
+  letter-spacing: -0.01em; margin-bottom: 0.8rem;
+}
+.cs-section > p { color: var(--cs-muted); max-width: 720px; margin-bottom: 1rem; }
+.cs-section p a, .cs-prose a { color: var(--cs-accent); text-decoration: none; }
+.cs-section p a:hover, .cs-prose a:hover { text-decoration: underline; }
+
+/* Panels + cards */
+.cs-panel {
+  background: var(--cs-panel); border: 1px solid var(--cs-border);
+  border-radius: 14px; padding: 1.6rem 1.8rem;
+}
+.cs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.1rem; }
+
+/* Decision cards: claim + tradeoff */
+.cs-decision {
+  background: var(--cs-panel); border: 1px solid var(--cs-border);
+  border-left: 3px solid var(--cs-accent); border-radius: 10px;
+  padding: 1.3rem 1.4rem;
+}
+.cs-decision h3 { font-size: 1.05rem; color: #fff; margin-bottom: 0.5rem; }
+.cs-decision p { color: var(--cs-muted); font-size: 0.92rem; margin-bottom: 0.6rem; }
+.cs-decision .tradeoff {
+  font-family: var(--cs-mono); font-size: 0.78rem; color: var(--cs-gold);
+  display: block; margin-top: 0.4rem;
+}
+.cs-decision .tradeoff b { color: var(--cs-gold); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.68rem; }
+
+/* Outcome metric tiles */
+.cs-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+.cs-metric {
+  background: var(--cs-panel); border: 1px solid var(--cs-border);
+  border-radius: 12px; padding: 1.2rem 1.3rem;
+}
+.cs-metric .m-num { font-family: var(--cs-mono); font-size: 1.6rem; font-weight: 600; color: var(--cs-accent); }
+.cs-metric .m-lbl { font-size: 0.85rem; color: var(--cs-muted); margin-top: 0.3rem; }
+.cs-metric .m-src { font-family: var(--cs-mono); font-size: 0.66rem; color: var(--cs-dim); margin-top: 0.5rem; letter-spacing: 0.04em; }
+
+/* Bulleted feature lists inside panels */
+.cs-list { list-style: none; }
+.cs-list li { position: relative; padding-left: 1.2rem; margin-bottom: 0.55rem; color: var(--cs-muted); font-size: 0.94rem; }
+.cs-list li::before { content: '▸'; position: absolute; left: 0; color: var(--cs-accent); font-size: 0.8rem; top: 0.15rem; }
+.cs-list li b, .cs-section p b, .cs-prose b { color: var(--cs-text); font-weight: 600; }
+
+/* --- Architecture diagram (inline SVG) ---------------------------------- */
+.cs-diagram {
+  background: var(--cs-panel-2); border: 1px solid var(--cs-border);
+  border-radius: 14px; padding: 1.5rem; overflow-x: auto;
+}
+.cs-diagram svg { display: block; width: 100%; height: auto; min-width: 640px; }
+.cs-diagram figcaption {
+  font-family: var(--cs-mono); font-size: 0.74rem; color: var(--cs-dim);
+  margin-top: 0.9rem; text-align: center;
+}
+
+/* --- CTA ---------------------------------------------------------------- */
+.cs-cta {
+  margin: 3rem 0 1rem; background: var(--cs-panel); border: 1px solid var(--cs-border);
+  border-radius: 14px; padding: 1.6rem 1.8rem; display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: space-between; gap: 1rem;
+}
+.cs-cta p { color: var(--cs-muted); font-size: 0.98rem; max-width: 460px; }
+.cs-cta-btns { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.cs-btn {
+  display: inline-block; font-family: var(--cs-mono); font-size: 0.82rem;
+  text-decoration: none; padding: 0.65rem 1.2rem; border-radius: 9px; font-weight: 600;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.cs-btn:hover { transform: translateY(-2px); }
+.cs-btn.primary { background: var(--cs-accent); color: #fff; }
+.cs-btn.secondary { border: 1px solid var(--cs-border-hi); color: var(--cs-text); }
+
+@media (max-width: 640px) {
+  .cs-head { padding: 1.6rem 0 1rem; }
+  .cs-panel, .cs-cta { padding: 1.3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-btn, .cs-decision { transition: none; }
+}
+
+/* Print: flatten to readable light document */
+@media print {
+  body.cs { background: #fff; color: #111; }
+  body.cs::before { display: none; }
+  nav.site-nav, .cs-cta, .site-footer, .cs-skip { display: none !important; }
+  .cs-panel, .cs-decision, .cs-metric, .cs-diagram { border-color: #ccc; background: #fff; }
+}
