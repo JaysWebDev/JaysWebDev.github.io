@@ -194,40 +194,41 @@
       box-shadow: none;
     }
     @page { size: letter; margin: 0; }
-    .download-btn { display: none !important; }
+    /* Screen-only chrome must never render into the generated PDF */
+    .download-btn, .back-link { display: none !important; }
   }
 
-  /* Download button styles */
+  /* Download button styles — brand gold to match the rest of the site */
   .download-btn {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #667eea;
-    color: white;
+    background: #d8a13a;
+    color: #1a1305;
     padding: 12px 24px;
     border-radius: 25px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 14px;
-    box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     transition: all 0.3s ease;
     z-index: 1000;
   }
 
   .download-btn:hover {
-    background: #5a6fd8;
+    background: #b9821f;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(102,126,234,0.4);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
   }
 
   .back-link {
     position: fixed;
     top: 20px;
     left: 20px;
-    color: #667eea;
+    color: #b9821f;
     text-decoration: none;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     z-index: 1000;
   }
 
